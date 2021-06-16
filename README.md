@@ -6,7 +6,10 @@ Right now we're just trying to collect as many issues as possible while I do my 
 Please submit any and all issues and bugs that you know of!
 
 # Links 
-https://creatures2todockingstation.blogspot.com/ The original development blog and downloads!
 
-https://creaturescaves.com/forum.php?view=12&thread=7208 The thread that inspired this refresh! Wherein Moe states:
+https://discordapp.com/invite/zRR8PdT - The CAOS Coding Cave Discord (Development discussion in #C2toDS-Refresh)
+
+https://creatures2todockingstation.blogspot.com/ - The original development blog and downloads!
+
+https://creaturescaves.com/forum.php?view=12&thread=7208 - The thread that inspired this refresh! Wherein Moe states:
 >  I never finished C2toDS and likely never will. It’s about 85-90% complete, but there are a few missing machines and some bugs floating about (sometimes literally… those wasps omg…and lordy the frogs!). If someone wanted to step in and fix some bugs or add in the last of the content, go for it!
