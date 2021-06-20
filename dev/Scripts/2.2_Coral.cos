@@ -2,6 +2,8 @@
 * 2 3 50227 - Coral..... seed...
 * 2 10 50212 - Coral Detritus
 
+* Verm here, the detritus is ok here already.
+
 reps rand 3 6
 
 	setv va00 rand 0 3
@@ -623,11 +625,9 @@ scrp 2 3 50227 12
 
 	snde "reat"
 
-	doif crea from eq 1
 
 		stim writ from 77 .25
 
-	endi
 
 	kill ownr
 
@@ -764,7 +764,7 @@ endm
 *timer
 
 scrp 2 10 50212 9
-
+inst
 	kill ownr
 
 endm
@@ -773,12 +773,8 @@ endm
 
 scrp 2 10 50212 12
 
-	doif crea from eq 1
-
 		stim writ from 81 1
-
-	endi
-
+		
 endm
 
 rscr
