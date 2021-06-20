@@ -2,6 +2,7 @@
 
 * Initial Conversion By Moe
 * Some Modifications By the one who screams i guess
+* Aiko fixed a mvsf erorr that happened if the creature grabbed the slinky mid-animation
 * (if you worked on this file, feel free to add your name!)
 
 * Create slinky
@@ -215,7 +216,15 @@ scrp 2 21 50213 1
 
 		subv va00 39
 
-		mvsf va00 post
+		inst
+		
+		doif carr = null
+
+			mvsf va00 post
+		
+		endi
+		
+		slow
 
 		accg 2
 
@@ -256,8 +265,16 @@ scrp 2 21 50213 1
 		setv va00 posl
 
 		addv va00 39
+		
+		inst
+		
+		doif carr = null
 
-		mvsf va00 post
+			mvsf va00 post
+		
+		endi
+		
+		slow
 
 		accg 2
 
