@@ -196,6 +196,8 @@ scrp 3 1 50201 1001
 		epas 4 0 0
 			rpas ownr targ
 			mvft 9283 48246
+			stim writ 96 0
+			driv 19 -1.0
 		next
 	retn
 
@@ -264,6 +266,8 @@ scrp 3 1 50201 1001
 		epas 4 0 0
 			rpas ownr targ
 			mvft 8543 48246
+			stim writ 96 0
+			driv 19 -1.0
 		next
 	retn
 endm
