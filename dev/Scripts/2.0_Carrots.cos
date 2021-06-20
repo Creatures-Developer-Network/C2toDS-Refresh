@@ -4,6 +4,7 @@
 * 2 23 50200 - Carrot Seed Vendor
 
 * Verm here, making the detritus toxic friendly!
+* Aiko fixed a bhvr throwing errors after push/pull scripts were (rightfully) removed
 new: simp 2 23 50200 "moe_C2toDS_carrots" 9 0 2500
 
 mvto 5330 49532
@@ -369,7 +370,7 @@ scrp 2 11 50200 9
 
 			attr 3
 
-			bhvr 51
+			bhvr 48
 
 			emit 8 .15
 
