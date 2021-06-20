@@ -126,7 +126,7 @@ scrp 3 1 50201 1001
 
 		setv ov01 0
 		unlk
-		dbg: outv totl 3 13 50201
+*		dbg: outv totl 3 13 50201
 	untl totl 3 13 50201 le 0
 
 	subr rght
