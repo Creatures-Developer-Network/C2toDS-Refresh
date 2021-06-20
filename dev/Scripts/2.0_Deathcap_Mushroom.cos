@@ -4,6 +4,7 @@
 * 2 20 50200 -  Deathcap Mushroom Cap
 
 * Verm here, to make the detritus edible/toxic friendly! And I guess generally a bit too...
+* Aiko fixed some syntax weirdnesses
 
 reps rand 1 2
 
@@ -532,7 +533,7 @@ endm
 * Deathcap detritus eat script
 scrp 2 10 50207 12
 inst
-stim writ 81 1
+stim writ from 81 1
 endm
 * Deathcap top timer script
 
@@ -554,8 +555,8 @@ inst
 * Insert nasty chemicals here! 
 ** I'm just goign to stim writ a good amount of detritus - Verm
 	
-	stim writ 81 1.5
-	stim writ 82 0
+	stim writ from 81 1.5
+	stim writ from 82 0
 	attr 208
 
 	snde "chwp"

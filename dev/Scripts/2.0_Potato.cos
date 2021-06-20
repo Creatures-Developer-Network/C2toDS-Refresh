@@ -4,6 +4,8 @@
 * 2 23 50201 - Potato Seed Launcher
 
 * Verm here, making the detritus edible/toxic friendly!
+* Aiko fixed a thing where the detritus couldn't mvto safely because the attr in the constructor kicked in before the mvto did
+
 new: simp 2 23 50201 "moe_C2toDS_potato" 21 9 2500
 
 mvsf 6233 49705
@@ -446,8 +448,7 @@ scrp 2 11 50201 9
 		setv va00 posl
 
 		setv va01 post
-
-
+	
 
 		doif mira eq 1
 
@@ -472,10 +473,9 @@ scrp 2 11 50201 9
 		endi
 
 
-
 		new: simp 2 10 50201 "moe_C2toDS_potato" 2 7 1001
-
-		mvto va00 va01
+		
+		mvto va00 va01 
 
 		pose va03
 
@@ -583,7 +583,7 @@ scrp 2 10 50201 10
 
 	inst
 
-	attr 195
+	attr 7
 	
 	bhvr 48
 
@@ -705,7 +705,7 @@ scrp 2 11 50201 12
 
 		inst
 
-		new: simp 2 3 50201 "moe_C2toDS_potato" 9 10 1001
+		new: simp 2 3 50201 "moe_C2toDS_potato" 0 0 1001
 
 		mvsf va00 va01
 
