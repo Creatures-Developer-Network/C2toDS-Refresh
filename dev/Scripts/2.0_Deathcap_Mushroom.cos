@@ -3,6 +3,8 @@
 * 2 10 50207 - Deathcap Mushroom Detritus
 * 2 20 50200 -  Deathcap Mushroom Cap
 
+* Verm here, to make the detritus edible/toxic friendly! And I guess generally a bit too...
+
 reps rand 1 2
 
 	new: simp 2 3 50218 "moe_C2toDS_deathcap" 7 13 rand 1000 5000
@@ -83,7 +85,8 @@ endm
 
 
 scrp 2 3 50218 12
-
+inst
+	stim writ from 77 0.7
 	snde "reat"
 
 	kill ownr
@@ -345,7 +348,8 @@ scrp 2 20 50200 10
 	attr 199
 
 	bhvr 48
-
+** Going with manky instead of bad here, since detritus already exists and so does the weed part - Verm	
+	cato 9
 	tick rand 2000 5000
 
 endm
@@ -362,7 +366,9 @@ scrp 2 10 50207 10
 
 	aero 2
 
-	attr 192
+	attr 194
+	
+	bhvr 48
 
 	tick rand 500 1000
 
@@ -381,8 +387,8 @@ scrp 2 5 50200 10
 	elas 1
 
 	aero 2
-
-	attr 193
+* Now with invisibility! - Verm
+	attr 209
 
 	tick rand 500 1000
 
@@ -499,7 +505,8 @@ endm
 * Deathcap detritus timer script
 
 scrp 2 10 50207 9
-
+inst
+doif carr eq null
 	doif pose lt 2
 
 		setv va00 pose
@@ -515,15 +522,19 @@ scrp 2 10 50207 9
 		kill ownr
 
 	endi
-
+endi
 endm
 
-
-
+* Deathcap detritus eat script
+scrp 2 10 50207 12
+inst
+stim writ 81 1
+endm
 * Deathcap top timer script
 
 scrp 2 20 50200 9
-
+inst
+attr 208
 	wait rand 2000 5000
 
 	kill ownr
@@ -535,10 +546,12 @@ endm
 * Deathcap top eat script
 
 scrp 2 20 50200 12
-
-* Insert nasty chemicals here!
-
-
+inst
+* Insert nasty chemicals here! 
+** I'm just goign to stim writ a good amount of manky - Verm
+	
+	stim writ 82 1.5
+	attr 208
 
 	snde "chwp"
 
