@@ -3,6 +3,8 @@
 * 2 16 50210 - Tiger Barb
 * 2 10 50210 - Tiger Barb Detritus
 
+* Verm here, just improving fish meat on skeletons & in eggs.
+
 new: simp 2 24 50213 "moe_C2tods_Tbarb" 11 0 rand 1000 3000
 mvsf 8045 49175
 
@@ -209,11 +211,9 @@ scrp 2 18 50210 12
 
 	snde "chwp"
 
-	doif crea from eq 1
+* More stims to all the fish eggs - Verm
+		stim writ from 80 .4
 
-		stim writ from 80 .05
-
-	endi
 
 	kill ownr
 
@@ -326,7 +326,7 @@ endm
 *timer
 
 scrp 2 10 50210 9
-
+inst
 	kill ownr
 
 endm
@@ -348,14 +348,12 @@ endm
 *eat
 
 scrp 2 10 50210 12
-
+inst
 	snde "chwp"
 
-	doif crea from eq 1
 
-		stim writ from 81 .05
+		stim writ from 81 .4
 
-	endi
 
 	kill ownr
 
@@ -412,11 +410,9 @@ scrp 2 16 50210 12
 
 	endi
 
-	doif crea from eq 1
 
 		stim writ targ 80 1
 
-	endi
 
 
 

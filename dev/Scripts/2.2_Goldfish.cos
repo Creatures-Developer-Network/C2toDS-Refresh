@@ -1305,11 +1305,9 @@ scrp 2 18 50203 12
 
 	snde "chwp"
 
-	doif crea from eq 1
+* The eggs are pretty low here too
+		stim writ from 80 .4
 
-		stim writ from 80 .05
-
-	endi
 
 	kill ownr
 
@@ -1337,11 +1335,11 @@ endm
 
 scrp 2 18 50203 3
 
-	doif crea from eq 1
+*	doif crea from eq 1
 
 *stim writ from 0 0
 
-	endi
+*	endi
 
 endm
 
@@ -1394,7 +1392,7 @@ endm
 *timer
 
 scrp 2 10 50213 9
-
+inst
 	kill ownr
 
 endm
@@ -1416,14 +1414,12 @@ endm
 *eat
 
 scrp 2 10 50213 12
-
+inst
 	snde "chwp"
 
-	doif crea from eq 1
 
-		stim writ from 81 .05
+		stim writ from 81 .4
 
-	endi
 
 	kill ownr
 

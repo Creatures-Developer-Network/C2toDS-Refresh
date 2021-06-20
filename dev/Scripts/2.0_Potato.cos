@@ -3,6 +3,7 @@
 * 2 11 50201 - Potato
 * 2 23 50201 - Potato Seed Launcher
 
+* Verm here, making the detritus edible/toxic friendly!
 new: simp 2 23 50201 "moe_C2toDS_potato" 21 9 2500
 
 mvsf 6233 49705
@@ -582,7 +583,9 @@ scrp 2 10 50201 10
 
 	inst
 
-	attr 7
+	attr 195
+	
+	bhvr 48
 
 	elas 10
 
@@ -602,10 +605,8 @@ scrp 2 10 50201 10
 
 endm
 
-
-
 scrp 2 10 50201 9
-
+inst
 	doif carr ne null
 
 		stop
@@ -723,22 +724,22 @@ endm
 
 
 scrp 2 10 50201 12
-
+inst
 	stim writ from 81 1
 
 	targ from
-
-	chem 79 .15
+** Like carrots, removing the other stuff except water. Maybe keeping the carbon monoxide is ok, idk - Verm
+*	chem 79 .15
 
 *	chem 5 .15
 
-	chem 75 .125
+*	chem 75 .125
 
-	chem 150 -.15
+*	chem 150 -.15
 
 	chem 33 .15
 
-	chem 149 -.15
+*	chem 149 -.15
 
 *	chem 12 .15
 

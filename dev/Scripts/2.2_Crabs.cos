@@ -4,6 +4,8 @@
 * 2 18 50291 - Crab Egg
 * 2 23 50215 - Crab Maker
 
+* Verm here, seems crabs are ok in the detritus department.
+
 *install
 
 new: simp 2 23 50215 "moe_C2toDS_crab" 6 0 rand 1000 3000
@@ -1080,11 +1082,7 @@ scrp 2 10 50215 12
 
 	sndc "chwp"
 
-	doif crea from eq 1
-
 		stim writ from 81 1
-
-	endi
 
 	kill ownr
 
@@ -1093,7 +1091,7 @@ endm
 
 
 scrp 2 10 50215 9
-
+inst
 	kill ownr
 
 endm
@@ -1106,11 +1104,9 @@ scrp 2 16 50201 12
 
 	sndc "chwp"
 
-	doif crea from eq 1
 
 		stim writ from 80 1
 
-	endi
 
 
 
@@ -1154,7 +1150,7 @@ endm
 
 
 scrp 2 16 50201 255
-
+* Might wanna look into why this is needed - Verm
 	stop
 
 endm
