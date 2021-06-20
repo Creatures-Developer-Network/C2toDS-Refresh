@@ -10,6 +10,7 @@
 
 * Initial Conversion By Moe
 * Some Modifications By the one who screams i guess
+* And Verm!(Checking for detritus stuffs here aswell)
 * (if you worked on this file, feel free to add your name!)
 
 setv va00 rand 6000 6275
@@ -630,13 +631,11 @@ scrp 2 14 50200 12
 
 	snde "reat"
 
-	doif crea from eq 1
-
-		stim writ from 76 .5
+* This doesn't seem to be used much, so I guess I'm keeping it, but making it silent in case - Verm
+		stim writ from 76 0
 
 		stim writ from 80 .15
 
-	endi
 
 	kill ownr
 
@@ -1155,6 +1154,8 @@ endm
 scrp 2 10 50202 10
 
 	attr 195
+	
+	bhvr 48
 
 	elas 0
 
@@ -1164,12 +1165,17 @@ scrp 2 10 50202 10
 
 endm
 
-
+scrp 2 10 50202 12
+inst
+stim writ from 81 .6
+kill ownr
+endm
 
 scrp 2 10 50202 9
-
+inst
+doif carr eq null
 	kill ownr
-
+endi
 endm
 
 
@@ -1189,7 +1195,7 @@ endm
 
 
 scrp 2 11 50204 12
-
+inst
 	stim writ from 79 1
 
 	snde "hony"
@@ -1336,7 +1342,7 @@ endm
 
 scrp 2 11 50203 1
 
-	mesg writ ownr 12
+*	mesg writ ownr 12
 
 endm
 
@@ -1344,7 +1350,7 @@ endm
 
 scrp 2 11 50203 2
 
-	mesg writ ownr 12
+*	mesg writ ownr 12
 
 endm
 
@@ -1366,23 +1372,23 @@ scrp 2 11 50203 12
 
 *Ate Food
 
-		stim writ from 79 1
+		stim writ from 79 1.5
 
 		targ from
 
 *starch
 
-		chem 5 .4
+*		chem 5 .4
 
 *hunger decrease
 
-		chem 133 -.2
+*		chem 133 -.2
 
-		chem 134 -.2
+*		chem 134 -.2
 
 *sugar
 
-		chem 3 .4
+*		chem 3 .4
 
 *stim writ from 0 255 0 0 73 100 37 100 0 0 0 0
 
