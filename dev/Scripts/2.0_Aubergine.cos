@@ -9,7 +9,7 @@
 
 * Reproduces in 1s and 2s, and when Norn eats it.
 
-
+* Verm here, making it edible and toxic friendly!
 
 new: simp 2 23 50217 "moe_C2toDS_aubergine" 2 14 rand 500 1500
 
@@ -183,7 +183,9 @@ endm
 
 scrp 2 10 50217 10
 
-	attr 192
+	attr 194
+
+	bhvr 48
 
 	perm 51
 
@@ -194,10 +196,6 @@ scrp 2 10 50217 10
 	tick rand 200 500
 
 endm
-
-
-
-
 
 * Plant Timer script
 
@@ -342,16 +340,19 @@ endm
 * Detritus Timer script
 
 scrp 2 10 50217 9
-
-
-
+inst
+doif carr ne null
+attr 208
+emit 0 0
+slow
 	frat 5
 
 	anim [0 1 2 3 4]
 
 	over
-
-
+* Since this might take a bit, make sure that it's still invised and emitting nothin
+attr 208
+emit 0 0
 
 	esee 2 4 50217
 
@@ -410,12 +411,18 @@ scrp 2 10 50217 9
 	wait 50
 
 	kill ownr
-
+endi
 
 
 endm
 
-
+* Detritus Eat script
+scrp 2 10 50217 12
+	inst
+	snde "chwp"
+	stim writ from 81 1
+	kill ownr
+endm
 
 
 
