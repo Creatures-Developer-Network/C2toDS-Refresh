@@ -3,6 +3,7 @@
 * Core done, just some graphical adjustments needed
 
 *Incubator is now properly placed - Moe
+* Aiko fixed invalid targ errors by inst'ing the enuming of creatures
 
 
 
@@ -38,6 +39,8 @@ mvto 7043 48340
 
 
 scrp 2 22 50200 9
+	
+	inst
 
 	setv va98 game "breeding_limit"
 
