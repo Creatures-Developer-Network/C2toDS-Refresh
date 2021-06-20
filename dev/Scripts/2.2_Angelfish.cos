@@ -1024,18 +1024,15 @@ endm
 *eat
 
 scrp 2 15 50218 12
-
+inst
 	doif from ne ownr
 
 		sndc "chwp"
 
 	endi
 
-	doif crea from eq 1
-
 		stim writ targ 80 1
 
-	endi
 
 	doif ov11 ge 2
 
@@ -1352,14 +1349,11 @@ endm
 *eat
 
 scrp 2 18 50218 12
-
+inst
 	snde "chwp"
 
-	doif crea from eq 1
+		stim writ from 80 .4
 
-		stim writ from 80 .05
-
-	endi
 
 	kill ownr
 
@@ -1444,7 +1438,7 @@ endm
 *timer
 
 scrp 2 10 50218 9
-
+inst
 	kill ownr
 
 endm
@@ -1466,14 +1460,10 @@ endm
 *eat
 
 scrp 2 10 50218 12
-
+inst
 	snde "chwp"
-
-	doif crea from eq 1
-
-		stim writ from 81 .05
-
-	endi
+** This is low no? So I'm bumping both a bit - Verm
+		stim writ from 81 .4
 
 	kill ownr
 
