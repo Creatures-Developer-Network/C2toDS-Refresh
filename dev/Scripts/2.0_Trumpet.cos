@@ -5,7 +5,7 @@
 * 2 10 50203 - Trumpet Detritus
 * 2 23 50203 - Trumpet Vendor
 
-
+* Verm here, making detritus edible/toxic friendly!
 
 reps rand 5 7
 
@@ -1170,7 +1170,7 @@ endm
 
 
 scrp 2 10 50203 9
-
+inst
 	doif carr eq null
 
 		altr -1 2 .005
@@ -1192,14 +1192,14 @@ endm
 
 
 scrp 2 10 50203 12
-
+inst
 	lock
 
 	stim writ from 81 1
 
-	targ from
-
-	chem 5 .15
+*	targ from
+** No, bad extra starch! - Verm
+*	chem 5 .15
 
 	snde "chwp"
 
@@ -1214,12 +1214,12 @@ endm
 scrp 2 8 50203 12
 
 	lock
-
+* If we want to make some plants a bit more filling/less filling later, can modify the strength here. - Verm
 	stim writ from 78 1
 
 	targ from
 
-	chem 5 .31
+*	chem 5 .31
 
 	snde "chwp"
 
