@@ -1364,11 +1364,9 @@ scrp 2 18 50202 12
 
 	snde "chwp"
 
-	doif crea from eq 1
 
-		stim writ from 80 .05
+		stim writ from 80 .4
 
-	endi
 
 	kill ownr
 
@@ -1478,11 +1476,9 @@ scrp 2 10 50211 12
 
 	snde "chwp"
 
-	doif crea from eq 1
 
-		stim writ from 81 .05
+		stim writ from 81 .4
 
-	endi
 
 	kill ownr
 
