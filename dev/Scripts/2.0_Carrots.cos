@@ -3,6 +3,7 @@
 * 2 11 50200 - Carrot 
 * 2 23 50200 - Carrot Seed Vendor
 
+* Verm here, making the detritus toxic friendly!
 new: simp 2 23 50200 "moe_C2toDS_carrots" 9 0 2500
 
 mvto 5330 49532
@@ -187,7 +188,7 @@ scrp 2 3 50200 9
 			setv ov02 post
 
 			subv ov02 10
-
+			
 			setv ov01 post
 
 			kill ownr
@@ -487,20 +488,20 @@ scrp 2 11 50200 9
 endm
 
 
+** What is this for? - Verm
+*scrp 2 11 50200 1
+*
+*	mesg writ ownr 12
+*
+*endm
 
-scrp 2 11 50200 1
-
-	mesg writ ownr 12
-
-endm
 
 
-
-scrp 2 11 50200 2
-
-	mesg writ ownr 12
-
-endm
+*scrp 2 11 50200 2
+*
+*	mesg writ ownr 12
+*
+*endm
 
 
 
@@ -514,7 +515,7 @@ scrp 2 11 50200 4
 
 	lock
 
-	attr 199
+	attr 195
 
 	accg 4
 
@@ -552,7 +553,7 @@ endm
 
 scrp 2 10 50200 4
 
-	attr 199
+	attr 195
 
 	perm 51
 
@@ -582,7 +583,7 @@ scrp 2 10 50200 10
 
 	inst
 
-	attr 7
+	attr 3
 
 	elas 10
 
@@ -605,7 +606,7 @@ endm
 
 
 scrp 2 10 50200 9
-
+inst
 	doif carr ne null
 
 		stop
@@ -631,7 +632,6 @@ endm
 *EAT CARROT*
 
 scrp 2 11 50200 12
-
 	sndc "chwp"
 
 	wait 3
@@ -717,22 +717,23 @@ endm
 
 
 scrp 2 10 50200 12
-
+inst
 	stim writ from 81 1
 
 	targ from
+** I don't think these extra chems are really nessaary, but water might be good for twbs - Verm
 
-	chem 79 .15
+*	chem 79 .15
 
 *	chem 5 .15
 
-	chem 75 .125
+*	chem 75 .125
 
-	chem 150 -.15
+*	chem 150 -.15
 
 	chem 33 .15
 
-	chem 149 -.15
+*	chem 149 -.15
 
 *	chem 12 .15
 
