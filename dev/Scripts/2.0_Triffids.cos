@@ -7,6 +7,7 @@
 
 * Initial Conversion By Moe
 * Some Modifications By the one who screams i guess
+* And Verm! (Checking stuffs for toxics)
 * (if you worked on this file, feel free to add your name!)
 
 reps rand 10 15
@@ -1087,7 +1088,7 @@ endm
 
 
 scrp 2 10 50205 9
-
+inst
 	doif carr eq null
 
 		altr -1 2 .005
@@ -1105,7 +1106,7 @@ endm
 
 
 scrp 2 10 50205 12
-
+inst
 	lock
 
 	stim writ from 81 1
