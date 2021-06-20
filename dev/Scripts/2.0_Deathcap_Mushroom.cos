@@ -348,8 +348,12 @@ scrp 2 20 50200 10
 	attr 199
 
 	bhvr 48
-** Going with manky instead of bad here, since detritus already exists and so does the weed part - Verm	
-	cato 9
+** Going with detritus instead of bad here - Verm	
+	cato 10
+** Since it isn't naturally detritus, check for the smell agent and make it smell! - Verm
+	doif totl 1 2 5679 gt 0
+		emit 9 0.8
+	endi
 	tick rand 2000 5000
 
 endm
@@ -548,9 +552,10 @@ endm
 scrp 2 20 50200 12
 inst
 * Insert nasty chemicals here! 
-** I'm just goign to stim writ a good amount of manky - Verm
+** I'm just goign to stim writ a good amount of detritus - Verm
 	
-	stim writ 82 1.5
+	stim writ 81 1.5
+	stim writ 82 0
 	attr 208
 
 	snde "chwp"
