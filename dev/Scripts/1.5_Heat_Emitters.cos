@@ -1,0 +1,1047 @@
+*All Heat Emitters Are 1 15 50200
+
+*Are the Heat Emitters Visible?  3 = No 0 = Yes
+
+setv va02 0
+
+*///Heat Types - OV05///*
+
+*Natural
+
+*Natural Constant
+
+*Artificial
+
+
+
+**///Heat Subtypes - OV06//**
+
+**Natural
+
+**Lamps
+
+**Desert
+
+**Lava
+
+**Fire
+
+
+*Ambient Heat, Dark Ocean
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 10322
+
+setv ov01 47758
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Natural"
+
+
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 2123
+
+setv ov01 47758
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Natural"
+
+
+
+
+
+
+
+*--Skyline Heat Emitters--*
+
+setv va00 2050
+
+setv va01 47600
+
+reps 12
+
+	addv va00 700
+
+	new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+	setv ov00 va00
+
+	setv ov01 va01
+
+	mvto ov00 ov01
+
+	setv ov04 1
+
+	sets ov05 "Natural"
+
+	sets ov06 "Natural"
+
+repe
+
+*--S********************s--*
+
+
+
+*--Fire--*
+
+
+
+*Norn Burrow Cellar Fires
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 7155
+
+setv ov01 48660
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Fire"
+
+
+
+*Tomato Saver
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 7858
+
+setv ov01 48660
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Fire"
+
+
+
+*Yggdrasil Temple Torches
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 13295
+
+setv ov01 47883
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Fire"
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 12575
+
+setv ov01 47883
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Fire"
+
+
+
+
+
+*--F**e--*
+
+
+
+*Ambient Heat Norn Burrow 1 - This is the elevator shaft, fairly warm...
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 7840
+
+setv ov01 48340
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Natural"
+
+
+
+*Ambient Heat Norn Burrow Pond - it was too cold....
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 6742
+
+setv ov01 48315
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Natural 50%"
+
+
+
+*Ambient Heat Warm Ocean
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 8690
+
+setv ov01 48255
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Natural 50%"
+
+
+
+*Ambient Heat Lab - It is next to a volcano after all...
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 2115
+
+setv ov01 49755
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Natural 50%"
+
+
+
+*Ambient Heat Waterfall Treehouse 1
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 5113
+
+setv ov01 48670
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Natural"
+
+
+
+*Ambient Heat Waterfall Treehouse 2
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 5140
+
+setv ov01 48950
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Natural"
+
+
+
+*Ambient Heat Waterfall Treehouse 3
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 6005
+
+setv ov01 49225
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Natural"
+
+
+
+*Ambient Heat Waterfall Treehouse 4
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 5415
+
+setv ov01 49725
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Natural 50%"
+
+
+
+*Ambient Heat Waterfall Treehouse 5
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 6340
+
+setv ov01 49700
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Natural 50%"
+
+
+
+*Ambient Heat Waterfall Treehouse 6
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 5863
+
+setv ov01 48490
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Natural 50%"
+
+
+
+
+
+*------Trantris Tree------*
+
+*Ambient Heat Tantris Tree Area 1
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 3878
+
+setv ov01 48769
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Natural 50%"
+
+
+
+*Ambient Heat Tantris Tree Area Below 1
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 3920
+
+setv ov01 49020
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Natural 50%"
+
+
+
+*-------------------------*
+
+
+
+*--------SWAMP------------*
+
+
+
+*Ambient Heat Swamp 1
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 7575
+
+setv ov01 49560
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Natural"
+
+
+
+*-------------------------*
+
+
+
+*Ambient Heat Splicer 1 -- It's hot in there! D:
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 8840
+
+setv ov01 49235
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Natural"
+
+
+
+*Ambient Heat Splicer 2 -- It's hot in there! D:
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 8450
+
+setv ov01 49260
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Natural"
+
+
+
+*--A*******************s--*
+
+
+
+
+
+
+
+*--Desert Heats--*
+
+
+
+*Desert Heat 1
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 7500
+
+setv ov01 47800
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Desert"
+
+
+
+*Desert Heat 2
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 7170
+
+setv ov01 47800
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Desert"
+
+
+
+*Desert Heat 3
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 6692
+
+setv ov01 47930
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Desert"
+
+
+
+*Desert Heat 4
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 6692
+
+setv ov01 47830
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Desert"
+
+
+
+*Desert Heat 5
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 7325
+
+setv ov01 48030
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Desert"
+
+
+
+*--D**********s--*
+
+
+
+
+
+*--Volcanoe Heat Emitters--*
+
+
+
+*Volcanic Heat 1
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 9635
+
+setv ov01 49520
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural Constant"
+
+sets ov06 "Lava"
+
+
+
+*Volcanic Heat 2
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 9290
+
+setv ov01 49820
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural Constant"
+
+sets ov06 "Lava"
+
+
+
+*Volcanic Heat 3
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 9866
+
+setv ov01 49800
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural Constant"
+
+sets ov06 "Lava"
+
+
+
+*Volcanic Heat 4
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 9540
+
+setv ov01 49810
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural Constant"
+
+sets ov06 "Lava"
+
+
+
+*Volcanic Heat 5
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 9541
+
+setv ov01 49680
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural Constant"
+
+sets ov06 "Lava"
+
+
+
+*Volcanic Heat 6
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 9635
+
+setv ov01 49335
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural Constant"
+
+sets ov06 "Lava"
+
+
+
+*Volcanic Heat 7
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 10214
+
+setv ov01 49697
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural Constant"
+
+sets ov06 "Lava"
+
+
+
+*--V********************s--*
+
+
+
+
+
+*Norn Burrow Heat Lamp
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 7262
+
+setv ov01 48268
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Lamps"
+
+
+
+*Grendel Burrow Heat Lamp
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 9086
+
+setv ov01 48858
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Lamps"
+
+
+
+*Power Room Heat Lamp
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 6331
+
+setv ov01 48926
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Lamps"
+
+
+
+*Biome Heat Lamp 1
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 3893
+
+setv ov01 49625
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Lamps"
+
+
+
+*Biome Heat Lamp 2
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 4330
+
+setv ov01 49500
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Lamps"
+
+
+
+*Biome Heat Lamp 3
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 4230
+
+setv ov01 49500
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Lamps"
+
+
+
+*Biome Heat Lamp 4  -  Little Sphere, Always warm! :)
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 3861
+
+setv ov01 49285
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Lamps"
+
+
+
+*Biome Heat Lamp 5 -  Little Sphere, Always warm! :)
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 4075
+
+setv ov01 49285
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Lamps"
+
+
+
+
+
+*Biome Heat Lamp Dark Sea Spheres 1
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 2295
+
+setv ov01 48970
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Lamps"
+
+
+
+*Biome Heat Lamp Dark Sea Spheres 2
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 2158
+
+setv ov01 48500
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Lamps"
+
+
+
+*3
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 10198
+
+setv ov01 48530
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Lamps"
+
+
+
+*4
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 10360
+
+setv ov01 48540
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Lamps"
+
+
+
+*5
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 2075
+
+setv ov01 48888
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Lamps"
+
+
+
+
+
+*Library Heat
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 3290
+
+setv ov01 49320
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Lamps"
+
+
+
+*Library Machinery Heat
+
+new: simp 1 15 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 3310
+
+setv ov01 49085
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Lamps"
+
+
+*Make sure heat will travel through the waters!*
+
+rate 8 2 0.8000 0.0100 0.7000
+
+rate 9 2 0.8000 0.0100 0.7000
+
+scrp 1 15 50200 10
+
+
+
+	attr 0
+
+
+
+	doif ov06 eq "Lamps"
+
+		setv ov02 2
+
+		setv ov03 0.3500
+
+	elif ov06 eq "Desert"
+
+		setv ov02 2
+
+		setv ov03 1.5500
+
+	elif ov06 eq "Lava"
+
+		setv ov02 2
+
+		setv ov03 5.5500
+
+	elif ov06 eq "Natural"
+
+		setv ov02 2
+
+		setv ov03 1.5000
+
+	elif ov06 eq "Natural 50%"
+
+		setv ov02 2
+
+		setv ov03 0.7500
+
+	elif ov06 eq "Fire"
+
+		setv ov02 2
+
+		setv ov03 0.4500
+
+	endi
+
+	emit ov02 ov03
+
+
+
+endm
+
+
+rscr
+
+enum 1 15 50200
+
+	kill targ
+
+next
+
+scrx 1 15 50200 10
+

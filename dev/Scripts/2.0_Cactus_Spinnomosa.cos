@@ -1,0 +1,668 @@
+*Spinnomosa: 
+
+* 2 5 50206 - Spinnomosa
+* 2 3 50206 - Spinnomosa Seed
+* 2 23 50206 - Spinnomosa Seed Launcher
+
+*Likes warm, desert conditions, grows all year round (except winter) in the mornings, produces flowers at night. 
+
+
+new: comp 2 23 50206 "moe_C2toDS_cacti" 8 72 rand 1000 2500
+
+mvsf 7770 47950
+
+*prt: inew 0 "Input" "Recieves signal inputs for the Spinnomosa launcher." 3 24 0
+
+*pat: dull 1 "moe_C2toDS_cacti" 88 0 0 0
+
+
+
+*Create Spinnomosa
+
+reps rand 7 9
+
+	new: simp 2 5 50206 "moe_C2toDS_cacti" 20 0 rand 1000 2500
+
+	pose 9
+
+	setv va00 rand 7556 7750
+
+	mvsf va00 48084
+
+	tick rand 1000 2500
+
+	setv name "lifestage" 1
+
+repe
+
+
+
+reps rand 5 7
+
+	new: simp 2 5 50206 "moe_C2toDS_cacti" 20 0 rand 1000 2500
+
+	pose 9
+
+	setv va00 rand 6260 6650
+
+	mvsf va00 48084
+
+	tick rand 500 1000
+
+	setv name "lifestage" 1
+
+repe
+
+
+scrp 2 23 50206 10
+
+	attr 199
+
+	elas 10
+
+*BHVR
+
+	fric 65
+
+	accg 5
+
+	perm 55
+
+	emit 10 .15
+
+endm
+
+
+
+scrp 2 23 50206 6
+
+	sndc "drop"
+
+	over
+
+	wait 2
+
+endm
+
+
+
+scrp 2 5 50206 10
+
+	mira rand 0 1
+
+	attr 196
+
+	perm 51
+
+	fric 100
+
+	elas 0
+
+endm
+
+
+
+
+
+
+
+
+
+*Spinnomosa Launcher Activate 1
+
+scrp 2 23 50206 1
+
+
+
+	reps rand 5 7
+
+		anim [0 1 2 3 4 5 6 7 0]
+
+		gsub makeseeds
+
+		over
+
+		wait 10
+
+	repe
+
+
+
+	subr makeseeds
+
+		sndc "pop3"
+
+*Spinnomosa Seeds*
+
+		setv va00 posx
+
+		setv va01 posy
+
+		subv va01 30
+
+		new: simp 2 3 50206 "moe_C2toDS_cacti" 8 20 rand 1000 2500
+
+		velo 0 rand -10 -30
+
+		mvsf va00 va01
+
+		targ ownr
+
+	retn
+
+
+
+endm
+
+
+
+
+
+*Spinnomosa Seed Timer*
+
+scrp 2 3 50206 9
+
+
+
+
+
+
+
+	doif ov00 lt rand 10 60 and name "lifestage" eq 0
+
+		addv ov00 1
+
+		gsub drift
+
+	else
+
+		doif name "lifestage" eq 0
+
+			setv va00 rand 0 6
+
+			anms vtos va00
+
+*You are now, "landed"*
+
+			setv name "lifestage" 1
+
+		endi
+
+	endi
+
+
+
+	doif name "lifestage" eq 1 and fall eq 0
+
+		doif sean ne 3 and time ne 4
+
+			gsub grow
+
+		else
+
+			gsub dormantcheck
+
+			stop
+
+		endi
+
+	endi
+
+
+
+	subr grow
+
+		setv va00 grap posx posy
+
+		setv va01 prop va00 1
+
+		setv va02 prop va00 2
+
+		setv va03 prop va00 3
+
+		setv va04 prop va00 4
+
+		setv va06 rtyp va00
+
+		rnge 300
+
+		esee 2 5 50206
+
+			addv va05 1
+
+			targ ownr
+
+		next
+
+*Light must be over .39
+
+*Nutrients must be between .03 and .39
+
+*doif, etc, set reqs here
+
+
+
+		doif va01 ge .39 and va02 ge .39 and va03 ge .0001 and va05 lt 4 and va06 eq 7
+
+			setv va00 posl
+
+			subv va00 30
+
+			setv va01 posb
+
+			subv va01 72
+
+*Create Spinnomosa
+
+			new: simp 2 5 50206 "moe_C2toDS_cacti" 20 0 rand 1000 2500
+
+			doif va02 eq 1
+
+				mvto va00 va01
+
+			else
+
+				mvsf va00 va01
+
+			endi
+
+			tick rand 500 1000
+
+			targ ownr
+
+			kill targ
+
+*end reqs
+
+		else
+
+			gsub dormantcheck
+
+			stop
+
+		endi
+
+	retn
+
+
+
+	subr dormantcheck
+
+		rnge 200
+
+		setv va00 0
+
+		esee 2 3 50206
+
+			doif targ ne null
+
+				addv va00 1
+
+			endi
+
+		next
+
+		targ ownr
+
+		doif va00 gt 3
+
+			wait rand 1200 1600
+
+			kill ownr
+
+		else
+
+			show 0
+
+			bhvr 0
+
+			attr 209
+
+			tick 1200
+
+		endi
+
+	retn
+
+
+
+
+
+	subr drift
+
+		addv vely rand -3 -5
+
+
+
+*Obey the Winds!*
+
+		setv va00 lorp grap posx posy 19 0
+
+
+
+		setv va01 torx va00
+
+
+
+		setv ov01 prop grap posx posy 19
+
+
+
+		mulv ov01 rand 10 30
+
+
+
+		doif va01 gt 0.00
+
+			addv velx ov01
+
+		elif va01 lt 0.00
+
+			subv velx ov01
+
+		endi
+
+	retn
+
+
+
+endm
+
+
+
+*Timer
+
+scrp 2 5 50206 9
+
+
+
+	doif sean eq 3
+
+		stop
+
+	endi
+
+
+
+	addv ov00 1
+
+	doif ov00 ge 75
+
+		frat 50
+
+		anim [15 16 17 18 19]
+
+		over
+
+		wait 50
+
+		kill targ
+
+	endi
+
+
+
+
+
+	doif pose lt 9 and name "lifestage" eq 0
+
+		gsub grow
+
+	elif pose eq 9
+
+		setv name "lifestage" 1
+
+	endi
+
+
+
+
+
+*At midnight, spikes go out slowly, then the bush flowers, then seeds, then goes back to normal.
+
+*Seed comes out right at hole, with NO upwards momentum
+
+*This can happen a couple times!
+
+*They Seed all year around.
+
+
+
+	doif time eq 4
+
+		lock
+
+		frat rand 50 70
+
+		anim [ 9 10 11 12 11 10 9 ]
+
+		over
+
+		frat 1
+
+		wait rand 50 100
+
+		pose 13
+
+		wait rand 50 100
+
+		setv name "seeded" 0
+
+		gsub seed
+
+		wait rand 500 1000
+
+		unlk
+
+	endi
+
+
+
+	subr seed
+
+		sndc "pop4"
+
+		pose 14
+
+*Spinnomosa Makes Spinnomosa Seeds
+
+		setv va00 posx
+
+		subv va00 10
+
+		setv va01 posy
+
+		subv va01 20
+
+		new: simp 2 3 50206 "moe_C2toDS_cacti" 8 20 rand 1000 2500
+
+		mvsf va00 va01
+
+		setv vely rand 0 -7
+
+		targ ownr
+
+		wait rand 100 200
+
+		pose 9
+
+	retn
+
+
+
+	subr grow
+
+		addv name "pose" 1
+
+		pose name "pose"
+
+	retn
+
+endm
+
+
+
+scrp 2 5 50206 1
+
+*stim norns
+
+	stim writ from 83 1
+
+	stim writ from 76 .5
+
+	doif pose eq 9
+
+		frat 2
+
+		anim [9 10 11 12 11 10 9]
+
+*Poke the hand	
+
+		doif held eq null and hhld = null and pure = 0
+
+			snde "stng"
+
+			targ pntr
+
+			frat 2
+
+			anim [10 11 12 0]
+
+			setv va00 posl
+
+			setv va01 post
+
+			loop
+
+				addv va00 rand -5 5
+
+				addv va01 rand 5 -5
+
+				addv va02 1
+
+				mvto va00 va01
+
+			untl va02 ge 10
+
+			over
+
+		endi
+
+
+
+	endi
+
+endm
+
+
+
+*Eat me!
+
+scrp 2 3 50206 12
+
+*I'm a bit bitter though...
+
+	stim writ from 77 .25
+
+	snde "chwp"
+
+	targ from
+
+*EDTA, cure the heavy metals biatch! D:
+
+	chem 95 .15
+
+	kill ownr
+
+
+
+endm
+
+
+
+
+
+scrp 2 3 50206 5
+
+	setv ov00 rand 0 5
+
+	setv name "lifestage" 0
+
+	anim [ 0 1 2 3 4 5 6 255]
+
+endm
+
+
+
+scrp 2 3 50206 6
+
+	setv name "lifestage" 1
+
+	anim [ 0 ]
+
+endm
+
+
+
+
+
+scrp 2 3 50206 10
+
+	attr 199
+
+	aero 10
+
+	elas 0
+
+	fric 55
+
+	accg .15
+
+	perm 50
+
+	frat 2
+
+	emit 7 .3
+
+	anim [0 1 2 3 4 5 6 255]
+
+	tick rand 50 100
+
+	bhvr 48
+
+endm
+
+
+rscr
+
+enum 2 23 50206
+
+	kill targ
+
+next
+
+scrx 2 23 50206 1
+
+
+
+enum 2 3 50206
+
+	kill targ
+
+next
+
+scrx 2 3 50206 12
+
+scrx 2 3 50206 9
+
+scrx 2 3 50206 6
+
+scrx 2 3 50206 5
+
+
+
+enum 2 5 50206
+
+	kill targ
+
+next

@@ -1,0 +1,874 @@
+* 2 15 50212 - Coral
+* 2 3 50227 - Coral..... seed...
+* 2 10 50212 - Coral Detritus
+
+reps rand 3 6
+
+	setv va00 rand 0 3
+
+	doif va00 eq 0
+
+		setv va00 6
+
+	elif va00 eq 1
+
+		setv va00 12
+
+	elif va00 eq 2
+
+		setv va00 18
+
+	elif va00 eq 3
+
+		setv va00 24
+
+	endi
+
+	new: simp 2 15 50212 "moe_c2tods_coral" 6 va00 rand 1000 3000
+
+	pose rand 1 5
+
+	mvsf rand 8134 9298 48600
+
+	targ ownr
+
+
+
+	new: simp 2 3 50227 "moe_C2toDS_coral" 6 0 rand 1000 3000
+
+	mvsf rand 8134 9298 48600
+
+repe
+
+
+
+reps rand 3 5
+
+	setv va00 rand 0 3
+
+	doif va00 eq 0
+
+		setv va00 6
+
+	elif va00 eq 1
+
+		setv va00 12
+
+	elif va00 eq 2
+
+		setv va00 18
+
+	elif va00 eq 3
+
+		setv va00 24
+
+	endi
+
+	new: simp 2 15 50212 "moe_c2tods_coral" 6 va00 rand 1000 3000
+
+	pose rand 1 5
+
+	mvsf rand 2417 2966 48400
+
+repe
+
+
+
+
+scrp 2 15 50212 10
+
+	inst
+
+	fric 100
+
+	bhvr 9
+
+	attr 199
+
+	accg 3
+
+	elas 0
+
+	mira rand 0 1
+
+*grows only at a rate of 1 minute a frame
+
+	tick rand 1200 1400
+
+*tick 5
+
+	core 0 hght 30 50
+
+endm
+
+*deactivate
+
+scrp 2 15 50212 0
+
+endm
+
+*activate 1
+
+scrp 2 15 50212 1
+
+
+
+	doif crea from eq 1
+
+		stim writ from 86 1
+
+	endi
+
+
+
+*Coral is fragile
+
+	doif pose ge 2
+
+		gsub break
+
+	endi
+
+
+
+	subr break
+
+		inst
+
+		reps rand 10 20
+
+			setv va00 posl
+
+			addv va00 rand 5 40
+
+			setv va01 posy
+
+			addv va01 rand -10 -30
+
+			doif carr eq null or type carr ne 6
+
+				new: simp 2 10 50212 "moe_C2toDS_coral" 40 30 rand 1000 3000
+
+				mvsf va00 va01
+
+				setv velx rand -3 3
+
+				targ ownr
+
+			elif carr ne null and type carr eq 6
+
+				seta va08 carr
+
+				new: simp 2 10 50212 "moe_C2toDS_coral" 40 30 rand 1000 3000
+
+				mvsf va00 va01
+
+				setv velx rand -3 3
+
+				seta va07 targ
+
+				spas va08 va07
+
+				targ ownr
+
+			endi
+
+
+
+		repe
+
+		kill ownr
+
+	retn
+
+endm
+
+*activate 2
+
+scrp 2 15 50212 2
+
+endm
+
+*hit
+
+scrp 2 15 50212 3
+
+
+
+	doif crea from eq 1
+
+		stim writ from 86 1
+
+	endi
+
+
+
+*breaks coral	
+
+	mesg writ ownr 0
+
+
+
+endm
+
+*pickup
+
+scrp 2 15 50212 4
+
+	wait 5
+
+	mesg writ targ 0
+
+endm
+
+*drop
+
+scrp 2 15 50212 5
+
+endm
+
+*collision
+
+scrp 2 15 50212 6
+
+endm
+
+*timer
+
+scrp 2 15 50212 9
+
+	doif rtyp room ownr ne 9
+
+		gsub break
+
+	endi
+
+
+
+	doif pose lt 5
+
+		setv va00 pose
+
+		addv va00 1
+
+		pose va00
+
+	elif pose eq 5 and ov14 eq 0
+
+		gsub layeggs
+
+	elif pose eq 5 and ov14 eq 1
+
+		gsub break
+
+	endi
+
+
+
+	subr layeggs
+
+
+
+		esee 2 3 50227
+
+			doif targ ne null and ov14 eq 0
+
+				addv va03 1
+
+			endi
+
+		next
+
+		doif va03 ge 2
+
+*setv ov14 1
+
+			stop
+
+		endi
+
+		doif carr eq null
+
+			reps rand 5 10
+
+				setv va00 posl
+
+				addv va00 rand 5 75
+
+				setv va01 posb
+
+				addv va01 rand -10 -35
+
+				new: simp 2 3 50227 "moe_C2toDS_coral" 6 0 rand 1000 3000
+
+				mvsf va00 va01
+
+				addv vely -2
+
+				targ ownr
+
+			repe
+
+		elif carr ne null and type carr eq 6
+
+			seta va08 carr
+
+			reps rand 5 10
+
+				setv va00 posl
+
+				addv va00 rand 5 75
+
+				setv va01 posb
+
+				addv va01 rand -10 -35
+
+				new: simp 2 3 50227 "moe_C2toDS_coral" 6 0 rand 1000 3000
+
+				mvsf va00 va01
+
+				addv vely -2
+
+				spas va08 targ
+
+				targ ownr
+
+			repe
+
+		endi
+
+
+
+	retn
+
+
+
+	subr break
+
+		mesg writ ownr 0
+
+	retn
+
+endm
+
+*eat
+
+scrp 2 15 50212 12
+
+endm
+
+*catchall
+
+scrp 2 15 50212 255
+
+	stop
+
+endm
+
+
+
+***Coral Seeds****
+
+*THIS TEMPLATE CONTAINS ALL THE BLANK SCRIPTS NECESSARY TO CREATE AN
+
+*AGENT SCRIPT IN COMPLIANCE WITH CR STANDARDS*
+
+
+
+*new: simp 2 3 50227 "moe_C2toDS_coral" 6 0 rand 1000 3000
+
+*mvsf mopx mopy
+
+
+
+*install
+
+scrp 2 3 50227 10
+
+	inst
+
+	bhvr 48
+
+	perm 51
+
+	attr 199
+
+	anim [0 1 2 3 4 5 255]
+
+	tick rand 35 50
+
+	elas 0
+
+	aero 1
+
+	accg .05
+
+	setv ov16 4800
+
+	divv ov16 tick
+
+	rnge 600
+
+endm
+
+*deactivate
+
+scrp 2 3 50227 0
+
+endm
+
+*activate 1
+
+scrp 2 3 50227 1
+
+endm
+
+*activate 2
+
+scrp 2 3 50227 2
+
+endm
+
+*hit
+
+scrp 2 3 50227 3
+
+endm
+
+*pickup
+
+scrp 2 3 50227 4
+
+endm
+
+*drop
+
+scrp 2 3 50227 5
+
+endm
+
+*collision
+
+scrp 2 3 50227 6
+
+endm
+
+*timer
+
+scrp 2 3 50227 9
+
+*Life counter
+
+	addv ov01 1
+
+	doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+
+		addv velx rand -2 2
+
+		addv vely rand 0 -3
+
+		gsub checksurface
+
+	endi
+
+
+
+*randomfloat
+
+	doif rtyp room ownr eq 9 and obst down lt 5
+
+		gsub grow
+
+	endi
+
+
+
+
+
+
+
+
+
+
+
+	doif ov01 gt ov16
+
+		kill ownr
+
+	endi
+
+
+
+	subr grow
+
+		setv va03 0
+
+		esee 2 15 50212
+
+			doif targ ne null and ov14 eq 0
+
+				addv va03 1
+
+			endi
+
+		next
+
+		doif va03 ge 3
+
+			stop
+
+		endi
+
+		setv va01 posl
+
+		setv va02 posy
+
+		subv va01 40
+
+		subv va02 32
+
+		setv va00 rand 0 3
+
+
+
+		doif va00 eq 0
+
+			setv va00 6
+
+		elif va00 eq 1
+
+			setv va00 12
+
+		elif va00 eq 2
+
+			setv va00 18
+
+		elif va00 eq 3
+
+			setv va00 24
+
+		endi
+
+
+
+		doif carr eq null or type carr ne 6
+
+			new: simp 2 15 50212 "moe_c2tods_coral" 6 va00 rand 1000 3000
+
+			pose 1
+
+			mvsf va01 va02
+
+			kill ownr
+
+		elif carr ne null and type carr eq 6
+
+			seta va08 carr
+
+			new: simp 2 15 50212 "moe_c2tods_coral" 6 va00 rand 1000 3000
+
+			pose 1
+
+			core 0 hght 30 50
+
+			mvsf va01 va02
+
+			spas va08 targ
+
+			kill ownr
+
+		endi
+
+	retn
+
+
+
+	subr checksurface
+
+		doif carr eq null
+
+			setv va00 post
+
+			subv va00 40
+
+			setv va01 rtyp grap posx va00
+
+			doif va01 ne 9 and va01 ne 8
+
+				setv va02 vely
+
+				doif vely lt 0
+
+					absv va02
+
+				endi
+
+				addv vely va02
+
+				setv va10 1
+
+			endi
+
+		endi
+
+	retn
+
+
+
+endm
+
+*eat
+
+scrp 2 3 50227 12
+
+	snde "reat"
+
+	doif crea from eq 1
+
+		stim writ from 77 .25
+
+	endi
+
+	kill ownr
+
+endm
+
+
+
+scrp 2 3 50227 255
+
+	stop
+
+endm
+
+
+
+***Coral Debris****
+
+*THIS TEMPLATE CONTAINS ALL THE BLANK SCRIPTS NECESSARY TO CREATE AN
+
+*AGENT SCRIPT IN COMPLIANCE WITH CR STANDARDS*
+
+
+
+*new: simp 2 10 50212 "moe_C2toDS_coral" 40 30 rand 1000 3000
+
+*mvsf mopx mopy
+
+
+
+*install
+
+scrp 2 10 50212 10
+
+	inst
+
+
+
+	setv va00 rand 0 4
+
+
+
+	doif va00 eq 0
+
+		setv va00 0
+
+	elif va00 eq 1
+
+		setv va00 2
+
+	elif va00 eq 2
+
+		setv va00 4
+
+	elif va00 eq 3
+
+		setv va00 6
+
+	elif va00 eq 4
+
+		setv va00 8
+
+	endi
+
+	base va00
+
+
+
+	attr 199
+
+	bhvr 49
+
+	accg 3
+
+	elas 0
+
+	mira rand 0 1
+
+	tick rand 200 500
+
+endm
+
+*deactivate
+
+scrp 2 10 50212 0
+
+endm
+
+*activate 1
+
+scrp 2 10 50212 1
+
+	doif crea from eq 1
+
+		stim writ from 97 1
+
+	endi
+
+endm
+
+*activate 2
+
+scrp 2 10 50212 2
+
+endm
+
+*hit
+
+scrp 2 10 50212 3
+
+endm
+
+*pickup
+
+scrp 2 10 50212 4
+
+	pose 0
+
+endm
+
+*drop
+
+scrp 2 10 50212 5
+
+endm
+
+*collision
+
+scrp 2 10 50212 6
+
+	pose 1
+
+endm
+
+*timer
+
+scrp 2 10 50212 9
+
+	kill ownr
+
+endm
+
+*eat
+
+scrp 2 10 50212 12
+
+	doif crea from eq 1
+
+		stim writ from 81 1
+
+	endi
+
+endm
+
+rscr
+
+enum 2 15 50212
+
+	kill targ
+
+next
+
+scrx 2 15 50212 10
+
+scrx 2 15 50212 0
+
+scrx 2 15 50212 1
+
+scrx 2 15 50212 2
+
+scrx 2 15 50212 3
+
+scrx 2 15 50212 4
+
+scrx 2 15 50212 5
+
+scrx 2 15 50212 6
+
+scrx 2 15 50212 9
+
+scrx 2 15 50212 12
+
+
+
+
+
+*Coral Debris
+
+enum 2 10 50212
+
+	kill targ
+
+next
+
+scrx 2 10 50212 10
+
+scrx 2 10 50212 0
+
+scrx 2 10 50212 1
+
+scrx 2 10 50212 2
+
+scrx 2 10 50212 3
+
+scrx 2 10 50212 4
+
+scrx 2 10 50212 5
+
+scrx 2 10 50212 6
+
+scrx 2 10 50212 9
+
+scrx 2 10 50212 12
+
+
+
+*Coral Seed
+
+enum 2 3 50227
+
+	kill targ
+
+next
+
+scrx 2 3 50227 10
+
+scrx 2 3 50227 0
+
+scrx 2 3 50227 1
+
+scrx 2 3 50227 2
+
+scrx 2 3 50227 3
+
+scrx 2 3 50227 4
+
+scrx 2 3 50227 5
+
+scrx 2 3 50227 6
+
+scrx 2 3 50227 9
+
+scrx 2 3 50227 12
+
+

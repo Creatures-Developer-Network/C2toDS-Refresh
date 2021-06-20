@@ -1,0 +1,319 @@
+* 2 21 50212 - Foghorn
+* 1 23 50212 - Foghorn Fog
+* 1 23 50213 - Foghorn Fog
+
+* Yay, horn!
+
+* Currently clicking anywhere on the horn causes it to activate. Not sure how to change this,
+
+* or even if we want to. I think it's more usable if you can click anywhere, but that's just
+
+* my opinion :)
+
+
+
+* Pretty much straight-converted from c2. 
+
+
+
+new: comp 2 21 50212 "moe_C2toDS_foghorn" 34 0 50
+
+attr 4
+
+rnge 500
+
+mvto 9090 48149
+
+frat 3
+
+bhvr 3
+
+pat: dull 1 "moe_C2toDS_foghorn" 1 48 0 50
+
+pat: dull 2 "moe_C2toDS_foghorn" 4 204 0 50
+
+pat: dull 3 "moe_C2toDS_foghorn" 7 176 0 50
+
+pat: dull 4 "moe_C2toDS_foghorn" 10 152 0 50
+
+
+
+
+scrp 2 21 50212 1
+
+	lock
+
+	stim writ from 97 1
+
+	setv va00 posl
+
+	setv va01 post
+
+	part 1
+
+	frat 2
+
+	anim [ 0 1 2 1 255]
+
+	setv va02 rand 0 1
+
+	doif va02 eq 0
+
+		snde "hrn1"
+
+	else
+
+		snde "hrn2"
+
+	endi
+
+	reps 5
+
+		setv va03 rand 2 4
+
+		part va03
+
+		frat 2
+
+		anim [ 0 1 2 1 0 ]
+
+		wait 1
+
+		inst
+
+		new: simp 1 23 50212 "moe_C2toDS_foghorn" 12 13 7000
+
+		attr 16
+
+		setv va02 rand 0 2
+
+		mulv va02 4
+
+		base va02
+
+		pose 0
+
+		mvto va00 va01
+
+		slow
+
+		setv vely -1
+
+		setv velx rand -2 2
+
+		mesg writ targ 8
+
+		setv va04 va00
+
+		setv va06 rand 30 80
+
+		addv va04 va06
+
+		setv va05 va01
+
+		inst
+
+		new: simp 1 23 50213 "moe_C2toDS_foghorn" 9 25 9000
+
+		attr 64
+
+		mvto va04 va05
+
+		setv va02 rand 0 -1
+
+		setv velx 1
+
+		slow
+
+		targ ownr
+
+		wait 10
+
+	repe
+
+	part 1
+
+	pose 0
+
+	unlk
+
+endm
+
+
+
+scrp 1 23 50212 10
+
+	frat rand 2 3
+
+	reps rand 10 25
+
+		anim [ 0 1 2 1 ]
+
+		over
+
+	repe
+
+	pose 3
+
+	wait 20
+
+	kill ownr
+
+endm
+
+
+
+scrp 1 23 50213 10
+
+	frat rand 3 6
+
+	anim [ 0 1 2 ]
+
+	reps rand 12 25
+
+		anim [ 3 4 5 4 ]
+
+		over
+
+	repe
+
+	anim [ 5 6 7 8 ]
+
+	over
+
+	kill ownr
+
+endm
+
+
+
+scrp 2 21 50212 2
+
+	lock
+
+	stim writ from 97 1
+
+	setv va00 posl
+
+	setv va01 post
+
+	part 1
+
+	anim [ 0 1 2 1 255]
+
+	setv va02 rand 0 1
+
+	doif va02 eq 0
+
+		snde "hrn1"
+
+	else
+
+		snde "hrn2"
+
+	endi
+
+	reps 5
+
+		setv va03 rand 2 4
+
+		part va03
+
+		anim [ 0 1 2 1 0 ]
+
+		wait 1
+
+		inst
+
+		new: simp 1 23 50212 "moe_C2toDS_foghorn" 12 13 7000
+
+		attr 16
+
+		setv va02 rand 0 2
+
+		mulv va02 4
+
+		base va02
+
+		pose 0
+
+		mvto va00 va01
+
+		slow
+
+		setv va02 rand -2 -1
+
+		setv vely va02
+
+		setv velx rand -3 3
+
+		mesg writ targ 8
+
+		setv va04 va00
+
+		setv va06 rand 30 80
+
+		addv va04 va06
+
+		setv va05 va01
+
+		inst
+
+		new: simp 1 23 50213 "moe_C2toDS_foghorn" 9 25 9000
+
+		attr 64
+
+		mvto va04 va05
+
+		setv va02 rand 0 -1
+
+		setv velx 1
+
+		slow
+
+		targ ownr
+
+	repe
+
+	part 1
+
+	pose 0
+
+	unlk
+
+endm
+
+
+
+
+
+
+rscr
+
+
+enum 2 21 50212
+
+	kill targ
+
+next
+
+enum 1 23 50212
+
+	kill targ
+
+next
+
+enum 1 23 50213
+
+	kill targ
+
+next
+
+scrx 2 21 50212 1
+
+scrx 2 21 50212 2
+
+scrx 1 23 50212 10
+
+scrx 1 23 50213 10
+

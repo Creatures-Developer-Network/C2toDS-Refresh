@@ -1,0 +1,669 @@
+*Contains:
+
+*1	11	50200	Sub Door Water/Bubbles
+*2	2	50200	Volcano Door
+*2	2	50201	Terrarium Door
+*2	2	50202	Left Sub Door
+*2	2	50203	Right Sub Door (New: line is in Left Sub Doors Creation Script)
+
+
+* Sets the airlock rooms to Wooden Walkway (the airlock is empty to start)
+rtyp grap 8439 48936 1
+
+rtyp grap 8478 48936 1
+
+rtyp grap 8579 48936 1
+
+rtyp grap 8758 48936 1
+
+*Volcano Door
+
+new: simp 2 2 50200 "moe_C2toDS_doors" 5 0 3
+
+attr 4
+
+pose 4
+
+mvto 8604 49665
+
+door grap 8707 49736 grap 8540 49754 100
+
+setv name "open" 1
+
+
+
+*Terrarium Door*
+
+new: simp 2 2 50201 "moe_C2toDS_doors" 6 5 1
+
+pose 5
+
+attr 4
+
+mvto 4095 49222
+
+door grap 4051 49224 grap 4132 49318 0
+
+setv name "open" 1
+
+
+
+*Left Sub Door*
+
+new: simp 2 2 50202 "moe_C2toDS_doors" 5 12 1
+
+attr 4
+
+pose 0
+
+mvto 8273 48846
+
+door grap 8388 48918 grap 8440 48938 0
+
+setv name "open" 0
+
+
+
+
+
+
+
+
+
+
+
+*Sub Door Water
+
+new: simp 1 11 50200 "moe_C2toDS_doors" 9 20 8000
+
+attr 0
+
+pose 8
+
+mvto 8450 48809
+
+setv name "flooded" 0
+
+setv name "whatamI?" 1
+
+
+
+*Sub Door Water Bubbles :D
+
+*R
+
+new: simp 1 11 50200 "moe_C2toDS_bubs" 11 0 8000
+
+attr 4
+
+pose 10
+
+mvto 8685 48990
+
+setv name "flooded" 0
+
+setv name "whatamI?" 2
+
+
+
+*L
+
+new: simp 1 11 50200 "moe_C2toDS_bubs" 11 0 8000
+
+attr 4
+
+pose 10
+
+mvto 8532 48990
+
+setv name "flooded" 0
+
+setv name "whatamI?" 2
+
+*script for both water and bubbles in the submarine airlock
+scrp 1 11 50200 1001
+
+	doif name "whatamI?" eq 1
+
+		doif name "flooded" eq 0
+
+			frat 2
+
+			anim [8 7 6 5 4 3 2 1 0]
+
+			setv name "flooded" 1
+
+		elif name "flooded" eq 1
+
+			frat 2
+
+			anim [0 1 2 3 4 5 6 7 8]
+
+			setv name "flooded" 0
+
+		endi
+
+	elif name "whatamI?" eq 2
+
+		frat 2
+
+*doif name "flooded" eq 1
+
+		pose 0
+
+		anim [0 1 2 3 4 5 6 7 8 9 10]
+
+		sndc "bubb"
+
+*endi
+
+	endi
+
+endm
+
+*Volcano Door
+
+scrp 2 2 50200 1
+
+	lock
+
+	doif name "open" eq 0
+
+		frat 2
+
+		anim [ 0 1 2 3 4]
+
+*door grap posl posy grap posr posy 50
+
+		door grap 8707 49736 grap 8540 49754 50
+
+		over
+
+		sndc "m_a4"
+
+		setv name "open" 1
+
+		door grap 8707 49736 grap 8540 49754 100
+
+	elif name "open" eq 1
+
+		frat 2
+
+		anim [ 4 3 2 1 0]
+
+		door grap 8707 49736 grap 8540 49754 50
+
+		over
+
+		sndc "m_a4"
+
+		setv name "open" 0
+
+		door grap 8707 49736 grap 8540 49754 0
+
+	endi
+
+	stop
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	doif name "whatamI?" eq 4 and name "open" eq 0
+
+		enum 2 2 50200
+
+			doif name "whatamI?" eq 3
+
+				doif name "open" eq 1
+
+					frat 2
+
+					anim [3 2 1 0]
+
+					door grap 8435 48937 grap 8373 48931 50
+
+					over
+
+					sndc "m_a4"
+
+					setv name "open" 0
+
+					door grap 8435 48937 grap 8373 48931 0
+
+				endi
+
+
+
+			endi
+
+		next
+
+		doif rtyp grap 8439 48936 ne 0
+
+			rtyp grap 8439 48936 0
+
+			rtyp grap 8478 48936 0
+
+			rtyp grap 8579 48936 0
+
+			rtyp grap 8758 48936 0
+
+			enum 1 11 50200
+
+				mesg writ targ 1001
+
+			next
+
+			wait 20
+
+			targ ownr
+
+		endi
+
+	endi
+
+
+
+
+
+	doif name "whatamI?" eq 3 and name "open" eq 0
+
+		frat 2
+
+		anim [ 0 1 2 3]
+
+*door grap posl posy grap posr posy 50
+
+		door grap 8388 48918 grap 8440 48938 50
+
+		over
+
+		sndc "m_a4"
+
+		setv name "open" 1
+
+		door grap 8388 48918 grap 8440 48938 100
+
+	elif name "whatamI?" eq 3 and name "open" eq 1
+
+		frat 2
+
+		anim [3 2 1 0]
+
+		door grap 8388 48918 grap 8440 48938 50
+
+		over
+
+		sndc "m_a4"
+
+		setv name "open" 0
+
+		door grap 8388 48918 grap 8440 48938 0
+
+	endi
+
+
+
+
+
+	doif name "whatamI?" eq 4 and name "open" eq 0
+
+		frat 2
+
+		anim [ 0 1 2 3]
+
+*door grap posl posy grap posr posy 50
+
+		door grap 8758 48931 grap 8794 48931 50
+
+		over
+
+		sndc "m_a4"
+
+		setv name "open" 1
+
+		door grap 8758 48931 grap 8794 48931 100
+
+	elif name "whatamI?" eq 4 and name "open" eq 1
+
+		frat 2
+
+		anim [3 2 1 0]
+
+		door grap 8758 48931 grap 8794 48931 50
+
+		over
+
+		sndc "m_a4"
+
+		setv name "open" 0
+
+		door grap 8758 48931 grap 8794 48931 0
+
+	endi
+
+
+
+
+
+endm
+
+
+*Terrarium Door
+
+scrp 2 2 50201 1
+
+	lock
+
+	doif name "open" eq 0
+
+		frat 2
+
+		anim [ 0 1 2 3 4 5]
+
+*door grap posl posy grap posr posy 50
+
+		door grap 4051 49224 grap 4132 49318 50
+
+		over
+
+		sndc "m_a4"
+
+		setv name "open" 1
+
+		door grap 4051 49224 grap 4132 49318 0
+
+	elif name "open" eq 1
+
+		frat 2
+
+		anim [5 4 3 2 1 0]
+
+		door grap 4051 49224 grap 4132 49318 50
+
+		over
+
+		sndc "m_a4"
+
+		setv name "open" 0
+
+		door grap 4051 49224 grap 4132 49318 100
+
+	endi
+
+endm
+
+scrp 2 2 50202 10
+
+*Left Sub Door Makes:
+
+*Right Sub Door*
+
+	new: simp 2 2 50203 "moe_C2toDS_doors" 5 16 1
+
+	attr 4
+
+	pose 3
+
+	mvto 8749 48820
+
+	door grap 8758 48931 grap 8794 48931 100
+
+	setv name "open" 1
+
+	seta ov00 ownr
+
+	seta mv00 targ
+
+endm
+
+
+
+*Right Sub Door Activate Script
+
+scrp 2 2 50203 1
+
+	lock
+
+	doif name "open" eq 1
+
+		frat 3
+
+		anim [3 2 1 0]
+
+		door grap 8758 48931 grap 8794 48931 50
+
+		wait 7
+
+		door grap 8758 48931 grap 8794 48931 0
+
+		wait 7
+
+		setv name "open" 0
+
+	elif name "open" eq 0
+
+*if it's flooded, close other door
+
+		doif rtyp grap 8439 48936 eq 9
+
+			enum 2 2 50202
+
+				doif name "open" eq 1
+
+					mesg writ targ 0
+
+					targ ownr
+
+					wait 15
+
+				endi
+
+			next
+
+			gsub empty
+
+			wait 20
+
+			targ ownr
+
+			anim [0 1 2 3]
+
+			over
+
+		else
+
+			anim [0 1 2 3]
+
+			over
+
+		endi
+
+		door grap 8758 48931 grap 8794 48931 100
+
+		wait 7
+
+		setv name "open" 1
+
+	endi
+
+
+
+	sndc "m_a4"
+
+
+
+	subr empty
+
+		rtyp grap 8439 48936 0
+
+		rtyp grap 8478 48936 0
+
+		rtyp grap 8579 48936 0
+
+		rtyp grap 8758 48936 0
+
+		enum 1 11 50200
+
+			mesg writ targ 1001
+
+		next
+
+	retn
+
+endm
+
+
+
+*Left Sub Door Activate Script
+
+scrp 2 2 50202 1
+
+	lock
+
+*If you open the door to the ocean, close the other door first!
+
+	doif name "open" eq 0
+
+*enum 2 2 50203
+
+*next
+
+		doif rtyp grap 8439 48936 ne 9
+
+			enum 2 2 50203
+
+				doif name "open" eq 1
+
+					mesg writ targ 0
+
+					targ ownr
+
+					wait 15
+
+				endi
+
+			next
+
+
+
+			gsub flood
+
+			lock
+
+			targ ownr
+
+			wait 20
+
+			targ ownr
+
+		endi
+
+		frat 3
+
+		anim [0 1 2 3]
+
+		over
+
+		door grap 8425 48945 grap 8340 48945 100
+
+		setv name "open" 1
+
+
+
+	elif name "open" eq 1
+
+		frat 3
+
+		anim [3 2 1 0]
+
+		over
+
+		door grap 8425 48945 grap 8340 48945 0
+
+		setv name "open" 0
+
+	endi
+
+	sndc "m_a4"
+
+	unlk
+
+	subr flood
+
+		rtyp grap 8439 48936 9
+
+		rtyp grap 8478 48936 9
+
+		rtyp grap 8579 48936 9
+
+		rtyp grap 8758 48936 9
+
+		enum 1 11 50200
+
+			mesg writ targ 1001
+
+		next
+
+	retn
+
+
+
+endm
+
+
+
+
+
+
+
+
+
+rscr
+
+enum 1 11 50200
+
+	kill targ
+
+next
+scrx 1 11 50200 1001
+
+enum 2 2 50200
+
+	kill targ
+
+next
+
+enum 2 2 50201
+
+	kill targ
+
+next
+
+enum 2 2 50202
+
+	kill targ
+
+next
+
+scrx 2 2 50200 1
+
+
+enum 2 2 50203
+
+	kill targ
+
+next
+
+

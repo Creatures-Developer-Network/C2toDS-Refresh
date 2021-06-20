@@ -1,0 +1,745 @@
+* 2 14 50204 - Queen Ant
+* 2 14 50205 - Ant
+* 2 17 50205 - Anthill
+
+new: simp 2 14 50204 "moe_c2tods_ants" 8 15 rand 500 1000
+
+mvsf 6360 49770
+
+
+
+new: simp 2 14 50204 "moe_c2tods_ants" 8 15 rand 500 1000
+
+mvsf 3445 48180
+
+
+
+scrp 2 14 50204 10
+
+	attr 199
+
+	aero 2
+
+	accg 0
+
+	tick 35
+
+	setv ov06 2
+
+	anim [0 1 255]
+
+endm
+
+
+
+scrp 2 14 50204 9
+
+
+
+	gsub findfood
+
+
+
+	subr findfood
+
+		setv va03 grap posx posy
+
+
+
+		setv va00 hirp va03 9 1
+
+		setv va01 torx va00
+
+		setv va02 tory va00
+
+
+
+		doif va01 gt 0
+
+			mira 1
+
+			addv velx ov06
+
+		elif va01 lt 0
+
+			mira 0
+
+			subv velx ov06
+
+		endi
+
+		doif va02 lt 0
+
+			subv vely ov06
+
+		elif va02 gt 0
+
+			addv vely ov06
+
+		endi
+
+
+
+		doif rtyp grap posx posy eq 5
+
+			esee 2 10 0
+
+				doif targ ne null
+
+					addv va00 1
+
+				endi
+
+			next
+
+			targ ownr
+
+			doif va00 gt 1
+
+				loop
+
+					addv vely ov06
+
+					wait tick
+
+				untl obst down lt 20
+
+				setv va00 posl
+
+				setv va01 post
+
+				new: simp 2 17 50205 "moe_C2toDS_ants" 7 19 rand 500 1000
+
+				mvsf va00 va01
+
+				kill ownr
+
+			endi
+
+		endi
+
+	retn
+
+
+
+endm
+
+
+
+
+
+*new: simp 2 17 50205 "moe_C2toDS_ants" 7 19 rand 500 1000
+
+**mvsf 6320 49720
+
+**mvsf 6355 49740
+
+*mvsf mopx mopy
+
+*pose 3
+
+
+
+scrp 2 17 50205 10
+
+	lock
+
+	doif pose lt 3
+
+		frat 35
+
+		anim [0 1 2 3]
+
+		over
+
+	endi
+
+	attr 197
+
+	elas 0
+
+	accg 4
+
+	aero 1
+
+	perm 51
+
+	tick rand 50 50
+
+	bhvr 9
+
+	unlk
+
+endm
+
+
+
+scrp 2 17 50205 255
+
+	stop
+
+endm
+
+
+
+scrp 2 17 50205 9
+
+*inst
+
+	enum 2 14 50205
+
+		doif targ ne null and ov08 eq ownr
+
+			addv va00 1
+
+		endi
+
+	next
+
+*slow
+
+	targ ownr
+
+	setv name "outandabout" va00
+
+
+
+	doif name "outandabout" lt 5 and time ne 4
+
+		gsub makeant
+
+	endi
+
+
+
+	doif name "power" gt 20 and name "power" lt 40
+
+		pose 4
+
+	elif name "power" gt 40
+
+		pose 5
+
+	endi
+
+
+
+	subr makeant
+
+		setv va02 plne
+
+		addv va02 rand 100 500
+
+		setv va00 posx
+
+		setv va01 posb
+
+		subv va00 15
+
+		new: simp 2 14 50205 "moe_C2toDS_ants" 15 0 va02
+
+		seta ov08 ownr
+
+		mvsf va00 va01
+
+		targ ownr
+
+	retn
+
+endm
+
+
+
+scrp 2 17 50205 1
+
+
+
+	doif name "power" eq 0
+
+		setv va00 posx
+
+		setv va01 posy
+
+		new: simp 2 14 50204 "moe_c2tods_ants" 8 15 rand 500 1000
+
+		mvsf va00 va01
+
+		kill ownr
+
+		stop
+
+	endi
+
+
+
+
+
+	setv va02 plne
+
+	addv va02 rand 100 500
+
+	setv va00 posx
+
+	setv va01 posb
+
+	subv va00 15
+
+	new: simp 2 14 50205 "moe_C2toDS_ants" 15 0 va02
+
+	seta ov08 ownr
+
+	mvsf va00 va01
+
+	targ ownr
+
+	subv name "power" 1
+
+
+
+endm
+
+
+
+scrp 2 14 50205 10
+
+	inst
+
+	attr 199
+
+	perm 51
+
+	elas 0
+
+	aero 2
+
+	accg 1
+
+*velo rand -10 10 -5
+
+	tick rand 25 35
+
+	seta ov07 null
+
+	bhvr 49
+
+endm
+
+
+
+scrp 2 14 50205 12
+
+	doif crea from eq 1
+
+		stim writ from 80 .5
+
+		stim writ from 88 .1
+
+	endi
+
+endm
+
+
+
+scrp 2 14 50205 1
+
+	doif crea from eq 1
+
+		stim writ from 88 .1
+
+	endi
+
+	setv name "state" 1
+
+	seta ov07 from
+
+endm
+
+
+
+scrp 2 14 50205 9
+
+	addv ov10 1
+
+	doif ov10 gt 200 or rtyp room ownr eq 8 or rtyp room ownr eq 9 or ov12 ge 1
+
+		gsub die
+
+		stop
+
+	endi
+
+
+
+	doif name "state" eq 1
+
+
+
+		addv ov11 1
+
+		doif ov11 gt 15
+
+			setv name "state" 0
+
+			seta ov07 null
+
+			setv ov11 0
+
+		endi
+
+		gsub getfood
+
+		doif touc ov07 ownr eq 1
+
+			targ ov07
+
+			setv va00 posx
+
+			targ ownr
+
+			doif va00 gt posx
+
+				addv velx 5
+
+				subv vely 10
+
+
+
+			else
+
+				subv velx 5
+
+				subv vely 10
+
+			endi
+
+			doif crea ov07 eq 1
+
+				stim writ ov07 88 .1
+
+			endi
+
+			chem 148 .05
+
+			chem 81 .05
+
+
+
+		endi
+
+
+
+
+
+		stop
+
+	endi
+
+
+
+
+
+	doif ov07 eq null
+
+		esee 2 10 0
+
+			doif targ ne null and carr eq null
+
+*doif relx ownr targ lt 200 and rely ownr targ lt 200
+
+				seta mv07 targ
+
+*endi
+
+			endi
+
+		next
+
+		targ ownr
+
+		gsub findfood
+
+	elif ov07 ne null and held eq null
+
+		gsub getfood
+
+	elif ov07 ne null and held ne null
+
+		gsub gohome
+
+	endi
+
+
+
+	subr die
+
+		base 0
+
+		pose 14
+
+		addv ov12 1
+
+		doif ov12 ge 10
+
+			kill ownr
+
+		endi
+
+	retn
+
+
+
+	subr gohome
+
+		doif ov08 ne null
+
+			targ ov08
+
+			setv va00 posx
+
+			targ ownr
+
+			doif va00 gt posx
+
+				setv va01 -1
+
+			else
+
+				setv va01 2
+
+			endi
+
+			gsub walk
+
+			doif touc ownr ov08 eq 1
+
+				gsub nest
+
+			endi
+
+		endi
+
+	retn
+
+
+
+	subr nest
+
+		targ ov08
+
+		addv name "power" 1
+
+		targ mv07
+
+		mesg writ targ 12
+
+		kill targ
+
+		targ ownr
+
+		kill targ
+
+	retn
+
+
+
+	subr getfood
+
+		targ ov07
+
+		doif carr ne null
+
+			seta mv07 null
+
+			stop
+
+		endi
+
+		setv va00 posx
+
+		targ ownr
+
+		doif va00 gt posx
+
+			setv va01 -1
+
+		else
+
+			setv va01 2
+
+		endi
+
+		gsub walk
+
+		doif touc ownr ov07 eq 1
+
+			gsub grabfood
+
+		endi
+
+	retn
+
+
+
+	subr grabfood
+
+		setv va00 wdth
+
+*setv va01 hght
+
+		divv va00 2
+
+		subv va01 hght
+
+		setv va02 hght
+
+		divv va02 2
+
+		addv va01 va02
+
+		targ ownr
+
+		pupt -1 va00 va01
+
+		mesg writ ov07 4
+
+	retn
+
+
+
+	subr findfood
+
+		setv va00 lorp room ownr 8 0
+
+		setv va01 torx va00
+
+
+
+*		doif va01 lt 0
+
+
+
+		base 7
+
+		pose 0
+
+		loop
+
+			addv va02 1
+
+			doif va01 lt 0
+
+				mira 0
+
+				addv velx 2
+
+				addv vely -1
+
+			elif va01 gt 1
+
+				mira 1
+
+				addv velx -2
+
+				addv vely -1
+
+			endi
+
+			wait 1
+
+			pose va02
+
+		untl va02 eq 6
+
+	retn
+
+
+
+	subr walk
+
+		pose 0
+
+		loop
+
+			addv va02 1
+
+			doif va01 lt 0
+
+				mira 0
+
+				addv velx 2
+
+				addv vely -1
+
+			elif va01 gt 1
+
+				mira 1
+
+				addv velx -2
+
+				addv vely -1
+
+			endi
+
+			wait 1
+
+			pose va02
+
+		untl va02 eq 6
+
+	retn
+
+
+
+endm
+
+
+
+scrp 2 14 50205 255
+
+	seta ov07 null
+
+endm
+
+rscr
+
+
+
+enum 2 17 50205
+
+	kill targ
+
+next
+
+
+
+enum 2 14 50205
+
+	kill targ
+
+next
+
+
+
+enum 2 14 50204
+
+	kill targ
+
+next
+
+
+
+scrx 2 14 50205 1
+
+scrx 2 14 50205 9
+
+scrx 2 14 50205 12
+
+scrx 2 14 50205 10
+
+
+
+scrx 2 17 50205 1
+
+scrx 2 17 50205 9
+
+scrx 2 17 50205 10

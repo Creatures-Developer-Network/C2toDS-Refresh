@@ -1,0 +1,2062 @@
+* 3 1 50200 - Lifts (all of them share this classifier)
+* 2 12 50200 - Call Buttons
+
+*//*Norn Burrow Lift*//*
+
+*Matthew, "Moe", '10*
+* Some Modifications By the one who screams i guess
+* (if you worked on this file, feel free to add your name!)
+
+inst
+
+
+
+*NORN BURROW LIFT*
+
+new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 1 1000
+
+mvto 7806 48300
+
+pat: dull 1 "moe_C2toDS_lifts" 0 0 0 3
+
+*Button on lift
+
+pat: butt 2 "moe_C2toDS_lifts" 2 3 80 55 1 [] 1000 0
+
+pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
+
+part 3
+
+sets name "call list" ""
+
+sets name "Lift" "NornBurrow"
+
+seta name "0" null
+
+setv name "total" 2
+
+setv name "current level" 1
+
+*
+
+*TEMPLE LIFT*
+
+new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 1 1000
+
+mvto 6220 48270
+
+pat: dull 1 "moe_C2toDS_lifts" 0 0 0 40
+
+*Button on lift
+
+pat: butt 2 "moe_C2toDS_lifts" 2 3 80 55 1 [] 1000 0
+
+pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
+
+part 3
+
+sets name "call list" ""
+
+sets name "Lift" "Temple"
+
+seta name "0" null
+
+setv name "total" 2
+
+setv name "current level" 1
+
+
+
+*WORLD TREE LIFT*
+
+new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 1 1000
+
+mvto 3584 48055
+
+pat: dull 1 "moe_C2toDS_lifts" 0 0 0 40
+
+*Button on lift
+
+pat: butt 2 "moe_C2toDS_lifts" 2 3 80 55 1 [] 1000 0
+
+pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
+
+part 3
+
+sets name "call list" ""
+
+sets name "Lift" "WorldTree"
+
+seta name "0" null
+
+setv name "total" 3
+
+setv ov04 0
+
+setv name "current level" 1
+
+
+
+
+
+*Jungle Lowest Level Lift*
+
+new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 10 1000
+
+mvto 5575 49700
+
+pat: dull 1 "moe_C2toDS_lifts" 9 0 0 40
+
+*Button on lift
+
+pat: butt 2 "moe_C2toDS_lifts" 2 3 90 63 1 [] 1000 0
+
+pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
+
+part 3
+
+sets name "call list" ""
+
+sets name "Lift" "JungleLowestLevel"
+
+seta name "0" null
+
+setv name "total" 2
+
+setv ov04 0
+
+setv name "current level" 2
+
+
+
+
+
+*Jungle Mid Level Lift*
+
+new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 10 1000
+
+mvto 5242 48981
+
+pat: dull 1 "moe_C2toDS_lifts" 9 0 0 40
+
+*Button on lift
+
+pat: butt 2 "moe_C2toDS_lifts" 2 3 90 63 1 [] 1000 0
+
+pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
+
+part 3
+
+sets name "call list" ""
+
+sets name "Lift" "JungleMidLevel"
+
+seta name "0" null
+
+setv name "total" 2
+
+setv ov04 0
+
+setv name "current level" 1
+
+
+
+
+
+*Jungle Left Level Lift*
+
+new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 10 1000
+
+mvto 4381 48403
+
+pat: dull 1 "moe_C2toDS_lifts" 9 0 0 40
+
+*Button on lift
+
+pat: butt 2 "moe_C2toDS_lifts" 2 3 90 63 1 [] 1000 0
+
+pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
+
+part 3
+
+sets name "call list" ""
+
+sets name "Lift" "JungleLeftLevel"
+
+seta name "0" null
+
+setv name "total" 2
+
+setv ov04 0
+
+setv name "current level" 0
+
+
+
+*Swamp Left Level Lift*
+
+new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 10 1000
+
+mvto 6599 49700
+
+pat: dull 1 "moe_C2toDS_lifts" 9 0 0 40
+
+*Button on lift
+
+pat: butt 2 "moe_C2toDS_lifts" 2 3 90 63 1 [] 1000 0
+
+pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
+
+part 3
+
+sets name "call list" ""
+
+sets name "Lift" "SwampLeftLevel"
+
+seta name "0" null
+
+setv name "total" 1
+
+setv ov04 0
+
+setv name "current level" 1
+
+
+
+*Swamp Mid Level Lift*
+
+new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 10 1000
+
+mvto 7168 49295
+
+pat: dull 1 "moe_C2toDS_lifts" 9 0 0 40
+
+*Button on lift
+
+pat: butt 2 "moe_C2toDS_lifts" 2 3 90 63 1 [] 1000 0
+
+pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
+
+part 3
+
+sets name "call list" ""
+
+sets name "Lift" "SwampMidLevel"
+
+seta name "0" null
+
+setv name "total" 1
+
+setv ov04 0
+
+setv name "current level" 1
+
+
+
+*Swamp Right Level Lift*
+
+new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 10 1000
+
+mvto 7755 49700
+
+pat: dull 1 "moe_C2toDS_lifts" 9 0 0 40
+
+*Button on lift
+
+pat: butt 2 "moe_C2toDS_lifts" 2 3 90 63 1 [] 1000 0
+
+pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
+
+part 3
+
+sets name "call list" ""
+
+sets name "Lift" "SwampRightLevel"
+
+seta name "0" null
+
+setv name "total" 1
+
+setv ov04 0
+
+setv name "current level" 1
+
+
+
+*Aubergine Lift*
+
+new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 15 1000
+
+mvto 4256 49580
+
+pat: dull 1 "moe_C2toDS_lifts" 14 0 0 40
+
+*Button on lift
+
+pat: butt 2 "moe_C2toDS_lifts" 16 3 67 73 1 [] 1000 0
+
+pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
+
+part 3
+
+sets name "call list" ""
+
+sets name "Lift" "AubergineLift"
+
+seta name "0" null
+
+setv name "total" 1
+
+setv ov04 1
+
+setv name "current level" 0
+
+
+
+*Volcano Lift Left*
+
+new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 15 1000
+
+mvto 9572 48760
+
+pat: dull 1 "moe_C2toDS_lifts" 14 0 0 40
+
+*Button on lift
+
+pat: butt 2 "moe_C2toDS_lifts" 16 3 67 73 1 [] 1000 0
+
+pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
+
+part 3
+
+sets name "call list" ""
+
+sets name "Lift" "VolcanoLiftLeft"
+
+seta name "0" null
+
+setv name "total" 3
+
+setv ov04 1
+
+setv name "current level" 2
+
+
+
+*Volcano Lift  Right*
+
+new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 15 1000
+
+mvto 10165 49280
+
+pat: dull 1 "moe_C2toDS_lifts" 14 0 0 40
+
+*Button on lift
+
+pat: butt 2 "moe_C2toDS_lifts" 16 3 67 73 1 [] 1000 0
+
+pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
+
+part 3
+
+sets name "call list" ""
+
+sets name "Lift" "VolcanoLiftRight"
+
+seta name "0" null
+
+setv name "total" 1
+
+setv ov04 1
+
+setv name "current level" 1
+
+
+
+*Biosphere Left Lift*
+
+new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 15 1000
+
+mvto 2105 48465
+
+pat: dull 1 "moe_C2toDS_lifts" 14 0 0 40
+
+*Button on lift
+
+pat: butt 2 "moe_C2toDS_lifts" 16 3 67 73 1 [] 1000 0
+
+pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
+
+part 3
+
+sets name "call list" ""
+
+sets name "Lift" "BiosphereLeft"
+
+seta name "0" null
+
+setv name "total" 1
+
+setv ov04 1
+
+setv name "current level" 0
+
+
+
+*Biosphere Right Lift*
+
+new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 15 1000
+
+mvto 2350 48975
+
+pat: dull 1 "moe_C2toDS_lifts" 14 0 0 40
+
+*Button on lift
+
+pat: butt 2 "moe_C2toDS_lifts" 16 3 67 73 1 [] 1000 0
+
+pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
+
+part 3
+
+sets name "call list" ""
+
+sets name "Lift" "BiosphereRight"
+
+seta name "0" null
+
+setv name "total" 1
+
+setv ov04 1
+
+setv name "current level" 0
+
+
+
+
+
+*HOLLOW TREE LIFT*
+
+new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 1 1000
+
+mvto 3595 48925
+
+pat: dull 1 "moe_C2toDS_lifts" 0 0 0 3
+
+*Button on lift
+
+pat: butt 2 "moe_C2toDS_lifts" 2 3 80 55 1 [] 1000 0
+
+pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
+
+part 3
+
+sets name "call list" ""
+
+sets name "Lift" "TreeTrunkLift"
+
+seta name "0" null
+
+setv name "total" 2
+
+setv name "current level" 0
+
+
+scrp 3 1 50200 10
+
+*have it check a variable of the owner, and decide which call buttons to add.
+
+
+
+	attr 512
+
+	cabn -20 0 120 155
+
+	cabp 0
+
+*cabin can't hold more than 40 creatures
+
+	cabw 40
+
+*Open Air Cabin 512
+
+*Pushable and pullable
+	bhvr 3
+
+
+
+
+
+	wait 1
+
+	inst
+
+	doif name "Lift" eq "NornBurrow"
+
+*Norn Burrow Call Button Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
+
+		mvto 7925 47960
+
+		seta mame "0" targ
+
+		seta ov00 ownr
+
+		sets ov01 "0"
+
+
+
+		targ ownr
+
+
+
+*Norn Burrow Call Button Mid*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
+
+		mvto 7752 48365
+
+		seta mame "1" targ
+
+		seta ov00 ownr
+
+		sets ov01 "1"
+
+
+
+		targ ownr
+
+
+
+*Norn Burrow Call Button Bottom*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
+
+		mvto 7752 48677
+
+		seta mame "2" targ
+
+		seta ov00 ownr
+
+		sets ov01 "2"
+
+
+
+		targ ownr
+
+	endi
+
+
+
+
+
+*TEMPLE LIFT*
+
+	doif name "Lift" eq "Temple"
+
+*Temple Call Button Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
+
+		mvto 6370 48093
+
+		seta mame "0" targ
+
+		seta ov00 ownr
+
+		sets ov01 "0"
+
+		setv ov03 0
+
+
+
+		targ ownr
+
+
+
+*Temple Call Button Mid*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
+
+		mvto 6160 48337
+
+		seta mame "1" targ
+
+		seta ov00 ownr
+
+		sets ov01 "1"
+
+		setv ov03 5
+
+
+
+		targ ownr
+
+
+
+*Temple Call Button Bottom*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
+
+		mvto 6175 48660
+
+		seta mame "2" targ
+
+		seta ov00 ownr
+
+		sets ov01 "2"
+
+		setv ov03 15
+
+
+
+		targ ownr
+
+	endi
+
+
+
+
+
+*WORLDTREE LIFT*
+
+	doif name "Lift" eq "WorldTree"
+
+*WorldTree Call Button VERY Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 7 2000
+
+		mvto 3730 47837
+
+		seta mame "0" targ
+
+		seta ov00 ownr
+
+		sets ov01 "0"
+
+		setv ov03 0
+
+		setv ov04 0
+
+
+
+		targ ownr
+
+
+
+*WorldTree Call Button Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 3686 48142
+
+		seta mame "1" targ
+
+		seta ov00 ownr
+
+		sets ov01 "1"
+
+		setv ov03 10
+
+		setv ov04 1
+
+		anim [0 1 2 3 4 255]
+
+
+
+		targ ownr
+
+
+
+*WorldTree Call Button Mid*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 3686 48330
+
+		seta mame "2" targ
+
+		seta ov00 ownr
+
+		sets ov01 "2"
+
+		setv ov03 5
+
+		setv ov04 1
+
+		anim [0 1 2 3 4 255]
+
+
+
+		targ ownr
+
+
+
+*WorldTree Call Button Bottom*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 3580 48490
+
+		seta mame "3" targ
+
+		seta ov00 ownr
+
+		sets ov01 "3"
+
+		setv ov03 0
+
+		setv ov04 1
+
+		anim [0 1 2 3 4 255]
+
+		targ ownr
+
+	endi
+
+
+
+
+
+*JUNGLELOWESTLEVEL LIFT*
+
+	doif name "Lift" eq "JungleLowestLevel"
+
+*Junglelowestlevel Call Button VERY Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 5700 49268
+
+		seta mame "0" targ
+
+		seta ov00 ownr
+
+		sets ov01 "0"
+
+		setv ov03 0
+
+		setv ov04 1
+
+
+
+		targ ownr
+
+
+
+*Junglelowestlevel Call Button Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 5700 49515
+
+		seta mame "1" targ
+
+		seta ov00 ownr
+
+		sets ov01 "1"
+
+		setv ov03 10
+
+		setv ov04 1
+
+		anim [0 1 2 3 4 255]
+
+
+
+		targ ownr
+
+
+
+*Junglelowestlevel Call Button Mid*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 5691 49781
+
+		seta mame "2" targ
+
+		seta ov00 ownr
+
+		sets ov01 "2"
+
+		setv ov03 5
+
+		setv ov04 1
+
+		anim [0 1 2 3 4 255]
+
+
+
+		targ ownr
+
+	endi
+
+
+
+
+
+*JUNGLEMidLEVEL LIFT*
+
+	doif name "Lift" eq "JungleMidLevel"
+
+*JungleMidlevel Call Button Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 5335 48805
+
+		seta mame "0" targ
+
+		seta ov00 ownr
+
+		sets ov01 "0"
+
+		setv ov03 0
+
+		setv ov04 1
+
+
+
+		targ ownr
+
+
+
+*JungleMidlevel Call Button Mid*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 5218 49061
+
+		seta mame "1" targ
+
+		seta ov00 ownr
+
+		sets ov01 "1"
+
+		setv ov03 0
+
+		setv ov04 1
+
+		anim [0 1 2 3 4 255]
+
+
+
+		targ ownr
+
+
+
+*JungleMidlevel Call Button Bottom*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 5218 49516
+
+		seta mame "2" targ
+
+		seta ov00 ownr
+
+		sets ov01 "2"
+
+		setv ov03 0
+
+		setv ov04 1
+
+		anim [0 1 2 3 4 255]
+
+
+
+		targ ownr
+
+	endi
+
+
+
+
+
+*JUNGLELEFTLEVEL LIFT*
+
+	doif name "Lift" eq "JungleLeftLevel"
+
+*JungleLEFTlevel Call Button Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 7 2000
+
+		mvto 4345 48465
+
+		seta mame "0" targ
+
+		seta ov00 ownr
+
+		sets ov01 "0"
+
+		setv ov03 0
+
+		setv ov04 0
+
+
+
+		targ ownr
+
+
+
+*JungleLEFTlevel Call Button LEFT*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 7 2000
+
+		mvto 4355 48819
+
+		seta mame "1" targ
+
+		seta ov00 ownr
+
+		sets ov01 "1"
+
+		setv ov03 0
+
+		setv ov04 0
+
+
+
+		targ ownr
+
+
+
+*JungleLEFTlevel Call Button Bottom*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 7 2000
+
+		mvto 4370 48958
+
+		seta mame "2" targ
+
+		seta ov00 ownr
+
+		sets ov01 "2"
+
+		setv ov03 0
+
+		setv ov04 0
+
+
+
+		targ ownr
+
+	endi
+
+
+
+	doif name "Lift" eq "SwampLeftLevel"
+
+*Swamp Call Button Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
+
+		mvto 6740 49575
+
+		seta mame "0" targ
+
+		seta ov00 ownr
+
+		sets ov01 "0"
+
+
+
+		targ ownr
+
+
+
+*Swamp Call Button Mid*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
+
+		mvto 6740 49757
+
+		seta mame "1" targ
+
+		seta ov00 ownr
+
+		sets ov01 "1"
+
+
+
+		targ ownr
+
+	endi
+
+
+
+	doif name "Lift" eq "SwampMidLevel"
+
+*Swamp Call Button Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
+
+		mvto 7283 49110
+
+		seta mame "0" targ
+
+		seta ov00 ownr
+
+		sets ov01 "0"
+
+
+
+		targ ownr
+
+
+
+*Swamp Call Button Bottom*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
+
+		mvto 7327 49360
+
+		seta mame "1" targ
+
+		seta ov00 ownr
+
+		sets ov01 "1"
+
+
+
+		targ ownr
+
+	endi
+
+
+
+	doif name "Lift" eq "SwampRightLevel"
+
+*Swamp Call Button Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
+
+		mvto 7688 49360
+
+		seta mame "0" targ
+
+		seta ov00 ownr
+
+		sets ov01 "0"
+
+
+
+		targ ownr
+
+
+
+*Swamp Call Button Bottom*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
+
+		mvto 7890 49760
+
+		seta mame "1" targ
+
+		seta ov00 ownr
+
+		sets ov01 "1"
+
+
+
+		targ ownr
+
+	endi
+
+
+
+	doif name "Lift" eq "AubergineLift"
+
+*Aubergine Call Button Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
+
+		mvto 4400 49650
+
+		seta mame "0" targ
+
+		seta ov00 ownr
+
+		sets ov01 "0"
+
+
+
+		targ ownr
+
+
+
+*Aubergine Call Button Bottom*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
+
+		mvto 4190 49820
+
+		seta mame "1" targ
+
+		seta ov00 ownr
+
+		sets ov01 "1"
+
+
+
+		targ ownr
+
+	endi
+
+
+
+
+
+*VolcanoLiftLeft LIFT*
+
+	doif name "Lift" eq "VolcanoLiftLeft"
+
+
+
+*VolcanoLiftLeft Call VERY Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 7 2000
+
+		mvto 9671 48200
+
+		seta mame "0" targ
+
+		seta ov00 ownr
+
+		sets ov01 "0"
+
+		setv ov03 0
+
+		setv ov04 0
+
+
+
+		targ ownr
+
+
+
+*VolcanoLiftLeft Call Button Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 7 2000
+
+		mvto 9560 48405
+
+		seta mame "1" targ
+
+		seta ov00 ownr
+
+		sets ov01 "1"
+
+		setv ov03 0
+
+		setv ov04 0
+
+
+
+		targ ownr
+
+
+
+*VolcanoLiftLeft Call Button Mid*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 9535 48845
+
+		seta mame "2" targ
+
+		seta ov00 ownr
+
+		sets ov01 "2"
+
+		setv ov03 10
+
+		setv ov04 1
+
+		anim [0 1 2 3 4 255]
+
+
+
+		targ ownr
+
+
+
+*VolcanoLiftLeft Call Button Lower*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 9670 49675
+
+		seta mame "3" targ
+
+		seta ov00 ownr
+
+		sets ov01 "3"
+
+		setv ov03 5
+
+		setv ov04 1
+
+		anim [0 1 2 3 4 255]
+
+		targ ownr
+
+	endi
+
+
+
+*VolcanoLift Right LIFT*
+
+	doif name "Lift" eq "VolcanoLiftRight"
+
+*VolcanoLift Right Call Button Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 7 2000
+
+		mvto 10130 48803
+
+		seta mame "0" targ
+
+		seta ov00 ownr
+
+		sets ov01 "0"
+
+		setv ov03 0
+
+		setv ov04 0
+
+
+
+		targ ownr
+
+
+
+*VolcanoLift Right Call Button Bottom*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 7 2000
+
+		mvto 10135 49342
+
+		seta mame "1" targ
+
+		seta ov00 ownr
+
+		sets ov01 "1"
+
+		setv ov03 10
+
+		setv ov04 0
+
+		targ ownr
+
+	endi
+
+
+
+*Biosphere Left LIFT*
+
+	doif name "Lift" eq "BiosphereLeft"
+
+*Biosphere Left Call Button Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 2225 48553
+
+		seta mame "0" targ
+
+		seta ov00 ownr
+
+		sets ov01 "0"
+
+		setv ov03 0
+
+		setv ov04 1
+
+
+
+		targ ownr
+
+
+
+*Biosphere Left Call Button Bottom*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 2225 49030
+
+		seta mame "1" targ
+
+		seta ov00 ownr
+
+		sets ov01 "1"
+
+		setv ov03 10
+
+		setv ov04 1
+
+		targ ownr
+
+	endi
+
+
+
+
+
+*Biosphere Right LIFT*
+
+	doif name "Lift" eq "BiosphereRight"
+
+*Biosphere Right Call Button Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 2315 49060
+
+		seta mame "0" targ
+
+		seta ov00 ownr
+
+		sets ov01 "0"
+
+		setv ov03 0
+
+		setv ov04 1
+
+
+
+		targ ownr
+
+
+
+*Biosphere Right Call Button Bottom*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 2505 49365
+
+		seta mame "1" targ
+
+		seta ov00 ownr
+
+		sets ov01 "1"
+
+		setv ov03 10
+
+		setv ov04 1
+
+		targ ownr
+
+	endi
+
+
+
+
+
+*TreeTrunk LIFT*
+
+	doif name "Lift" eq "TreeTrunkLift"
+
+*TreeTrunk Call Button Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 7 2000
+
+		mvto 3770 48995
+
+		seta mame "0" targ
+
+		seta ov00 ownr
+
+		sets ov01 "0"
+
+		setv ov03 0
+
+		setv ov04 0
+
+
+
+		targ ownr
+
+
+
+*TreeTrunk Call Button Bottom*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 7 2000
+
+		mvto 3770 49650
+
+		seta mame "1" targ
+
+		seta ov00 ownr
+
+		sets ov01 "1"
+
+		setv ov03 10
+
+		setv ov04 0
+
+		targ ownr
+
+	endi
+
+	plne 1000
+
+
+
+
+
+endm
+
+*Push the button hand*
+
+scrp 3 1 50200 1000
+
+	inst
+
+	gsub movelift
+
+
+
+	subr movelift
+
+*Atm it picks a random destination, this is BAD
+
+*If it's from the hand, pick the direction based on your rely to the button
+
+		doif from eq pntr
+
+			targ from
+
+			anim [ 0 1 0]
+
+			targ ownr
+
+			setv va00 post
+
+
+
+			doif ov04 eq 0
+
+				addv va00 63
+
+			else
+
+				addv va00 80
+
+			endi
+
+
+
+			setv va01 mopy
+
+
+
+			subv va00 va01
+
+
+
+*part 3
+
+*ptxt vtos va00
+
+*stop
+
+
+
+*If the mouse pointer is above the posy, go up if possible, else, go down
+
+			doif va00 lt 0
+
+				doif name "current level" ne name "total"
+
+					setv va00 name "current level"
+
+					addv va00 1
+
+					part 2
+
+					pose 1
+
+				else
+
+					stop
+
+				endi
+
+			else
+
+*If you're not at the bottom already, go down
+
+				doif name "current level" ne 0
+
+					setv va00 name "current level"
+
+					subv va00 1
+
+					part 2
+
+					pose 2
+
+				else
+
+					stop
+
+				endi
+
+			endi
+
+		endi
+
+*If it's from a norn, pick your floor based on the drives for up and down
+
+
+
+*Drive 16, UP
+
+*Drive 17, DOWN
+
+
+
+*setv va00 rand 1 name "total"
+
+		adds name "call list" vtos va00
+
+		adds name "call list" " "
+
+		part 3
+
+*ptxt name "call list"
+
+		tick 10
+
+		stim writ from 75 1
+
+	retn
+
+
+
+
+
+endm
+
+
+*Pull script
+scrp 3 1 50200 1
+	lock
+	inst
+	gsub movelift
+
+	subr movelift
+
+		targ ownr
+		doif name "current level" ne 0
+			setv va00 name "current level"
+			subv va00 1
+		else
+			stim writ from 0 1
+			stop
+		endi
+
+*setv va00 rand 1 name "total"
+		adds name "call list" vtos va00
+		adds name "call list" " "
+		part 3
+*ptxt name "call list"
+		tick 10
+		stim writ from 75 1
+	retn
+	unlk
+
+endm
+
+*Push script
+scrp 3 1 50200 2
+	lock
+	inst
+	gsub movelift
+
+	subr movelift
+
+		targ ownr
+		doif name "current level" ne name "total"
+			setv va00 name "current level"
+			addv va00 1
+		else
+			stim writ from 0 1
+			stop
+		endi
+
+*setv va00 rand 1 name "total"
+		adds name "call list" vtos va00
+		adds name "call list" " "
+		part 3
+*ptxt name "call list"
+		tick 10
+		stim writ from 75 1
+	retn
+	unlk
+
+endm
+
+
+scrp 3 1 50200 9
+
+	lock
+
+
+
+
+
+	setv va00 stoi name "call list"
+
+	doif va00 ne name "current level"
+
+		sets va50 vtos va00
+
+
+
+		targ name va50
+
+		doif targ ne null
+
+			seta va05 targ
+
+			setv va01 posb
+
+			addv va01 ov03
+
+			targ ownr
+
+			gsub gotobutton
+
+		endi
+
+	endi
+
+
+
+	setv va00 stoi name "call list"
+
+	setv name "current level" va00
+
+
+
+	setv va03 strl name "call list"
+
+	subv va03 2
+
+	sets name "call list" subs name "call list" 3 va03
+
+	doif name "call list" eq ""
+
+		tick 0
+
+		stpc
+
+		part 3
+
+*ptxt name "call list"
+
+	endi
+
+
+
+
+
+
+
+	stop
+
+	unlk
+
+
+
+	subr gotobutton
+
+		doif posb lt va01
+
+			gpas 4 0 0 0
+
+			doif ov04 eq 1
+
+				sndq "mlf1" 0
+
+				sndl "mlf2"
+
+			elif ov04 eq 0
+
+				sndl "m_a3"
+
+			endi
+
+			part 2
+
+			pose 1
+
+			loop
+
+				setv vely 3
+
+			untl posb ge va01
+
+			velo 0 0
+
+		elif posb gt va01
+
+			gpas 4 0 0 0
+
+			doif ov04 eq 1
+
+				sndq "mlf1" 0
+
+				sndl "mlf2"
+
+			elif ov04 eq 0
+
+				sndl "m_a3"
+
+			endi
+
+			part 2
+
+			pose 2
+
+			loop
+
+				setv vely -3
+
+			untl posb le va01
+
+			velo 0 0
+
+		endi
+
+
+
+		part 2
+
+		pose 0
+
+
+
+		targ va05
+
+		mesg writ targ 1000
+
+		targ ownr
+
+
+
+		doif ov04 eq 1
+
+			sndq "mlf3" 0
+
+		elif ov04 eq 0
+
+			stpc
+
+		endi
+
+
+
+
+
+
+
+		epas 4 0 0
+
+			stim writ targ 94 1
+
+			stim writ targ 0 .25
+
+		next
+
+		targ ownr
+
+		dpas 4 0 0
+
+
+
+	retn
+
+endm
+
+
+*BUTTON SCRIPTS
+
+
+
+scrp 2 12 50200 10
+
+	attr 4
+
+	bhvr 1
+
+	setv ov02 0
+
+
+
+	doif ov04 eq 1
+
+
+
+*Metallic Call Button
+
+		frat 2
+
+		anim [0 1 2 3 4 255]
+
+		prt: inew 0 "Input" "Recieves signal inputs for the Call Button." 12 17 0
+
+		prt: onew 0 "Output" "Outputs signal from the lift." 28 17
+
+*Switch On/Off
+
+		pat: butt 1 "moe_C2toDS_lifts" 31 2 10 23 0 [] 1001 0
+
+
+
+	else
+
+		prt: inew 0 "Input" "Recieves signal inputs for the Call Button launcher." 15 63 0
+
+		prt: onew 0 "Output" "Outputs signal from the lift." 16 92
+
+
+
+*Switch On/Off
+
+		pat: butt 1 "moe_C2toDS_lifts" 33 2 10 27 0 [] 1001 0
+
+
+
+	endi
+
+endm
+
+
+
+*Switches
+
+
+
+scrp 2 12 50200 1001
+
+	lock
+
+	targ pntr
+
+	anim [0 1 0]
+
+	targ ownr
+
+	part 1
+
+	doif pose eq 0
+
+		pose 1
+
+	else
+
+		pose 0
+
+	endi
+
+
+
+	doif bhvr eq 0
+
+		bhvr 1
+
+		attr 4
+
+	else
+
+		bhvr 0
+
+		attr 20
+
+	endi
+
+endm
+
+
+
+
+
+*This is just a duplicate of the "push" script. It may or may not work.
+
+scrp 2 12 50200 2
+
+	doif name "on" eq 0
+
+		stim writ from 75 2
+
+		inst
+
+		targ ov00
+
+		doif vtos name "current level" ne mv01
+
+			adds name "call list" mv01
+
+*	doif stoi name "call list" eq 0
+
+			adds name "call list" " "
+
+*	endi
+
+			tick 10
+
+			targ ownr
+
+			doif ov04 eq 1
+
+				pose 5
+
+				sndc "but2"
+
+			else
+
+				pose 1
+
+				sndc "ding"
+
+			endi
+
+			setv name "on" 1
+
+		else
+
+			stim writ from 0 1
+
+		endi
+
+	else
+
+		stim writ from 0 1
+
+	endi
+
+	targ ownr
+
+	prt: send 0 255
+
+endm
+
+
+
+
+
+scrp 2 12 50200 1
+
+	doif name "on" eq 0
+
+		stim writ from 75 2
+
+		inst
+
+		targ ov00
+
+		doif vtos name "current level" ne mv01
+
+			adds name "call list" mv01
+
+*	doif stoi name "call list" eq 0
+
+			adds name "call list" " "
+
+*	endi
+
+			tick 10
+
+			targ ownr
+
+			doif ov04 eq 1
+
+				pose 5
+
+				sndc "but2"
+
+			else
+
+				pose 1
+
+				sndc "ding"
+
+			endi
+
+			setv name "on" 1
+
+		else
+
+			stim writ from 0 1
+
+		endi
+
+	else
+
+		stim writ from 0 1
+
+	endi
+
+	targ ownr
+
+	prt: send 0 255
+
+endm
+
+
+
+scrp 2 12 50200 1000
+
+*return your animation*
+
+	doif ov04 eq 1
+
+		anim [0 1 2 3 4 255]
+
+	else
+
+		pose 0
+
+	endi
+
+	setv name "on" 0
+
+endm
+
+
+
+
+rscr
+
+enum 3 1 50200
+
+	kill targ
+
+next
+
+*Kill Call Button
+
+enum 2 12 50200
+
+	kill targ
+
+next
+
+
+
+scrx 3 1 50200 10
+scrx 3 1 50200 1000
+scrx 3 1 50200 1
+scrx 3 1 50200 2
+scrx 3 1 50200 9
+
+scrx 2 12 50200 10
+scrx 2 12 50200 1001
+scrx 2 12 50200 2
+scrx 2 12 50200 1
+scrx 2 12 50200 1000

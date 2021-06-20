@@ -1,0 +1,73 @@
+* 2 6 50217 - World Tree Vines
+
+new: simp 2 6 50217 "moe_C2toDS_Atmos_WorldTreeVines" 14 1 1
+
+mvto 3446 47848
+
+
+
+scrp 2 6 50217 10
+
+
+
+*Update every one and a half minutes, this make you mature by summer.
+
+*tick 1800
+
+	tick 1
+
+	setv name "donotnest" 1
+
+endm
+
+
+
+scrp 2 6 50217 9
+
+	tick 1800
+
+	doif sean lt 2
+
+		doif pose lt 11
+
+			setv va00 pose
+
+			addv va00 1
+
+			pose va00
+
+		endi
+
+	elif sean eq 2
+
+		pose 12
+
+	elif sean eq 3
+
+		doif date lt 2
+
+			pose 13
+
+		else
+
+			pose 0
+
+		endi
+
+	endi
+
+endm
+
+
+rscr
+
+
+enum 2 6 50217
+
+	kill targ
+
+next
+
+scrx 2 6 50217 9
+
+scrx 2 6 50217 10

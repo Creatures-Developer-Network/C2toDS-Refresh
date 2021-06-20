@@ -1,0 +1,1796 @@
+* 1 24 50200 - Hive Spawn Point
+* 2 10 50202 - Bee Detritus
+* 2 11 50204 - Honey Pot
+* 2 11 50204 - Glass Honey Pot
+* 2 11 50207 - Heritage Honey Pot
+* 2 12 50203 - Honey Pot Stash
+* 2 14 50201 - Queen Bee
+* 2 14 50200 - Bee
+* 2 17 50200 - Beehive
+
+* Initial Conversion By Moe
+* Some Modifications By the one who screams i guess
+* (if you worked on this file, feel free to add your name!)
+
+setv va00 rand 6000 6275
+
+new: vhcl 2 17 50200 "moe_C2toDS_hive" 1 39 2000
+
+mvsf va00 49675
+
+setv name "type" 1
+
+*Make it interactable and change its category
+bhvr 1
+cato 23
+
+cabn 10 0 60 50
+
+mira rand 0 1
+
+
+
+****HONEY POTS****
+
+*Stash
+
+new: simp 2 12 50203 "blnk" 1 0 500
+
+mvto 8037 48165
+
+attr 20
+
+tran 0 0
+
+
+
+*Jungle
+
+new: simp 2 11 50203 "moe_C2toDS_hive" 2 42 1000
+
+mvsf 5467 49520
+
+
+
+*Swamp
+
+new: simp 2 11 50203 "moe_C2toDS_hive" 2 42 1000
+
+mvsf 7120 49130
+
+
+
+*Dead Yggdrasil
+
+new: simp 2 11 50203 "moe_C2toDS_hive" 2 42 1000
+
+mvsf 8015 47990
+
+
+
+*Dead Yggdrasil
+
+new: simp 2 11 50203 "moe_C2toDS_hive" 2 42 1000
+
+mvsf 3905 47850
+
+***************
+
+
+
+
+
+**C1 HONETPOTS*
+
+**Jungle
+
+*new: simp 2 11 50207 "moe_C2toDS_hive" 3 45 1000
+
+*mvsf mopx mopy
+
+
+
+
+
+
+
+*Treehouse Hives
+
+setv va00 1
+
+new: simp 1 24 50200 "moe_C2toDS_hive" 1 va00 0
+
+setv ov00 0
+
+mvto 4852 48751
+
+
+
+new: simp 1 24 50200 "moe_C2toDS_hive" 1 va00 0
+
+setv ov00 0
+
+mvto 5096 48668
+
+
+
+new: simp 1 24 50200 "moe_C2toDS_hive" 1 va00 0
+
+setv ov00 0
+
+mvto 5580 48815
+
+
+
+new: simp 1 24 50200 "moe_C2toDS_hive" 1 va00 0
+
+setv ov00 0
+
+mvto 5852 49199
+
+
+
+new: simp 1 24 50200 "moe_C2toDS_hive" 1 va00 0
+
+setv ov00 0
+
+mvto 5990 49403
+
+*T--------------*
+
+
+
+*CL Hives
+
+new: simp 1 24 50200 "moe_C2toDS_hive" 1 va00 0
+
+setv ov00 0
+
+mvto 3900 47815
+
+*Queen
+
+new: simp 2 14 50201 "moe_C2toDS_hive" 8 30 rand 1000 5000
+
+mvsf 3900 47815
+
+
+
+
+
+*CL Hives
+
+new: simp 1 24 50200 "moe_C2toDS_hive" 1 va00 0
+
+setv ov00 0
+
+mvto 8011 47920
+
+*Queen
+
+new: simp 2 14 50201 "moe_C2toDS_hive" 8 30 rand 1000 5000
+
+mvsf 8011 47920
+
+
+
+*CL Hives
+
+new: simp 1 24 50200 "moe_C2toDS_hive" 1 va00 0
+
+setv ov00 0
+
+mvto 5465 49465
+
+*Queen
+
+new: simp 2 14 50201 "moe_C2toDS_hive" 8 30 rand 1000 5000
+
+mvsf 5465 49465
+
+
+
+
+
+scrp 2 14 50201 10
+
+	inst
+
+	accg 0
+
+	aero 3
+
+	attr 199
+
+	anim [0 1 2 3 2 1 255]
+
+	rnge 500
+
+*Speed
+
+	setv ov06 2
+
+*Ov07 = Target, Always
+
+	seta ov07 null
+
+	tick rand 10 25
+
+endm
+
+
+
+scrp 2 14 50201 9
+
+
+
+	inst
+
+	doif ov07 eq null
+
+		star 1 24 50200
+
+		doif targ ne null and targ ne ownr
+
+			doif ov00 eq 0
+
+				seta mv07 targ
+
+				targ ownr
+
+			endi
+
+		endi
+
+	else
+
+		gsub follow
+
+	endi
+
+
+
+	slow
+
+	targ ownr
+
+
+
+	doif velx gt 0
+
+		mira 0
+
+	else
+
+		mira 1
+
+	endi
+
+	stop
+
+
+
+	subr follow
+
+		inst
+
+		targ ov07
+
+		doif targ ne null
+
+			setv va00 posx
+
+			setv va01 posy
+
+			targ ownr
+
+			doif va00 gt posx
+
+				addv velx ov06
+
+			elif va00 lt posx
+
+				subv velx ov06
+
+			endi
+
+			doif va01 gt posy
+
+				addv vely ov06
+
+			elif va01 lt posy
+
+				subv vely ov06
+
+			endi
+
+		endi
+
+		targ ownr
+
+		doif touc ownr ov07 eq 1
+
+			targ ov07
+
+			setv ov00 1
+
+			setv va00 posl
+
+			setv va01 post
+
+			new: simp 2 17 50200 "moe_C2toDS_hive" 25 2 2000
+
+			mvsf va00 va01
+
+			kill ownr
+
+		endi
+
+
+
+	retn
+
+endm
+
+
+
+*Hive Creation
+
+scrp 2 17 50200 10
+
+	accg 0
+
+	attr 196
+
+	frat 3
+
+	doif name "type" eq 0
+
+		anim [0 1 2 3 4 5 255]
+
+	else
+
+		attr 716
+
+		elas 0
+
+		accg 4
+
+	endi
+
+	tick 1
+
+endm
+
+*Hive Timer
+
+scrp 2 17 50200 9
+
+
+
+	doif time eq 3 or time eq 4
+
+		stop
+
+	endi
+
+
+
+	doif sean eq 3
+
+		stop
+
+	endi
+
+
+
+	tick rand 500 700
+
+*look for bees
+
+	enum 2 14 50200
+
+		inst
+
+		doif targ ne null
+
+*make sure their hive is you or else you don't want to see them
+
+			doif ov05 eq ownr
+
+				addv va00 1
+
+			endi
+
+		endi
+
+		slow
+
+	next
+
+	targ ownr
+
+	doif va00 lt 5
+
+		setv va00 posx
+
+		setv va01 posy
+
+		inst
+
+		new: simp 2 14 50200 "moe_C2toDS_hive" 4 26 rand 2000 5000
+
+		seta ov05 ownr
+
+		mvsf va00 va01
+
+		slow
+
+		targ ownr
+
+	endi
+
+*ov08 is honey, which dictates your size.
+
+	doif name "type" eq 0
+
+		doif ov08 ge 50 and ov08 lt 51
+
+			base 6
+
+		elif ov08 ge 100 and ov08 lt 101
+
+			base 12
+
+		elif ov08 ge 150 and ov08 lt 151
+
+			base 18
+
+		endi
+
+	endi
+
+
+
+endm
+
+
+
+*Push hive, prepare to run! D: ... Or get honey. XD
+
+scrp 2 17 50200 1
+
+	inst
+
+	doif name "type" ne 1
+
+		reps rand 5 7
+
+			setv va00 posx
+
+			setv va01 posy
+
+			new: simp 2 14 50200 "moe_C2toDS_hive" 4 26 rand 2000 5000
+
+			seta ov05 ownr
+
+			seta ov11 from
+
+			seta ov07 from
+
+			mvsf va00 va01
+
+			setv ov09 1
+
+			velo rand -3 3 rand -3 3
+
+			targ ownr
+
+		repe
+
+		subv ov08 10
+
+
+
+		doif ov08 lt 0
+
+			etch 1 24 50200
+
+				doif targ ne null
+
+					setv ov00 0
+
+				endi
+
+			next
+
+			targ ownr
+
+			setv va00 posx
+
+			setv va01 posy
+
+
+
+
+
+			seta va02 ownr
+
+
+
+
+
+*Make a Queen
+
+			new: simp 2 14 50201 "moe_C2toDS_hive" 8 30 rand 1000 5000
+
+			mvsf va00 va01
+
+			seta ov05 ownr
+
+			velo rand -5 5 rand -5 5
+
+			targ ownr
+
+			kill ownr
+
+		endi
+
+	else
+
+		setv va00 posx
+
+		addv va00 rand -20 20
+
+		setv va01 posy
+
+		new: simp 2 11 50204 "moe_C2toDS_hive" 2 40 rand 2500 5000
+
+		pose 1
+
+		mvsf va00 va01
+
+		seta va00 targ
+
+		targ ownr
+
+		mesg writ va00 4
+
+	endi
+
+
+
+endm
+
+
+
+*Honey Jar Make
+
+scrp 2 11 50204 10
+
+	attr 198
+
+	accg 3
+
+	elas 25
+
+	perm 51
+
+	bhvr 48
+
+	fric 30
+
+endm
+
+
+
+
+
+*Normal Bee
+
+
+
+*Bee Creation
+
+scrp 2 14 50200 10
+
+	inst
+
+	anim [0 1 255]
+
+	accg .01
+
+	aero 4
+
+	attr 199
+
+	setv ov06 4
+
+	seta ov07 null
+
+	tick 1
+
+*Room ID
+
+	setv ov14 0
+
+	sets ov11 "X"
+
+	sets ov12 "Y"
+
+	setv ov13 0
+
+	bhvr 48
+
+endm
+
+
+
+scrp 2 14 50200 12
+
+	snde "reat"
+
+	doif crea from eq 1
+
+		stim writ from 76 .5
+
+		stim writ from 80 .15
+
+	endi
+
+	kill ownr
+
+endm
+
+
+
+*Push Bee, Get Stung, Prepare for chase
+
+scrp 2 14 50200 1
+
+	inst
+
+	seta ov11 from
+
+	seta ov07 ov11
+
+	setv ov09 1
+
+endm
+
+
+
+*Pick up bee*
+
+scrp 2 14 50200 4
+
+	setv ov02 2
+
+endm
+
+
+
+*Bee Timer
+
+scrp 2 14 50200 9
+
+	tick rand 10 25
+
+*ov05 is your home hive
+
+*ov06 is your speed
+
+*ov07 is your target
+
+*ov08 is your pollen amount*
+
+*ov09 is your state, 0 - Normal 1 - Aggitated
+
+*ov10 is your life timer, in case you get stuck someplace and need to die
+
+*ov11 is your "from" if you're pushed
+
+*ov12 is your Aggrivated State Timer
+
+
+
+	sndc "beez"
+
+
+
+	doif carr ne null
+
+		gsub track
+
+		stop
+
+	endi
+
+
+
+	addv ov10 1
+
+	doif ov10 ge 350 or rtyp room ownr eq 8 or rtyp room ownr eq 9
+
+		gsub die
+
+		stop
+
+	endi
+
+
+
+
+
+*Swarm
+
+	doif ov09 eq 1
+
+		doif rtyp room ov07 ne 9 and rtyp room ov07 ne 8
+
+			gsub follow
+
+			gsub follow
+
+			gsub follow
+
+			doif touc ov07 ownr eq 1 and ov10 gt 3
+
+				sndc "stng"
+
+				gsub die
+
+			endi
+
+		else
+
+			setv ov09 2
+
+		endi
+
+		gsub track
+
+
+
+*Aggrivated Bee is Aggrivated. lol
+
+		setv ov06 3
+
+		tick rand 3 7
+
+
+
+*Timer to "cease" aggrivated state*
+
+		addv ov12 1
+
+
+
+		doif ov12 ge 75
+
+			setv ov09 2
+
+		endi
+
+
+
+
+
+		doif velx ge 0.0
+
+			mira 0
+
+		else
+
+			mira 1
+
+		endi
+
+		stop
+
+	elif ov09 eq 2
+
+*Return to Hive, you're exhausted from all that chasing
+
+		tick rand 10 25
+
+
+
+		doif seee ownr ov05 eq 0
+
+			gsub followhome
+
+		else
+
+			seta ov07 ov05
+
+			gsub follow
+
+			doif touc ownr ov07 eq 1
+
+				targ ov07
+
+				addv ov08 mv08
+
+				kill ownr
+
+			endi
+
+		endi
+
+
+
+
+
+		setv ov06 4
+
+
+
+
+
+
+
+		doif velx ge 0.0
+
+			mira 0
+
+		else
+
+			mira 1
+
+		endi
+
+		stop
+
+	endi
+
+
+
+
+
+
+
+
+
+
+
+	doif ov08 lt 5
+
+		doif ov07 eq null
+
+			star 2 7 0
+
+			doif targ ne null
+
+				seta mv07 targ
+
+			endi
+
+			targ ownr
+
+			gsub findflowers
+
+		else
+
+			gsub follow
+
+			doif touc ownr ov07 eq 1
+
+				mira rand 0 1
+
+				velo 0 0
+
+				addv ov08 1
+
+*pollinate*
+
+				inst
+
+				targ ov07
+
+				doif targ ne null
+
+					setv name "pollinated" 1
+
+					targ ownr
+
+				endi
+
+				slow
+
+			endi
+
+		endi
+
+	else
+
+*seta ov07 ov05
+
+
+
+		doif seee ownr ov05 eq 0
+
+			gsub followhome
+
+		else
+
+			seta ov07 ov05
+
+			gsub follow
+
+			doif touc ownr ov07 eq 1
+
+				targ ov07
+
+				addv ov08 5
+
+				kill ownr
+
+			endi
+
+		endi
+
+
+
+
+
+
+
+	endi
+
+
+
+	targ ownr
+
+	doif velx ge 0.0
+
+		mira 0
+
+	else
+
+		mira 1
+
+	endi
+
+
+
+
+
+
+
+	subr die
+
+		setv va00 posl
+
+		setv va01 post
+
+		new: simp 2 10 50202 "moe_C2toDS_hive" 1 38 rand 50 2500
+
+		mvsf va00 va01
+
+		mira rand 0 1
+
+		kill ownr
+
+	retn
+
+
+
+
+
+	subr findflowers
+
+		setv va03 grap posx posy
+
+
+
+		setv va00 hirp va03 9 1
+
+		setv va01 torx va00
+
+		setv va02 tory va00
+
+
+
+		doif va01 gt 0
+
+			addv velx ov06
+
+		elif va01 lt 0
+
+			subv velx ov06
+
+		endi
+
+		doif va02 lt 0
+
+			subv vely ov06
+
+		elif va02 gt 0
+
+			addv vely ov06
+
+		endi
+
+
+
+		gsub track
+
+
+
+	retn
+
+
+
+	subr followhome
+
+		doif room ownr eq ov14 and ov13 gt 1
+
+			sets ov11 "RID"
+
+			subv ov13 1
+
+			adds ov11 vtos ov13
+
+		elif ov13 le 0
+
+			seta ov07 ov05
+
+			gsub follow
+
+			stop
+
+		endi
+
+
+
+		setv va00 name ov11
+
+		setv va01 torx va00
+
+		setv va02 tory va00
+
+
+
+		doif va01 gt 0
+
+			addv velx ov06
+
+		elif va01 lt 0
+
+			subv velx ov06
+
+		endi
+
+		doif va02 lt 0
+
+			subv vely ov06
+
+		elif va02 gt 0
+
+			addv vely ov06
+
+		endi
+
+		setv ov14 room ownr
+
+	retn
+
+
+
+	subr follow
+
+		inst
+
+		targ ov07
+
+		doif targ ne null
+
+			setv va01 posx
+
+			setv va02 posy
+
+			slow
+
+			targ ownr
+
+
+
+			doif va01 gt posx
+
+				addv velx ov06
+
+			elif va01 lt posx
+
+				subv velx ov06
+
+			endi
+
+			doif va02 lt posy
+
+				subv vely ov06
+
+			elif va02 gt posy
+
+				addv vely ov06
+
+			endi
+
+		endi
+
+	retn
+
+
+
+	subr track
+
+		doif grap posx posy ne ov14
+
+			inst
+
+			sets ov11 "RID"
+
+			addv ov13 1
+
+			adds ov11 vtos ov13
+
+*RID1*
+
+			setv name ov11 room ownr
+
+*name RID1 = RID at posx posy
+
+			setv ov14 room ownr
+
+			slow
+
+		endi
+
+	retn
+
+endm
+
+
+
+scrp 2 10 50202 10
+
+	attr 195
+
+	elas 0
+
+	accg 1
+
+	tick rand 500 700
+
+endm
+
+
+
+scrp 2 10 50202 9
+
+	kill ownr
+
+endm
+
+
+
+
+
+*Honey Jar Scripts
+
+
+
+*scrp 2 11 50204 1
+
+*	mesg writ targ 12
+
+*endm
+
+
+
+scrp 2 11 50204 12
+
+	stim writ from 79 1
+
+	snde "hony"
+
+	addv ov10 1
+
+	doif ov10 ge 3
+
+		pose 0
+
+		lock
+
+		wait 50
+
+		kill ownr
+
+	endi
+
+endm
+
+
+
+****C1 HONEYJar****
+
+
+
+scrp 2 11 50207 10
+
+*core 0 45 5 43
+
+	attr 195
+
+	perm 51
+
+	accg 10
+
+	bhvr 51
+
+	elas 10
+
+	accg 3
+
+	tick 0
+
+	emit 8 .5
+
+*	mira rand 0 1
+
+*full honeyjar, 5 sips!
+
+	setv ov00 5
+
+endm
+
+
+
+
+
+****HONEY SCRIPTS***
+
+scrp 2 11 50203 10
+
+	core 0 45 5 43
+
+	attr 195
+
+	perm 51
+
+	accg 10
+
+	bhvr 51
+
+	elas 10
+
+	accg 3
+
+	tick 0
+
+	emit 8 .5
+
+	mira rand 0 1
+
+*full honeypot, 5 sips!
+
+	setv ov00 5
+
+
+
+endm
+
+
+
+
+
+
+
+scrp 2 11 50203 9
+
+
+
+	inst
+
+	rnge 100
+
+	esee 2 17 50200
+
+		doif targ ne null and targ ne ownr
+
+			doif relx targ ownr lt 20
+
+				targ ownr
+
+				doif ov00 lt 5
+
+					addv ov00 1
+
+				endi
+
+				doif ov00 eq 5
+
+					pose 0
+
+					tick 0
+
+					bhvr 51
+
+					attr 195
+
+				endi
+
+			endi
+
+		endi
+
+	next
+
+	slow
+
+
+
+endm
+
+
+
+scrp 2 11 50203 1
+
+	mesg writ ownr 12
+
+endm
+
+
+
+scrp 2 11 50203 2
+
+	mesg writ ownr 12
+
+endm
+
+
+
+scrp 2 11 50203 12
+
+
+
+	tick 100
+
+	lock
+
+	doif ov00 gt 0
+
+		snde "drnk"
+
+		subv ov00 1
+
+*Ate Food
+
+		stim writ from 79 1
+
+		targ from
+
+*starch
+
+		chem 5 .4
+
+*hunger decrease
+
+		chem 133 -.2
+
+		chem 134 -.2
+
+*sugar
+
+		chem 3 .4
+
+*stim writ from 0 255 0 0 73 100 37 100 0 0 0 0
+
+		targ ownr
+
+	endi
+
+
+
+	doif ov00 le 0
+
+		pose 1
+
+		bhvr 0
+
+		attr 211
+
+	endi
+
+
+
+endm
+
+
+
+*If dropped near hive...refil, change tick.
+
+scrp 2 11 50203 5
+
+	tick 100
+
+endm
+
+
+
+scrp 2 11 50203 6
+
+	lock
+
+	sndc "dr10"
+
+	wait 5
+
+endm
+
+
+
+
+
+
+
+*C1 HONEY
+
+
+
+scrp 2 11 50207 9
+
+
+
+	inst
+
+	rnge 100
+
+	esee 2 17 50200
+
+		doif targ ne null and targ ne ownr
+
+			doif relx targ ownr lt 20
+
+				targ ownr
+
+				doif ov00 lt 5
+
+					addv ov00 1
+
+				endi
+
+				doif ov00 eq 5
+
+					pose 0
+
+					tick 0
+
+					bhvr 51
+
+					attr 195
+
+				endi
+
+			endi
+
+		endi
+
+	next
+
+	slow
+
+
+
+endm
+
+
+
+
+
+scrp 2 11 50207 1
+
+	mesg writ ownr 12
+
+endm
+
+
+
+scrp 2 11 50207 2
+
+	mesg writ ownr 12
+
+endm
+
+
+
+scrp 2 11 50207 12
+
+
+
+	tick 100
+
+	lock
+
+	doif ov00 gt 0
+
+		snde "drnk"
+
+		subv ov00 1
+
+*Ate Food
+
+		stim writ from 79 1
+
+		targ from
+
+*starch
+
+		chem 5 .4
+
+*hunger decrease
+
+		chem 133 -.2
+
+		chem 134 -.2
+
+*sugar
+
+		chem 3 .4
+
+*stim writ from 0 255 0 0 73 100 37 100 0 0 0 0
+
+		targ ownr
+
+	endi
+
+
+
+	doif ov00 le 0
+
+		pose 2
+
+		bhvr 0
+
+		attr 211
+
+		doif from ne null
+
+			mesg writ from 39
+
+			drop
+
+		endi
+
+	endi
+
+
+
+endm
+
+
+
+*If dropped near hive...refil, change tick.
+
+scrp 2 11 50207 4
+
+	inst
+
+	pose 1
+
+	doif crea from eq 1
+
+		setv va00 posl
+
+		targ from
+
+		doif relx ownr targ lt va00
+
+			targ ownr
+
+			mira 1
+
+		elif relx ownr targ gt va00
+
+			targ ownr
+
+			mira 0
+
+		endi
+
+	endi
+
+endm
+
+
+
+*If dropped near hive...refil, change tick.
+
+scrp 2 11 50207 5
+
+	tick 100
+
+	doif ov00 gt 0
+
+		pose 0
+
+	else
+
+		pose 2
+
+	endi
+
+endm
+
+
+
+scrp 2 11 50207 6
+
+	lock
+
+	sndc "drop"
+
+	wait 5
+
+endm
+
+
+
+*Honey Stash Scripts
+
+scrp 2 12 50203 1
+
+	lock
+
+	attr 0
+
+	inst
+
+	reps rand 3 5
+
+		new: simp 2 11 50203 "moe_C2toDS_hive" 2 42 1000
+
+		mvsf 8050 48157
+
+		velo rand -10 10 rand -20 -10
+
+		targ ownr
+
+		new: simp 2 11 50207 "moe_C2toDS_hive" 3 45 1000
+
+		mvsf 8050 48157
+
+		velo rand -10 10 rand -20 -10
+
+		targ ownr
+
+	repe
+
+
+
+
+
+	new: simp 2 12 50203 "moe_C2toDS_hive" 1 44 500
+
+	attr 0
+
+	mvto 7856 48050
+
+	wait 50
+
+	loop
+
+*wait 1
+
+		addv va00 5
+
+		alph va00 1
+
+	untl va00 ge 250
+
+	over
+
+	doif va00 ge 250
+
+		kill targ
+
+		kill ownr
+
+	endi
+
+
+
+endm
+
+rscr
+
+
+enum 1 24 50200
+
+	kill targ
+
+next
+
+enum 2 14 50201
+
+	kill targ
+
+next
+
+enum 2 14 50200
+
+	kill targ
+
+next
+
+enum 2 17 50200
+
+	kill targ
+
+next
+
+
+
+enum 2 11 50207
+
+	kill targ
+
+next
+
+
+
+enum 2 10 50202
+
+	kill targ
+
+next
+
+
+
+enum 2 11 50204
+
+	kill targ
+
+next
+
+*HONEY REMOVE SCRIPTS*
+
+enum 2 11 50203
+
+	kill targ
+
+next
+
+
+
+scrx 2 11 50203 4
+
+scrx 2 11 50203 5
+
+scrx 2 11 50203 6
+
+
+
+*Honey Stash
+
+
+
+enum 2 12 50203
+
+	kill targ
+
+next
+
+
+
+enum 2 11 50207
+
+	kill targ
+
+next
+
+
+
+scrx 2 12 50203 1
+
+

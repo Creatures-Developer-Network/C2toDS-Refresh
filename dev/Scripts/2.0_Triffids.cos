@@ -1,0 +1,1299 @@
+* 1 27 50205 - Triffid Popping Effect
+* 2 3 50205 - Triffid Seed
+* 2 7 50205 - Triffid Flower
+* 2 8 50205 _ Triffid Fruit
+* 2 10 50205 - Triffid Detritus
+* 2 23 50205 - Triffid Vendor
+
+* Initial Conversion By Moe
+* Some Modifications By the one who screams i guess
+* (if you worked on this file, feel free to add your name!)
+
+reps rand 10 15
+
+	new: simp 2 7 50205 "moe_C2toDS_triff" 34 21 rand 1000 3000
+
+	pose 7
+
+	mvsf rand 3361 4121 48115
+
+	mesg writ targ 9
+
+	mira rand 0 1
+
+repe
+
+
+
+reps rand 20 30
+
+	new: simp 2 7 50205 "moe_C2toDS_triff" 34 21 rand 1000 3000
+
+	pose 7
+
+	mvsf rand 5110 6200 49770
+
+	mesg writ targ 9
+
+	mira rand 0 1
+
+repe
+
+
+
+
+
+new: comp 2 23 50205 "moe_C2toDS_triff" 8 0 5000
+
+attr 199
+
+mvto 4030 48500
+
+
+
+
+
+scrp 2 23 50205 10
+
+	accg 4
+
+	aero 2
+
+	elas 25
+
+	perm 51
+
+	bhvr 1
+
+	emit 10 .015
+
+*	prt: inew 0 "Input" "Recieves signal inputs for the Triffid launcher." 3 24 0
+
+*	pat: dull 1 "moe_C2toDS_triff" 61 0 0 0
+
+endm
+
+
+
+scrp 2 23 50205 6
+
+	lock
+
+	sndc "drop"
+
+	over
+
+	wait 2
+
+	unlk
+
+endm
+
+
+
+*Push Vendor
+
+scrp 2 23 50205 1
+
+	lock
+
+	stim writ from 90 1
+
+	reps rand 4 6
+
+		frat 2
+
+		anim [0 1 2 3 4 5 6]
+
+		over
+
+		setv va00 posr
+
+		subv va00 20
+
+		setv va01 post
+
+		sndc "laun"
+
+		gsub makeseed
+
+		anim [7 0]
+
+		over
+
+	repe
+
+	unlk
+
+	subr makeseed
+
+		inst
+
+		new: simp 2 3 50205 "moe_C2toDS_triff" 9 8 rand 1000 3000
+
+		setv ov00 0
+
+		mvsf va00 va01
+
+		velo 0 rand -30 -25
+
+		targ ownr
+
+		slow
+
+	retn
+
+endm
+
+
+
+scrp 2 3 50205 10
+
+	inst
+
+	emit 7 .015
+
+	bhvr 48
+
+	rnge 250
+
+	attr 195
+
+	accg 2
+
+	aero .5
+
+	elas 75
+
+	perm 50
+
+	slow
+
+	wait 1
+
+	frat 2
+
+	anim [0 1 2 3 4 5 6 7 255]
+
+	doif ov00 eq 0
+
+		tick rand 20 25
+
+	else
+
+		tick rand 10 15
+
+	endi
+
+*tick 1
+
+endm
+
+
+
+scrp 2 3 50205 6
+
+*accg 1
+
+*anim [8]
+
+	inst
+
+
+
+	doif ov00 eq 1 and wall ne _up_
+
+		velo rand -5 5 rand -5 -20
+
+		snde "m_a8"
+
+	endi
+
+
+
+
+
+
+
+endm
+
+
+
+*Seed Timer
+
+scrp 2 3 50205 9
+
+
+
+	doif ov00 eq 1
+
+		addv ov03 1
+
+		doif ov03 ge rand 5 15
+
+			gsub pop
+
+			tick rand 500 800
+
+			setv ov00 3
+
+		endi
+
+	elif ov00 eq 0
+
+		gsub pop
+
+		setv ov00 3
+
+	endi
+
+
+
+
+
+	doif fall ne 0 or carr ne null
+
+		stop
+
+	endi
+
+
+
+	doif time eq 4
+
+		stop
+
+	endi
+
+
+
+	gsub check
+
+
+
+
+
+	addv ov10 1
+
+
+
+	doif ov10 ge 15
+
+		kill ownr
+
+	endi
+
+
+
+	subr pop
+
+		inst
+
+		accg 1.5
+
+		pose 8
+
+		elas 10
+
+		bhvr 48
+
+		velo rand -7 7 rand -10 -10
+
+		setv va00 posl
+
+		subv va00 5
+
+		setv va01 post
+
+		subv va01 5
+
+		lock
+
+		new: simp 1 27 50205 "moe_C2toDS_triff" 4 17 5001
+
+		attr 0
+
+		mvto va00 va01
+
+		anim [0 1 2 3]
+
+		sndc "pop4"
+
+		over
+
+		kill targ
+
+		unlk
+
+		targ ownr
+
+	retn
+
+
+
+	subr check
+
+		esee 2 7 50205
+
+			addv va06 1
+
+		next
+
+		doif va06 lt 8
+
+			setv va00 rtyp grap posx posy
+
+			setv va05 grap posx posy
+
+*light
+
+			setv va01 prop va05 1
+
+*heat
+
+			setv va02 prop va05 2
+
+*water
+
+			setv va03 prop va05 3
+
+*nutrients
+
+			setv va04 prop va05 4
+
+*can't grow underwater. :/
+
+			doif va00 ne 8 and va00 ne 9
+
+				doif va01 ge .15 and va02 ge .15 and va03 ge .2 and va04 ge .2
+
+					doif pose eq 8
+
+						gsub grow
+
+					endi
+
+				endi
+
+			endi
+
+		endi
+
+	retn
+
+
+
+	subr grow
+
+		setv va00 posx
+
+		subv va00 28
+
+		setv va01 posb
+
+		subv va01 48
+
+		inst
+
+		new: simp 2 7 50205 "moe_C2toDS_triff" 34 21 rand 1000 3000
+
+		doif tmvt va00 va01 eq 1
+
+			mvto va00 va01
+
+		else
+
+			mvsf va00 va01
+
+		endi
+
+		kill ownr
+
+	retn
+
+
+
+endm
+
+
+
+*Plant Creation
+
+scrp 2 7 50205 10
+
+	inst
+
+	emit 9 .015
+
+	accg 0
+
+	attr 196
+
+	accg 4
+
+	elas 0
+
+	aero 1
+
+	perm 51
+
+	fric 100
+
+	tick rand 200 350
+
+	mira rand 0 1
+
+	plne rand 500 2500
+
+	setv name "nectar" 10
+
+	seta ov03 null
+
+	seta ov04 null
+
+	seta ov05 null
+
+endm
+
+*Pollination Script
+
+scrp 2 7 50205 1010
+
+	setv name "pollinated" 1
+
+endm
+
+
+
+scrp 2 7 50205 255
+
+	stop
+
+endm
+
+
+
+scrp 2 7 50205 9
+
+*	doif name "nectar" lt 10
+
+*		addv name "nectar" 1
+
+*	endi
+
+	doif time eq 4
+
+*stop
+
+	endi
+
+	doif pose lt 8
+
+		tick rand 200 350
+
+		setv va00 pose
+
+		addv va00 1
+
+		pose va00
+
+		over
+
+		stop
+
+	else
+
+*Check to ensure you still have fruits, if not, compensate
+
+		doif ov03 eq null
+
+			setv ov00 0
+
+		endi
+
+		doif ov04 eq null
+
+			setv ov01 0
+
+		endi
+
+		doif ov05 eq null
+
+			setv ov02 0
+
+		endi
+
+*/*
+
+
+
+		tick rand 300 500
+
+		doif pose eq 8 and ov11 eq 0
+
+			inst
+
+			pose 9
+
+			gsub setposxpost
+
+			gsub fruitleft
+
+			pose 4
+
+			bhvr 48
+
+			targ ownr
+
+			setv ov00 1
+
+			gsub setposxpost
+
+			gsub fruitmiddle
+
+			pose 4
+			bhvr 48
+
+			targ ownr
+
+			setv ov01 1
+
+			gsub setposxpost
+
+			gsub fruitright
+
+			pose 4
+			bhvr 48
+
+			targ ownr
+
+			setv ov02 1
+
+			slow
+
+			setv ov11 1
+
+		endi
+
+	endi
+
+
+
+
+
+
+
+	doif ov00 eq 0
+
+		gsub setposxpost
+
+		gsub fruitleft
+
+		targ ownr
+
+		setv ov00 1
+
+	endi
+
+	doif ov01 eq 0
+
+		gsub setposxpost
+
+		gsub fruitmiddle
+
+		targ ownr
+
+		setv ov01 1
+
+	endi
+
+	doif ov02 eq 0
+
+		gsub setposxpost
+
+		gsub fruitright
+
+		targ ownr
+
+		setv ov02 1
+
+	endi
+
+
+
+	addv ov10 1
+
+
+
+	doif ov10 ge 47 and ov10 lt 50 and ov00 eq 1 and ov01 eq 1 and ov02 eq 1
+
+		setv va00 rand 0 2
+
+		doif va00 eq 0
+
+			targ ov03
+
+			doif pose eq 4
+
+				mesg writ targ 1001
+
+			endi
+
+		elif va00 eq 1
+
+			targ ov04
+
+			doif pose eq 4
+
+				mesg writ targ 1001
+
+			endi
+
+		elif va00 eq 2
+
+			targ ov05
+
+			doif pose eq 4
+
+				mesg writ targ 1001
+
+			endi
+
+		endi
+
+		targ ownr
+
+	endi
+
+	inst
+
+	doif name "pollinated" eq 1
+
+		inst
+
+		doif ov10 ge 50 and ov00 eq 1 and ov01 eq 1 and ov02 eq 1
+
+			doif ov03 ne null and ov04 ne null and ov05 ne null
+
+				pose 10
+
+				targ ov03
+
+				kill targ
+
+				targ ownr
+
+				targ ov04
+
+				kill targ
+
+				targ ownr
+
+				targ ov05
+
+				kill targ
+
+				targ ownr
+
+			endi
+
+			reps rand 2 4
+
+				frat 3
+
+				anim [10 11 12 13 14]
+
+				over
+
+				snde "pop3"
+
+				gsub seed
+
+			repe
+
+			frat rand 200 255
+
+			anim [14 15 16 17 18 19 20 21]
+
+			over
+
+			kill targ
+
+		endi
+
+		unlk
+
+	endi
+
+	slow
+
+
+
+
+
+*//Subroutines!//*
+
+
+
+	subr setposxpost
+
+		targ ownr
+
+		setv va00 posl
+
+		setv va01 post
+
+		setv va03 plne
+
+		addv va03 1
+
+	retn
+
+
+
+	subr grow
+
+		setv va00 pose
+
+		addv va00 1
+
+		pose va00
+
+	retn
+
+
+
+	subr fruitleft
+
+		inst
+
+		doif mira eq 0
+
+			subv va00 7
+
+			addv va01 10
+
+		else
+
+			setv va04 1
+
+			addv va00 31
+
+			addv va01 10
+
+		endi
+
+*left
+
+		new: simp 2 8 50205 "moe_C2toDS_triff" 16 44 va03
+
+		attr 229
+
+		seta ov01 ownr
+
+		frel ov01
+
+		mvto va00 va01
+
+		mira va04
+
+*I am on the plant*
+
+		setv ov00 1
+
+		setv ov02 1
+
+		seta mv03 targ
+
+	retn
+
+
+
+	subr fruitmiddle
+
+		inst
+
+		doif mira eq 0
+
+			addv va00 10
+
+			addv va01 0
+
+		else
+
+			setv va04 1
+
+			addv va00 17
+
+			addv va01 0
+
+		endi
+
+*Middle
+
+		new: simp 2 8 50205 "moe_C2toDS_triff" 16 49 va03
+
+		attr 229
+
+		seta ov01 ownr
+
+		frel ov01
+
+		mvto va00 va01
+
+		mira va04
+
+*I am on the plant*
+
+		setv ov00 1
+
+		setv ov02 2
+
+		seta mv04 targ
+
+	retn
+
+
+
+	subr fruitright
+
+		inst
+
+*Right
+
+		doif mira eq 0
+
+			addv va00 29
+
+			addv va01 3
+
+		else
+
+			setv va04 1
+
+			addv va00 3
+
+			addv va01 3
+
+		endi
+
+		new: simp 2 8 50205 "moe_C2toDS_triff" 16 54 va03
+
+		attr 229
+
+		seta ov01 ownr
+
+		frel ov01
+
+		mvto va00 va01
+
+		mira va04
+
+*I am on the plant*
+
+		setv ov00 1
+
+		setv ov02 3
+
+		seta mv05 targ
+
+	retn
+
+
+
+	subr seed
+
+		setv va00 posx
+
+		subv va00 10
+
+		setv va01 posy
+
+		subv va01 10
+
+		setv va03 plne
+
+		subv va03 1
+
+		new: simp 2 3 50205 "moe_C2toDS_triff" 9 8 va03
+
+		setv ov00 1
+
+		mvsf va00 va01
+
+		velo 0 rand -20 -15
+
+		targ ownr
+
+	retn
+
+
+
+
+
+endm
+
+
+
+*push triffid plant
+
+scrp 2 7 50205 1
+
+
+
+endm
+
+
+
+scrp 2 8 50205 1
+
+	inst
+
+	doif ov00 eq 1 and pose ge 3
+
+		setv va00 rand 0 2
+
+		mesg writ targ 1001
+
+	endi
+
+endm
+
+
+
+scrp 2 8 50205 6
+
+	lock
+
+	snde "dr12"
+
+	unlk
+
+endm
+
+
+
+scrp 2 10 50205 6
+
+	lock
+
+	snde "dr12"
+
+	unlk
+
+endm
+
+
+
+*Triffid Fruit
+
+scrp 2 8 50205 10
+
+	inst
+
+	perm 51
+
+	emit 6 .015
+
+	accg 0
+
+	elas 25
+
+	attr 244
+
+	wait 1
+
+	doif pose lt 4
+
+		setv va00 pose
+
+		targ ov01
+
+		setv va01 tick
+
+		targ ownr
+
+		loop
+
+			wait va01
+
+			addv va00 1
+
+			pose va00
+
+		untl va00 eq 4
+
+		bhvr 48
+
+		attr 231
+
+
+	else
+
+		attr 231
+
+		bhvr 48
+
+	endi
+
+	tick rand 1000 3000
+
+
+
+endm
+
+
+
+scrp 2 8 50205 9
+
+	doif ov00 eq 0 and carr eq null
+
+		setv va00 posl
+
+		setv va01 post
+
+		new: simp 2 10 50205 "moe_C2toDS_triff" 0 60 rand 1000 3000
+
+		mvsf va00 va01
+
+		kill ownr
+
+	endi
+
+endm
+
+*Detritus Create
+
+scrp 2 10 50205 10
+
+	inst
+
+	attr 195
+
+	bhvr 48
+
+	elas 0
+
+	accg 4
+
+	tick 500
+
+	perm 51
+
+	puhl -1 16 22
+
+endm
+
+
+
+scrp 2 10 50205 9
+
+	doif carr eq null
+
+		altr -1 2 .005
+
+		altr -1 3 .025
+
+		altr -1 4 .025
+
+		kill targ
+
+	endi
+
+endm
+
+
+
+scrp 2 10 50205 12
+
+	lock
+
+	stim writ from 81 1
+
+	targ from
+
+*	chem 5 .15
+
+	snde "chwp"
+
+	targ ownr
+
+	kill targ
+
+
+
+endm
+
+
+
+scrp 2 8 50205 12
+
+	lock
+
+	stim writ from 78 1
+
+	targ from
+
+*	chem 5 .31
+
+	snde "chwp"
+
+	targ ownr
+
+	setv va00 posl
+
+	setv va01 post
+
+	new: simp 2 10 50205 "moe_C2toDS_triff" 0 60 rand 1000 3000
+
+	mvsf va00 va01
+
+	kill ownr
+
+endm
+
+
+
+scrp 2 3 50205 12
+
+	stim writ from 77 1
+
+	targ from
+
+*	chem 5 .19
+
+*	chem 10 .19
+
+	snde "chwp"
+
+	targ ownr
+
+	kill targ
+
+endm
+
+
+
+scrp 2 8 50205 4
+
+	inst
+
+	puhl -1 16 22
+
+	mesg writ targ 1001
+
+endm
+
+
+
+scrp 2 8 50205 1001
+
+	inst
+
+	accg 2
+
+	aero 4
+
+	bhvr 48
+
+	attr 199
+
+	doif ov00 eq 1
+
+		doif ov02 eq 1
+
+			mira 0
+
+			pose 15
+
+			targ ov01
+
+			setv ov00 0
+
+		elif ov02 eq 2
+
+			mira rand 0 1
+
+			pose 10
+
+			targ ov01
+
+			setv ov01 0
+
+		else
+
+			mira 1
+
+			pose 5
+
+			targ ov01
+
+			setv ov02 0
+
+		endi
+
+		targ ownr
+
+	endi
+
+	setv ov00 0
+
+	doif carr eq null
+
+		mvsf posl post
+
+	endi
+
+endm
+
+
+
+
+
+rscr
+
+
+
+
+enum 2 23 50205
+
+	kill targ
+
+next
+
+enum 2 3 50205
+
+	kill targ
+
+next
+
+enum 1 27 50205
+
+	kill targ
+
+next
+
+enum 2 7 50205
+
+	kill targ
+
+next
+
+enum 2 8 50205
+
+	kill targ
+
+next
+
+enum 2 10 50205
+
+	kill targ
+
+next
+
+scrx 2 3 50205 6
+
+scrx 2 3 50205 5
+
+scrx 2 3 50205 10
+

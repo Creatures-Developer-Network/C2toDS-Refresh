@@ -1,0 +1,2364 @@
+* 2 15 50215 - Bluebirds
+* 2 18 50215 - Bluebird Nest 
+* 2 17 50215 - Bluebird Egg
+
+new: simp 2 15 50215 "moe_C2toDS_bluebird" 98 0 3000
+
+mvsf 4000 47750
+
+setv ov11 2
+
+setv ov03 0
+
+base 49
+
+pose 0
+
+
+
+new: simp 2 15 50215 "moe_C2toDS_bluebird" 98 0 3000
+
+mvsf 4000 47750
+
+velo rand -4 4 0
+
+setv ov11 2
+
+setv ov03 1
+
+base 49
+
+pose 0
+
+
+
+
+
+
+
+new: simp 2 15 50215 "moe_C2toDS_bluebird" 98 0 3000
+
+mvsf 3415 47750
+
+setv ov11 2
+
+setv ov03 0
+
+base 49
+
+pose 0
+
+
+
+new: simp 2 15 50215 "moe_C2toDS_bluebird" 98 0 3000
+
+mvsf 3415 47750
+
+velo rand -4 4 0
+
+setv ov11 2
+
+setv ov03 1
+
+base 49
+
+pose 0
+
+
+
+
+scrp 2 15 50215 10
+
+	inst
+
+	attr 199
+
+	elas 25
+
+	aero 5
+
+	accg .025
+
+	tick rand 19.5 25
+
+	rnge 700
+
+*Plantmatter
+
+	seta ov04 null
+
+*Seeds
+
+	seta ov05 null
+
+	setv ov06 7
+
+	setv ov07 7
+
+	seta ov08 null
+
+	seta ov09 null
+
+	seta ov10 null
+
+	sets ov28 ""
+
+
+
+
+
+	setv ov30 year
+
+	addv ov30 1
+
+
+
+endm
+
+
+
+scrp 2 15 50215 255
+
+	stop
+
+endm
+
+
+
+scrp 2 15 50215 9
+
+
+
+	doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+
+		loop
+
+			setv va07 ov07
+
+			gsub fly
+
+			gsub up
+
+			wait tick
+
+		untl rtyp room ownr ne 8 and rtyp room ownr ne 9
+
+	endi
+
+
+
+*Ov14-- 3=Sleeping 1=Flying 2=Walking
+
+
+
+	doif time ge 3 or sean eq 3
+
+		doif ov14 ne 3
+
+
+
+			doif ov09 ne null
+
+				setv va25 sqrt disq ov09
+
+			endi
+
+
+
+			perm 50
+
+			rnge 1999
+
+			doif ov09 ne null and seee ownr ov09 eq 1
+
+				doif carr ne ov09
+
+					rnge 700
+
+					gsub fly
+
+					gsub gotonest
+
+					doif touc ownr ov09 eq 1
+
+						lock
+
+						spas ov09 ownr
+
+						gsub walk
+
+						gsub sleep
+
+						unlk
+
+					endi
+
+					stop
+
+				endi
+
+			elif ov09 ne null and seee ownr ov09 eq 0
+
+*If you can't see it, make sure you try all your available saved rooms first.
+
+				doif ov22 ne 0 and sqrt disq ov09 lt 4000
+
+					doif carr ne ov09
+
+						rnge 700
+
+						gsub fly
+
+						gsub gotonest
+
+						doif touc ownr ov09 eq 1
+
+							lock
+
+							spas ov09 ownr
+
+							gsub walk
+
+							gsub sleep
+
+							unlk
+
+						endi
+
+						stop
+
+					endi
+
+				else
+
+*If you've exhausted all your saved rooms...give up
+
+*If you can't see the nest, see if you've got any more saved rooms. If you do, use them.
+
+*-----------------If you don't have a nest, or you're too far from your nest, sleep on the ground.
+
+					doif obst down gt 20
+
+						setv va07 ov07
+
+						gsub down
+
+					else
+
+						gsub walk
+
+						gsub sleep
+
+					endi
+
+				endi
+
+				stop
+
+			else
+
+*Also, if you've got no nest... just sleep on the floor.
+
+				doif obst down gt 20
+
+					setv va07 ov07
+
+					gsub down
+
+				else
+
+					gsub walk
+
+					gsub sleep
+
+				endi
+
+			endi
+
+
+
+
+
+		else
+
+			gsub sleep
+
+		endi
+
+		stop
+
+	endi
+
+
+
+
+
+*Bluebirds fly around and eat seeds. When they mate, they build nests.
+
+
+
+*ov11	Lifestage	0-Hatchling 1-Baby 2-Adult 3-Mated Adult 4-Elder
+
+
+
+*Chicks-------
+
+	doif ov11 eq 0
+
+		doif sean ge 0 and date ge 2
+
+			setv ov11 1
+
+		endi
+
+		stop
+
+	endi
+
+
+
+*Babies-------
+
+*All babies should do is fly around, being birds, going to their nest at night.
+
+*If they have no nest at night, they should sleep on the ground.
+
+	doif ov11 eq 1
+
+*Second day of all, birds are adults.
+
+		doif sean ge 2 and date ge 2
+
+			lock
+
+			inst
+
+			setv ov11 2
+
+			doif carr eq null
+
+				setv va00 posl
+
+				setv va01 post
+
+				mvto 626 8827
+
+				base 49
+
+				pose 0
+
+				mvsf va00 va01
+
+			endi
+
+			slow
+
+			unlk
+
+		endi
+
+		gsub be_a_bird
+
+		stop
+
+	endi
+
+*-------------
+
+
+
+*Adults, Bachelors
+
+	doif ov11 eq 2
+
+*I need a mate!
+
+		doif ov10 eq null
+
+*and sean eq 0
+
+			esee 2 15 50215
+
+				inst
+
+				doif targ ne null and targ ne ownr
+
+*Can't be same gender. And must both be adults. No pedobirds!!
+
+					doif ov03 ne mv03 and ov11 eq mv11
+
+						doif ov10 eq null and mv10 eq null or ov10 eq ownr
+
+							seta mv10 targ
+
+							seta ov10 ownr
+
+						endi
+
+					endi
+
+				endi
+
+				slow
+
+			next
+
+			targ ownr
+
+		elif ov10 ne null
+
+*and sean eq 0
+
+			seta va04 ov10
+
+			setv va02 0
+
+			gsub choose
+
+			gsub follow
+
+			doif touc ownr ov10 eq 1
+
+*I am now experienced in the ways of mating.
+
+				setv ov11 3
+
+			endi
+
+			stop
+
+		endi
+
+*I have no nest!
+
+*doif ov09 eq null
+
+*
+
+*endi
+
+	endi
+
+
+
+*Adults who have mated.
+
+	doif ov11 eq 3
+
+
+
+*If it's 1 year from your birth, you die.
+
+		doif ov30 eq year and sean eq 0 and date eq 1 and ov00 ne 0
+
+*dbg: outs "I have died. - Bluebird"
+
+			kill ownr
+
+		endi
+
+
+
+
+
+*Males, build a nest. Females, eat stuff.
+
+		doif ov09 eq null
+
+			doif ov03 eq 1
+
+				gsub buildnest
+
+			elif ov03 eq 0
+
+*Females follow males till its built
+
+				targ ov10
+
+*If the male is just hanging out, you should do the same.
+
+				doif accg lt 2
+
+					targ ownr
+
+					seta va04 ov10
+
+					gsub choose
+
+					setv va02 0
+
+					inst
+
+					gsub follow
+
+					slow
+
+					stop
+
+				endi
+
+				targ ownr
+
+			endi
+
+		else
+
+*Males, this nest needs construction!
+
+			doif ov03 eq 1 and ov00 eq 0
+
+*You need to find some plants.
+
+				doif ov04 eq null and ov13 eq 0
+
+					star 2 4 0
+
+					doif targ ne null and targ ne ownr
+
+						seta mv04 targ
+
+						stop
+
+					else
+
+						targ ownr
+
+						star 2 7 0
+
+						doif targ ne null and targ ne ownr
+
+							seta mv04 targ
+
+*dbg: outs "Found a flower"
+
+							stop
+
+						endi
+
+					endi
+
+					targ ownr
+
+*You have a target, go for it.
+
+				elif ov04 ne null and ov13 eq 0
+
+					gsub dropme
+
+					seta va04 ov04
+
+					gsub choose
+
+					setv va02 0
+
+					lock
+
+					gsub follow
+
+					doif touc ownr ov04 eq 1
+
+						addv ov13 1
+
+						doif accg gt 2
+
+							gsub peck
+
+						endi
+
+					endi
+
+					unlk
+
+					stop
+
+				elif ov04 ne null and ov13 ge 1
+
+*You have materials, go back to your nest.
+
+					rnge 1999
+
+					doif seee ownr ov09 eq 1
+
+						rnge 700
+
+						gsub fly
+
+						gsub gotonest
+
+						inst
+
+						targ ownr
+
+						doif touc ownr ov09 eq 1
+
+							lock
+
+							inst
+
+							setv ov13 0
+
+							spas ov09 ownr
+
+							gsub peck
+
+							over
+
+							targ ov09
+
+							doif pose lt 2
+
+								setv va00 pose
+
+								addv va00 1
+
+								pose va00
+
+							elif pose ge 2
+
+								targ ownr
+
+*nest is fully built
+
+								setv ov00 1
+
+								targ mv10
+
+								setv ov00 1
+
+								stop
+
+							endi
+
+							unlk
+
+						endi
+
+						slow
+
+						targ ownr
+
+						stop
+
+					endi
+
+
+
+				endi
+
+			endi
+
+*Females, if it's spring, 1st day lay one baby. 2nd day lay another!
+
+*Ov13 for the females is her egg count. :)
+
+			doif ov03 eq 0 and ov13 lt 2 and ov00 eq 1
+
+				doif sean eq 0 and ov13 eq 0
+
+					rnge 1999
+
+					doif ov09 ne null and seee ownr ov09 eq 1
+
+						doif carr ne ov09
+
+							rnge 700
+
+							gsub fly
+
+							gsub gotonest
+
+							doif touc ownr ov09 eq 1
+
+								lock
+
+								spas ov09 ownr
+
+								gsub walk
+
+								wait rand 500 1000
+
+
+
+								reps 2
+
+									addv ov13 1
+
+									gsub layegg
+
+								repe
+
+
+
+								unlk
+
+							endi
+
+							stop
+
+						endi
+
+					endi
+
+				endi
+
+			endi
+
+		endi
+
+	endi
+
+
+
+	gsub be_a_bird
+
+
+
+	subr layegg
+
+
+
+		setv va00 plne
+
+		subv va00 1
+
+		setv va01 posl
+
+		setv va02 post
+
+		new: simp 2 18 50215 "moe_C2toDS_bluebird" 3 103 va00
+
+		mvsf va01 va02
+
+*My nest is momma's nest.
+
+		seta ov09 mv09
+
+		spas mv09 targ
+
+		targ ownr
+
+
+
+
+
+	retn
+
+
+
+	subr buildnest
+
+		gsub fly
+
+		doif ov08 eq null
+
+			star 2 6 0
+
+			doif targ ne null and targ ne ownr
+
+				setv va00 tick
+
+				doif va00 ge 350 and name "donotnest" ne 1 or va00 eq 0 and name "donotnest" ne 1
+
+					seta mv08 targ
+
+				endi
+
+			endi
+
+*Ov08 = nesting branches
+
+		else
+
+*Branches have been found, now find a good spot on them to build a nest and go to it.
+
+			inst
+
+			targ mv08
+
+			loop
+
+				setv va08 rand posl posr
+
+				setv va09 rand post posb
+
+				wait 1
+
+			untl tran va08 va09 eq 0
+
+			slow
+
+			targ ownr
+
+			loop
+
+				wait tick
+
+				setv va00 va08
+
+				setv va01 va09
+
+				subv va00 posx
+
+				subv va01 posy
+
+				absv va00
+
+				absv va01
+
+				setv va02 1
+
+				gsub fly
+
+				gsub follow
+
+			untl va00 lt 25 and va01 gt -25
+
+			inst
+
+			setv va00 plne
+
+			addv va00 1
+
+			new: vhcl 2 17 50215 "moe_C2toDS_bluebird" 4 98 va00
+
+			setv va00 wdth
+
+			setv va01 hght
+
+			divv va00 2
+
+			subv va08 va00
+
+			subv va09 va01
+
+			mvsf va08 va09
+
+
+
+			seta mv09 targ
+
+*remember the leaf you're on...if it goes poof, so do you!
+
+			seta ov09 mv08
+
+*know your birds!
+
+			seta ov07 mv10
+
+			seta ov08 ownr
+
+
+
+
+
+			targ ownr
+
+			targ ov10
+
+			seta ov09 mv09
+
+
+
+			wait 5
+
+*grabthebirdS
+
+			inst
+
+			spas ov09 mv10
+
+			spas ov09 ownr
+
+			stop
+
+		endi
+
+
+
+	retn
+
+
+
+	subr walk
+
+		targ ownr
+
+		doif movs eq 0
+
+			inst
+
+			doif carr eq null
+
+				setv va00 posl
+
+				setv va01 post
+
+				mvto 626 8827
+
+				perm 51
+
+				mvsf va00 va01
+
+			endi
+
+			slow
+
+		endi
+
+
+
+		targ ownr
+
+		doif ov14 ne 2
+
+			setv ov14 2
+
+		endi
+
+		accg 2
+
+		anim [ 11 12 13 14 15 16 17 18 11]
+
+	retn
+
+
+
+	subr fly
+
+		gsub dropme
+
+
+
+		targ ownr
+
+		doif ov14 ne 1
+
+			perm 50
+
+			setv ov14 1
+
+			accg .025
+
+			frat 2
+
+			anim [27 28 29 30 31 32 33 34 255]
+
+		endi
+
+	retn
+
+
+
+	subr peck
+
+		targ ownr
+
+		doif ov14 ne 4
+
+			setv ov14 4
+
+		endi
+
+		frat 2
+
+		anim [3 4 5 6 5 4 3 0]
+
+		over
+
+	retn
+
+
+
+	subr sleep
+
+		targ ownr
+
+		doif ov14 ne 3
+
+			accg 2
+
+			setv ov14 3
+
+			gsub reset_track
+
+			pose 1
+
+			stop
+
+		endi
+
+		pose 1
+
+		rtar 1 23 50204
+
+		mesg wrt+ targ 1001 0 0 0
+
+		targ ownr
+
+	retn
+
+
+
+	subr tweet
+
+		setv va60 rand 0 15
+
+		doif va60 eq 1
+
+			sndc "brd1"
+
+		endi
+
+		doif va60 eq 2
+
+			sndc "brd2"
+
+		endi
+
+		doif va60 eq 3
+
+			sndc "brd3"
+
+		endi
+
+		doif va60 eq 4
+
+			sndc "brd4"
+
+		endi
+
+		doif va60 eq 5
+
+			sndc "brd5"
+
+		endi
+
+	retn
+
+
+
+	subr be_a_bird
+
+
+
+*doif rand 0 3 eq 0
+
+*	gsub tweet
+
+*endi
+
+
+
+		targ ownr
+
+*If you're hungry, look for food. Seeds
+
+*Ov02 = Hunger
+
+		subv ov02 2
+
+		doif ov02 lt 50
+
+			gsub dropme
+
+			doif ov05 eq null
+
+				star 2 3 0
+
+				doif targ ne null and targ ne ownr and bhvr ge 48
+
+					seta mv05 targ
+
+				else
+
+*If you can't find any,
+
+*find food by following flower smell.
+
+					targ ownr
+
+					setv va10 1
+
+					gsub search
+
+				endi
+
+				targ ownr
+
+*what if you already see a seed?
+
+			else
+
+
+
+				seta va04 ov05
+
+				gsub choose
+
+
+
+*If you can't see it, or it's in water, forget about it.
+
+				doif rtyp room ov05 eq 8 or rtyp room ov05 eq 9 or seee ownr ov05 eq 0
+
+					seta ov05 null
+
+					stop
+
+				endi
+
+
+
+				inst
+
+				doif ov05 eq null
+
+					stop
+
+				endi
+
+				slow
+
+
+
+
+
+*setv va60 relx ownr ov05
+
+*setv va61 rely ownr ov05
+
+*absv va60
+
+*absv va61
+
+				doif touc ownr ov05 eq 1
+
+*or va61 lt 50 and va61 lt 50
+
+*or sqrt disq ov05 lt 50
+
+* or relx ownr ov05 lt 40 and relx ownr ov05 gt -40 and rely ownr ov05 lt 40 and rely ownr ov05 gt -40
+
+					lock
+
+*dbg: outv sqrt disq ov05
+
+*check to see the perm of the agent. If it's on a platform, land there
+
+					setv va03 perm
+
+					targ ov05
+
+					doif perm gt va03
+
+						setv va00 perm
+
+						targ ownr
+
+						setv va01 posl
+
+						setv va02 post
+
+						mvto 553 9092
+
+						perm va00
+
+						mvsf va01 va02
+
+					endi
+
+					targ ownr
+
+					addv mv02 12
+
+*This makes it eaten.
+
+					mesg writ mv05 12
+
+					doif accg ge 2
+
+						gsub peck
+
+					endi
+
+					unlk
+
+				endi
+
+
+
+
+
+				seta va04 ov05
+
+				setv va02 0
+
+				setv va10 1
+
+				gsub follow
+
+				targ ownr
+
+			endi
+
+		else
+
+			setv va10 1
+
+			gsub fly
+
+			gsub search
+
+*gsub search
+
+*		else
+
+*			setv va10 1
+
+*			gsub fly
+
+*			gsub wander
+
+		endi
+
+		targ ownr
+
+	retn
+
+
+
+
+
+	subr search
+
+		gsub fly
+
+*What are we searching for? Highest (1) or lowest (0) concentration?
+
+*Or a specific room? (2) (va02)
+
+		setv va00 1
+
+*What CA are we looking for?
+
+		setv va01 9
+
+
+
+		doif va00 eq 0
+
+			setv va00 lorp room ownr va01 1
+
+			doif va00 eq room ownr
+
+				gsub wander
+
+				stop
+
+			endi
+
+		elif va00 eq 1
+
+			setv va00 hirp room ownr va01 1
+
+			doif va00 eq room ownr
+
+				gsub wander
+
+				stop
+
+			endi
+
+		elif va00 eq 2
+
+			setv va00 va02
+
+		endi
+
+
+
+*If the room with the highest concentration is water...Pick another room!		
+
+		doif rtyp va00 eq 8 or rtyp va00 eq 9
+
+			gsub pickroom
+
+		endi
+
+		targ ownr
+
+		gsub gotoroom
+
+	retn
+
+
+
+	subr wander
+
+		doif name "room" eq grap posl post or name "room" eq 0
+
+			gsub pickroom
+
+		endi
+
+		setv va00 name "room"
+
+		setv va10 0
+
+		gsub gotoroom
+
+	retn
+
+
+
+	subr choose
+
+*		doif type va04 eq 0
+
+*			stop
+
+*		endi
+
+*This subroutine affects the choice of flight or walking, etc
+
+*Use it between selecting a target VA04 and the Follow command.
+
+*should I fly or walk?
+
+		setv va00 relx ownr va04
+
+		setv va01 rely ownr va04
+
+*Walk if you're near the ground.
+
+		doif va01 gt -50 and va01 lt 50 and obst down lt 50
+
+*If you're walking and the distance is close, don't jump.
+
+			doif va00 lt 200 and va00 gt -200
+
+				setv va05 2
+
+			else
+
+				setv va05 1
+
+			endi
+
+		else
+
+			gsub fly
+
+			setv va05 0
+
+		endi
+
+	retn
+
+
+
+
+
+	subr pickroom
+
+		inst
+
+		setv va20 room ownr
+
+		loop
+
+			inst
+
+			setv va00 rand 0 3
+
+			doif va00 eq 0
+
+				setv name "room" grid ownr rght
+
+			elif va00 eq 1
+
+				setv name "room" grid ownr left
+
+			elif va00 eq 2
+
+				setv name "room" grid ownr _up_
+
+			elif va00 eq 3
+
+				setv name "room" grid ownr down
+
+			endi
+
+			gsub checkrooms
+
+			slow
+
+		untl name "room" ne -1 and rtyp name "room" ne 8 and rtyp name "room" ne 9
+
+
+
+
+
+*		dbg: outv unid
+
+*		dbg: outv name "room"
+
+*		dbg: outv room ownr
+
+*		doif room ownr ne name "room"
+
+*			dbg: outv door room ownr name "room"
+
+*		endi
+
+****setv va00 door room ownr name "room"
+
+		slow
+
+	retn
+
+
+
+
+
+	subr checkrooms
+
+		inst
+
+		setv va07 0
+
+*We need to check the adjacent rooms and ensure that we're not submerged or locked in a box.
+
+		setv va03 grid ownr left
+
+		gsub checkit
+
+		setv va03 grid ownr rght
+
+		gsub checkit
+
+		setv va03 grid ownr _up_
+
+		gsub checkit
+
+		setv va03 grid ownr down
+
+		gsub checkit
+
+
+
+		doif va07 eq 4
+
+
+
+*You're trapped!
+
+		endi
+
+
+
+		doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+
+			loop
+
+				setv va07 ov07
+
+				gsub up
+
+				wait tick
+
+			untl rtyp room ownr ne 8 and rtyp room ownr ne 9
+
+		endi
+
+
+
+		slow
+
+	retn
+
+
+
+	subr checkit
+
+		doif va03 ne -1 and room ownr ne -1
+
+			doif rtyp va03 eq 8 or rtyp va03 eq 9 or door room ownr va03 lt perm
+
+				addv va07 1
+
+			endi
+
+		else
+
+			addv va07 1
+
+		endi
+
+	retn
+
+
+
+	subr gotoroom
+
+*va00 eq the room
+
+
+
+*If you can't get to that room, stop.
+
+*		inst
+
+*		doif va00 ne -1 and va00 ne room ownr
+
+*			doif door room ownr va00 lt perm
+
+*				stop
+
+*			endi
+
+*		endi
+
+*		slow
+
+
+
+		setv va01 torx va00
+
+		setv va02 tory va00
+
+
+
+*If you're less than 100px away, adjust speed
+
+		doif va01 lt 100 and va01 gt -100
+
+			setv va03 va01
+
+			absv va03
+
+			divv va03 100
+
+			setv va06 ov06
+
+			mulv va06 va03
+
+		else
+
+			setv va06 ov06
+
+		endi
+
+
+
+*If you're less than 100px away, adjust speed
+
+		doif va02 lt 100 and va02 gt -100
+
+			setv va03 va02
+
+			absv va03
+
+			divv va03 100
+
+			setv va07 ov07
+
+			mulv va07 va03
+
+		else
+
+			setv va07 ov07
+
+		endi
+
+
+
+		doif va01 gt 0
+
+			gsub right
+
+		elif va01 lt 0
+
+			gsub left
+
+		endi
+
+		doif va02 lt 0
+
+			gsub up
+
+		elif va02 gt 0
+
+			gsub down
+
+		endi
+
+
+
+		doif va10 eq 1
+
+			gsub track
+
+		endi
+
+	retn
+
+
+
+***TRACKING SCRIPTS
+
+
+
+	subr track
+
+		doif room ownr ne ov21
+
+			inst
+
+			doif sins ov28 1 vtos ov21 eq -1
+
+				sets va50 "RID"
+
+				addv ov22 1
+
+				adds va50 vtos ov22
+
+*RID1*
+
+				setv name va50 room ownr
+
+			endi
+
+*name RID1 = RID at posx posy
+
+			setv ov21 room ownr
+
+			adds ov28 vtos name va50
+
+			adds ov28 " "
+
+			slow
+
+		endi
+
+	retn
+
+
+
+	subr dropme
+
+		lock
+
+		inst
+
+		doif carr eq ov09 and ov09 ne null
+
+			rpas ov09 ownr
+
+			gsub fly
+
+		endi
+
+		slow
+
+		unlk
+
+	retn
+
+
+
+	subr gotonest
+
+		doif seee ownr ov09 ne 1 and ov22 ne 0
+
+			gsub backtrack
+
+			gsub checkobstacles
+
+			addv ov50 1
+
+			doif ov50 ge 25
+
+				gsub warpback
+
+			endi
+
+		elif seee ownr ov09 ne 1 and ov22 le 0
+
+*doif visi 1 eq 0
+
+*	gsub warpback
+
+*else
+
+			gsub wander
+
+*endi
+
+		else
+
+			seta va04 ov09
+
+			gsub choose
+
+			setv va02 0
+
+			inst
+
+			gsub follow
+
+			slow
+
+		endi
+
+	retn
+
+
+
+	subr warpback
+
+		targ ov09
+
+		setv va00 posx
+
+		setv va01 posb
+
+		targ ownr
+
+		mvsf va00 va01
+
+	retn
+
+
+
+	subr backtrack
+
+		sets va00 "RID"
+
+		adds va00 vtos ov22
+
+		setv va01 name va00
+
+*If you're in the room you're looking for, subtract 1 and look for the
+
+*next room.
+
+		doif va01 eq room ownr or va01 eq grap posl post or va01 eq grap posr post
+
+*or torx va01 lt 50 and tory va01 gt -50
+
+*doif ov22 ne 1
+
+			subv ov22 1
+
+*elif ov22 eq 1
+
+*gsub warpback
+
+*endi
+
+		endi
+
+
+
+*va01 should be the RID of the room we're looking for
+
+		setv va00 name va00
+
+		setv va02 2
+
+		setv va10 0
+
+		gsub gotoroom
+
+	retn
+
+
+
+	subr left
+
+		doif va05 ne 0
+
+			doif va05 eq 1
+
+				subv vely ov07
+
+			endi
+
+			gsub walk
+
+		endi
+
+
+
+*give a little lift so you don't get stuck
+
+		subv vely 3
+
+		subv velx 1
+
+
+
+		subv velx va06
+
+
+
+		doif mira eq 1 and ov14 eq 1
+
+			setv ov14 0
+
+			anim [43 44 45 42]
+
+			over
+
+			gsub fly
+
+		endi
+
+
+
+		mira 0
+
+	retn
+
+
+
+	subr right
+
+		doif va05 ne 0
+
+*Hopping
+
+			setv ov14 2
+
+			doif va05 eq 1
+
+				subv vely ov07
+
+			endi
+
+			gsub walk
+
+		endi
+
+*give a little lift so you don't get stuck
+
+		subv vely 3
+
+		addv velx 1
+
+
+
+		addv velx va06
+
+		doif mira eq 0 and ov14 eq 1
+
+			setv ov14 0
+
+			anim [43 44 45 42]
+
+			over
+
+			gsub fly
+
+		endi
+
+		mira 1
+
+	retn
+
+
+
+	subr up
+
+		subv vely va07
+
+		doif obst _up_ lt hght
+
+			doif type va04 ne 0
+
+				setv va00 relx ownr va04
+
+				doif va00 gt 1
+
+					addv velx ov06
+
+				else
+
+					subv velx ov06
+
+				endi
+
+			endi
+
+		endi
+
+	retn
+
+
+
+	subr down
+
+		addv vely va07
+
+		doif obst down lt hght
+
+			subv vely ov07
+
+		endi
+
+	retn
+
+
+
+	subr follow
+
+*If VA02 eq 0, you follow the va04 target,
+
+*else, you use whatever coordinates are provided
+
+*va01 posx
+
+*va02 posy
+
+		doif va02 eq 0
+
+			targ va04
+
+*This assumes you've set va04 to your target before calling the follow subr.
+
+			setv va01 relx ownr targ
+
+			setv va02 rely ownr targ
+
+			targ ownr
+
+		else
+
+			setv va01 va08
+
+			setv va02 va09
+
+
+
+			subv va01 posx
+
+			subv va02 posy
+
+		endi
+
+
+
+*If you're less than 100px away, adjust speed
+
+		doif va01 lt 100 and va01 gt -100
+
+			setv va03 va01
+
+			absv va03
+
+			divv va03 100
+
+			setv va06 ov06
+
+			mulv va06 va03
+
+		else
+
+			setv va06 ov06
+
+		endi
+
+
+
+*If you're less than 100px away, adjust speed
+
+		doif va02 lt 100 and va02 gt -100
+
+			setv va03 va02
+
+			absv va03
+
+			divv va03 100
+
+			setv va07 ov07
+
+			mulv va07 va03
+
+		else
+
+			setv va07 ov07
+
+		endi
+
+
+
+		doif va01 gt 0
+
+			gsub right
+
+		elif va01 lt 0
+
+			gsub left
+
+		endi
+
+		doif va02 lt 0
+
+			gsub up
+
+		elif va02 gt 0
+
+			gsub down
+
+		endi
+
+
+
+		doif va10 eq 1
+
+			gsub track
+
+		endi
+
+
+
+		targ ownr
+
+	retn
+
+
+
+*This is used to clear the tracking mechanism.
+
+	subr reset_track
+
+		inst
+
+		lock
+
+		setv ov22 0
+
+		setv ov50 0
+
+		sets ov28 ""
+
+		unlk
+
+		slow
+
+	retn
+
+
+
+	subr checkobstacles
+
+		doif obst left lt 60
+
+			setv va06 ov06
+
+			gsub right
+
+		endi
+
+
+
+		doif obst rght lt 60
+
+			setv va06 ov06
+
+			gsub left
+
+		endi
+
+
+
+		doif obst _up_ lt 50
+
+			setv va07 ov06
+
+			gsub up
+
+		endi
+
+
+
+	retn
+
+
+
+
+
+endm
+
+
+
+scrp 2 15 50215 121
+
+	inst
+
+	anim [0]
+
+	setv ov14 0
+
+	doif ov14 ne 2
+
+		setv ov14 2
+
+	endi
+
+	doif carr eq ov09
+
+		setv ov22 0
+
+		sets ov28 ""
+
+	endi
+
+endm
+
+
+
+scrp 2 15 50215 4
+
+*You've been picked up! Freak out!
+
+endm
+
+
+
+scrp 2 15 50215 6
+
+	setv name "room" 0
+
+	stop
+
+endm
+
+
+
+
+
+
+
+*NEST
+
+scrp 2 17 50215 10
+
+	inst
+
+	attr 3
+
+	accg 0
+
+	fric 0
+
+	elas 0
+
+	rnge 300
+
+	setv va00 wdth
+
+	addv va00 10
+
+*cabn -10 -15 va00 35
+
+	cabn -10 -20 va00 35
+
+	cabp -10
+
+	cabw 10
+
+	tick 1500
+
+endm
+
+
+
+scrp 2 17 50215 9
+
+	doif pose eq 2 and part 1 eq 0
+
+		pat: dull 1 "moe_C2toDS_bluebird" 101 0 0 -10
+
+	endi
+
+
+
+*tick rand 1200 1500
+
+
+
+*	doif part 1 eq 0 and sean eq 3 and pose eq 2
+
+*		pat: dull 1 "moe_C2toDS_bluebird" 101 0 0 1
+
+*	endi
+
+*
+
+*	doif part 1 eq 1 and sean eq 0
+
+*		pat: kill 1
+
+*	endi
+
+
+
+
+
+endm
+
+
+
+
+
+
+
+*EGGs
+
+scrp 2 18 50215 10
+
+	inst
+
+	attr 199
+
+	elas 0
+
+	accg 1.5
+
+	aero 0
+
+	fric 50
+
+	velo rand -2 -7 -6
+
+	tick rand 1200 1500
+
+	setv ov02 date
+
+endm
+
+
+
+scrp 2 18 50215 9
+
+	doif pose eq 0
+
+*doif ov02 ne date
+
+		new: simp 2 15 50215 "moe_C2toDS_bluebird" 98 0 3000
+
+		setv ov11 0
+
+*female
+
+		setv ov03 rand 0 1
+
+		base 0
+
+		pose 0
+
+		seta ov09 mv09
+
+		spas mv09 targ
+
+		targ ownr
+
+		pose 1
+
+		rpas ov09 ownr
+
+	else
+
+		kill ownr
+
+	endi
+
+*endi
+
+endm
+
+
+
+
+rscr
+
+enum 2 15 50215
+
+	kill targ
+
+next
+
+*Removes all scripts for the specified agent 2 15 50215 if it exists.
+
+*No need to micromanage. :)
+
+loop
+
+	doif sorq 2 15 50215 va00 eq 1
+
+		scrx 2 15 50215 va00
+
+	endi
+
+	addv va00 1
+
+untl va00 eq 2000
+
+setv va00 0
+
+
+
+enum 2 17 50215
+
+	kill targ
+
+next
+
+*Removes all scripts for the specified agent 2 15 50215 if it exists.
+
+*No need to micromanage. :)
+
+loop
+
+	doif sorq 2 17 50215 va00 eq 1
+
+		scrx 2 17 50215 va00
+
+	endi
+
+	addv va00 1
+
+untl va00 eq 2000
+
+setv va00 0
+
+
+
+enum 2 18 50215
+
+	kill targ
+
+next
+
+*Removes all scripts for the specified agent 2 15 50215 if it exists.
+
+*No need to micromanage. :)
+
+loop
+
+	doif sorq 2 18 50215 va00 eq 1
+
+		scrx 2 18 50215 va00
+
+	endi
+
+	addv va00 1
+
+untl va00 eq 2000
+
+setv va00 0
+
+
+

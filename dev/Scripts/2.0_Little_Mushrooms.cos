@@ -1,0 +1,776 @@
+
+* 2 4 50201 - Mushroom Patch
+* 2 11 50209 - Mushroom
+* 2 24 50208 - Mushroom Maker
+
+new: comp 2 24 50208 "moe_C2toDS_mush" 11 31 1000
+
+attr 199
+
+mvto 3860 49676
+
+elas 25
+
+perm 51
+
+accg 4
+
+dcor 0
+
+core 0 55 wdth 0
+
+pat: dull 1 "moe_C2toDS_mush" 42 0 0 0
+
+pat: butt 2 "moe_C2toDS_mush" 43 2 33 31 1 [] 1001 0
+
+part 1
+
+alph 128 1
+
+
+
+new: simp 2 4 50201 "moe_C2toDS_mush" 0 16 rand 1000 5000
+
+mvto 3845 49676
+
+
+
+*new: simp 2 4 50201 "moe_C2toDS_mush" 0 16 rand 1000 5000
+
+*mvto 1290 9590
+
+
+
+*Plot 1
+
+new: simp 2 4 50201 "moe_C2toDS_mush" 0 16 rand 1000 5000
+
+mvsf 6820 48422
+
+reps rand 5 8
+
+	setv va00 rand 1 5
+
+	doif va00 eq 1
+
+		setv va03 1
+
+	elif va00 eq 2
+
+		setv va03 4
+
+	elif va00 eq 3
+
+		setv va03 7
+
+	elif va00 eq 4
+
+		setv va03 10
+
+	elif va00 eq 5
+
+		setv va03 13
+
+	endi
+
+	setv va04 rand 0 2
+
+	new: simp 2 11 50209 "moe_C2toDS_mush" 3 va03 rand 1000 5000
+
+	mvsf rand 6820 6890 48425
+
+repe
+
+
+
+
+
+*Plot 2
+
+new: simp 2 4 50201 "moe_C2toDS_mush" 0 16 rand 1000 5000
+
+mvsf 7660 48735
+
+
+
+reps rand 5 8
+
+	setv va00 rand 1 5
+
+	doif va00 eq 1
+
+		setv va03 1
+
+	elif va00 eq 2
+
+		setv va03 4
+
+	elif va00 eq 3
+
+		setv va03 7
+
+	elif va00 eq 4
+
+		setv va03 10
+
+	elif va00 eq 5
+
+		setv va03 13
+
+	endi
+
+	setv va04 rand 0 2
+
+
+
+	new: simp 2 11 50209 "moe_C2toDS_mush" 3 va03 rand 1000 5000
+
+	mvsf rand 7670 7740 48735
+
+repe
+
+
+
+*Plot 3
+
+new: simp 2 4 50201 "moe_C2toDS_mush" 0 16 rand 1000 5000
+
+mvsf 3925 48530
+
+
+
+reps rand 5 8
+
+	setv va00 rand 1 5
+
+	doif va00 eq 1
+
+		setv va03 1
+
+	elif va00 eq 2
+
+		setv va03 4
+
+	elif va00 eq 3
+
+		setv va03 7
+
+	elif va00 eq 4
+
+		setv va03 10
+
+	elif va00 eq 5
+
+		setv va03 13
+
+	endi
+
+	setv va04 rand 0 2
+
+
+
+	new: simp 2 11 50209 "moe_C2toDS_mush" 3 va03 rand 1000 5000
+
+	mvsf rand 3925 3976 48530
+
+repe
+
+
+
+*Plot 4
+
+new: simp 2 4 50201 "moe_C2toDS_mush" 0 16 rand 1000 5000
+
+mvsf 3610 48830
+
+
+
+reps rand 5 8
+
+	setv va00 rand 1 5
+
+	doif va00 eq 1
+
+		setv va03 1
+
+	elif va00 eq 2
+
+		setv va03 4
+
+	elif va00 eq 3
+
+		setv va03 7
+
+	elif va00 eq 4
+
+		setv va03 10
+
+	elif va00 eq 5
+
+		setv va03 13
+
+	endi
+
+	setv va04 rand 0 2
+
+
+
+	new: simp 2 11 50209 "moe_C2toDS_mush" 3 va03 rand 1000 5000
+
+	mvsf rand 3610 3690 48830
+
+repe
+
+
+
+*Plot 5
+
+new: simp 2 4 50201 "moe_C2toDS_mush" 0 17 rand 1000 5000
+
+mvsf 3855 49030
+
+
+
+reps rand 5 8
+
+	setv va00 rand 1 5
+
+	doif va00 eq 1
+
+		setv va03 1
+
+	elif va00 eq 2
+
+		setv va03 4
+
+	elif va00 eq 3
+
+		setv va03 7
+
+	elif va00 eq 4
+
+		setv va03 10
+
+	elif va00 eq 5
+
+		setv va03 13
+
+	endi
+
+	setv va04 rand 0 2
+
+
+
+	new: simp 2 11 50209 "moe_C2toDS_mush" 3 va03 rand 1000 5000
+
+	mvsf rand 3855 3930 49030
+
+repe
+
+
+
+*Plot 6
+
+new: simp 2 4 50201 "moe_C2toDS_mush" 0 16 rand 1000 5000
+
+mvsf 6500 49800
+
+
+
+reps rand 5 8
+
+	setv va00 rand 1 5
+
+	doif va00 eq 1
+
+		setv va03 1
+
+	elif va00 eq 2
+
+		setv va03 4
+
+	elif va00 eq 3
+
+		setv va03 7
+
+	elif va00 eq 4
+
+		setv va03 10
+
+	elif va00 eq 5
+
+		setv va03 13
+
+	endi
+
+	setv va04 rand 0 2
+
+
+
+	new: simp 2 11 50209 "moe_C2toDS_mush" 3 va03 rand 1000 5000
+
+	mvsf rand 6500 6570 49800
+
+repe
+
+
+scrp 2 4 50201 10
+
+	inst
+
+	attr 192
+
+	elas 0
+
+	accg 4
+
+	fric 100
+
+	dcor 0
+
+	core 5 0 50 55
+
+	tick rand 500 800
+
+	alph 128 1
+
+	perm 51
+
+endm
+
+
+
+scrp 2 11 50209 6
+
+	sndc "dr12"
+
+endm
+
+
+
+*Mush Create
+
+scrp 2 11 50209 10
+
+	inst
+
+	attr 199
+
+	bhvr 48
+
+	elas 35
+
+	fric 75
+
+	accg 2
+
+	perm 51
+
+	emit 8 .15
+
+	tick rand 500 800
+
+	mira rand 0 1
+
+	rnge 150
+
+endm
+
+
+
+scrp 2 4 50201 9
+
+
+
+	gsub check
+
+
+
+	subr check
+
+		setv va00 rtyp grap posx posy
+
+		doif va00 ne 8 and va00 ne 9
+
+			setv va00 prop grap posx posy 1
+
+			doif va00 lt .7
+
+				etch 2 11 50209
+
+					doif targ ne null
+
+						addv va00 1
+
+					endi
+
+				next
+
+				targ ownr
+
+				doif va00 lt 8
+
+					gsub grow
+
+				endi
+
+			endi
+
+		endi
+
+	retn
+
+
+
+
+
+	subr grow
+
+		setv va00 rand 1 5
+
+		doif va00 eq 1
+
+			setv va03 1
+
+		elif va00 eq 2
+
+			setv va03 4
+
+		elif va00 eq 3
+
+			setv va03 7
+
+		elif va00 eq 4
+
+			setv va03 10
+
+		elif va00 eq 5
+
+			setv va03 13
+
+		endi
+
+
+
+		setv va00 posl
+
+		setv va01 posr
+
+		addv va00 20
+
+		subv va01 20
+
+		setv va02 post
+
+
+
+		new: simp 2 11 50209 "moe_C2toDS_mush" 3 va03 rand 1000 5000
+
+		mvsf rand va00 va01 va02
+
+		targ ownr
+
+	retn
+
+endm
+
+
+
+scrp 2 11 50209 9
+
+	doif carr ne null
+
+		stop
+
+	endi
+
+
+
+	doif pose lt 2
+
+		setv va00 pose
+
+		addv va00 1
+
+		pose va00
+
+		stop
+
+	endi
+
+
+
+	addv ov10 1
+
+
+
+	doif ov10 ge 10
+
+		kill ownr
+
+	endi
+
+
+
+	gsub check
+
+
+
+	subr check
+
+		targ ownr
+
+		inst
+
+		etch 2 4 50201
+
+			doif targ ne null
+
+				addv va01 1
+
+			endi
+
+		next
+
+		targ ownr
+
+		etch 2 11 50209
+
+			doif targ ne null
+
+				addv va00 1
+
+			endi
+
+		next
+
+		targ ownr
+
+		doif va01 lt 1 and va00 ge 12
+
+			setv va00 rtyp grap posx posy
+
+			doif va00 ne 8 and va00 ne 9
+
+				setv va00 prop grap posx posy 1
+
+				doif va00 lt .7
+
+					gsub root
+
+				endi
+
+			endi
+
+		endi
+
+		slow
+
+	retn
+
+
+
+	subr root
+
+		setv va00 posl
+
+		subv va00 rand 25 50
+
+		setv va01 posb
+
+		new: simp 2 4 50201 "moe_C2toDS_mush" 0 16 rand 1000 5000
+
+		mvsf va00 va01
+
+	retn
+
+
+
+	subr grow
+
+		setv va00 rand 1 5
+
+		doif va00 eq 1
+
+			setv va03 1
+
+		elif va00 eq 2
+
+			setv va03 4
+
+		elif va00 eq 3
+
+			setv va03 7
+
+		elif va00 eq 4
+
+			setv va03 10
+
+		elif va00 eq 5
+
+			setv va03 13
+
+		endi
+
+
+
+		setv va00 posl
+
+		setv va01 posr
+
+		subv va00 10
+
+		addv va01 10
+
+		setv va02 post
+
+
+
+		new: simp 2 11 50209 "moe_C2toDS_mush" 3 va03 rand 1000 5000
+
+		mvsf rand va00 va01 va02
+
+		targ ownr
+
+	retn
+
+endm
+
+
+
+scrp 2 11 50209 12
+
+	sndc "chwp"
+
+	stim writ from 79 1
+
+	wait 1
+
+*	targ from
+
+*starch, fat, protein
+
+	chem 5 .3137
+
+	chem 10 .078
+
+	chem 12 .078
+
+	wait 1
+
+	kill ownr
+
+endm
+
+
+
+
+
+*Mush Planter
+
+scrp 2 24 50208 1
+
+	lock
+
+	sndc "m_a7"
+
+	anim [0 1 2 3 4 5 6 7 8 9 10]
+
+	over
+
+	doif ov00 eq 0
+
+		setv va00 posx
+
+		subv va00 46
+
+		setv va01 posb
+
+		new: simp 2 4 50201 "moe_C2toDS_mush" 0 16 rand 1000 5000
+
+		mvsf va00 va01
+
+		targ ownr
+
+	else
+
+		etch 2 4 50201
+
+			doif targ ne null
+
+				kill targ
+
+			endi
+
+			targ ownr
+
+		next
+
+	endi
+
+	anim [10 9 8 7 6 5 4 3 2 1 0]
+
+	unlk
+
+endm
+
+
+
+scrp 2 24 50208 1001
+
+	doif ov00 eq 0
+
+		part 2
+
+		pose 1
+
+		setv ov00 1
+
+	else
+
+		part 2
+
+		pose 0
+
+		setv ov00 0
+
+	endi
+
+endm
+
+
+
+scrp 2 24 50208 6
+
+	snde "drop"
+
+endm
+
+rscr
+
+
+enum 2 11 50209
+
+	kill targ
+
+next
+
+enum 2 4 50201
+
+	kill targ
+
+next
+
+scrx 2 4 50201 12
+
+
+
+enum 2 24 50208
+
+	kill targ
+
+next
+
+scrx 2 24 50208 1
+
+scrx 2 24 50208 6

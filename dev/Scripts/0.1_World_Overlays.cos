@@ -1,0 +1,1827 @@
+
+*Files Needed*
+
+*moe_C2toDS_Overlays
+
+*moe_C2toDS_Waves 
+
+*moe_C2toDS_Waterfalls 
+
+*moe_C2toDS_Overlays_Labs 
+
+*moe_C2toDS_Overlays2 
+
+*moe_C2toDS_OverlaysJungle
+
+
+
+
+
+*wwel
+
+*pool
+
+*waf2
+
+*inst
+
+
+
+inst
+
+
+
+*Terrarium Door Overlay
+
+new: simp 1 8 50200 "moe_C2toDS_doors" 1 11 8000
+
+attr 0
+
+mvto 4068 49215
+
+
+
+
+
+*--///Jungle Overlays-*
+
+
+
+*Dead trunk Top*
+
+new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 0 8000
+
+attr 0
+
+mvto 3526 48895
+
+
+
+*Dead trunk middle*
+
+new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 1 8000
+
+attr 0
+
+mvto 3526 49189
+
+
+
+*Dead trunk bottom*
+
+new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 2 8000
+
+attr 0
+
+mvto 3526 49483
+
+
+
+
+
+*Top Tree Fencing*
+
+new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 3 8000
+
+attr 0
+
+mvto 4923 48814
+
+
+
+*Upper Middle Tree Fencing Left*
+
+new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 4 8000
+
+attr 0
+
+mvto 5008 49074
+
+
+
+*Upper Middle Tree Fencing Left Beam Middle*
+
+new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 5 8000
+
+attr 0
+
+mvto 5309 48921
+
+
+
+*Middle strange struts*
+
+new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 6 8001
+
+attr 0
+
+mvto 5381 49145
+
+
+
+
+
+*More Struts and fencing*
+
+
+
+*Middle fencing*
+
+new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 12 8001
+
+attr 0
+
+mvto 5621 49277
+
+
+
+*Far right fencing*
+
+new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 13 8001
+
+attr 0
+
+mvto 5895 49191
+
+
+
+*Left Hut*
+
+new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 14 8001
+
+attr 0
+
+mvto 5077 49385
+
+
+
+*Left Hut*
+
+new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 15 8001
+
+attr 0
+
+mvto 5515 49591
+
+
+
+*Left Hut*
+
+new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 16 8001
+
+attr 0
+
+mvto 5653 49529
+
+
+
+
+
+
+
+*GLASS TUBES*
+
+
+
+*Far Right Glass*
+
+new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 7 8001
+
+attr 0
+
+mvto 5579 48990
+
+
+
+*Far Left Glass*
+
+new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 8 8001
+
+attr 0
+
+mvto 4344 49148
+
+
+
+*Left Middle Glass*
+
+new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 9 8001
+
+attr 0
+
+mvto 4735 49171
+
+
+
+*Right Bottom Glass*
+
+new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 10 8001
+
+attr 0
+
+mvto 5109 49191
+
+
+
+*Right Final Glass*
+
+new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 11 8001
+
+attr 0
+
+mvto 5443 49189
+
+
+
+*--///J*************s-*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*//--World Tree Overlays--
+
+
+
+*Lift Holder Branch*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 9 8000
+
+attr 0
+
+mvto 3581 47624
+
+
+
+*Lift Holder Branch Pipe*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 10 8001
+
+attr 0
+
+mvto 3683 47772
+
+
+
+*Wooden Balcony*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 11 8001
+
+attr 0
+
+mvto 3537 47870
+
+
+
+*Wooden Balcony Frond*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 12 8001
+
+attr 0
+
+mvto 3997 48002
+
+
+
+*World Tree Roots*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 17 8001
+
+attr 0
+
+mvto 3583 48182
+
+
+
+*World Tree Waterfall Roots Overhang *
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 18 8001
+
+attr 0
+
+mvto 3943 48216
+
+
+
+*World Tree Waterfall Roots Walkway Upper*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 21 8001
+
+attr 0
+
+mvto 4149 48214
+
+
+
+*World Tree Waterfall Roots Walkway Upper Bushes*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 24 8001
+
+attr 0
+
+mvto 4345 48060
+
+
+
+*World Tree Waterfall Roots Walkway Upper Holder Beams*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 23 8001
+
+attr 0
+
+mvto 4209 48374
+
+
+
+*World Tree Waterfall Roots Walkway Lower*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 19 8001
+
+attr 0
+
+mvto 4213 48538
+
+
+
+*World Tree Waterfall Hanging Bridge Strut *
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 20 8001
+
+attr 0
+
+mvto 4165 48005
+
+
+
+*//--W*****************s--
+
+
+
+
+
+*--///Hanging Bridge-*
+
+
+
+*Hanging Bridge Strut Right*
+
+
+
+*Hanging Bridge Piece Right*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 22 8001
+
+attr 0
+
+mvto 5698 48029
+
+
+
+*Left
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 29 8001
+
+attr 0
+
+mvto 4472 48057
+
+
+
+*Left Rope
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 33 8002
+
+attr 0
+
+mvto 4180 47953
+
+
+
+*Left Middle
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 30 8001
+
+attr 0
+
+mvto 4808 48091
+
+
+
+*Right Middle
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 31 8001
+
+attr 0
+
+mvto 5144 48101
+
+
+
+*Right
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 32 8001
+
+attr 0
+
+mvto 5479 48011
+
+
+
+*--///H************e-*
+
+
+
+
+
+
+
+*//--Dark Ocean Overlays--
+
+*Dark Ocean Rocks*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 27 8001
+
+attr 0
+
+mvto 2242 48261
+
+
+
+*Rocks Above Tube*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 15 8001
+
+attr 0
+
+mvto 2981 48214
+
+
+
+*Rocks Above To Right of Tube*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 16 8001
+
+attr 0
+
+mvto 3277 48214
+
+
+
+*Ocean Tube*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 13 8001
+
+attr 0
+
+mvto 2807 48552
+
+
+
+*Ocean Tube*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 14 8001
+
+attr 0
+
+mvto 3203 48552
+
+
+
+*Ocean Ground Overlay*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 25 8001
+
+attr 0
+
+mvto 2605 48710
+
+
+
+*Subterraniam Ground and Dock Overlay Left*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 26 8001
+
+attr 0
+
+mvto 2707 48763
+
+
+
+*Subterraniam Ground and Dock Overlay Right*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 27 8001
+
+attr 0
+
+mvto 2992 48763
+
+
+
+*Subterraniam Ground and Dock Overlay Right Bridge*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 28 8001
+
+attr 0
+
+mvto 3277 48763
+
+
+
+*//--D*****************s--
+
+
+
+*//--Dungeon Overlays--
+
+
+
+*Right Desert Shaft*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 1 8001
+
+attr 0
+
+mvto 6307 48197
+
+
+
+*Left Desert Shaft*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 0 8001
+
+attr 0
+
+mvto 6171 48199
+
+
+
+
+
+*Right Desert Dirt*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 2 8001
+
+attr 0
+
+mvto 6428 48201
+
+
+
+*Middle Desert Dirt*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 3 8001
+
+attr 0
+
+mvto 6925 48201
+
+
+
+*Middle Right Desert Archway*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 4 8001
+
+attr 0
+
+mvto 7427 48209
+
+*volm 2 -1500
+
+
+
+*Right Desert Dirt*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 5 8001
+
+attr 0
+
+mvto 7535 48201
+
+
+
+*Right Desert Dirt Yggdrasi Dirt*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 6 8001
+
+attr 0
+
+mvto 7924 48207
+
+
+
+*Dungeon Archways Left*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 7 8001
+
+attr 0
+
+mvto 6427 48455
+
+
+
+*Dungeon Archways Right*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 8 8001
+
+attr 0
+
+mvto 6923 48499
+
+
+
+*Dungeon Archways Dirt Right*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 9 8001
+
+attr 0
+
+mvto 7535 48459
+
+
+
+*Dungeon Archways Dirt Right*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 10 8001
+
+attr 0
+
+mvto 7893 48476
+
+
+
+*Dungeon Floor Rock Right*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 11 8001
+
+attr 0
+
+mvto 7768 48770
+
+
+
+*Dungeon Column Left*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 12 8001
+
+attr 0
+
+mvto 6319 48653
+
+
+
+*Dungeon Column Left Middle*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 13 8001
+
+attr 0
+
+mvto 6514 48650
+
+
+
+*Dungeon Column Middle*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 14 8001
+
+attr 0
+
+mvto 6808 48650
+
+
+
+*Dungeon Column Middle Right*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 15 8001
+
+attr 0
+
+mvto 7093 48652
+
+
+
+*Dungeon Column Right*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 16 8001
+
+attr 0
+
+mvto 7389 48652
+
+
+
+*Dungeon Fire Right*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 5 27 500
+
+attr 0
+
+mvto 7607 48672
+
+emit 2 0.0500
+
+frat 3
+
+anim [0 1 2 3 4 255]
+
+
+
+*Dungeon Fire Middle*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 5 22 500
+
+attr 0
+
+mvto 7238 48671
+
+emit 2 0.0500
+
+frat 3
+
+anim [0 1 2 3 4 255]
+
+
+
+*Dungeon Fire Left*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 5 17 500
+
+attr 0
+
+mvto 6923 48672
+
+emit 2 0.0500
+
+frat 3
+
+anim [0 1 2 3 4 255]
+
+
+
+*//--D**************s--
+
+
+
+*Water beneath biomes*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 0 8000
+
+attr 0
+
+mvto 4151 49930
+
+
+
+
+
+
+
+*---///Volcano Overlays--*
+
+
+
+*!!! There might be a map change in order to get this one to look right!!!*
+
+*Sub walkable overlay*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 1 8000
+
+attr 0
+
+mvto 9410 48354
+
+
+
+*Submarine overlay*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 26 8000
+
+attr 0
+
+mvto 9106 48192
+
+
+
+*!!! I don't undersatnd this one...  Look into it... :S!!!*
+
+*Volcano Walkway overlay*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 23 8000
+
+attr 0
+
+mvto 10032 48056
+
+
+
+*Volcano Cap Spouts overlay Left*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 24 8000
+
+attr 0
+
+mvto 9213 49753
+
+
+
+*Volcano Cap Spouts overlay Right*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 25 8000
+
+attr 0
+
+mvto 9512 49716
+
+
+
+*Visible heat*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 3 0 0
+
+attr 0
+
+mvto 9605 49242
+
+frat 5
+
+*emit 2 10.2
+
+anim [0 1 2 255]
+
+
+
+*Upper walkway fence*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 3 8000
+
+attr 0
+
+mvto 9262 48864
+
+frat 5
+
+
+
+*Upper walkway fence right*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 4 8000
+
+attr 0
+
+mvto 9576 48864
+
+frat 5
+
+
+
+*---///V**************s---*
+
+
+
+
+
+*-Splicing Room Overlays-*
+
+
+
+*Splicing room overhand pipes left*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 5 8000
+
+attr 0
+
+mvto 8043 49078
+
+frat 5
+
+
+
+*Splicing room overhand pipes right*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 7 8000
+
+attr 0
+
+mvto 8584 49078
+
+frat 5
+
+
+
+*Splicing room overhand pipes*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 6 8000
+
+attr 0
+
+mvto 8484 49079
+
+frat 5
+
+
+
+*Splicing room overhand Left Dirt*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 8 8000
+
+attr 0
+
+mvto 7971 49070
+
+frat 5
+
+
+
+*-S********************s-*
+
+
+
+
+
+
+
+
+
+*!!!Add sounds to this one!!!*
+
+*Waterwheel overlay 1*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 5 2 7999
+
+attr 0
+
+mvto 4922 49698
+
+frat 1.5
+
+anim [0 1 2 3 4 255]
+
+sndl "wwel"
+
+
+
+*Waterwheel overlay 2*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 5 7 7999
+
+attr 0
+
+mvto 4766 49873
+
+frat 1.5
+
+anim [0 1 2 3 4 255]
+
+
+
+
+
+*WaterWheel Dirt Overlway*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 12 8000
+
+attr 0
+
+mvto 4642 49743
+
+
+
+*WaterWheel Leafy Rock Overlway*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 13 8000
+
+attr 0
+
+mvto 4768 49653
+
+
+
+*WaterWheel Walkway Overlway*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 14 8000
+
+attr 0
+
+mvto 4505 49607
+
+
+
+*Light Ocean Left Bridge Rocks*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 16 8000
+
+attr 0
+
+mvto 8395 48240
+
+
+
+
+
+
+
+
+
+*!!!Add Sounds to this one!!!*
+
+*Incubator Room Waterfall*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 6 17 500
+
+attr 0
+
+mvto 6420 48333
+
+anim [0 1 2 3 4 5 255]
+
+sndl "pool"
+
+
+
+*Incubator Room Waterfall Mist*
+
+new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 3 17 8000
+
+attr 0
+
+mvto 6440 48460
+
+frat 3
+
+anim [0 1 2 255]
+
+
+
+*Incubator Room Waterfall Overlay*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 39 8000
+
+attr 0
+
+mvto 6430 48488
+
+mvto 6431 48488
+
+
+
+
+
+
+
+
+
+
+
+**//WAVES*
+
+*These MIGHT need sounds, I don't know. :O*
+
+setv va00 0
+
+setv va02 2317
+
+subv va02 128
+
+loop
+
+	addv va00 1
+
+	addv va02 128
+
+	new: simp 1 8 50200 "moe_C2toDS_Waves" 9 0 7999
+
+	attr 0
+
+	mvto va02 48259
+
+	frat 2
+
+	anim [0 1 2 3 4 5 6 7 8 255]
+
+untl va00 eq 6
+
+
+
+setv va01 0
+
+setv va03 8390
+
+subv va03 128
+
+loop
+
+	addv va01 1
+
+	addv va03 128
+
+	new: simp 1 8 50200 "moe_C2toDS_Waves" 9 9 7999
+
+	attr 0
+
+	mvto va03 48282
+
+	frat 2
+
+	anim [0 1 2 3 4 5 6 7 8 255]
+
+untl va01 eq 8
+
+**//-----*
+
+
+
+**//Treehouse Waterfall*
+
+*!!!These may or may not need sounds!!!*
+
+*Top Left
+
+new: simp 1 8 50200 "moe_C2toDS_Waterfalls" 6 0 1
+
+attr 0
+
+mvto 4489 48385
+
+frat 2
+
+anim [0 1 2 3 4 255]
+
+*sndl "waf2"
+
+*Middle Left
+
+new: simp 1 8 50200 "moe_C2toDS_Waterfalls" 6 5 1
+
+attr 0
+
+mvto 4545 48649
+
+frat 2
+
+anim [0 1 2 3 4 255]
+
+*Lower Left
+
+
+
+
+
+new: simp 1 8 50200 "moe_C2toDS_Waterfalls" 6 10 1
+
+attr 0
+
+mvto 4578 48913
+
+frat 2
+
+anim [0 1 2 3 4 255]
+
+*Bottom Left
+
+new: simp 1 8 50200 "moe_C2toDS_Waterfalls" 6 15 1
+
+attr 0
+
+mvto 4651 49310
+
+frat 2
+
+anim [0 1 2 3 4 255]
+
+
+
+
+
+*Top Right
+
+new: simp 1 8 50200 "moe_C2toDS_Waterfalls" 6 20 1
+
+attr 0
+
+mvto 5438 48540
+
+frat 2
+
+anim [0 1 2 3 4 255]
+
+*sndl "waf2"
+
+*Upper Right
+
+new: simp 1 8 50200 "moe_C2toDS_Waterfalls" 6 25 1
+
+attr 0
+
+mvto 5407 48740
+
+frat 2
+
+anim [0 1 2 3 4 255]
+
+*Middle Upper Right
+
+new: simp 1 8 50200 "moe_C2toDS_Waterfalls" 6 30 1
+
+attr 0
+
+mvto 5425 49034
+
+frat 2
+
+anim [0 1 2 3 4 255]
+
+*Middle Middle Right
+
+new: simp 1 8 50200 "moe_C2toDS_Waterfalls" 6 35 1
+
+attr 0
+
+mvto 5372 49153
+
+frat 2
+
+anim [0 1 2 3 4 255]
+
+*Middle Lower Right
+
+new: simp 1 8 50200 "moe_C2toDS_Waterfalls" 6 40 1
+
+attr 0
+
+mvto 5417 49348
+
+frat 2
+
+anim [0 1 2 3 4 255]
+
+*Lower Middle Right
+
+new: simp 1 8 50200 "moe_C2toDS_Waterfalls" 6 45 1
+
+attr 0
+
+mvto 5333 49491
+
+frat 2
+
+anim [0 1 2 3 4 255]
+
+*Lower Right
+
+new: simp 1 8 50200 "moe_C2toDS_Waterfalls" 6 50 1
+
+attr 0
+
+mvto 5345 49609
+
+frat 2
+
+anim [0 1 2 3 4 255]
+
+
+
+
+
+*SoundScapes for Waterfall*
+
+new: simp 1 8 50200 "moe_C2toDS_WaterfallSoundscapes" 1 0 1
+
+mvto 4489 48385
+
+sndl "waf2"
+
+
+
+new: simp 1 8 50200 "moe_C2toDS_WaterfallSoundscapes" 1 1 1
+
+mvto 5438 48540
+
+sndl "waf2"
+
+
+
+
+
+*!!! Swamp Overlays! !!!*
+
+*swmp*
+
+*Pipe*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 28 1000
+
+attr 0
+
+mvto 6782 49007
+
+
+
+*!!! Upper scafolding !!!*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 29 8000
+
+attr 0
+
+mvto 7089 49066
+
+
+
+*!!! Upper scafolding right segment !!!*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 30 8000
+
+attr 0
+
+mvto 7261 49156
+
+
+
+*!!! Left Vent !!!*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 31 8000
+
+attr 0
+
+mvto 6369 49382
+
+
+
+*!!! Left fence !!!*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 32 8000
+
+attr 0
+
+mvto 6652 49589
+
+
+
+*!!! Left Middle fence !!!*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 33 8000
+
+attr 0
+
+mvto 6911 49403
+
+
+
+*!!! Middle fence !!!*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 34 8000
+
+attr 0
+
+mvto 7240 49400
+
+
+
+*!!! Middle fence Tree Piece !!!*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 35 8000
+
+attr 0
+
+mvto 7435 49430
+
+
+
+*!!! Middle fence bottom Piece !!!*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 36 8000
+
+attr 0
+
+mvto 7072 49612
+
+
+
+*!!! Right scaffolding !!!*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 37 8000
+
+attr 0
+
+mvto 7800 49304
+
+*!!! S************s !!!*
+
+
+
+
+
+
+
+*--//!!!!!Laboratory!!!!!-*
+
+
+
+*Column L*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 1 0 8000
+
+attr 0
+
+mvto 3004 49761
+
+
+
+*Column R*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 1 1 8000
+
+attr 0
+
+mvto 3552 49761
+
+
+
+*Wooden Box*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 1 2 1000
+
+attr 0
+
+mvto 2253 49843
+
+
+
+*Gold Pots*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 1 3 8000
+
+attr 0
+
+mvto 2618 49823
+
+
+
+*Strange Metal Crate*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 1 4 8000
+
+attr 0
+
+mvto 2138 49394
+
+
+
+
+
+*Massive Mixer Anim*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 3 92 10
+
+attr 0
+
+mvto 2693 49148
+
+frat 10
+
+anim [0 1 2 255]
+
+
+
+
+
+*Yellow Bubblies*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 10 8 500
+
+attr 0
+
+mvto 2480 49703
+
+frat 2
+
+anim [0 1 2 3 4 5 6 7 8 9 255]
+
+
+
+*Red Dripper*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 10 55 500
+
+attr 0
+
+mvto 2401 49640
+
+frat 2
+
+anim [0 1 2 3 4 5 6 7 8 9 8 7 6 255]
+
+
+
+*Green Bubbler*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 10 74 500
+
+attr 0
+
+mvto 2344 49700
+
+frat 2
+
+anim [0 1 2 3 4 5 6 7 8 9 255]
+
+
+
+*Bubbly Tanks*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 10 39 10
+
+attr 0
+
+mvto 2538 49800
+
+frat 2
+
+anim [0 1 2 3 4 5 6 7 8 9 255]
+
+
+
+*Fire Hearth*
+
+*!!!This should emit heat!!!
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 3 5 500
+
+attr 0
+
+mvto 2233 49367
+
+frat 5
+
+emit 2 0.1500
+
+anim [0 1 2 1 255]
+
+
+
+*Candle Flame R*
+
+*!!!This should emit heat!!!
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 3 24 500
+
+attr 0
+
+mvto 2654 49479
+
+frat 5
+
+emit 2 0.0300
+
+anim [0 1 2 255]
+
+
+
+*Candle Flame L*
+
+*!!!This should emit heat!!!
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 3 71 500
+
+attr 0
+
+mvto 2337 49483
+
+frat 5
+
+emit 2 0.0300
+
+anim [0 1 2 255]
+
+
+
+*Lab Background Flame R*
+
+*!!!This should emit heat!!!
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 6 33 500
+
+attr 0
+
+mvto 2648 49724
+
+frat 2
+
+emit 2 0.1300
+
+anim [0 1 2 3 4 5 255]
+
+
+
+*Lab Background Flame L*
+
+*!!!This should emit heat!!!
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 6 65 500
+
+attr 0
+
+mvto 2291 49723
+
+frat 2
+
+emit 2 0.1300
+
+anim [0 1 2 3 4 5 255]
+
+
+
+*Braier Flame L*
+
+*!!!This should emit heat!!!
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 6 27 500
+
+attr 0
+
+mvto 3136 49769
+
+frat 3
+
+emit 2 0.3300
+
+anim [0 1 2 3 4 5 255]
+
+
+
+*Braier Flame R*
+
+*!!!This should emit heat!!!
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 6 49 500
+
+attr 0
+
+mvto 3434 49769
+
+frat 3
+
+emit 2 0.3300
+
+anim [0 1 2 3 4 5 255]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*Swamp L*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 14 129 500
+
+attr 0
+
+mvto 6936 49875
+
+frat 3
+
+emit 2 0.3300
+
+anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 255]
+
+
+
+*Swamp LM*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 14 115 500
+
+attr 0
+
+mvto 7134 49875
+
+frat 3
+
+emit 2 0.3300
+
+anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 255]
+
+
+
+*Swamp M*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 14 143 500
+
+attr 0
+
+mvto 7332 49875
+
+frat 3
+
+emit 2 0.3300
+
+anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 255]
+
+
+
+*Swamp R*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 14 101 500
+
+attr 0
+
+mvto 7528 49875
+
+frat 3
+
+emit 2 0.3300
+
+anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 255]
+
+
+
+
+
+
+
+*!!!!Meters*  - I don't like these, they don't look good.!!!!*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 10 18 500
+
+attr 0
+
+mvto 3313 49076
+
+frat 10
+
+anim [0 1 2 3 4 5 255]
+
+
+scrp 1 8 50200 10
+
+	tick 0
+
+	stop
+
+endm
+
+rscr
+
+enum 1 8 50200
+
+	kill targ
+
+next
+
+loop
+
+	addv va00 1
+
+	scrx 1 8 50200 va00
+
+untl va00 ge 2000
+
+

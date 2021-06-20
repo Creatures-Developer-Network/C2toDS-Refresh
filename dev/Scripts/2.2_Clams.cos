@@ -1,0 +1,648 @@
+* 2 16 50200 - Clam
+* 2 21 50224 - Pearl
+
+*you can hide small things in clams
+
+*put things in clams for 3 nights to make black pearls
+
+*clicking on a clam releases whatever has been placed inside, if nothing is inside
+
+*clam opens for user
+
+*pearls take several days to grow inside of clams depending on the bounding box size
+
+
+
+* Creation
+
+reps 3
+
+	new: vhcl 2 16 50200 "moe_C2toDS_clam" 23 21 rand 1000 3000
+
+	mvsf rand 8580 9191 48630
+
+
+	new: vhcl 2 16 50200 "moe_C2toDS_clam" 23 21 rand 1000 3000
+
+	mvsf rand 8117 8345 48954
+
+repe
+
+
+scrp 2 16 50200 10
+
+	inst
+
+	cabn 7 20 57 60
+
+	cabp -1
+
+
+
+	elas 0
+
+	accg 10
+
+	aero 30
+
+	attr 207
+
+	frat 2
+
+	seta ov01 null
+
+	tick rand 360 500
+
+	perm 51
+
+	seta ov08 null
+
+endm
+
+
+
+scrp 2 21 50224 10
+
+	attr 199
+
+	elas 10
+
+	aero 5
+
+	accg 2
+
+	perm 51
+
+	bhvr 49
+
+endm
+
+
+
+scrp 2 21 50224 12
+
+	snde "reat"
+
+	doif crea from eq 1
+
+		targ from
+
+		chem 125 .015
+
+	endi
+
+	kill ownr
+
+endm
+
+
+
+scrp 2 21 50224 1
+
+	doif crea from eq 1
+
+		stim writ from 97 1
+
+	endi
+
+	addv vely rand -7 -10
+
+	addv velx rand -7 7
+
+endm
+
+
+
+*activate by clam
+
+scrp 2 21 50224 1001
+
+
+
+	doif ov15 eq 0
+
+		setv ov15 1
+
+		reps rand 20 30
+
+			subv vely 12
+
+			wait 20
+
+		repe
+
+	else
+
+		setv ov15 0
+
+		stop
+
+	endi
+
+endm
+
+
+
+scrp 2 21 50224 4
+
+	accg 5
+
+endm
+
+
+
+*1 sec = 19.5
+
+*360 seconds in a day cycle or 7020 TICKS in a day cycle
+
+
+
+*clam ticks 360-500, if 360, clam will move every 18 seconds
+
+*or check if it's out of water
+
+
+
+*18 seconds goes into 6 minutes 20 times. 6 minutes is the day cycle.
+
+*SO! If tick is 360, clam will make a pearl roughly every day cycle or so
+
+
+
+
+
+
+
+scrp 2 16 50200 9
+
+*check for pearl
+
+*ov08 is a pearl present?
+
+*ov13 eq 1 black pearl
+
+
+
+
+
+*don't rock if you're open
+
+	doif ov15 ne 1
+
+		anim [0 1 2 3 4 5 6 7 0]
+
+	elif ov15 eq 1
+
+*if you're open, for some reason... close
+
+		mesg writ ownr 0
+
+	endi
+
+
+
+	addv ov01 1
+
+
+
+
+
+
+
+*if tick is 360, the clam will make a pearl roughly every day cycle or so
+
+	doif ov01 ge rand 10 20
+
+
+
+		setv ov01 0
+
+
+
+		seta ov08 null
+
+
+
+
+
+		epas 0 0 0
+
+			doif fmly eq 2 and gnus eq 21 and spcs eq 50224
+
+				seta mv08 targ
+
+			endi
+
+			doif targ ne null and targ ne mv08
+
+				setv mv13 1
+
+			endi
+
+		next
+
+
+
+
+
+*if no pearl, make one, IF you're closed.
+
+		doif ov08 eq null and ov15 eq 0
+
+			doif ov13 eq 0
+
+				setv va00 37
+
+			else
+
+				setv va00 38
+
+			endi
+
+
+
+*kill whatever was placed in here as foodstuffs
+
+			epas 0 0 0
+
+				doif targ ne null
+
+					doif fmly eq 2 and gnus eq 21 and spcs eq 50224
+
+					else
+
+						kill targ
+
+					endi
+
+				endi
+
+			next
+
+
+
+*make pearl
+
+			setv va03 posx
+
+			setv va04 posy
+
+
+
+			new: simp 2 21 50224 "moe_C2toDS_clam" 2 va00 rand 1000 3000
+
+			mvsf va03 va04
+
+			spas ownr targ
+
+		endi
+
+
+
+*default back to white pearl
+
+		setv ov13 0
+
+	endi
+
+
+
+*if you're out of water, open up for a bit, then shut like a bitch
+
+	setv va00 rtyp room ownr
+
+	doif va00 ne 8 and va00 ne 9
+
+		doif ov15 eq 0
+
+			mesg writ ownr 0
+
+		elif ov15 eq 1
+
+			wait tick
+
+			mesg writ ownr 0
+
+		endi
+
+	else
+
+		part 0
+
+*anim [0 1 2 3 4 5 6 7 0]
+
+	endi
+
+
+
+endm
+
+
+
+scrp 2 16 50200 1
+
+	inst
+
+	doif ov15 eq 0
+
+*stage open
+
+		setv ov15 1
+
+		pose 10
+
+		pat: dull 1 "moe_C2toDS_clam" 31 0 0 1
+
+		pat: dull 2 "moe_C2toDS_clam" 32 0 0 -2
+
+		slow
+
+
+
+		part 2
+
+		frat 2
+
+		anim [0 1 2 3 4]
+
+		setv va00 0
+
+		epas 0 0 0
+
+			doif targ ne null
+
+				addv va00 1
+
+			endi
+
+		next
+
+		targ ownr
+
+
+
+		doif va00 eq 0
+
+
+
+		else
+
+			epas 0 0 0
+
+				doif fmly eq 2 and gnus eq 21 and spcs eq 50224
+
+					mesg writ mv08 1001
+
+				else
+
+*don't drop what you've got if you're out of water, only when clicked
+
+					doif from eq pntr
+
+						rpas ownr targ
+
+					endi
+
+				endi
+
+			next
+
+		endi
+
+
+
+	else
+
+		setv ov15 0
+
+		lock
+
+		epas 0 0 0
+
+			doif fmly eq 2 and gnus eq 21 and spcs eq 50224
+
+				mesg writ mv08 1001
+
+			else
+
+*	rpas ownr targ
+
+			endi
+
+		next
+
+		targ ownr
+
+		part 2
+
+		anim [4 3 2 1 0]
+
+		over
+
+		part 0
+
+		pose 0
+
+		pat: kill 1
+
+		pat: kill 2
+
+	endi
+
+	unlk
+
+
+
+
+
+
+
+endm
+
+
+
+* Timer script
+
+*scrp 2 16 50200 9
+
+*	doif ov00 eq 0
+
+*		setv va00 rand 0 9
+
+*		doif va00 eq 0
+
+*			doif rtyp room ownr ne 8 and rtyp room ownr ne 9
+
+*				setv ov00 1
+
+*			endi
+
+*		else
+
+*			setv ov00 0
+
+*			base 0
+
+*			anim [0 1 2 3 4 5 6 7]
+
+*		endi
+
+*	endi
+
+*	doif ov00 eq 1
+
+*		base 8
+
+*		anim [0 1 2 3 4]
+
+*		over
+
+*		etch 2 15 0
+
+*			doif relx ownr targ le 25 and rely ownr targ le 25
+
+*				tick 0
+
+*				setv velx 0
+
+*				setv vely 0
+
+*				seta mv01 targ
+
+*				targ ownr
+
+*				base 8
+
+*				anim [4 3 2 1]
+
+*				over
+
+*				doif ov01 ne null
+
+*					targ ov01
+
+*					kill targ
+
+*				endi
+
+*				targ ownr
+
+*				pose 0
+
+*				setv ov00 0
+
+*				stop
+
+*
+
+*
+
+*			else
+
+*				targ ownr
+
+*				setv ov00 2
+
+*				stop
+
+*			endi
+
+*		next
+
+*		setv ov00 2
+
+*		stop
+
+*	endi
+
+*	doif ov00 eq 2
+
+*		doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+
+*			setv ov00 3
+
+*			stop
+
+*		endi
+
+*		setv va00 rand 2 5
+
+*		reps va00
+
+*			base 13
+
+*			anim [0 1 2 3 4 5 6 7]
+
+*			over
+
+*		repe
+
+*		setv ov00 3
+
+*	endi
+
+*	doif ov00 eq 3
+
+*		base 8
+
+*		anim [4 3 2 1 0]
+
+*		over
+
+*		setv ov00 0
+
+*		stop
+
+*	endi
+
+*endm
+
+
+
+** Activate 1
+
+*scrp 2 16 50200 1
+
+*	doif ov00 eq 0
+
+*		setv ov00 1
+
+*	endi
+
+*	doif ov00 eq 2
+
+*		setv ov00 3
+
+**stim writ from 0 255 0 0 18 50 0 0 0 0 0 0
+
+*	endi
+
+**setv actv 0
+
+*endm
+
+
+
+scrp 2 16 50200 255
+
+	stop
+
+endm
+
+rscr
+
+
+
+
+enum 2 16 50200
+
+	kill targ
+
+next
+
+enum 2 21 50224
+
+	kill targ
+
+next
+

@@ -1,0 +1,847 @@
+* These are all 1 12 50200
+
+
+*Requirements*
+
+*vlfm
+
+*flam
+
+*moev
+
+*m_wn
+
+*m_uw
+
+
+
+*frog
+
+*bug1
+
+*bug2
+
+
+
+*brd1
+
+*brd2
+
+*brd3
+
+*brd4
+
+*brd5
+
+*owl1
+
+
+
+*wnda
+
+*wndb
+
+*wndc
+
+*wnd3
+
+*wnd4
+
+*wnd5
+
+*wnd6
+
+*wnd7
+
+*wnd8
+
+*wnd9
+
+
+
+*wav1
+
+*wav2
+
+*wav3
+
+*wav4
+
+*wav5
+
+
+
+*amb1
+
+*amb2
+
+*hart
+
+
+
+*stea
+
+
+
+*bub_
+
+*bub3
+
+*bub4
+
+*bub5
+
+*bub6
+
+
+*Underwater Sounds
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 8889 48455
+
+pose 10
+
+sndl "m_uw"
+
+*volm 2 -4000
+
+
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 8239 48957
+
+pose 10
+
+sndl "m_uw"
+
+*volm 2 -4000
+
+
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 2688 48573
+
+pose 10
+
+sndl "m_uw"
+
+*volm 2 -4000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 9020 49334
+
+pose 10
+
+tick 100
+
+setv name "whatamI?" 1
+
+
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 9904 49843
+
+pose 10
+
+tick 100
+
+*volm 0 -900
+
+sndl "moev"
+
+
+
+
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 9290 49843
+
+pose 10
+
+tick 100
+
+*volm 0 -900
+
+sndl "moev"
+
+
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 9865 49039
+
+pose 10
+
+tick 100
+
+*volm 0 -900
+
+sndl "m_wn"
+
+
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 9863 48363
+
+pose 10
+
+tick 100
+
+*volm 0 -800
+
+sndl "m_wn"
+
+
+
+*Swamp Sounds*
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 7270 49785
+
+pose 10
+
+tick rand 40 80
+
+setv name "whatamI?" 2
+
+
+
+
+
+*Tree Sounds*
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 5148 48624
+
+pose 10
+
+tick rand 40 80
+
+setv name "whatamI?" 3
+
+
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 5788 49198
+
+pose 10
+
+tick rand 40 80
+
+setv name "whatamI?" 3
+
+
+
+
+
+*Desert Sounds
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 7240 47975
+
+pose 10
+
+tick rand 40 80
+
+setv name "whatamI?" 4
+
+
+
+
+
+*Ocean Sounds
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 8882 48255
+
+pose 10
+
+tick rand 40 80
+
+setv name "whatamI?" 5
+
+
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 2733 48238
+
+pose 10
+
+tick rand 40 80
+
+setv name "whatamI?" 5
+
+
+
+
+
+*Hatchery Sounds*
+
+
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 7290 48376
+
+pose 10
+
+tick rand 80 100
+
+setv name "whatamI?" 6
+
+
+
+*Steam Vent*
+
+
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 11 1
+
+attr 0
+
+mvto 9700 48345
+
+tick rand 40 80
+
+setv name "whatamI?" 7
+
+
+
+*Right Lava Bubble
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 21 1
+
+attr 0
+
+mvto 9581 49795
+
+tick rand 40 80
+
+setv name "whatamI?" 9
+
+
+
+*Left Lava Bubble
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 30 1
+
+attr 0
+
+mvto 9340 49776
+
+tick rand 40 80
+
+setv name "whatamI?" 8
+
+scrp 1 12 50200 9
+
+	doif name "whatamI?" eq 1
+
+		doif game "VolcanoFlooded" eq 0
+
+			rnge 100
+
+			sndc "flam"
+
+*sndc "moev"
+
+			tick rand 10 200
+
+			frat 2
+
+			anim [0 1 2 3 4 5 6 7 8 9]
+
+			over
+
+			pose 10
+
+		endi
+
+	endi
+
+*stim shou 10 9 100 0 22 100 0 0 0 0 0 0
+
+
+
+
+
+*Swamp Sounds*
+
+	doif name "whatamI?" eq 2
+
+		tick 0
+
+		setv va00 rand 0 2
+
+		doif va00 eq 0
+
+			sndc "bug1"
+
+		else
+
+			doif va00 eq 1
+
+				sndc "frog"
+
+			else
+
+				sndc "bug2"
+
+			endi
+
+		endi
+
+		setv va00 rand 80 100
+
+		tick va00
+
+	endi
+
+
+
+*Tree Sounds*
+
+	doif name "whatamI?" eq 3
+
+*volm 0 rand -500 -900
+
+		tick 0
+
+		doif game "TMOD" ne 4
+
+			setv va00 rand 0 3
+
+			doif va00 eq 0
+
+				snde "brd1"
+
+			else
+
+				doif va00 eq 1
+
+					snde "brd2"
+
+				else
+
+					doif va00 eq 2
+
+						snde "brd3"
+
+					else
+
+						snde "brd4"
+
+					endi
+
+				endi
+
+			endi
+
+		else
+
+			setv va00 rand 0 4
+
+			doif va00 eq 0
+
+				snde "owl1"
+
+			else
+
+				doif va00 eq 1
+
+					snde "brd5"
+
+				else
+
+					doif va00 eq 2
+
+						snde "bug1"
+
+					else
+
+						doif va00 eq 3
+
+							snde "frog"
+
+						else
+
+							snde "bug2"
+
+						endi
+
+					endi
+
+				endi
+
+			endi
+
+		endi
+
+		setv va00 rand 100 200
+
+		tick va00
+
+	endi
+
+
+
+*Desert Sounds
+
+	doif name "whatamI?" eq 4
+
+		tick 0
+
+		setv va00 rand 0 9
+
+		doif va00 eq 0
+
+			snde "wnda"
+
+		endi
+
+		doif va00 eq 1
+
+			snde "wndb"
+
+		endi
+
+		doif va00 eq 2
+
+			snde "wnd3"
+
+		endi
+
+		doif va00 eq 3
+
+			snde "wnd4"
+
+		endi
+
+		doif va00 eq 4
+
+			snde "wnd5"
+
+		endi
+
+		doif va00 eq 5
+
+			snde "wnd6"
+
+		endi
+
+		doif va00 eq 6
+
+			snde "wnd7"
+
+		endi
+
+		doif va00 eq 7
+
+			snde "wnd8"
+
+		endi
+
+		doif va00 eq 8
+
+			snde "wnd9"
+
+		endi
+
+		doif va00 eq 9
+
+			snde "wndc"
+
+		endi
+
+		setv va00 rand 100 200
+
+		tick va00
+
+	endi
+
+
+
+*Ocean Sounds
+
+
+
+	doif name "whatamI?" eq 5
+
+		tick 0
+
+		setv va00 rand 0 4
+
+		doif va00 eq 0
+
+			snde "wav1"
+
+		else
+
+			doif va00 eq 1
+
+				snde "wav2"
+
+			else
+
+				doif va00 eq 2
+
+					snde "wav3"
+
+				else
+
+					doif va00 eq 3
+
+						snde "wav4"
+
+					else
+
+						snde "wav5"
+
+					endi
+
+				endi
+
+			endi
+
+		endi
+
+		setv va00 rand 80 120
+
+		tick va00
+
+	endi
+
+
+
+
+
+*Hatchery Sounds
+
+
+
+	doif name "whatamI?" eq 6
+
+		tick 0
+
+		setv va00 rand 0 3
+
+		doif va00 eq 0
+
+			snde "amb1"
+
+		else
+
+			doif va00 eq 1
+
+				snde "amb2"
+
+			else
+
+				doif va00 eq 2
+
+					snde "bug2"
+
+				else
+
+					setv va01 rand 10 25
+
+					sndl "hart"
+
+					wait va01
+
+				endi
+
+			endi
+
+		endi
+
+		fade
+
+		setv va00 rand 40 140
+
+		tick va00
+
+	endi
+
+
+
+*Steam Vent*
+
+	doif name "whatamI?" eq 7
+
+		snde "stea"
+
+		frat 2
+
+		anim [0 1 2 3 4 5 6 7 8 9 0]
+
+		setv va00 rand 60 160
+
+		tick va00
+
+	endi
+
+
+
+*Left Lava
+
+	doif name "whatamI?" eq 8
+
+		setv va00 rand 0 4
+
+		doif va00 eq 0
+
+			snde "bub_"
+
+		endi
+
+		doif va00 eq 1
+
+			snde "bub3"
+
+		endi
+
+		doif va00 eq 2
+
+			snde "bub4"
+
+		endi
+
+		doif va00 eq 3
+
+			snde "bub5"
+
+		endi
+
+		doif va00 eq 4
+
+			snde "bub6"
+
+		endi
+
+*stim shou 30 255 0 0 22 50 38 50 0 0 0 0
+
+		anim [0 1 2 3 4 5 6 7 8 9 0]
+
+		setv va00 rand 160 260
+
+		tick va00
+
+	endi
+
+*Right Lava
+
+	doif name "whatamI?" eq 9
+
+		setv va00 rand 0 4
+
+		doif va00 eq 0
+
+			snde "bub_"
+
+		endi
+
+		doif va00 eq 1
+
+			snde "bub3"
+
+		endi
+
+		doif va00 eq 2
+
+			snde "bub4"
+
+		endi
+
+		doif va00 eq 3
+
+			snde "bub5"
+
+		endi
+
+		doif va00 eq 4
+
+			snde "bub6"
+
+		endi
+
+*stim shou 30 255 0 0 22 50 38 50 0 0 0 0
+
+		anim [0 1 2 3 4 5 6 7 8  8 0]
+
+		setv va00 rand 160 260
+
+		tick va00
+
+	endi
+
+endm
+
+rscr
+
+enum 1 12 50200
+
+	kill targ
+
+next
+
+scrx 1 12 50200 9

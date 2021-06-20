@@ -1,0 +1,457 @@
+* 1 27 50222 - Grass Seed Vendor Fading Decorations
+* 2 3 50222 - Grass Seed
+* 2 4 50222 - Grass
+* 2 24 50222 - Grass Seed Vendor
+
+new: simp 2 24 50222 "moe_C2toDS_grass" 9 0 rand 1000 3000
+
+mvsf 6142 49080
+
+
+
+reps rand 8 15
+
+	new: simp 2 4 50222 "moe_C2toDS_grass" 8 22 rand 1000 3000
+
+	mvsf rand 5122 6544 49784
+
+	pose rand 0 3
+
+repe
+
+
+
+reps rand 5 10
+
+	new: simp 2 4 50222 "moe_C2toDS_grass" 8 22 rand 1000 3000
+
+	mvsf rand 6804 7719 48397
+
+	pose rand 0 3
+
+repe
+
+
+
+reps rand 5 10
+
+	new: simp 2 4 50222 "moe_C2toDS_grass" 8 22 rand 1000 3000
+
+	mvsf rand 3550 4067 48100
+
+	pose rand 0 3
+
+repe
+
+scrp 2 24 50222 10
+
+	attr 198
+
+	elas 10
+
+	accg 4
+
+	aero 3
+
+	perm 51
+
+	emit 10 .15
+
+endm
+
+
+
+scrp 2 24 50222 1
+
+	lock
+
+	frat 2
+
+	anim [0 1 2 3 4]
+
+	over
+
+	reps rand 3 5
+
+		inst
+
+		anim [5 6 7 8]
+
+		over
+
+
+
+		setv va00 posl
+
+		setv va01 post
+
+		subv va01 30
+
+		setv va02 plne
+
+		addv va02 rand -1 0
+
+		new: simp 1 27 50222 "moe_C2toDS_grass" 10 9 va02
+
+		mvsf va00 va01
+
+		targ ownr
+
+
+
+		addv va00 27
+
+		addv va01 40
+
+
+
+		new: simp 2 3 50222 "moe_C2toDS_grass" 0 19 va02
+
+		mira rand 0 1
+
+		mvsf va00 va01
+
+		velo rand -15 15 rand 0 -15
+
+		targ ownr
+
+
+
+	repe
+
+
+
+	anim [5 6 7 8 5 4 3 2 1 0]
+
+
+
+endm
+
+
+
+scrp 2 3 50222 10
+
+	attr 198
+
+	accg 3
+
+	elas 35
+
+	aero 1
+
+	fric 40
+
+	emit 7 .15
+
+	tick rand 100 200
+
+	bhvr 48
+
+endm
+
+
+
+scrp 2 3 50222 12
+
+	stim writ from 77 1
+
+	snde "chwp"
+
+	kill ownr
+
+endm
+
+
+
+scrp 2 3 50222 9
+
+	gsub check
+
+
+
+	addv ov00 1
+
+
+
+	doif ov00 gt 10
+
+		kill ownr
+
+	endi
+
+
+
+	subr check
+
+		rnge 100
+
+		esee 2 4 50222
+
+			doif targ ne null
+
+				addv va02 1
+
+			endi
+
+		next
+
+		targ ownr
+
+
+
+		doif va02 ge 3
+
+			stop
+
+		endi
+
+
+
+		doif carr ne null or fall eq 1
+
+			stop
+
+		endi
+
+		setv va00 grap posx posy
+
+*light
+
+		setv va01 prop room ownr 1
+
+*heat
+
+		setv va02 prop room ownr 2
+
+*water
+
+		setv va03 prop room ownr 3
+
+*nutrients
+
+		setv va04 prop room ownr 4
+
+
+
+		doif va00 gt .2 and va01 gt .2 and va03 gt .25 and va04 gt .2
+
+			doif rtyp room ownr eq 9 or rtyp room ownr eq 8
+
+				kill ownr
+
+			endi
+
+
+
+			gsub grow
+
+		endi
+
+	retn
+
+
+
+	subr grow
+
+		setv va00 posl
+
+		setv va01 posb
+
+		subv va00 30
+
+		subv va01 30
+
+		new: simp 2 4 50222 "moe_C2toDS_grass" 8 22 rand 1000 3000
+
+		mvsf va00 va01
+
+		kill ownr
+
+	retn
+
+
+
+
+
+endm
+
+
+
+scrp 2 4 50222 10
+
+	dcor 0
+
+	mira rand 0 1
+
+	setv va00 hght
+
+	subv va00 2
+
+	core 0 va00 0 wdth
+
+	accg 7
+
+	attr 193
+
+	aero 0
+
+	fric 100
+
+	elas 0
+
+	tick rand 100 200
+
+endm
+
+
+
+scrp 2 4 50222 9
+
+	doif game "TMOD" eq 4 or sean eq 3
+
+		stop
+
+	endi
+
+	doif pose lt 3
+
+		setv va00 pose
+
+		addv va00 1
+
+		pose va00
+
+	elif pose eq 3
+
+		addv ov00 1
+
+		tick rand 1000 2000
+
+		doif ov00 eq 5
+
+			gsub seed
+
+		elif ov00 gt 10
+
+			frat rand 100 200
+
+			anim [4 5 6 7]
+
+			over
+
+			wait tick
+
+			kill ownr
+
+		endi
+
+	endi
+
+
+
+
+
+	subr seed
+
+
+
+		esee 2 3 50222
+
+			doif targ ne null
+
+				addv va12 1
+
+			endi
+
+		next
+
+		doif va12 lt 5
+
+			reps rand 2 3
+
+				setv va00 posx
+
+				setv va01 posy
+
+				subv va00 30
+
+				subv va01 30
+
+				new: simp 2 3 50222 "moe_C2toDS_grass" 0 19 va02
+
+				mira rand 0 1
+
+				mvsf va00 va01
+
+				setv velx rand -10 10
+
+				setv vely rand -10 -15
+
+			repe
+
+		endi
+
+
+
+	retn
+
+
+
+endm
+
+
+
+
+
+
+
+scrp 1 27 50222 10
+
+	lock
+
+	mira rand 0 1
+
+	anim [0 1 2 3 4 5 6 7 8 9]
+
+	over
+
+	kill ownr
+
+endm
+
+rscr
+
+
+
+
+enum 2 24 50222
+
+	kill targ
+
+next
+
+
+
+enum 2 3 50222
+
+	kill targ
+
+next
+
+
+
+enum 2 3 50222
+
+	kill targ
+
+next
+
+
+
+enum 2 4 50222
+
+	kill targ
+
+next
+
+

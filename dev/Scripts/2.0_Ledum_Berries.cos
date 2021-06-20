@@ -1,0 +1,234 @@
+*//*Ledum Berry*//*
+* 2 6  50203 - Ledum Berry Leaf
+* 2 20 50203 - Ledum Berry
+
+*Matthew, "Moe", '10*
+
+new: simp 2 6 50203 "moe_C2toDS_berries" 0 0 rand 1000 3000
+
+attr 0
+
+mvto 5546 48093
+
+tick 1
+
+scrp 2 6 50203 9
+
+	tick rand 100 200
+
+
+
+	doif totl 2 20 50203 lt 25
+
+*	setv va00 2
+
+		setv va00 rand 0 7
+
+		doif va00 eq 0
+
+			setv va01 rand 5423 5625
+
+			setv va02 rand 48100 48122
+
+		elif va00 eq 1
+
+			setv va01 rand 5563 5672
+
+			setv va02 rand 48220 48249
+
+		elif va00 eq 2
+
+			setv va01 rand 5555 5610
+
+			setv va02 rand 48113 48233
+
+		elif va00 eq 3
+
+			setv va01 rand 4800 4860
+
+			setv va02 rand 48090 48141
+
+		elif va00 eq 4
+
+			setv va01 rand 4845 4890
+
+			setv va02 rand 48141 48287
+
+		elif va00 eq 5
+
+			setv va01 rand 4920 4954
+
+			setv va02 rand 48130 48198
+
+		elif va00 eq 6
+
+			setv va01 rand 5909 5972
+
+			setv va02 rand 48618 48712
+
+		elif va00 eq 7
+
+			setv va01 rand 5910 5930
+
+			setv va02 rand 48700 48770
+
+		endi
+
+		gsub makeledumberries
+
+	endi
+
+
+
+	subr makeledumberries
+
+		new: simp 2 20 50203 "moe_C2toDS_berries" 0 10 rand 1000 3000
+
+		mvsf va01 va02
+
+
+
+	retn
+
+endm
+
+
+
+scrp 2 20 50203 10
+
+	inst
+
+	accg 0
+
+	perm rand 45 55
+
+	bhvr 49
+
+	attr 195
+
+	elas 10
+
+	fric 50
+
+	tick rand 50 100
+
+	emit 6 .15
+
+endm
+
+
+
+scrp 2 20 50203 9
+
+	doif carr eq null
+
+*These don't fall on their own
+
+*		addv ov00 1
+
+*		doif ov00 ge rand 10 30
+
+*			accg 4
+
+*		endi
+
+
+
+		doif ov00 ge rand 125 150
+
+			kill targ
+
+		endi
+
+	endi
+
+endm
+
+
+
+scrp 2 20 50203 4
+
+	plne rand 4000 6000
+
+endm
+
+
+
+scrp 2 20 50203 5
+
+	accg 4
+
+endm
+
+
+
+scrp 2 20 50203 6
+
+	sndc "dr12"
+
+endm
+
+
+
+scrp 2 20 50203 1
+
+	mesg writ targ 12
+
+endm
+
+
+
+scrp 2 20 50203 12
+
+	sndc "chwp"
+
+*Pain*
+
+	stim writ from 78 .25
+
+	targ from
+
+	chem 148 .19
+
+*Sleep Toxin*
+
+	chem 71 .38
+
+*Protien*
+
+*	chem 12 .39
+
+*Histamine B*
+
+	chem 74 .025
+
+	targ ownr
+
+	kill targ
+
+endm
+
+rscr
+
+
+enum 2 6 50203
+
+	kill targ
+
+next
+
+enum 2 20 50203
+
+	kill targ
+
+next
+
+scrx 2 6 50203 9
+
+scrx 2 20 50203 9
+
+scrx 2 20 50203 6
+
+scrx 2 20 50203 5
+
+scrx 2 20 50203 12

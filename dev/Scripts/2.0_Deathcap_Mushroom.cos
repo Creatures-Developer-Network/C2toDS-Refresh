@@ -1,0 +1,590 @@
+* 2 3 50218 - Deathcap Mushroom Spore
+* 2 5 50200 - Deathcap Mushroom
+* 2 10 50207 - Deathcap Mushroom Detritus
+* 2 20 50200 -  Deathcap Mushroom Cap
+
+reps rand 1 2
+
+	new: simp 2 3 50218 "moe_C2toDS_deathcap" 7 13 rand 1000 5000
+
+	mvsf rand 3767 4128 48477
+
+	velo rand -2 2 rand 0 -5
+
+repe
+
+
+
+reps rand 1 2
+
+	new: simp 2 3 50218 "moe_C2toDS_deathcap" 7 13 rand 1000 5000
+
+	mvsf rand 3613 4180 48771
+
+	velo rand -2 2 rand 0 -5
+
+repe
+
+
+
+reps rand 1 2
+
+	new: simp 2 3 50218 "moe_C2toDS_deathcap" 7 13 rand 1000 5000
+
+	mvsf rand 3726 4015 48990
+
+	velo rand -2 2 rand 0 -5
+
+repe
+
+
+
+reps rand 1 3
+
+	new: simp 2 3 50218 "moe_C2toDS_deathcap" 7 13 rand 1000 5000
+
+	mvsf rand 7916 8512 49754
+
+	velo rand -2 2 rand 0 -5
+
+repe
+
+
+
+reps rand 1 2
+
+	new: simp 2 3 50218 "moe_C2toDS_deathcap" 7 13 rand 1000 5000
+
+	mvsf rand 6500 6873 49760
+
+	velo rand -2 2 rand 0 -5
+
+repe
+
+
+scrp 2 3 50218 10
+
+	attr 198
+
+	elas 0
+
+	accg .05
+
+	tick rand 75 125
+
+	rnge 500
+
+	frat 2
+
+	anim [0 1 2 3 255]
+
+endm
+
+
+
+scrp 2 3 50218 12
+
+	snde "reat"
+
+	kill ownr
+
+endm
+
+
+
+scrp 2 3 50218 6
+
+*hit the ground, STOP SPINNING
+
+	doif obst down lt hght
+
+		pose 3
+
+	endi
+
+endm
+
+
+
+* Deathcap shroom script
+
+scrp 2 3 50218 9
+
+
+
+* speed to drift at
+
+	setv va10 2.5
+
+* amount to drift
+
+	setv va11 50
+
+	setv va00 rand 0 1
+
+	setv va12 va11
+
+	divv va12 2
+
+	loop
+
+		setv va01 posx
+
+		doif va00 eq 0
+
+			setv velx va10
+
+			negv velx
+
+			setv va00 1
+
+		else
+
+			setv velx va10
+
+			setv va00 0
+
+		endi
+
+		loop
+
+			setv va03 va01
+
+			subv va03 posx
+
+			absv va03
+
+		untl fall eq 0 and wall eq down or va03 > va12
+
+		setv va12 va11
+
+	untl fall eq 0 and carr eq null
+
+	pose 3
+
+	wait rand 10 40
+
+
+
+	inst
+
+	setv va00 0
+
+	esee 2 5 50200
+
+		doif targ ne null
+
+			addv va00 1
+
+		endi
+
+	next
+
+	targ ownr
+
+
+
+	doif va00 lt 2
+
+		doif rtyp grap posx posy ne 8 and rtyp grap posx posy ne 9
+
+			gsub check
+
+			slow
+
+			setv va00 posl
+
+			setv va01 post
+
+			new: simp 2 5 50200 "moe_C2toDS_deathcap" 13 0 rand 1000 5000
+
+			setv va02 wdth
+
+			setv va03 hght
+
+			divv va02 2
+
+			divv va03 2
+
+			subv va00 va02
+
+			subv va01 va03
+
+			mvsf va00 va01
+
+			mira rand 0 1
+
+			targ ownr
+
+			anim [4 5 6]
+
+			kill ownr
+
+		else
+
+			addv ov02 1
+
+			doif ov02 ge 5
+
+				targ ownr
+
+				anim [4 5 6]
+
+				kill ownr
+
+			endi
+
+		endi
+
+	else
+
+		addv ov02 1
+
+		doif ov02 ge 25
+
+			targ ownr
+
+			anim [4 5 6]
+
+			kill ownr
+
+		endi
+
+	endi
+
+
+
+	subr check
+
+		setv va01 grap posx posy
+
+		setv va00 prop va01 1
+
+
+
+		doif va00 gt .5
+
+*die after so long
+
+			addv ov02 1
+
+			doif ov02 ge 25
+
+				targ ownr
+
+				anim [4 5 6]
+
+				kill ownr
+
+			endi
+
+			stop
+
+		endi
+
+
+
+	retn
+
+
+
+endm
+
+
+
+* Deathcap activate script
+
+scrp 2 5 50200 1
+
+	lock
+
+	doif pose eq 4
+
+		setv va00 posx
+
+		setv va01 posy
+
+		setv va02 plne
+
+		addv va02 1
+
+		setv va03 mira
+
+		inst
+
+		new: simp 2 20 50200 "moe_C2toDS_deathcap" 3 5 va02
+
+		mira va03
+
+		targ ownr
+
+		pose 8
+
+		setv ov00 1
+
+		slow
+
+	endi
+
+	unlk
+
+endm
+
+
+
+* Deathcap top creation script
+
+scrp 2 20 50200 10
+
+	accg 2
+
+	elas 1
+
+	aero 2
+
+	attr 199
+
+	bhvr 48
+
+	tick rand 2000 5000
+
+endm
+
+
+
+* Deathcap detritus creation script
+
+scrp 2 10 50207 10
+
+	accg 2
+
+	elas 1
+
+	aero 2
+
+	attr 192
+
+	tick rand 500 1000
+
+endm
+
+
+
+* Deathcap creation script
+
+scrp 2 5 50200 10
+
+	inst
+
+	accg 2
+
+	elas 1
+
+	aero 2
+
+	attr 193
+
+	tick rand 500 1000
+
+endm
+
+
+
+* Deathcap timer script
+
+scrp 2 5 50200 9
+
+	doif rtyp grap posx posy eq 8 and rtyp grap posx posy eq 9
+
+		kill ownr
+
+	endi
+
+	doif ov00 eq 1
+
+		doif pose lt 11
+
+			setv va00 pose
+
+			subv va00 1
+
+			pose va00
+
+		endi
+
+		doif pose eq 11
+
+			kill ownr
+
+		endi
+
+	else
+
+		doif pose lt 4 and ov00 eq 0
+
+			setv va00 pose
+
+			addv va00 1
+
+			pose va00
+
+			stop
+
+		else
+
+			setv ov00 1
+
+			doif pose eq 4
+
+				esee 2 3 50218
+
+					addv va12 1
+
+				next
+
+				esee 2 5 50200
+
+					addv va12 1
+
+				next
+
+				doif va12 lt 4
+
+					setv va00 posx
+
+					setv va01 posy
+
+					addv va00 rand -10 10
+
+					reps rand 2 3
+
+						new: simp 2 3 50218 "moe_C2toDS_deathcap" 7 13 rand 1000 5000
+
+						mvsf va00 va01
+
+						velo rand -2 2 rand 0 -5
+
+						targ ownr
+
+					repe
+
+				endi
+
+			endi
+
+			setv va00 posx
+
+			setv va01 posy
+
+			setv va02 plne
+
+			setv va03 mira
+
+* Create detritus, delete original object
+
+			new: simp 2 10 50207 "moe_C2toDS_deathcap" 3 5 va02
+
+			mira va03
+
+			kill ownr
+
+		endi
+
+	endi
+
+endm
+
+
+
+* Deathcap detritus timer script
+
+scrp 2 10 50207 9
+
+	doif pose lt 2
+
+		setv va00 pose
+
+		addv va00 1
+
+		pose va00
+
+	endi
+
+	doif pose eq 2
+
+		kill ownr
+
+	endi
+
+endm
+
+
+
+* Deathcap top timer script
+
+scrp 2 20 50200 9
+
+	wait rand 2000 5000
+
+	kill ownr
+
+endm
+
+
+
+* Deathcap top eat script
+
+scrp 2 20 50200 12
+
+* Insert nasty chemicals here!
+
+
+
+	snde "chwp"
+
+	kill ownr
+
+endm
+
+rscr
+
+enum 2 5 50200
+
+	kill targ
+
+next
+
+enum 2 10 50207
+
+	kill targ
+
+next
+
+enum 2 20 50200
+
+	kill targ
+
+next
+
+enum 2 3 50218
+
+	kill targ
+
+next
+
+scrx 2 5 50200 10
+
+scrx 2 5 50200 9
+
+scrx 2 5 50200 1
+
+scrx 2 10 50207 10
+
+scrx 2 10 50207 9
+
+scrx 2 20 50200 10
+
+scrx 2 20 50200 9
+
+scrx 2 20 50200 12
+

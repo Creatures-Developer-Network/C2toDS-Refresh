@@ -1,0 +1,445 @@
+* 2 3 50226 - World Tree Seeds
+* 2 6 50200 - World Tree Leaves
+
+new: simp 2 6 50200 "moe_C2tods_tre2" 11 0 rand 1000 3000
+
+mvto 2890 47600
+
+
+
+new: simp 2 6 50200 "moe_C2toDS_tre3" 11 0 rand 1000 3000
+
+mvto 3816 47600
+
+
+
+
+scrp 2 6 50200 10
+
+	tick 1
+
+	bhvr 11
+
+	attr 0
+
+	frat 5
+
+endm
+
+*timer
+
+scrp 2 6 50200 9
+
+*	doif pose lt 10
+
+*		setv va00 pose
+
+*		addv va00 1
+
+*		pose va00
+
+*	endi
+
+*stop
+
+
+
+	doif sean lt 3
+
+		loop
+
+			setv va02 rand posl posr
+
+			setv va03 rand post posb
+
+		untl tran va02 va03 eq 0
+
+
+
+		subv va03 7
+
+
+
+		setv va04 plne
+
+		subv va04 1
+
+
+
+		esee 2 3 50226
+
+			doif targ ne null
+
+				addv va00 1
+
+			endi
+
+		next
+
+		targ ownr
+
+		doif va00 lt 30
+
+			new: simp 2 3 50226 "moe_C2toDS_pidgeonlauncher" 21 17 va04
+
+			mvsf va02 va03
+
+			targ ownr
+
+		endi
+
+	endi
+
+
+
+
+
+*stop
+
+
+
+	tick 500
+
+**If it's springtime, grow each day till maturity
+
+	doif sean eq 0
+
+		doif date eq 0
+
+			pose 0
+
+		elif date eq 1
+
+			pose 1
+
+		elif date eq 2
+
+			pose 2
+
+		elif date eq 3
+
+			pose 3
+
+		endi
+
+	elif sean eq 1
+
+*Summer
+
+		doif date eq 0
+
+			pose 4
+
+		elif date eq 1
+
+			pose 5
+
+		endi
+
+	elif sean eq 2
+
+		doif date eq 0
+
+			pose 6
+
+		elif date eq 1
+
+			pose 7
+
+		elif date eq 2
+
+			pose 8
+
+		elif date eq 3
+
+			pose 9
+
+		endi
+
+	elif sean eq 3
+
+		pose 10
+
+	endi
+
+
+
+
+
+
+
+endm
+
+*activate 1
+
+scrp 2 6 50200 1
+
+	doif crea from eq 1
+
+		stim writ from 84 1
+
+	endi
+
+endm
+
+*collision
+
+scrp 2 6 50200 6
+
+*snde "drop"
+
+endm
+
+*eat
+
+scrp 2 6 50200 12
+
+endm
+
+
+
+
+
+
+
+*deactivate
+
+scrp 2 6 50200 0
+
+	doif crea from eq 1
+
+		stim writ from 84 1
+
+	endi
+
+endm
+
+*activate 2
+
+scrp 2 6 50200 2
+
+	doif crea from eq 1
+
+		stim writ from 84 1
+
+	endi
+
+endm
+
+*hit
+
+scrp 2 6 50200 3
+
+	doif crea from eq 1
+
+		stim writ from 84 1
+
+	endi
+
+endm
+
+*catchall
+
+scrp 2 6 50200 255
+
+endm
+
+
+
+
+
+scrp 2 3 50226 10
+
+	inst
+
+	accg 0
+
+	attr 195
+
+	bhvr 48
+
+	elas 50
+
+	aero 5
+
+	perm rand 50 51
+
+	tick rand 1000 1200
+
+	mira rand 0 1
+
+endm
+
+
+
+scrp 2 3 50226 9
+
+	doif ov00 eq 0 and ov01 eq 0
+
+		addv ov00 1
+
+		call 5 0 0
+
+	endi
+
+	doif ov00 ge 1
+
+		lock
+
+		anim [ 17 18 19]
+
+		over
+
+		kill ownr
+
+	endi
+
+endm
+
+
+
+scrp 2 3 50226 4
+
+	pose 0
+
+endm
+
+
+
+scrp 2 3 50226 5
+
+	inst
+
+	setv ov01 1
+
+	accg .2
+
+	anim [ 0 1 2 3 4 5 6]
+
+	over
+
+	frat 2
+
+	anim [ 6 7 8 9 10 11 12 255]
+
+	loop
+
+		inst
+
+		doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+
+			accg .05
+
+		else
+
+			accg .2
+
+		endi
+
+		addv velx rand -2 2
+
+		wait 5
+
+	untl fall eq 0
+
+endm
+
+
+
+scrp 2 3 50226 6
+
+	accg 3
+
+	snde "dr64"
+
+	doif pose lt 13
+
+		anim [13 14 15 16]
+
+		over
+
+	endi
+
+endm
+
+
+
+scrp 2 3 50226 12
+
+	doif crea from eq 1
+
+		stim writ from 77 1
+
+	endi
+
+	snde "reat"
+
+	kill ownr
+
+endm
+
+
+
+
+rscr
+
+
+
+enum 2 6 50200
+
+	kill targ
+
+next
+
+*Removes all scripts for the specified agent 2 6 50200 if it exists.
+
+*No need to micromanage. :)
+
+loop
+
+	doif sorq 2 6 50200 va00 eq 1
+
+		scrx 2 6 50200 va00
+
+	endi
+
+	addv va00 1
+
+untl va00 eq 2000
+
+setv va00 0
+
+
+
+
+
+inst
+
+enum 2 3 50226
+
+	kill targ
+
+next
+
+*Removes all scripts for the specified agent 2 6 50200 if it exists.
+
+*No need to micromanage. :)
+
+loop
+
+	doif sorq 2 3 50226 va00 eq 1
+
+		scrx 2 3 50226 va00
+
+	endi
+
+	addv va00 1
+
+untl va00 eq 2000
+
+setv va00 0
+
+
+
+
+

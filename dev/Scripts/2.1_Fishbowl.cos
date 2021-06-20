@@ -1,0 +1,148 @@
+* 2 21 50225 - Fishbowl
+
+*Saltwater
+
+new: vhcl 2 21 50225 "moe_c2tods_fishbowl" 2 0 rand 1000 3000
+
+mvsf 8135 47972
+
+pat: dull 1 "moe_c2tods_fishbowl" 1 0 0 10
+
+cabn 10 20 118 90
+
+cabv grap 8634 48380
+
+cabp 1
+
+cabw 0
+
+tint 1 200 125 125 125
+
+
+
+*Freshwater
+
+new: vhcl 2 21 50225 "moe_c2tods_fishbowl" 2 0 rand 1000 3000
+
+mvsf 6787 48358
+
+pat: dull 1 "moe_c2tods_fishbowl" 1 0 0 10
+
+cabn 10 20 118 90
+
+cabv grap 6566 48506
+
+cabp 1
+
+cabw 0
+
+alph 128 1
+
+scrp 2 21 50225 10
+
+	inst
+
+	attr 719
+
+	accg 3
+
+	elas 0
+
+	perm 51
+
+endm
+
+*deactivate
+
+scrp 2 21 50225 0
+
+endm
+
+*activate 1
+
+scrp 2 21 50225 1
+
+	epas 2 18 0
+
+		doif targ ne null
+
+			addv velx rand -4 4
+
+		endi
+
+	next
+
+	targ ownr
+
+endm
+
+*activate 2
+
+scrp 2 21 50225 2
+
+endm
+
+*hit
+
+scrp 2 21 50225 3
+
+endm
+
+*pickup
+
+scrp 2 21 50225 4
+
+endm
+
+*drop
+
+scrp 2 21 50225 5
+
+endm
+
+*collision
+
+scrp 2 21 50225 6
+
+endm
+
+*timer
+
+scrp 2 21 50225 9
+
+endm
+
+*eat
+
+scrp 2 21 50225 12
+
+endm
+
+
+rscr
+
+enum 2 21 50225
+
+	kill targ
+
+next
+
+scrx 2 21 50225 10
+
+scrx 2 21 50225 0
+
+scrx 2 21 50225 1
+
+scrx 2 21 50225 2
+
+scrx 2 21 50225 3
+
+scrx 2 21 50225 4
+
+scrx 2 21 50225 5
+
+scrx 2 21 50225 6
+
+scrx 2 21 50225 9
+
+scrx 2 21 50225 12

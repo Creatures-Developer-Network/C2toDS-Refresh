@@ -1,0 +1,304 @@
+*C2 hand Checker: 1 18 50200
+*2 1 50200 - Hand?
+*2 1 50201 - Hand  fade controller?
+
+targ pntr
+
+setv va02 plne
+
+setv va00 posl
+
+setv va01 post
+
+
+
+*26 = Visible 27 = Invisible
+
+setv va03 27
+
+
+
+new: simp 1 18 50200 "moe_C2toDS_hand" 27 va03 va02
+
+mvto 6365 48223
+
+setv ov00 gmap posx posy
+
+*Templer Underground
+
+setv ov05 gmap 12953 47957
+
+tick 1
+
+scrp 1 18 50200 9
+
+*inst
+
+	targ pntr
+
+	setv mv01 gmap posl post
+
+	doif mv01 eq mv00 or mv01 eq mv05
+
+		pupt 6 21 30
+
+*Hide Pointer*
+
+*alph 256 1 -- OLD WAY
+
+
+
+		show 0
+
+
+
+*Inject Pseudopointer*
+
+		doif mv02 eq 0
+
+			setv mv02 1
+
+			mesg writ ownr 200
+
+		endi
+
+	else
+
+		pupt 6 15 30
+
+*alph 0 0 -- OLD WAY
+
+		show 1
+
+		doif mv02 eq 1
+
+			setv mv02 0
+
+			mesg writ ownr 201
+
+		endi
+
+	endi
+
+endm
+
+
+
+scrp 1 18 50200 200
+
+
+
+	inst
+
+	targ pntr
+
+	setv va02 plne
+
+	addv va02 1
+
+	setv va00 posl
+
+	setv va01 post
+
+	targ ownr
+
+
+
+	new: simp 2 1 50200 "moe_C2toDS_hand" 27 0 va02
+
+	attr 32
+
+	mvto va00 va01
+
+	frel pntr
+
+	flto 0 0
+
+	accg 0
+
+	imsk 8
+
+	tick 1
+
+	seta mv03 targ
+
+
+
+	new: simp 1 17 50200 "smoke" 5 10 va02
+
+	attr 32
+
+	mvto va00 va01
+
+	frel pntr
+
+	flto -12 0
+
+*snde "dum1"
+
+	snde "wrp2"
+
+	anim [0 1 2 3 4]
+
+	over
+
+	kill targ
+
+
+
+endm
+
+
+
+scrp 1 18 50200 201
+
+	inst
+
+	enum 2 1 50200
+
+		doif targ ne null
+
+			kill targ
+
+		endi
+
+	next
+
+
+
+	targ pntr
+
+	setv va02 plne
+
+	setv va00 posl
+
+	setv va01 post
+
+
+
+	new: simp 1 17 50200 "smoke" 5 25 va02
+
+	attr 32
+
+	mvto va00 va01
+
+	frel pntr
+
+	flto -12 0
+
+	snde "wrp1"
+
+
+
+	anim [0 1 2 3 4]
+
+	over
+
+	kill targ
+
+
+
+endm
+
+
+scrp 2 1 50200 9
+
+	inst
+
+	targ pntr
+
+	setv mv00 pose
+
+	setv va00 mira
+
+	targ ownr
+
+	pose ov00
+
+	mira va00
+
+endm
+
+
+
+scrp 2 1 50200 76
+
+	inst
+
+	targ pntr
+
+	setv va00 plne
+
+	addv va00 2
+
+	setv va01 posl
+
+	setv va02 post
+
+	doif _p1_ eq 2 and grap posx posy eq -1 and held ne null
+
+		sndc "excl"
+
+		new: simp 2 1 50201 "moe_C2toDS_hand" 0 17 va00
+
+		attr 32
+
+		frel pntr
+
+		mvto va01 va02
+
+	endi
+
+endm
+
+scrp 2 1 50201 10
+
+	loop
+
+		addv va00 10
+
+		alph va00 1
+
+	untl va00 ge 250
+
+	kill targ
+
+endm
+
+
+rscr
+
+enum 1 18 50200
+
+	kill targ
+
+next
+
+
+targ pntr
+
+show 1
+
+alph 0 0
+
+
+
+
+
+enum 2 1 50200
+
+	kill targ
+
+next
+
+
+
+enum 2 1 50201
+
+	kill targ
+
+next
+
+
+
+

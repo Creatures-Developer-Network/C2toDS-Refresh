@@ -1,0 +1,335 @@
+* 2 21 50206 - Spring
+
+* To left of norn burrow
+
+new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 rand 1000 5000
+
+mvsf 6133 48719
+
+attr 199
+
+bhvr 43
+
+
+
+* Treehouse
+
+new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 rand 1000 5000
+
+mvsf 5207 48820
+
+attr 199
+
+bhvr 43
+
+
+
+* Right of bridge
+
+new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 rand 1000 5000
+
+mvsf 5909 48183
+
+attr 199
+
+bhvr 43
+
+
+
+* Ocean 1
+
+new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 rand 1000 5000
+
+mvsf 8856 48666
+
+attr 196
+
+bhvr 11
+
+setv ov01 1
+
+
+
+* Ocean 2
+
+new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 rand 1000 5000
+
+mvsf 2505 48840
+
+attr 196
+
+bhvr 11
+
+setv ov01 1
+
+
+
+* Ocean 2
+
+new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 rand 1000 5000
+
+mvsf 2887 48549
+
+attr 196
+
+bhvr 11
+
+setv ov01 1
+
+
+
+* Tube under tree of life
+
+new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 rand 1000 5000
+
+mvsf 3292 48646
+
+attr 196
+
+bhvr 11
+
+setv ov01 1
+
+
+
+scrp 2 21 50206 10
+
+	elas 50
+
+	accg 2
+
+	aero 5
+
+	fric 50
+
+	perm 51
+
+	frat 2
+
+endm
+
+
+
+* Activate 1
+
+scrp 2 21 50206 1
+
+	lock
+
+	inst
+
+	stim writ from 97 1
+
+	snde "boin"
+
+	anim [0 1 2 3 4 5 6 7 0 2 3 4 6 7 0]
+
+	etch 4 0 0
+
+		doif mv01 eq 1
+
+			velo -10 -90
+
+		else
+
+			velo rand 6 -6 rand -20 -30
+
+		endi
+
+	next
+
+	targ ownr
+
+	etch 2 0 0
+
+*Must be Pickupable
+
+		setv va02 attr
+
+		andv va02 2
+
+
+
+*And suffer physics
+
+		setv va03 attr
+
+		andv va03 128
+
+*And can't float
+
+		setv va04 attr
+
+		andv va04 32
+
+
+
+		doif va04 ne 32 and va02 eq 2 and va03 eq 128 and accg gt 0.0 and carr eq null and targ ne ownr
+
+			velo rand 12 -12 rand -20 -30
+
+		endi
+
+	next
+
+	unlk
+
+endm
+
+
+
+* Activate 2
+
+scrp 2 21 50206 2
+
+	lock
+
+	inst
+
+	stim writ from 97 1
+
+	snde "boin"
+
+	anim [0 1 2 3 4 5 6 7 0 2 3 4 6 7 0]
+
+	etch 4 0 0
+
+		doif mv01 eq 1
+
+			velo -10 -90
+
+		else
+
+			velo rand 6 -6 rand -20 -30
+
+		endi
+
+	next
+
+	targ ownr
+
+	etch 2 0 0
+
+*Must be Pickupable
+
+		setv va02 attr
+
+		andv va02 2
+
+
+
+*And suffer physics
+
+		setv va03 attr
+
+		andv va03 128
+
+*And can't float
+
+		setv va04 attr
+
+		andv va04 32
+
+
+
+		doif va04 ne 32 and va02 eq 2 and va03 eq 128 and accg gt 0.0 and carr eq null and targ ne ownr
+
+
+
+			velo rand 12 -12 rand -20 -30
+
+		endi
+
+	next
+
+	unlk
+
+endm
+
+
+
+* Hit
+
+scrp 2 21 50206 3
+
+	lock
+
+	inst
+
+	stim writ from 97 1
+
+	snde "boin"
+
+	anim [0 1 2 3 4 5 6 7 0 2 3 4 6 7 0]
+
+	etch 4 0 0
+
+		doif mv01 eq 1
+
+			velo -10 -90
+
+		else
+
+			velo rand 6 -6 rand -20 -30
+
+		endi
+
+	next
+
+	targ ownr
+
+	etch 2 0 0
+
+*Must be Pickupable
+
+		setv va02 attr
+
+		andv va02 2
+
+
+
+*And suffer physics
+
+		setv va03 attr
+
+		andv va03 128
+
+*And can't float
+
+		setv va04 attr
+
+		andv va04 32
+
+
+
+		doif va04 ne 32 and va02 eq 2 and va03 eq 128 and accg gt 0.0 and carr eq null and targ ne ownr
+
+
+
+			velo rand 12 -12 rand -20 -30
+
+		endi
+
+	next
+
+	unlk
+
+endm
+
+
+
+rscr
+
+enum 2 21 50206
+
+	kill targ
+
+next
+
+scrx 2 21 50206 1
+
+scrx 2 21 50206 2
+
+scrx 2 21 50206 3
+
+scrx 2 21 50206 10

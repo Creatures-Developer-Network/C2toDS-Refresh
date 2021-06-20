@@ -1,0 +1,212 @@
+* 1 27 50206 - Water Droplet
+* 2 19 50206 - Water Drops
+
+
+new: simp 1 27 50206 "moe_C2toDS_drops" 5 0 rand 250 5000
+
+mvsf 8175 48363
+
+
+
+new: simp 1 27 50206 "moe_C2toDS_drops" 5 0 rand 250 5000
+
+mvsf 8215 48350
+
+
+
+new: simp 1 27 50206 "moe_C2toDS_drops" 5 0 rand 250 5000
+
+mvsf 8225 48360
+
+
+
+new: simp 1 27 50206 "moe_C2toDS_drops" 5 0 rand 250 5000
+
+mvsf 8262 48405
+
+
+
+new: simp 1 27 50206 "moe_C2toDS_drops" 5 0 rand 250 5000
+
+mvsf 8300 48430
+
+
+
+new: simp 1 27 50206 "moe_C2toDS_drops" 5 0 rand 250 5000
+
+mvsf 8149 48361
+
+
+
+new: simp 1 27 50206 "moe_C2toDS_drops" 5 0 rand 250 5000
+
+mvsf 8159 48380
+
+
+
+new: simp 1 27 50206 "moe_C2toDS_drops" 5 0 rand 250 5000
+
+mvsf 8078 48340
+
+
+
+
+
+*mushroom cave area
+
+
+
+new: simp 1 27 50206 "moe_C2toDS_drops" 5 0 rand 250 5000
+
+mvsf 2902 48860
+
+setv name "type" 1
+
+
+
+new: simp 1 27 50206 "moe_C2toDS_drops" 5 0 rand 250 5000
+
+mvsf 2846 48880
+
+setv name "type" 1
+
+
+scrp 1 27 50206 10
+
+	attr 0
+
+	accg 0
+
+	elas 0
+
+	show 0
+
+	tick 10
+
+endm
+
+
+
+
+
+scrp 1 27 50206 9
+
+	doif name "type" eq 0
+
+		tick rand 100 500
+
+	else
+
+		tick rand 50 75
+
+	endi
+
+	setv va00 posl
+
+	setv va01 posy
+
+	new: simp 2 19 50206 "moe_C2toDS_drops" 5 0 rand 250 5000
+
+	mvsf va00 va01
+
+endm
+
+
+
+
+
+scrp 2 19 50206 10
+
+	inst
+
+	attr 195
+
+	elas 0
+
+	fric 100
+
+	perm rand 50 51
+
+	accg 1
+
+	tick 1
+
+endm
+
+
+
+scrp 2 19 50206 9
+
+	inst
+
+	setv va00 rtyp grap posx posb
+
+	doif va00 eq 8 or va00 eq 9
+
+		accg 0
+
+		setv vely 0
+
+		velo 0 0
+
+		snde "drip"
+
+		anim [0 1 2 3 4]
+
+		over
+
+		kill ownr
+
+	endi
+
+	etch 2 25 0
+
+		doif targ ne null
+
+			snde "drip"
+
+			kill ownr
+
+			addv name "fill" 1
+
+		endi
+
+	next
+
+endm
+
+
+
+scrp 2 19 50206 6
+
+	inst
+
+	lock
+
+	sndc "mdrp"
+
+	anim [0 1 2 3 4]
+
+	over
+
+	kill ownr
+
+	unlk
+
+endm
+
+rscr
+
+enum 2 19 50206
+
+	kill targ
+
+next
+
+
+enum 1 27 50206
+
+	kill targ
+
+next
+

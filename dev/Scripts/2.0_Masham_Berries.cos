@@ -1,0 +1,197 @@
+*//*Masham Berry*//*
+* 2 6 50212 - Masham Berry Leaf
+* 2 8 50212 - Masham Berry
+
+
+*Matthew, "Moe", '10*
+
+new: simp 2 6 50212 "moe_C2toDS_berries" 0 0 5000
+
+attr 0
+
+mvto 2190 48000
+
+tick 1
+
+
+
+scrp 2 6 50212 9
+
+
+
+	tick rand 100 200
+
+
+
+	doif totl 2 8 50212 lt 10
+
+		setv va01 rand 2100 2139
+
+		setv va02 rand 48080 48130
+
+		gsub makearnicaberries
+
+	endi
+
+
+
+	subr makearnicaberries
+
+		new: simp 2 8 50212 "moe_C2toDS_berries" 0 1 8001
+
+		perm 55
+
+		bhvr 49
+
+		mvsf va01 va02
+
+		accg 0
+
+		attr 195
+
+		elas 10
+
+		fric 50
+
+		tick rand 50 100
+
+	retn
+
+endm
+
+
+
+scrp 2 8 50212 10
+
+	emit 6 .15
+
+endm
+
+
+
+scrp 2 8 50212 9
+
+	doif carr eq null
+
+		addv ov00 1
+
+		doif ov00 ge rand 10 50 and accg ne 4
+
+			accg 4
+
+			velo rand -5 5 0
+
+		endi
+
+
+
+		doif ov00 ge rand 125 150
+
+			kill targ
+
+		endi
+
+	endi
+
+endm
+
+
+
+scrp 2 8 50212 1
+
+	mesg writ targ 12
+
+endm
+
+
+
+scrp 2 8 50212 4
+
+	plne rand 4000 6000
+
+endm
+
+
+
+scrp 2 8 50212 5
+
+	accg 6
+
+endm
+
+
+
+scrp 2 8 50212 6
+
+	sndc "dr12"
+
+endm
+
+
+
+
+
+scrp 2 8 50212 12
+
+	sndc "chwp"
+
+	stim writ from 78 1
+
+	targ from
+
+*Hunger for Fat *
+
+	chem 151 -.31
+
+*Hunger for Starch *
+
+	chem 150 -.39
+
+*Hunger for Protein *
+
+	chem 149 -.27
+
+*Fat* 80
+
+*	chem 10 .31
+
+*Starch 100*
+
+*	chem 5 .39
+
+*Protein 70*
+
+*	chem 12 .27
+
+	targ ownr
+
+	wait 1
+
+	kill targ
+
+endm
+
+
+rscr
+
+enum 2 6 50212
+
+	kill targ
+
+next
+
+enum 2 8 50212
+
+	kill targ
+
+next
+
+scrx 2 6 50212 9
+
+scrx 2 8 50212 9
+
+scrx 2 8 50212 6
+
+scrx 2 8 50212 5
+
+scrx 2 8 50212 12

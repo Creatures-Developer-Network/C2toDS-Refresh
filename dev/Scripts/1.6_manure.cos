@@ -1,0 +1,897 @@
+*Manure is 2 10 50209
+*Nutrient Bits is 1 23 50201
+
+*Norn Burrow Nutrients
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 6970 48275
+
+
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 7140 48275
+
+
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 7263 48275
+
+
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 7310 48275
+
+*N-------------------s
+
+
+
+*Desert Nutrients
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 6970 47800
+
+
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 7140 47800
+
+
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 7310 47800
+
+*D--------------s
+
+
+
+
+
+*Two Doors Nutrients
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 6080 48455
+
+*T-----------------s
+
+
+
+
+
+*Ettin Forest Nutrients
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 6420 49510
+
+
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 6128 49639
+
+
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 5370 49639
+
+*E--------------------s
+
+
+
+
+
+*Ettin Machine Nutrients
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 8093 49700
+
+mesg writ targ 0
+
+
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 8530 49700
+
+mesg writ targ 0
+
+*E---------------------s
+
+
+
+
+
+*Biome Nutrients
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 3900 49540
+
+mesg writ targ 0
+
+
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 4180 49500
+
+mesg writ targ 0
+
+
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 4023 49650
+
+mesg writ targ 0
+
+
+
+*BioSphere Little
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 3930 49200
+
+mesg writ targ 0
+
+
+
+*BioSphere Two Spheres
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 2270 48893
+
+mesg writ targ 0
+
+
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 2444 49015
+
+mesg writ targ 0
+
+
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 2141 48387
+
+mesg writ targ 0
+
+
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 2141 48387
+
+mesg writ targ 0
+
+
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 10437 48400
+
+mesg writ targ 0
+
+
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 10398 48820
+
+mesg writ targ 0
+
+*E---------------------s
+
+
+
+
+
+*Under World Tree Nutrients
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 3800 48030
+
+mesg writ targ 0
+
+
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 3395 48000
+
+mesg writ targ 0
+
+
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 3950 48460
+
+mesg writ targ 0
+
+*U-----------------------s
+
+
+
+*Tantris Room
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 4000 48662
+
+mesg writ targ 0
+
+
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 4000 48662
+
+mesg writ targ 0
+
+
+
+*Duplicate
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 4000 48662
+
+mesg writ targ 0
+
+
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 3735 48714
+
+mesg writ targ 0
+
+
+
+*Further Below
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 3895 48965
+
+mesg writ targ 0
+
+*Right of small sphere
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 4260 49233
+
+mesg writ targ 0
+
+*T----------m
+
+
+
+*Desert Island
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 10289 48030
+
+mesg writ targ 0
+
+*D-----------d
+
+
+
+*Lower Norn Burrow*
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 1877 48695
+
+mesg writ targ 0
+
+
+
+*Lower Norn Burrow 2*
+
+new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
+
+attr 199
+
+elas 0
+
+perm 75
+
+accg 5
+
+fric 50
+
+mvsf 1877 48695
+
+mesg writ targ 0
+
+
+scrp 2 10 50209 1
+
+	lock
+
+	attr 195
+
+
+
+	anim [ 0 1 2 3 4 5 6 7]
+
+	over
+
+
+
+	inst
+
+	reps rand 3 5
+
+
+
+		setv va02 posx
+
+		setv va03 posy
+
+
+
+		setv va00 rand 0 2
+
+		doif va00 eq 0
+
+			setv va01 16
+
+		elif va00 eq 1
+
+			setv va01 26
+
+		elif va00 eq 2
+
+			setv va01 36
+
+		endi
+
+
+
+		new: simp 1 23 50201 "moe_C2toDS_manure" 10 va01 1000
+
+		attr 195
+
+		elas 5
+
+		fric 0
+
+		aero 0
+
+
+
+		tick 5
+
+		velo rand -10 10 rand -5 1
+
+
+
+		doif velx gt 3
+
+			anim [1 2 3 4 5 6 7 8 9 255]
+
+		elif velx lt -3
+
+			anim [9 8 7 6 5 4 3 2 1 0 255]
+
+		endi
+
+
+
+		mvsf va02 va03
+
+
+
+		targ ownr
+
+	repe
+
+
+
+	anim [8 9 10 11 12 13 14 ]
+
+	over
+
+
+
+	loop
+
+		addv ov00 25
+
+		alph ov00 1
+
+	untl ov00 ge 250
+
+
+
+	doif ov00 ge 250
+
+
+
+*Give a short boost in growth to nearby plants
+
+		esee 2 4 0
+
+			reps 30
+
+				inst
+
+				doif targ ne null
+
+					mesg writ targ 9
+
+				endi
+
+				slow
+
+			repe
+
+		next
+
+		esee 2 11 0
+
+			reps 30
+
+				inst
+
+				doif targ ne null
+
+					mesg writ targ 9
+
+				endi
+
+				slow
+
+			repe
+
+		next
+
+
+
+		setv va00 grap posx posy
+
+		doif va00 ne -1
+
+			altr va00 3 .1500
+
+			altr va00 4 .4500
+
+		endi
+
+		kill targ
+
+		stop
+
+
+
+	endi
+
+
+
+	unlk
+
+endm
+
+
+
+scrp 2 10 50209 6
+
+
+
+
+
+
+
+	doif _p2_ ge 35
+
+		mesg writ targ 0
+
+	endi
+
+
+
+endm
+
+scrp 1 23 50201 9
+
+
+
+	addv ov00 25
+
+
+
+	alph ov00 1
+
+
+
+	doif ov00 ge 250
+
+		altr -1 3 .1000
+
+		altr -1 4 .1100
+
+		kill targ
+
+	endi
+
+
+
+endm
+
+rscr
+
+enum 2 10 50209
+
+	kill targ
+
+next
+
+
+enum 1 23 50201
+
+	kill targ
+
+next
+

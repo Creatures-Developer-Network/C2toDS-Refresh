@@ -1,0 +1,278 @@
+* 3 1 50201
+
+new: vhcl 3 1 50201 "moe_C2toDS_boat" 1 0 2000
+
+cabp 1
+
+bhvr 1
+
+cabn 11 0 155 110
+
+attr 12
+
+setv ov00 0
+
+pat: dull 1 "moe_C2toDS_boat" 1 0 73 20
+
+pat: dull 2 "moe_C2toDS_boat" 2 49 91 21
+
+pat: butt 3 "moe_C2toDS_boat" 12 3 60 22 21 [] 1001 0
+
+mvto 8617 48180
+
+scrp 3 1 50201 1
+
+	mesg writ ownr 1001
+
+endm
+
+
+
+scrp 3 1 50201 1001
+
+	gpas 4 0 0 1
+
+
+
+	doif ov00 eq 0
+
+		gsub rght
+
+	else
+
+		gsub left
+
+	endi
+
+
+
+	setv ov01 0
+
+
+
+	subr rght
+
+		part 3
+
+		anim [1 2]
+
+		setv ov00 1
+
+		part 2
+
+		loop
+
+			doif posl lt 9120
+
+				frat 3
+
+				anim [8 7 6 5 4 3 2 1 0 9]
+
+				snde "row1"
+
+			else
+
+				anim [8]
+
+			endi
+
+			setv velx 8
+
+			wait 1
+
+			setv velx 6
+
+			wait 2
+
+			setv velx 4
+
+			wait 3
+
+			setv velx 2
+
+			wait 3
+
+			over
+
+		untl posl ge 9120
+
+		setv velx 0
+
+		gsub ejer
+
+		setv velx -6
+
+		loop
+
+			wait 1
+
+		untl posl le 8990
+
+		setv velx -6
+
+		loop
+
+			wait 1
+
+		untl posl le 8980
+
+		setv velx 0
+
+	retn
+
+	subr left
+
+		part 3
+
+		anim [1 0]
+
+		setv ov00 0
+
+		part 2
+
+		loop
+
+			doif posl gt 8490
+
+				frat 3
+
+				anim [9 0 1 2 3 4 5 6 7 8]
+
+				snde "row1"
+
+			else
+
+				anim [9]
+
+			endi
+
+			setv velx -8
+
+			wait 1
+
+			setv velx -6
+
+			wait 2
+
+			setv velx -4
+
+			wait 3
+
+			setv velx -2
+
+			wait 3
+
+			over
+
+		untl posl le 8490
+
+		setv velx 0
+
+		gsub ejel
+
+		setv velx 6
+
+		loop
+
+			wait 1
+
+		untl posl ge 8340
+
+		setv velx 6
+
+		loop
+
+			wait 1
+
+		untl posl ge 8620
+
+		setv velx 0
+
+	retn
+
+	subr ejel
+
+		dpas 4 0 0
+
+		etch 4 0 0
+
+			doif posb gt 666
+
+				setv va00 attr
+
+				attr 0
+
+				mvby -50 -50
+
+				attr va00
+
+			endi
+
+		next
+
+	retn
+
+	subr ejer
+
+		dpas 4 0 0
+
+		etch 4 0 0
+
+			doif posb gt 662
+
+				setv va00 attr
+
+				attr 0
+
+				mvby 50 -50
+
+				attr va00
+
+			endi
+
+		next
+
+	retn
+
+endm
+
+
+
+scrp 3 1 50201 9
+
+	doif ov01 eq 0
+
+		setv va00 0
+
+		etch 4 0 0
+
+			setv va00 1
+
+		next
+
+		doif va00 eq 1
+
+			doif posl lt 6745
+
+				mesg writ ownr 0
+
+			else
+
+				mesg writ ownr 1
+
+			endi
+
+		endi
+
+	endi
+
+	tick 1200
+
+endm
+
+rscr
+enum 3 1 50201
+
+	kill targ
+
+next

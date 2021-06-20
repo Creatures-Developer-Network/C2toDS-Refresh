@@ -1,0 +1,552 @@
+* Gelsemium
+* 2 4 50204 - Gelsemium Plant
+* 2 8 50214 - Gelsemium Fruit
+
+
+* Liam 21/5/2012 2:40pm
+
+* classed as plant for good measure
+
+new: simp 2 4 50204 "moe_C2toDS_gelsemium" 1 0 rand 1000 3000
+
+mvsf 3100 48381
+
+
+scrp 2 4 50204 10
+
+	attr 719
+
+	bhvr 41
+
+	accg 4
+
+	fric 90
+
+	elas 0
+
+	perm 51
+
+	tick rand 150 250
+
+	seta ov01 null
+
+	seta ov02 null
+
+	seta ov03 null
+
+endm
+
+
+
+*activate 1
+
+scrp 2 4 50204 1
+
+	stim writ from 83 1
+
+endm
+
+
+
+*hit
+
+scrp 2 4 50204 3
+
+	stim writ from 83 1
+
+endm
+
+
+
+*drop
+
+scrp 2 4 50204 6
+
+	snde "drop"
+
+endm
+
+
+
+*timer
+
+scrp 2 4 50204 9
+
+	doif ov00 eq 0
+
+*	initial setup
+
+		inst
+
+		doif ov01 eq null
+
+			gsub getposxposy
+
+			gsub top
+
+			pose 10
+
+			targ ownr
+
+		endi
+
+		doif ov02 eq null
+
+			gsub getposxposy
+
+			gsub middle
+
+			pose 10
+
+			targ ownr
+
+		endi
+
+
+
+		doif ov03 eq null
+
+			gsub getposxposy
+
+			gsub bottom
+
+			pose 10
+
+			targ ownr
+
+		endi
+
+		slow
+
+		setv ov00 1
+
+	endi
+
+
+
+	doif ov01 eq null
+
+		gsub getposxposy
+
+		gsub top
+
+		targ ownr
+
+	endi
+
+	doif ov02 eq null
+
+		gsub getposxposy
+
+		gsub middle
+
+		targ ownr
+
+	endi
+
+
+
+	doif ov03 eq null
+
+		gsub getposxposy
+
+		gsub bottom
+
+		targ ownr
+
+	endi
+
+
+
+
+
+* randomly drop a fruit
+
+	setv va50 rand 0 50
+
+	setv va51 rand 1 3
+
+	doif va50 eq 27
+
+		doif va51 eq 1
+
+			doif ov01 ne null
+
+				targ ov01
+
+				doif pose eq 10
+
+					mesg writ targ 1001
+
+					velo rand -5 2 -5
+
+				endi
+
+				targ ownr
+
+				stop
+
+			endi
+
+		elif va51 eq 2
+
+			doif ov02 ne null
+
+				targ ov02
+
+				doif pose eq 10
+
+					mesg writ targ 1001
+
+					velo rand -5 2 -5
+
+				endi
+
+				targ ownr
+
+				stop
+
+			endi
+
+		elif va51 eq 3
+
+			doif ov03 ne null
+
+				targ ov03
+
+				doif pose eq 10
+
+					mesg writ targ 1001
+
+					velo rand -5 2 -5
+
+				endi
+
+				targ ownr
+
+				stop
+
+			endi
+
+		endi
+
+	endi
+
+
+
+
+
+	subr getposxposy
+
+		setv va00 posl
+
+		setv va01 post
+
+		setv va02 plne
+
+	retn
+
+
+
+	subr top
+
+		inst
+
+		addv va01 4
+
+		addv va00 48
+
+		new: simp 2 8 50214 "moe_C2toDS_gelsemium" 12 25 va02
+
+		frel ownr
+
+		mvto va00 va01
+
+		setv ov00 1
+
+		seta mv01 targ
+
+		seta ov01 ownr
+
+		setv ov02 1
+
+	retn
+
+
+
+	subr middle
+
+		inst
+
+		addv va01 38
+
+		addv va00 69
+
+		new: simp 2 8 50214 "moe_C2toDS_gelsemium" 12 13 va02
+
+		frel ownr
+
+		mvto va00 va01
+
+		setv ov00 1
+
+		seta mv02 targ
+
+		seta ov01 ownr
+
+		setv ov02 2
+
+	retn
+
+
+
+	subr bottom
+
+		inst
+
+		addv va01 67
+
+		addv va00 31
+
+		new: simp 2 8 50214 "moe_C2toDS_gelsemium" 12 1 va02
+
+		frel ownr
+
+		mvto va00 va01
+
+		setv ov00 1
+
+		seta mv03 targ
+
+		seta ov01 ownr
+
+		setv ov02 3
+
+	retn
+
+endm
+
+
+
+scrp 2 8 50214 10
+
+	inst
+
+	perm 51
+
+	elas 25
+
+	aero 3
+
+	accg 0
+
+	wait 1
+
+	doif ov00 eq 1
+
+		setv ov20 rand 600 1200
+
+		tick 1
+
+		attr 240
+
+	endi
+
+	emit 6 .15
+
+endm
+
+
+
+scrp 2 8 50214 4
+
+	inst
+
+	mesg writ targ 1001
+
+endm
+
+
+
+scrp 2 8 50214 1001
+
+	inst
+
+	doif ov00 eq 1
+
+		inst
+
+		pose 11
+
+		attr 199
+
+		accg 3
+
+		tick rand 1000 2500
+
+		setv ov00 0
+
+		doif ov02 eq 1
+
+			targ ov01
+
+			seta ov01 null
+
+			targ ownr
+
+		elif ov02 eq 2
+
+			targ ov01
+
+			seta ov02 null
+
+			targ ownr
+
+		elif ov02 eq 3
+
+			targ ov01
+
+			seta ov03 null
+
+			targ ownr
+
+		endi
+
+		doif carr eq null
+
+			setv va00 posl
+
+			subv va00 10
+
+			mvsf va00 post
+
+			perm 51
+
+		endi
+
+		slow
+
+	endi
+
+endm
+
+
+
+scrp 2 8 50214 9
+
+	doif ov00 eq 1
+
+		doif pose lt 10
+
+			tick ov20
+
+			wait ov20
+
+			setv va00 pose
+
+			addv va00 1
+
+			pose va00
+
+			stop
+
+		else
+
+			bhvr 48
+
+			attr 195
+
+		endi
+
+	else
+
+		kill targ
+
+	endi
+
+endm
+
+
+
+scrp 2 8 50214 12
+
+	inst
+
+	sndc "chwp"
+
+	bhvr 32
+
+	base 17
+
+	pose 0
+
+	stim writ from 78 1
+
+	wait 1
+
+	targ from
+
+	chem 94 .6
+
+	chem 95 .6
+
+	wait 1
+
+	targ ownr
+
+endm
+
+
+
+scrp 2 8 50214 1
+
+	mesg writ targ 12
+
+endm
+
+
+
+scrp 2 8 50214 6
+
+	sndc "dr10"
+
+endm
+
+rscr
+
+
+
+enum 2 4 50204
+
+	kill targ
+
+next
+
+enum 2 8 50214
+
+	kill targ
+
+next
+
+scrx 2 4 50204 10
+
+scrx 2 4 50204 1
+
+scrx 2 4 50204 3
+
+scrx 2 4 50204 6
+
+scrx 2 4 50204 9
+
+scrx 2 8 50214 10
+
+scrx 2 8 50214 1
+
+scrx 2 8 50214 3
+
+scrx 2 8 50214 6
+
+scrx 2 8 50214 9
+
+scrx 2 8 50214 12
+

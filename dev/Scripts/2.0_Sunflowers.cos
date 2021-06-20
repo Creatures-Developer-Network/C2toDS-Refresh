@@ -1,0 +1,972 @@
+* 2 3 24206 - Sunflower Seeds
+* 2 7 24206 _ Sunflower
+* 2 23 24206 - Sunflower Seed Vendor
+
+*C2toDS Sunflowers
+
+*Jungle
+
+reps rand 5 7
+
+	new: simp 2 3 24206 "moe_C2toDS_sunflower" 1 rand 232 235 rand 500 3000
+
+	mvsf rand 5120 6512 49700
+
+	mira rand 0 1
+
+	show 0
+
+repe
+
+
+
+*Tantris Pod
+
+reps rand 2 3
+
+	new: simp 2 3 24206 "moe_C2toDS_sunflower" 1 rand 232 235 rand 500 3000
+
+	mvsf rand 3862 4075 49290
+
+	mira rand 0 1
+
+	show 0
+
+repe
+
+
+
+*World Tree
+
+reps rand 5 7
+
+	new: simp 2 3 24206 "moe_C2toDS_sunflower" 1 rand 232 235 rand 500 3000
+
+	mvsf rand 3385 4110 48098
+
+	mira rand 0 1
+
+	show 0
+
+repe
+
+
+
+*Trantris
+
+reps rand 5 7
+
+	new: simp 2 3 24206 "moe_C2toDS_sunflower" 1 rand 232 235 rand 500 3000
+
+	mvsf rand 3596 4255 48736
+
+	mira rand 0 1
+
+	show 0
+
+repe
+
+
+
+
+
+new: comp 2 23 24206 "moe_C2toDS_sunflowervend" 2 0 rand 1000 3000
+
+pat: dull 1 "moe_C2toDS_sunflowervend" 2 0 0 -1
+
+mvsf 3773 48290
+
+scrp 2 23 24206 10
+
+	attr 199
+
+	accg 4
+
+	aero 2
+
+	elas 25
+
+	perm 51
+
+	bhvr 47
+
+	emit 10 .15
+
+endm
+
+*timer
+
+*scrp 2 23 24206 9
+
+*endm
+
+*activate 1
+
+scrp 2 23 24206 1
+
+	doif crea from eq 1
+
+		stim writ from 90 1
+
+	endi
+
+	lock
+
+	doif pose eq 0
+
+		setv va02 0
+
+	else
+
+		setv va02 1
+
+	endi
+
+	part 1
+
+	frat 2
+
+	sndc "lott"
+
+	doif va02 eq 1
+
+		anim [9 10 11 12 13 14 15 16 17 9]
+
+	else
+
+		anim [0 1 2 3 4 5 6 7 8 0]
+
+	endi
+
+	wait 20
+
+	stpc
+
+	part 0
+
+	setv va00 posl
+
+	setv va01 post
+
+	doif pose eq 0
+
+		addv va00 70
+
+		addv va01 29
+
+	else
+
+		addv va00 15
+
+		addv va01 29
+
+	endi
+
+	snde "pop1"
+
+	new: simp 2 3 24206 "moe_C2toDS_sunflower" 1 rand 232 235 rand 500 3000
+
+	mvsf va00 va01
+
+	mira rand 0 1
+
+	unlk
+
+endm
+
+*collision
+
+scrp 2 23 24206 6
+
+	lock
+
+	sndc "drop"
+
+	over
+
+	wait 2
+
+	unlk
+
+endm
+
+*eat
+
+*scrp 2 23 24206 12
+
+*
+
+*endm
+
+
+
+*deactivate
+
+scrp 2 23 24206 0
+
+	doif crea from eq 1
+
+		stim writ from 90 1
+
+	endi
+
+endm
+
+*activate 2
+
+scrp 2 23 24206 2
+
+	doif crea from eq 1
+
+		stim writ from 90 1
+
+	endi
+
+endm
+
+*hit
+
+scrp 2 23 24206 3
+
+	doif crea from eq 1
+
+		sndc "hit_"
+
+		stim writ from 92 1
+
+	endi
+
+endm
+
+*pickup
+
+scrp 2 23 24206 4
+
+	stim writ from 91 1
+
+	loop
+
+		wait 10
+
+		doif velx gt 0
+
+			pose 0
+
+		elif velx lt 0
+
+			pose 1
+
+		endi
+
+	untl carr eq null
+
+endm
+
+*drop
+
+scrp 2 23 24206 5
+
+endm
+
+*catchall
+
+scrp 2 23 24206 255
+
+endm
+
+
+
+
+
+*install
+
+scrp 2 3 24206 10
+
+	inst
+
+	doif attr eq 0
+
+		attr 195
+
+	endi
+
+	doif bhvr eq 0
+
+		bhvr 48
+
+	endi
+
+
+
+	elas 10
+
+	accg 3
+
+	emit 6 .01
+
+	rnge 300
+
+	tick 50
+
+endm
+
+
+
+*collision
+
+scrp 2 3 24206 6
+
+	snde "dr64"
+
+endm
+
+*eat
+
+scrp 2 3 24206 12
+
+	snde "reat"
+
+	doif crea from eq 1
+
+		stim writ from 77 1
+
+	endi
+
+	kill ownr
+
+endm
+
+
+
+*catchall
+
+scrp 2 3 24206 255
+
+	stop
+
+endm
+
+
+
+*timer
+
+scrp 2 3 24206 9
+
+	tick rand 150 250
+
+	doif sean ne 1
+
+		gsub dormantcheck
+
+		stop
+
+	endi
+
+*lots of light, some heat, some water, some nutrients not submerged
+
+	doif prop room ownr 1 gt .5 and prop room ownr 2 gt .15 and prop room ownr 3 gt .2 and prop room ownr 4 gt .3 and rtyp room ownr ne 8 and rtyp room ownr ne 9
+
+		esee 2 7 24206
+
+			doif ov11 ne 3
+
+				addv va00 1
+
+			endi
+
+		next
+
+		targ ownr
+
+		doif va00 lt 5
+
+			gsub grow
+
+			lock
+
+			wait 60
+
+			kill ownr
+
+			unlk
+
+		elif va00 gt 5
+
+			gsub dormantcheck
+
+		endi
+
+	else
+
+		gsub dormantcheck
+
+	endi
+
+
+
+	subr dormantcheck
+
+*Check to see if I'm already dormant, you know because you're untouchable
+
+		doif attr gt 193
+
+*This is where you check to seee if there are others nearby
+
+			esee 2 3 24206
+
+				doif targ ne null
+
+					addv va00 1
+
+				endi
+
+			next
+
+			targ ownr
+
+*If there are plenty of other seeds, you just die.
+
+			doif va00 gt 5
+
+				wait rand 1200 1600
+
+				kill ownr
+
+			else
+
+				gsub godormant
+
+			endi
+
+		endi
+
+	retn
+
+
+
+	subr godormant
+
+		addv ov13 1
+
+		doif ov13 gt 5
+
+*You go invisible, and become untouchable
+
+			show 0
+
+			bhvr 0
+
+			attr 209
+
+*dbg: outs "Going Stealth!"
+
+			tick 1000
+
+		endi
+
+	retn
+
+
+
+	subr grow
+
+		setv va02 posl
+
+		subv va02 85
+
+		setv va03 post
+
+		subv va03 155
+
+		setv va04 plne
+
+		subv va04 1
+
+
+
+		setv va00 rand 0 7
+
+		setv va01 0
+
+		doif va00 eq 0
+
+			setv va01 0
+
+		elif va00 eq 1
+
+			setv va01 29
+
+		elif va00 eq 2
+
+			setv va01 58
+
+		elif va00 eq 3
+
+			setv va01 87
+
+		elif va00 eq 4
+
+			setv va01 116
+
+		elif va00 eq 5
+
+			setv va01 145
+
+		elif va00 eq 6
+
+			setv va01 174
+
+		elif va00 eq 7
+
+			setv va01 203
+
+		endi
+
+
+
+
+
+		new: simp 2 7 24206 "moe_C2toDS_sunflower" 29 va01 va04
+
+		mvsf va02 va03
+
+		mira rand 0 1
+
+*tracks what base was used, for use in seeding
+
+		setv ov02 va01
+
+	retn
+
+endm
+
+
+
+*install
+
+scrp 2 7 24206 10
+
+	inst
+
+	pose 1
+
+	dcor 0
+
+	core 0 hght 71 111
+
+	attr 192
+
+	elas 0
+
+	accg 4
+
+	tick rand 200 500
+
+	emit 9 .02
+
+	bhvr 3
+
+endm
+
+*timer
+
+scrp 2 7 24206 9
+
+
+
+*If you're not at seed stage, grow up
+
+	doif ov11 eq 0
+
+		doif pose lt 17
+
+			setv va00 pose
+
+			addv va00 1
+
+			pose va00
+
+		elif pose eq 17
+
+			setv ov11 1
+
+		endi
+
+	elif ov11 eq 1
+
+*transition to Seed-ready pose and change to full adult
+
+		setv ov11 2
+
+		setv va00 pose
+
+		addv va00 1
+
+		pose va00
+
+	elif ov11 eq 2
+
+		gsub seed
+
+		setv ov11 3
+
+	elif ov11 eq 3
+
+		gsub die
+
+	endi
+
+
+
+	subr seed
+
+*				setv va00 rand 0 6
+
+*		setv va01 0
+
+*		doif va00 eq 0
+
+*			setv va01 29
+
+*		elif va00 eq 1
+
+*			setv va01 58
+
+*		elif va00 eq 2
+
+*			setv va01 87
+
+*		elif va00 eq 3
+
+*			setv va01 116
+
+*		elif va00 eq 4
+
+*			setv va01 145
+
+*		elif va00 eq 5
+
+*			setv va01 174
+
+*		elif va00 eq 6
+
+*			setv va01 203
+
+*		endi
+
+
+
+
+
+
+
+
+
+
+
+		reps rand 5 10
+
+
+
+			setv va00 posl
+
+			setv va01 post
+
+
+
+			doif ov02 eq 0
+
+				addv va01 46
+
+				doif mira eq 0
+
+					addv va00 126
+
+				elif mira eq 1
+
+					addv va00 55
+
+				endi
+
+			elif ov02 eq 29
+
+				addv va01 91
+
+				doif mira eq 0
+
+					addv va00 72
+
+				elif mira eq 1
+
+					addv va00 110
+
+				endi
+
+			elif ov02 eq 58
+
+				addv va01 48
+
+				doif mira eq 0
+
+					addv va00 130
+
+				elif mira eq 1
+
+					addv va00 50
+
+				endi
+
+			elif ov02 eq 87
+
+				addv va01 53
+
+				doif mira eq 0
+
+					addv va00 112
+
+				elif mira eq 1
+
+					addv va00 68
+
+				endi
+
+			elif ov02 eq 116
+
+				addv va01 58
+
+				doif mira eq 0
+
+					addv va00 95
+
+				elif mira eq 1
+
+					addv va00 86
+
+				endi
+
+			elif ov02 eq 145
+
+				addv va01 100
+
+				doif mira eq 0
+
+					addv va00 113
+
+				elif mira eq 1
+
+					addv va00 67
+
+				endi
+
+			elif ov02 eq 174
+
+				addv va01 60
+
+				doif mira eq 0
+
+					addv va00 64
+
+				elif mira eq 1
+
+					addv va00 115
+
+				endi
+
+			elif ov02 eq 203
+
+				addv va01 52
+
+				doif mira eq 0
+
+					addv va00 47
+
+				elif mira eq 1
+
+					addv va00 135
+
+				endi
+
+			endi
+
+
+
+			addv va00 rand -10 10
+
+			addv va01 rand -10 10
+
+			new: simp 2 3 24206 "moe_C2toDS_sunflower" 1 rand 232 235 rand 500 3000
+
+			mvsf va00 va01
+
+			velo rand -5 5 rand -2 0
+
+			targ ownr
+
+		repe
+
+
+
+
+
+	retn
+
+
+
+	subr die
+
+		doif pose lt 28
+
+			setv va00 pose
+
+			addv va00 1
+
+			pose va00
+
+		elif pose eq 28
+
+			kill ownr
+
+		endi
+
+	retn
+
+
+
+endm
+
+*activate 1
+
+scrp 2 7 24206 1
+
+	doif crea from eq 1
+
+		stim writ from 84 1
+
+	endi
+
+endm
+
+*collision
+
+scrp 2 7 24206 6
+
+*snde "drop"
+
+endm
+
+*eat
+
+scrp 2 7 24206 12
+
+
+	doif crea from eq 1
+
+*stim writ from 0 0
+
+	endi
+
+endm
+
+*activate 2
+
+scrp 2 7 24206 2
+
+	doif crea from eq 1
+
+		stim writ from 84 1
+
+	endi
+
+endm
+
+*catchall
+
+scrp 2 7 24206 255
+
+	stop
+
+endm
+
+rscr
+
+enum 2 7 24206
+
+	kill targ
+
+next
+
+*Removes all scripts for the specified agent 2 7 24206 if it exists.
+
+*No need to micromanage. :)
+
+loop
+
+	doif sorq 2 7 24206 va00 eq 1
+
+		scrx 2 7 24206 va00
+
+	endi
+
+	addv va00 1
+
+untl va00 eq 2000
+
+setv va00 0
+
+
+
+inst
+
+enum 2 3 24206
+
+	kill targ
+
+next
+
+*Removes all scripts for the specified agent 2 3 24206 if it exists.
+
+*No need to micromanage. :)
+
+loop
+
+	doif sorq 2 3 24206 va00 eq 1
+
+		scrx 2 3 24206 va00
+
+	endi
+
+	addv va00 1
+
+untl va00 eq 2000
+
+setv va00 0
+
+
+
+inst
+
+enum 2 23 24206
+
+	kill targ
+
+next
+
+*Removes all scripts for the specified agent 2 23 24206 if it exists.
+
+*No need to micromanage. :)
+
+loop
+
+	doif sorq 2 23 24206 va00 eq 1
+
+		scrx 2 23 24206 va00
+
+	endi
+
+	addv va00 1
+
+untl va00 eq 2000
+
+setv va00 0
+
+

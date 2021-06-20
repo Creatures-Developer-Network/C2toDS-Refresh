@@ -1,0 +1,420 @@
+* 3 1 50203 - Yellow Raft
+
+* UNFINISHED: Need to add code to detect which direction the norn wants to go in, rather than
+*             relying on where they are in relation to the dingy when they activated it.
+* UNFINISHED: We also need to ensure that norns falling off ledge are caught by dingy. I 
+* 		  thought setting greedy cabin would do this, but apparently not.
+
+* Rubber dingy
+
+new: vhcl 3 1 50203 "moe_C2toDS_dingy" 22 0 3000
+
+cabn 60 0 225 88
+
+cabp 1
+
+pat: dull 1 "moe_C2toDS_dingy" 1 0 0 4
+
+pat: dull 10 "moe_C2toDS_dingy" 2 15 65 2
+
+pat: dull 11 "moe_C2toDS_dingy" 12 230 65 2
+
+attr 524
+
+bhvr 3
+
+setv ov00 1
+
+mvsf 2380 48200
+
+scrp 3 1 50203 1
+
+	lock
+
+	targ from
+
+	setv va00 posl
+
+	targ ownr
+
+	doif posx gt va00
+
+		setv va00 1
+
+	else
+
+		setv va00 0
+
+	endi
+
+
+
+	doif va00 eq 0 and ov00 ne 1
+
+		part 11
+
+		anim [0 1 2 3 4 5 6 7 8 9 255 3]
+
+		sndl "dngy"
+
+		setv va02 2
+
+		loop
+
+			velo -8 va02
+
+			negv va02
+
+			wait 2
+
+		untl posx le 2545
+
+		stpc
+
+		setv velx 0
+
+		setv vely 0
+
+		anim [2 1 0]
+
+		setv ov00 1
+
+		targ ownr
+
+		loop
+
+			addv vely -1
+
+			wait 1
+
+		untl posy ge 48200
+
+		setv vely 0
+
+		epas 4 0 0
+
+			rpas ownr targ
+
+			velo -12 -30
+
+		next
+
+	elif va00 eq 1 and ov00 ne 0
+
+		part 10
+
+		anim [0 1 2 3 4 5 6 7 8 9 255 3]
+
+		sndl "dngy"
+
+		setv va02 2
+
+		loop
+
+			velo 8 va02
+
+			negv va02
+
+			wait 2
+
+		untl posx ge 2950
+
+		stpc
+
+		setv velx 0
+
+		setv vely 0
+
+		anim [2 1 0]
+
+		setv ov00 0
+
+		targ ownr
+
+		loop
+
+			addv vely -1
+
+			wait 1
+
+		untl posy ge 48200
+
+		setv vely 0
+
+		epas 4 0 0
+
+			rpas ownr targ
+
+			velo 12 -30
+
+		next
+
+	endi
+
+	targ ownr
+
+	unlk
+
+endm
+
+
+
+scrp 3 1 50203 2
+
+	lock
+
+	targ from
+
+	setv va00 posl
+
+	targ ownr
+
+	doif posx gt va00
+
+		setv va00 1
+
+	else
+
+		setv va00 0
+
+	endi
+
+
+
+	doif va00 eq 0 and ov00 ne 1
+
+		part 11
+
+		anim [0 1 2 3 4 5 6 7 8 9 255 3]
+
+		setv va02 2
+
+		loop
+
+			velo -8 va02
+
+			negv va02
+
+			wait 2
+
+		untl posx le 2535
+
+		setv velx 0
+
+		setv vely 0
+
+		anim [2 1 0]
+
+		setv ov00 1
+
+		targ ownr
+
+		loop
+
+			addv vely -1
+
+			wait 1
+
+		untl posy ge 48200
+
+		setv vely 0
+
+		epas 4 0 0
+
+			rpas ownr targ
+
+			velo -12 -30
+
+		next
+
+	elif va00 eq 1 and ov00 ne 0
+
+		part 10
+
+		anim [0 1 2 3 4 5 6 7 8 9 255 3]
+
+		setv va02 2
+
+		loop
+
+			velo 8 va02
+
+			negv va02
+
+			wait 2
+
+		untl posx ge 2930
+
+		setv velx 0
+
+		setv vely 0
+
+		anim [2 1 0]
+
+		setv ov00 0
+
+		targ ownr
+
+		loop
+
+			addv vely -1
+
+			wait 1
+
+		untl posy ge 48200
+
+		setv vely 0
+
+		epas 4 0 0
+
+			rpas ownr targ
+
+			velo 12 -30
+
+		next
+
+	endi
+
+	targ ownr
+
+	unlk
+
+endm
+
+
+
+scrp 3 1 50203 3
+
+	lock
+
+	targ from
+
+	setv va00 posl
+
+	targ ownr
+
+	doif posx gt va00
+
+		setv va00 1
+
+	else
+
+		setv va00 0
+
+	endi
+
+
+
+	doif va00 eq 0 and ov00 ne 1
+
+		part 11
+
+		anim [0 1 2 3 4 5 6 7 8 9 255 3]
+
+		setv va02 2
+
+		loop
+
+			velo -8 va02
+
+			negv va02
+
+			wait 2
+
+		untl posx le 2535
+
+		setv velx 0
+
+		setv vely 0
+
+		anim [2 1 0]
+
+		setv ov00 1
+
+		targ ownr
+
+		loop
+
+			addv vely -1
+
+			wait 1
+
+		untl posy ge 48200
+
+		setv vely 0
+
+		epas 4 0 0
+
+			rpas ownr targ
+
+			velo -12 -30
+
+		next
+
+	elif va00 eq 1 and ov00 ne 0
+
+		part 10
+
+		anim [0 1 2 3 4 5 6 7 8 9 255 3]
+
+		setv va02 2
+
+		loop
+
+			velo 8 va02
+
+			negv va02
+
+			wait 2
+
+		untl posx ge 2930
+
+		setv velx 0
+
+		setv vely 0
+
+		anim [2 1 0]
+
+		setv ov00 0
+
+		targ ownr
+
+		loop
+
+			addv vely -1
+
+			wait 1
+
+		untl posy ge 48200
+
+		setv vely 0
+
+		epas 4 0 0
+
+			rpas ownr targ
+
+			velo 12 -30
+
+		next
+
+	endi
+
+	targ ownr
+
+	unlk
+
+endm
+
+rscr
+
+enum 3 1 50203
+
+	kill targ
+
+next
+
+scrx 3 1 50203 1
+
+scrx 3 1 50203 2
+
+scrx 3 1 50203 3

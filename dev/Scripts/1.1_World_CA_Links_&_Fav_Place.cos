@@ -1,0 +1,520 @@
+
+*Create Signpost*
+
+new: simp 1 3 50200 "moe_C2toDS_Fav" 1 0 1
+
+attr 272
+
+mvto 6753 48383
+
+tick 10
+
+
+* C2toDS CA linking
+
+* temple lift
+
+setv va00 grap 6277 48648
+
+setv va01 grap 6277 48348
+
+setv va02 grap 6277 48022
+
+link va00 va01 1
+
+link va01 va02 1
+
+
+
+* norn burrow lift
+
+setv va03 grap 7857 48643
+
+setv va04 grap 7857 48346
+
+setv va05 grap 7857 48106
+
+setv va06 grap 7857 47962
+
+link va03 va04 1
+
+link va04 va05 1
+
+link va05 va06 1
+
+
+
+* top treehouse lift
+
+setv va11 grap 5270 48848
+
+setv va12 grap 5270 49071
+
+setv va13 grap 5289 49501
+
+link va11 va12 1
+
+link va12 va13 1
+
+
+
+* bottom treehouse lift
+
+setv va14 grap 5603 49237
+
+setv va15 grap 5591 49460
+
+setv va16 grap 5597 49743
+
+link va14 va15 1
+
+link va15 va16 1
+
+
+
+* swamp lift left
+
+setv va17 grap 6631 49730
+
+setv va18 grap 6631 49592
+
+link va17 va18 1
+
+
+
+* swamp lift middle
+
+setv va19 grap 7204 49347
+
+setv va20 grap 7204 49188
+
+setv va21 grap 7204 49122
+
+link va19 va20 1
+
+link va20 va21 1
+
+
+
+* swamp lift right
+
+setv va22 grap 7804 49756
+
+setv va23 grap 7804 49322
+
+link va22 va23 1
+
+
+
+* volcano lift left
+
+setv va24 grap 9640 48197
+
+setv va25 grap 9640 48412
+
+setv va26 grap 9601 48808
+
+setv va27 grap 9601 48890
+
+setv va28 grap 9585 49662
+
+link va24 va25 1
+
+link va25 va26 1
+
+link va26 va27 1
+
+link va27 va28 1
+
+
+
+* volcano lift right
+
+setv va29 grap 10190 49311
+
+setv va30 grap 10165 48855
+
+setv va31 grap 10164 48785
+
+link va29 va30 1
+
+link va30 va31 1
+
+
+
+* top biosphere (near deep blue ocean)
+
+setv va32 grap 2143 48531
+
+setv va33 grap 2140 48991
+
+link va32 va33 1
+
+
+
+* bottom biosphere (near deep blue ocean)
+
+setv va34 grap 2387 49030
+
+setv va35 grap 2387 49344
+
+link va34 va35 1
+
+
+
+* toyroom/library/dock lift
+
+setv va36 grap 3433 49341
+
+setv va37 grap 3433 49022
+
+setv va38 grap 3433 48831
+
+link va36 va37 1
+
+link va37 va38 1
+
+
+
+* treetrunk lift
+
+setv va39 grap 3630 48990
+
+setv va40 grap 3630 49661
+
+link va39 va40 1
+
+
+
+* world tree lift
+
+setv va41 grap 3630 48481
+
+setv va42 grap 3630 48341
+
+setv va43 grap 3630 48071
+
+setv va44 grap 3630 47911
+
+setv va45 grap 3630 47803
+
+link va41 va42 1
+
+link va42 va43 1
+
+link va43 va44 1
+
+link va44 va45 1
+
+
+
+* waterfall lift
+
+setv va46 grap 4434 48456
+
+setv va47 grap 4421 48842
+
+setv va48 grap 4421 48969
+
+link va46 va47 1
+
+link va47 va48 1
+
+
+
+* bottom-most biosphere lift
+
+setv va49 grap 4279 49666
+
+setv va50 grap 4279 49808
+
+link va49 va50 1
+
+
+
+* cablecar
+
+setv va09 grap 5879 48328
+
+setv va10 grap 4458 48735
+
+link va09 va10 1
+
+*Move the Camera and enlarge and display the Map -  These are for the dev phase.*
+
+cmrp 6753 48383 0
+
+rscr
+
+enum 1 3 50200
+
+	kill targ
+
+next
+
+*Delete Signpost*
+
+doif totl 1 4 50200 gt 0
+
+	subv game "ds_favourites" 1
+
+	enum 1 4 50200
+
+		setv va50 ov50
+
+		kill targ
+
+	next
+
+	enum 1 4 0
+
+		doif ov50 gt va50
+
+			subv ov50 1
+
+			setv va02 ov50
+
+			mulv va02 50
+
+			addv va02 145
+
+			flto va02 0
+
+		endi
+
+	next
+
+endi
+
+* temple lift
+
+setv va00 grap 6277 48648
+
+setv va01 grap 6277 48348
+
+setv va02 grap 6277 48022
+
+link va00 va01 0
+
+link va01 va02 0
+
+
+
+* norn burrow lift
+
+setv va03 grap 7857 48643
+
+setv va04 grap 7857 48346
+
+setv va05 grap 7857 48106
+
+setv va06 grap 7857 47962
+
+link va03 va04 0
+
+link va04 va05 0
+
+link va05 va06 0
+
+
+
+* top treehouse lift
+
+setv va11 grap 5270 48848
+
+setv va12 grap 5270 49071
+
+setv va13 grap 5289 49501
+
+link va11 va12 0
+
+link va12 va13 0
+
+
+
+* bottom treehouse lift
+
+setv va14 grap 5603 49237
+
+setv va15 grap 5591 49460
+
+setv va16 grap 5597 49743
+
+link va14 va15 0
+
+link va15 va16 0
+
+
+
+* swamp lift left
+
+setv va17 grap 6631 49730
+
+setv va18 grap 6631 49592
+
+link va17 va18 0
+
+
+
+* swamp lift middle
+
+setv va19 grap 7204 49347
+
+setv va20 grap 7204 49188
+
+setv va21 grap 7204 49122
+
+link va19 va20 0
+
+link va20 va21 0
+
+
+
+* swamp lift right
+
+setv va22 grap 7804 49756
+
+setv va23 grap 7804 49322
+
+link va22 va23 0
+
+
+
+* volcano lift left
+
+setv va24 grap 9640 48197
+
+setv va25 grap 9640 48412
+
+setv va26 grap 9601 48808
+
+setv va27 grap 9601 48890
+
+setv va28 grap 9585 49662
+
+link va24 va25 0
+
+link va25 va26 0
+
+link va26 va27 0
+
+link va27 va28 0
+
+
+
+* volcano lift right
+
+setv va29 grap 10190 49311
+
+setv va30 grap 10165 48855
+
+setv va31 grap 10164 48785
+
+link va29 va30 0
+
+link va30 va31 0
+
+
+
+* top biosphere (near deep blue ocean)
+
+setv va32 grap 2143 48531
+
+setv va33 grap 2140 48991
+
+link va32 va33 0
+
+
+
+* bottom biosphere (near deep blue ocean)
+
+setv va34 grap 2387 49030
+
+setv va35 grap 2387 49344
+
+link va34 va35 0
+
+
+
+* toyroom/library/dock lift
+
+setv va36 grap 3433 49341
+
+setv va37 grap 3433 49022
+
+setv va38 grap 3433 48831
+
+link va36 va37 0
+
+link va37 va38 0
+
+
+
+* treetrunk lift
+
+setv va39 grap 3630 48990
+
+setv va40 grap 3630 49661
+
+link va39 va40 0
+
+
+
+* world tree lift
+
+setv va41 grap 3630 48481
+
+setv va42 grap 3630 48341
+
+setv va43 grap 3630 48071
+
+setv va44 grap 3630 47911
+
+setv va45 grap 3630 47803
+
+link va41 va42 0
+
+link va42 va43 0
+
+link va43 va44 0
+
+link va44 va45 0
+
+
+
+* waterfall lift
+
+setv va46 grap 4434 48456
+
+setv va47 grap 4421 48842
+
+setv va48 grap 4421 48969
+
+link va46 va47 0
+
+link va47 va48 0
+
+
+
+* bottom-most biosphere lift
+
+setv va49 grap 4279 49666
+
+setv va50 grap 4279 49808
+
+link va49 va50 0
+
+
+
+* cablecar
+
+setv va09 grap 5879 48328
+
+setv va10 grap 4458 48735
+
+link va09 va10 0
+
+
+
+
+

@@ -1,0 +1,551 @@
+*//*Albian Coconut*//
+
+* 2 3 50214 - Coconut Seed
+* 2 6 50205 - Coconut Leaf (maker)
+* 2 8 50217 - Coconut Fruit
+* 2 10 50214 - Coconut Detritus
+
+*Matthew, "Moe", '10*
+* Some Modifications By the one who screams i guess
+* (if you worked on this file, feel free to add your name!)
+
+
+new: simp 2 6 50205 "moe_C2toDS_berries" 0 0 5000
+
+attr 0
+
+mvto 9250 48000
+
+tick 1
+
+scrp 2 6 50205 9
+
+	tick rand 100 200
+
+	doif totl 2 3 50214 lt 5
+
+		setv va01 rand 9339 9366
+
+		setv va02 rand 48080 48130
+
+		gsub makecoconuts
+
+	endi
+
+	subr makecoconuts
+
+		new: simp 2 3 50214 "moe_C2toDS_berries" 0 23 8001
+
+		mira rand 0 1
+
+		perm rand 55 55
+
+		bhvr 41
+
+		mvsf va01 va02
+
+		accg 0
+
+		attr 199
+
+		elas 10
+
+		fric 50
+
+		tick rand 50 100
+
+		setv name "onthetree" 1
+
+		setv va00 post
+
+		puhl 1 19 22
+
+		puhl 2 19 22
+
+	retn
+
+endm
+
+*Coconuts Make
+
+scrp 2 3 50214 10
+
+* emit 6 .15
+*Reclass it to toy to prevent confusion.
+	cato 21
+
+endm
+
+
+
+
+
+scrp 2 3 50214 1000
+
+	snde "m_a2"
+
+	setv va00 posl
+
+	setv va01 posb
+
+	inst
+
+	reps 2
+
+		new: simp 2 10 50214 "moe_C2toDS_berries" 0 rand 26 27 5000
+
+		velo rand -15 15 rand -15 0
+
+		tick rand 250 300
+
+		mvsf va00 va01
+
+	repe
+
+	reps rand 5 7
+
+		new: simp 2 8 50217 "moe_C2toDS_berries" 0 rand 18 21 5000
+
+		mira rand 0 1
+
+		bhvr 49
+
+		attr 195
+
+		accg 3
+
+		aero 10
+
+		fric 40
+
+		perm 55
+
+		elas 5
+
+		tick rand 500 1000
+
+		velo rand -10 10 rand -20 0
+
+		mvsf va00 va01
+
+	repe
+
+	kill ownr
+
+endm
+
+
+
+
+
+scrp 2 3 50214 9
+
+	doif carr eq null
+
+		addv ov00 1
+
+		doif ov00 ge rand 50 100 and accg lt 4
+
+			accg 4
+
+			velo rand -15 15 0
+
+			setv name "onthetree" 0
+
+		endi
+
+		doif ov00 ge rand 125 150
+
+			kill targ
+
+		endi
+
+	endi
+
+endm
+
+
+
+scrp 2 10 50214 9
+
+	doif carr eq null
+
+		addv ov00 1
+
+		doif ov00 ge rand 50 100 and accg lt 4
+
+			accg 4
+
+			velo rand -15 15 0
+
+			setv name "onthetree" 0
+
+		endi
+
+		doif ov00 ge rand 25 50
+
+			kill targ
+
+		endi
+
+	endi
+
+endm
+
+
+
+scrp 2 8 50217 9
+
+	doif carr eq null
+
+		addv ov00 1
+
+		doif ov00 ge rand 50 100 and accg lt 4
+
+			accg 4
+
+			velo rand -15 15 0
+
+			setv name "onthetree" 0
+
+		endi
+
+		doif ov00 ge rand 25 50
+
+			kill targ
+
+		endi
+
+	endi
+
+endm
+
+
+
+scrp 2 3 50214 6
+
+	inst
+
+	doif _p2_ le 7
+
+		doif ov01 eq 0
+
+			pose 1
+
+			sndc "m_a1"
+
+		endi
+
+	elif _p2_ gt 35 and _p2_ lt 50
+
+		setv ov01 1
+
+		sndc "m_a1"
+
+		pose 2
+
+	elif _p2_ gt 50
+
+		mesg writ targ 1000
+
+	endi
+
+	doif _p2_ ge -7
+
+		doif ov01 eq 0
+
+			pose 1
+
+			sndc "m_a1"
+
+		endi
+
+	elif _p2_ lt -35 and _p2_ gt -50
+
+		setv ov01 1
+
+		sndc "m_a1"
+
+		pose 2
+
+	elif _p2_ lt -50
+
+		mesg writ targ 1000
+
+	endi
+
+	doif _p1_ le 7
+
+		doif ov01 eq 0
+
+			pose 1
+
+			sndc "m_a1"
+
+		endi
+
+	elif _p1_ gt 35 and _p1_ lt 50
+
+		setv ov01 1
+
+		sndc "m_a1"
+
+		pose 2
+
+	elif _p1_ gt 50
+
+		mesg writ targ 1000
+
+	endi
+
+	doif _p1_ ge -7
+
+		doif ov01 eq 0
+
+			pose 1
+
+			sndc "m_a1"
+
+		endi
+
+	elif _p1_ lt -35 and _p1_ gt -50
+
+		setv ov01 1
+
+		sndc "m_a1"
+
+		pose 2
+
+	elif _p1_ lt -50
+
+		mesg writ targ 1000
+
+	endi
+
+endm
+
+
+
+
+
+scrp 2 3 50214 5
+
+	accg 4
+
+	doif pose eq 0
+
+		pose 1
+
+	endi
+
+endm
+
+
+
+
+
+scrp 2 3 50214 4
+
+	plne rand 4000 6000
+
+	doif pose eq 0
+
+		pose 1
+
+	endi
+
+	setv name "onthetree" 0
+
+endm
+
+
+
+scrp 2 3 50214 3
+
+	inst
+
+	stim writ from 97 1
+
+	snde "m_a1"
+
+	doif name "onthetree" eq 1
+
+		setv name "onthetree" 0
+
+		accg 4
+
+		velo rand -5 5 rand -2 1
+
+	elif name "onthetree" eq 0
+
+		doif pose eq 1
+
+			pose 2
+
+		elif pose eq 2
+
+			targ ownr
+
+			mesg writ targ 1000
+
+		endi
+
+	endi
+
+endm
+
+
+
+
+
+scrp 2 3 50214 1
+
+	inst
+
+	doif from eq pntr
+
+		targ pntr
+
+		anim [ 4 5 0]
+
+	endi
+
+	stim writ from 1 .15
+
+	targ from
+
+	chem 204 .25
+
+	targ ownr
+
+	mesg writ targ 3
+
+endm
+
+
+
+scrp 2 8 50217 12
+
+	sndc "chwp"
+
+	stim writ from 78 1
+
+	targ from
+
+	chem 151 -.31
+
+	chem 150 -.39
+
+	chem 149 -.27
+
+*	chem 10 .31
+
+*	chem 5 .39
+
+*	chem 12 .27
+
+	targ ownr
+
+	wait 1
+
+	kill targ
+
+endm
+
+
+
+scrp 2 8 50217 1
+
+	mesg writ targ 12
+
+endm
+
+
+
+
+
+scrp 2 3 50217 1000
+
+	setv va00 posx
+
+	setv va01 posb
+
+	new: simp 2 10 50214 "moe_C2toDS_berries" 0 rand 26 27 5000
+
+	mira rand 0 1
+
+	attr 195
+
+	mvsf va00 va01
+
+endm
+
+
+
+scrp 2 10 50214 12
+
+	sndc "eat1"
+
+	doif crea from eq 1
+
+		stim writ from 81 1
+
+	endi
+
+	kill ownr
+
+endm
+
+
+
+scrp 2 10 50214 10
+
+	inst
+
+	attr 195
+
+	accg 4
+
+	aero 10
+
+	fric 40
+
+	perm 55
+
+	elas 5
+
+	bhvr 48
+
+endm
+
+
+
+
+
+rscr
+
+enum 2 6 50205
+
+	kill targ
+
+next
+enum 2 3 50214
+
+	kill targ
+
+next
+
+
+enum 2 10 50214
+
+	kill targ
+
+next
+
+
+
+enum 2 8 50217
+
+	kill targ
+
+next

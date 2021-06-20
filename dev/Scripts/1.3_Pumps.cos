@@ -1,0 +1,292 @@
+* 2 25 50202 - Pump
+
+*Burrow
+
+new: simp 2 25 50202 "moe_C2toDS_pump" 11 0 rand 1000 3000
+
+mvto 6706 48393
+
+
+
+*Treehouse
+
+new: simp 2 25 50202 "moe_C2toDS_pump" 11 0 rand 1000 3000
+
+mvto 5072 49795
+
+
+
+scrp 2 25 50202 10
+
+	attr 4
+
+	bhvr 31
+
+endm
+
+*timer
+
+scrp 2 25 50202 9
+
+endm
+
+*activate 1
+
+scrp 2 25 50202 1
+
+	doif crea from eq 1
+
+		seta va00 from
+
+		snde "drnk"
+
+		inst
+
+		targ va00
+
+*decrease hotness
+
+		chem 153 -.25
+
+*increase coolness
+
+		chem 152 .15
+
+*Water
+
+		chem 33 .25
+
+		slow
+
+		targ ownr
+
+	endi
+
+	frat 3
+
+	sndc "wat1"
+
+	anim [ 0 1 2 3 4 5 6 7 8 9 10 9 8 7 6 5 4 3 2 1 0]
+
+endm
+
+*collision
+
+scrp 2 25 50202 6
+
+*snde "drop"
+
+endm
+
+*eat
+
+scrp 2 25 50202 12
+
+	doif crea from eq 1
+
+		seta va00 from
+
+		snde "drnk"
+
+		inst
+
+		targ va00
+
+*decrease hotness
+
+		chem 153 -.25
+
+*increase coolness
+
+		chem 152 .15
+
+*Water
+
+		chem 33 .25
+
+		slow
+
+		targ ownr
+
+	endi
+
+	frat 3
+
+	sndc "wat1"
+
+	anim [ 0 1 2 3 4 5 6 7 8 9 10 9 8 7 6 5 4 3 2 1 0]
+
+endm
+
+
+
+
+
+
+
+*deactivate
+
+scrp 2 25 50202 0
+
+	doif crea from eq 1
+
+		seta va00 from
+
+		snde "drnk"
+
+		inst
+
+		targ va00
+
+*decrease hotness
+
+		chem 153 -.25
+
+*increase coolness
+
+		chem 152 .15
+
+*Water
+
+		chem 33 .25
+
+		slow
+
+		targ ownr
+
+	endi
+
+	frat 3
+
+	sndc "wat1"
+
+	anim [ 0 1 2 3 4 5 6 7 8 9 10 9 8 7 6 5 4 3 2 1 0]
+
+endm
+
+*activate 2
+
+scrp 2 25 50202 2
+
+	doif crea from eq 1
+
+		seta va00 from
+
+		snde "drnk"
+
+		inst
+
+		targ va00
+
+*decrease hotness
+
+		chem 153 -.25
+
+*increase coolness
+
+		chem 152 .15
+
+*Water
+
+		chem 33 .25
+
+		slow
+
+		targ ownr
+
+	endi
+
+	frat 3
+
+	sndc "wat1"
+
+	anim [ 0 1 2 3 4 5 6 7 8 9 10 9 8 7 6 5 4 3 2 1 0]
+
+endm
+
+*hit
+
+scrp 2 25 50202 3
+
+	doif crea from eq 1
+
+		seta va00 from
+
+		snde "drnk"
+
+		inst
+
+		targ va00
+
+*decrease hotness
+
+		chem 153 -.25
+
+*increase coolness
+
+		chem 152 .15
+
+*Water
+
+		chem 33 .25
+
+		slow
+
+		targ ownr
+
+	endi
+
+	frat 3
+
+	sndc "wat1"
+
+	anim [ 0 1 2 3 4 5 6 7 8 9 10 9 8 7 6 5 4 3 2 1 0]
+
+endm
+
+*pickup
+
+scrp 2 25 50202 4
+
+endm
+
+*drop
+
+scrp 2 25 50202 5
+
+endm
+
+*catchall
+
+scrp 2 25 50202 255
+
+endm
+
+
+
+rscr
+
+
+enum 2 25 50202
+
+	kill targ
+
+next
+
+*Removes all scripts for the specified agent 2 25 50202 if it exists.
+
+*No need to micromanage. :)
+
+loop
+
+	doif sorq 2 25 50202 va00 eq 1
+
+		scrx 2 25 50202 va00
+
+	endi
+
+	addv va00 1
+
+untl va00 eq 2000
+
+setv va00 0

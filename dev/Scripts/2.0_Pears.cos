@@ -1,0 +1,1601 @@
+* 2 3 50204 - Pear Seed
+* 2 7 50204 - Pear Flower
+* 2 8 50204 - Pear 
+* 2 10 50204 - Pear Detritus
+* 2 23 50204 - Pear Seed Launcher
+
+
+new: comp 2 23 50204 "moe_C2toDS_pear" 8 0 rand 500 2500
+
+mvsf 3950 48530
+
+
+
+reps rand 4 6
+
+	new: comp 2 7 50204 "moe_C2toDS_pear" 35 24 rand 500 2500
+
+	mvsf rand 6013 6300 49755
+
+	pose 12
+
+repe
+
+
+
+reps rand 4 6
+
+	new: comp 2 7 50204 "moe_C2toDS_pear" 35 24 rand 500 2500
+
+	mvsf rand 3424 4140 48100
+
+	pose 12
+
+repe
+
+
+
+reps rand 2 3
+
+	new: comp 2 7 50204 "moe_C2toDS_pear" 35 24 rand 500 2500
+
+	mvsf rand 5128 5385 49755
+
+	pose 12
+
+repe
+
+
+
+reps rand 2 3
+
+	new: comp 2 7 50204 "moe_C2toDS_pear" 35 24 rand 500 2500
+
+	mvsf rand 3600 4260 48770
+
+	pose 12
+
+repe
+
+
+
+reps rand 2 3
+
+	new: comp 2 7 50204 "moe_C2toDS_pear" 35 24 rand 500 2500
+
+	mvsf rand 3845 4060 49256
+
+	pose 12
+
+repe
+
+
+
+
+
+scrp 2 23 50204 10
+
+	attr 199
+
+	accg 4
+
+	aero 2
+
+	elas 25
+
+	perm 51
+
+	bhvr 1
+
+	emit 10 .15
+
+*	prt: inew 0 "Input" "Recieves signal inputs for the Pear launcher." 3 24 0
+
+*	pat: dull 1 "moe_C2toDS_pear" 85 0 0 0
+
+endm
+
+
+
+scrp 2 23 50204 6
+
+	lock
+
+	sndc "drop"
+
+	over
+
+	wait 2
+
+	unlk
+
+endm
+
+
+
+*Push Vendor
+
+scrp 2 23 50204 1
+
+	lock
+
+	stim writ from 90 1
+
+	reps rand 4 6
+
+		frat 2
+
+		anim [0 1 2 3 4 5 6]
+
+		over
+
+		setv va00 posr
+
+		subv va00 25
+
+		setv va01 post
+
+		sndc "laun"
+
+		gsub makeseed
+
+		anim [7 0]
+
+		over
+
+	repe
+
+	unlk
+
+
+
+	subr makeseed
+
+		inst
+
+		setv va02 plne
+
+		subv va02 1
+
+		new: simp 2 3 50204 "moe_C2toDS_pear" 15 8 va02
+
+		setv ov00 0
+
+		mvsf va00 va01
+
+		velo rand -10 10 rand -30 -25
+
+		anim [0 1 2 3 4 5 6 7 8 0 255]
+
+		targ ownr
+
+		slow
+
+	retn
+
+endm
+
+
+
+scrp 2 3 50204 10
+
+	inst
+
+	attr 195
+
+	bhvr 48
+
+	elas 1
+
+	accg 3
+
+	perm 51
+
+	rnge 500
+
+	fric 25
+
+	tick rand 50 75
+
+	puhl -1 12 20
+
+	emit 7 .15
+
+endm
+
+
+
+scrp 2 3 50204 6
+
+	inst
+
+	lock
+
+	anim [0]
+
+	unlk
+
+endm
+
+
+
+scrp 2 3 50204 9
+
+
+
+	doif fall eq 0
+
+		pose 0
+
+	endi
+
+
+
+	doif carr eq null
+
+		doif ov00 le rand 5 7
+
+			addv ov00 1
+
+			anim [1 2 3 4 5 6 7 8 0 255]
+
+			setv velx rand -10 10
+
+			setv vely rand -20 -30
+
+			sndc "pop1"
+
+		else
+
+			tick rand 150 250
+
+			gsub check
+
+		endi
+
+	endi
+
+
+
+
+
+	subr check
+
+		doif time eq 4
+
+			stop
+
+		endi
+
+
+
+		esee 2 7 50204
+
+			addv va06 1
+
+		next
+
+		doif va06 lt 5
+
+			setv va00 rtyp grap posx posy
+
+			setv va05 grap posx posy
+
+*light
+
+			setv va01 prop va05 1
+
+*heat
+
+			setv va02 prop va05 2
+
+*water
+
+			setv va03 prop va05 3
+
+*nutrients
+
+			setv va04 prop va05 4
+
+*can't grow underwater. :/
+
+			doif va00 ne 8 and va00 ne 9
+
+				doif va01 ge .15 and va02 ge .25 and va03 ge .2 and va04 ge .2
+
+					anim [9 10 11 12 13 14]
+
+					over
+
+					gsub grow
+
+				else
+
+					gsub hibernate
+
+				endi
+
+			else
+
+				kill targ
+
+			endi
+
+		else
+
+			gsub hibernate
+
+		endi
+
+	retn
+
+
+
+	subr hibernate
+
+		setv va10 0
+
+		esee 2 3 50204
+
+			addv va10 1
+
+		next
+
+		targ ownr
+
+		doif va10 gt 3
+
+			kill ownr
+
+*show 0
+
+		else
+
+			show 0
+
+			bhvr 0
+
+			attr 209
+
+		endi
+
+	retn
+
+
+
+	subr grow
+
+		setv va00 posx
+
+		subv va00 39
+
+		setv va01 posb
+
+		subv va01 96
+
+		new: comp 2 7 50204 "moe_C2toDS_pear" 35 24 rand 500 2500
+
+		doif tmvt va00 va01 eq 1
+
+			mvto va00 va01
+
+		else
+
+			mvsf va00 va01
+
+		endi
+
+		targ ownr
+
+	retn
+
+endm
+
+
+
+scrp 2 7 50204 10
+
+*196
+
+	inst
+
+	attr 196
+
+	elas 0
+
+	accg 4
+
+	perm 51
+
+	tick rand 250 300
+
+	mira rand 0 1
+
+	emit 9 .15
+
+	plne rand 500 2500
+
+	setv name "nectar" 10
+
+endm
+
+
+
+scrp 2 7 50204 255
+
+	stop
+
+endm
+
+
+
+scrp 2 7 50204 9
+
+*addv name "nectar" 1
+
+	doif pose lt 12
+
+		setv va00 pose
+
+		addv va00 1
+
+		pose va00
+
+		stop
+
+	elif pose eq 12
+
+		inst
+
+		gsub getposxpost
+
+		gsub leftfruit
+
+		targ ownr
+
+		setv ov01 1
+
+		gsub getposxpost
+
+		gsub middlefruit
+
+		targ ownr
+
+		setv ov02 1
+
+		gsub getposxpost
+
+		gsub rightfruit
+
+		targ ownr
+
+		setv ov03 1
+
+		pose 14
+
+		doif mira eq 0
+
+			pat: dull 1 "moe_C2toDS_pear" 65 10 28 1
+
+			pat: dull 2 "moe_C2toDS_pear" 70 23 0 1
+
+			pat: dull 3 "moe_C2toDS_pear" 75 33 23 1
+
+		else
+
+			pat: dull 1 "moe_C2toDS_pear" 65 31 28 1
+
+			pat: dull 2 "moe_C2toDS_pear" 70 16 0 1
+
+			pat: dull 3 "moe_C2toDS_pear" 75 7 23 1
+
+			part 1
+
+			mira 1
+
+			part 2
+
+			mira 1
+
+			part 3
+
+			mira 1
+
+		endi
+
+	endi
+
+
+
+	lock
+
+	doif ov04 eq null
+
+		setv ov01 0
+
+	endi
+
+	doif ov05 eq null
+
+		setv ov02 0
+
+	endi
+
+	doif ov06 eq null
+
+		setv ov03 0
+
+	endi
+
+	doif ov10 ge 50 and ov01 eq 1 and ov02 eq 1 and ov03 eq 1
+
+		part 1
+
+		doif pose eq 0
+
+			part 2
+
+			doif pose eq 0
+
+				part 3
+
+				doif pose eq 0
+
+					part 0
+
+					pose 12
+
+					inst
+
+					targ ov04
+
+					kill targ
+
+					targ ownr
+
+					targ ov05
+
+					kill targ
+
+					targ ownr
+
+					targ ov06
+
+					kill targ
+
+					targ ownr
+
+					pat: kill 1
+
+					pat: kill 2
+
+					pat: kill 3
+
+					part 0
+
+					frat 3
+
+					anim [16 17 18 19 20 21]
+
+					over
+
+					snde "laun"
+
+					gsub seed
+
+					anim [22 23 24 25]
+
+					over
+
+					wait tick
+
+					frat 250
+
+					anim [26 27 28 29 30 31 32 33 34]
+
+					over
+
+					kill targ
+
+				endi
+
+			endi
+
+		endi
+
+	endi
+
+	unlk
+
+
+
+	doif time eq 4 and ov07 eq 0
+
+		part 1
+
+		gsub close
+
+		part 2
+
+		gsub close
+
+		part 3
+
+		gsub close
+
+		doif pose eq 4
+
+			part 2
+
+			doif pose eq 4
+
+				part 1
+
+				doif pose eq 4
+
+					setv ov07 1
+
+					targ ov04
+
+					doif targ ne null
+
+						attr 240
+
+						bhvr 0
+
+					endi
+
+					targ ownr
+
+					targ ov05
+
+					doif targ ne null
+
+						attr 240
+
+						bhvr 0
+
+					endi
+
+					targ ownr
+
+					targ ov06
+
+					doif targ ne null
+
+						attr 240
+
+						bhvr 0
+
+					endi
+
+					targ ownr
+
+				endi
+
+			endi
+
+		endi
+
+	elif time ne 4 and ov07 eq 1
+
+		setv ov07 0
+
+		targ ov04
+
+		doif targ ne null
+
+			attr 231
+
+			bhvr 32
+
+		endi
+
+		targ ownr
+
+		targ ov05
+
+		doif targ ne null
+
+			attr 231
+
+			bhvr 32
+
+		endi
+
+		targ ownr
+
+		targ ov06
+
+		doif targ ne null
+
+			attr 231
+
+			bhvr 32
+
+		endi
+
+		targ ownr
+
+	endi
+
+
+
+
+
+	doif time eq 4
+
+		stop
+
+	else
+
+		addv ov10 1
+
+	endi
+
+
+
+	inst
+
+	doif ov01 eq 0
+
+		part 1
+
+		gsub close
+
+		doif pose eq 4
+
+			gsub getposxpost
+
+			gsub leftfruit
+
+			targ ownr
+
+			setv ov01 1
+
+		endi
+
+	elif ov01 eq 1
+
+		part 1
+
+		gsub open
+
+	endi
+
+
+
+	doif ov02 eq 0
+
+		part 2
+
+		gsub close
+
+		doif pose eq 4
+
+			gsub getposxpost
+
+			gsub middlefruit
+
+			targ ownr
+
+			setv ov02 1
+
+		endi
+
+	elif ov02 eq 1
+
+		part 2
+
+		gsub open
+
+	endi
+
+
+
+	doif ov03 eq 0
+
+		part 3
+
+		gsub close
+
+		doif pose eq 4
+
+			gsub getposxpost
+
+			gsub rightfruit
+
+			targ ownr
+
+			setv ov03 1
+
+		endi
+
+	elif ov03 eq 1
+
+		part 3
+
+		gsub open
+
+	endi
+
+	slow
+
+
+
+
+
+	doif ov10 ge rand 35 45 and ov10 lt 50 and ov01 eq 1 and ov02 eq 1 and ov03 eq 1
+
+		part 1
+
+		doif pose eq 0
+
+			part 2
+
+			doif pose eq 0
+
+				part 3
+
+				doif pose eq 0
+
+					part 0
+
+					setv va00 rand 0 2
+
+					doif va00 eq 0
+
+						targ ov04
+
+						mesg writ targ 1001
+
+					elif va00 eq 1
+
+						targ ov05
+
+						mesg writ targ 1001
+
+					elif va00 eq 2
+
+						targ ov06
+
+						mesg writ targ 1001
+
+					endi
+
+					targ ownr
+
+				endi
+
+			endi
+
+		endi
+
+	endi
+
+
+
+
+
+
+
+
+
+
+
+
+
+	subr seed
+
+		inst
+
+		setv va02 plne
+
+		subv va02 1
+
+
+
+
+
+		setv va00 posl
+
+		setv va01 posy
+
+		doif mira eq 0
+
+			addv va00 10
+
+			subv va01 20
+
+			setv va03 -5
+
+		else
+
+
+
+			addv va00 35
+
+			subv va01 20
+
+			setv va03 5
+
+		endi
+
+		new: simp 2 3 50204 "moe_C2toDS_pear" 15 8 va02
+
+		setv ov00 0
+
+		mvsf va00 va01
+
+		anim [0 1 2 3 4 5 6 7 8 0 255]
+
+		velo va03 rand -10 -25
+
+		targ ownr
+
+
+
+		setv va00 posl
+
+		setv va01 posy
+
+		doif mira eq 0
+
+			addv va00 40
+
+			subv va01 25
+
+			setv va03 5
+
+		else
+
+			addv va00 15
+
+			subv va01 25
+
+			setv va03 -5
+
+		endi
+
+
+
+		new: simp 2 3 50204 "moe_C2toDS_pear" 15 8 va02
+
+		setv ov00 0
+
+		mvsf va00 va01
+
+		anim [0 1 2 3 4 5 6 7 8 0 255]
+
+		velo va03 rand -10 -25
+
+		targ ownr
+
+
+
+		setv va00 posx
+
+		setv va01 post
+
+		doif mira eq 0
+
+			addv va00 -15
+
+			subv va01 0
+
+			setv va03 -5
+
+		else
+
+			addv va00 -10
+
+			subv va01 0
+
+			setv va03 5
+
+		endi
+
+
+
+		new: simp 2 3 50204 "moe_C2toDS_pear" 15 8 va02
+
+		setv ov00 0
+
+		mvsf va00 va01
+
+		anim [0 1 2 3 4 5 6 7 8 0 255]
+
+		velo va03 rand -10 -25
+
+		targ ownr
+
+
+
+	retn
+
+
+
+
+
+*Subroutines!*
+
+
+
+	subr close
+
+		doif pose lt 4
+
+			setv va00 pose
+
+			addv va00 1
+
+			pose va00
+
+		endi
+
+	retn
+
+
+
+	subr open
+
+		doif pose gt 0
+
+			setv va00 pose
+
+			subv va00 1
+
+			pose va00
+
+		endi
+
+	retn
+
+
+
+	subr getposxpost
+
+		inst
+
+		setv va02 plne
+
+		setv va00 posl
+
+		setv va01 post
+
+	retn
+
+
+
+	subr leftfruit
+
+		inst
+
+		doif mira eq 0
+
+			addv va00 9
+
+			addv va01 24
+
+		else
+
+			setv va04 1
+
+			addv va00 38
+
+			addv va01 24
+
+		endi
+
+		new: simp 2 8 50204 "moe_C2toDS_pear" 5 80 va02
+
+		seta ov01 ownr
+
+		frel ov01
+
+		mvto va00 va01
+
+		setv ov00 1
+
+		mira va04
+
+		seta mv04 targ
+
+	retn
+
+
+
+	subr middlefruit
+
+		inst
+
+		doif mira eq 0
+
+			addv va00 25
+
+			addv va01 0
+
+		else
+
+			setv va04 1
+
+			addv va00 24
+
+			addv va01 0
+
+		endi
+
+		new: simp 2 8 50204 "moe_C2toDS_pear" 5 80 va02
+
+		seta ov01 ownr
+
+		pose 1
+
+		frel ov01
+
+		mvto va00 va01
+
+		setv ov00 1
+
+		mira va04
+
+		seta mv05 targ
+
+	retn
+
+
+
+	subr rightfruit
+
+		inst
+
+		doif mira eq 0
+
+			addv va00 42
+
+			addv va01 28.5
+
+		else
+
+			setv va04 1
+
+			addv va00 10
+
+			addv va01 28.5
+
+
+
+		endi
+
+		new: simp 2 8 50204 "moe_C2toDS_pear" 5 80 va02
+
+		seta ov01 ownr
+
+		pose 2
+
+		frel ov01
+
+		mvto va00 va01
+
+		setv ov00 1
+
+		mira va04
+
+		seta mv06 targ
+
+	retn
+
+endm
+
+
+
+scrp 2 8 50204 10
+
+	inst
+
+	perm 51
+
+	attr 231
+
+	accg 0
+
+	aero 4
+
+	elas 25
+
+	bhvr 48
+
+	puhl -1 16 22
+
+	tick rand 1000 2000
+
+	emit 6 .15
+
+endm
+
+
+
+scrp 2 8 50204 6
+
+	lock
+
+	snde "dr12"
+
+	over
+
+endm
+
+
+
+scrp 2 8 50204 255
+
+	doif ov04 eq null
+
+		setv ov01 0
+
+	endi
+
+	doif ov05 eq null
+
+		setv ov02 0
+
+	endi
+
+	doif ov06 eq null
+
+		setv ov03 0
+
+	endi
+
+
+
+endm
+
+
+
+scrp 2 10 50204 6
+
+	lock
+
+	snde "dr10"
+
+	over
+
+endm
+
+
+
+scrp 2 8 50204 1
+
+	inst
+
+	mesg writ targ 1001
+
+	doif from eq pntr and ov00 eq 1
+
+		setv va00 posx
+
+		targ pntr
+
+		doif posl gt va00
+
+			setv va00 -10
+
+		else
+
+			setv va00 10
+
+			setv va01 1
+
+		endi
+
+		targ ownr
+
+		velo va00 rand -5 -10
+
+		targ pntr
+
+		doif va01 eq 0
+
+			anim [4 5 4 0]
+
+		else
+
+			anim [10 11 12 0]
+
+		endi
+
+		sndc "smck"
+
+		over
+
+	endi
+
+endm
+
+
+
+scrp 2 8 50204 4
+
+	inst
+
+	mesg writ targ 1001
+
+endm
+
+
+
+scrp 2 3 50204 12
+
+	stim writ from 77 1
+
+*	targ from
+
+	sndc "chwp"
+
+*chem this and that
+
+*starch
+
+*	chem 5 .23
+
+*fat
+
+*	chem 10 .23
+
+*	targ ownr
+
+	kill ownr
+
+endm
+
+
+
+scrp 2 8 50204 12
+
+	doif ov00 eq 1
+
+		mesg writ ownr 4
+
+	endi
+
+	stim writ from 78 1
+
+	targ from
+
+	sndc "chwp"
+
+*chem this and that
+
+*starch
+
+*	chem 5 .39
+
+*fat
+
+*	chem 10 .31
+
+	targ ownr
+
+	setv va02 plne
+
+	setv va00 posl
+
+	setv va01 post
+
+	new: simp 2 10 50204 "moe_C2toDS_pear" 0 84 va02
+
+	mira rand 0 1
+
+	mvsf va00 va01
+
+	kill ownr
+
+endm
+
+
+
+scrp 2 10 50204 12
+
+	stim writ from 81 1
+
+*	targ from
+
+	sndc "chwp"
+
+*chem this and that
+
+*	targ ownr
+
+	kill ownr
+
+endm
+
+
+
+scrp 2 8 50204 1001
+
+	inst
+
+	attr 199
+
+	bhvr 48
+
+
+
+**Prevents explosions.
+
+*	inst
+
+*	doif carr eq null
+
+*		setv va00 posl
+
+*		setv va01 post
+
+*		mvsf 4845 49706
+
+*		perm 51
+
+*		mvsf va00 va01
+
+*	endi
+
+*	slow
+
+
+
+	doif ov00 eq 1
+
+		accg 3
+
+		doif pose eq 0
+
+			mira 1
+
+			targ ov01
+
+			setv ov01 0
+
+			seta ov04 null
+
+		elif pose eq 1
+
+			mira rand 0 1
+
+			targ ov01
+
+			setv ov02 0
+
+			seta ov05 null
+
+		elif pose eq 2
+
+			mira 0
+
+			targ ov01
+
+			setv ov03 0
+
+			seta ov06 null
+
+		endi
+
+		targ ownr
+
+		pose 3
+
+		doif carr eq null
+
+			mvsf posl post
+
+		endi
+
+		setv ov00 0
+
+	endi
+
+endm
+
+
+
+scrp 2 8 50204 9
+
+	doif ov00 eq 0 and carr eq null and fall eq 0
+
+		setv va02 plne
+
+		setv va00 posl
+
+		setv va01 post
+
+		new: simp 2 10 50204 "moe_C2toDS_pear" 0 84 va02
+
+		mira rand 0 1
+
+		mvsf va00 va01
+
+		kill ownr
+
+	endi
+
+endm
+
+
+
+*detritus create
+
+scrp 2 10 50204 10
+
+	attr 195
+
+	accg 4
+
+	elas 5
+
+	fric 50
+
+	aero 4
+
+	bhvr 48
+
+	perm 51
+
+	tick rand 500 700
+
+	puhl -1 12 20
+
+endm
+
+
+
+scrp 2 10 50204 9
+
+	doif carr eq null and fall eq 0
+
+		kill targ
+
+	endi
+
+endm
+
+rscr
+
+
+enum 2 23 50204
+
+	kill targ
+
+next
+
+enum 2 3 50204
+
+	kill targ
+
+next
+
+enum 2 7 50204
+
+	kill targ
+
+next
+
+
+
+enum 2 8 50204
+
+	kill targ
+
+next
+
+
+
+enum 2 10 50204
+
+	kill targ
+
+next
+
+
+
+scrx 2 3 50204 6

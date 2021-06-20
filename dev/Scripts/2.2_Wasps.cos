@@ -1,0 +1,1052 @@
+* 1 24 50201 - Wasp Nest Spawn Point
+* 2 14 50209 - Wasp
+* 2 17 50209 - Wasp Nest
+
+new: simp 1 24 50201 "moe_C2toDS_wasp" 2 19 1
+mvsf 3820 48720
+
+new: simp 1 24 50201 "moe_C2toDS_wasp" 2 19 1
+mvsf 3950 48735
+
+new: simp 1 24 50201 "moe_C2toDS_wasp" 2 19 1
+mvsf 4080 48775
+
+new: simp 1 24 50201 "moe_C2toDS_wasp" 2 19 1
+mvsf 3695 48750
+
+new: simp 2 14 50209 "moe_C2toDS_wasp" 3 15 1
+mvsf 3940 48730
+setv ov14 1
+
+new: simp 2 14 50209 "moe_C2toDS_wasp" 3 15 1
+mvsf 5600 48860
+setv ov14 1
+
+scrp 2 17 50209 255
+	stop
+endm
+
+scrp 2 14 50209 255
+	stop
+endm
+
+scrp 1 24 50201 255
+	stop
+endm
+
+
+
+scrp 2 17 50209 10
+
+	accg 0
+
+	attr 196
+
+	tick rand 500 1200
+
+	bhvr 11
+
+endm
+
+
+
+scrp 2 17 50209 9
+
+	doif pose lt 2
+
+		setv va00 pose
+
+		addv va00 1
+
+		pose va00
+
+	else
+
+		tick 0
+
+	endi
+
+endm
+
+
+
+scrp 2 17 50209 1
+
+	inst
+
+	seta va10 from
+
+	doif pose lt 2
+
+		tick rand 500 1200
+
+	endi
+
+
+
+	setv va00 posl
+
+	setv va01 post
+
+*release waspcuspuses
+
+	reps rand 2 3
+
+		new: simp 2 14 50209 "moe_C2toDS_wasp" 11 3 rand 1000 5000
+
+		seta ov08 va10
+
+		seta ov09 ownr
+
+		mvsf va00 va01
+
+		setv ov14 0
+
+		targ ownr
+
+	repe
+
+
+
+	doif rand 0 5 eq 5
+
+		new: simp 2 14 50209 "moe_C2toDS_wasp" 3 15 1
+
+		mvsf va00 va01
+
+		setv ov14 1
+
+	endi
+
+endm
+
+
+
+scrp 2 17 50209 2
+
+	inst
+
+	seta va10 from
+
+	doif pose lt 2
+
+		tick rand 500 1200
+
+	endi
+
+
+
+	setv va00 posl
+
+	setv va01 post
+
+*release waspcuspuses
+
+	reps rand 2 3
+
+		new: simp 2 14 50209 "moe_C2toDS_wasp" 11 3 rand 1000 5000
+
+		seta ov08 va10
+
+		seta ov09 ownr
+
+		mvsf va00 va01
+
+		setv ov14 0
+
+		targ ownr
+
+	repe
+
+
+
+	doif rand 0 5 eq 5
+
+		new: simp 2 14 50209 "moe_C2toDS_wasp" 3 15 1
+
+		mvsf va00 va01
+
+		setv ov14 1
+
+	endi
+
+
+
+endm
+
+
+
+scrp 2 17 50209 3
+
+	inst
+
+	seta va10 from
+
+	doif pose lt 2
+
+		tick rand 500 1200
+
+	endi
+
+
+
+	setv va00 posl
+
+	setv va01 post
+
+*release waspcuspuses
+
+	reps rand 2 3
+
+		new: simp 2 14 50209 "moe_C2toDS_wasp" 11 3 rand 1000 5000
+
+		seta ov08 va10
+
+		seta ov09 ownr
+
+		mvsf va00 va01
+
+		setv ov14 0
+
+		targ ownr
+
+	repe
+
+
+
+	doif rand 0 5 eq 5
+
+		new: simp 2 14 50209 "moe_C2toDS_wasp" 3 15 1
+
+		mvsf va00 va01
+
+		setv ov14 1
+
+	endi
+
+
+
+endm
+
+
+
+
+
+scrp 2 14 50209 10
+
+	wait 1
+
+	attr 198
+
+	elas 25
+
+	accg 0
+
+	aero 5
+
+*ov08 - target
+
+	doif type ov08 eq 0
+
+		seta ov08 null
+
+	endi
+
+*ov09 - nest
+
+	doif type ov09 eq 0
+
+		seta ov09 null
+
+	endi
+
+*ov14 - queen or warrior?
+
+*doif type ov14 ne 3
+
+*	seta ov14 null
+
+*endi
+
+	setv ov06 5
+
+	setv ov07 5
+
+	tick rand 20 35
+
+
+
+	doif ov14 eq 1
+
+		anim [0 1 2 1 255]
+
+	else
+
+		anim [ 0 1 2 3 4 5 6 7 8 9 10 255]
+
+	endi
+
+
+
+endm
+
+
+
+scrp 2 14 50209 6
+
+	setv name "room" 0
+
+	stop
+
+endm
+
+
+
+scrp 2 14 50209 9
+
+
+
+*Queen?
+
+	doif ov14 eq 1
+
+		doif ov08 eq null
+
+			esee 1 24 50201
+
+*ov00 on a nest marker means its taken!
+
+				doif targ ne null and targ ne ownr and ov00 ne 1
+
+					doif mv08 eq null
+
+						seta mv08 targ
+
+						setv ov00 1
+
+						stop
+
+					else
+
+						stop
+
+					endi
+
+				endi
+
+			next
+
+
+
+*If you've gotten this far, something didn't work.
+
+			targ ownr
+
+*Look for good leafs
+
+			star 2 6 0
+
+			doif targ ne null and targ ne ownr
+
+				setv va00 tick
+
+				doif va00 ge 350 and name "donotnest" ne 1 or va00 eq 0 and name "donotnest" ne 1
+
+					seta mv08 targ
+
+*What we found was a leaf...
+
+					setv mv05 1
+
+					stop
+
+				endi
+
+			endi
+
+
+
+			targ ownr
+
+*Go randomly from room to room until you find a suitable nesting site.
+
+			gsub wander
+
+			targ ownr
+
+		else
+
+
+
+
+
+
+
+			doif ov05 eq 0
+
+				setv va02 0
+
+				seta va04 ov08
+
+				gsub follow
+
+
+
+				doif touc ownr ov08 eq 1
+
+					targ ov08
+
+					setv va00 posl
+
+					subv va00 16
+
+					setv va01 post
+
+					setv ov00 1
+
+					targ ownr
+
+					new: simp 2 17 50209 "moe_C2toDS_wasp" 3 0 rand 300 1000
+
+					mvsf va00 va01
+
+					kill ownr
+
+				endi
+
+			elif ov05 eq 1
+
+*We need to find a place on the leaf to nest.
+
+
+
+				inst
+
+				targ mv08
+
+				loop
+
+					setv va08 rand posl posr
+
+					setv va09 rand post posb
+
+					wait 1
+
+				untl tran va08 va09 eq 0
+
+				slow
+
+				targ ownr
+
+				loop
+
+					wait tick
+
+					setv va00 va08
+
+					setv va01 va09
+
+					subv va00 posx
+
+					subv va01 posy
+
+					absv va00
+
+					absv va01
+
+					setv va02 1
+
+					gsub follow
+
+				untl va00 lt 25 and va01 gt -25
+
+
+
+				new: simp 2 17 50209 "moe_C2toDS_wasp" 3 0 rand 300 1000
+
+				subv va08 32
+
+				mvsf va08 va09
+
+				kill ownr
+
+
+
+
+
+			endi
+
+
+
+
+
+
+
+
+
+
+
+		endi
+
+
+
+
+
+	else
+
+*Attack Wasps!
+
+		doif ov08 ne null
+
+			doif seee ownr ov08 eq 1
+
+
+
+				doif ov00 ge 4
+
+					seta va04 ov09
+
+					gsub follow
+
+					addv ov00 1
+
+					doif touc ov09 ownr eq 1 or ov00 ge 50
+
+						kill ownr
+
+					endi
+
+					stop
+
+				endi
+
+
+
+				setv va02 0
+
+				seta va04 ov08
+
+				gsub follow
+
+
+
+				doif touc ownr ov08 eq 1
+
+					sndc "stng"
+
+					addv ov00 1
+
+					doif crea ov08 eq 1
+
+						stim writ from 88 1
+
+					endi
+
+				endi
+
+			else
+
+				seta va04 ov09
+
+				gsub follow
+
+				addv ov00 1
+
+				doif touc ov09 ownr eq 1 or ov00 ge 50
+
+					kill ownr
+
+				endi
+
+			endi
+
+		endi
+
+
+
+	endi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	subr wander
+
+		doif name "room" eq room ownr or name "room" eq grap posl post or name "room" eq grap posr post or name "room" eq 0
+
+			gsub pickroom
+
+		endi
+
+		setv va00 name "room"
+
+		setv va10 0
+
+		gsub gotoroom
+
+	retn
+
+
+
+	subr pickroom
+
+		inst
+
+		loop
+
+			setv va00 rand 0 3
+
+			doif va00 eq 0
+
+				setv name "room" grid ownr rght
+
+			elif va00 eq 1
+
+				setv name "room" grid ownr left
+
+			elif va00 eq 2
+
+				setv name "room" grid ownr _up_
+
+			elif va00 eq 3
+
+				setv name "room" grid ownr down
+
+			endi
+
+			gsub checkrooms
+
+		untl name "room" ne -1 and rtyp name "room" ne 8 and rtyp name "room" ne 9
+
+	retn
+
+
+
+
+
+	subr checkrooms
+
+		inst
+
+		setv va07 0
+
+*We need to check the adjacent rooms and ensure that we're not submerged or locked in a box.
+
+		setv va03 grid ownr left
+
+		gsub checkit
+
+		setv va03 grid ownr rght
+
+		gsub checkit
+
+		setv va03 grid ownr _up_
+
+		gsub checkit
+
+		setv va03 grid ownr down
+
+		gsub checkit
+
+
+
+
+
+		doif va07 eq 4
+
+*You're trapped!
+
+		endi
+
+
+
+		doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+
+			loop
+
+				gsub up
+
+				wait tick
+
+			untl rtyp room ownr ne 8 and rtyp room ownr ne 9
+
+		endi
+
+
+
+		slow
+
+	retn
+
+
+
+	subr checkit
+
+		doif va03 ne -1 and room ownr ne -1
+
+			doif rtyp va03 eq 8 or rtyp va03 eq 9 or door room ownr va03 lt perm
+
+				addv va07 1
+
+			endi
+
+		else
+
+			addv va07 1
+
+		endi
+
+	retn
+
+
+
+	subr gotoroom
+
+*va00 eq the room
+
+
+
+		setv va01 torx va00
+
+		setv va02 tory va00
+
+
+
+*If you're less than 100px away, adjust speed
+
+		doif va01 lt 100 and va01 gt -100
+
+			setv va03 va01
+
+			absv va03
+
+			divv va03 100
+
+			setv va06 ov06
+
+			mulv va06 va03
+
+		else
+
+			setv va06 ov06
+
+		endi
+
+
+
+*If you're less than 100px away, adjust speed
+
+		doif va02 lt 100 and va02 gt -100
+
+			setv va03 va02
+
+			absv va03
+
+			divv va03 100
+
+			setv va07 ov07
+
+			mulv va07 va03
+
+		else
+
+			setv va07 ov07
+
+		endi
+
+
+
+		doif va01 gt 0
+
+			gsub right
+
+		elif va01 lt 0
+
+			gsub left
+
+		endi
+
+		doif va02 lt 0
+
+			gsub up
+
+		elif va02 gt 0
+
+			gsub down
+
+		endi
+
+
+
+		doif va10 eq 1
+
+			gsub track
+
+		endi
+
+	retn
+
+
+
+	subr up
+
+		subv vely va07
+
+	retn
+
+
+
+	subr down
+
+		addv vely va07
+
+		doif obst down lt hght
+
+			subv vely 2
+
+		endi
+
+	retn
+
+
+
+	subr left
+
+		mira 1
+
+		subv velx va06
+
+	retn
+
+
+
+	subr right
+
+		mira 0
+
+		addv velx va06
+
+	retn
+
+
+
+
+
+	subr follow
+
+*If VA02 eq 0, you follow the va04 target,
+
+*else, you use whatever coordinates are provided
+
+*va01 posx
+
+*va02 posy
+
+		doif va02 eq 0
+
+			targ va04
+
+*This assumes you've set va04 to your target before calling the follow subr.
+
+			setv va01 relx ownr targ
+
+			setv va02 rely ownr targ
+
+			targ ownr
+
+		else
+
+			setv va01 va08
+
+			setv va02 va09
+
+
+
+			subv va01 posx
+
+			subv va02 posy
+
+		endi
+
+
+
+*If you're less than 100px away, adjust speed
+
+		doif va01 lt 100 and va01 gt -100
+
+			setv va03 va01
+
+			absv va03
+
+			divv va03 100
+
+			setv va06 ov06
+
+			mulv va06 va03
+
+		else
+
+			setv va06 ov06
+
+		endi
+
+
+
+*If you're less than 100px away, adjust speed
+
+		doif va02 lt 100 and va02 gt -100
+
+			setv va03 va02
+
+			absv va03
+
+			divv va03 100
+
+			setv va07 ov07
+
+			mulv va07 va03
+
+		else
+
+			setv va07 ov07
+
+		endi
+
+
+
+		doif va01 gt 0
+
+			gsub right
+
+		elif va01 lt 0
+
+			gsub left
+
+		endi
+
+		doif va02 lt 0
+
+			gsub up
+
+		elif va02 gt 0
+
+			gsub down
+
+		endi
+
+
+
+		doif va10 eq 1
+
+			gsub track
+
+		endi
+
+
+
+		targ ownr
+
+	retn
+
+
+
+	subr track
+
+		doif room ownr ne ov21
+
+			inst
+
+			doif sins ov28 1 vtos ov21 eq -1
+
+				sets va50 "RID"
+
+				addv ov22 1
+
+				adds va50 vtos ov22
+
+*RID1*
+
+				setv name va50 room ownr
+
+			endi
+
+*name RID1 = RID at posx posy
+
+			setv ov21 room ownr
+
+			adds ov28 vtos name va50
+
+			adds ov28 " "
+
+			slow
+
+		endi
+
+	retn
+
+
+
+endm
+
+
+
+
+
+
+
+
+
+
+
+
+
+rscr
+
+
+enum 2 14 50209
+
+	kill targ
+
+next
+
+
+
+enum 1 24 50201
+
+	kill targ
+
+next
+
+
+
+enum 2 17 50209
+
+	kill targ
+
+next

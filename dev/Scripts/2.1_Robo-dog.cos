@@ -1,0 +1,169 @@
+* 2 21 50201 - Robo-Dog
+
+* Initial Conversion By Moe
+* Some Modifications By the one who screams i guess
+* (if you worked on this file, feel free to add your name!)
+
+* Robot dog woo
+
+* Under norn burrow
+
+new: simp 2 21 50201 "moe_C2toDS_toydog" 58 0 rand 1000 5000
+
+mvsf 7187 48708
+
+
+
+scrp 2 21 50201 10
+
+	attr 199
+
+	bhvr 43
+
+	elas 50
+
+	accg 2
+
+	aero 5
+
+	fric 100
+
+	perm 51
+
+	frat 3
+
+	base 0
+
+endm
+
+
+
+* Activate 1
+
+scrp 2 21 50201 1
+
+	lock
+
+	attr 215
+
+	stim writ from 97 1
+
+	targ from
+
+	setv va00 posl
+
+	targ ownr
+
+	doif posx gt va00
+
+		setv va00 1
+
+	else
+
+		setv va00 0
+
+	endi
+
+
+
+	sndl "dog1"
+
+
+
+	doif va00 eq 0
+
+		reps rand 3 6
+
+			velo -2 -4
+
+			anim [0 1 2 3 4]
+
+			wait 20
+
+		repe
+
+		reps 2
+
+			anim [6 7 8 9 10 11 12 13 14 15 16]
+
+			wait 25
+
+			snde "yap1"
+
+			wait 5
+
+		repe
+
+		anim [17 18 19 20 21 22 23 24 25 26 27 28 0]
+
+	else
+
+		reps rand 3 6
+
+			velo 2 -4
+
+			anim [29 30 31 32 33 34]
+
+			wait 20
+
+		repe
+
+		reps 2
+
+			anim [35 36 37 38 39 40 41 42 43 44 45]
+
+			wait 25
+
+			snde "yap1"
+
+			wait 5
+
+		repe
+
+		anim [46 47 48 49 50 51 52 53 54 55 56 57 29]
+
+	endi
+
+
+	attr 215
+
+
+	stpc
+
+	unlk
+
+endm
+
+
+
+* Activate 2
+
+scrp 2 21 50201 2
+	stim writ from 97 1
+	call 1 0 0
+endm
+
+
+
+* Hit
+
+scrp 2 21 50201 3
+	stim writ from 97 1
+	call 1 0 0
+endm
+
+
+
+
+rscr
+
+enum 2 21 50201
+
+	kill targ
+
+next
+
+scrx 2 21 50201 1
+
+scrx 2 21 50201 10
+

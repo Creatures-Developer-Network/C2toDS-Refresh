@@ -1,0 +1,663 @@
+*Spikeocausius: 
+
+* 2 3 50207 - Spikeocausius Seed
+* 2 5 50207 - Spikeocausius
+* 2 23 50207 - Spikeocausius Seed Launcher
+
+* Initial Conversion By Moe
+* Some Modifications By the one who screams i guess
+* (if you worked on this file, feel free to add your name!)
+
+*Likes warm, desert conditions, produces flowers in springtime nights. 
+
+
+new: comp 2 23 50207 "moe_C2toDS_cacti" 8 80 rand 1000 2500
+
+mvsf 7290 48092
+
+*prt: inew 0 "Input" "Recieves signal inputs for the Spikeocausius launcher." 3 24 0
+
+*pat: dull 1 "moe_C2toDS_cacti" 88 0 0 0
+
+
+
+*Create Spikeocausius
+
+
+
+reps rand 7 9
+
+	new: simp 2 5 50207 "moe_C2toDS_cacti" 13 32 rand 1000 2500
+
+	pose 6
+
+	setv va00 rand 7556 7750
+
+	mvsf va00 48084
+
+	tick rand 500 1000
+
+	setv name "lifestage" 1
+
+repe
+
+
+
+reps rand 5 7
+
+	new: simp 2 5 50207 "moe_C2toDS_cacti" 13 32 rand 1000 2500
+
+	pose 6
+
+	setv va00 rand 6260 6650
+
+	mvsf va00 48084
+
+	tick rand 500 1000
+
+	setv name "lifestage" 1
+
+repe
+
+
+scrp 2 23 50207 10
+
+	attr 199
+
+	elas 10
+
+*BHVR
+
+	fric 65
+
+	accg 5
+
+	perm 55
+
+	emit 10 .15
+
+endm
+
+
+
+scrp 2 23 50207 6
+
+	sndc "drop"
+
+	over
+
+	wait 2
+
+endm
+
+
+
+scrp 2 5 50207 10
+
+	inst
+
+	core 0 wdth 0 wdth
+
+	attr 196
+
+	perm 51
+
+	fric 100
+
+	elas 0
+
+	mira rand 0 1
+
+endm
+
+
+
+
+
+
+
+
+
+*Spikeocausius Launcher Activate 1
+
+scrp 2 23 50207 1
+
+
+
+	reps rand 5 7
+
+		anim [0 1 2 3 4 5 6 7 0]
+
+		gsub makeseeds
+
+		over
+
+		wait 10
+
+	repe
+
+
+
+	subr makeseeds
+
+		inst
+
+		sndc "laun"
+
+*Spikeocausius Seeds*
+
+		setv va00 posx
+
+		setv va01 posy
+
+		subv va01 30
+
+		new: simp 2 3 50207 "moe_C2toDS_cacti" 27 45 rand 1000 2500
+
+
+
+		setv va02 -1000
+
+		setv va03 1000
+
+		setv va04 -2000
+
+		setv va05 -3000
+
+		setv va06 rand va02 va03
+
+		setv va07 rand va04 va05
+
+		divv va06 100.01
+
+		divv va07 100.01
+
+		velo va06 va07
+
+
+
+
+
+		doif velx gt 0
+
+			anim [8 9 10 11 12 13 14 15]
+
+		elif velx lt 0
+
+			anim [0 1 2 3 4 5 6 7]
+
+		endi
+
+		mvsf va00 va01
+
+		targ ownr
+
+	retn
+
+
+
+endm
+
+
+
+
+
+*Spikeocausius Seed Timer*
+
+scrp 2 3 50207 9
+
+
+
+
+
+
+
+	doif name "lifestage" eq 0
+
+		gsub drift
+
+	endi
+
+
+
+	doif name "lifestage" eq 1 and fall eq 0
+
+		doif sean ne 3 and time ne 4
+
+			gsub grow
+
+		else
+
+			gsub dormantcheck
+
+			stop
+
+		endi
+
+	elif name "lifestage" eq 1 and fall ne 0
+
+		setv name "lifestage" 0
+
+		doif velx gt 0
+
+			anim [8 9 10 11 12 13 14 15]
+
+		elif velx lt 0
+
+			anim [0 1 2 3 4 5 6 7]
+
+		endi
+
+	endi
+
+
+
+	subr grow
+
+		setv va00 grap posx posy
+
+		setv va01 prop va00 1
+
+		setv va02 prop va00 2
+
+		setv va03 prop va00 3
+
+		setv va04 prop va00 4
+
+		setv va06 rtyp va00
+
+		rnge 300
+
+		esee 2 5 50207
+
+			addv va05 1
+
+			targ ownr
+
+		next
+
+*Light must be over .39
+
+*Nutrients must be between .03 and .39
+
+*doif, etc, set reqs here
+
+
+
+		doif va01 ge .39 and va02 ge .39 and va03 ge .0001 and va05 lt 4 and va06 eq 7
+
+			setv va00 posl
+
+			subv va00 32
+
+			setv va01 posb
+
+			subv va01 65
+
+*Create Spikeocausius
+
+			new: simp 2 5 50207 "moe_C2toDS_cacti" 13 32 rand 1000 2500
+
+
+
+			setv va02 tmvt va00 va01
+
+			doif va02 eq 1
+
+				mvto va00 va01
+
+			else
+
+				mvsf va00 va01
+
+			endi
+
+
+
+			tick rand 500 1000
+
+			targ ownr
+
+			kill targ
+
+*end reqs
+
+		else
+
+			gsub dormantcheck
+
+			stop
+
+		endi
+
+	retn
+
+
+
+	subr dormantcheck
+
+		rnge 200
+
+		setv va00 0
+
+		esee 2 3 50207
+
+			doif targ ne null
+
+				addv va00 1
+
+			endi
+
+		next
+
+		targ ownr
+
+		doif va00 gt 3
+
+			wait rand 1200 1600
+
+			kill ownr
+
+		else
+
+			show 0
+
+			bhvr 0
+
+			attr 209
+
+			tick 1200
+
+		endi
+
+	retn
+
+
+
+	subr drift
+
+*	wait 20
+
+		anim [16 17 18 19 20 21 22 23 255]
+
+	retn
+
+
+
+endm
+
+
+
+
+
+* Seed collision script
+
+scrp 2 3 50207 6
+
+	lock
+
+	doif wall eq down
+
+		anim [24 25 26]
+
+		over
+
+		pose 26
+
+		setv name "lifestage" 1
+
+	endi
+
+endm
+
+
+
+
+
+*Timer
+
+scrp 2 5 50207 9
+
+
+
+	doif sean eq 3
+
+		stop
+
+	endi
+
+
+
+	addv ov00 1
+
+	doif ov00 ge 75
+
+		frat 50
+
+		anim [7 8 9 10 11 12]
+
+		over
+
+		wait 50
+
+		kill targ
+
+	endi
+
+
+
+*	doif time eq 4
+
+*		setv name "seeded" 1
+
+*	endi
+
+
+
+	doif pose lt 6 and name "lifestage" eq 0
+
+		gsub grow
+
+	elif pose eq 6
+
+		setv name "lifestage" 1
+
+	endi
+
+
+
+
+
+*They DO NOT Seed all year around.
+
+
+
+	lock
+
+*If it's nighttime and spring, seed
+
+	doif time eq 4 and sean eq 0
+
+		setv name "seeded" 0
+
+		gsub seed
+
+		wait rand 500 1000
+
+	endi
+
+	unlk
+
+
+
+	subr seed
+
+*Spikeocausius Makes Spikeocausius Seeds
+
+		setv va00 posx
+
+		subv va00 10
+
+		setv va01 posy
+
+		subv va01 20
+
+		sndc "laun"
+
+		new: simp 2 3 50207 "moe_C2toDS_cacti" 27 45 rand 1000 2500
+
+		mvsf va00 va01
+
+		velo rand 10 -10 rand -10 -30
+
+		doif velx gt 0
+
+			anim [8 9 10 11 12 13 14 15]
+
+		elif velx lt 0
+
+			anim [0 1 2 3 4 5 6 7]
+
+		endi
+
+		targ ownr
+
+		wait rand 100 200
+
+	retn
+
+
+
+	subr grow
+
+		addv name "pose" 1
+
+		pose name "pose"
+
+	retn
+
+endm
+
+
+
+scrp 2 5 50207 1
+
+*stim norns
+
+	stim writ from 83 1
+
+	stim writ from 76 .5
+
+endm
+
+
+scrp 2 5 50207 2
+*stim norns
+	stim writ from 83 1
+endm
+
+scrp 2 5 50207 3
+*stim norns
+	stim writ from 83 1
+endm
+
+
+*Eat me!
+
+scrp 2 3 50207 12
+
+*I'm a bit bitter though...
+
+	stim writ from 77 .25
+
+	snde "chwp"
+
+	targ from
+
+*EDTA, cure the heavy metals biatch! D:
+
+	chem 95 .15
+
+	kill ownr
+
+
+
+endm
+
+
+
+
+
+scrp 2 3 50207 10
+
+	attr 199
+
+	aero 5
+
+	elas 0
+
+	fric 75
+
+	accg 1
+
+	perm 50
+
+	frat 2
+
+	emit 7 .5
+
+	tick rand 100 150
+
+	bhvr 48
+
+endm
+
+
+
+scrp 2 3 50207 4
+
+	doif pose eq 26
+
+		anim [16 17 18 19 20 21 22 23 255]
+
+	endi
+
+endm
+
+rscr
+
+
+
+
+enum 2 23 50207
+
+	kill targ
+
+next
+
+scrx 2 23 50207 1
+
+
+
+enum 2 3 50207
+
+	kill targ
+
+next
+
+scrx 2 3 50207 12
+
+scrx 2 3 50207 9
+
+scrx 2 3 50207 6
+
+scrx 2 3 50207 5
+
+
+
+enum 2 5 50207
+
+	kill targ
+
+next
+

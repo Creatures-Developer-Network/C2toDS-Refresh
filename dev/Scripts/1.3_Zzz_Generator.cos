@@ -1,0 +1,150 @@
+* 1 23 50204 - Zzz Generator
+* 1 23 50205 - Zzz
+
+new: simp 1 23 50204 "moe_C2toDS_Zs" 1 0 0
+
+mvto 303 8973
+
+show 0
+
+
+scrp 1 23 50204 1001
+
+*Calling this script generates a Z for sleeping things.
+
+*Sending _p1_ and _p2_ as the X and Y coords you want them to come from,
+
+*else, generate a random Z slightly above the target.
+
+	inst
+
+	doif from ne null
+
+		targ from
+
+		setv va00 posx
+
+		setv va01 posy
+
+		setv va02 hght
+
+		divv va02 2
+
+		divv va02 2
+
+		subv va01 va02
+
+		setv va03 plne
+
+		addv va03 1
+
+	endi
+
+	targ ownr
+
+	doif _p1_ ne 0
+
+		setv va00 _p1_
+
+	endi
+
+	doif _p2_ ne 0
+
+		setv va01 _p2_
+
+	endi
+
+
+
+	new: simp 1 23 50205 "moe_C2toDS_Zs" 2 0 va03
+
+	mvsf va00 va01
+
+endm
+
+
+
+scrp 1 23 50205 10
+
+	lock
+
+	loop
+
+		setv vely -2
+
+		addv velx rand -1 1
+
+		addv va00 1
+
+		wait 5
+
+		doif va00 eq 2
+
+			pose 1
+
+		endi
+
+
+
+	untl va00 eq 3
+
+	kill ownr
+
+	unlk
+
+endm
+
+rscr
+
+enum 1 23 50204
+
+	kill targ
+
+next
+
+*Removes all scripts for the specified agent 2 15 50215 if it exists.
+
+*No need to micromanage. :)
+
+loop
+
+	doif sorq 1 23 50204 va00 eq 1
+
+		scrx 1 23 50204 va00
+
+	endi
+
+	addv va00 1
+
+untl va00 eq 2000
+
+setv va00 0
+
+
+
+enum 1 23 50205
+
+	kill targ
+
+next
+
+*Removes all scripts for the specified agent 2 15 50215 if it exists.
+
+*No need to micromanage. :)
+
+loop
+
+	doif sorq 1 23 50205 va00 eq 1
+
+		scrx 1 23 50205 va00
+
+	endi
+
+	addv va00 1
+
+untl va00 eq 2000
+
+setv va00 0
+
+
+

@@ -1,0 +1,536 @@
+* Lifepack: Aubergine
+
+* 2 4 50217 - Aubergine Plant
+* 2 10 50217 - Aubergine Detritus
+* 2 11 50217 - Aubergine
+* 2 23 50217 - Aubergine Launcher
+
+* Fairly basic. Grows, dies.
+
+* Reproduces in 1s and 2s, and when Norn eats it.
+
+
+
+new: simp 2 23 50217 "moe_C2toDS_aubergine" 2 14 rand 500 1500
+
+mvto 3930 49255
+
+prt: inew 0 "Input" "Recieves signal inputs for the Aubergine launcher." 5 32 0
+
+prt: onew 0 "Output" "Sends signal inputs from the Aubergine launcher." 47 32
+
+targ ownr
+
+
+
+* Creation
+
+* Biospheres
+
+reps rand 2 3
+
+	new: simp 2 4 50217 "moe_C2toDS_aubergine" 14 0 3000
+
+	mvsf rand 4081 4448 49684
+
+repe
+
+
+
+* Near volcano
+
+reps rand 1 2
+
+	new: simp 2 4 50217 "moe_C2toDS_aubergine" 14 0 3000
+
+	mvsf rand 2074 2487 48989
+
+repe
+
+scrp 2 23 50217 10
+
+	attr 199
+
+	elas 10
+
+	accg 3
+
+	aero 1
+
+	emit 10 .15
+
+endm
+
+
+
+
+
+*vendor activate
+
+scrp 2 23 50217 1
+
+	lock
+
+	prt: send 0 255
+
+	sndc "beep"
+
+	pose 1
+
+	setv va00 posl
+
+	addv va00 5
+
+	setv va01 post
+
+	setv va02 plne
+
+	subv va02 1
+
+	new: simp 2 11 50217 "moe_C2toDS_aubergine" 6 8 va02
+
+	mira rand 0 1
+
+	mvsf va00 va01
+
+	addv vely -20
+
+	wait 2
+
+	addv velx rand -10 10
+
+	addv va02 1
+
+	plne va02
+
+	targ ownr
+
+	pose 0
+
+	unlk
+
+endm
+
+
+
+*vendor collision
+
+scrp 2 23 50217 6
+
+	sndc "drop"
+
+endm
+
+
+
+* Plant Creation script
+
+scrp 2 4 50217 10
+
+	attr 192
+
+	perm 51
+
+	fric 100
+
+	elas 0
+
+	pose 1
+
+	mira rand 0 1
+
+	tick rand 200 500
+
+endm
+
+
+
+
+
+* Vegetable Creation script
+
+scrp 2 11 50217 10
+
+	inst
+
+	perm 51
+
+	attr 194
+
+	bhvr 48
+
+	fric 90
+
+	accg 3
+
+	elas 10
+
+*MOE MOE MOE MOE MOE what was this for?
+
+*LIAM LIAM LIAM LIAM LIAM I don't know? :x
+
+*pose 1
+
+	emit 8 .15
+
+	tick rand 200 500
+
+endm
+
+
+
+* Detritus Creation script
+
+scrp 2 10 50217 10
+
+	attr 192
+
+	perm 51
+
+	fric 100
+
+	elas 0
+
+	tick rand 200 500
+
+endm
+
+
+
+
+
+* Plant Timer script
+
+scrp 2 4 50217 9
+
+
+
+* Dormant during spring/summer
+
+	doif sean lt 2
+
+		stop
+
+	endi
+
+
+
+* Die if in water
+
+	doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+
+		kill ownr
+
+	endi
+
+
+
+* Can we grow? Are we an adult?
+
+	setv va02 grap posx posy
+
+	doif pose lt 7 and prop va02 1 ge .15 and prop va02 2 gt 0.15 and prop va02 3 gt .15 and prop va02 4 gt .25
+
+		gsub grow
+
+	elif pose eq 7
+
+		gsub adult
+
+	else
+
+		addv ov00 1
+
+		doif ov00 ge 10
+
+			kill ownr
+
+		endi
+
+	endi
+
+
+
+
+
+	subr grow
+
+		addv name "pose" 1
+
+		pose name "pose"
+
+	retn
+
+
+
+
+
+	subr adult
+
+		setv va00 posl
+
+		setv va01 post
+
+		setv va02 mira
+
+		new: simp 2 11 50217 "moe_C2toDS_aubergine" 6 8 3000
+
+		mira va02
+
+		doif tmvt va00 va01 eq 1
+
+			mvto va00 va01
+
+		else
+
+			mvsf va00 va01
+
+		endi
+
+		kill ownr
+
+	retn
+
+
+
+endm
+
+
+
+
+
+* Vegetable Timer Script
+
+scrp 2 11 50217 9
+
+
+
+	addv ov00 1
+
+	doif ov00 ge 35
+
+		setv va00 posl
+
+		setv va01 post
+
+		setv va02 mira
+
+		new: simp 2 10 50217 "moe_C2toDS_aubergine" 5 9 3000
+
+		mira va02
+
+		doif tmvt va00 va01 eq 1
+
+			mvto va00 va01
+
+		else
+
+			mvsf va00 va01
+
+		endi
+
+		kill ownr
+
+	endi
+
+
+
+endm
+
+
+
+* Detritus Timer script
+
+scrp 2 10 50217 9
+
+
+
+	frat 5
+
+	anim [0 1 2 3 4]
+
+	over
+
+
+
+	esee 2 4 50217
+
+		addv va10 1
+
+	next
+
+	esee 2 11 50217
+
+		addv va10 1
+
+	next
+
+
+
+	doif va10 gt 5
+
+		wait 50
+
+		setv va00 posl
+
+		setv va01 post
+
+		new: simp 2 4 50217 "moe_C2toDS_aubergine" 14 0 3000
+
+		doif tmvt va00 va01 eq 1
+
+			mvto va00 va01
+
+		else
+
+			mvsf va00 va01
+
+		endi
+
+		doif rand 0 1 eq 0
+
+			new: simp 2 4 50217 "moe_C2toDS_aubergine" 14 0 3000
+
+			doif tmvt va00 va01 eq 1
+
+				mvto va00 va01
+
+			else
+
+				mvsf va00 va01
+
+			endi
+
+			velo rand 10 -10 rand -4 -12
+
+		endi
+
+	endi
+
+	wait 50
+
+	kill ownr
+
+
+
+endm
+
+
+
+
+
+* Vegetable eat script
+
+scrp 2 11 50217 12
+
+
+
+* inject norn with nutrition stuff
+
+	targ from
+
+*	chem 5 .5
+
+	chem 150 -.5
+
+	chem 33 .5
+
+	chem 149 -.5
+
+*	chem 12 .5
+
+	stim writ from 79 1
+
+	targ ownr
+
+
+
+* create new aubergine plant
+
+	setv va00 posl
+
+	setv va01 post
+
+	new: simp 2 4 50217 "moe_C2toDS_aubergine" 14 0 3000
+
+	doif tmvt va00 va01 eq 1
+
+		mvto va00 va01
+
+	else
+
+		mvsf va00 va01
+
+	endi
+
+
+
+* kill original
+
+	kill ownr
+
+endm
+
+
+
+* Vegetable drop script
+
+scrp 2 11 50217 6
+
+
+
+* sound!
+
+	sndc "dr12"
+
+endm
+
+rscr
+
+enum 2 4 50217
+
+	kill targ
+
+next
+
+enum 2 11 50217
+
+	kill targ
+
+next
+
+enum 2 10 50217
+
+	kill targ
+
+next
+
+enum 2 23 50217
+
+	kill targ
+
+next
+
+
+
+*loop through all possible scripts up to 2000 and remove them.
+
+loop
+
+	addv va00 1
+
+	scrx 2 4 50217 va00
+
+	scrx 2 11 50217 va00
+
+	scrx 2 10 50217 va00
+
+	scrx 2 23 50217 va00
+
+untl va00 ge 2000
+
+
+
+setv va00 0
+
+

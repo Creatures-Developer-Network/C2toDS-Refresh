@@ -1,0 +1,207 @@
+* 2 15 50208 - Anemone
+
+* Create anemones (Ocean 1)
+
+reps rand 2 3
+
+	new: simp 2 15 50208 "moe_C2toDS_anem" 20 0 3000
+
+	mvsf rand 8600 9256 48651
+
+repe
+
+
+
+* Create anemones (Ocean 2)
+
+new: simp 2 15 50208 "moe_C2toDS_anem" 20 0 3000
+
+mvsf 2922 48521
+
+
+
+new: simp 2 15 50208 "moe_C2toDS_anem" 20 0 3000
+
+mvsf 2775 48677
+
+
+
+
+scrp 2 15 50208 10
+
+	attr 199
+
+	accg 10
+
+	aero 30
+
+	rnge 500
+
+	elas 0
+
+	tick rand 20 80
+
+endm
+
+
+
+
+
+* Timer script
+
+scrp 2 15 50208 9
+
+	doif ov00 eq 0
+
+		tick 10
+
+		setv ov00 1
+
+	endi
+
+	doif rtyp room ownr ne 8 and rtyp room ownr ne 9
+
+		setv ov00 3
+
+	endi
+
+	doif ov00 eq 1
+
+		doif pose lt 8
+
+			setv va00 pose
+
+			addv va00 1
+
+			pose va00
+
+		else
+
+			setv ov00 2
+
+			tick 20
+
+		endi
+
+	endi
+
+	doif ov00 eq 2
+
+		doif pose lt 19
+
+			setv va09 rand 20 80
+
+			tick va09
+
+			setv va00 pose
+
+			addv va00 1
+
+			pose va00
+
+		else
+
+			pose 9
+
+		endi
+
+	endi
+
+	doif ov00 eq 3
+
+		doif pose gt 0
+
+			setv va00 pose
+
+			subv va00 1
+
+			pose va00
+
+		else
+
+			setv ov00 0
+
+			tick 60
+
+*			setv actv 0
+
+		endi
+
+	endi
+
+endm
+
+
+
+
+
+* Activate 1
+
+scrp 2 15 50208 1
+
+	setv ov00 3
+
+	tick 2
+
+*	stim writ from 0 255 0 0 42 100 0 0 0 0 0 0
+
+endm
+
+
+
+
+
+* Pickup
+
+scrp 2 15 50208 4
+
+	tick 0
+
+*	stim writ from 0 255 0 0 42 100 0 0 0 0 0 0
+
+	doif ov00 ne 0
+
+		doif pose ne 0
+
+			loop
+
+				setv va00 pose
+
+				subv va00 1
+
+				pose va00
+
+			untl pose eq 0
+
+		else
+
+			setv ov00 0
+
+		endi
+
+	endi
+
+endm
+
+
+
+
+
+* Drop
+
+scrp 2 15 50208 5
+
+	setv va00 rand 20 80
+
+	tick va00
+
+endm
+
+
+enum 2 15 50208
+
+	kill targ
+
+next
+
+

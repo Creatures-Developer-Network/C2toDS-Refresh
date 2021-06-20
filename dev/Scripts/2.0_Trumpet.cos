@@ -1,0 +1,1311 @@
+
+* 2 3 50203 - Trumpet Seed
+* 2 7 50203 - Trumpet Flower
+* 2 8 50203 - Trumpet Fruit
+* 2 10 50203 - Trumpet Detritus
+* 2 23 50203 - Trumpet Vendor
+
+
+
+reps rand 5 7
+
+	new: simp 2 7 50203 "moe_C2toDS_trumpet" 31 19 rand 500 2500
+
+	mvsf rand 5125 6554 49689
+
+	pose rand 0 8
+
+repe
+
+
+
+*tantris
+
+reps rand 2 3
+
+	new: simp 2 7 50203 "moe_C2toDS_trumpet" 31 19 rand 500 2500
+
+	mvsf rand 3579 4281 48769
+
+	pose rand 0 8
+
+repe
+
+
+
+*world tree
+
+reps rand 2 3
+
+	new: simp 2 7 50203 "moe_C2toDS_trumpet" 31 19 rand 500 2500
+
+	mvsf rand 3395 4000 48095
+
+	pose rand 0 8
+
+repe
+
+
+
+new: simp 2 23 50203 "moe_C2toDS_trumpet" 18 0 rand 500 2500
+
+mvsf 5437 49530
+
+
+
+scrp 2 23 50203 6
+
+	lock
+
+	sndc "drop"
+
+	over
+
+	wait 2
+
+	unlk
+
+endm
+
+
+
+scrp 2 23 50203 10
+
+	inst
+
+	attr 198
+
+	elas 20
+
+	perm 51
+
+	fric 30
+
+	accg 3
+
+endm
+
+
+
+scrp 2 23 50203 1
+
+	lock
+
+	frat 2
+
+	anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17]
+
+	over
+
+	sndc "laun"
+
+
+
+	setv va00 posl
+
+	setv va01 posy
+
+	subv va01 10
+
+
+
+	new: simp 2 3 50203 "moe_C2toDS_trumpet" 10 65 rand 500 2500
+
+	mvsf va00 va01
+
+	setv ov01 0
+
+	velo rand -7 7 rand -15 -20
+
+	targ ownr
+
+
+
+	pose 0
+
+endm
+
+
+
+scrp 2 3 50203 10
+
+	inst
+
+	attr 195
+
+	elas 20
+
+	perm 51
+
+	fric 30
+
+	bhvr 48
+
+	tick rand 20 40
+
+	slow
+
+	wait 3
+
+	emit 7 .2
+
+	doif ov01 eq 0
+
+		accg 3
+
+	else
+
+		accg .05
+
+		frat 2
+
+		anim [1 2 3 4 5 255]
+
+	endi
+
+endm
+
+
+
+scrp 2 3 50203 6
+
+	sndc "dr64"
+
+endm
+
+
+
+scrp 2 3 50203 12
+
+	stim writ from 77 1
+
+	targ from
+
+	chem 5 .19
+
+	chem 10 .19
+
+	snde "chwp"
+
+	targ ownr
+
+	kill targ
+
+endm
+
+
+
+scrp 2 3 50203 9
+
+
+
+
+
+	doif ov01 eq 0
+
+		tick rand 250 500
+
+		doif time eq 4
+
+			stop
+
+		endi
+
+		addv ov02 1
+
+		doif ov02 gt 10
+
+			kill targ
+
+		endi
+
+	else
+
+		velo rand -1 2 rand -2 0
+
+		addv ov02 1
+
+		doif ov02 gt rand 20 35
+
+			setv va00 posl
+
+			setv va01 post
+
+*sndc "pop1"
+
+			reps 3
+
+				new: simp 2 3 50203 "moe_C2toDS_trumpet" 10 65 rand 500 2500
+
+				mvsf va00 va01
+
+				velo rand -3 3 rand -1 0
+
+				targ ownr
+
+			repe
+
+			kill ownr
+
+		endi
+
+		stop
+
+	endi
+
+
+
+	doif ov02 gt 10
+
+
+
+	endi
+
+
+
+	gsub check
+
+
+
+	subr check
+
+		rnge 200
+
+		esee 2 7 50203
+
+			doif targ ne null
+
+				addv va02 1
+
+			endi
+
+		next
+
+		targ ownr
+
+
+
+		doif va02 ge 3 or sean eq 3
+
+			gsub dormantcheck
+
+			stop
+
+		endi
+
+
+
+		doif carr ne null or fall eq 1
+
+			stop
+
+		endi
+
+		setv va00 grap posx posy
+
+*light
+
+		setv va01 prop room ownr 1
+
+*heat
+
+		setv va02 prop room ownr 2
+
+*water
+
+		setv va03 prop room ownr 3
+
+*nutrients
+
+		setv va04 prop room ownr 4
+
+
+
+		doif va00 gt .2 and va01 gt .2 and va03 gt .25 and va04 gt .2
+
+			doif rtyp grap posx posy eq 8 or rtyp grap posx posy eq 9
+
+				kill ownr
+
+			endi
+
+			gsub grow
+
+		else
+
+			gsub dormantcheck
+
+		endi
+
+	retn
+
+
+
+
+
+	subr dormantcheck
+
+		rnge 200
+
+		setv va00 0
+
+		esee 2 3 50203
+
+			doif targ ne null
+
+				addv va00 1
+
+			endi
+
+		next
+
+		targ ownr
+
+		doif va00 gt 3
+
+*Let something eat you?
+
+			wait rand 1500 2000
+
+			kill ownr
+
+		else
+
+			show 0
+
+			bhvr 0
+
+			attr 193
+
+			tick 1200
+
+		endi
+
+	retn
+
+
+
+
+
+	subr grow
+
+		setv va00 posl
+
+		setv va01 posb
+
+		subv va00 24
+
+		subv va01 39
+
+
+
+		new: simp 2 7 50203 "moe_C2toDS_trumpet" 31 19 rand 500 2500
+
+		mvsf va00 va01
+
+
+
+		kill ownr
+
+	retn
+
+
+
+endm
+
+
+
+scrp 2 7 50203 10
+
+	inst
+
+	attr 193
+
+	elas 20
+
+	perm 51
+
+	fric 30
+
+	accg 3
+
+	tick 58.5
+
+	emit 9 .05
+
+*tick 1
+
+	seta ov04 null
+
+	seta ov05 null
+
+	seta ov06 null
+
+	mira rand 0 1
+
+endm
+
+
+
+scrp 2 7 50203 9
+
+
+
+*flowers sleep at night
+
+	doif time eq 3
+
+	elif time eq 0 and pose eq 9
+
+*Seed in the morning
+
+		doif name "seeded" eq 0
+
+			gsub seed
+
+		endi
+
+	endi
+
+
+
+*lifeforce
+
+	addv ov10 3
+
+
+
+*Flowers die in one day. That's 1440 seconds.
+
+	doif ov10 ge 1440
+
+		inst
+
+		doif ov00 eq 1 and ov01 eq 1 and ov02 eq 1
+
+			doif ov04 ne null and ov05 ne null and ov06 ne null
+
+				pose 17
+
+				targ ov04
+
+				kill targ
+
+				targ ownr
+
+				targ ov05
+
+				kill targ
+
+				targ ownr
+
+				targ ov06
+
+				kill targ
+
+				targ ownr
+
+				frat tick
+
+				anim [17 18 19 20 21 22 23 24]
+
+				over
+
+				kill targ
+
+			endi
+
+		endi
+
+	endi
+
+
+
+	doif pose lt 8
+
+		setv va00 pose
+
+		addv va00 1
+
+		pose va00
+
+		stop
+
+	elif pose eq 8
+
+		pose 9
+
+*left
+
+		gsub growfirst
+
+
+
+		stop
+
+	endi
+
+
+
+	doif ov04 eq null
+
+		setv ov00 0
+
+	elif ov05 eq null
+
+		setv ov01 0
+
+	elif ov06 eq null
+
+		setv ov02 0
+
+	endi
+
+
+
+
+
+	doif ov00 eq 0
+
+		gsub setcoords
+
+		gsub growleft
+
+		targ ownr
+
+		setv ov00 1
+
+	endi
+
+	doif ov01 eq 0
+
+		gsub setcoords
+
+		gsub growmiddle
+
+		targ ownr
+
+		setv ov01 1
+
+	endi
+
+	doif ov02 eq 0
+
+		gsub setcoords
+
+		gsub growright
+
+		targ ownr
+
+		setv ov02 1
+
+	endi
+
+
+
+	subr seed
+
+*Make sure all flower fruits are on, or this is gonna look funky. lol
+
+		doif ov00 eq 1 and ov01 eq 1 and ov02 eq 1
+
+			inst
+
+			pose 8
+
+*kill them
+
+			targ ov04
+
+			kill targ
+
+			targ ownr
+
+			targ ov05
+
+			kill targ
+
+			targ ownr
+
+			targ ov06
+
+			kill targ
+
+			targ ownr
+
+
+
+*animate
+
+			frat tick
+
+			anim [8 10 11 12 13 14]
+
+			over
+
+
+
+			setv va00 posx
+
+			setv va01 posy
+
+
+
+
+
+			new: simp 2 3 50203 "moe_C2toDS_trumpet" 10 65 rand 500 2500
+
+			mvsf va00 va01
+
+			setv ov01 1
+
+			addv vely rand -2 -3
+
+
+
+			targ ownr
+
+
+
+			anim [14 15 16 8]
+
+			over
+
+			setv name "seeded" 1
+
+			gsub growfirst
+
+			targ ownr
+
+			pose 9
+
+			stop
+
+		endi
+
+	retn
+
+
+
+
+
+
+
+	subr setcoords
+
+		targ ownr
+
+		setv va00 posx
+
+		setv va01 posy
+
+	retn
+
+
+
+	subr growfirst
+
+		inst
+
+		gsub setcoords
+
+		gsub growleft
+
+		pose 4
+
+		gsub setcoords
+
+		gsub growmiddle
+
+		pose 4
+
+		gsub setcoords
+
+		gsub growright
+
+		pose 4
+
+		slow
+
+	retn
+
+
+
+	subr growleft
+
+		inst
+
+		doif mira eq 0
+
+			subv va00 27
+
+		else
+
+			addv va00 8
+
+		endi
+
+
+
+		setv va04 mira
+
+		setv va05 plne
+
+
+
+		new: simp 2 8 50203 "moe_C2toDS_trumpet" 7 44 va05
+
+		attr 231
+
+		seta ov01 ownr
+
+		frel ov01
+
+		mvto va00 va01
+
+		mira va04
+
+*I am on the plant*
+
+		setv ov00 1
+
+		seta mv04 targ
+
+		setv mv00 1
+
+		setv ov02 1
+
+
+
+
+
+	retn
+
+
+
+	subr growmiddle
+
+		inst
+
+		doif mira eq 0
+
+			subv va00 22
+
+			subv va01 27
+
+		else
+
+			subv va00 9
+
+			subv va01 27
+
+		endi
+
+
+
+		setv va04 mira
+
+		setv va05 plne
+
+
+
+		new: simp 2 8 50203 "moe_C2toDS_trumpet" 7 51 va05
+
+		attr 231
+
+		seta ov01 ownr
+
+		frel ov01
+
+		mvto va00 va01
+
+		mira va04
+
+*I am on the plant*
+
+		setv ov00 1
+
+		seta mv05 targ
+
+		setv mv01 1
+
+		setv ov02 2
+
+
+
+	retn
+
+
+
+	subr growright
+
+		inst
+
+		doif mira eq 0
+
+			addv va00 8
+
+			subv va01 17
+
+		else
+
+			subv va00 28
+
+			subv va01 17
+
+		endi
+
+
+
+		setv va04 mira
+
+		setv va05 plne
+
+
+
+		new: simp 2 8 50203 "moe_C2toDS_trumpet" 7 58 va05
+
+		attr 231
+
+		seta ov01 ownr
+
+		frel ov01
+
+		mvto va00 va01
+
+		mira va04
+
+*I am on the plant*
+
+		setv ov00 1
+
+		seta mv06 targ
+
+		setv mv02 1
+
+		setv ov02 3
+
+
+
+	retn
+
+endm
+
+
+
+scrp 2 8 50203 4
+
+	inst
+
+	puhl -1 16 22
+
+	mesg writ targ 1001
+
+endm
+
+
+
+scrp 2 8 50203 1
+
+	inst
+
+*mesg writ targ 12
+
+	doif ov00 eq 1
+
+		mesg writ targ 1001
+
+	endi
+
+
+
+	doif from eq pntr and ov00 eq 1
+
+		setv va00 posx
+
+		targ pntr
+
+		doif posl gt va00
+
+			setv va00 -10
+
+		else
+
+			setv va00 10
+
+			setv va01 1
+
+		endi
+
+		targ ownr
+
+		velo va00 rand -5 -10
+
+		targ pntr
+
+		doif va01 eq 0
+
+			anim [4 5 4 0]
+
+		else
+
+			anim [10 11 12 0]
+
+		endi
+
+		sndc "smck"
+
+		targ ownr
+
+		over
+
+	endi
+
+
+
+
+
+
+
+endm
+
+
+
+scrp 2 8 50203 1001
+
+	inst
+
+	accg 2
+
+	aero 4
+
+	bhvr 48
+
+	attr 199
+
+	doif ov00 eq 1
+
+		doif ov02 eq 1
+
+			mira rand 0 1
+
+			pose 5
+
+			targ ov01
+
+			setv ov00 0
+
+		elif ov02 eq 2
+
+			mira rand 0 1
+
+			pose 5
+
+			targ ov01
+
+			setv ov01 0
+
+		else
+
+			mira rand 0 1
+
+			pose 5
+
+			targ ov01
+
+			setv ov02 0
+
+		endi
+
+		targ ownr
+
+	endi
+
+	targ ownr
+
+	setv ov00 0
+
+	doif carr eq null
+
+		mvsf posl post
+
+	endi
+
+endm
+
+
+
+scrp 2 8 50203 6
+
+	lock
+
+	snde "dr12"
+
+	unlk
+
+endm
+
+
+
+*Trumpet Fruit
+
+scrp 2 8 50203 10
+
+	inst
+
+	perm 51
+
+	emit 6 .015
+
+	accg 0
+
+	elas 25
+
+	attr 231
+
+	wait 1
+
+	doif pose lt 4
+
+		setv va00 pose
+
+		targ ov01
+
+		setv va01 tick
+
+		targ ownr
+
+		loop
+
+			wait va01
+
+			addv va00 1
+
+			pose va00
+
+			bhvr 48
+
+		untl va00 eq 4
+
+	else
+
+		bhvr 48
+
+	endi
+
+	tick rand 1000 3000
+
+endm
+
+
+
+scrp 2 8 50203 9
+
+	doif carr eq null and ov00 eq 0
+
+
+
+		doif ov02 eq 1
+
+			setv va02 50
+
+		elif ov02 eq 2
+
+			setv va02 57
+
+		else
+
+			setv va02 64
+
+		endi
+
+
+
+		setv va03 mira
+
+
+
+		setv va00 posl
+
+		setv va01 post
+
+		new: simp 2 10 50203 "moe_C2toDS_trumpet" 0 va02 rand 500 2500
+
+		mvsf va00 va01
+
+		mira va03
+
+		kill ownr
+
+
+
+	endi
+
+endm
+
+
+
+
+
+*Detritus Create
+
+scrp 2 10 50203 10
+
+	inst
+
+	attr 195
+
+	bhvr 48
+
+	elas 0
+
+	accg 4
+
+	tick 500
+
+	puhl -1 16 22
+
+endm
+
+
+
+scrp 2 10 50203 9
+
+	doif carr eq null
+
+		altr -1 2 .005
+
+		altr -1 3 .025
+
+		altr -1 4 .025
+
+		kill targ
+
+	endi
+
+endm
+
+
+
+
+
+
+
+scrp 2 10 50203 12
+
+	lock
+
+	stim writ from 81 1
+
+	targ from
+
+	chem 5 .15
+
+	snde "chwp"
+
+	targ ownr
+
+	kill targ
+
+endm
+
+
+
+scrp 2 8 50203 12
+
+	lock
+
+	stim writ from 78 1
+
+	targ from
+
+	chem 5 .31
+
+	snde "chwp"
+
+	targ ownr
+
+
+
+	doif ov02 eq 1
+
+		setv va02 50
+
+	elif ov02 eq 2
+
+		setv va02 57
+
+	else
+
+		setv va02 64
+
+	endi
+
+
+
+	setv va03 mira
+
+
+
+	setv va00 posl
+
+	setv va01 post
+
+	new: simp 2 10 50203 "moe_C2toDS_trumpet" 0 va02 rand 500 2500
+
+	mvsf va00 va01
+
+	mira va03
+
+	kill ownr
+
+endm
+
+
+
+rscr
+
+
+
+
+
+
+
+
+enum 2 23 50203
+
+	kill targ
+
+next
+
+
+
+enum 2 3 50203
+
+	kill targ
+
+next
+
+
+
+enum 2 7 50203
+
+	kill targ
+
+next
+
+
+
+enum 2 8 50203
+
+	kill targ
+
+next
+
+
+
+enum 2 10 50203
+
+	kill targ
+
+next

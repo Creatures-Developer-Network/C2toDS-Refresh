@@ -1,0 +1,234 @@
+* 2 21 50200 - Ball
+
+new: simp 2 21 50200 "moe_C2toDS_toys" 8 0 5000
+
+mvsf 7190 48340
+
+
+new: simp 2 21 50200 "moe_C2toDS_toys" 8 0 5000
+
+mvsf 7190 48111
+
+
+new: simp 2 21 50200 "moe_C2toDS_toys" 8 0 5000
+
+mvsf 6625 49780
+
+
+scrp 2 21 50200 10
+
+	attr 199
+
+	bhvr 43
+
+	elas 50
+
+	accg 2
+
+	aero 5
+
+	perm 51
+
+endm
+
+
+
+
+
+* Script 1 - activate 1
+
+scrp 2 21 50200 1
+
+	stim writ from 97 1
+
+	setv va00 posl
+
+	setv va01 posr
+
+	addv va00 va01
+
+	divv va00 2
+
+	targ from
+
+	setv va01 posl
+
+	targ ownr
+
+	doif va01 lt va00
+
+		setv va02 rand 15 20
+
+		anim [1 2 3 4 5 6 7 0]
+
+	else
+
+		setv va02 rand -25 -15
+
+		anim [0 7 6 5 4 3 2 1]
+
+	endi
+
+	setv velx va02
+
+	setv vely -30
+
+endm
+
+
+
+* Script 1 - activate 2
+
+scrp 2 21 50200 2
+
+	stim writ from 97 1
+
+	setv va00 posl
+
+	setv va01 posr
+
+	addv va00 va01
+
+	divv va00 2
+
+	targ from
+
+	setv va01 posl
+
+	targ ownr
+
+	doif va01 lt va00
+
+		setv va02 rand 15 25
+
+		anim [1 2 3 4 5 6 7 0]
+
+	else
+
+		setv va02 rand -25 -15
+
+		anim [0 7 6 5 4 3 2 1]
+
+	endi
+
+	setv velx va02
+
+	setv vely -30
+
+
+
+endm
+
+
+
+* Script 1 - Hit
+
+scrp 2 21 50200 3
+
+	stim writ from 97 1
+
+	setv va00 posl
+
+	setv va01 posr
+
+	addv va00 va01
+
+	divv va00 2
+
+	targ from
+
+	setv va01 posl
+
+	targ ownr
+
+	doif va01 lt va00
+
+		setv va02 rand 15 25
+
+		anim [1 2 3 4 5 6 7 0]
+
+	else
+
+		setv va02 rand -25 -15
+
+		anim [0 7 6 5 4 3 2 1]
+
+	endi
+
+	setv velx va02
+
+	setv vely -30
+
+
+
+endm
+
+
+
+* Script 6 - collision
+
+scrp 2 21 50200 6
+
+	doif wall eq 3
+
+		doif velx lt 0
+
+			anim [0 7 6 5 4 3 2 1 ]
+
+		endi
+
+		doif velx gt 0
+
+			anim [ 1 2 3 4 5 6 7 0]
+
+		endi
+
+	endi
+
+	doif wall eq 0
+
+		anim [5 6 7 6 5]
+
+	endi
+
+	doif wall eq 1
+
+		anim [5 6 7 6 5]
+
+	endi
+
+	doif fall eq 0
+
+		pose 0
+
+	endi
+
+*stim shou 40 8 0 0 36 50 45 50 42 50 0 0
+
+	snde "boi2"
+
+	over
+
+endm
+
+
+
+scrp 2 21 50200 101
+
+	targ pntr
+
+	anim [4 4 5 5]
+
+	over
+
+	pose 0
+
+endm
+
+rscr
+
+enum 2 21 50200
+
+	kill targ
+
+next

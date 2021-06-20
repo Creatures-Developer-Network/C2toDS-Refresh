@@ -1,0 +1,238 @@
+* 2 21 50209 - Tennis Ball
+
+
+new: simp 2 21 50209 "moe_C2toDS_toys" 128 62 5000
+
+mvsf 7899 48740
+
+
+
+new: simp 2 21 50209 "moe_C2toDS_toys" 128 62 5000
+
+mvsf 7589 48740
+
+
+
+
+scrp 2 21 50209 10
+
+	attr 199
+
+	bhvr 43
+
+	elas 40
+
+	accg 3
+
+	aero 2
+
+	perm 51
+
+endm
+
+
+
+
+
+* Script 1 - activate 1
+
+scrp 2 21 50209 1
+
+	stim writ from 97 1
+
+	setv va00 posl
+
+	setv va01 posr
+
+	addv va00 va01
+
+	divv va00 2
+
+	targ from
+
+	setv va01 posl
+
+	targ ownr
+
+	doif va01 lt va00
+
+		setv va02 rand 15 20
+
+		anim [1 2 3 4 5 6 7 0]
+
+	else
+
+		setv va02 rand -25 -15
+
+		anim [0 7 6 5 4 3 2 1]
+
+	endi
+
+	setv velx va02
+
+	setv vely -20
+
+endm
+
+
+
+* Script 1 - activate 2
+
+scrp 2 21 50209 2
+
+	stim writ from 97 1
+
+	setv va00 posl
+
+	setv va01 posr
+
+	addv va00 va01
+
+	divv va00 2
+
+	targ from
+
+	setv va01 posl
+
+	targ ownr
+
+	doif va01 lt va00
+
+		setv va02 rand 15 20
+
+		anim [1 2 3 4 5 6 7 0]
+
+	else
+
+		setv va02 rand -25 -15
+
+		anim [0 7 6 5 4 3 2 1]
+
+	endi
+
+	setv velx va02
+
+	setv vely -10
+
+
+
+endm
+
+
+
+* Script 1 - Hit
+
+scrp 2 21 50209 3
+
+	stim writ from 97 1
+
+	setv va00 posl
+
+	setv va01 posr
+
+	addv va00 va01
+
+	divv va00 2
+
+	targ from
+
+	setv va01 posl
+
+	targ ownr
+
+	doif va01 lt va00
+
+		setv va02 rand 15 20
+
+		anim [1 2 3 4 5 6 7 0]
+
+	else
+
+		setv va02 rand -25 -15
+
+		anim [0 7 6 5 4 3 2 1]
+
+	endi
+
+	setv velx va02
+
+	setv vely -10
+
+endm
+
+
+
+* Script 6 - collision
+
+scrp 2 21 50209 6
+
+	doif wall eq 3
+
+		doif velx lt 0
+
+			anim [0 7 6 5 4 3 2 1 ]
+
+		endi
+
+		doif velx gt 0
+
+			anim [ 1 2 3 4 5 6 7 0]
+
+		endi
+
+	endi
+
+	doif wall eq 0
+
+		anim [5 6 7 6 5]
+
+	endi
+
+	doif wall eq 1
+
+		anim [5 6 7 6 5]
+
+	endi
+
+	doif fall eq 0
+
+		pose 0
+
+	endi
+
+*stim shou 40 8 0 0 36 50 45 50 42 50 0 0
+
+	snde "tbou"
+
+	over
+
+endm
+
+
+
+scrp 2 21 50209 101
+
+	targ pntr
+
+	anim [4 4 5 5]
+
+	over
+
+	pose 0
+
+endm
+
+
+
+
+rscr
+
+
+
+enum 2 21 50209
+
+	kill targ
+
+next
+
+

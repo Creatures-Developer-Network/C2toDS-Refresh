@@ -1,0 +1,372 @@
+* 2 21 50214 - Tomato Gun
+* 2 6 50214 - Tomato Gun Tomato
+
+* Initial Conversion By Moe
+* Some Modifications By the one who screams i guess
+* (if you worked on this file, feel free to add your name!)
+
+new: comp 2 21 50214 "moe_C2toDS_tgun" 7 0 rand 1000 3000
+
+mvto 7900 47965
+
+
+
+new: comp 2 21 50214 "moe_C2toDS_tgun" 7 0 rand 1000 3000
+
+mvto 4479 49697
+
+
+
+new: comp 2 21 50214 "moe_C2toDS_tgun" 7 0 rand 1000 3000
+
+mvto 4258 48169
+
+
+scrp 2 21 50214 10
+
+	core 0 28 0 wdth
+
+	attr 199
+
+	elas 25
+
+	accg 3
+
+	bhvr 33
+
+	perm 51
+
+	mira rand 0 1
+
+*pat: dull 1 "moe_C2toDS_tgun" 40 10 18 0
+
+	doif mira eq 0
+
+		prt: inew 0 "Input" "Recieves signal inputs for the tomato launcher." 26 21 0
+
+		pat: dull 1 "moe_C2toDS_tgun" 40 26 21 0
+
+	else
+
+		prt: inew 0 "Input" "Recieves signal inputs for the tomato launcher." 2 21 0
+
+		pat: dull 1 "moe_C2toDS_tgun" 40 2 21 0
+
+	endi
+
+endm
+
+
+
+scrp 2 21 50214 4
+
+	tick 15
+
+endm
+
+
+
+scrp 2 21 50214 5
+
+	tick 0
+
+endm
+
+
+
+scrp 2 21 50214 9
+
+	doif carr eq null
+
+		tick 0
+
+	endi
+
+	targ pntr
+
+	setv va00 velx
+
+	targ ownr
+
+	doif velx gt 0
+
+		mira 1
+
+		inst
+
+		pat: kill 1
+
+		pat: dull 1 "moe_C2toDS_tgun" 40 2 21 0
+
+
+
+		gsub checklinks
+
+
+
+		prt: izap 0
+
+		prt: inew 0 "Input" "Recieves signal inputs for the tomato launcher." 2 21 0
+
+
+
+		doif va01 ge 0 and va00 ne null
+
+			prt: join va00 va01 ownr 0
+
+		endi
+
+
+
+		slow
+
+	elif velx lt 0
+
+		mira 0
+
+		inst
+
+		pat: kill 1
+
+		pat: dull 1 "moe_C2toDS_tgun" 40 26 21 0
+
+
+
+		gsub checklinks
+
+
+
+		prt: izap 0
+
+		prt: inew 0 "Input" "Recieves signal inputs for the tomato launcher." 26 21 0
+
+
+
+		doif va01 ge 0 and va00 ne null
+
+			prt: join va00 va01 ownr 0
+
+		endi
+
+
+
+		slow
+
+	endi
+
+
+
+	subr checklinks
+
+		seta va00 prt: frma 0
+
+		doif va00 ne null
+
+			doif prt: from 0 gt 0
+
+				setv va01 prt: from 0
+
+			endi
+
+		endi
+
+
+
+	retn
+
+endm
+
+
+scrp 2 21 50214 2
+	stim writ from 97 3
+	call 1 0 0
+endm
+scrp 2 21 50214 3
+	stim writ from 97 3
+	call 1 0 0
+endm
+
+
+scrp 2 21 50214 1
+
+	lock
+
+	stim writ from 97 3
+
+	frat 2
+
+	anim [0 1 2 3 4 5]
+
+	over
+
+	frat 2
+
+	anim [6 0]
+
+	over
+
+	sndc "pop1"
+
+	doif mira eq 1
+
+		setv va02 rand 15 20
+
+		setv va00 posr
+
+		subv va00 10
+
+		setv va01 post
+
+	else
+
+		setv va02 rand -15 -20
+
+		setv va00 posl
+
+		subv va00 5
+
+		setv va01 post
+
+	endi
+
+	new: simp 2 6 50214 "moe_C2toDS_tgun" 17 14 rand 1000 3000
+
+	mvsf va00 va01
+
+	velo va02 -20
+
+	unlk
+
+endm
+
+
+
+scrp 2 6 50214 10
+
+	inst
+
+	anim [0 1 2 3 4 5 6 7 255]
+
+	elas 25
+
+	accg 3
+
+	aero 2
+
+	attr 198
+
+	tick 1
+
+endm
+
+
+
+
+
+scrp 2 6 50214 6
+
+	lock
+
+
+
+	setv va00 rand 0 5
+
+	doif va00 eq 5
+
+		inst
+
+		setv va00 posl
+
+		setv va01 post
+
+		setv va02 _p1_
+
+		setv va03 _p2_
+
+		new: simp 2 8 50200 "moe_C2toDS_toms" 23 15 rand 1000 2000
+
+		mira rand 0 1
+
+		setv ov00 0
+
+		setv ov02 1
+
+		attr 198
+
+		pose 4
+
+		bhvr 48
+		tick rand 1000 2500
+
+		base 12
+
+		pose 0
+
+		accg 3
+
+		mvsf va00 va01
+
+		velo va02 va03
+
+		kill ownr
+
+		stop
+
+	endi
+
+	inst
+
+	pose 8
+
+	mvsf posl post
+
+	sndc "smsh"
+
+	anim [8 9 10 11 12 13 14 15 16]
+
+	over
+
+	kill ownr
+
+	unlk
+
+endm
+
+
+
+scrp 2 6 50214 9
+
+	etch 4 0 0
+
+		doif targ ne null
+
+			targ ownr
+
+			setv velx 0
+
+			setv vely 0
+
+			accg 1
+
+			mesg writ targ 6
+
+		endi
+
+	next
+
+endm
+
+rscr
+
+
+enum 2 21 50214
+
+	kill targ
+
+next
+
+enum 2 6 50214
+
+	kill targ
+
+next

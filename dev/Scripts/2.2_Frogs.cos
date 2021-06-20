@@ -1,0 +1,907 @@
+* 2 24 50216 - Frog Egg Layer
+* 2 15 50216 - Frog
+* 2 15 50217 - Tadpole
+* 2 18 50216 - Frog Egg
+
+door grap 3439 48836 grap 3470 48950 25
+door grap 5060 49830 grap 5347 49698 75
+
+
+new: comp 2 24 50216 "moe_C2toDS_froglayer" 23 0 rand 1000 3000
+pat: dull 1 "moe_C2toDS_froglayer" 21 0 0 1
+pat: dull 2 "moe_C2toDS_froglayer" 22 0 0 -2
+mvsf 2920 48835
+targ ownr
+
+reps rand 2 3
+	new: simp 2 15 50217 "moe_C2toDS_tadp" 16 0 rand 1000 3000
+	mvsf rand 2844 3060 rand 48970 48975
+repe
+
+reps rand 2 3
+	new: simp 2 15 50217 "moe_C2toDS_tadp" 16 0 rand 1000 3000
+	mvsf rand 4400 4778 rand 49935 49930
+repe
+
+*install
+
+scrp 2 24 50216 10
+
+	perm 51
+	bhvr 43
+	attr 199
+	accg 5
+	elas 0
+endm
+*timer
+scrp 2 24 50216 9
+endm
+*activate 1
+scrp 2 24 50216 1
+	doif crea from eq 1
+		stim writ from 90 1
+	endi
+	lock
+	anim [ 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20]
+	over
+	inst
+	setv va00 posr
+	setv va01 posb
+	subv va00 35
+	setv va02 rand -4000 -8000
+	divv va02 1000.00
+	new: simp 2 18 50216 "moe_C2toDS_tadp" 1 17 5000
+	mvsf va00 va01
+	velo va02 -1
+	targ ownr
+	pose 0
+	unlk
+endm
+*collision
+scrp 2 24 50216 6
+	doif wall eq down
+		sndc "drop"
+	endi
+endm
+*deactivate
+scrp 2 24 50216 0
+endm
+*activate 2
+scrp 2 24 50216 2
+	doif crea from eq 1
+		stim writ from 90 1
+	endi
+	mesg writ ownr 0
+endm
+*hit
+scrp 2 24 50216 3
+	doif crea from eq 1
+		stim writ from 92 1
+	endi
+endm
+*drop
+*scrp 2 24 50216 5
+*endm
+*catchall
+scrp 2 24 50216 255
+endm
+
+
+scrp 2 18 50216 10
+	inst
+	aero 10
+	attr 194
+	elas 0
+	accg .5
+	fric 100
+	tick 500
+	bhvr 59
+	rnge 500
+endm
+
+scrp 2 18 50216 12
+	doif from ne ownr
+		sndc "chwp"
+	endi
+	doif crea from eq 1
+		stim writ targ 80 .5
+	endi
+
+	kill ownr
+endm
+
+scrp 2 18 50216 1
+	doif crea from eq 1
+		stim writ from 86 1
+	endi
+endm
+scrp 2 18 50216 2
+	doif crea from eq 1
+		stim writ from 86 1
+	endi
+endm
+scrp 2 18 50216 3
+	doif crea from eq 1
+		stim writ from 87 1
+	endi
+endm
+
+*drop
+scrp 2 18 50216 5
+	loop
+		doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+			aero 10
+			accg .5
+		else
+			accg 1
+			aero 0
+		endi
+	untl fall eq 0
+endm
+
+scrp 2 18 50216 9
+
+	doif sean gt 2
+		stop
+	endi
+
+	doif carr ne null and type carr ne 6
+		stop
+	endi
+
+	addv ov01 1
+
+	doif ov01 gt 250
+		kill ownr
+	endi
+
+
+	esee 2 15 50217
+		doif targ ne null and targ ne ownr
+			addv va04 1
+		endi
+	next
+	targ ownr
+
+	esee 2 15 50216
+		doif targ ne null and targ ne ownr
+			addv va04 1
+		endi
+	next
+	targ ownr
+
+
+	doif rtyp room ownr eq 8 and va04 lt 2
+		setv va00 posx
+		setv va01 posy
+		subv va00 25
+		subv va01 25
+		doif type carr eq 6
+			seta va02 carr
+		endi
+
+		new: simp 2 15 50217 "moe_C2toDS_tadp" 16 0 rand 1000 3000
+		mvsf va00 va01
+		doif type va02 eq 6
+			spas va02 targ
+		endi
+		kill ownr
+	endi
+
+endm
+
+
+
+*install
+scrp 2 15 50217 10
+	inst
+	frat 4
+	anim [0 1 2 3 4 5 6 7 255]
+	attr 195
+	elas 0
+	fric 50
+	aero 1
+	accg 0
+	perm 51
+	bhvr 59
+	tick rand 25 35
+	rnge 500
+
+	setv ov06 1
+	setv ov07 1
+endm
+
+scrp 2 15 50217 1
+endm
+
+scrp 2 15 50217 2
+endm
+
+scrp 2 15 50217 3
+endm
+
+scrp 2 15 50217 12
+	doif from ne ownr
+		sndc "chwp"
+	endi
+	doif crea from eq 1
+		stim writ targ 80 .5
+	endi
+
+	kill ownr
+
+endm
+
+*VERY simple.
+scrp 2 15 50217 9
+	addv ov01 1
+	doif ov01 gt rand 250 300
+		setv va00 posl
+		setv va01 post
+		subv va00 0
+		subv va01 15
+		new: simp 2 15 50216 "moe_C2toDS_frogs" 105 0 rand 1000 3000
+		mvsf va00 va01
+		kill ownr
+	endi
+
+	gsub checksurface
+
+	doif rand 0 500 gt 250
+*           Left Right
+		setv ov04 rand 0 1
+*           Up Down
+		setv ov05 rand 0 1
+	endi
+
+	doif ov05 eq 0
+		gsub up
+	else
+		gsub down
+	endi
+
+	doif ov04 eq 0
+		gsub left
+	else
+		gsub right
+	endi
+
+
+	subr up
+		gsub checksurface
+		subv vely ov07
+	retn
+
+	subr down
+		addv vely ov07
+	retn
+
+	subr left
+		mira 0
+		subv velx ov06
+	retn
+
+	subr right
+		mira 1
+		addv velx ov06
+	retn
+
+	subr checksurface
+		setv va00 post
+		subv va00 5
+		doif rtyp grap posx va00 ne 8 and rtyp grap posx va00 ne 9
+			doif vely lt 0.0
+				setv vely 0
+			endi
+			setv ov05 1
+		endi
+
+		doif rtyp grap posx posb ne 8 and rtyp grap posx posb ne 9 and grap posx posb ne -1
+			accg 1
+			addv ov99 1
+			doif ov99 eq 8
+				kill ownr
+			endi
+		else
+			setv ov99 0
+			accg 0
+		endi
+	retn
+endm
+
+*Collision
+scrp 2 15 50217 6
+	doif wall eq rght
+		setv ov04 0
+	elif wall eq left
+		setv ov04 1
+	elif wall eq down
+		setv ov05 0
+	elif wall eq _up_
+		setv ov05 1
+	endi
+endm
+
+
+
+
+
+
+
+
+
+*install
+scrp 2 15 50216 10
+	inst
+	attr 195
+	elas 0
+	accg 3
+	aero 5
+	tick rand 20 25
+	setv ov06 2
+	setv ov07 2
+	perm 51
+	puhl -1 30 40
+	bhvr 59
+
+*ov01 = Timer
+*> 10 Adult
+*> 50 Breed
+*> 100 Die
+
+*ov11 = Life Stage
+*0 Baby
+*1 Adult
+*2 Finding Pond to Breed
+*3 Adult - Has Bred
+*4 Dead
+
+*ov12 = Activity
+*0 Hopping
+*1 Swimming
+*3 Laying Eggs
+endm
+
+*timer
+scrp 2 15 50216 9
+	addv ov01 1
+*If you're a baby, grow up.
+	doif ov11 eq 0 and ov01 gt 300
+		setv ov11 1
+		base 53
+	endi
+
+	doif ov11 eq 1 and ov01 gt 600
+		setv ov11 2
+	endi
+
+	doif ov11 ge 1 and ov01 gt 900
+*GSUB DIE
+		lock
+		accg 3
+		frat tick
+		anim [49 50 51]
+		over
+		kill ownr
+		unlk
+	endi
+
+	doif ov11 eq 2
+		doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+			gsub layeggs
+			setv ov11 3
+		endi
+	endi
+
+*This lets you know where you are. Water or land?
+	gsub checkroom
+
+
+*------*
+*Hopping
+	doif ov12 eq 0
+		doif ov01 lt 2600
+			gsub hoprandom
+
+		else
+
+*Only mating adults try to return to water
+			doif ov11 eq 2
+				setv va00 posx
+				setv va01 posb
+				addv va01 10
+				setv va02 posb
+				subv va02 1
+				doif grap va00 va01 ne -1 and grap posx va02 ne -1
+					doif grap va00 va01 ne grap posx va02
+						doif door grap posx va02 grap va00 va01 le 51
+							perm 50
+						endi
+					endi
+				endi
+			endi
+
+			setv va00 hirp room ownr 5 0
+
+			doif va00 ne -1 and fall ne 1
+				doif prop room ownr 5 lt prop va00 5
+					slow
+					setv va01 torx va00
+					setv va02 tory va00
+
+					doif va01 lt 0
+						setv ov04 1
+					else
+						setv ov04 0
+					endi
+
+					doif ov04 eq 0
+						gsub jumpright
+					else
+						gsub jumpleft
+					endi
+				else
+					gsub hoprandom
+				endi
+			endi
+
+
+		endi
+*-------*
+*Swimming
+	elif ov12 eq 1
+
+		doif rand 0 500 gt 250
+*           Left Right
+			setv ov04 rand 0 1
+*           Up Down
+			setv ov05 rand 0 1
+		endi
+
+		doif ov05 eq 0
+			gsub up
+			gsub checksurface
+		else
+			gsub down
+		endi
+
+		doif ov04 eq 0
+			gsub left
+		else
+			gsub right
+		endi
+
+	endi
+
+
+
+
+*If you're an adult, over 50 ticks, look for pond to breed.
+
+
+	subr checkroom
+		setv va04 posb
+		subv va04 10
+		doif rtyp grap posx va04 eq 8 or rtyp grap posx va04 eq 9 and ov12 ne 1
+			inst
+			accg 0
+			perm 50
+			frat 2
+			anim [28 29 30 31 32 33 34 35 255]
+*Swimming
+			setv ov12 1
+			slow
+		elif rtyp grap posx va04 ne 8 and rtyp grap posx va04 ne 9
+			accg 3
+*Hopping
+			setv ov12 0
+			inst
+			doif perm ne 51
+				setv va04 posb
+				subv va04 1
+				doif grap posl posy eq room ownr and grap posr posy eq room ownr
+					doif grap posx post eq room ownr and grap posx va04 eq room ownr
+						perm 51
+					endi
+				endi
+			endi
+			slow
+
+		endi
+
+	retn
+
+	subr checksurface
+		setv va10 post
+		subv va10 -10
+		doif rtyp grap posx va10 ne 8 and rtyp grap posx va10 ne 9 and grap posx va10 ne -1
+			inst
+			setv vely .5
+*Go Down
+			setv ov05 1
+
+
+
+
+*So long as you're not in these waters to breed, you will try to hop out.
+			doif ov11 ne 2
+*See if you can jump up here... And make sure it's not a wall...*
+				setv va00 post
+				subv va00 50
+				setv va01 posl
+				subv va01 50
+				setv va02 posr
+				addv va02 50
+				doif obst _up_ gt 50
+					doif rtyp grap va02 va00 ne 8 and rtyp grap va02 va00 ne 9 and grap va02 va00 ne -1
+						doif obst rght lt 20
+							reps 1
+								setv ov12 1
+								subv vely 15
+								wait 1
+								gsub jumpright
+								wait tick
+								setv ov04 1
+							repe
+						endi
+					endi
+
+					doif rtyp grap va01 va00 ne 8 and rtyp grap va01 va00 ne 9 and grap va01 va00 ne -1
+						doif obst left lt 20
+							reps 1
+								setv ov12 1
+								subv vely 15
+								wait 1
+								gsub jumpleft
+								wait tick
+								setv ov04 0
+							repe
+						endi
+					endi
+				endi
+
+
+
+*Check to see if you can leap up onto a ledge...
+				setv va00 posx
+				setv va01 posy
+
+				subv va01 50
+				inst
+				lock
+				doif grap va00 va01 ne grap posx va10 and grap posx va10 ne -1 and grap va00 va01 ne -1
+					doif door grap va00 va01 grap posx va10 lt 51
+						setv ov12 0
+						accg 3
+						gsub jump
+						wait 6
+						inst
+						setv va04 posb
+						subv va04 1
+						doif grap posl posy eq room ownr and grap posr posy eq room ownr
+							doif grap posx post eq room ownr and grap posx va04 eq room ownr
+								perm 51
+							endi
+						endi
+						slow
+					endi
+				endi
+
+
+
+
+
+
+
+
+			endi
+
+
+
+		endi
+	retn
+
+
+	subr up
+		gsub checksurface
+		doif vely gt -3
+			subv vely ov07
+		endi
+	retn
+
+	subr down
+		doif obst down gt 5
+			addv vely ov07
+		else
+			subv vely 1
+		endi
+	retn
+
+	subr left
+		mira 0
+		subv velx ov06
+	retn
+
+	subr right
+		mira 1
+		addv velx ov06
+	retn
+
+	subr jump
+		anim [ 0 1 2 3 4 5 6 7 0]
+		subv vely 35
+	retn
+
+	subr hoprandom
+
+		doif rand 1 10 lt 3
+			gsub croak
+			stop
+		endi
+
+		doif rand 0 500 gt 250
+*           Left Right
+			setv ov04 rand 0 1
+		endi
+
+		doif ov04 eq 1
+			gsub jumpright
+		else
+			gsub jumpleft
+		endi
+
+	retn
+
+	subr croak
+		snde "bull"
+		frat 2
+		anim [16 17 18 19 18 17 16]
+	retn
+
+	subr layeggs
+		setv va04 0
+		esee 2 15 50206
+			doif targ ne null and targ ne ownr
+				doif ov11 lt 2
+					addv va04 1
+				endi
+			endi
+		next
+		targ ownr
+
+		doif type carr eq 6
+			seta va02 carr
+		endi
+
+		doif va04 lt 3
+			setv va00 posx
+			setv va01 posb
+			new: simp 2 18 50216 "moe_C2toDS_tadp" 1 17 5000
+			mvsf va00 va01
+			doif type va02 eq 6
+				spas va02 targ
+			endi
+			targ ownr
+			doif va04 lt 1
+				new: simp 2 18 50216 "moe_C2toDS_tadp" 1 17 5000
+				mvsf va00 va01
+				doif type va02 eq 6
+					spas va02 targ
+				endi
+				targ ownr
+			endi
+		endi
+	retn
+
+
+	subr jumpright
+		mira 1
+		anim [ 0 1 2 3 4 5 6 7 0]
+		subv vely 12
+		doif ov12 eq 2
+			wait 3
+		endi
+		addv velx 15
+		accg 3
+		setv ov12 0
+	retn
+
+	subr jumpleft
+		mira 0
+		anim [ 0 1 2 3 4 5 6 7 0]
+		subv vely 12
+		doif ov12 eq 2
+			wait 3
+		endi
+		subv velx 15
+		accg 3
+		setv ov12 0
+	retn
+
+
+endm
+*activate 1
+scrp 2 15 50216 1
+	doif crea from eq 1
+		stim writ from 86 1
+	endi
+endm
+*collision
+*scrp 2 15 50216 6
+**snde "drop"
+*endm
+*eat
+scrp 2 15 50216 12
+	lock
+	snde "chwp"
+	doif crea from eq 1
+		stim writ from 80 1
+	endi
+	kill ownr
+	unlk
+endm
+
+
+
+*deactivate
+scrp 2 15 50216 0
+endm
+*activate 2
+scrp 2 15 50216 2
+	doif crea from eq 1
+		stim writ from 86 1
+	endi
+endm
+*hit
+scrp 2 15 50216 3
+	doif crea from eq 1
+		stim writ from 87 1
+	endi
+endm
+*pickup
+scrp 2 15 50216 4
+endm
+*drop
+scrp 2 15 50216 5
+endm
+*catchall
+scrp 2 15 50216 255
+endm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rscr
+inst
+enum 2 24 50216
+	kill targ
+next
+*Removes all scripts for the specified agent 2 24 50216 if it exists.
+*No need to micromanage. :)
+loop
+	doif sorq 2 24 50216 va00 eq 1
+		scrx 2 24 50216 va00
+	endi
+	addv va00 1
+untl va00 eq 2000
+setv va00 0
+
+
+enum 2 18 50216
+	kill targ
+next
+*Removes all scripts for the specified agent 2 24 50216 if it exists.
+*No need to micromanage. :)
+loop
+	doif sorq 2 18 50216 va00 eq 1
+		scrx 2 18 50216 va00
+	endi
+	addv va00 1
+untl va00 eq 2000
+setv va00 0
+
+*Removes all scripts for the specified agent 2 24 50216 if it exists.
+*No need to micromanage. :)
+loop
+	doif sorq 2 18 50216 va00 eq 1
+		scrx 2 18 50216 va00
+	endi
+	addv va00 1
+untl va00 eq 2000
+setv va00 0
+
+enum 2 15 50217
+	kill targ
+next
+
+
+*Frogs
+enum 2 15 50216
+	kill targ
+next
+*Removes all scripts for the specified agent 2 15 50216 if it exists.
+*No need to micromanage. :)
+loop
+	doif sorq 2 15 50216 va00 eq 1
+		scrx 2 15 50216 va00
+	endi
+	addv va00 1
+untl va00 eq 2000
+setv va00 0
+
+
+***OV## Definitions***		***STIMULUS NUMBERS***		***ATTR***			***BHVR***
+*ov00	OWNR				76	Discomfort			1	Carryable		1	Activate 1
+*ov01	Age Counter			77	Eaten plant			2	Mousable		2	Activate 2
+*ov02	Energy Level		78	Eaten fruit			4	Activateable	4	Deactivate
+*ov03	Gender			79	Eaten food			8	Greedy Cabin	8	Hit
+*ov04	Horizonal Direction	80	Eaten animal		16	Invisible		16	Eat
+*ov05	Veritcal Direction	81	Eaten detritus		32	Floatable		32	Pick Up
+*ov06	Horizontal Velocity	82	Consume alchohol		64	Suffer Collisions			
+*ov07	Vertical Velocity		83	Danger plant		128	Suffer Physics			
+*ov08	Target			84	Friendly plant		256	Camera Shy			
+*ov09	Home				85	Play bug			512	Open Air Cabin			
+*ov10	Mate				86	Play critter		1024	Rotatable			
+*ov11	Lifestage			87	Hit critter			2048	Presence			
+*ov12	Sexuality			88	Play danger animal					
+*ov13	Collection			89	Activate button					
+*ov14	Boolean			90	Activate machine					
+*ov15	Stage_1 Child		91	Got machine					
+*ov16	Stage_2 Adol		92	Hit machine					
+*ov17	Stage_3 Adult/Breed	93	Got creature egg					
+*ov18	Stage_4 Elder		94	Travelled in lift					
+*ov19	Stage_5 Senile		95	Travelled through meta door					
+*ov20	Stage_6 Die/Dead		96	Travelled through internal door					
+*					97	Played with toy		
+
+***CA's***				***RTYP's***
+*Ca smell 0 (sound)		0 - Atmosphere
+*CA smell 1 (light)		1 - Wooden Walkway
+*CA smell 2 (heat)		2 - Concrete Walkway
+*Ca smell 3 (water)		3 - Indoor Corridor
+*CA smell 4 (nutrient)		4 - Outdoor Concrete
+*CA smell 5 (water)		5 - Normal Soil
+*CA smell 6 (protein)		6 - Boggy Soil
+*CA smell 7 (carbohydrate)	7 - Drained Soil
+*CA smell 8 (fat)			8 - Fresh Water
+*CA smell 9 (flowers)		9 - Salt Water
+*CA smell 10 (machinery)	10- Ettin Home
+*CA smell 11
+*CA smell 12 (Norn)
+*CA smell 13 (Grendel)
+*CA smell 14 (Ettin)
+*CA smell 15 (Norn home)
+*CA smell 16 (Grendel home)
+*CA smell 17 (Ettin home)
+*CA smell 18
+*CA smell 19
