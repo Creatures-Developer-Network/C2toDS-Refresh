@@ -1,0 +1,669 @@
+* 2 17 50202 - Puffball Nest 
+* 2 20 50202 - Puffball
+* 2 24 50209 - Puffball Launcher
+
+* Much of this is straight converted, with additions/fixes/changes.
+
+* TO DO:
+
+* 	DONE - update everything to work with subroutines
+
+* 	DONE - if "nest" dies, add nutrients to the ground
+
+* 	DONE - when "nest" is born, remove nutrients from ground
+
+* 	DONE - MIRA sprites randomly
+
+* 	add eat scripts to spores
+
+* 	add pickup scripts to spores
+
+*Fix the move error during seeding.
+
+
+reps rand 2 4
+
+	new: simp 2 17 50202 "moe_C2toDS_puffball" 22 0 rand 800 2000
+
+	mvsf rand 9380 9990 49740
+
+repe
+
+
+new: simp 2 24 50209 "moe_C2toDS_puffball" 35 29 2000
+
+mvsf 6118 48400
+
+
+scrp 2 24 50209 10
+
+	attr 199
+
+	accg 4
+
+	aero 2
+
+	elas 25
+
+	perm 51
+
+	bhvr 1
+
+	emit 10 .25
+
+endm
+
+
+
+scrp 2 17 50202 10
+
+	mira rand 0 1
+
+	perm .51
+
+	attr 192
+
+	elas 0
+
+	accg .5
+
+	tick rand 200 400
+
+	rnge 500
+
+	setv ov00 0
+
+endm
+
+
+
+scrp 2 17 50202 9
+
+
+
+	doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+
+		kill ownr
+
+	endi
+
+
+
+	doif fall eq 0 and carr eq null
+
+		doif ov00 eq 0
+
+			gsub grow
+
+		elif ov00 eq 1
+
+			gsub wait
+
+		elif ov00 eq 2
+
+			gsub spore
+
+		else
+
+			gsub die
+
+		endi
+
+	endi
+
+
+
+	subr grow
+
+		setv va00 pose
+
+		addv va00 1
+
+		pose va00
+
+		doif pose eq 9
+
+			setv ov00 1
+
+		endi
+
+		stop
+
+	retn
+
+
+
+	subr wait
+
+		setv ov00 2
+
+		tick rand 200 400
+
+		stop
+
+	retn
+
+
+
+	subr spore
+
+		tick 0
+
+		base 9
+
+		anim [0 1 2 3 4 5]
+
+		over
+
+*moved the setvs to the bottom
+
+		inst
+
+		setv va02 1
+
+		reps 3
+
+			setv va00 posl
+
+			setv va01 post
+
+			new: simp 2 20 50202 "moe_C2toDS_puffball" 7 22 2999
+
+			setv ov01 rand 10 40
+
+			mvsf va00 va01
+
+			doif va02 eq 1
+
+				doif tmvb -7 -3 eq 1
+
+					mvby -7 -3
+
+					setv ov10 -1
+
+				else
+
+					kill targ
+
+				endi
+
+			elif va02 eq 2
+
+				doif tmvb 13 -13 eq 1
+
+					mvby 13 -13
+
+					setv ov10 0
+
+				else
+
+					kill targ
+
+				endi
+
+			else
+
+				doif tmvb 29 -3 eq 1
+
+					mvby 29 -3
+
+					setv ov10 1
+
+				else
+
+					kill targ
+
+				endi
+
+			endi
+
+			doif targ ne null
+
+				anim [0 1 2 3 4 5 255]
+
+				tick 1
+
+				addv va02 1
+
+			endi
+
+			targ ownr
+
+		repe
+
+		slow
+
+		targ ownr
+
+		base 9
+
+		anim [5 4 3 2 1 0]
+
+		over
+
+		setv ov00 3
+
+		tick rand 200 400
+
+		stop
+
+
+
+	retn
+
+
+
+	subr die
+
+		base 0
+
+		doif pose eq 21
+
+			altr -1 4 .025
+
+			kill ownr
+
+		endi
+
+		doif pose eq 20
+
+			pose 21
+
+		endi
+
+		doif pose eq 19
+
+			pose 20
+
+		endi
+
+		doif pose eq 9
+
+			pose 19
+
+		endi
+
+		stop
+
+	retn
+
+endm
+
+
+
+
+
+scrp 2 20 50202 10
+
+	attr 195
+
+	bhvr 48
+
+	elas 0
+
+	accg .05
+
+	puhl -1 14 22
+
+	rnge 500
+
+	tick 1
+
+endm
+
+
+
+scrp 2 20 50202 12
+
+	lock
+
+	stim writ from 26 1
+
+	stim writ from 76 .5
+
+	stim writ from 77 .5
+
+	targ from
+
+	chem 72 .25
+
+	kill ownr
+
+	unlk
+
+endm
+
+
+
+
+
+scrp 2 20 50202 9
+
+	doif ov00 eq 0
+
+		gsub fly
+
+	endi
+
+	doif ov00 eq 1 and fall eq 0 and carr eq null
+
+		gsub grow
+
+	endi
+
+
+
+	subr fly
+
+		tick 3
+
+		doif ov10 eq -1
+
+			setv va00 rand -5 -1
+
+		elif ov10 eq 0
+
+			setv va00 rand -4 4
+
+		else
+
+			setv va00 rand 1 5
+
+		endi
+
+		setv va01 rand -8 -1
+
+		setv velx va00
+
+		setv vely va01
+
+		subv ov01 1
+
+		doif ov01 le 0
+
+			accg 1
+
+			wait 5
+
+			pose 6
+
+			setv ov00 1
+
+			tick rand 200 400
+
+		endi
+
+		stop
+
+	retn
+
+
+
+	subr grow
+
+		etch 2 17 50202
+
+			kill ownr
+
+		next
+
+		setv va00 0
+
+		esee 2 17 50202
+
+			addv va00 1
+
+		next
+
+		doif va00 gt 3
+
+			kill ownr
+
+		endi
+
+
+
+		setv va10 grap posx posy
+
+		setv va11 prop va10 4
+
+		setv va12 prop va10 2
+
+
+
+		doif va10 eq 8 or va00 eq 9
+
+			kill ownr
+
+		endi
+
+
+
+		doif va11 lt .02
+
+			kill ownr
+
+		endi
+
+
+
+		doif va11 lt .08
+
+			setv va00 rand 0 1
+
+			doif va00 eq 0
+
+				kill ownr
+
+			endi
+
+		endi
+
+
+
+		doif va12 lt .02
+
+			kill ownr
+
+		endi
+
+
+
+		doif va11 gt .9
+
+			kill ownr
+
+		endi
+
+
+
+* NOW GROW MY PRETTIES HAHAHAHAHAAAAHHH!!!
+
+		altr -1 4 -.025
+
+		setv va00 posl
+
+		subv va00 10
+
+		setv va01 post
+
+		subv va01 10
+
+		inst
+
+		new: simp 2 17 50202 "moe_C2toDS_puffball" 22 0 3000
+
+		mvsf va00 va01
+
+		slow
+
+		kill ownr
+
+		stop
+
+
+
+	retn
+
+endm
+
+
+
+
+
+scrp 2 20 50202 5
+
+	setv ov01 rand 10 20
+
+	anim [0 1 2 3 4 5 255]
+
+	tick 3
+
+	loop
+
+		doif ov10 eq -1
+
+			setv va00 rand -5 -1
+
+		elif ov10 eq 0
+
+			setv va00 rand -4 4
+
+		else
+
+			setv va00 rand 1 5
+
+		endi
+
+		setv va01 rand -8 -1
+
+		setv velx va00
+
+		setv vely va01
+
+		subv ov01 1
+
+	untl ov01 le 0
+
+	accg 1
+
+	wait 5
+
+	pose 6
+
+	setv ov00 1
+
+	tick rand 200 400
+
+	stop
+
+endm
+
+
+
+
+
+
+
+scrp 2 24 50209 1
+
+	lock
+
+	stim writ from 90 1
+
+	anim [0 1 2 3 4 5]
+
+	over
+
+	setv va00 posl
+
+	setv va01 post
+
+	inst
+
+	setv va02 1
+
+	reps 3
+
+		new: simp 2 20 50202 "moe_C2toDS_puffball" 7 22 2999
+
+		setv ov01 rand 10 40
+
+
+
+		mvsf va00 va01
+
+		doif va02 eq 1
+
+			mvby -7 -3
+
+			setv ov10 -1
+
+		elif va02 eq 2
+
+			mvby 13 -13
+
+			setv ov10 0
+
+		else
+
+			mvby 29 -3
+
+			setv ov10 1
+
+		endi
+
+		anim [0 1 2 3 4 5 255]
+
+		tick 1
+
+		addv va02 1
+
+	repe
+
+	slow
+
+	targ ownr
+
+	anim [5 4 3 2 1 0]
+
+	unlk
+
+endm
+
+
+
+scrp 2 24 50209 6
+
+	lock
+
+	sndc "drop"
+
+	over
+
+	wait 2
+
+	unlk
+
+endm
+
+rscr
+
+enum 2 17 50202
+
+	kill targ
+
+next
+
+enum 2 20 50202
+
+	kill targ
+
+next
+
+enum 2 24 50209
+
+	kill targ
+
+next
+

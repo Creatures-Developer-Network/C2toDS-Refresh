@@ -1,0 +1,71 @@
+* 2 6 50216 - Jungle Vines
+
+*Jungle
+
+new: simp 2 6 50216 "moe_C2toDS_Atmos_vinesjungle" 15 0 1
+
+mvto 5935 49595
+
+
+scrp 2 6 50216 10
+
+*Update every one and a half minutes, this make you mature by summer.
+
+	tick 1
+
+	setv name "donotnest" 1
+
+endm
+
+
+
+scrp 2 6 50216 9
+
+	tick 1800
+
+	doif sean lt 2
+
+		doif pose lt 12
+
+			setv va00 pose
+
+			addv va00 1
+
+			pose va00
+
+		endi
+
+	elif sean eq 2
+
+		pose 13
+
+	elif sean eq 3
+
+		doif date lt 2
+
+			pose 14
+
+		else
+
+			pose 0
+
+		endi
+
+	endi
+
+endm
+
+
+
+rscr
+
+
+enum 2 6 50216
+
+	kill targ
+
+next
+
+
+
+

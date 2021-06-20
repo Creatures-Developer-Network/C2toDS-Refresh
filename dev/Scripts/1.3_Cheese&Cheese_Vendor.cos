@@ -1,0 +1,279 @@
+*Scripts for:
+*2 11 50202 - Cheese
+*2 23 50208 - Cheese Machine
+
+
+* Associate the cheese vendor agent with fat smell?
+cacl 2 23 50208 8
+
+*Starter Cheese
+
+new: simp 2 11 50202 "moe_C2toDS_cheese" 1 rand 25 26 5000
+
+mvsf 7220 48415
+
+new: simp 2 11 50202 "moe_C2toDS_cheese" 1 rand 25 26 5000
+
+mvsf 7355 48415
+
+new: simp 2 11 50202 "moe_C2toDS_cheese" 1 rand 25 26 5000
+
+mvsf 7375 48415
+
+
+
+
+
+*By Machine/Dungeon
+
+new: simp 2 11 50202 "moe_C2toDS_cheese" 1 rand 25 26 5000
+
+mvsf 6352 48740
+
+new: simp 2 11 50202 "moe_C2toDS_cheese" 1 rand 25 26 5000
+
+mvsf 6370 48740
+
+
+
+new: simp 2 11 50202 "moe_C2toDS_cheese" 1 rand 25 26 5000
+
+mvsf 7375 48730
+
+
+
+new: simp 2 11 50202 "moe_C2toDS_cheese" 1 rand 25 26 1000
+
+mvsf 6180 48670
+
+
+
+
+
+new: comp 2 23 50208 "moe_C2toDS_cheese" 9 0 1000
+
+bhvr 1
+
+attr 198
+
+elas 0
+
+accg 5
+
+perm 51
+
+mvsf 6415 48658
+
+pat: dull 1 "moe_C2toDS_cheese" 9 25 0 0
+
+pat: dull 2 "moe_C2toDS_cheese" 27 70 15 0
+
+part 1
+
+frat 4
+
+anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 255]
+
+
+
+prt: inew 0 "Input" "Recieves signal inputs for the cheese machine." 16 20 0
+
+prt: onew 0 "Output" "Outputs signals from the cheese machine." 75 20
+
+
+
+*Switch On/Off
+
+pat: butt 3 "moe_C2toDS_cheese" 28 2 84 38 0 [] 1002 0
+
+
+
+*Cheese Creation Script
+
+scrp 2 11 50202 10
+
+	attr 195
+
+	perm 51
+
+*bhvr!!!
+
+	elas 25
+
+	accg 4
+
+	aero 2
+
+	bhvr 48
+
+	emit 8 .0015
+
+	plne rand 1000 5000
+
+endm
+
+
+
+*Cheese Drop
+
+scrp 2 11 50202 6
+
+	setv va00 rtyp grap posx posy
+
+	doif va00 eq 5 or va00 eq 6 or va00 eq 7
+
+		snde "dr10"
+
+	else
+
+		snde "drp6"
+
+	endi
+
+endm
+
+*Eat*
+
+scrp 2 11 50202 12
+
+	snde "chwp"
+
+	doif crea from eq 1
+
+		stim writ from 79 1
+
+		wait 1
+
+		targ from
+
+*Starch, Fat, Hunger Dec. And a little protein... Carb/Fat*
+
+		chem 5 .31
+
+		chem 10 .07843
+
+		chem 12 .07843
+
+		chem 149 -.31
+
+		chem 150 -.07843
+
+		chem 151 -.07843
+
+	endi
+
+	wait 1
+
+	kill ownr
+
+endm
+
+*Cheese Vendor
+
+scrp 2 23 50208 1002
+
+	lock
+
+	targ pntr
+
+	anim [0 1 0]
+
+	targ ownr
+
+	part 3
+
+	doif pose eq 0
+
+		pose 1
+
+	else
+
+		pose 0
+
+	endi
+
+
+
+	doif bhvr eq 0
+
+		bhvr 1
+
+		attr 198
+
+	else
+
+		bhvr 0
+
+		attr 214
+
+	endi
+
+
+
+endm
+
+*Cheese Vendor
+
+scrp 2 23 50208 1
+
+	lock
+
+	stim writ from 90 1
+
+	sndl "cmac"
+
+	frat 10
+
+	anim [ 0 1 2 3 4 5 6 7 8 8]
+
+	over
+
+
+
+*Output Signal
+
+	prt: send 0 255
+
+
+
+	stpc
+
+	setv va00 posl
+
+	subv va00 10
+
+	setv va01 posy
+
+	new: simp 2 11 50202 "moe_C2toDS_cheese" 1 rand 25 26 5000
+
+	mvsf va00 va01
+
+	velo rand -5 0 -10
+
+	targ ownr
+
+	anim [7 6 5 4 3 2 1 0 ]
+
+	over
+
+
+
+	unlk
+
+endm
+
+
+
+rscr 
+
+enum 2 11 50202
+
+	kill targ
+
+next
+
+enum 2 23 50208
+
+	kill targ
+
+next

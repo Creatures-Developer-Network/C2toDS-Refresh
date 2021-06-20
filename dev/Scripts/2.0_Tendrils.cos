@@ -1,0 +1,588 @@
+* 2 3 50220 - Walking Tendril Seed
+* 2 5 50203 - Walking Tendril
+* 2 23 50209 - Walking Tendril Seed Vendor
+
+*Walking Tendril
+
+*Moe 2010
+
+*Vendor
+
+new: simp 2 23 50209 "moe_C2toDS_tend" 6 0 5000
+
+mvsf 4032 49672
+
+setv va00 0
+
+prt: inew 0 "Input" "Recieves signal inputs for the tendril launcher." 15 58 0
+
+prt: onew 0 "Output" "Sends signal inputs from the tendril layer." 47 58
+
+
+
+
+scrp 2 23 50209 10
+
+	attr 199
+
+	accg 3
+
+	elas 0
+
+	perm 51
+
+	mesg writ targ 0
+
+endm
+
+
+
+scrp 2 23 50209 6
+
+	lock
+
+	sndc "drop"
+
+	over
+
+	wait 2
+
+	unlk
+
+endm
+
+
+
+scrp 2 23 50209 1
+
+	lock
+
+	prt: send 0 255
+
+*sndc "m_a7"
+
+	sndc "wirr"
+
+	anim [0 1 2 3 4 5 4 3 2 1]
+
+	wait 7
+
+	sndc "pop4"
+
+	setv va00 posx
+
+	subv va00 3
+
+	setv va01 post
+
+	addv va01 10
+
+*Create Tendril Seed*
+
+
+
+	new: simp 2 3 50220 "moe_C2toDS_tend" 1 6 rand 50 2000
+
+	mvsf va00 va01
+
+	setv va00 rand -100 100
+
+	divv va00 10
+
+	velo va00 -10
+
+	unlk
+
+endm
+
+
+
+
+
+*Seed Create Script
+
+scrp 2 3 50220 10
+
+	inst
+
+	perm 51
+
+	attr 195
+
+	bhvr 48
+
+	accg 3
+
+	elas 25
+
+	aero 4
+
+	emit 7 .15
+
+	tick rand 200 300
+
+	mira rand 0 1
+
+endm
+
+
+
+*Seed Timer
+
+scrp 2 3 50220 9
+
+
+
+	doif game "TMOD" eq 4
+
+*stop
+
+	endi
+
+
+
+*A tendril can't grow if the celing is too low.
+
+	doif obst _up_ lt 150
+
+		stop
+
+	endi
+
+
+
+	doif carr ne null
+
+		stop
+
+	endi
+
+
+
+	gsub check
+
+
+
+	subr check
+
+		setv va00 0
+
+		esee 2 5 50203
+
+			doif targ ne null
+
+				addv va00 1
+
+			endi
+
+		next
+
+		targ ownr
+
+		doif va00 lt 3
+
+			gsub grow
+
+		else
+
+			addv ov10 1
+
+			doif ov10 ge 20
+
+				kill ownr
+
+			endi
+
+		endi
+
+	retn
+
+
+
+	subr grow
+
+		setv va00 posx
+
+		subv va00 44
+
+		setv va01 posb
+
+		subv va01 124
+
+		new: simp 2 5 50203 "moe_C2toDS_tend" 21 8 rand 50 2500
+
+		doif tmvt va00 va01 ne 1
+
+			mvsf va00 va01
+
+		else
+
+			mvto va00 va01
+
+		endi
+
+		kill ownr
+
+	retn
+
+
+
+endm
+
+
+
+scrp 2 3 50220 6
+
+	sndc "dr64"
+
+endm
+
+
+
+scrp 2 3 50220 12
+
+	stim writ from 79 1
+
+	snde "chwp"
+
+	kill ownr
+
+endm
+
+
+
+*Tendril Create
+
+scrp 2 5 50203 10
+
+	perm 51
+
+	attr 195
+
+	accg 3
+
+	elas 0
+
+	dcor 0
+
+	core 100 124 40 48
+
+	fric 20
+
+	tick rand 200 300
+
+	seta ov07 null
+
+	bhvr 0
+
+endm
+
+
+
+scrp 2 5 50203 9
+
+
+
+	doif pose lt 6
+
+		setv va00 pose
+
+		addv va00 1
+
+		pose va00
+
+		stop
+
+	else
+
+		attr 199
+
+		bhvr 11
+
+	endi
+
+
+
+*You're looking for detritus*
+
+	doif ov07 eq null
+
+		star 2 10 0
+
+		doif targ ne null
+
+			seta mv07 targ
+
+			targ ownr
+
+		else
+
+			targ ownr
+
+			tick rand 200 300
+
+
+
+			addv ov10 1
+
+			doif ov10 ge 30
+
+				setv va00 posx
+
+				setv va01 posb
+
+				new: simp 2 3 50220 "moe_C2toDS_tend" 1 6 rand 50 2000
+
+				mvsf va00 va01
+
+
+
+				targ ownr
+
+				doif pose lt 50
+
+					frat 50
+
+					anim [14 15 16 17 18 19 20]
+
+					over
+
+					wait 50
+
+					kill ownr
+
+				endi
+
+				stop
+
+			endi
+
+		endi
+
+	else
+
+		tick 10
+
+		doif seee ownr ov07 ne 1
+
+			seta ov07 null
+
+			stop
+
+		endi
+
+		targ ov07
+
+		doif targ ne null
+
+			setv va00 posx
+
+		endi
+
+		targ ownr
+
+
+
+		doif posx lt va00
+
+			mira 0
+
+		elif posx gt va00
+
+			mira 1
+
+		endi
+
+
+
+		gsub walk
+
+		doif touc ownr ov07 eq 1
+
+			inst
+
+			targ ov07
+
+			mesg writ targ 12
+
+			snde "gulp"
+
+			slow
+
+		endi
+
+	endi
+
+
+
+	subr walk
+
+		reps rand 4 5
+
+			frat 2
+
+			anim [6 7 8 9 10]
+
+			doif mira eq 0
+
+				addv velx 5
+
+			else
+
+				subv velx 5
+
+			endi
+
+			over
+
+		repe
+
+	retn
+
+
+
+endm
+
+
+
+
+
+scrp 2 5 50203 1
+
+
+
+*Poke Norns, Move
+
+
+
+	stim writ from 83 1
+
+
+
+	doif from ne pntr
+
+		doif relx ownr from gt 0
+
+			mira 1
+
+		else
+
+			mira 0
+
+		endi
+
+	else
+
+		sndc "stng"
+
+		targ from
+
+		setv va00 posl
+
+		targ ownr
+
+		doif posx gt va00
+
+			mira 0
+
+		else
+
+			mira 1
+
+		endi
+
+	endi
+
+
+
+
+
+	reps rand 4 5
+
+		frat 2
+
+		anim [6 7 8 9 10]
+
+		doif mira eq 0
+
+			addv velx 5
+
+		else
+
+			subv velx 5
+
+		endi
+
+		over
+
+	repe
+
+
+
+
+
+endm
+
+
+
+scrp 2 5 50203 2
+
+	stim writ from 83 1
+
+	mesg writ ownr 0
+
+endm
+
+
+
+scrp 2 5 50203 3
+
+	stim writ from 83 1
+
+	mesg writ ownr 0
+
+endm
+
+
+rscr
+
+
+enum 2 23 50209
+
+	kill targ
+
+next
+
+
+
+enum 2 3 50220
+
+	kill targ
+
+next
+
+
+
+enum 2 5 50203
+
+	kill targ
+
+next
+
+
+
+scrx 2 23 50209 1
+
+scrx 2 23 50209 6
+
+scrx 2 23 50209 10
+
+
+
+scrx 2 3 50220 9
+
+scrx 2 3 50220 10
+
+scrx 2 3 50220 9
+
+scrx 2 3 50220 10

@@ -1,0 +1,346 @@
+* 3 8 50204 - Electric Gate
+
+new: comp 3 8 50204 "moe_C2toDS_ObjectPack1_gate" 10 0 5000
+
+mvto 8325 49275
+
+
+scrp 3 8 50204 10
+
+	attr 198
+
+	elas 0
+
+	accg 4
+
+	perm 51
+
+	setv ov03 3
+
+	pat: butt 1 "moe_C2toDS_ObjectPack1_gate" 10 2 49 16 0 [] 1000 0
+
+	pat: dull 2 "moe_C2toDS_ObjectPack1_gate" 12 50 3 0
+
+	prt: onew 0 "Output" "Outputs signals from the active force gate." 54 7
+
+
+
+
+
+endm
+
+
+
+scrp 3 8 50204 6
+
+	sndc "drop"
+
+endm
+
+
+
+scrp 3 8 50204 1000
+
+	lock
+
+	targ pntr
+
+	anim [0 1 0]
+
+	targ ownr
+
+
+
+	part 1
+
+	doif pose eq 0
+
+		pose 1
+
+		setv ov04 1
+
+		stpc
+
+	else
+
+		setv ov04 0
+
+		pose 0
+
+		part 0
+
+		doif pose ne 0
+
+			sndl "gat1"
+
+		endi
+
+	endi
+
+
+
+endm
+
+
+
+scrp 3 8 50204 1
+
+	frat 1
+
+	targ pntr
+
+	setv va03 posl
+
+	targ ownr
+
+	setv va00 posx
+
+	addv va00 10
+
+	setv va01 posx
+
+	subv va01 10
+
+	doif va03 gt va00
+
+*Right
+
+		doif ov00 eq 0
+
+			setv ov01 0
+
+			setv ov02 0
+
+
+
+			setv ov00 1
+
+			anim [1 2 3 255]
+
+			tick ov03
+
+			doif ov04 eq 0
+
+				sndl "gat1"
+
+			endi
+
+		else
+
+			anim [0]
+
+			setv ov00 0
+
+			tick 0
+
+			stpc
+
+		endi
+
+	elif va03 lt va01
+
+*Left
+
+		doif ov01 eq 0
+
+			setv ov00 0
+
+			setv ov02 0
+
+
+
+			setv ov01 1
+
+			anim [4 5 6 255]
+
+			tick ov03
+
+			doif ov04 eq 0
+
+				sndl "gat1"
+
+			endi
+
+		else
+
+			setv ov01 0
+
+			anim [0]
+
+			tick 0
+
+			stpc
+
+		endi
+
+	else
+
+*Center
+
+		doif ov02 eq 0
+
+			setv ov00 0
+
+			setv ov01 0
+
+*ON
+
+			setv ov02 1
+
+			anim [7 8 9 255]
+
+			tick ov03
+
+			doif ov04 eq 0
+
+				sndl "gat1"
+
+			endi
+
+		else
+
+*OFF
+
+			anim [0]
+
+			setv ov02 0
+
+			tick 0
+
+			stpc
+
+		endi
+
+	endi
+
+
+
+
+
+endm
+
+
+
+scrp 3 8 50204 9
+
+
+
+	prt: send 0 255
+
+
+
+	setv va00 posx
+
+*addv va00 50
+
+	setv va01 posy
+
+	etch 0 0 0
+
+		inst
+
+		doif targ ne ownr and targ ne null
+
+			doif attr eq 194 or attr eq 195 or attr eq 199 or attr eq 198 and carr eq null
+
+*Right
+
+				doif mv00 eq 1
+
+*doif velx lt 0
+
+					subv vely accg
+
+					setv velx 10
+
+					snde "gat2"
+
+*endi
+
+					doif type targ eq 7
+
+						dirn 3
+
+*mvft va00 va01					
+
+					endi
+
+				endi
+
+
+
+*Left
+
+				doif mv01 eq 1
+
+*doif velx lt 0
+
+					subv vely accg
+
+					setv velx -10
+
+					snde "gat2"
+
+*endi
+
+					doif type targ eq 7
+
+						dirn 2
+
+*mvft va00 va01
+
+					endi
+
+				endi
+
+
+
+*Center
+
+				doif mv02 eq 1
+
+
+
+					doif posx ge va00
+
+						subv vely accg
+
+						setv velx 10
+
+						snde "gat2"
+
+					elif posx le va00
+
+						subv vely accg
+
+						setv velx -10
+
+					endi
+
+
+
+				endi
+
+			endi
+
+		endi
+
+	next
+
+endm
+
+rscr
+
+enum 3 8 50204
+
+	kill targ
+
+next
+
+
+
+scrx 3 8 50204 10
+
+scrx 3 8 50204 9
+
+scrx 3 8 50204 6

@@ -1,0 +1,193 @@
+*  3 1 50204 -- Lab Shuttle
+
+* Woo, another almost-straight convert. Took a lot of fiddling to get exact values, though. 
+
+*Shut sound is used in, I believe, C1toDS, renamed to shtl.
+
+new: vhcl 3 1 50204 "moe_C2toDS_shuttle" 12 0 100
+
+attr 12
+
+setv ov00 1
+
+cabn 64 61 180 158
+
+pat: dull 1 "moe_C2toDS_shuttle" 1 0 0 150
+
+part 1
+
+mvto 8008 49085
+
+
+
+scrp 3 1 50204 1
+
+	lock
+
+	doif ov00 eq 0
+
+		attr 8
+
+		part 1
+
+		anim [2 1 0]
+
+		wait 10
+
+		gpas 4 0 0 1
+
+		part 1
+
+		anim [0 1 2]
+
+		wait 10
+
+		part 1
+
+		anim [2 3 4 5 6 255]
+
+		setv velx 20
+
+		sndl "shtl"
+
+		loop
+
+			mvby 0 1.15
+
+			wait 1
+
+		untl posr ge 8254
+
+		fade
+
+		setv velx 0
+
+		part 1
+
+		pose 6
+
+		reps 10
+
+			mvby 0 2
+
+			wait 1
+
+		repe
+
+		part 1
+
+		anim [8 9]
+
+		over
+
+		dpas 4 0 0
+
+		etch 4 0 0
+
+			setv velx 20
+
+			setv vely -8
+
+		next
+
+		targ ownr
+
+		wait 5
+
+		part 1
+
+		anim [9 8 7]
+
+		attr 12
+
+		setv ov00 1
+
+	else
+
+		attr 8
+
+		part 1
+
+		anim [8 9]
+
+		wait 10
+
+		gpas 4 0 0 1
+
+		part 1
+
+		anim [9 8 6]
+
+		reps 10
+
+			mvby 0 -2
+
+			wait 1
+
+		repe
+
+		part 1
+
+		anim [6 5 4 3 2 255]
+
+		setv velx -20
+
+		sndl "shtl"
+
+		loop
+
+			mvby 0 -1.15
+
+			wait 1
+
+		untl posl le 6620
+
+		fade
+
+		setv velx 0
+
+		part 1
+
+		anim [1 0]
+
+		over
+
+		dpas 4 0 0
+
+		etch 4 0 0
+
+			setv velx -5
+
+			setv vely -5
+
+		next
+
+		targ ownr
+
+		wait 5
+
+		part 1
+
+		anim [0 1 7]
+
+		attr 12
+
+		setv ov00 0
+
+	endi
+
+	unlk
+
+endm
+
+rscr
+
+enum 3 1 50204
+
+	kill targ
+
+next
+
+scrx 3 1 50204 1
+
+scrx 3 1 50204 2

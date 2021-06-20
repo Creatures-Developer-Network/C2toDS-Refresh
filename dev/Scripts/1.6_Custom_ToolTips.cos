@@ -1,0 +1,544 @@
+*Uses:
+* 1 22 50200
+* 1 21 50200
+
+*C2toDS ToolTip Maker
+
+*+----------+
+
+*|          |
+
+*| ToolTips |
+
+*|          |
+
+*+----------+
+
+*
+
+* For your information I have put a small amount of ToolTip catalogue writing help in the ToolTips catalogue file. 
+
+* 
+
+new: comp 1 22 50200 "moe_C2toDS_UI" 0 0 9501
+
+attr 304
+
+pat: fixd 1 "tooltips" 1 0 8 1 "BlackOnTransparentChars"
+
+imsk 1
+
+frel pntr
+
+show 0
+
+flto 100 100
+
+seta game "C2toDSToolTips" targ
+
+tick 3
+
+**
+
+** ToolTipDev GAME variable will show you the classifier, part ID and pose of the HOTS agent (if it doesn't already have a ToolTip)! 
+
+** This makes it easier for you to write new ToolTips as it shows you what your ToolTip TAG should be. Set to 0 is off, 1 is on.
+
+setv game "ToolTipDev" 0
+
+**
+
+** ToolTipDev mode can be activated by the key combination CTRL SHIFT D
+
+**
+
+new: simp 1 21 50200 "moe_C2toDS_UI" 2 1 9501
+
+mvto 3960 48043
+
+setv ov00 gmap posx posy
+
+setv ov02 gmap 12834 47893
+
+tick 3
+
+enum 1 1 193
+
+	seta game "ToolTipBubbleDS" targ
+
+next
+
+** ToolTip Timer!
+
+scrp 1 22 50200 9
+
+	inst
+
+
+
+** Is there a HOTS agent?
+
+	targ hots
+
+	doif targ <> null and crea targ = 0
+
+*		have a small delay before showing tip
+
+		seta va99 targ
+
+		wait 8
+
+		inst
+
+		targ hots
+
+*		are you still over the same agent?
+
+		doif targ <> va99
+
+*			no, stop
+
+			targ ownr
+
+			doif ov00 = 0
+
+				gsub reset
+
+			endi
+
+			stop
+
+		endi
+
+		targ va99
+
+		doif targ = null
+
+			stop
+
+		endi
+
+
+
+		setv va00 fmly
+
+		setv va01 gnus
+
+		setv va02 spcs
+
+		setv va03 hotp
+
+
+
+*		awooga awooga - special case alert
+
+*			if it is a portal, do something special
+
+		doif va00 = 3 and va01 = 9 and va02 = 1
+
+			sets va00 ov01
+
+			targ ownr
+
+			gsub portal
+
+			stop
+
+		endi
+
+*		awooga awooga - special case number 2
+
+*			if it is the HUD, do something special
+
+		doif va00 = 1 and va01 = 2 and va02 = 14 and va03 = 8
+
+			doif game "status" eq "online"
+
+				sets va00 read "ConnectGUI" 1
+
+			elif game "status" eq "offline"
+
+				sets va00 read "ConnectGUI" 0
+
+			else
+
+** This is because the status may not be set! :)
+
+				stop
+
+			endi
+
+			targ ownr
+
+			gsub connected
+
+			stop
+
+		endi
+
+
+
+		doif type name "tooltip" = 2
+
+			sets va00 name "tooltip"
+
+			targ ownr
+
+			gsub display
+
+			stop
+
+		endi
+
+
+
+		doif va03 <> -1
+
+			part va03
+
+			setv va04 pose
+
+		else
+
+			setv va04 -1
+
+		endi
+
+** Start it out the right way...
+
+		sets va05 "ToolTip "
+
+** Add the Agent's FMLY
+
+		adds va05 vtos va00
+
+** Add the Agent's GNUS
+
+		adds va05 " "
+
+		adds va05 vtos va01
+
+** Add the Agent's SPCS
+
+		adds va05 " "
+
+		adds va05 vtos va02
+
+** Save it to va06 at this point in case part & pose specific catalogues exist.
+
+		sets va06 va05
+
+** Then add the PartID
+
+		adds va05 " "
+
+		adds va05 vtos va03
+
+** Save it to va07 at this point in case part & pose specific catalogues exist.
+
+		sets va07 va05
+
+** Then add the part's pose
+
+		adds va05 " "
+
+		adds va05 vtos va04
+
+** Target the ToolTip agent! 
+
+		targ ownr
+
+** Search for the ToolTip needed!
+
+		doif reaq va05 = 1
+
+			sets ov01 va05
+
+			sets va00 read ov01 0
+
+			gsub display
+
+			stop
+
+		endi
+
+** A specific ToolTip for that classifier, part and pose wasn't found so just check for the classifier and part...		
+
+		doif reaq va07 = 1
+
+			sets ov01 va07
+
+			sets va00 read ov01 0
+
+			gsub display
+
+			stop
+
+		endi
+
+** Still no success, so just check for the classfier! 
+
+		doif reaq va06 = 1
+
+			sets ov01 va06
+
+			sets va00 read ov01 0
+
+			gsub display
+
+			stop
+
+		endi
+
+** Are we in ToolTip Development Mode? 
+
+		doif game "ToolTipDev" = 1
+
+			sets ov01 va05
+
+			gsub tooltipdev
+
+		else
+
+			gsub reset
+
+		endi
+
+*	elif targ <> null and crea targ = 1
+
+*** It is a creature, find it's name!
+
+*		sets va00 hist name gtos 0
+
+*		targ ownr
+
+*** Make the ToolTip agent visible.
+
+*		show 1
+
+*** Display the ToolTip! 
+
+*		part 1
+
+*		frmt 0 8 0 0 0 0 2
+
+*		ptxt va00
+
+*		setv ov00 0
+
+	else
+
+		targ ownr
+
+		doif ov00 = 0
+
+			gsub reset
+
+		endi
+
+	endi
+
+	subr display
+
+		inst
+
+** Keep floating near the hand..
+
+		setv va50 mopx
+
+		subv va50 wndl
+
+		subv va50 90
+
+		setv va51 wndw
+
+		subv va51 125
+
+		doif va50 < 0
+
+* near left edge
+
+			flto 38 27
+
+		elif va50 > va51
+
+* near right edge (move left a little bit)
+
+			subv va51 mopx
+
+			addv va51 wndl
+
+			flto va51 27
+
+		else
+
+* normal
+
+			flto -90 38
+
+		endi
+
+** Make the ToolTip agent visible.
+
+		show 1
+
+** Display the ToolTip!
+
+		part 1
+
+		frmt 0 1 0 0 0 0 10
+
+		ptxt va00
+
+		setv ov00 0
+
+	retn
+
+	subr reset
+
+** Reset the ToolTip agent (makes it show no ToolTip and also makes it invisible).
+
+		inst
+
+		part 1
+
+		frmt 0 8 0 0 0 0 2
+
+		ptxt " "
+
+		show 0
+
+		setv ov00 1
+
+	retn
+
+	subr tooltipdev
+
+** Keep floating near the hand..
+
+		flto -100 25
+
+** This shows the classifier, partID and pose of the HOTS agent! This should make ToolTip writing easier for 3rd Party Developers.
+
+		sets va00 ov01
+
+		show 1
+
+		part 1
+
+		frmt 0 3 0 0 0 0 2
+
+		ptxt va00
+
+		setv ov00 0
+
+	retn
+
+	subr portal
+
+** Keep floating near the hand..
+
+		flto -90 25
+
+** Make the ToolTip agent visible.
+
+		show 1
+
+** Display the ToolTip!
+
+		part 1
+
+		frmt 0 8 0 0 0 0 2
+
+		ptxt va00
+
+		setv ov00 0
+
+	retn
+
+	subr connected
+
+** Keep floating near the hand..
+
+		flto -90 25
+
+** Make the ToolTip agent visible.
+
+		show 1
+
+** Display the ToolTip!
+
+		part 1
+
+		frmt 0 3 0 0 0 0 2
+
+		ptxt va00
+
+		setv ov00 0
+
+	retn
+
+endm
+
+scrp 1 21 50200 9
+
+*	inst
+
+	targ pntr
+
+	setv mv01 gmap posl post
+
+	doif mv01 eq mv00 or mv01 eq mv02
+
+		targ game "ToolTipBubbleDS"
+
+		tick 0
+
+		show 0
+
+		part 1
+
+		ptxt ""
+
+		targ game "C2toDSToolTips"
+
+		tick 3
+
+	else
+
+		targ game "ToolTipBubbleDS"
+
+		tick 3
+
+		targ game "C2toDSToolTips"
+
+		tick 0
+
+		show 0
+
+		part 1
+
+		ptxt ""
+
+	endi
+
+endm
+
+
+
+rscr
+
+
+enum 1 21 50200
+
+	kill targ
+
+next
+
+
+enum 1 22 50200
+
+	kill targ
+
+next
+

@@ -1,0 +1,239 @@
+******************
+* Night switcher *
+******************
+
+new: simp 1 1 50200 "blnk" 0 0 0
+mvto 5900 47630
+setv ov01 gmap posx posy
+addb ov01 "c2tods"
+addb ov01 "c2tods_night"
+tick 200
+
+* ov00 0 = day
+* ov00 1 = night
+
+scrp 1 1 50200 10
+
+	doif time eq 3 or time eq 4
+		setv ov00 0
+	else
+		setv ov00 1
+	endi
+
+endm
+
+
+scrp 1 1 50200 9
+	inst
+	doif ov00 eq 0
+		doif time eq 3 or time eq 4
+			inst
+			scam null -1
+			bkgd ov01 "c2tods_night" 2
+
+			enum 1 5 50200
+				scam targ 1
+				bkgd mv01 "c2tods_night" 2
+			next
+			targ ownr
+			setv ov00 1
+			gsub night
+		endi
+	elif ov00 eq 1
+		doif time eq 0 or time eq 1 or time eq 2
+			inst
+			scam null -1
+			bkgd ov01 "c2tods" 2
+			enum 1 5 50200
+				scam targ 1
+				bkgd mv01 "c2tods" 2
+			next
+			targ ownr
+			setv ov00 0
+			gsub day
+		endi
+	endi
+
+
+	subr night
+
+************************** small sphere door **************************
+		enum 2 2 50201
+			doif abba eq 5
+				setv va00 abba
+				gall "moe_c2tods_doors_night" va00
+			endi
+		next
+
+
+************************** World tree leaves **************************
+		enum 2 6 50200
+			doif gall eq "moe_c2tods_tre2"
+				setv va00 abba
+				setv va01 pose
+				gall "moe_c2tods_tre2_night" va00
+				pose va01
+			elif gall eq "moe_c2tods_tre3"
+				setv va00 abba
+				setv va01 pose
+				gall "moe_c2tods_tre3_night" va00
+				pose va01
+			endi
+		next
+
+
+************************** Foxfire tree **************************
+		enum 2 6 50209
+			gall "moe_c2tods_humming_night" 0
+		next
+
+
+************************** Overlays3 **************************
+		enum 2 25 50201
+			setv va00 abba
+			gall "moe_c2tods_overlays3_night" va00
+		next
+
+		enum 1 8 50200
+
+************************** small sphere door screw **************************
+			doif gall eq "moe_c2tods_doors" and abba eq 11
+				setv va00 abba
+				gall "moe_c2tods_doors_night" va00
+			endi
+
+************************** Waterfalls **************************
+			doif gall eq "moe_c2tods_waterfalls"
+				setv va00 abba
+				gall "moe_c2tods_waterfalls_night" va00
+			endi
+
+
+************************** Waves **************************
+			doif gall eq "moe_c2tods_waves"
+				setv va00 abba
+				gall "moe_c2tods_waves_night" va00
+			endi
+
+************************** Overlays **************************
+			doif gall eq "moe_c2tods_overlays"
+				doif abba lt 17 or abba gt 25 or abba eq 23
+					setv va00 abba
+					gall "moe_c2tods_overlays_night" va00
+				endi
+			endi
+
+************************** Overlays2 **************************
+			doif gall eq "moe_c2tods_overlays2"
+				doif abba eq 9 or abba eq 10 or abba eq 11 or abba eq 12 or abba eq 15 or abba eq 16 or abba eq 17 or abba eq 18 or abba eq 19 or abba eq 20 or abba eq 21 or abba eq 22 or abba eq 23 or abba eq 24 or abba eq 29 or abba eq 30 or abba eq 31 or abba eq 32 or abba eq 33 or abba eq 34
+					setv va00 abba
+					gall "moe_c2tods_overlays2_night" va00
+				endi
+			endi
+
+************************** Jungle Overlays **************************
+			doif gall eq "moe_c2tods_overlaysjungle"
+				doif abba gt 2 and abba lt 17
+					setv va00 abba
+					gall "moe_c2tods_overlaysjungle_night" va00
+				endi
+			endi
+
+		next
+	retn
+
+
+	subr day
+
+************************** small sphere door **************************
+		enum 2 2 50201
+			doif abba eq 5
+				setv va00 abba
+				gall "moe_c2tods_doors" va00
+			endi
+		next
+
+************************** World tree leaves **************************
+		enum 2 6 50200
+			doif gall eq "moe_c2tods_tre2_night"
+				setv va00 abba
+				setv va01 pose
+				gall "moe_c2tods_tre2" va00
+				pose va01
+			elif gall eq "moe_c2tods_tre3_night"
+				setv va00 abba
+				setv va01 pose
+				gall "moe_c2tods_tre3" va00
+				pose va01
+			endi
+		next
+
+************************** Foxfire tree **************************
+		enum 2 6 50209
+			gall "moe_c2tods_humming" 59
+		next
+
+
+************************** Overlays3 **************************
+		enum 2 25 50201
+			setv va00 abba
+			gall "moe_c2tods_overlays3" va00
+		next
+
+
+		enum 1 8 50200
+
+************************** small sphere door screw **************************
+			doif gall eq "moe_c2tods_doors" and abba eq 11
+				setv va00 abba
+				gall "moe_c2tods_doors_night" va00
+			endi
+
+************************** Waterfalls **************************
+			doif gall eq "moe_c2tods_waterfalls_night"
+				setv va00 abba
+				gall "moe_c2tods_waterfalls" va00
+			endi
+
+
+************************** Waves **************************
+			doif gall eq "moe_c2tods_waves_night"
+				setv va00 abba
+				gall "moe_c2tods_waves" va00
+			endi
+
+************************** Overlays **************************
+			doif gall eq "moe_c2tods_overlays_night"
+				doif abba lt 17 or abba gt 25 or abba eq 23
+					setv va00 abba
+					gall "moe_c2tods_overlays" va00
+				endi
+			endi
+
+************************** Overlays2 **************************
+			doif gall eq "moe_c2tods_overlays2_night"
+				doif abba eq 9 or abba eq 10 or abba eq 11 or abba eq 12 or abba eq 15 or abba eq 16 or abba eq 17 or abba eq 18 or abba eq 19 or abba eq 20 or abba eq 21 or abba eq 22 or abba eq 23 or abba eq 24 or abba eq 29 or abba eq 30 or abba eq 31 or abba eq 32 or abba eq 33 or abba eq 34
+					setv va00 abba
+					gall "moe_c2tods_overlays2" va00
+				endi
+			endi
+
+************************** Jungle Overlays **************************
+			doif gall eq "moe_c2tods_overlaysjungle_night"
+				doif abba gt 2 and abba lt 17
+					setv va00 abba
+					gall "moe_c2tods_overlaysjungle" va00
+				endi
+			endi
+
+		next
+	retn
+
+endm
+
+
+rscr
+enum 1 1 50200
+	kill targ
+next
+scrx 1 1 50200 9

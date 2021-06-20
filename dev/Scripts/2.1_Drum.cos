@@ -1,0 +1,136 @@
+* 2 21 50211 - Drums
+
+* Left of desert; right of ocean
+
+new: simp 2 21 50211 "moe_C2toDS_triangle" 5 10 800
+
+mvto 8250 48152
+
+
+
+* Above library
+
+new: simp 2 21 50211 "moe_C2toDS_triangle" 5 10 800
+
+mvto 3231 49093
+
+
+scrp 2 21 50211 10
+
+	attr 4
+
+	bhvr 11
+
+	frat 2
+
+endm
+
+
+
+scrp 2 21 50211 1
+
+	doif crea from eq 1
+
+		stim writ from 97 1
+
+	endi
+
+	lock
+
+	snde "dru1"
+
+	anim [0 1 2 3 0]
+
+	unlk
+
+endm
+
+
+
+scrp 2 21 50211 2
+
+	doif crea from eq 1
+
+		stim writ from 97 1
+
+	endi
+
+	lock
+
+	setv va00 rand 0 2
+
+	doif va00 eq 0
+
+		snde "dru1"
+
+	elif va00 eq 1
+
+		snde "dru2"
+
+	else
+
+		snde "dru3"
+
+	endi
+
+	anim [0 1 2 3 0]
+
+	unlk
+
+endm
+
+
+
+scrp 2 21 50211 3
+
+	doif crea from eq 1
+
+		stim writ from 97 1
+
+	endi
+
+	lock
+
+	setv va00 rand 0 2
+
+	doif va00 eq 0
+
+		snde "dru1"
+
+	elif va00 eq 1
+
+		snde "dru2"
+
+	else
+
+		snde "dru3"
+
+	endi
+
+	anim [0 1 2 3 0]
+
+	unlk
+
+endm
+
+
+
+scrp 2 21 50211 101
+
+	targ pntr
+
+	anim [4 4 5 5]
+
+	over
+
+	pose 0
+
+endm
+
+rscr
+
+enum 2 21 50211
+
+	kill targ
+
+next

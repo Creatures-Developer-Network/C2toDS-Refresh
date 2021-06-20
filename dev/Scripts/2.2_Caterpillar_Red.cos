@@ -1,0 +1,1222 @@
+* 2 13 50207 - Red Butterfly
+* 2 13 50205 - Red Caterpillar
+* 2 18 50205 - Red Caterpillar Egg
+* 2 24 50205 - Red Caterpillar Egg Maker
+
+
+*OOOOK!  You see purple butterflies in Summer and Fall, but not spring.
+
+*You see red butterfies in Spring and Summer, but not fall.
+
+*Both butterflies are seen in summer, but neither in winter.
+
+
+
+new: simp 2 24 50205 "moe_C2toDS_bufl" 16 0 rand 1500 2501
+
+mvsf 10225 48507
+
+*mvsf mopx mopy
+
+reps rand 10 15
+	new: simp 2 13 50207 "moe_C2toDS_bufl" 18 46 rand 1500 2501
+	mvsf rand 4153 5930 rand 47837 49753
+repe
+
+reps rand 3 5
+	new: simp 2 13 50207 "moe_C2toDS_bufl" 18 46 rand 1500 2501
+	mvsf rand 3850 4060 49250
+repe
+
+
+reps rand 5 10
+	new: simp 2 18 50205 "moe_C2toDS_bufl" 1 64 rand 1500 2501
+	mvsf rand 3395 4091 48055
+	new: simp 2 18 50205 "moe_C2toDS_bufl" 1 64 rand 1500 2501
+	mvsf rand 5110 6525 49720
+repe
+
+*OOOOK!  You see purple butterflies in Summer and Fall, but not spring.
+
+*You see red butterfies in Spring and Summer, but not fall.
+
+*Both butterflies are seen in summer, but neither in winter.
+
+
+
+
+scrp 2 13 50207 12
+
+	doif crea from eq 1
+
+		stim writ from 80 .15
+
+	endi
+
+	kill ownr
+
+endm
+
+
+
+
+
+scrp 2 24 50205 10
+
+	inst
+
+
+
+	attr 199
+
+	perm 51
+
+	elas 10
+
+	accg 3
+
+	aero 2
+
+	fric 50
+
+
+
+	targ pntr
+
+	mesg writ ownr 4
+
+
+
+endm
+
+
+
+*Pickup the Egglayer
+
+scrp 2 24 50205 4
+
+	tick 0
+
+endm
+
+
+
+scrp 2 24 50205 5
+
+	tick 0
+
+endm
+
+
+
+scrp 2 24 50205 9
+
+*	doif velx gt 0
+
+*		mira 0
+
+*	elif velx lt 0
+
+*		mira 1
+
+*	endi
+
+endm
+
+
+
+scrp 2 24 50205 1
+
+	lock
+
+	frat 3
+
+	anim [0 1 2 3 4 5 6 7 8]
+
+	over
+
+	reps rand 5 7
+
+		frat 3
+
+		anim [9 8]
+
+		sndc "pop1"
+
+		gsub makeeggs
+
+		over
+
+	repe
+
+	anim [9 11 12 13 14 15]
+
+	over
+
+	pose 0
+
+
+
+	subr makeeggs
+
+		setv va00 posr
+
+		setv va01 posy
+
+		subv va01 6
+
+		setv va02 rand 50 150
+
+		divv va02 10
+
+		new: simp 2 18 50205 "moe_C2toDS_bufl" 1 64 rand 1500 2501
+
+		mvsf va00 va01
+
+		addv velx va02
+
+		addv vely rand -5 -10
+
+		targ ownr
+
+	retn
+
+endm
+
+
+
+scrp 2 18 50205 10
+
+	inst
+
+	attr 198
+
+	elas 10
+
+	accg 2
+
+	aero 1
+
+	perm 51
+
+	tick rand 1 1
+
+endm
+
+
+
+scrp 2 18 50205 9
+
+
+
+	doif carr ne null or fall ne 0
+
+		stop
+
+	endi
+
+
+
+	doif sean eq 2 or sean eq 3
+
+		stop
+
+	endi
+
+
+
+	doif time eq 3 or time eq 4
+
+		stop
+
+	endi
+
+
+
+	reps rand 5 10
+
+		loop
+
+			wait rand 10 25
+
+		untl fall eq 0
+
+		addv vely rand -2 -7
+
+	repe
+
+
+
+	setv va00 posl
+
+	setv va01 post
+
+
+
+	new: simp 2 13 50205 "moe_C2toDS_bufl" 30 16 rand 1500 2501
+
+	mvsf va00 va01
+
+
+
+	kill ownr
+
+	stop
+
+endm
+
+
+
+scrp 2 13 50205 10
+
+	inst
+
+	attr 198
+
+	accg 4
+
+	elas 10
+
+	perm 51
+
+	setv ov06 4
+
+	tick rand 25 30
+
+	seta ov07 null
+
+	bhvr 48
+
+endm
+
+
+
+scrp 2 13 50205 12
+
+	stim writ from 80 .15
+
+	targ from
+
+*starch
+
+	chem 5 .04
+
+*fat
+
+	chem 10 .04
+
+*protein
+
+	chem 12 .04
+
+	targ ownr
+
+	kill ownr
+
+endm
+
+
+
+scrp 2 13 50205 9
+
+
+
+	doif carr ne null
+
+		stop
+
+	endi
+
+
+
+
+
+	doif time ne 3 and time ne 4 and name "cacoon" eq 0
+
+		inst
+
+		doif rtyp room ownr ne 9 and rtyp room ownr ne 8
+
+			gsub daytime
+
+		else
+
+			gsub die
+
+		endi
+
+		slow
+
+	else
+
+
+
+		doif name "cacoon" eq 0
+
+			accg 4
+
+			gsub cacoon
+
+		endi
+
+
+
+	endi
+
+
+
+
+
+	doif time eq 0 and name "cacoon" eq 1
+
+		lock
+
+		loop
+
+			wait tick
+
+			setv va00 pose
+
+			addv va00 1
+
+			pose va00
+
+		untl pose eq 28
+
+		gsub makebufl
+
+		kill ownr
+
+		unlk
+
+	endi
+
+
+
+	subr die
+
+		lock
+
+		pose 29
+
+		wait rand 100 200
+
+		kill ownr
+
+		unlk
+
+	retn
+
+
+
+	subr makebufl
+
+		setv va00 posl
+
+		setv va01 post
+
+
+
+		new: simp 2 13 50207 "moe_C2toDS_bufl" 18 46 rand 1500 2501
+
+		mvsf va00 va01
+
+	retn
+
+
+
+	subr cacoon
+
+		pose 24
+
+		setv name "cacoon" 1
+
+		mvsf posl post
+
+	retn
+
+
+
+	subr daytime
+
+		doif ov07 eq null
+
+			star 2 7 0
+
+			doif targ ne null
+
+				seta mv07 targ
+
+			else
+
+				gsub smell
+
+			endi
+
+
+
+		elif ov07 ne null
+
+			inst
+
+			doif ov07 ne null
+
+				doif relx ownr ov07 gt 500 or rely ownr ov07 gt 500
+
+					seta ov07 null
+
+				endi
+
+			endi
+
+			slow
+
+		endi
+
+
+
+		targ ownr
+
+
+
+		inst
+
+		doif ov07 ne null
+
+			setv va00 posx
+
+			setv va01 posy
+
+			targ ov07
+
+			setv va03 tran va00 va01
+
+			slow
+
+			targ ownr
+
+			doif va03 eq 1
+
+				gsub follow
+
+			else
+
+				doif pose le 6
+
+					setv va04 0
+
+				else
+
+					setv va04 1
+
+				endi
+
+				gsub climb
+
+			endi
+
+
+
+		else
+
+			accg 4
+
+
+
+		endi
+
+	retn
+
+
+
+
+
+*The Follow Subroutine here only does X, allowing the caterpillar to crawl to plants
+
+	subr follow
+
+		inst
+
+		doif ov07 ne null
+
+			targ ov07
+
+		endi
+
+		doif targ eq null
+
+			stop
+
+		endi
+
+		setv va00 posx
+
+		slow
+
+		targ ownr
+
+
+
+		doif posx gt va00
+
+			frat 2
+
+			anim [0 1 2 3]
+
+			over
+
+			subv velx ov06
+
+			addv vely -4
+
+			frat 2
+
+			anim [4 5 6 ]
+
+			over
+
+		else
+
+			frat 2
+
+			anim [6 7 8 9]
+
+			over
+
+			addv velx ov06
+
+			addv vely -4
+
+			frat 2
+
+			anim [10 11 6]
+
+			over
+
+		endi
+
+
+
+	retn
+
+
+
+	subr smell
+
+		targ ownr
+
+		setv va03 grap posx posy
+
+
+
+		setv va00 hirp va03 9 1
+
+		setv va01 torx va00
+
+		setv va02 tory va00
+
+
+
+		doif va01 gt 0
+
+			frat 2
+
+			anim [6 7 8 9]
+
+			over
+
+			addv velx ov06
+
+			addv vely -4
+
+			frat 2
+
+			anim [10 11 6]
+
+			over
+
+		elif va01 lt 0
+
+			frat 2
+
+			anim [0 1 2 3]
+
+			over
+
+			subv velx ov06
+
+			addv vely -4
+
+			frat 2
+
+			anim [4 5 6 ]
+
+			over
+
+		endi
+
+	retn
+
+
+
+
+
+	subr climb
+
+		inst
+
+		pose 12
+
+		mvsf posl post
+
+
+
+		inst
+
+		targ ov07
+
+		doif targ eq null
+
+			stop
+
+		endi
+
+		setv va02 post
+
+		slow
+
+		addv va02 25
+
+		targ ownr
+
+
+
+		lock
+
+		loop
+
+			inst
+
+			setv va00 posx
+
+			setv va01 posy
+
+			targ ov07
+
+			doif targ eq null
+
+				stop
+
+			endi
+
+			setv va03 tran va00 va01
+
+			targ ownr
+
+
+
+			doif va04 eq 0
+
+				anim [12 13 14 15]
+
+				over
+
+				setv va00 post
+
+				subv va00 4
+
+				mvsf posl va00
+
+				anim [16 17]
+
+				over
+
+			else
+
+				anim [18 19 20 21]
+
+				over
+
+				setv va00 post
+
+				subv va00 4
+
+				mvsf posl va00
+
+				anim [22 23]
+
+				over
+
+			endi
+
+			over
+
+			wait tick
+
+			slow
+
+		untl post le va02 or va03 eq 1
+
+		unlk
+
+	retn
+
+
+
+
+
+endm
+
+
+
+scrp 2 13 50207 10
+
+	attr 198
+
+	elas 0
+
+	aero 7
+
+	accg .05
+
+	frat 2
+
+	anim [0 1 2 255]
+
+	tick rand 10 25
+
+	seta ov07 null
+
+	setv ov06 2
+
+
+
+	setv va00 rand 0 1
+
+	doif va00 eq 1
+
+		base 9
+
+	else
+
+		base 0
+
+	endi
+
+	bhvr 32
+
+endm
+
+
+
+scrp 2 13 50207 9
+
+
+
+
+
+	doif time eq 4
+
+		gsub layeggs
+
+	endi
+
+
+
+	doif time eq 3
+
+		doif ov12 eq 0
+
+			gsub layeggs
+
+		endi
+
+	endi
+
+
+
+
+
+	doif ov07 eq null
+
+		star 2 7 0
+
+		doif targ ne null
+
+			seta mv07 targ
+
+		else
+
+			targ ownr
+
+			gsub findflowers
+
+		endi
+
+		targ ownr
+
+	elif ov07 ne null
+
+		inst
+
+		doif ov07 ne null
+
+			doif relx ownr ov07 gt 500 or rely ownr ov07 gt 500
+
+				seta ov07 null
+
+			endi
+
+		endi
+
+		slow
+
+	endi
+
+
+
+	gsub follow
+
+
+
+	setv va00 posx
+
+	setv va01 posy
+
+
+
+*Test to make sure the butterly is ON a transparent pixel before it perches
+
+	targ ov07
+
+	inst
+
+	doif targ eq null
+
+		stop
+
+	endi
+
+	setv va02 tran va00 va01
+
+	slow
+
+	targ ownr
+
+
+
+	doif touc ov07 ownr eq 1 and va02 eq 0
+
+		gsub perch
+
+		accg .05
+
+	endi
+
+
+
+	gsub follow
+
+
+
+	subr die
+
+*there are no death sprites? :(
+
+	retn
+
+
+
+	subr perch
+
+		lock
+
+		reps rand 5 10
+
+			accg 0
+
+			velo 0 0
+
+			frat 7
+
+			anim [3 4 5 4 3]
+
+			over
+
+		repe
+
+		seta ov07 null
+
+		unlk
+
+		setv ov02 3
+
+		gsub findflowers
+
+	retn
+
+
+
+	subr layeggs
+
+		loop
+
+			addv vely .5
+
+		untl obst down lt 5
+
+*I have laid eggs*
+
+		setv ov12 1
+
+		setv va00 posx
+
+		setv va01 posb
+
+		new: simp 2 18 50205 "moe_C2toDS_bufl" 1 64 rand 1500 2501
+
+		mvsf va00 va01
+
+		targ ownr
+
+		kill targ
+
+		stop
+
+	retn
+
+
+
+	subr follow
+
+		inst
+
+		targ ov07
+
+		doif targ eq null
+
+			stop
+
+		endi
+
+		setv va00 posx
+
+		setv va01 post
+
+		addv va00 rand -10 10
+
+		addv va01 rand 10 25
+
+		slow
+
+		targ ownr
+
+		doif va00 gt posx
+
+			doif ov02 eq 0 or ov02 eq 3
+
+				gsub turnright
+
+			endi
+
+
+
+			addv velx 2
+
+
+
+		elif va00 lt posx
+
+			doif ov02 eq 1 or ov02 eq 3
+
+				gsub turnleft
+
+			endi
+
+			addv velx -2
+
+		endi
+
+
+
+		doif va01 gt posy
+
+		elif va01 lt posy
+
+			addv vely -2
+
+		endi
+
+
+
+		targ ownr
+
+	retn
+
+
+
+	subr turnright
+
+		pose 3
+
+		frat 2
+
+		anim [3 4 5]
+
+		over
+
+		gsub facefront
+
+		anim [6 7 8 255]
+
+		setv ov02 1
+
+	retn
+
+
+
+	subr turnleft
+
+		pose 5
+
+		frat 2
+
+		anim [5 4 3]
+
+		over
+
+		gsub facefront
+
+		anim [0 1 2 255]
+
+		setv ov02 0
+
+	retn
+
+
+
+	subr facefront
+
+		setv va00 rand 0 3
+
+		doif va00 eq 1
+
+			doif base eq 0
+
+				base 9
+
+			else
+
+				base 0
+
+			endi
+
+		endi
+
+	retn
+
+
+
+	subr findflowers
+
+		setv va03 grap posx posy
+
+
+
+		setv va00 hirp va03 9 1
+
+		setv va01 torx va00
+
+		setv va02 tory va00
+
+
+
+		doif va01 gt 0
+
+			addv velx ov06
+
+			doif ov02 eq 0 or ov02 eq 3
+
+				gsub turnright
+
+			endi
+
+		elif va01 lt 0
+
+			subv velx ov06
+
+			doif ov02 eq 1 or ov02 eq 3
+
+				gsub turnleft
+
+			endi
+
+		endi
+
+		doif va02 lt 0
+
+			subv vely ov06
+
+		elif va02 gt 0
+
+			addv vely ov06
+
+		endi
+
+	retn
+
+
+
+endm
+
+
+
+
+
+
+
+
+rscr
+
+
+enum 2 24 50205
+
+	kill targ
+
+next
+
+
+
+enum 2 13 50205
+
+	kill targ
+
+next
+
+
+
+enum 2 18 50205
+
+	kill targ
+
+next
+
+
+
+enum 2 13 50207
+
+	kill targ
+
+next
+
+
+
+scrx 2 24 50205 1
+
+scrx 2 24 50205 10
+
+scrx 2 13 50205 9
+
+scrx 2 13 50205 10
+
+scrx 2 18 50205 10

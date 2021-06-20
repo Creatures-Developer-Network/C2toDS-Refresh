@@ -1,0 +1,1079 @@
+* 2 3 50202 - Nut
+* 2 4 50202 - Nut Plant
+* 2 23 50202 - Nut Vendor
+
+*Initial Conversion By Moe
+* Some Modifications By the one who screams i guess
+* (if you worked on this file, feel free to add your name!)
+
+reps rand 5 7
+
+	new: comp 2 4 50202 "moe_C2toDS_nuts" 14 17 rand 1000 3000
+
+	pose rand 0 5
+
+	mvto rand 3560 4000 48760
+
+repe
+
+
+new: comp 2 23 50202 "moe_C2toDS_nuts" 16 0 rand 1000 3000
+
+mvsf 2900 49787
+
+pat: dull 1 "moe_C2toDS_nuts" 16 0 0 2
+
+pat: dull 2 "moe_C2toDS_nuts" 56 14 44 2
+
+prt: inew 0 "Input" "Recieves signal inputs for the tomato launcher." 24 47 0
+
+prt: onew 0 "Output" "Sends signal inputs from the nut layer." 54 47
+
+
+scrp 2 23 50202 10
+
+	inst
+
+	attr 199
+
+	perm 75
+
+	elas 10
+
+	accg 5
+
+	fric 50
+
+	emit 10 .15
+
+	bhvr 1
+
+endm
+
+
+
+scrp 2 23 50202 1
+
+	lock
+
+	prt: send 0 255
+
+	stim writ from 90 1
+
+	sndc "m_a7"
+
+	anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15]
+
+	over
+
+*make nut
+
+	gsub makenut
+
+	wait 5
+
+	anim [15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0]
+
+
+
+	subr makenut
+
+		setv va00 posl
+
+		setv va01 post
+
+		addv va00 12
+
+		addv va01 28
+
+		setv va02 plne
+
+		addv va02 1
+
+		new: simp 2 3 50202 "moe_C2toDS_nuts" 25 31 va02
+
+		pose 12
+
+		mvsf va00 va01
+
+		mira rand 0 1
+
+		targ ownr
+
+	retn
+
+
+
+endm
+
+
+
+
+
+scrp 2 3 50202 9
+
+
+
+	doif ov00 eq 1
+
+		doif ov02 eq 0 and pose lt 3
+
+			gsub growvine
+
+			attr 16
+
+		elif ov02 eq 0 and pose eq 3
+
+			attr 231
+
+			bhvr 48
+
+		endi
+
+		doif ov02 eq 1 and pose lt 7
+
+			gsub growvine
+
+			attr 16
+
+		elif ov02 eq 1 and pose eq 7
+
+			attr 231
+
+			bhvr 48
+
+		endi
+
+		doif ov02 eq 2 and pose lt 11
+
+			gsub growvine
+
+			attr 16
+
+		elif ov02 eq 2 and pose eq 11
+
+			attr 231
+
+			bhvr 48
+
+		endi
+
+	endi
+
+
+
+	doif fall eq 0 and carr eq null
+
+		gsub check
+
+	endi
+
+	subr check
+
+		doif time eq 4
+
+			stop
+
+		endi
+
+		rnge 200
+
+		setv va00 rtyp grap posx posy
+
+		setv va05 grap posx posy
+
+*light
+
+		setv va01 prop va05 1
+
+*heat
+
+		setv va02 prop va05 2
+
+*water
+
+		setv va03 prop va05 3
+
+*nutrients
+
+		setv va04 prop va05 4
+
+*can't grow underwater. :/
+
+		doif va00 ne 8 and va00 ne 9
+
+			doif va01 ge .15 and va02 ge .25 and va03 ge .2 and va04 ge .15
+
+				gsub grow
+
+			else
+
+				gsub die
+
+			endi
+
+		endi
+
+	retn
+
+
+
+	subr die
+
+		frat 50
+
+		anim [1 2 3 4]
+
+		over
+
+		wait 50
+
+		kill ownr
+
+	retn
+
+
+
+	subr growvine
+
+		setv va00 pose
+
+		addv va00 1
+
+		pose va00
+
+	retn
+
+
+
+	subr grow
+
+		frat 50
+
+		anim [1 2 3 4]
+
+		over
+
+
+
+		setv va06 0
+
+		esee 2 4 50202
+
+			doif targ ne null
+
+				addv va06 1
+
+			endi
+
+		next
+
+		targ ownr
+
+		doif va06 lt 4
+
+			inst
+
+			setv va00 posl
+
+			setv va01 posb
+
+			subv va01 60
+
+			doif mira eq 1
+
+				subv va00 1
+
+			else
+
+				subv va00 1
+
+			endi
+
+			new: comp 2 4 50202 "moe_C2toDS_nuts" 14 17 rand 1000 3000
+
+			doif tmvt va00 va01 eq 1
+
+				mvto va00 va01
+
+			else
+
+				mvsf va00 va01
+
+			endi
+
+			kill ownr
+
+		else
+
+			kill ownr
+
+		endi
+
+	retn
+
+endm
+
+
+
+scrp 2 4 50202 10
+
+	inst
+
+	attr 192
+
+	elas 0
+
+	accg 4
+
+	bhvr 27
+
+	fric 100
+
+	tick rand 200 350
+
+	mira rand 0 1
+
+	seta ov01 null
+
+	seta ov02 null
+
+	seta ov03 null
+
+endm
+
+
+
+scrp 2 4 50202 1
+
+	urge writ from 3 .5 12 .5
+
+endm
+
+
+
+scrp 2 4 50202 2
+
+	urge writ from 3 .5 12 .5
+
+endm
+
+
+
+scrp 2 4 50202 3
+
+	urge writ from 3 .5 12 .5
+
+endm
+
+
+
+scrp 2 4 50202 12
+
+	urge writ from 3 .5 12 .5
+
+endm
+
+
+
+
+
+scrp 2 4 50202 9
+
+	doif pose lt 5
+
+		tick rand 200 350
+
+		setv va00 pose
+
+		addv va00 1
+
+		pose va00
+
+		stop
+
+	elif pose eq 5
+
+		tick rand 500 650
+
+		inst
+
+		pose 6
+
+		doif mira eq 0
+
+			setv va03 32
+
+			setv va04 15
+
+		else
+
+			setv va03 18
+
+			setv va04 15
+
+		endi
+
+		pat: dull 1 "moe_C2toDS_nuts" 55 va03 va04 1
+
+		part 1
+
+		mira mira
+
+		part 0
+
+		gsub checknuts
+
+		inst
+
+		targ ov01
+
+		pose 3
+
+		targ ownr
+
+		targ ov02
+
+		pose 7
+
+		targ ownr
+
+		targ ov03
+
+		pose 11
+
+		targ ownr
+
+		slow
+
+	endi
+
+
+
+	doif time ne 5
+
+		addv ov04 1
+
+	else
+
+		stop
+
+	endi
+
+
+
+
+
+	gsub checknuts
+
+
+
+	doif ov04 ge 42 and ov04 lt 45
+
+		inst
+
+		doif ov01 ne null and ov02 ne null and ov03 ne null
+
+			setv va00 rand 0 2
+
+			doif va00 eq 0
+
+				targ ov01
+
+				doif attr eq 231
+
+					mesg writ targ 1001
+
+					velo rand -10 10 -3
+
+					stop
+
+				endi
+
+			elif va00 eq 1
+
+				targ ov02
+
+				doif attr eq 231
+
+					mesg writ targ 1001
+
+					velo rand -10 10 -3
+
+					stop
+
+				endi
+
+			elif va00 eq 2
+
+				targ ov03
+
+				doif attr eq 231
+
+					mesg writ targ 1001
+
+					velo rand -10 10 -3
+
+					stop
+
+				endi
+
+			endi
+
+		endi
+
+		slow
+
+	endi
+
+
+
+	doif ov04 ge 50
+
+		lock
+
+		inst
+
+		doif ov01 ne null and ov02 ne null and ov03 ne null
+
+			pose 7
+
+			pat: kill 1
+
+			targ ov01
+
+			kill targ
+
+			targ ownr
+
+			targ ov02
+
+			kill targ
+
+			targ ownr
+
+			targ ov03
+
+			kill targ
+
+			targ ownr
+
+			frat 250
+
+			anim [7 8 9 10 11 12 13]
+
+			over
+
+			kill ownr
+
+		endi
+
+		slow
+
+		unlk
+
+	endi
+
+
+
+
+
+	subr checknuts
+
+		inst
+
+		doif ov01 eq null
+
+			gsub getposxposy
+
+			gsub growleft
+
+			targ ownr
+
+		endi
+
+		doif ov02 eq null
+
+			gsub getposxposy
+
+			gsub growmiddle
+
+			targ ownr
+
+		endi
+
+		doif ov03 eq null
+
+			gsub getposxposy
+
+			gsub growright
+
+			targ ownr
+
+		endi
+
+		slow
+
+	retn
+
+
+
+	subr getposxposy
+
+		setv va00 posl
+
+		setv va01 post
+
+		setv va02 plne
+
+	retn
+
+
+
+	subr growleft
+
+		addv va02 2
+
+		setv va03 mira
+
+		doif mira eq 0
+
+			addv va00 3
+
+			addv va01 16
+
+		else
+
+			addv va00 31
+
+			addv va01 16
+
+		endi
+
+		new: simp 2 3 50202 "moe_C2toDS_nuts" 25 31 va02
+
+		attr 16
+
+		pose 0
+
+		frel ownr
+
+		mvsf va00 va01
+
+		mira va03
+
+		setv ov00 1
+
+		accg 0
+
+		seta ov01 ownr
+
+		setv ov02 0
+
+		seta mv01 targ
+
+		bhvr 48
+
+	retn
+
+
+
+	subr growmiddle
+
+		addv va02 1
+
+		setv va03 mira
+
+		doif mira eq 0
+
+			addv va00 28
+
+			addv va01 31
+
+		else
+
+			addv va00 10
+
+			addv va01 31
+
+		endi
+
+		new: simp 2 3 50202 "moe_C2toDS_nuts" 25 31 va02
+
+		attr 16
+
+		pose 4
+
+		frel ownr
+
+		mvsf va00 va01
+
+		mira va03
+
+		setv ov00 1
+
+		accg 0
+
+		seta ov01 ownr
+
+		setv ov02 1
+
+		seta mv02 targ
+
+		bhvr 48
+
+	retn
+
+
+
+	subr growright
+
+		addv va02 0
+
+		setv va03 mira
+
+		doif mira eq 0
+
+			addv va00 30
+
+			addv va01 19
+
+		else
+
+			addv va00 8
+
+			addv va01 19
+
+		endi
+
+		new: simp 2 3 50202 "moe_C2toDS_nuts" 25 31 va02
+
+		attr 16
+
+		pose 8
+
+		frel ownr
+
+		mvsf va00 va01
+
+		mira va03
+
+		setv ov00 1
+
+		accg 0
+
+		seta ov01 ownr
+
+		setv ov02 2
+
+		seta mv03 targ
+
+		bhvr 48
+
+	retn
+
+
+
+endm
+
+
+
+scrp 2 3 50202 10
+
+	inst
+
+	emit 7 .15
+
+	elas 25
+
+	fric 35
+
+	puhl -1 28 18
+
+	perm 51
+
+	rnge 200
+
+	wait 1
+
+	doif ov00 eq 0
+
+		attr 199
+
+		bhvr 48
+
+		accg 3
+
+		tick rand 500 1000
+
+	else
+
+		attr 241
+
+		bhvr 0
+
+		accg 0
+
+		tick rand 100 250
+
+	endi
+
+
+
+endm
+
+
+
+
+
+*Pick nuts off plant
+
+
+
+scrp 2 3 50202 4
+
+	inst
+
+	mesg writ targ 1001
+
+endm
+
+
+
+scrp 2 3 50202 1001
+
+	inst
+
+	bhvr 48
+
+	accg 4
+
+	doif ov09 eq 0
+
+		attr 199
+
+		base 12
+
+		pose 0
+
+	else
+
+		attr 215
+
+		base 18
+
+		pose 0
+
+	endi
+
+	tick rand 1000 2500
+
+	doif ov00 eq 1
+
+		setv ov00 0
+
+		doif ov02 eq 0
+
+			targ ov01
+
+			seta ov01 null
+
+		elif ov02 eq 1
+
+			targ ov01
+
+			seta ov02 null
+
+		elif ov02 eq 2
+
+			targ ov01
+
+			seta ov03 null
+
+		endi
+
+		targ ownr
+
+	endi
+
+	doif carr eq null
+
+		doif tmvt posl post eq 0
+
+			mvsf posl post
+
+		else
+
+			mvto posl post
+
+		endi
+
+	endi
+
+endm
+
+
+
+scrp 2 3 50202 12
+
+	inst
+
+	doif ov00 eq 1
+
+		call 1001 0 0
+
+	endi
+
+	stim writ from 77 3
+
+	doif ov09 eq 0
+
+		base 18
+
+		pose 1
+
+		snde "eat1"
+
+		setv ov09 1
+
+		tick rand 500 1000
+
+*Make it invisible so that creatures don't destroy it.
+		attr 211
+
+	elif ov09 eq 1
+
+		snde "eat1"
+
+		kill ownr
+
+	endi
+
+*	targ from
+
+*	chem 3 .117
+
+*	chem 5 .39
+
+endm
+
+
+
+scrp 2 3 50202 1
+
+	inst
+
+	mesg writ targ 1001
+
+	doif from eq pntr and ov00 eq 1
+
+		setv va00 posx
+
+		targ pntr
+
+		doif posl gt va00
+
+			setv va00 -10
+
+		else
+
+			setv va00 10
+
+			setv va01 1
+
+		endi
+
+		targ ownr
+
+		velo va00 rand -5 -10
+
+		targ pntr
+
+		doif va01 eq 0
+
+			anim [4 5 4 0]
+
+		else
+
+			anim [10 11 12 0]
+
+		endi
+
+		sndc "smck"
+
+		over
+
+	endi
+
+endm
+
+
+
+scrp 2 3 50202 5
+
+endm
+
+
+
+scrp 2 3 50202 6
+
+	doif ov09 eq 0
+
+		base 12
+
+		pose 1
+
+		attr 195
+
+	else
+
+		base 18
+
+		pose 1
+
+		attr 211
+
+	endi
+
+	sndc "dr10"
+
+endm
+
+
+rscr
+
+enum 2 3 50202
+
+	kill targ
+
+next
+
+enum 2 4 50202
+
+	kill targ
+
+next
+
+enum 2 23 50202
+kill targ
+next
+
+scrx 2 23 50202 10
+scrx 2 23 50202 1
+
+scrx 2 3 50202 9
+scrx 2 3 50202 10
+scrx 2 3 50202 4
+scrx 2 3 50202 1001
+scrx 2 3 50202 10
+scrx 2 3 50202 12
+scrx 2 3 50202 1
+scrx 2 3 50202 5
+scrx 2 3 50202 6
+
+scrx 2 4 20202 10
+scrx 2 4 20202 1
+scrx 2 4 20202 2
+scrx 2 4 20202 3
+scrx 2 4 20202 12
+scrx 2 4 20202 9

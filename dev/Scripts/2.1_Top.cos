@@ -1,0 +1,177 @@
+* 2 21 50208 - Top
+
+* To left of norn burrow
+
+new: simp 2 21 50208 "moe_C2toDS_toys" 128 102 rand 1000 5000
+
+mvsf 7224 48722
+
+
+
+new: simp 2 21 50208 "moe_C2toDS_toys" 128 102 rand 1000 5000
+
+mvsf 5780 49545
+
+
+
+scrp 2 21 50208 10
+
+	attr 199
+
+	bhvr 43
+
+	elas 50
+
+	accg 2
+
+	aero 5
+
+	fric 50
+
+	perm 51
+
+	frat 2
+
+	pose 16
+
+endm
+
+
+
+* Activate 1
+
+scrp 2 21 50208 1
+
+	lock
+
+	doif carr eq null
+
+		stim writ from 97 1
+
+		snde "top1"
+
+		anim [4 5 6 7 8 9 10 255]
+
+		wait 20
+
+		reps 35
+
+			addv velx rand -6 6
+
+			addv vely -2
+
+			wait 3
+
+		repe
+
+		anim [10 11 12 13 14 15 16 11 12 13 14 15 16]
+
+	endi
+
+	unlk
+
+endm
+
+
+
+* Activate 2
+
+scrp 2 21 50208 2
+
+	lock
+
+	doif carr eq null
+
+		stim writ from 97 1
+
+		snde "top1"
+
+		anim [4 5 6 7 8 9 10 255]
+
+		wait 20
+
+		reps 35
+
+			addv velx rand -6 6
+
+			addv vely -2
+
+			wait 3
+
+		repe
+
+		anim [10 11 12 13 14 15 16 11 12 13 14 15 16]
+
+	endi
+
+	unlk
+
+endm
+
+
+
+* Hit
+
+scrp 2 21 50208 3
+
+	lock
+
+	doif carr eq null
+
+		stim writ from 97 1
+
+		snde "top1"
+
+		anim [4 5 6 7 8 9 10 255]
+
+		wait 20
+
+		reps 35
+
+			addv velx rand -6 6
+
+			addv vely -2
+
+			wait 3
+
+		repe
+
+		anim [10 11 12 13 14 15 16 11 12 13 14 15 16]
+
+	endi
+
+	unlk
+
+endm
+
+
+
+* Pickup
+
+scrp 2 21 50208 4
+
+	pose 0
+
+endm
+
+
+
+
+
+rscr
+
+enum 2 21 50208
+
+	kill targ
+
+next
+
+scrx 2 21 50208 1
+
+scrx 2 21 50208 2
+
+scrx 2 21 50208 3
+
+scrx 2 21 50208 4
+
+scrx 2 21 50208 10

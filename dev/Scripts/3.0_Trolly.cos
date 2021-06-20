@@ -1,0 +1,251 @@
+* 1 8 50202 - Some decorative bit related to the trolly
+* 3 1 50205 - Trolly
+
+new: simp 1 8 50202 "moe_C2toDS_trolly" 1 5 2
+
+mvto 4457 48574
+
+
+
+new: simp 1 8 50202 "moe_C2toDS_trolly" 1 6 8002
+
+mvto 5878 48235
+
+
+
+new: simp 1 8 50202 "moe_C2toDS_trolly" 1 7 1
+
+mvto 4483 48265
+
+
+
+
+
+
+
+*C1 Trolly, Found in the wilderness. :D
+
+
+
+new: vhcl 3 1 50205 "moe_C2toDS_trolly" 1 0 2000
+
+mvsf 5800 48260
+
+*mvsf 4582 48915
+
+
+
+*Left
+
+pat: butt 1 "moe_C2toDS_trolly" 1 2 18 58 0 [] 1001 0
+
+*Right
+
+pat: butt 2 "moe_C2toDS_trolly" 3 2 81 58 0 [] 1002 0
+
+*Handle
+
+pat: dull 3 "moe_C2toDS_trolly" 8 36 125 -1
+
+
+
+cabn 0 0 wdth hght
+
+cabp -10
+
+cabw 10
+
+
+
+bhvr 1
+
+
+scrp 3 1 50205 1
+
+	stim writ from 94 1
+
+	stim writ from 75 1
+
+
+
+	doif posl gt 4530
+
+		mesg writ ownr 1001
+
+	else
+
+		mesg writ ownr 1002
+
+	endi
+
+
+
+endm
+
+
+
+scrp 3 1 50205 1001
+
+	tick 2
+
+
+
+	setv ov00 -5
+
+
+
+*setv ov01 1.9
+
+	setv ov01 1.8
+
+
+
+	part 1
+
+	pose 1
+
+
+
+	part 2
+
+	pose 0
+
+
+
+	part 3
+
+	pose 1
+
+
+
+	gpas 4 0 0 1
+
+
+
+endm
+
+
+
+scrp 3 1 50205 1002
+
+	tick 2
+
+
+
+	setv ov00 5
+
+
+
+*setv ov01 -1.9
+
+	setv ov01 -1.8
+
+
+
+	part 2
+
+	pose 1
+
+
+
+	part 1
+
+	pose 0
+
+
+
+	part 3
+
+	pose 2
+
+
+
+	gpas 4 0 0 1
+
+
+
+endm
+
+
+
+scrp 3 1 50205 9
+
+
+
+
+
+	doif ov00 lt 0
+
+		doif posl gt 4500
+
+			setv velx ov00
+
+			setv vely ov01
+
+		else
+
+			setv velx 0
+
+			setv vely 0
+
+			part 1
+
+			pose 0
+
+			part 3
+
+			pose 0
+
+			dpas 4 0 0
+
+		endi
+
+	elif ov00 gt 0
+
+		doif posl lt 5800
+
+			setv velx ov00
+
+			setv vely ov01
+
+		else
+
+			setv velx 0
+
+			setv vely 0
+
+			part 2
+
+			pose 0
+
+			part 3
+
+			pose 0
+
+			dpas 4 0 0
+
+
+
+		endi
+
+	endi
+
+
+
+endm
+
+
+rscr
+
+enum 3 1 50205
+
+	kill targ
+
+next
+
+enum 1 8 50202
+
+	kill targ
+
+next
+

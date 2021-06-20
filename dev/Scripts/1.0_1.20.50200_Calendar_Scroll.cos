@@ -1,0 +1,723 @@
+*Times of Day*
+
+*TMOD - Game Variable
+
+*0-Dawn
+
+*1-Morning
+
+*2-Afternoon
+
+*3-Evening
+
+*4-Midnight
+
+
+
+
+
+*Temperature/Light Variations Table*
+
+*TMOD - Game Variable
+
+*0-Dawn .80
+
+*1-Morning .90
+
+*2-Afternoon 1.00
+
+*3-Evening .90
+
+*4-Midnight 0.70
+
+
+
+*//Seasons//*
+
+*SEAN
+
+*SEAV - Position During Season, 0-2
+
+*0-Spring
+
+* 	0 1 2 3
+
+*1-Summer
+
+* 	0 1 2 3
+
+*2-Autumn
+
+*	0 1 2 3
+
+*3-Winter
+
+*	0 1 2 3
+
+
+
+*//Seasons Temperature Table//*
+
+*SEAN
+
+*SEAV - Position During Season, 0-2
+
+*0-Spring
+
+*	.80 .85 .90
+
+*	-.2  -.15 -.10
+
+*1-Summer
+
+*	.95 1 1.15
+
+*	-.05 0 +.15
+
+*2-Autumn
+
+*	0.95 0.90 0.85
+
+*	-.05 -.10 -.15
+
+*3-Winter
+
+*	.80 .75 .80
+
+*	-.20 -.25 -.20
+
+
+
+
+
+
+
+new: comp 1 20 50200 "moe_C2toDS_Weather" 1 47 2
+
+attr 0
+
+mvto 3878 48027
+
+tick 20
+
+pat: fixd 1 "moe_C2toDS_Weather" 47 0 0 0 "BlackOnTransparentChars"
+
+*Season Indicator Tree
+
+pat: dull 2 "moe_C2toDS_Weather" 54 20 24 2
+
+*Season Indicator Number
+
+pat: dull 3 "moe_C2toDS_Weather" 58 30 60 2
+
+*Scroll Flipper
+
+pat: dull 4 "moe_C2toDS_Weather" 48 0 0 0
+
+part 4
+
+pose 5
+
+
+
+**Set TMOD 0
+
+*setv TIME 0
+
+**Set DAYS 0
+
+*setv DATE 0
+
+**Set SEAN 0
+
+*setv sean 0
+
+**Set YEARS 0
+
+*setv year 0
+
+**##Scripts##**
+scrp 1 20 50200 10
+
+	gsub changetemps
+
+
+
+	subr changetemps
+
+		inst
+
+*Change Pressure On/Off
+
+		enum 1 25 50200
+
+			doif TIME eq 4
+
+				emit 19 0
+
+			else
+
+				emit 19 ov02
+
+			endi
+
+		next
+
+		targ ownr
+
+
+
+
+
+		enum 1 15 50200
+
+			doif targ ne null
+
+				doif ov05 eq "Natural"
+
+
+
+*Spring*
+
+					doif sean eq 0
+
+						setv va01 0.8
+
+*Summer*
+
+					elif sean eq 1
+
+						setv va01 2.0
+
+*Autumn*
+
+					elif sean eq 2
+
+						setv va01 0.8
+
+*Winter*
+
+					elif sean eq 3
+
+						setv va01 0.2
+
+					endi
+
+
+
+
+
+*OV03 is the Heat*
+
+					doif TIME eq 0
+
+*If it's Dawn, make the emitters operate at 80% of their natural capacity*
+
+						setv va00 ov03
+
+						mulv va00 .80
+
+						mulv va00 va01
+
+*Morning 1
+
+					elif TIME eq 1
+
+						setv va00 ov03
+
+						mulv va00 .90
+
+						mulv va00 va01
+
+*Afternoon 2
+
+					elif TIME eq 2
+
+						setv va00 ov03
+
+						mulv va00 1.00
+
+						mulv va00 va01
+
+*Evening 3
+
+					elif TIME eq 3
+
+						setv va00 ov03
+
+						mulv va00 .80
+
+						mulv va00 va01
+
+*Midnight* 4
+
+					elif TIME eq 4
+
+						setv va00 ov03
+
+						mulv va00 .30
+
+						mulv va00 va01
+
+					endi
+
+*What if it's still an iceage?
+
+*					doif mame "C2toDSStage" eq 1
+
+*						setv va00 ov03
+
+*						mulv va00 .10
+
+*						mulv va00 va01
+
+*					endi
+
+
+
+
+
+*Emit the Variable
+
+					emit 2 va00
+
+
+
+
+
+					slow
+
+				endi
+
+			endi
+
+		next
+
+	retn
+
+endm
+
+
+
+scrp 1 20 50200 9
+
+	inst
+
+
+
+*CLOUD MACHINE
+
+	setv ov50 0
+
+	enum 2 19 50200
+
+		addv mv50 1
+
+	next
+
+	targ ownr
+
+	doif mv50 lt 10
+
+		setv va02 rand 0 1
+
+
+
+		doif va02 eq 0
+
+			new: comp 2 19 50200 "moe_C2toDs_weather" 10 0 5001
+
+			setv va00 rand 8400 8800
+
+			setv va01 rand 47652 47840
+
+			mvsf va00 va01
+
+		else
+
+			new: comp 2 19 50200 "moe_C2toDs_weather" 10 0 5001
+
+			setv va00 rand 2300 2820
+
+			setv va01 rand 47652 47840
+
+			mvsf va00 va01
+
+		endi
+
+	endi
+
+*END CLOUD MACHINE END
+
+
+
+
+
+
+
+
+
+
+
+
+
+***This no longer needed. You don't keep your own calendar. Use the engine's.
+
+
+
+
+
+**ov00 = Base Timber
+
+**ov01 = 
+
+**ov02 = 
+
+*
+
+**Every Second add 1 to the counter.
+
+*	addv ov01 1
+
+*
+
+**Progress through time...*
+
+**Six Minutes per daytime cycle. 360
+
+*	doif ov01 ge 360
+
+*		setv ov01 0
+
+*		addv TIME 1
+
+*		gsub changetemps
+
+*		doif TIME ge 5
+
+*			setv TIME 0
+
+*			addv DATE 1
+
+*			doif DATE ge 4
+
+*				addv sean 1
+
+*				gsub flipscroll
+
+*				setv DATE 0
+
+*				doif sean ge 4
+
+*					addv year 1
+
+*					setv sean 0
+
+*				endi
+
+*			endi
+
+*		endi
+
+*endi
+
+
+
+	doif ov00 ne time
+
+		setv ov00 time
+
+		gsub changetemps
+
+	endi
+
+
+
+
+
+	subr changetemps
+
+*change lights to dark at night*
+
+		doif TIME eq 3
+
+			inst
+
+			enum 1 14 50200
+
+				doif ov05 eq "Natural"
+
+					emit 1 -10
+
+					altr -1 1 -.0028055
+
+				endi
+
+			next
+
+		elif TIME eq 4
+
+			inst
+
+			enum 1 14 50200
+
+				doif ov05 eq "Natural"
+
+					emit 1 -10
+
+					altr -1 1 -.0118055
+
+				endi
+
+			next
+
+		elif TIME eq 0
+
+			inst
+
+			enum 1 14 50200
+
+				doif ov05 eq "Natural"
+
+					emit 1 -10
+
+					altr -1 1 .0118055
+
+				endi
+
+			next
+
+		else
+
+			inst
+
+			enum 1 14 50200
+
+				doif ov05 eq "Natural"
+
+					emit ov02 ov03
+
+				endi
+
+			next
+
+		endi
+
+
+
+		inst
+
+*Change Pressure On/Off
+
+		enum 1 25 50200
+
+			doif TIME eq 4
+
+				emit 19 0
+
+			else
+
+				emit 19 ov02
+
+			endi
+
+		next
+
+		targ ownr
+
+
+
+
+
+		enum 1 15 50200
+
+			doif targ ne null
+
+				doif ov05 eq "Natural"
+
+
+
+*Spring*
+
+					doif sean eq 0
+
+						setv va01 1.0
+
+*Summer*
+
+					elif sean eq 1
+
+						setv va01 2.0
+
+*Autumn*
+
+					elif sean eq 2
+
+						setv va01 0.8
+
+*Winter*
+
+					elif sean eq 3
+
+						setv va01 0.2
+
+					endi
+
+
+
+
+
+*OV03 is the Heat*
+
+					doif TIME eq 0
+
+*If it's Dawn, make the emitters operate at 80% of their natural capacity*
+
+						setv va00 ov03
+
+						mulv va00 .80
+
+						mulv va00 va01
+
+*Morning 1
+
+					elif TIME eq 1
+
+						setv va00 ov03
+
+						mulv va00 .90
+
+						mulv va00 va01
+
+*Afternoon 2
+
+					elif TIME eq 2
+
+						setv va00 ov03
+
+						mulv va00 1.00
+
+						mulv va00 va01
+
+*Evening 3
+
+					elif TIME eq 3
+
+						setv va00 ov03
+
+						mulv va00 .80
+
+						mulv va00 va01
+
+*Midnight* 4
+
+					elif TIME eq 4
+
+						setv va00 ov03
+
+						mulv va00 .30
+
+						mulv va00 va01
+
+					endi
+
+*What if it's still an iceage?
+
+*					doif mame "C2toDSStage" eq 1
+
+*						setv va00 ov03
+
+*						mulv va00 .10
+
+*						mulv va00 va01
+
+*					endi
+
+
+
+
+
+*Emit the Variable
+
+					emit 2 va00
+
+
+
+
+
+					slow
+
+				endi
+
+			endi
+
+		next
+
+	retn
+
+
+
+
+
+
+
+
+
+*setv TIME 3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*Flip the Scroll
+
+	subr flipscroll
+
+		part 4
+
+		anim [0 1 2 3 4 5]
+
+		part 3
+
+		setv va00 pose
+
+		addv va00 1
+
+		doif va00 lt 4
+
+			pose va00
+
+		else
+
+			pose 0
+
+		endi
+
+	retn
+
+endm
+
+rscr
+
+
+
+enum 1 20 50200
+
+	kill targ
+
+next
+
+scrx 1 20 50200 9
+scrx 1 20 50200 10

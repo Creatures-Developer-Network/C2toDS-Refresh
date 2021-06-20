@@ -1,0 +1,372 @@
+* These are all 1 27 50200 
+
+*Norn
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 7135 48350
+
+setv ov00 1
+
+
+
+*Grendel
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 9060 48870
+
+setv ov00 2
+
+
+
+*Ettin
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 6340 49670
+
+setv ov00 3
+
+
+*Fresh Water don't lose it's nutrients, AND now gains it and holds it!
+
+rate 8 4 1.000000 0.001000 0.900000
+
+*Salt Water don't lose it's nutrients, AND now gains it and holds it!
+
+rate 9 4 1.000000 0.001000 0.900000
+
+
+
+*Dark Ocean
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 2696 48512
+
+emit 4 .2
+
+
+
+*Light Ocean
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 8759 48415
+
+emit 4 .2
+
+
+
+*right
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 9310 48593
+
+emit 4 .2
+
+
+
+*Lower
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 8270 48945
+
+emit 4 .2
+
+
+
+*Norn Burrow
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 7285 48325
+
+emit 4 .5
+
+
+
+*Tantris Tree Top
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 4025 48765
+
+emit 4 .3
+
+
+
+*Tantris Tree Top Left
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 3590 48775
+
+emit 4 .3
+
+
+
+*Tantris Tree Bottom
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 3900 49020
+
+emit 4 .3
+
+
+
+
+
+*BioSphere Pod, Small
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 3930 49275
+
+emit 4 .3
+
+
+
+*BioSphere Pod, Small, Outside
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 4190 49270
+
+emit 4 .2
+
+
+
+*Dungeon
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 7030 48690
+
+emit 4 .1
+
+
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 6120 48625
+
+emit 4 .1
+
+
+
+*Shee Statue Gold Area
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 3850 49860
+
+emit 4 .05
+
+
+
+
+
+*BioSpheres Below Pod 1
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 3845 49650
+
+emit 4 .3
+
+
+
+*BioSpheres Below Pod 2
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 4225 49685
+
+emit 4 .3
+
+
+
+*Left
+
+*BioSpheres Regular Top
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 2245 48520
+
+emit 4 .3
+
+*Bottom
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 2300 48955
+
+emit 4 .3
+
+*Right
+
+*BioSpheres Regular Top
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 10300 48520
+
+emit 4 .3
+
+*Bottom
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 10500 48955
+
+emit 4 .3
+
+
+
+*--Ponds--*
+
+*Hatchery
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 6530 48500
+
+emit 4 .4
+
+*Waterwheel
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 4650 49960
+
+emit 4 .3
+
+*Goldfish
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 4175 49130
+
+emit 4 .3
+
+*Dark Ocean
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 2935 48990
+
+emit 4 .3
+
+
+
+*World Tree
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 3860 48100
+
+emit 4 .2
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 4000 48500
+
+emit 4 .1
+
+
+
+*Desert
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 7010 48100
+
+emit 4 .1
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 7515 48090
+
+emit 4 .1
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 64450 48090
+
+emit 4 .1
+
+*Yggdrasil
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 12950 48050
+
+emit 4 .3
+
+
+
+*Ettin Mother
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 8085 49785
+
+emit 4 .3
+
+*Swamp
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 6460 49725
+
+emit 4 .3
+
+
+
+*Grendel Hatchery
+
+new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
+
+mvto 8970 48900
+
+emit 4 .2
+
+
+scrp 1 27 50200 10
+
+	wait 5
+
+	doif ov00 eq 1
+
+		emit 15 1.0
+
+	elif ov00 eq 2
+
+		emit 16 1.0
+
+	elif ov00 eq 3
+
+		emit 17 1.0
+
+	endi
+
+endm
+
+
+rscr
+
+
+enum 1 27 50200
+
+	kill targ
+
+next
+
+
+

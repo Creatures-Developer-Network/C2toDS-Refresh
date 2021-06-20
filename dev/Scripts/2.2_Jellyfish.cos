@@ -1,0 +1,760 @@
+* 2 15 50213 - Jellyfish
+* 2 15 50209 - Jellyfish Polyp
+* 2 15 50214 - Jellyfish Larvae
+
+
+* C2toDS Jellyfish
+
+* C2toDS Jellyfish are much more complex than their C2 counterparts. They have 5 lifestages.
+* Begin life as a floating planula larvae. Floats around on the currents, until it settles on the seafloor. 
+* Take root and grow into a polyp. The polyp grows and eats any critters that swim by. 
+* Polyp gives birth to ephyra, which swim around the ocean. Ephyra have a small and a larger stage.
+* Larger ephyra grow into jellyfish, which swim around the shallow Albian waters. 
+* At a certain age jellyfish will spawn, creating many planula larvae, most of which are eaten by fish. 
+
+* Make some goddamn larvae (placeholder sprites)
+
+reps rand 8 16
+
+	new: simp 2 15 50214 "moe_C2toDS_fish" 1 12 3000
+
+	mvsf rand 8611 9100 rand 48324 48542
+
+repe
+
+
+
+* Make some jellyfish
+
+reps rand 1 2
+
+	new: simp 2 15 50213 "moe_C2toDS_jellyfish" 16 32 3000
+
+	mvsf rand 8611 9100 rand 48324 48542
+
+repe
+
+
+
+new: simp 2 15 50213 "moe_C2toDS_jellyfish" 16 0 3000
+
+setv ov00 2
+
+mvsf rand 8611 9100 rand 48324 48542
+
+
+
+scrp 2 15 50214 10
+
+	accg 0
+
+	aero 10
+
+	elas 0
+
+	attr 195
+
+	tick 1
+
+	velo rand 10 -10 rand 0 -5
+
+endm
+
+
+
+* Creation: polyp
+
+scrp 2 15 50209 10
+
+	inst
+
+	accg 2
+
+	elas 0
+
+	attr 192
+
+	rnge 100
+
+	frat 2
+
+	tick 80
+
+	seta ov09 null
+
+	core 0 hght 40 55
+
+endm
+
+
+
+* Creation: jellyfish
+
+scrp 2 15 50213 10
+
+	accg 0
+
+	elas 0
+
+	aero 10
+
+	attr 195
+
+	frat 2
+
+	tick 27
+
+endm
+
+
+
+
+
+
+
+* Timer: Larvae 
+
+scrp 2 15 50214 9
+
+	doif rtyp room ownr ne 9 and rtyp room ownr ne 8
+
+		loop
+
+			accg .2
+
+			wait 1
+
+			addv ov10 1
+
+			doif ov10 gt 50
+
+				setv va50 1
+
+			endi
+
+		untl va50 eq 1 or rtyp room ownr eq 8 or rtyp room ownr eq 9
+
+	else
+
+		tick 80
+
+		accg 0
+
+		wait rand 10 60
+
+		addv ov90 1
+
+		doif obst down ge 50
+
+			addv velx rand 3 -3
+
+			addv vely rand 3 -3
+
+		else
+
+			addv velx rand 3 -3
+
+			addv vely rand -1 -4
+
+		endi
+
+
+
+		doif ov90 ge 12
+
+			setv va00 rand 1 5
+
+			setv va01 rand 1 5
+
+			doif va00 = va01
+
+				gsub grow
+
+			endi
+
+		endi
+
+
+
+		doif ov90 ge rand 40 60
+
+			kill ownr
+
+		endi
+
+	endi
+
+
+
+*The growing subroutine!
+
+	subr grow
+
+		setv va99 0
+
+		esee 2 15 50209
+
+			addv va99 1
+
+		next
+
+		doif va99 lt 4
+
+			accg .2
+
+			loop
+
+				wait 10
+
+			untl fall ne 1
+
+			setv va00 posl
+
+			setv va01 post
+
+*subv va00 45
+
+			new: simp 2 15 50209 "moe_C2toDS_polyp" 52 0 rand 2000 5000
+
+			doif tmvt va00 va01 eq 1
+
+				mvto va00 va01
+
+				kill ownr
+
+			else
+
+				mvsf va00 va01
+
+				kill ownr
+
+			endi
+
+			doif rtyp room targ ne 8 and rtyp room targ ne 9
+
+				kill targ
+
+			endi
+
+		else
+
+			kill ownr
+
+		endi
+
+
+
+	retn
+
+
+
+endm
+
+
+
+
+
+* Timer: Polyp
+
+scrp 2 15 50209 9
+
+	doif ov00 eq 0
+
+		doif pose lt 13
+
+			setv va00 pose
+
+			addv va00 1
+
+			pose va00
+
+		elif pose eq 13
+
+			setv ov00 1
+
+			tick 50
+
+		endi
+
+	elif ov00 eq 1
+
+		addv ov01 1
+
+
+
+		doif rand 0 10 eq 10
+
+			targ ownr
+
+			anim [14 15 16 17 18 19 20 21 22 23 24 25 14]
+
+			over
+
+		endi
+
+
+
+		doif rand 0 20 eq 15
+
+			targ ownr
+
+			anim [25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 39 38 37 36 35 34 33 32 31 30 29 28 27 26 25]
+
+			over
+
+		endi
+
+
+
+		doif ov01 ge 80
+
+			setv ov00 2
+
+			setv ov01 25
+
+		endi
+
+	elif ov00 eq 2
+
+		subv ov01 1
+
+		doif ov01 le 0
+
+			setv va99 0
+
+			esee 2 15 50213
+
+				addv va99 1
+
+			next
+
+			doif va99 lt 4
+
+				anim [41 42 43 44 45 46]
+
+				over
+
+				reps rand 1 2
+
+					anim [48 47 46]
+
+					setv va00 posl
+
+					setv va01 post
+
+					addv va00 40
+
+					subv va01 5
+
+					new: simp 2 15 50213 "moe_C2toDS_jellyfish" 16 32 3000
+
+					mvsf va00 va01
+
+					setv vely -2
+
+					targ ownr
+
+					anim [47 48]
+
+				repe
+
+				frat 5
+
+				anim [49 50 51]
+
+				wait rand 60 120
+
+				kill ownr
+
+			else
+
+				addv ov08 1
+
+			endi
+
+			doif ov08 ge 80
+
+*dbg: outs "A polyp has died!"
+
+				kill ownr
+
+			endi
+
+		endi
+
+	endi
+
+endm
+
+
+
+* Timer: Ephyra/Jellyfish
+
+scrp 2 15 50213 9
+
+
+
+	doif rtyp room ownr ne 8 and rtyp room ownr ne 9
+
+		setv va90 0
+
+		loop
+
+			accg .6
+
+			wait 30
+
+			addv va90 1
+
+		untl rtyp room ownr eq 8 or rtyp room ownr eq 9 or va90 ge 3
+
+		doif va90 ge 3
+
+			kill ownr
+
+		else
+
+			accg 0
+
+			stop
+
+		endi
+
+	endi
+
+
+
+* Aging etc
+
+	addv ov02 1
+
+
+
+* lifestages
+
+	doif ov00 eq 0
+
+		gsub baby
+
+	elif ov00 eq 1
+
+		gsub child
+
+	elif ov00 eq 2
+
+		gsub adult
+
+	endi
+
+
+
+	subr baby
+
+		doif ov10 eq 0
+
+* any changes
+
+			aero 20
+
+		endi
+
+
+
+		setv ov10 rand 5 -5
+
+
+
+		setv ov11 rand 2 -2
+
+		gsub move
+
+
+
+		doif ov02 ge 200
+
+			setv va99 0
+
+			esee 2 15 50213
+
+				addv va99 1
+
+			next
+
+			doif va99 lt rand 3 5
+
+				gsub agetochild
+
+			else
+
+				gsub die
+
+			endi
+
+		endi
+
+	retn
+
+
+
+	subr child
+
+		doif ov10 eq 0
+
+* any changes
+
+			aero 15
+
+		endi
+
+
+
+		setv ov10 rand 5 -5
+
+		setv ov11 rand 1 -1
+
+
+
+		gsub move
+
+
+
+		doif ov02 ge 200
+
+			gsub agetoadult
+
+		endi
+
+	retn
+
+
+
+	subr adult
+
+		doif ov10 eq 0
+
+* any changes
+
+			frat 3
+
+		endi
+
+
+
+		setv ov10 rand 5 -5
+
+		setv ov11 rand 1 -1
+
+
+
+		gsub move
+
+
+
+		doif ov02 ge 300 and ov12 eq 0
+
+			gsub spawn
+
+		endi
+
+
+
+		doif ov02 ge 500
+
+			gsub die
+
+		endi
+
+	retn
+
+
+
+	subr move
+
+		doif ov11 gt 0
+
+			mira 1
+
+		elif ov11 lt 0
+
+			mira 0
+
+		endi
+
+		setv velx ov11
+
+
+
+		setv va10 post
+
+		setv va11 posl
+
+		subv va10 100
+
+		addv va11 25
+
+		doif rtyp grap va11 va10 ne 8 and rtyp grap va11 va10 ne 9
+
+			setv vely 5
+
+		else
+
+			setv vely rand 3 5
+
+		endi
+
+		anim [0 1 2 3 4]
+
+		over
+
+		doif obst down lt 100
+
+			setv vely -5
+
+		else
+
+			setv vely rand -3 -5
+
+		endi
+
+		anim [5 6 7]
+
+		over
+
+	retn
+
+
+
+	subr agetochild
+
+		setv velx 0
+
+		setv vely 0
+
+		setv va00 posl
+
+		setv va01 post
+
+		subv va01 15
+
+		setv va02 plne
+
+		addv va02 1
+
+		new: simp 2 15 50213 "moe_C2toDS_jellyfish" 16 16 va02
+
+		setv va03 wdth
+
+		divv va03 2
+
+		subv va00 va03
+
+		setv ov00 1
+
+		mvsf va00 va01
+
+		kill ownr
+
+	retn
+
+
+
+	subr agetoadult
+
+		setv velx 0
+
+		setv vely 0
+
+		setv va00 posl
+
+		setv va01 post
+
+		subv va01 15
+
+		setv va02 plne
+
+		addv va02 1
+
+		new: simp 2 15 50213 "moe_C2toDS_jellyfish" 16 0 va02
+
+		setv ov00 2
+
+		setv va03 wdth
+
+		divv va03 2
+
+		subv va00 va03
+
+		mvsf va00 va01
+
+		kill ownr
+
+	retn
+
+
+
+	subr spawn
+
+		reps rand 5 12
+
+			setv va00 posl
+
+			setv va01 post
+
+			new: simp 2 15 50214 "moe_C2toDS_fish" 1 12 3000
+
+			mvsf va00 va01
+
+		repe
+
+		targ ownr
+
+		setv ov12 1
+
+	retn
+
+
+
+	subr die
+
+		kill ownr
+
+	retn
+
+
+
+endm
+
+
+rscr
+
+enum 2 15 50214
+
+	kill targ
+
+next
+
+enum 2 15 50213
+
+	kill targ
+
+next
+
+enum 2 15 50209
+
+	kill targ
+
+next
+
+scrx 2 15 50214 10
+
+scrx 2 15 50214 9
+
+scrx 2 15 50213 10
+
+scrx 2 15 50213 9
+
+scrx 2 15 50209 10
+
+scrx 2 15 50209 9
+
+

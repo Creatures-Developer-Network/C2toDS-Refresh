@@ -1,0 +1,1864 @@
+* Has:
+*1 9 50200 - Weather Status Bar
+*2 19 50200 - Clouds
+*2 21 50217 - Pot o' Cheese
+*1 17 50200 - Puff of Smoke
+*2 19 50208 - Rainbow
+*2 19 50209 - Rainbow Sparkles
+*2 19 50201 - Raindrop
+*2 19 50202 - Snowflake
+*2 19 50207 - Dust Devil
+
+new: comp 1 9 50200 "moe_C2toDS_Weather" 1 32 9000
+
+attr 34
+
+setv va00 wndh
+
+subv va00 hght
+
+flto 0 va00
+
+tick 19.5
+
+*tick 1
+
+setv name "AmIDocked" 2
+
+*year PART 1
+
+pat: fixd 1 "moe_C2toDS_Weather" 33 46 -2 0 "BlackOnTransparentChars"
+
+part 1
+
+ptxt "000"
+
+*Season - PART 2
+
+pat: dull 2 "moe_C2toDS_Weather" 34 140 2 -1
+
+*TMOD - PART 3
+
+pat: dull 3 "moe_C2toDS_Weather" 38 188 2 -1
+
+*TEMP - PART 4
+
+pat: fixd 4 "moe_C2toDS_Weather" 33 100 -2 1 "BlackOnTransparentChars"
+
+*Button to change temp - PART 5 MESG 1001
+
+pat: butt 5 "moe_C2toDS_Weather" 43 4 95 2 -1 [0] 1001 0
+
+
+
+
+
+*TEMP CONVERTER*
+
+new: comp 2 19 50200 "moe_C2toDs_weather" 10 0 5001
+
+setv va00 rand 8400 8800
+
+setv va01 rand 47652 47840
+
+mvsf va00 va01
+
+
+
+*random clouds in the sky at start, plus random size! :D
+
+reps rand 5 15
+
+	new: comp 2 19 50200 "moe_C2toDs_weather" 10 0 5001
+
+	setv va00 rand 2300 2820
+
+	setv va01 rand 47652 47840
+
+	mvsf rand 2070 10235 rand 47762 47922
+
+	addv ov00 rand 1 5
+
+repe
+
+*Press the Cheese Pot (That comes from a rainbow)
+
+scrp 2 21 50217 1
+
+*stim writ from 90 1
+
+	stim writ from 97 .5
+
+	mesg writ targ 1001
+
+
+
+endm
+
+
+
+*Make Cheese*
+
+scrp 2 21 50217 1001
+
+	setv va00 posx
+
+	setv va01 post
+
+	addv va00 rand -25 25
+
+	new: simp 2 11 50202 "moe_C2toDS_cheese" 1 rand 25 26 5000
+
+	mvsf va00 va01
+
+	targ ownr
+
+	addv ov00 1
+
+endm
+
+
+
+*Pot of Cheese Timer
+
+scrp 2 21 50217 9
+
+	doif fall eq 1 and carr eq null
+
+		mesg writ targ 1001
+
+	endi
+
+
+
+	doif ov00 ge 20
+
+		inst
+
+		setv va00 posx
+
+		setv va01 post
+
+		subv va00 35
+
+		new: simp 1 17 50200 "smoke" 5 10 5001
+
+		attr 32
+
+		mvto va00 va01
+
+		snde "wrp1"
+
+		anim [0 1 2 3 4]
+
+		over
+
+		inst
+
+		kill targ
+
+		targ ownr
+
+		kill targ
+
+	endi
+
+endm
+
+scrp 1 9 50200 1001
+
+	doif ov00 eq 0
+
+		setv ov00 1
+
+	elif ov00 ne 0
+
+		setv ov00 0
+
+	endi
+
+endm
+
+
+
+
+
+scrp 1 9 50200 9
+
+
+
+	part 1
+
+	ptxt vtos year
+
+
+
+	part 2
+
+	pose sean
+
+
+
+	part 3
+
+	pose time
+
+
+
+
+
+
+
+	doif visi 0 eq 0
+
+		setv va00 wndh
+
+		subv va00 hght
+
+		flto 0 va00
+
+	endi
+
+
+
+
+
+
+
+
+
+*TEMP TELLER*
+
+	targ pntr
+
+	setv va03 posl
+
+	setv va04 post
+
+	targ ownr
+
+	setv va00 prop grap va03 va04 2
+
+
+
+	setv ov01 va00
+
+
+
+	doif ov01 lt .25
+
+		part 5
+
+		pose 0
+
+	elif ov01 ge .25 and ov01 lt .5
+
+		part 5
+
+		pose 1
+
+	elif ov01 ge .5 and ov01 lt .75
+
+		part 5
+
+		pose 2
+
+	elif ov01 ge .75
+
+		part 5
+
+		pose 3
+
+	endi
+
+
+
+
+
+	doif ov00 eq 0
+
+		mulv va00 75
+
+		divv va00 .5
+
+		setv va00 ftoi va00
+
+		sets va00 vtos va00
+
+		adds va00 "F"
+
+	else
+
+		mulv va00 75
+
+		divv va00 .5
+
+
+
+*Convert to Celcius*
+
+
+
+		subv va00 32
+
+		setv va02 5.000000
+
+		divv va02 9.000000
+
+		mulv va00 va02
+
+
+
+*C****************s*
+
+
+
+		setv va00 ftoi va00
+
+		sets va00 vtos va00
+
+		adds va00 "C"
+
+	endi
+
+	part 4
+
+	ptxt va00
+
+endm
+
+scrp 2 19 50200 10
+
+	bhvr 1
+
+	dcor 0
+
+*core 10 0 200 250
+
+	core 70 25 150 250
+
+	perm 2
+
+	attr 196
+
+	accg 0
+
+	aero 0
+
+	fric 0
+
+	elas 0
+
+	rnge 1999
+
+	seta ov04 targ
+
+	tick 100
+
+	addv ov00 1
+
+	emit 19 .05
+
+endm
+
+
+
+scrp 2 19 50200 9
+
+
+
+*urge sign 19 1 .05
+
+
+
+*if you're out of water, you just die. :(*
+
+	doif ov00 le 0
+
+		kill targ
+
+	endi
+
+*What type of cloud are you?
+
+
+
+	setv va00 prop grap posx posy 3
+
+
+
+	doif name "done?" eq 0
+
+*Summertime brings more rain.
+
+		doif sean eq 1
+
+			mulv va00 1.1000
+
+		endi
+
+		addv ov00 va00
+
+	endi
+
+
+
+	setv va02 prop grap posl post 2
+
+	doif ov00 lt 2
+
+		pose 0
+
+	elif ov00 ge 2 and ov00 lt 4
+
+		pose 1
+
+	elif ov00 ge 4 and va02 lt .55
+
+		pose 2
+
+	endi
+
+
+
+
+
+	addv ov10 1
+
+
+
+
+
+*If you're really old, just rain out already...*
+
+	doif ov10 ge rand 50 80
+
+		setv name "done?" 1
+
+		tick 1
+
+		gsub rain2
+
+	endi
+
+*If--------------------------------------------*
+
+
+
+
+
+	tick rand 50 200
+
+
+
+*Find the room with the lowest concentration
+
+	doif velx gt 0
+
+		setv va00 lorp grap posr posy 19 0
+
+	elif velx le 0
+
+		setv va00 lorp grap posl posy 19 0
+
+	endi
+
+
+
+*Got the X Chordinate
+
+	setv va01 torx va00
+
+*doif velx eq 0
+
+	doif va01 gt 1
+
+		setv velx rand .55 1.0
+
+	elif va01 lt 1
+
+		setv velx rand -.55 -1.0
+
+	endi
+
+*endi
+
+*Up or Down Cloudy!*
+
+*Up
+
+	setv va02 prop grap posl post 2
+
+	doif va02 ge .6 and obst _up_ ge 50
+
+		addv vely -.25
+
+	elif va02 ge .6 and obst _up_ le 50
+
+		setv vely 0
+
+	endi
+
+*Down
+
+*Don't go in the water...
+
+	setv va03 posb
+
+	addv va03 250
+
+	setv va04 rtyp grap posx va03
+
+	doif va04 eq 9 or va04 eq 8
+
+		setv va05 1
+
+	endi
+
+
+
+
+
+	doif va02 lt .3 and obst down ge 250 and va05 eq 0
+
+		addv vely .25
+
+	elif va02 lt .3 and obst down le 250 or va05 eq 1
+
+		setv vely 0
+
+	endi
+
+*if you've hit the ceiling for some reason, come down!*
+
+	doif obst _up_ lt 10
+
+		setv vely .55
+
+		wait 10
+
+		setv vely 0
+
+	endi
+
+
+
+*If you're hit the floor, go up
+
+	doif obst down le 50
+
+		setv vely -.55
+
+		wait 25
+
+		setv vely 0
+
+	endi
+
+
+
+*If you hit a wall, go the other direction*
+
+	setv va05 wall
+
+	doif va05 eq rght and velx eq 0
+
+		setv velx -.55
+
+	elif va05 eq left and velx eq 0
+
+		setv velx .55
+
+	endi
+
+
+
+*If you're near a wall, go the other way
+
+	setv va00 obst left
+
+	setv va01 obst rght
+
+
+
+	doif va00 lt 200
+
+		setv velx .55
+
+	endi
+
+	doif va01 lt 200
+
+		setv velx -.55
+
+	endi
+
+
+
+*DustDevil
+
+	doif sean eq 1 and va02 ge .7 and pose ge 3
+
+		setv va10 0
+
+		rnge 1999
+
+		esee 2 19 50207
+
+			doif targ ne null
+
+				addv va10 1
+
+			endi
+
+		next
+
+		doif va10 eq 0
+
+			mesg writ targ 1005
+
+		endi
+
+	endi
+
+
+
+*ThunderHead*  If it's hot and wet enough!
+
+	doif ov00 ge 6 and va02 ge .55
+
+		frat 2
+
+		anim [3 4 5 6 255]
+
+		addv ov03 rand 1 5
+
+		doif ov03 ge 10
+
+			mesg writ targ 1001
+
+		endi
+
+	endi
+
+
+
+
+
+
+
+
+
+*Always loose a little moisture...
+
+	subv ov00 .025
+
+
+
+*If you're UNDER water, you should die. Sorriez! D:*
+
+	setv va03 rtyp grap posx posb
+
+	doif va03 eq 9 or va03 eq 8
+
+		kill targ
+
+	endi
+
+
+
+*Rain*
+
+*If you have water you can rain.
+
+	doif ov00 ge .2
+
+		setv va00 grid targ down
+
+		doif va00 ne -1
+
+*if the room below you has no water, rain.
+
+			setv ov01 prop va00 3
+
+			gsub rain
+
+		else
+
+*If there is no room below you, check this one.
+
+			setv ov01 prop grap posx posy 3
+
+			gsub rain
+
+		endi
+
+	endi
+
+
+
+
+
+
+
+
+
+	subr rain
+
+*You can rain, IF the fates agree....
+
+		setv va00 rand 0 2
+
+		doif va00 eq 1
+
+			doif ov01 lt .2
+
+				setv va01 prop grap posx posy 2
+
+				doif va01 gt .2
+
+					mesg writ targ 1002
+
+				else
+
+*snow
+
+					mesg writ targ 1003
+
+				endi
+
+
+
+			endi
+
+		endi
+
+	retn
+
+
+
+	subr rain2
+
+
+
+		doif ov01 lt .2
+
+			setv va01 prop grap posx posy 2
+
+			doif va01 gt .2
+
+				mesg writ targ 1002
+
+			else
+
+				mesg writ targ 1003
+
+			endi
+
+
+
+		endi
+
+	retn
+
+
+
+endm
+
+
+
+scrp 2 19 50200 6
+
+*If you hit a wall, go the other direction*
+
+	setv va05 wall
+
+	doif va05 eq rght and velx eq 0
+
+		setv velx -.55
+
+	elif va05 eq left and velx eq 0
+
+		setv velx .55
+
+	endi
+
+
+
+	doif va05 eq _up_ and velx eq 0
+
+		setv vely .55
+
+	elif va05 eq down and velx eq 0
+
+		setv vely -.55
+
+	endi
+
+
+
+endm
+
+*Push Cloud!
+
+scrp 2 19 50200 1
+
+
+
+
+
+
+
+	setv va00 rand 0 6
+
+	doif va00 eq 2
+
+		mesg writ targ 1004
+
+	endi
+
+
+
+	doif pose gt 2
+
+		mesg writ targ 1001
+
+	else
+
+		gsub rain
+
+	endi
+
+
+
+	subr rain
+
+*You can rain, IF the fates agree....
+
+		doif ov01 lt .2
+
+			setv va01 prop grap posx posy 2
+
+			doif va01 gt .3
+
+				mesg writ targ 1002
+
+			else
+
+				mesg writ targ 1003
+
+			endi
+
+		endi
+
+	retn
+
+
+
+endm
+
+
+
+
+
+*Create Rainbow
+
+scrp 2 19 50200 1004
+
+	lock
+
+*Rainbow Create
+
+	setv va00 posx
+
+	setv va01 posy
+
+	inst
+
+	new: simp 2 19 50208 "moe_C2toDS_weather" 0 62 5000
+
+	mvto va00 va01
+
+	attr 32
+
+	part 100
+
+	frel ownr
+
+	flto 200 0
+
+	tick 2
+
+	alph 255 256
+
+	setv va10 256
+
+	slow
+
+	loop
+
+		subv va10 5
+
+		alph va10 1
+
+	untl va10 le 200
+
+	targ ownr
+
+*Rainbow Create
+
+	unlk
+
+endm
+
+
+
+scrp 2 19 50200 1001
+
+
+
+	lock
+
+	setv ov03 0
+
+	inst
+
+	pose 7
+
+	doif mira eq 0
+
+		setv va02 207
+
+		setv va03 111
+
+		setv va06 2
+
+		setv va08 obst down
+
+		divv va08 80
+
+		doif va08 le 0 or va08 ge 30
+
+			setv va08 3
+
+		endi
+
+*scare creatures
+
+		esee 4 0 0
+
+			chem 158 .5
+
+		next
+
+		targ ownr
+
+
+
+		doif va08 gt 0
+
+			reps va08
+
+*a bolt*
+
+				sndc "thun"
+
+				setv va00 rand 19 21
+
+				pat: dull va06 "moe_C2toDS_weather" va00 va02 va03 1
+
+
+
+				setv va04 rand 1 2
+
+				doif va04 eq 1
+
+					setv va05 20
+
+				elif va04 eq 2
+
+					setv va05 -20
+
+				endi
+
+
+
+				setv va00 rand 19 21
+
+				addv va03 80
+
+				addv va02 va05
+
+				addv va06 1
+
+			repe
+
+		endi
+
+
+
+		wait 15
+
+		inst
+
+		reps va06
+
+			addv va07 1
+
+			pat: kill va07
+
+		repe
+
+		part 0
+
+		frat 3
+
+		anim [3 4 5 6 255]
+
+		rnge 350
+
+	endi
+
+
+
+
+
+
+
+	mesg writ targ 1002
+
+	unlk
+
+endm
+
+
+
+scrp 2 19 50200 1002
+
+
+
+*RAIN*
+
+
+
+	inst
+
+	doif pose eq 0
+
+		setv va00 rand 1 2
+
+	elif pose eq 1
+
+		setv va00 rand 2 3
+
+	elif pose eq 2
+
+		setv va00 rand 4 5
+
+	elif pose gt 3
+
+		setv va00 rand 5 7
+
+	endi
+
+	slow
+
+
+
+	doif va00 eq 0
+
+		setv va00 1
+
+	endi
+
+
+
+	reps va00
+
+		wait rand 2 3
+
+		subv ov00 0.150
+
+
+
+		setv va00 posl
+
+		addv va00 70
+
+		setv va01 posb
+
+		setv va02 wdth
+
+		subv va02 70
+
+		addv va00 rand 0 va02
+
+
+
+
+
+		doif pose eq 1
+
+			addv va00 rand -50 50
+
+		endi
+
+
+
+		inst
+
+		new: simp 2 19 50201 "moe_C2toDS_weather" 0 23 rand 1000 6000
+
+		attr 192
+
+		perm rand 49 51
+
+		mvsf va00 va01
+
+		tick 1
+
+		sndc "rai2"
+
+		targ ownr
+
+		slow
+
+	repe
+
+
+
+endm
+
+
+
+
+
+
+
+*Snow*
+
+scrp 2 19 50200 1003
+
+
+
+	inst
+
+	doif pose eq 0
+
+		setv va00 rand 2 4
+
+	elif pose eq 1
+
+		setv va00 rand 4 6
+
+	elif pose eq 2
+
+		setv va00 rand 8 10
+
+	elif pose gt 3
+
+		setv va00 rand 10 14
+
+	endi
+
+	slow
+
+
+
+	doif va00 eq 0
+
+		setv va00 1
+
+	endi
+
+
+
+	reps va00
+
+		wait rand 1 2
+
+		subv ov00 0.0750
+
+		setv va00 posl
+
+		addv va00 70
+
+		setv va01 posb
+
+		setv va02 wdth
+
+		subv va02 70
+
+		addv va00 rand 0 va02
+
+
+
+		new: simp 2 19 50202 "moe_C2toDS_weather" 0 9 rand 1000 6000
+
+		bhvr 48
+
+		attr 195
+
+		aero 3
+
+		elas 0
+
+		accg .1
+
+		perm rand 49 51
+
+		mvsf va00 va01
+
+		tick 1
+
+		frat 3
+
+		anim [0 1 2 3 4 5 6 7 255]
+
+		targ ownr
+
+
+
+	repe
+
+
+
+endm
+
+*Snow END END END*
+
+scrp 2 19 50200 1005
+
+*Dust Devil*
+
+	setv va01 posx
+
+	setv va02 posb
+
+	subv va01 50
+
+	subv va02 100
+
+	new: comp 2 19 50207 "moe_C2toDS_weather" 70 80 5005
+
+	rnge 1999
+
+	mvsf va01 va02
+
+	rnge 200
+
+	targ ownr
+endm
+
+*Rainbow Timer
+
+scrp 2 19 50208 9
+
+	addv ov01 1
+
+	doif ov01 ge 50
+
+		setv va10 190
+
+		loop
+
+			addv va10 5
+
+			alph va10 1
+
+		untl va10 ge 250
+
+
+
+		inst
+
+*Create a Pot of Cheese!
+
+		setv va00 posx
+
+		setv va01 posy
+
+		addv va00 185
+
+		addv va01 100
+
+		addv va00 rand -15 15
+
+		new: simp 2 21 50217 "moe_C2toDS_weather" 0 79 5000
+
+		bhvr 1
+
+		attr 198
+
+		elas 0
+
+		fric 70
+
+		accg 4
+
+		perm 51
+
+		tick 5
+
+		mvsf va00 va01
+
+		mira rand 0 1
+
+		targ ownr
+
+
+
+
+
+		kill targ
+
+
+
+
+
+	endi
+
+
+
+	inst
+
+	setv va00 posx
+
+	setv va01 posy
+
+	addv va00 185
+
+	addv va01 100
+
+	addv va00 rand -15 15
+
+	addv va01 rand -15 15
+
+	new: simp 2 19 50209 "moe_C2toDS_weather" 0 63 5000
+
+	attr 195
+
+	mvsf va00 va01
+
+	anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 255]
+
+	tick 1
+
+	targ ownr
+
+endm
+
+*RAIN SCRIPTS*
+
+scrp 2 19 50201 6
+
+	lock
+
+	altr -1 3 0.1250
+
+*Rain Brings Nutrients
+
+	altr -1 4 0.1250
+
+*Rain also Cools
+
+	altr -1 2 -0.01250
+
+	kill targ
+
+	unlk
+
+endm
+
+
+
+scrp 2 19 50201 9
+
+	inst
+
+	doif grap posx posy ne -1
+
+		altr -1 3 0.001000
+
+*Rain also Cools
+
+		altr -1 2 -0.001000
+
+		doif rtyp grap posx posb eq 9
+
+			altr -1 3 0.1250
+
+			kill targ
+
+		elif rtyp grap posx posb eq 8
+
+			altr -1 3 0.1250
+
+			kill targ
+
+		endi
+
+	endi
+
+
+
+	addv ov02 1
+
+	doif fall eq 0 and carr eq null
+
+		mesg writ targ 6
+
+	endi
+
+
+
+endm
+
+*RAIN SCRIPTS END END END*
+
+*SNOW SCRIPTS
+
+
+
+*Eat Snowflake
+
+scrp 2 19 50202 12
+
+	stim writ from 97 1
+
+	chem 33 .15
+
+	chem 162 .15
+
+	chem 152 .15
+
+	chem 153 -.15
+
+endm
+
+
+
+
+
+scrp 2 19 50202 6
+
+	lock
+
+	altr -1 3 0.06250
+
+*Snow Brings Nutrients
+
+	altr -1 4 0.1250
+
+*Snow also Cools Considerably
+
+	altr -1 2 -0.00010
+
+	frat 5
+
+	anim [8 9]
+
+	over
+
+	kill targ
+
+	unlk
+
+endm
+
+
+
+*Snow Timer
+
+scrp 2 19 50202 9
+
+	inst
+
+	doif grap posx posy ne -1
+
+		altr -1 3 0.001000
+
+		doif rtyp grap posx posb eq 9
+
+			altr -1 3 0.1250
+
+			kill targ
+
+		elif rtyp grap posx posb eq 8
+
+			altr -1 3 0.1250
+
+			kill targ
+
+		endi
+
+	endi
+
+
+
+
+
+	etch 4 0 0
+
+		doif targ ne null
+
+			targ ownr
+
+			mesg writ targ 6
+
+		endi
+
+	next
+
+	targ ownr
+
+
+
+	addv ov02 1
+
+	doif ov02 ge 20
+
+		addv velx rand -.55 .55
+
+		setv ov02 0
+
+	endi
+
+
+
+	addv ov02 1
+
+	doif fall eq 0 and carr eq null
+
+		mesg writ targ 6
+
+	endi
+
+
+
+endm
+
+*SNOW SCRIPTS END END END*
+
+*DUST DEVIL SCRIPTS
+
+scrp 2 19 50207 10
+
+	inst
+
+	setv name "dustdevil" 1
+
+	attr 199
+
+	pat: dull 1 "moe_C2toDS_weather" 80 0 0 0
+
+	part 1
+
+	anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 255]
+
+	part 0
+
+	inst
+
+	perm 51
+
+	elas 10
+
+	fric 0
+
+	accg 1
+
+	wait 20
+
+	anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 255]
+
+	tick 1
+
+	sndl "wnd7"
+
+
+
+endm
+
+
+
+
+
+
+
+scrp 2 19 50207 9
+
+	rnge 200
+
+
+
+	doif velx eq 0
+
+		addv velx rand -0.55 0.55
+
+	endi
+
+
+
+	inst
+
+	setv va01 posx
+
+	esee 0 0 0
+
+*doif attr eq 194 or attr eq 195 or attr eq 199 or attr eq 198 and accg gt 0 and carr eq null
+
+*Must be Pickupable
+
+		setv va02 attr
+
+		andv va02 2
+
+
+
+*And suffer physics
+
+		setv va03 attr
+
+		andv va03 128
+
+
+
+		setv va04 attr
+
+		andv va04 32
+
+
+
+		doif va04 ne 32 and va02 eq 2 and va03 eq 128 and accg gt 0 and carr eq null
+
+			doif name "dustdevil" ne 1 and accg ge .1
+
+
+
+				deln name "dustdevil"
+
+				setv va00 accg
+
+				addv va00 5
+
+
+
+				setv va03 va00
+
+				setv va04 rand 1 2
+
+
+
+				doif posx gt va01
+
+					subv vely va04
+
+					subv velx va03
+
+				elif posx lt va01
+
+					subv vely va04
+
+					addv velx va03
+
+				endi
+
+			endi
+
+		endi
+
+		targ ownr
+
+	next
+
+
+
+	setv va05 rtyp grap posx posb
+
+
+
+	doif part 1 ne 0
+
+		doif va05 eq 8 or va05 eq 9
+
+			accg 0
+
+			setv vely 0
+
+			addv velx rand -1 1
+
+			doif ov02 eq 0
+
+				base 32
+
+				part 1
+
+				base 32
+
+				setv ov02 1
+
+			endi
+
+		else
+
+			doif ov02 eq 1
+
+				addv velx rand -1 1
+
+				accg 1
+
+				base 0
+
+				part 1
+
+				base 0
+
+				setv ov02 0
+
+			endi
+
+		endi
+
+	endi
+
+	slow
+
+
+
+	addv ov00 1
+
+	inst
+
+	doif ov00 ge 500
+
+		doif part 1 ne 0
+
+			part 1
+
+			doif pose ge 30
+
+				pat: kill 1
+
+			else
+
+				stop
+
+			endi
+
+		endi
+
+		part 0
+
+		doif pose ge 30 or pose eq 0
+
+			esee 0 0 0
+
+*Must be Pickupable
+
+				setv va02 attr
+
+				andv va02 2
+
+
+
+*And suffer physics
+
+				setv va03 attr
+
+				andv va03 128
+
+
+
+				setv va04 attr
+
+				andv va04 32
+
+
+
+				doif va04 ne 32 and va02 eq 2 and va03 eq 128 and accg gt 0 and carr eq null
+
+					addv vely -30
+
+				endi
+
+			next
+
+
+
+			targ ownr
+
+			kill targ
+
+		endi
+
+	endi
+
+	slow
+
+
+
+endm
+
+*End Dust Devil Scripts
+
+*Rainbow Sparkles
+
+scrp 2 19 50209 9
+
+	loop
+
+		addv va00 5
+
+		alph va00 1
+
+	untl va00 ge 250
+
+	kill targ
+
+endm
+
+rscr
+
+enum 1 9 50200
+	kill targ
+next
+enum 2 21 50217
+	kill targ
+next
+scrx 1 9 50200 9
+enum 2 19 50200
+	kill targ
+next
+scrx 2 19 50200 9
+scrx 2 21 50217 9
+enum 1 17 50200
+	kill targ
+next
+enum 2 19 50208
+
+	kill targ
+
+next
+
+enum 2 19 50201
+
+	kill targ
+
+next
+enum 2 19 50202
+
+	kill targ
+
+next
+scrx 2 19 50201 9
+enum 2 19 50209
+
+	kill targ
+
+next
+enum 2 19 50207
+
+	kill targ
+
+next

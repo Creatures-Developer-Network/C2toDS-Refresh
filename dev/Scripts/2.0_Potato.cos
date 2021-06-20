@@ -1,0 +1,828 @@
+* 2 3 50201 - Potato Seed
+* 2 10 50201 - Potato Detritus
+* 2 11 50201 - Potato
+* 2 23 50201 - Potato Seed Launcher
+
+new: simp 2 23 50201 "moe_C2toDS_potato" 21 9 2500
+
+mvsf 6233 49705
+
+mesg writ targ 0
+
+
+scrp 2 23 50201 10
+
+	inst
+
+	lock
+
+	attr 199
+
+	bhvr 1
+
+	elas 10
+
+	fric 75
+
+	perm 60
+
+	accg 4
+
+	aero 10
+
+	emit 10 .15
+
+endm
+
+
+
+scrp 2 23 50201 1
+
+	inst
+
+	lock
+
+	sndc "potl"
+
+	frat 2
+
+	anim [0 1 2]
+
+	over
+
+	anim [3 4 5 6 7 8 9 10 11 12]
+
+	over
+
+	sndc "pop2"
+
+	setv ov01 posx
+
+	setv ov02 post
+
+	reps rand 4 6
+
+		gsub potato
+
+	repe
+
+	targ ownr
+
+	anim [13 14 15 16 17 18 19 20 0]
+
+	over
+
+
+
+	subr potato
+
+		inst
+
+		new: simp 2 3 50201 "moe_C2toDS_potato" 9 0 1001
+
+		mvsf mv01 mv02
+
+		setv va00 rand -1500 1500
+
+		divv va00 100.00
+
+		setv velx va00
+
+		setv va00 rand -1550 -2050
+
+		divv va00 100.00
+
+		setv vely va00
+
+	retn
+
+
+
+endm
+
+
+
+
+
+*Seed Timer
+
+scrp 2 3 50201 9
+
+
+
+	doif fall ne 0 or carr ne null
+
+		stop
+
+	endi
+
+
+
+	setv va00 posl
+
+	setv va01 post
+
+	addv va01 4
+
+
+
+	setv va02 grap posx posy
+
+
+
+	doif rtyp va02 ne 8 and rtyp ov11 ne 9
+
+		doif prop va02 1 ge .15 and prop va02 2 gt 0.4 and prop va02 3 gt .15 and prop va02 4 gt .25
+
+			gsub grow
+
+		else
+
+			gsub die
+
+		endi
+
+	else
+
+		gsub die
+
+	endi
+
+
+
+
+
+	subr grow
+
+
+
+		inst
+
+		setv va12 0
+
+		enum 2 11 50201
+
+			doif targ ne null
+
+				doif relx ownr targ lt 100
+
+					addv va12 1
+
+				endi
+
+			endi
+
+		next
+
+		targ ownr
+
+
+
+
+
+		doif va12 lt 6
+
+			new: simp 2 11 50201 "moe_C2toDS_potato" 8 1 1001
+
+			mvto va00 va01
+
+			setv ov02 post
+
+			subv ov02 15
+
+			setv ov01 post
+
+			kill ownr
+
+		else
+
+			gsub die
+
+		endi
+
+
+
+	retn
+
+
+
+	subr die
+
+		doif time eq 4
+
+			stop
+
+		endi
+
+*Don't die right off the bat, give us some time.
+
+		addv ov03 1
+
+		doif ov03 ge 50
+
+			doif carr eq null
+
+				altr -1 2 .02
+
+				altr -1 3 .015
+
+				altr -1 4 .0124
+
+				kill ownr
+
+			endi
+
+		endi
+
+	retn
+
+
+
+
+
+endm
+
+
+
+*Seed Install Script
+
+scrp 2 3 50201 10
+
+	inst
+
+	bhvr 48
+
+	attr 199
+
+	elas 10
+
+	fric 50
+
+	perm 40
+
+	accg 4
+
+	aero 10
+
+	tick rand 200 350
+
+	rnge 200
+
+*dcor 1
+
+*core 0 wdth 0 10
+
+
+
+endm
+
+
+
+*Seed Eat Script
+
+scrp 2 3 50201 12
+
+*snde "chwp"
+
+	snde "reat"
+
+	stim writ from 77 1
+
+	kill ownr
+
+endm
+
+
+
+scrp 2 11 50201 10
+
+	inst
+
+	attr 5
+
+	elas 10
+
+	fric 50
+
+	perm 40
+
+	accg 4
+
+	aero 10
+
+	tick rand 200 250
+
+	plne rand 1000 5000
+
+endm
+
+
+
+
+
+
+
+scrp 2 11 50201 9
+
+	doif time eq 4
+
+		stop
+
+	endi
+
+
+
+
+
+	doif ov04 ne 1
+
+		doif pose lt 4
+
+			tick rand 250 350
+
+			setv va00 pose
+
+			addv va00 1
+
+			pose va00
+
+			stop
+
+		elif pose eq 4 and post gt ov02
+
+			loop
+
+				setv va00 post
+
+				subv va00 1
+
+				mvto posl va00
+
+				wait 5
+
+			untl post le ov02
+
+*You'r Ripe, Become edible.
+
+*You can be seen, picked up.
+
+			attr 3
+
+			bhvr 51
+
+			emit 8 .15
+
+*You're RIPE - ov04
+
+			setv ov04 1
+
+*tick 1500
+
+			tick 1500
+
+			stop
+
+		endi
+
+	elif ov04 eq 1
+
+*Detritus
+
+		reps rand 1 3
+
+			gsub seed
+
+		repe
+
+
+
+*loop
+
+		doif carr eq null
+
+			gsub detritus
+
+		endi
+
+*untl carr eq null
+
+
+
+	endi
+
+
+
+
+
+
+
+	subr seed
+
+		setv ov05 posx
+
+		setv ov06 post
+
+		inst
+
+		new: simp 2 3 50201 "moe_C2toDS_potato" 9 0 1001
+
+		mvsf mv05 mv06
+
+		setv velx rand -15 15
+
+		setv vely rand -5 -10
+
+		targ ownr
+
+	retn
+
+
+
+	subr detritus
+
+
+
+		setv va00 posl
+
+		setv va01 post
+
+
+
+		doif mira eq 1
+
+			setv va02 1
+
+		else
+
+			setv va02 0
+
+		endi
+
+
+
+		doif pose eq 4
+
+			setv va03 0
+
+		else
+
+			setv va03 1
+
+		endi
+
+
+
+		new: simp 2 10 50201 "moe_C2toDS_potato" 2 7 1001
+
+		mvto va00 va01
+
+		pose va03
+
+		mira va02
+
+		kill ownr
+
+	retn
+
+endm
+
+
+
+scrp 2 11 50201 1
+
+	mesg writ ownr 12
+
+endm
+
+
+
+scrp 2 11 50201 2
+
+	mesg writ ownr 12
+
+endm
+
+
+
+
+
+*PICK UP POTATO*
+
+scrp 2 11 50201 4
+
+	inst
+
+	lock
+
+	attr 199
+
+	accg 4
+
+	perm 51
+
+	doif pose eq 4
+
+		pose 5
+
+		mira rand 0 1
+
+	elif pose eq 6
+
+		pose 7
+
+		mira rand 0 1
+
+	endi
+
+endm
+
+
+
+
+
+
+
+*DETRITUS
+
+
+
+
+
+*PICK UP POTATO DETRITUS*
+
+scrp 2 10 50201 4
+
+	attr 199
+
+	perm 51
+
+	doif pose eq 0
+
+		pose 1
+
+		mira rand 0 1
+
+	elif pose eq 1
+
+		pose 1
+
+		mira rand 0 1
+
+	endi
+
+endm
+
+
+
+
+
+
+
+scrp 2 10 50201 10
+
+	inst
+
+	attr 7
+
+	elas 10
+
+	fric 50
+
+	perm 40
+
+	accg 4
+
+	aero 10
+
+	tick rand 200 250
+
+*tick 50
+
+	plne rand 1000 5000
+
+endm
+
+
+
+scrp 2 10 50201 9
+
+	doif carr ne null
+
+		stop
+
+	endi
+
+	addv ov00 1
+
+	doif ov00 ge 10
+
+		kill ownr
+
+	endi
+
+endm
+
+
+
+scrp 2 11 50201 6
+
+	sndc "dr10"
+
+endm
+
+
+
+
+
+*EAT POTATO*
+
+scrp 2 11 50201 12
+
+	sndc "chwp"
+
+	wait 3
+
+	doif pose eq 4 or pose eq 5
+
+		targ from
+
+*		chem 5 .5
+
+		chem 150 -.5
+
+		chem 33 .5
+
+		chem 149 -.5
+
+		chem 12 .5
+
+		stim writ from 79 1
+
+		targ ownr
+
+		gsub seed
+
+	elif pose eq 6 or pose eq 7
+
+		targ from
+
+		chem 79 .15
+
+*		chem 5 .15
+
+		chem 75 .125
+
+		chem 150 -.15
+
+		chem 33 .15
+
+		chem 149 -.15
+
+*		chem 12 .15
+
+		stim writ from 81 1
+
+		targ ownr
+
+		gsub seed
+
+	endi
+
+	targ ownr
+
+	kill targ
+
+
+
+	subr seed
+
+		setv ov07 1
+
+		setv va00 posx
+
+		setv va01 post
+
+		inst
+
+		new: simp 2 3 50201 "moe_C2toDS_potato" 9 10 1001
+
+		mvsf va00 va01
+
+		setv velx rand -15 15
+
+		setv vely rand -5 -10
+
+	retn
+
+
+
+
+
+endm
+
+
+
+scrp 2 10 50201 12
+
+	stim writ from 81 1
+
+	targ from
+
+	chem 79 .15
+
+*	chem 5 .15
+
+	chem 75 .125
+
+	chem 150 -.15
+
+	chem 33 .15
+
+	chem 149 -.15
+
+*	chem 12 .15
+
+	targ ownr
+
+	gsub seed
+
+
+
+
+
+	subr seed
+
+		setv ov07 1
+
+		setv va00 posx
+
+		setv va01 post
+
+		inst
+
+		new: simp 2 3 50201 "moe_C2toDS_potato" 9 10 1001
+
+		mvsf va00 va01
+
+		setv velx rand -15 15
+
+		setv vely rand -5 -10
+
+		kill ownr
+
+	retn
+
+
+
+
+
+endm
+
+rscr
+
+
+enum 2 23 50201
+
+	kill targ
+
+next
+
+
+
+enum 2 3 50201
+
+	kill targ
+
+next
+
+
+
+enum 2 10 50201
+
+	kill targ
+
+next
+
+
+
+enum 2 11 50201
+
+	kill targ
+
+next
+
+
+
+scrx 2 23 50201 9
+
+scrx 2 23 50201 6
+
+scrx 2 23 50201 1
+
+scrx 2 3 50201 9
+
+scrx 2 3 50201 6
+
+scrx 2 10 50201 6
+
+scrx 2 11 50201 9

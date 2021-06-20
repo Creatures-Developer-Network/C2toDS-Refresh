@@ -1,0 +1,1191 @@
+
+* 2 10 50215 - Crab Detritus
+* 2 16 50201 - Crab
+* 2 18 50291 - Crab Egg
+* 2 23 50215 - Crab Maker
+
+*install
+
+new: simp 2 23 50215 "moe_C2toDS_crab" 6 0 rand 1000 3000
+
+*mvsf 8580 48951
+
+mvsf 8585 48920
+
+
+
+reps 2
+
+	new: simp 2 16 50201 "moe_C2toDS_crab" 32 7 rand 1000 3000
+
+	mvsf rand 8181 8336 48833
+
+repe
+
+
+
+reps rand 2 3
+
+	new: simp 2 16 50201 "moe_C2toDS_crab" 32 7 rand 1000 3000
+
+	mvsf rand 8580 9050 48595
+
+
+
+repe
+
+
+
+
+scrp 2 23 50215 10
+
+	inst
+
+	accg 3
+
+	attr 199
+
+	elas 0
+
+	aero 0
+
+	perm 51
+
+	prt: inew 0 "Input" "Input port for crab egg launcher." 31 5 0
+
+	prt: onew 1 "Output" "Output port for crab egg launcher." 50 5
+
+endm
+
+
+
+*Push Crab Mother
+
+scrp 2 23 50215 1
+
+	lock
+
+	frat 2
+
+	anim [0 1 2 3 4 5 4 3 2 1 0]
+
+	setv va02 plne
+
+	addv va02 rand 1 100
+
+	setv va00 posx
+
+	subv va00 8
+
+	setv va01 post
+
+	subv va01 8
+
+	new: simp 2 18 50201 "moe_C2toDS_crab" 1 6 va02
+
+	mvsf va00 va01
+
+	accg 2
+
+	velo rand -10 10 rand -10 -15
+
+	targ ownr
+
+	wait 10
+
+	prt: send 1 255
+
+	over
+
+endm
+
+
+
+*Crab Egg Creation
+
+scrp 2 18 50201 10
+
+	inst
+
+	attr 195
+
+	elas 0
+
+	aero 5
+
+	accg 0
+
+	tick rand 500 1200
+
+	perm 51
+
+endm
+
+
+
+scrp 2 18 50201 9
+
+	tick 500
+
+*Wrong season? Stop. Only hatch in spring.
+
+	doif sean ne 0
+
+		stop
+
+	endi
+
+
+
+	esee 2 16 50201
+
+		doif targ ne null and targ ne ownr
+
+			addv va00 1
+
+		endi
+
+	next
+
+	targ ownr
+
+	doif va00 lt 3
+
+		gsub hatch
+
+	else
+
+		wait rand tick 1500
+
+		kill ownr
+
+	endi
+
+
+
+	subr hatch
+
+		inst
+
+*hatch only if there are fewer than a few crabs nearby
+
+
+
+		setv va00 posl
+
+		setv va01 post
+
+		subv va00 16
+
+		seta va02 carr
+
+		new: simp 2 16 50201 "moe_C2toDS_crab" 32 7 rand 1000 3000
+
+		mvsf va00 va01
+
+		doif type va02 eq 6
+
+			spas va02 targ
+
+		endi
+
+		kill ownr
+
+	retn
+
+endm
+
+
+
+
+
+*CRABS BEGIN HERE*
+
+
+
+scrp 2 16 50201 10
+
+	inst
+
+	attr 198
+
+	bhvr 59
+
+	accg 2
+
+	aero 5
+
+	elas 0
+
+	fric 45
+
+	tick rand 25 45
+
+	perm 51
+
+
+
+
+
+*	setv ov11 2
+
+*	base 16
+
+
+
+*crab speed
+
+	setv ov06 7
+
+*target
+
+	seta ov07 null
+
+	gsub gettimes
+
+
+
+	subr gettimes
+
+*Starvation
+
+		setv ov21 4
+
+		mulv ov21 1200
+
+*Adult
+
+		setv ov16 5
+
+		mulv ov16 1200
+
+*Breed
+
+		setv ov17 10
+
+		mulv ov17 1200
+
+*Die
+
+		setv ov18 15
+
+		mulv ov18 1200
+
+*Rot
+
+		setv ov19 17
+
+		mulv ov19 1200
+
+*Hunger Threshhold, Crab must eat every 3 minutes
+
+		setv ov20 3
+
+		mulv ov20 1200
+
+*setv ov20 600
+
+
+
+		divv ov16 tick
+
+		divv ov17 tick
+
+		divv ov18 tick
+
+		divv ov19 tick
+
+		divv ov20 tick
+
+		divv ov21 tick
+
+	retn
+
+
+
+endm
+
+
+
+*Push
+
+scrp 2 16 50201 1
+
+	doif relx ownr from gt 0
+
+		setv ov14 1
+
+	elif relx ownr targ lt 0
+
+		setv ov14 0
+
+	endi
+
+endm
+
+
+
+*Pull
+
+scrp 2 16 50201 2
+
+	mesg writ targ 0
+
+endm
+
+
+
+*Pickup
+
+scrp 2 16 50201 4
+
+	mesg writ targ 0
+
+endm
+
+
+
+*Hit
+
+scrp 2 16 50201 3
+
+	doif crea from eq 1
+
+		stim writ from 88 1
+
+	endi
+
+endm
+
+
+
+
+
+
+
+
+
+*Collision
+
+*If you hit a right wall, turn left
+
+*and vice versa
+
+scrp 2 16 50201 6
+
+	doif wall eq rght
+
+		setv ov14 1
+
+	elif wall eq left
+
+		setv ov14 0
+
+	endi
+
+
+
+endm
+
+
+
+scrp 2 16 50201 9
+
+	addv ov01 1
+
+*Hunger Counter
+
+	addv ov02 1
+
+
+
+*Crabs don't die. They just breed in fall and wait.
+
+*doif ov01 ge ov16
+
+*	gsub die
+
+*	endi
+
+	doif sean eq 3
+
+		gsub die
+
+	endi
+
+
+
+	doif ov11 ne 2
+
+		doif ov01 ge ov16
+
+			inst
+
+			base 16
+
+*Adult
+
+			setv ov11 2
+
+			slow
+
+		endi
+
+	endi
+
+
+
+
+
+
+
+*lay eggs in the fall, last day, die out till spring
+
+*Make sure you're an adult, and you haven't layed eggs yet
+
+	doif sean eq 2 and date eq 3 and ov13 eq 0 and ov11 eq 2
+
+*and ov01 gt ov17
+
+		gsub layeggs
+
+		setv ov13 1
+
+		stop
+
+	endi
+
+
+
+	gsub walk
+
+
+
+*eat ever 3 mins
+
+	doif ov02 gt ov20
+
+		gsub hungry
+
+	endi
+
+
+
+	subr die
+
+		setv va00 posl
+
+		setv va01 post
+
+		doif type carr eq 6
+
+			seta va02 carr
+
+		endi
+
+		doif ov11 ge 2
+
+			new: simp 2 10 50215 "moe_C2toDS_crab" 1 39 rand 1000 3000
+
+			mvsf va00 va01
+
+			doif type va02 eq 6
+
+				spas va02 targ
+
+			endi
+
+		endi
+
+		kill ownr
+
+	retn
+
+
+
+	subr hungry
+
+		doif ov07 eq null
+
+*look for dead fish
+
+			esee 2 15 0
+
+				doif targ ne null and ov11 eq 6
+
+					seta mv07 targ
+
+				endi
+
+				targ ownr
+
+			next
+
+
+
+*if there are none, look for eggs
+
+			doif ov07 eq null
+
+				esee 2 18 0
+
+					doif targ ne null
+
+						seta mv07 targ
+
+					endi
+
+					targ ownr
+
+				next
+
+			endi
+
+		else
+
+			targ ownr
+
+*If it's out of range, forget it
+
+			doif seee ov07 ownr eq 0
+
+				seta ov07 null
+
+			endi
+
+****
+
+			gsub findfood
+
+		endi
+
+	retn
+
+
+
+*find food
+
+	subr findfood
+
+		doif ov07 ne null
+
+			targ ov07
+
+			setv va00 posx
+
+			targ ownr
+
+			doif va00 gt posx
+
+				setv ov14 0
+
+				setv ov15 15
+
+*gsub goright
+
+			elif va00 lt posx
+
+				setv ov14 1
+
+				setv ov15 15
+
+*gsub goleft
+
+			endi
+
+
+
+			doif touc ownr ov07 eq 1
+
+				setv mv02 0
+
+				mesg writ ov07 12
+
+*Not hungry anymore. :)
+
+			endi
+
+		endi
+
+	retn
+
+
+
+
+
+
+
+	subr layeggs
+
+		reps rand 4 7
+
+			setv va00 posx
+
+			setv va01 posy
+
+			subv va00 10
+
+			seta va02 carr
+
+			new: simp 2 18 50201 "moe_C2toDS_crab" 1 6 rand 1000 3000
+
+			addv va00 rand -4 4
+
+			addv va01 rand -4 4
+
+			mvsf va00 va01
+
+			doif type va02 eq 6
+
+				spas va02 targ
+
+			endi
+
+			targ ownr
+
+		repe
+
+*kill ownr
+
+	retn
+
+
+
+
+
+
+
+
+
+	subr walk
+
+
+
+		setv ov09 room ownr
+
+
+
+*if I'm going right, check my posr+wdth
+
+		doif ov14 eq 0
+
+			setv va21 posr
+
+			addv va21 15
+
+			setv va20 grap va21 post
+
+		elif ov14 eq 1
+
+*if I'm going left, check my posl-wdth
+
+			setv va21 posl
+
+			subv va21 15
+
+			setv va20 grap va21 post
+
+*dbg: outv va20
+
+		endi
+
+
+
+		doif ov09 ne grap va21 posy
+
+*in case you're didn't check a room in time, and it's super steep
+
+*and you can't find coords 15 pixels out because the room ends
+
+*you should check the room you're in!
+
+
+
+			doif va20 eq -1
+
+				setv va20 room ownr
+
+			endi
+
+
+
+			gsub findslope
+
+		endi
+
+
+
+		sets va05 "Moves Left: "
+
+		adds va05 vtos ov15
+
+*dbg: outs va05
+
+
+
+		doif ov15 le 0
+
+			gsub pickdirection
+
+		endi
+
+
+
+
+
+
+
+
+
+
+
+		doif ov14 eq 0
+
+			gsub goright
+
+*dbg: outs "Right"
+
+		elif ov14 eq 1
+
+			gsub goleft
+
+*dbg: outs "Left"
+
+		endi
+
+
+
+
+
+	retn
+
+
+
+	subr findslope
+
+		inst
+
+		doif va20 ne -1
+
+			gsub runthenumbers
+
+		endi
+
+
+
+*Screw the angles, let's try finding the slope.
+
+
+
+*subtract the floor's two y's to get the rise
+
+		subv va06 va05
+
+		absv va06
+
+**dbg: outv va06
+
+*subtract the room's two x's to get the run
+
+		subv va01 va02
+
+		absv va01
+
+**dbg: outv va01
+
+*divide the rise over the run, as floats
+
+		setv va01 itof va01
+
+		setv va06 itof va06
+
+
+
+		doif va01 ne 0.0000000
+
+			divv va06 va01
+
+*dbg: outs "Slope:"
+
+*dbg: outv va06
+
+		endi
+
+
+
+*What if the room we've found has no floor, or it's floor is way low...
+
+*Loop down and if there's another room, compare the door perm between them
+
+		setv va30 post
+
+		loop
+
+			addv va30 1
+
+		untl grap va21 va30 eq -1 or grap va21 va30 ne va20
+
+
+
+**dbg: outv door grap va21 va30 va20
+
+
+
+		doif grap va21 va30 ne -1
+
+			doif door grap va21 va30 va20 gt perm
+
+*If the floor is going to give way, you need to change directions
+
+				setv ov12 1
+
+			else
+
+				setv ov12 0
+
+			endi
+
+		endi
+
+
+
+
+
+
+
+		doif ov14 eq 1
+
+			doif va06 gt .6 or ov12 eq 1
+
+				setv ov14 0
+
+				setv ov15 rand 5 15
+
+				addv velx ov06
+
+				subv vely accg
+
+*dbg: outs "Left was too steep"
+
+			endi
+
+		elif ov14 eq 0
+
+			doif va06 gt .6 or ov12 eq 1
+
+
+
+				setv ov14 1
+
+				setv ov15 rand 5 15
+
+				subv velx ov06
+
+				subv vely accg
+
+*dbg: outs "Right was too steep"
+
+			endi
+
+		endi
+
+		slow
+
+	retn
+
+
+
+
+
+	subr goright
+
+		anim [0 1 2 3 4 5 6 7 8]
+
+		subv vely 4
+
+		addv velx ov06
+
+		subv ov15 1
+
+	retn
+
+
+
+	subr goleft
+
+		anim [9 10 11 12 13 14 15]
+
+		subv vely 4
+
+		subv velx ov06
+
+		subv ov15 1
+
+	retn
+
+
+
+	subr pickdirection
+
+*dbg: outs "Direction Change"
+
+*crabs need only go left or right.
+
+		setv va00 0
+
+		addv va00 rand 0 1
+
+
+
+		doif va00 eq 0
+
+			setv ov14 0
+
+		endi
+
+		doif va00 eq 1
+
+			setv ov14 1
+
+		endi
+
+		setv ov15 rand 5 15
+
+	retn
+
+
+
+	subr runthenumbers
+
+
+
+		inst
+
+
+
+		setv va00 va20
+
+
+
+		sets va12 rloc va00
+
+		adds va12 " "
+
+
+
+*number of loops, this is to determine what each variable means
+
+		setv va00 0
+
+		loop
+
+			inst
+
+			addv va00 1
+
+
+
+*For the first loop, this is the  1 xLeft, 
+
+*second is 2 XRight, etc etc:: 3 LeftTop, 4 RightTop, 5 LeftFloor, 6 RightFloor
+
+			setv va16 stoi va12
+
+
+
+*save the coords depending on the run.
+
+			doif va00 eq 1
+
+				setv va01 va16
+
+			elif va00 eq 2
+
+				setv va02 va16
+
+			elif va00 eq 3
+
+				setv va03 va16
+
+			elif va00 eq 4
+
+				setv va04 va16
+
+			elif va00 eq 5
+
+				setv va05 va16
+
+			elif va00 eq 6
+
+				setv va06 va16
+
+			endi
+
+
+
+
+
+*this should delete just the " "
+
+			setv va13 sins va12 1 " "
+
+			setv va14 strl va12
+
+			subv va14 va13
+
+			addv va13 1
+
+			sets va12 subs va12 va13 va14
+
+*Repeat
+
+		untl sins va12 1 " " eq -1
+
+	retn
+
+
+
+endm
+
+
+
+
+scrp 2 10 50215 10
+
+	inst
+
+	attr 195
+
+	accg 2
+
+	elas 0
+
+	aero 3
+
+	perm 51
+
+	bhvr 48
+
+*2 minutes lifespan
+
+	tick 2400
+
+endm
+
+
+
+
+
+scrp 2 10 50215 12
+
+	sndc "chwp"
+
+	doif crea from eq 1
+
+		stim writ from 81 1
+
+	endi
+
+	kill ownr
+
+endm
+
+
+
+scrp 2 10 50215 9
+
+	kill ownr
+
+endm
+
+
+
+scrp 2 16 50201 12
+
+	inst
+
+	sndc "chwp"
+
+	doif crea from eq 1
+
+		stim writ from 80 1
+
+	endi
+
+
+
+	reps rand 2 5
+
+		setv va00 posx
+
+		setv va01 posy
+
+		subv va00 14
+
+		addv va00 rand -10 10
+
+		subv va01 rand 0 -4
+
+		seta va02 carr
+
+		new: simp 2 10 50215 "moe_C2toDS_crab" 1 rand 40 43 rand 1000 3000
+
+		mvsf va00 va01
+
+		velo rand -3 3 rand -5 -10
+
+		mira rand 0 1
+
+		doif type va02 eq 6
+
+			spas va02 targ
+
+		endi
+
+		targ ownr
+
+	repe
+
+	kill ownr
+
+endm
+
+
+
+
+scrp 2 16 50201 255
+
+	stop
+
+endm
+
+rscr
+
+
+
+enum 2 16 50201
+
+	kill targ
+
+next
+
+
+enum 2 23 50215
+
+	kill targ
+
+next
+
+enum 2 18 50201
+
+	kill targ
+
+next
+
+
+
+enum 2 10 50215
+
+	kill targ
+
+next

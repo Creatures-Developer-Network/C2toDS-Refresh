@@ -1,0 +1,1299 @@
+* All Water Emitters are 1 19 50200
+
+********************WATER***************************
+
+
+*Ov04 0=Unchanging 1=Atmospheric
+
+*WATER BODY SMELL*
+
+setv va00 0
+
+*Light Ocean
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 8755
+
+setv ov01 48367
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 5
+
+setv ov03 100.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 8755
+
+setv ov01 48266
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 5
+
+setv ov03 100.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+*Dark Ocean
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 2703
+
+setv ov01 48448
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 5
+
+setv ov03 50.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 2703
+
+setv ov01 48136
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 5
+
+setv ov03 50.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+*Tantris Pond
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 2940
+
+setv ov01 48939
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 5
+
+setv ov03 100.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 3130
+
+setv ov01 48839
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 5
+
+setv ov03 100.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+
+
+*Biome Pond
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 4182
+
+setv ov01 49126
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 5
+
+setv ov03 100.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+*///Water Emitters///*
+
+
+
+*Light Ocean
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 8795
+
+setv ov01 47785
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 0.7000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+*Dark Ocean
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 2828
+
+setv ov01 47777
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 0.7000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+*World Tree
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 3178
+
+setv ov01 47920
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 1.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 3775
+
+setv ov01 48055
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 1.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+*World Tree Below
+
+*Light Ocean
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 3824
+
+setv ov01 48480
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 0.2000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+
+
+*Hanging Bridge
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 4941
+
+setv ov01 47740
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 1.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+*Norn Burrow/Incubator Room
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 7346
+
+setv ov01 48335
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 0.3000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+*Dungeon
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 7852
+
+setv ov01 48679
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 0.3000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+*Waterwheel
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 4521
+
+setv ov01 49956
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 5
+
+setv ov03 100.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 5000
+
+setv ov01 49758
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 5
+
+setv ov03 3.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 5065
+
+setv ov01 49788
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 5
+
+setv ov03 3.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+*Swamp
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 7370
+
+setv ov01 49904
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 5
+
+setv ov03 5.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 7192
+
+setv ov01 49904
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 5
+
+setv ov03 5.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+*Incubator Pond
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 6534
+
+setv ov01 48385
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 5
+
+setv ov03 100.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 6603
+
+setv ov01 48518
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 5
+
+setv ov03 100.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*Tantriss Tree Area
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 3875
+
+setv ov01 48700
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 1.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 3927
+
+setv ov01 49015
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 0.5000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+
+
+*Little Biopod*
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 3936
+
+setv ov01 49265
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 0.5000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 4280
+
+setv ov01 49235
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 0.2500
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+*Waterfall Water Emissions
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 5500
+
+setv ov01 48600
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 1.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 4500
+
+setv ov01 48390
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 1.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 4623
+
+setv ov01 48474
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 1.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+
+
+*Below the Treehouse*
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 5833
+
+setv ov01 49700
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 0.9000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 6488
+
+setv ov01 49700
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 0.9000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+*Swamp Pond
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 7200
+
+setv ov01 49900
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 100.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 7500
+
+setv ov01 49900
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 100.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+*Biomes*
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 2082
+
+setv ov01 48424
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 0.9000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 2283
+
+setv ov01 48955
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 0.9000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+*Lower Biomes
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 3930
+
+setv ov01 49637
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 0.9000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 4400
+
+setv ov01 49650
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 0.9000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+
+
+*Biomes Upper Pond
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 4167
+
+setv ov01 49128
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 100.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+*Waterwheel Pond
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 4700
+
+setv ov01 49930
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 100.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+*Dark Ocean Pond
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 2940
+
+setv ov01 49000
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 100.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+
+
+
+
+*Light Ocean*
+
+*Oceans are SOAKING WET, their water is soo dense it should "evaporate' into the sky*
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 8710
+
+setv ov01 48354
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 100.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 9000
+
+setv ov01 48354
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 100.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 9310
+
+setv ov01 48610
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 100.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 8252
+
+setv ov01 48914
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 100.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+
+
+*Dark Ocean
+
+*Oceans are SOAKING WET*
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 2672
+
+setv ov01 48488
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 100.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+*Incubator Room Waterfall
+
+*Ponds are WET!*
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 6538
+
+setv ov01 48508
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 100.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+
+
+new: simp 1 19 50200 "moe_C2toDS_emitters" 0 4 1
+
+attr 0
+
+pose va00
+
+setv ov00 6608
+
+setv ov01 48508
+
+subv ov00 16
+
+subv ov01 16
+
+setv ov02 3
+
+setv ov03 100.0000
+
+mvto ov00 ov01
+
+emit ov02 ov03
+
+rscr
+
+
+*Kill the water emitters
+
+enum 1 19 50200
+
+	kill targ
+
+next

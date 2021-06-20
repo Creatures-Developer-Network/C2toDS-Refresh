@@ -1,0 +1,577 @@
+* 2 18 50208 - Barnacle Egg
+* 2 15 50205 - Barnacle
+
+reps rand 3 4
+
+	new: simp 2 18 50208 "moe_C2toDS_barnacles" 11 55 rand 1000 3000
+
+	mvsf 8900 48660
+
+repe
+
+
+
+reps rand 3 4
+
+	new: simp 2 18 50208 "moe_C2toDS_barnacles" 11 55 rand 1000 3000
+
+	mvsf 8870 48677
+
+repe
+
+
+
+
+
+reps rand 3 4
+
+	new: simp 2 18 50208 "moe_C2toDS_barnacles" 11 55 rand 1000 3000
+
+	mvsf 8260 48780
+
+repe
+
+
+
+reps rand 3 4
+
+	new: simp 2 18 50208 "moe_C2toDS_barnacles" 11 55 rand 1000 3000
+
+	mvsf 2720 48445
+
+repe
+
+
+
+
+
+scrp 2 18 50208 10
+
+	rnge 300
+
+	accg 0
+
+	anim [0 1 2 3 4 5 6 7 8 9 255]
+
+	attr 199
+
+	bhvr 63
+
+	tick rand 32 45
+
+	aero 3
+
+	elas 10
+
+endm
+
+*deactivate
+
+scrp 2 18 50208 0
+
+endm
+
+*activate 1
+
+scrp 2 18 50208 1
+
+endm
+
+*activate 2
+
+scrp 2 18 50208 2
+
+endm
+
+*hit
+
+scrp 2 18 50208 3
+
+endm
+
+*pickup
+
+scrp 2 18 50208 4
+
+endm
+
+*drop
+
+scrp 2 18 50208 5
+
+	gsub chkroom
+
+
+
+	doif va00 ne 8 and va00 ne 9
+
+		accg 2
+
+		pose 3
+
+	endi
+
+
+
+	subr chkroom
+
+		setv va00 rtyp grap posx posy
+
+		setv va01 posy
+
+		subv va01 50
+
+		setv va02 rtyp grap posx va01
+
+	retn
+
+endm
+
+*collision
+
+scrp 2 18 50208 6
+
+	inst
+
+*this is where you grow...
+
+	setv va00 posx
+
+	setv va01 posy
+
+	setv va02 rand 0 1
+
+
+
+	doif wall eq left
+
+		doif obst _up_ lt 10
+
+			setv va03 33
+
+		elif obst down lt 10
+
+			setv va03 11
+
+		else
+
+			setv va03 22
+
+		endi
+
+		gsub grow
+
+
+
+	elif wall eq rght
+
+		setv va04 1
+
+		doif obst _up_ lt 10
+
+			setv va03 33
+
+		elif obst down lt 10
+
+			setv va03 11
+
+		else
+
+			setv va03 22
+
+		endi
+
+
+
+		gsub grow
+
+	elif wall eq _up_
+
+		doif obst left lt 10
+
+			setv va03 33
+
+		elif obst rght lt 10
+
+			setv va03 33
+
+			setv va04 1
+
+		else
+
+			setv va03 44
+
+		endi
+
+
+
+		addv va01 10
+
+		gsub grow
+
+	elif wall eq down
+
+		doif obst left lt 5
+
+			setv va03 11
+
+		elif obst rght lt 5
+
+			setv va03 11
+
+			setv va04 1
+
+		else
+
+			setv va03 0
+
+		endi
+
+		gsub grow
+
+
+
+	endi
+
+
+
+	subr grow
+
+
+
+		esee 2 15 50205
+
+			doif targ ne null
+
+				addv va05 1
+
+			endi
+
+		next
+
+
+
+		doif va05 lt 3
+
+			gsub chkroom
+
+
+
+			doif va07 eq 9
+
+				inst
+
+				new: simp 2 15 50205 "moe_c2tods_barnacles" 55 0 100
+
+				base va03
+
+				pose 0
+
+				mira va04
+
+				mvsf va00 va01
+
+				kill ownr
+
+				slow
+
+			endi
+
+		endi
+
+
+
+	retn
+
+
+
+	subr chkroom
+
+		setv va07 rtyp grap posx posy
+
+	retn
+
+
+
+endm
+
+*timer
+
+scrp 2 18 50208 9
+
+	addv ov00 1
+
+
+
+	doif ov00 ge 35
+
+		kill ownr
+
+	endi
+
+
+
+	gsub chkroom
+
+
+
+	doif va00 eq 8 or va00 eq 9
+
+		anim [0 1 2 3 4 5 6 7 8 9 255]
+
+		doif va02 eq 8 or va02 eq 9
+
+			addv vely rand -2 2
+
+			addv velx rand -2 2
+
+		else
+
+			addv vely 3
+
+			addv velx rand -2 2
+
+		endi
+
+	else
+
+		doif fall eq 1
+
+			loop
+
+				accg 2
+
+				setv va00 rtyp grap posx posy
+
+			untl va00 eq 8 or va00 eq 9 or fall eq 0
+
+		else
+
+			anim [3]
+
+		endi
+
+		accg 0
+
+		setv vely 0
+
+	endi
+
+
+
+	subr chkroom
+
+		setv va00 rtyp grap posx posy
+
+		setv va01 posy
+
+		subv va01 50
+
+		setv va02 rtyp grap posx va01
+
+	retn
+
+
+
+endm
+
+*eat
+
+scrp 2 18 50208 12
+
+	doif crea from eq 1
+
+		stim writ from 90 1
+
+	endi
+
+	sndc "chwp"
+
+	kill ownr
+
+endm
+
+
+
+
+scrp 2 15 50205 10
+
+	plne 500
+
+	accg 0
+
+	attr 7
+
+	elas 0
+
+	aero 5
+
+	bhvr 32
+
+	tick rand 360 1000
+
+endm
+
+*deactivate
+
+scrp 2 15 50205 0
+
+endm
+
+*activate 1
+
+scrp 2 15 50205 1
+
+	doif pose gt 0
+
+		loop
+
+			setv va00 pose
+
+			subv va00 1
+
+			pose va00
+
+		untl pose eq 0
+
+	endi
+
+endm
+
+*activate 2
+
+scrp 2 15 50205 2
+
+endm
+
+*hit
+
+scrp 2 15 50205 3
+
+endm
+
+*pickup
+
+scrp 2 15 50205 4
+
+	lock
+
+	doif pose gt 0
+
+		loop
+
+			setv va00 pose
+
+			subv va00 1
+
+			pose va00
+
+		untl pose eq 0
+
+	endi
+
+	base 0
+
+	pose 0
+
+	unlk
+
+endm
+
+*drop
+
+scrp 2 15 50205 5
+
+	attr 199
+
+	accg 4
+
+	aero 5
+
+endm
+
+*collision
+
+scrp 2 15 50205 6
+
+endm
+
+*timer
+
+scrp 2 15 50205 9
+
+
+
+	doif game "TMOD" lt 3
+
+		doif pose lt 10
+
+			setv va00 pose
+
+			addv va00 1
+
+			pose va00
+
+		endi
+
+	elif game "TMOD" ge 3
+
+		doif pose gt 0
+
+			setv va00 pose
+
+			subv va00 1
+
+			pose va00
+
+		endi
+
+	endi
+
+
+
+
+
+endm
+
+*eat
+
+scrp 2 15 50205 12
+
+	stim writ from 77 .25
+
+	snde "eat1"
+
+	setv va00 posx
+
+	setv va01 posy
+
+	reps rand 3 4
+
+		new: simp 2 18 50208 "moe_C2toDS_barnacles" 11 55 rand 1000 3000
+
+		mvsf va00 va01
+
+	repe
+
+	kill ownr
+
+endm
+
+
+
+
+
+rscr
+
+enum 2 15 50205
+
+	kill targ
+
+next
+
+enum 2 18 50208
+
+	kill targ
+
+next

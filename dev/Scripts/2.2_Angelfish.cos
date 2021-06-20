@@ -1,0 +1,1632 @@
+
+* 2 10 50218 - Angelfish Detritus
+* 2 15 50218 - Angelfish
+* 2 18 50218 - Angelfish Egg
+* 2 24 50218 - Angelfish Maker
+
+
+new: simp 2 24 50218 "moe_C2toDS_Afish" 11 0 rand 1000 3000
+
+mvsf 4150 49070
+
+scrp 2 24 50218 10
+
+	attr 198
+
+	elas 20
+
+	accg 3
+
+	perm 51
+
+endm
+
+
+
+scrp 2 24 50218 1
+
+	lock
+
+	sndc "lott"
+
+	frat 2
+
+	anim [1 2 3 4 5 6 7]
+
+	over
+
+*wait 5
+
+	frat 2
+
+	anim [ 8 9 10 6 7 255]
+
+
+
+	gsub releaseeggs
+
+
+
+	wait 10
+
+
+
+	anim [0]
+
+
+
+	unlk
+
+
+
+	subr releaseeggs
+
+
+
+		reps rand 10 20
+
+			setv va00 posx
+
+			setv va01 post
+
+			wait 5
+
+			new: simp 2 18 50218 "moe_C2toDS_Afish" 1 11 RAND 1000 3000
+
+			mvsf va00 va01
+
+			velo rand -10 10 rand -5 -10
+
+			targ ownr
+
+		repe
+
+
+
+	retn
+
+
+
+endm
+
+
+
+*Drop Script, Vendor*
+
+scrp 2 24 50218 6
+
+	lock
+
+	sndc "drop"
+
+	wait 10
+
+endm
+
+
+
+*
+
+*new: simp 2 15 50218 "moe_c2tods_Afish" 33 12 rand 1000 3000
+
+*mvsf mopx mopy
+
+
+
+*install
+
+scrp 2 15 50218 10
+
+	inst
+
+	frat 4
+
+	anim [0 1 2 3 4 5 6 7 255]
+
+	attr 195
+
+	elas 0
+
+	fric 50
+
+	aero 1
+
+	accg 0
+
+	perm 51
+
+	tick rand 25 35
+
+	rnge 500
+
+	gsub gettimes
+
+	bhvr 48
+
+
+
+*No food target yet
+
+	seta ov07 null
+
+*You've not found a target yet.
+
+	seta ov08 null
+
+*You're a baby
+
+	setv ov11 0
+
+*you have no target
+
+	seta ov08 null
+
+*speed
+
+	setv ov06 1
+
+*This subroutine takes the times you want it to take in tick minutes between stages and divides them by the tick.
+
+*That way fish can live exact times, no matter their ticks.
+
+*For variance, just randomize these variables slighty.
+
+*WHY did I bother? Well sticking a subroutine like this into the scripts of animals is easier
+
+*than calculating it by hand each time.
+
+	subr gettimes
+
+*Starvation
+
+		setv ov21 4
+
+		mulv ov21 1200
+
+*Adult
+
+		setv ov16 5
+
+		mulv ov16 1200
+
+*Breed
+
+		setv ov17 10
+
+		mulv ov17 1200
+
+*Die
+
+		setv ov18 15
+
+		mulv ov18 1200
+
+*Rot
+
+		setv ov19 17
+
+		mulv ov19 1200
+
+*Hunger Threshhold, Fish must eat every 3 minutes
+
+		setv ov20 3
+
+		mulv ov20 1200
+
+*setv ov20 600
+
+
+
+		divv ov16 tick
+
+		divv ov17 tick
+
+		divv ov18 tick
+
+		divv ov19 tick
+
+		divv ov20 tick
+
+		divv ov21 tick
+
+	retn
+
+endm
+
+
+
+*timer
+
+scrp 2 15 50218 9
+
+*Ov14 is the boolean for whether or not you've laid eggs 0-n 1-y
+
+
+
+*Add to life clock.
+
+	addv ov01 1
+
+*Add to hunger meter.
+
+	addv ov02 1
+
+
+
+*Check living conditions
+
+	gsub check
+
+
+
+*If you're dead, just stop and prepare to rot... :/
+
+	doif ov11 eq 6
+
+		doif ov01 ge ov19
+
+			gsub rot
+
+		endi
+
+		stop
+
+	endi
+
+
+
+
+
+*Bubbles!*
+
+*Only make bubbles if they're scripts are injected.
+
+	doif sorq 2 19 50205 10 eq 1
+
+		setv va00 rand 0 10
+
+*setv va00 9
+
+		doif va00 ge 9
+
+			doif mira eq 1
+
+				setv va00 posr
+
+				subv va00 12
+
+*if a baby, move bubbles closer to mouth
+
+				doif ov11 eq 0
+
+					subv va00 6
+
+				endi
+
+			else
+
+				setv va00 posl
+
+				subv va00 24
+
+*if a baby, move bubbles closer to mouth
+
+				doif ov11 eq 0
+
+					addv va00 16
+
+				endi
+
+			endi
+
+			setv va01 post
+
+			subv va01 10
+
+
+
+			new: comp 2 19 50205 "moe_c2tods_bubf" 12 0 rand 1000 3000
+
+			mvsf va00 va01
+
+			targ ownr
+
+		endi
+
+	endi
+
+*END Bubbles!*
+
+
+
+*If you've lived too long, die.
+
+	doif ov01 ge ov18
+
+		gsub die
+
+		stop
+
+	endi
+
+
+
+
+
+*If you've lived five minutes, become an adult.
+
+	doif ov01 ge ov16
+
+		setv ov11 2
+
+		base 16
+
+	endi
+
+
+
+*If you're hungry, find food.
+
+	doif ov02 ge ov20 and ov02 lt ov21
+
+		gsub findfood
+
+	elif ov02 ge ov21
+
+		gsub die
+
+		stop
+
+	endi
+
+
+
+
+
+*if you're an adult and you've not laid eggs, lay some
+
+	doif ov11 eq 2 and ov14 eq 0
+
+		gsub breed
+
+		setv ov14 1
+
+	endi
+
+
+
+*In all other instances, just swim from room to room. :)
+
+*If you're the leader, swim. if not, follow.
+
+	doif ov10 eq 1
+
+		doif carr eq null
+
+			gsub swim
+
+		else
+
+			gsub wander
+
+		endi
+
+*if you're not a leader and you don't have one, get one
+
+	elif ov10 eq 0 and ov07 eq null
+
+		setv va00 0
+
+		esee fmly gnus spcs
+
+			doif targ ne null
+
+*don't pick dead fish
+
+				doif ov10 eq 1 and ov11 ne 6
+
+*addv va00 1
+
+					seta mv07 targ
+
+				endi
+
+			endi
+
+		next
+
+*if you didn't find one, make yourself leader
+
+		doif ov07 eq null
+
+			setv ov10 1
+
+		endi
+
+		targ ownr
+
+		targ ov07
+
+		gsub follow
+
+*if you're not a leader but you have one in your sights
+
+	elif ov10 eq 0 and ov07 ne null
+
+*follow it...UNLESS it's dead. :/
+
+		doif avar ov07 11 ne 6
+
+			targ ov07
+
+			gsub follow
+
+		else
+
+			seta ov07 null
+
+		endi
+
+	endi
+
+
+
+	gsub checksurface
+
+	gsub obst
+
+
+
+	subr wander
+
+		addv velx rand -5 5
+
+	retn
+
+
+
+	subr findfood
+
+		doif ov08 eq null
+
+*Look for bad bugs, don't look for your own
+
+			esee 2 14 0
+
+				doif targ ne null
+
+					seta mv08 targ
+
+				endi
+
+			next
+
+			targ ownr
+
+		endi
+
+		doif ov08 eq null
+
+*Look for bugs, don't look for your own
+
+			esee 2 13 0
+
+				doif targ ne null
+
+					seta mv08 targ
+
+				endi
+
+			next
+
+			targ ownr
+
+		endi
+
+*If you fail to find any:
+
+		doif ov08 eq null
+
+*Look for seeds
+
+			esee 2 3 0
+
+				doif targ ne null and spcs ne 50202
+
+					seta mv08 targ
+
+				endi
+
+			next
+
+			targ ownr
+
+		endi
+
+*If you fail to find any:
+
+		doif ov08 eq null
+
+*Look for small animals
+
+			esee 2 15 0
+
+				doif targ ne null and wdth lt 15
+
+					seta mv08 targ
+
+				endi
+
+			next
+
+			targ ownr
+
+		endi
+
+*If you've found a target and you can still see it, follow it
+
+		doif ov08 ne null and seee ownr ov08 eq 1
+
+			targ ov08
+
+			gsub follow
+
+*if you are close to it, eat it
+
+			doif relx ownr ov08 lt 10 and rely ownr ov08 lt 10
+
+				setv ov02 0
+
+				mesg writ ov08 12
+
+			endi
+
+*If you can't see it, abandon it.
+
+		elif ov08 ne null and seee ownr ov08 eq 0
+
+			seta ov08 null
+
+		endi
+
+	retn
+
+
+
+	subr breed
+
+		loop
+
+			addv vely ov06
+
+			wait tick
+
+		untl obst down lt 10
+
+*more eggs, less extinction chance raised from 2 to 3 to 2 to 3
+
+		reps rand 2 3
+
+			setv va00 posx
+
+			setv va01 posy
+
+			doif type carr eq 6
+
+				seta va02 carr
+
+			endi
+
+			new: simp 2 18 50218 "moe_C2toDS_Afish" 1 11 rand 1000 3000
+
+			mvsf va00 va01
+
+			doif type va02 eq 6
+
+				spas va02 targ
+
+			endi
+
+			targ ownr
+
+		repe
+
+	retn
+
+
+
+	subr follow
+
+		inst
+
+		setv va01 posx
+
+		setv va02 posy
+
+		slow
+
+		targ ownr
+
+		doif va01 gt posx
+
+			addv velx ov06
+
+		elif va01 lt posx
+
+			subv velx ov06
+
+		endi
+
+		gsub direction
+
+		doif va02 lt posy
+
+			doif va10 ne 1
+
+				subv vely ov06
+
+			endi
+
+			gsub checksurface
+
+		elif va02 gt posy
+
+			addv vely ov06
+
+		endi
+
+*gsub checksurface
+
+	retn
+
+
+
+	subr check
+
+*This Subroutine Looks For Generic Conditions
+
+
+
+*If you're out of water, loop the flopping until you get back in it, or die.
+
+		doif rtyp room ownr ne 8 and rtyp room ownr ne 9
+
+			setv va00 0
+
+			loop
+
+				addv va00 1
+
+				accg 2
+
+				aero 2
+
+*dead fish don't flop
+
+				doif ov11 ne 6
+
+					wait 10
+
+					addv vely rand -2 -5
+
+					addv velx rand -5 5
+
+				endi
+
+*---*
+
+			untl rtyp room ownr eq 8 or rtyp room ownr eq 9 or va00 ge 10
+
+			doif va00 lt 10
+
+				aero 50
+
+				wait tick
+
+				aero 2
+
+				doif ov11 ne 6
+
+					accg 0
+
+				else
+
+					accg .05
+
+				endi
+
+			else
+
+				gsub die
+
+			endi
+
+		else
+
+			aero 2
+
+		endi
+
+	retn
+
+
+
+	subr swim
+
+
+
+		doif name "room" le 0
+
+			loop
+
+				addv va99 1
+
+				gsub pickroom
+
+			untl name "room" ne -1 or va99 gt 100
+
+		endi
+
+
+
+		setv va01 torx name "room"
+
+		setv va02 tory name "room"
+
+
+
+		slow
+
+
+
+		doif va01 ge 0
+
+			addv velx ov06
+
+		elif va01 lt 0
+
+			subv velx ov06
+
+		endi
+
+
+
+		gsub direction
+
+
+
+		doif va02 le 0
+
+			doif va10 ne 1
+
+				subv vely ov06
+
+			endi
+
+			gsub checksurface
+
+		elif va02 gt 0
+
+			addv vely ov06
+
+		endi
+
+
+
+*doif va01 gt -40 and va01 lt 40 and va02 gt -40 and va02 lt 40
+
+
+
+*ATTENTION, THIS SHOULD BE name "ROOM" not ROOM OWNR. But in order to change this, you must first
+
+*throw in a catch that says: "if the doors between the room's exceeds the permeability of the
+
+*fish, select another room.
+
+		doif room ownr eq ov09
+
+			loop
+
+				addv va99 1
+
+				gsub pickroom
+
+			untl rtyp name "room" eq 9 or rtyp name "room" eq 8 or va99 gt 100
+
+		endi
+
+*endi
+
+		setv ov09 room ownr
+
+
+
+	retn
+
+
+
+
+
+	subr direction
+
+*Change sprite facing based on movement
+
+		doif velx gt 0
+
+			mira 1
+
+		elif velx lt 0
+
+			mira 0
+
+		endi
+
+	retn
+
+
+
+	subr pickroom
+
+		setv va00 rand 0 3
+
+		inst
+
+
+
+		doif va00 eq 0
+
+			setv name "room" grid ownr rght
+
+		elif va00 eq 1
+
+			setv name "room" grid ownr left
+
+		elif va00 eq 2
+
+			setv name "room" grid ownr _up_
+
+		elif va00 eq 3
+
+			setv name "room" grid ownr down
+
+		endi
+
+	retn
+
+
+
+	subr checksurface
+
+		doif carr eq null
+
+			setv va00 post
+
+			doif rtyp room ownr eq 9
+
+				subv va00 40
+
+			elif rtyp room ownr eq 8
+
+				subv va00 20
+
+			endi
+
+			setv va01 rtyp grap posx va00
+
+			doif va01 ne 9 and va01 ne 8
+
+				setv va06 vely
+
+				doif vely lt 0
+
+					absv va06
+
+				endi
+
+				addv vely va06
+
+				setv va10 1
+
+			endi
+
+		endi
+
+	retn
+
+
+
+	subr obst
+
+
+
+		doif obst _up_ lt 10
+
+			addv vely ov06
+
+		endi
+
+
+
+		doif obst down lt 5
+
+			doif va10 ne 1
+
+				subv vely ov06
+
+			endi
+
+			gsub checksurface
+
+
+
+		endi
+
+
+
+		doif obst left lt 10
+
+			addv velx ov06
+
+			mira 1
+
+		endi
+
+		doif obst rght lt 10
+
+			subv velx ov06
+
+			mira 0
+
+		endi
+
+	retn
+
+
+
+
+
+
+
+	subr die
+
+*if you were a leader, you aren't anymore.
+
+		setv ov10 0
+
+		setv ov11 6
+
+		anim [0]
+
+		doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+
+			accg .05
+
+		else
+
+			accg 2
+
+		endi
+
+	retn
+
+
+
+	subr rot
+
+		mesg writ targ 12
+
+	retn
+
+
+
+endm
+
+*eat
+
+scrp 2 15 50218 12
+
+	doif from ne ownr
+
+		sndc "chwp"
+
+	endi
+
+	doif crea from eq 1
+
+		stim writ targ 80 1
+
+	endi
+
+	doif ov11 ge 2
+
+		setv va00 posl
+
+		setv va01 post
+
+
+
+		doif type carr eq 8
+
+			seta va02 carr
+
+		endi
+
+		setv va10 mira
+
+		new: simp 2 10 50218 "moe_C2toDS_Afish" 1 44 rand 1000 3000
+
+		mvsf va00 va01
+
+		mira va10
+
+		doif type va02 eq 8
+
+			spas va02 targ
+
+		endi
+
+	endi
+
+	kill ownr
+
+
+
+endm
+
+
+
+*deactivate
+
+scrp 2 15 50218 0
+
+endm
+
+*activate 1
+
+scrp 2 15 50218 1
+
+endm
+
+*activate 2
+
+scrp 2 15 50218 2
+
+endm
+
+*hit
+
+scrp 2 15 50218 3
+
+endm
+
+*pickup
+
+scrp 2 15 50218 4
+
+endm
+
+*drop
+
+scrp 2 15 50218 5
+
+
+
+*This should slow the descent of fish into the water if they don't fall into it from too far
+
+	inst
+
+	doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+
+		aero 2
+
+		doif ov11 ne 6
+
+			accg 0
+
+		else
+
+			accg .05
+
+		endi
+
+	else
+
+		aero 2
+
+*loop if you're falling and not in water
+
+		loop
+
+			addv va00 1
+
+			accg 2
+
+			wait 5
+
+		untl rtyp room ownr eq 8 or rtyp room ownr eq 9 or va00 ge 100 or fall eq 0
+
+
+
+		doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+
+			aero 50
+
+			wait tick
+
+			doif ov11 ne 6
+
+				accg 0
+
+			else
+
+				accg .05
+
+			endi
+
+		endi
+
+
+
+	endi
+
+endm
+
+
+
+*Catchall
+
+scrp 2 15 50218 255
+
+endm
+
+
+
+
+
+**collision
+
+*scrp 2 15 50218 6
+
+*endm
+
+
+
+
+
+
+
+****zandISH EGGS****
+
+
+
+
+
+*install
+
+scrp 2 18 50218 10
+
+	inst
+
+	inst
+
+	perm 51
+
+	attr 195
+
+	elas 1
+
+	accg 1
+
+	bhvr 48
+
+	tick rand 100 250
+
+	rnge 700
+
+	setv ov05 date
+
+endm
+
+*timer
+
+scrp 2 18 50218 9
+
+
+
+*You take at least 1 day to even start trying to hatch.
+
+*This delay might keep you around longer, and the
+
+*longer you're around, the more likely you'll replace
+
+*dead Zander, and prevent extinction.
+
+*	dbg: outv date
+
+*	dbg: outv ov05
+
+
+
+	doif carr ne null and type carr ne 6
+
+		stop
+
+	endi
+
+	doif rtyp room ownr ne 9
+
+		addv ov01 1
+
+		doif ov01 gt 10
+
+			kill ownr
+
+		endi
+
+		stop
+
+	endi
+
+	esee 2 15 50218
+
+		doif targ ne null
+
+			addv va00 1
+
+		endi
+
+	next
+
+	targ ownr
+
+	doif va00 le 4
+
+		setv va00 posx
+
+		setv va01 posy
+
+		doif type carr eq 6
+
+			seta va02 carr
+
+		endi
+
+
+
+		new: simp 2 15 50218 "moe_c2tods_Afish" 33 12 rand 1000 3000
+
+		mvsf va00 va01
+
+		doif type va02 eq 6
+
+			spas va02 targ
+
+		endi
+
+		kill ownr
+
+
+
+	else
+
+		setv va10 0
+
+		esee 2 18 50218
+
+			doif targ ne null
+
+				addv va10 1
+
+			endi
+
+		next
+
+		targ ownr
+
+
+
+		doif va10 gt 3
+
+			kill ownr
+
+		endi
+
+	endi
+
+endm
+
+*activate 1
+
+scrp 2 18 50218 1
+
+endm
+
+*collision
+
+scrp 2 18 50218 6
+
+*snde "drop"
+
+endm
+
+*eat
+
+scrp 2 18 50218 12
+
+	snde "chwp"
+
+	doif crea from eq 1
+
+		stim writ from 80 .05
+
+	endi
+
+	kill ownr
+
+endm
+
+
+
+
+
+
+
+*deactivate
+
+scrp 2 18 50218 0
+
+endm
+
+*activate 2
+
+scrp 2 18 50218 2
+
+endm
+
+*hit
+
+scrp 2 18 50218 3
+
+	doif crea from eq 1
+
+*stim writ from 0 0
+
+	endi
+
+endm
+
+*pickup
+
+scrp 2 18 50218 4
+
+endm
+
+*drop
+
+scrp 2 18 50218 5
+
+endm
+
+*catchall
+
+scrp 2 18 50218 255
+
+endm
+
+
+
+
+
+
+
+****zandISH DETRITUS****
+
+*install
+
+scrp 2 10 50218 10
+
+	inst
+
+	attr 195
+
+	elas 1
+
+	accg 1
+
+	bhvr 48
+
+	tick rand 300 800
+
+	rnge 700
+
+endm
+
+*timer
+
+scrp 2 10 50218 9
+
+	kill ownr
+
+endm
+
+*activate 1
+
+scrp 2 10 50218 1
+
+endm
+
+*collision
+
+scrp 2 10 50218 6
+
+*snde "drop"
+
+endm
+
+*eat
+
+scrp 2 10 50218 12
+
+	snde "chwp"
+
+	doif crea from eq 1
+
+		stim writ from 81 .05
+
+	endi
+
+	kill ownr
+
+endm
+
+
+
+
+
+
+
+*deactivate
+
+scrp 2 10 50218 0
+
+endm
+
+*activate 2
+
+scrp 2 10 50218 2
+
+endm
+
+*hit
+
+scrp 2 10 50218 3
+
+endm
+
+*pickup
+
+scrp 2 10 50218 4
+
+endm
+
+*drop
+
+scrp 2 10 50218 5
+
+endm
+
+*catchall
+
+scrp 2 10 50218 255
+
+endm
+
+rscr
+
+
+
+*Fish
+
+enum 2 15 50218
+
+	kill targ
+
+next
+
+*Removes all scripts for the specified agent classifier if it exists.
+
+*No need to micromanage. :)
+
+loop
+
+	doif sorq 2 15 50218 va00 eq 1
+
+		scrx 2 15 50218 va00
+
+	endi
+
+	addv va00 1
+
+untl va00 eq 2000
+
+setv va00 0
+
+
+
+*Eggs
+
+enum 2 18 50218
+
+	kill targ
+
+next
+
+*Vender
+
+enum 2 24 50218
+
+	kill targ
+
+next
+
+*Removes all scripts for the specified agent classifier if it exists.
+
+*No need to micromanage. :)
+
+loop
+
+	doif sorq 2 18 50218 va00 eq 1
+
+		scrx 2 18 50218 va00
+
+	endi
+
+	addv va00 1
+
+untl va00 eq 2000
+
+setv va00 0
+
+
+
+*Detritus
+
+enum 2 10 50218
+
+	kill targ
+
+next
+
+*Removes all scripts for the specified agent classifier if it exists.
+
+*No need to micromanage. :)
+
+loop
+
+	doif sorq 2 10 50218 va00 eq 1
+
+		scrx 2 10 50218 va00
+
+	endi
+
+	addv va00 1
+
+untl va00 eq 2000
+
+setv va00 0
+
+
+
+loop
+
+	doif sorq 2 24 50218 va00 eq 1
+
+		scrx 2 24 50218 va00
+
+	endi
+
+	addv va00 1
+
+untl va00 eq 2000
+
+setv va00 0

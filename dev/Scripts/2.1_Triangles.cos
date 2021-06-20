@@ -1,0 +1,190 @@
+* 2 21 50207 - Triangle Toy 1
+* 2 21 50218 - Triangle Toy 2
+
+* Under norn burrow
+
+new: simp 2 21 50207 "moe_C2toDS_triangle" 10 0 800
+
+mvsf 7185 48644
+
+
+
+* Deep under tree of life, above library
+
+new: simp 2 21 50207 "moe_C2toDS_triangle" 10 0 800
+
+mvto 3377 49043
+
+
+* Creation script
+
+new: simp 2 21 50218 "moe_C2toDS_guitar" 8 7 rand 1000 5000
+
+mvsf 3463 49129
+
+
+scrp 2 21 50207 10
+
+	attr 4
+
+	bhvr 11
+
+endm
+
+
+
+* Activate 1
+
+scrp 2 21 50207 1
+
+	lock
+
+	stim writ from 97 1
+
+	anim [0 1 2 3 4 5 6 7 8 9 0]
+
+	snde "tri_"
+
+	unlk
+
+endm
+
+
+
+* Activate 2
+
+scrp 2 21 50207 2
+
+	lock
+
+	stim writ from 97 1
+
+	anim [0 1 2 3 4 5 6 7 8 9 0]
+
+	snde "tri_"
+
+	unlk
+
+endm
+
+
+
+* Hit
+
+scrp 2 21 50207 3
+
+	lock
+
+	stim writ from 97 1
+
+	anim [0 1 2 3 4 5 6 7 8 9 0]
+
+	snde "tri_"
+
+	unlk
+
+endm
+
+
+
+scrp 2 21 50218 10
+
+	attr 199
+
+	bhvr 43
+
+	elas 50
+
+	accg 2
+
+	aero 5
+
+	fric 50
+
+	perm 51
+
+	frat 2
+
+endm
+
+
+
+* Activate 1
+
+scrp 2 21 50218 1
+
+	lock
+
+	snde "tri_"
+
+	anim [1 2 3 4 5 6 7 0]
+
+	unlk
+
+endm
+
+
+
+* Activate 2
+
+scrp 2 21 50218 2
+
+	lock
+
+	snde "tri_"
+
+	anim [1 2 3 4 5 6 7 0]
+
+	unlk
+
+endm
+
+
+
+* Hit
+
+scrp 2 21 50218 3
+
+	lock
+
+	snde "tri_"
+
+	anim [1 2 3 4 5 6 7 0]
+
+	unlk
+
+endm
+rscr
+
+
+
+
+enum 2 21 50207
+
+	kill targ
+
+next
+
+scrx 2 21 50207 1
+
+scrx 2 21 50207 2
+
+scrx 2 21 50207 3
+
+scrx 2 21 50207 10
+
+
+
+
+
+
+enum 2 21 50218
+
+	kill targ
+
+next
+
+scrx 2 21 50218 10
+
+scrx 2 21 50218 1
+

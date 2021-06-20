@@ -1,0 +1,1462 @@
+* 2 15 50204 - Hummingbird
+* 2 17 50208 - Hummingbird Nest
+
+setv va00 rand 0 1
+
+doif va00 eq 0
+
+	setv va01 25
+
+else
+
+	setv va01 41
+
+endi
+
+
+
+reps rand 3 4
+
+	new: simp 2 15 50204 "moe_C2toDS_humming" 16 va01 rand 500 1000
+
+	mvsf rand 4760 5820 rand 48360 49250
+
+repe
+
+
+
+
+
+
+scrp 2 15 50204 10
+
+	inst
+
+	accg 0
+
+	attr 195
+
+	bhvr 59
+
+	doif type name "nest" eq 0
+
+		seta name "nest" null
+
+	endi
+
+	doif type ov09 eq 0
+
+		seta ov09 null
+
+	endi
+
+	seta ov08 null
+
+	setv ov07 0
+
+	tick 19.5
+
+*anim [0 1 2 3 4 5 6 7 255]
+
+	anim [0 2 4 6 255]
+
+	setv ov06 5
+
+	aero 5
+
+	rnge 750
+
+	sets ov23 ""
+
+	sets ov24 ""
+
+endm
+
+
+
+*push
+
+scrp 2 15 50204 1
+
+	doif crea from eq 1
+
+		stim writ from 86 1
+
+	endi
+
+endm
+
+
+
+*pull
+
+scrp 2 15 50204 2
+
+	doif crea from eq 1
+
+		stim writ from 86 1
+
+	endi
+
+endm
+
+
+
+*hit
+
+scrp 2 15 50204 3
+
+	doif crea from eq 1
+
+		stim writ from 87 1
+
+	endi
+
+endm
+
+
+
+*eat
+
+scrp 2 15 50204 12
+
+	doif crea from eq 1
+
+		stim writ from 80 1
+
+	endi
+
+endm
+
+
+
+scrp 2 15 50204 9
+
+
+
+	doif carr ne null
+
+		stop
+
+	endi
+
+
+
+*migrate birds!
+
+	doif sean ge 2 and date ge 2
+
+		rtar 1 20 50200
+
+		setv va00 gmap posx posy
+
+		targ ownr
+
+*if you're still in C2toDS you go migrate
+
+		doif gmap posx posy eq va00
+
+*Go towards areas of high pressure, this will take you to the ocean.
+
+			targ ownr
+
+			setv va04 19
+
+			setv va05 0
+
+			gsub find
+
+			addv ov02 1
+
+			doif ov02 gt 50
+
+				kill ownr
+
+			endi
+
+		else
+
+*if not, just abandon your nests
+
+*Go to nests, then vanish.
+
+			gsub returntonest
+
+			addv ov02 1
+
+			doif ov02 gt 50
+
+				kill ownr
+
+			endi
+
+
+
+		endi
+
+		stop
+
+	endi
+
+
+
+*grow hungry, but half as much at night
+
+	doif time le 2
+
+		subv ov13 .5
+
+	else
+
+		doif name "nest" ne null
+
+			gsub returntonest
+
+			subv ov13 .25
+
+			stop
+
+		endi
+
+	endi
+
+
+
+	doif time eq 3 and visi 1 eq 0 and name "nest" ne null
+
+		setv va10 1
+
+		targ name "nest"
+
+		setv va00 posx
+
+		setv va01 posy
+
+		targ ownr
+
+		mvsf va00 va01
+
+	endi
+
+
+
+*You have no nest, build one
+
+	doif name "nest" eq null
+
+
+
+		doif ov04 eq 1
+
+			anim [0 2 4 6 255]
+
+			setv ov04 0
+
+		endi
+
+
+
+		gsub buildnest
+
+	else
+
+*if you have a nest, time to go for food if you're hungry
+
+		doif ov13 lt 25
+
+
+
+			doif ov04 eq 1
+
+				anim [0 2 4 6 255]
+
+				setv ov04 0
+
+			endi
+
+
+
+			doif ov08 eq null
+
+				star 2 7 0
+
+				doif targ ne null
+
+					seta mv08 targ
+
+				else
+
+					targ ownr
+
+					setv va04 9
+
+					setv va05 0
+
+					setv va07 1
+
+					gsub find
+
+				endi
+
+			else
+
+				reps rand 5 10
+
+					wait tick
+
+					seta va03 ov08
+
+					targ ownr
+
+					gsub follow
+
+					doif touc ownr va03 eq 1
+
+						velo 0 0
+
+					endi
+
+					addv ov13 5
+
+				repe
+
+			endi
+
+		else
+
+			gsub returntonest
+
+		endi
+
+	endi
+
+
+
+
+
+	subr returntonest
+
+		doif seee ownr name "nest" ne 1 and ov22 ne 0
+
+			gsub backtrack
+
+			gsub checkobstacles
+
+		elif seee ownr name "nest" ne 1 and ov22 le 0
+
+*doif visi 1 eq 0
+
+*	gsub warpback
+
+*else
+
+			gsub wander
+
+*endi
+
+		elif seee ownr name "nest" eq 1 and touc ownr name "nest" ne 1
+
+			seta va03 name "nest"
+
+			setv va02 0
+
+			inst
+
+			gsub follow
+
+			slow
+
+		elif seee ownr name "nest" eq 1 and touc ownr name "nest" eq 1
+
+			doif ov04 ne 1
+
+				gsub movetonest
+
+			endi
+
+			setv ov04 1
+
+		endi
+
+	retn
+
+
+
+
+
+
+
+	subr gotoroom
+
+*va00 eq the room
+
+
+
+*If you can't get to that room, stop.
+
+*		inst
+
+*		doif va00 ne -1 and va00 ne room ownr
+
+*			doif door room ownr va00 lt perm
+
+*				stop
+
+*			endi
+
+*		endi
+
+*		slow
+
+
+
+		setv va01 torx va00
+
+		setv va02 tory va00
+
+
+
+*If you're less than 100px away, adjust speed
+
+		doif va01 lt 100 and va01 gt -100
+
+			setv va03 va01
+
+			absv va03
+
+			divv va03 100
+
+			setv va06 ov06
+
+			mulv va06 va03
+
+		else
+
+			setv va06 ov06
+
+		endi
+
+
+
+*If you're less than 100px away, adjust speed
+
+		doif va02 lt 100 and va02 gt -100
+
+			setv va03 va02
+
+			absv va03
+
+			divv va03 100
+
+			setv va07 ov07
+
+			mulv va07 va03
+
+		else
+
+			setv va07 ov07
+
+		endi
+
+
+
+		doif va01 gt 0
+
+			gsub right
+
+		elif va01 lt 0
+
+			gsub left
+
+		endi
+
+		doif va02 lt 0
+
+			gsub up
+
+		elif va02 gt 0
+
+			gsub down
+
+		endi
+
+
+
+		doif va10 eq 1
+
+			gsub track
+
+		endi
+
+	retn
+
+
+
+
+
+	subr backtrack
+
+		sets va00 "RID"
+
+		adds va00 vtos ov22
+
+		setv va01 name va00
+
+*If you're in the room you're looking for, subtract 1 and look for the
+
+*next room.
+
+		doif va01 eq room ownr
+
+*or torx va01 lt 50 and tory va01 gt -50
+
+*doif ov22 ne 1
+
+			subv ov22 1
+
+*elif ov22 eq 1
+
+*gsub warpback
+
+*endi
+
+		endi
+
+
+
+*va01 should be the RID of the room we're looking for
+
+		setv va00 name va00
+
+		setv va02 2
+
+		setv va10 0
+
+		gsub gotoroom
+
+	retn
+
+
+
+	subr checkobstacles
+
+		doif obst left lt 60
+
+			setv va06 ov06
+
+			gsub right
+
+		endi
+
+
+
+		doif obst rght lt 60
+
+			setv va06 ov06
+
+			gsub left
+
+		endi
+
+
+
+		doif obst _up_ lt 50
+
+			setv va07 ov06
+
+			gsub up
+
+		endi
+
+
+
+	retn
+
+
+
+	subr wander
+
+		doif name "room" eq room ownr or name "room" eq 0
+
+			gsub pickroom
+
+		endi
+
+		setv va10 0
+
+		setv va02 2
+
+		setv va01 name "room"
+
+		gsub find
+
+		addv ov33 1
+
+		doif ov33 ge 10
+
+			gsub warpback
+
+		endi
+
+	retn
+
+
+
+	subr warpback
+
+		doif visi 1 eq 0
+
+			targ name "nest"
+
+			setv va00 posx
+
+			setv va01 posb
+
+			targ ownr
+
+			mvsf va00 va01
+
+		endi
+
+	retn
+
+
+
+	subr pickroom
+
+		inst
+
+		gsub waterlogged
+
+
+
+		doif va04 eq 4
+
+			loop
+
+				gsub waterlogged
+
+				gsub up
+
+				wait 10
+
+			untl va04 ne 4
+
+		endi
+
+
+
+		loop
+
+			setv va00 rand 0 3
+
+			doif va00 eq 0
+
+				setv name "room" grid ownr rght
+
+			elif va00 eq 1
+
+				setv name "room" grid ownr left
+
+			elif va00 eq 2
+
+				setv name "room" grid ownr _up_
+
+			elif va00 eq 3
+
+				setv name "room" grid ownr down
+
+			endi
+
+		untl name "room" ne -1 and rtyp name "room" ne 8 and rtyp name "room" ne 9
+
+*dbg: outv name "room"
+
+
+
+	retn
+
+
+
+	subr waterlogged
+
+		setv va00 rtyp grid ownr rght
+
+		setv va01 rtyp grid ownr left
+
+		setv va02 rtyp grid ownr _up_
+
+		setv va03 rtyp grid ownr down
+
+		setv va04 0
+
+*This is incase all the rooms around you are water...we can stop the loop and go up
+
+		doif grid ownr rght ne -1
+
+			doif va00 eq 8 or va00 eq 9 or door room ownr grid ownr rght lt perm
+
+				addv va04 1
+
+			endi
+
+		else
+
+			addv va04 1
+
+		endi
+
+
+
+		doif grid ownr left ne -1
+
+			doif va01 eq 8 or va01 eq 9 or door room ownr grid ownr left lt perm
+
+				addv va04 1
+
+			endi
+
+		else
+
+			addv va04 1
+
+		endi
+
+
+
+		doif grid ownr _up_ ne -1
+
+			doif va02 eq 8 or va02 eq 9 or door room ownr grid ownr _up_ lt perm
+
+				addv va04 1
+
+			endi
+
+		else
+
+			addv va04 1
+
+		endi
+
+
+
+		doif grid ownr down ne -1
+
+			doif va03 eq 8 or va03 eq 9 or door room ownr grid ownr down lt perm
+
+				addv va04 1
+
+			endi
+
+		else
+
+			addv va04 1
+
+		endi
+
+
+
+	retn
+
+
+
+
+
+
+
+
+
+	subr movetonest
+
+		velo 0 0
+
+		targ name "nest"
+
+		setv va00 posl
+
+		setv va01 posy
+
+		targ ownr
+
+		addv va00 rand 0 15
+
+		mvsf va00 va01
+
+		anim [0]
+
+	retn
+
+
+
+
+
+
+
+	subr buildnest
+
+		doif ov09 eq null
+
+			star 2 6 0
+
+			doif targ ne null and targ ne ownr
+
+*don't choose a leaf that isn't stable foliage!
+
+				doif name "nestable" eq 1 or tick eq 0
+
+					seta mv09 targ
+
+*2 17 50208 -nest
+
+					seta va03 targ
+
+					targ ownr
+
+					gsub follow
+
+				else
+
+					targ ownr
+
+*dbg: outs "finding"
+
+					setv va04 9
+
+					setv va05 0
+
+					gsub find
+
+
+
+				endi
+
+			else
+
+*if no leaf is in sight, you need to find leafs...go towards flowers, they usually have leafs
+
+				targ ownr
+
+*dbg: outs "finding"
+
+				setv va04 9
+
+				setv va05 0
+
+				gsub find
+
+			endi
+
+			targ ownr
+
+		else
+
+*Ok so you found a leaf, now find a good spot on it to build a nest!
+
+*pick a non-transparent part
+
+			inst
+
+			targ mv09
+
+			loop
+
+				targ mv09
+
+				setv va02 rand posl posr
+
+				setv va03 rand post posb
+
+				wait 1
+
+			untl tran va02 va03 eq 0
+
+			slow
+
+			targ ownr
+
+			loop
+
+				wait tick
+
+				setv va05 1
+
+				setv va00 va02
+
+				setv va01 va03
+
+				subv va00 posl
+
+				subv va01 post
+
+*				dbg: outs "----"
+
+*				dbg: outs vtos va00
+
+*				dbg: outs vtos va01
+
+				gsub follow
+
+*keep going till you're within 10 pixels of your target coordinates
+
+				absv va00
+
+				absv va01
+
+*slow down if you're near your nest coordinates
+
+				doif va00 lt 50 and va01 lt 50
+
+					aero 15
+
+				endi
+
+			untl va00 lt 30 and va01 lt 30
+
+			aero 5
+
+
+
+
+
+			setv va00 plne
+
+			addv va00 1
+
+			new: simp 2 17 50208 "moe_C2toDS_humming" 1 58 va00
+
+			setv va00 wdth
+
+			setv va01 hght
+
+			divv va00 2
+
+			subv va02 va00
+
+			subv va03 va01
+
+			mvto va02 va03
+
+			seta mame "nest" targ
+
+*remember the leaf you're on...if it goes poof, so do you!
+
+			seta ov09 mv09
+
+*know your bird!
+
+			seta ov08 ownr
+
+			targ ownr
+
+			addv va03 15
+
+			addv va02 10
+
+			mvsf va02 va03
+
+			velo 0 0
+
+		endi
+
+	retn
+
+
+
+	subr find
+
+*To use this subroutine:
+
+*Before calling it, if you intend to use it for tracking rooms with high or low CA's,
+
+*set your VA05 to be high (0), or low (1), then set your va04 to the CA you're looking for.
+
+*If you want them to look at a custom room, set va05 to 2, and va06 to the room you want to look at
+
+*If you want them to track the room as they fly, setv va07 1
+
+
+
+*We're looking for that nice flower smell, cause that's where food usually is.
+
+		setv va03 room ownr
+
+		doif va05 eq 0
+
+			setv va00 hirp va03 va04 1
+
+
+
+*If the room you're in IS the one with the highest CA, pick a new random one!
+
+*doif hirp room ownr va03 1 eq room ownr
+
+*	setv va10 1
+
+*	gsub pickroom
+
+*	setv va00 name "room"
+
+*endi
+
+
+
+		elif va05 eq 1
+
+			setv va00 lorp va03 va04 1
+
+
+
+*If the room you're in IS the one with the highest CA, pick a new random one!
+
+*			doif lorp room ownr va03 1 eq room ownr
+
+*				gsub pickroom
+
+*				setv va00 name "room"
+
+*			endi
+
+
+
+		elif va05 eq 2
+
+			setv va00 va06
+
+		endi
+
+		doif rtyp va00 eq 9 or rtyp va00 eq 8
+
+			gsub up
+
+			stop
+
+		endi
+
+
+
+		setv va01 torx va00
+
+		setv va02 tory va00
+
+
+
+		doif va01 gt 0
+
+			gsub right
+
+		elif va01 lt 0
+
+			gsub left
+
+		endi
+
+		doif va02 lt 0
+
+			gsub up
+
+		elif va02 gt 0
+
+			gsub down
+
+		endi
+
+		doif va07 eq 1
+
+			gsub track
+
+		endi
+
+	retn
+
+
+
+
+
+	subr follow
+
+		doif va05 eq 0
+
+			targ va03
+
+*This assumes you've set va03 to your target before calling the follow subr.
+
+			setv va00 relx ownr targ
+
+			setv va01 rely ownr targ
+
+			targ ownr
+
+		endi
+
+
+
+		doif va00 gt 0
+
+			gsub right
+
+		elif va00 lt 0
+
+			gsub left
+
+		endi
+
+		doif va01 lt 0
+
+			gsub up
+
+		elif va01 gt 0
+
+			gsub down
+
+		endi
+
+		targ ownr
+
+
+
+	retn
+
+
+
+	subr left
+
+		subv velx ov06
+
+		mira 0
+
+	retn
+
+
+
+	subr right
+
+		addv velx ov06
+
+		mira 1
+
+	retn
+
+
+
+	subr up
+
+		subv vely ov06
+
+	retn
+
+
+
+	subr down
+
+		addv vely ov06
+
+		doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+
+			subv vely 10
+
+		endi
+
+	retn
+
+
+
+	subr track
+
+*Only track if you change rooms (ov07)
+
+*Ov21 is the total rooms in our track, this is for tracking back.
+
+*Ov24 is a list of all rooms visited
+
+		doif room ownr ne ov07 and sins ov23 1 vtos room ownr eq -1
+
+			inst
+
+			adds ov24 vtos room ownr
+
+			adds ov24 " "
+
+			sets va00 "RID"
+
+*Increase total rooms visited count by 1
+
+			addv ov21 1
+
+			adds va00 vtos ov21
+
+*RID1*
+
+			setv name va00 room ownr
+
+*name RID1 = RID at posx posy
+
+			setv ov07 room ownr
+
+			adds ov23 vtos name va00
+
+			adds ov23 " "
+
+			slow
+
+		endi
+
+	retn
+
+
+
+
+
+endm
+
+
+
+scrp 2 15 50204 5
+
+	anim [0 2 4 6 255]
+
+endm
+
+
+
+scrp 2 17 50208 10
+
+	tick 5000
+
+*Create a mate for the bird that made you
+
+	wait 10
+
+	setv va00 posl
+
+	setv va01 post
+
+	setv va02 plne
+
+	subv va02 1
+
+
+
+	setv va10 rand 0 3
+
+
+
+	targ ov08
+
+	setv va03 abba
+
+
+
+	doif abba eq 25
+
+		doif va10 eq 3
+
+			setv va03 25
+
+		else
+
+			setv va03 41
+
+		endi
+
+	else
+
+		doif va10 eq 3
+
+			setv va03 41
+
+		else
+
+			setv va03 25
+
+		endi
+
+	endi
+
+
+
+	new: simp 2 15 50204 "moe_C2toDS_humming" 16 va03 va02
+
+	addv va00 15
+
+	addv va01 10
+
+	mvsf va00 va01
+
+	seta name "nest" ownr
+
+	seta ov10 mv08
+
+*let the other bird know it has a mate now
+
+	seta va00 targ
+
+	targ mv08
+
+	seta ov10 va00
+
+
+
+	targ ownr
+
+	seta ov08 null
+
+	seta ov10 null
+
+endm
+
+
+
+scrp 2 17 50208 9
+
+*If the leaf is gone, you need to break apart...
+
+	doif ov09 eq null
+
+		kill ownr
+
+	endi
+
+
+
+*every now and again, especially in spring, you need to do something
+
+	doif sean eq 0 and ov08 eq null and ov10 eq null
+
+
+
+*Create a mate for the bird that made you
+
+		wait 10
+
+		setv va00 posl
+
+		setv va01 post
+
+		setv va02 plne
+
+		subv va02 1
+
+
+
+
+
+*Create First Bird
+
+
+
+		setv va00 rand 0 1
+
+		doif va00 eq 0
+
+			setv va01 25
+
+		else
+
+			setv va01 41
+
+		endi
+
+
+
+		new: simp 2 15 50204 "moe_C2toDS_humming" 16 va01 rand 500 1000
+
+		mvsf va00 va01
+
+		seta mv08 targ
+
+		seta name "nest" ownr
+
+		targ ownr
+
+
+
+		setv va10 rand 0 3
+
+
+
+		targ ov08
+
+		setv va03 abba
+
+
+
+		doif abba eq 25
+
+			doif va10 eq 3
+
+				setv va03 25
+
+			else
+
+				setv va03 41
+
+			endi
+
+		else
+
+			doif va10 eq 3
+
+				setv va03 41
+
+			else
+
+				setv va03 25
+
+			endi
+
+		endi
+
+
+
+		new: simp 2 15 50204 "moe_C2toDS_humming" 16 va03 va02
+
+		addv va00 15
+
+		addv va01 10
+
+		mvsf va00 va01
+
+		seta name "nest" ownr
+
+		seta ov10 mv08
+
+*let the other bird know it has a mate now
+
+		seta va00 targ
+
+		targ mv08
+
+		seta ov10 va00
+
+
+
+	endi
+
+endm
+
+
+
+scrp 2 15 50204 255
+
+	stop
+
+endm
+
+
+rscr
+
+
+enum 2 15 50204
+
+	kill targ
+
+next
+
+
+
+enum 2 17 50208
+
+	kill targ
+
+next
+

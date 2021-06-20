@@ -1,0 +1,439 @@
+* 2 21 50213 - Slinky
+
+* Initial Conversion By Moe
+* Some Modifications By the one who screams i guess
+* (if you worked on this file, feel free to add your name!)
+
+* Create slinky
+
+new: simp 2 21 50213 "moe_C2toDS_slinky" 30 0 3000
+
+mvsf 7920 48140
+
+
+
+scrp 2 21 50213 10
+
+	inst
+
+	attr 198
+
+	fric 75
+
+	elas 3
+
+	aero 1
+
+	accg 5
+
+	perm 51
+
+*dcor 1
+
+	core 30 hght 30 70
+
+	bhvr 43
+
+endm
+
+
+scrp 2 21 50213 2
+	stim writ from 97 1
+	call 1 0 0
+endm
+scrp 2 21 50213 3
+	stim writ from 97 1
+	call 1 0 0
+endm
+
+
+* Activate
+
+scrp 2 21 50213 1
+
+	lock
+
+	doif crea from eq 1
+
+		stim writ from 97 1
+
+	endi
+
+
+
+
+
+	loop
+
+
+
+		gsub findslope
+
+		setv va10 wdth
+
+		divv va10 2
+
+
+
+		doif va06 gt 0.01
+
+			doif ov01 eq 2
+
+				setv ov03 1
+
+			endi
+
+			setv ov00 1
+
+			setv ov01 1
+
+			doif obst left lt va10
+
+				setv ov01 2
+
+			endi
+
+		elif va06 lt -0.01
+
+			doif ov01 eq 1
+
+				setv ov03 1
+
+			endi
+
+			setv ov00 1
+
+			setv ov01 2
+
+			doif obst rght lt va10
+
+				setv ov01 1
+
+			endi
+
+		elif va06 le 0.01 and va06 ge -0.01 or va06 eq 0
+
+			setv ov01 0
+
+		endi
+
+
+
+		doif ov01 eq 1
+
+			gsub left
+
+		elif ov01 eq 2
+
+			gsub right
+
+		elif ov01 eq 0
+
+			doif from ne pntr
+
+				setv va00 relx from ownr
+
+			else
+
+				targ pntr
+
+				setv va00 posl
+
+				targ ownr
+
+				subv va00 posx
+
+				negv va00
+
+			endi
+
+			doif va00 gt 0
+
+				gsub right
+
+			else
+
+				gsub left
+
+			endi
+
+
+
+		endi
+
+
+
+		seta va21 null
+
+	untl va06 le .01 and va06 ge -.01 or ov03 eq 1
+
+
+
+	setv ov03 0
+
+	setv ov00 0
+
+	setv ov01 0
+
+	unlk
+
+	stop
+
+
+
+	subr left
+
+		mira 0
+
+		lock
+
+		base 0
+
+		anim [0 1 2 3 4 5 6 7]
+
+		over
+
+		snde "slnk"
+
+		base 9
+
+		anim [0 1 2]
+
+		over
+
+		anim [3 4 5 6]
+
+		over
+
+		inst
+
+		base 0
+
+		anim [0]
+
+		setv va00 posl
+
+		subv va00 39
+
+		mvsf va00 post
+
+		accg 2
+
+	retn
+
+
+
+	subr right
+
+		mira 1
+
+		lock
+
+		base 0
+
+		anim [0 1 2 3 4 5 6 7]
+
+		over
+
+		base 9
+
+		anim [0 1 2]
+
+		over
+
+		snde "slnk"
+
+		anim [3 4 5 6]
+
+		over
+
+		inst
+
+		base 0
+
+		anim [0]
+
+		setv va00 posl
+
+		addv va00 39
+
+		mvsf va00 post
+
+		accg 2
+
+	retn
+
+
+
+
+
+	subr findslope
+
+		inst
+
+		setv va20 room ownr
+
+		doif va20 ne -1
+
+			gsub runthenumbers
+
+		endi
+
+*Screw the angles, let's try finding the slope.
+
+*subtract the floor's two y's to get the rise
+
+		subv va06 va05
+
+*absv va06
+
+**dbg: outv va06
+
+*subtract the room's two x's to get the run
+
+		subv va01 va02
+
+*absv va01
+
+**dbg: outv va01
+
+*divide the rise over the run, as floats
+
+		setv va01 itof va01
+
+		setv va06 itof va06
+
+
+
+		doif va01 ne 0.0000000
+
+			divv va06 va01
+
+*dbg: outs "Slope:"
+
+*dbg: outv va06
+
+		endi
+
+	retn
+
+
+
+	subr runthenumbers
+
+
+
+		inst
+
+
+
+		setv va00 va20
+
+
+
+		sets va12 rloc va00
+
+		adds va12 " "
+
+
+
+*number of loops, this is to determine what each variable means
+
+		setv va00 0
+
+		loop
+
+			inst
+
+			addv va00 1
+
+
+
+*For the first loop, this is the  1 xLeft, 
+
+*second is 2 XRight, etc etc:: 3 LeftTop, 4 RightTop, 5 LeftFloor, 6 RightFloor
+
+			setv va16 stoi va12
+
+
+
+*save the coords depending on the run.
+
+			doif va00 eq 1
+
+				setv va01 va16
+
+			elif va00 eq 2
+
+				setv va02 va16
+
+			elif va00 eq 3
+
+				setv va03 va16
+
+			elif va00 eq 4
+
+				setv va04 va16
+
+			elif va00 eq 5
+
+				setv va05 va16
+
+			elif va00 eq 6
+
+				setv va06 va16
+
+			endi
+
+
+
+
+
+*this should delete just the " "
+
+			setv va13 sins va12 1 " "
+
+			setv va14 strl va12
+
+			subv va14 va13
+
+			addv va13 1
+
+			sets va12 subs va12 va13 va14
+
+*Repeat
+
+		untl sins va12 1 " " eq -1
+
+	retn
+
+
+
+
+
+
+
+endm
+
+
+
+* Drop script
+
+scrp 2 21 50213 6
+
+	snde "drp8"
+
+endm
+
+rscr 
+
+
+
+
+
+enum 2 21 50213
+
+	kill targ
+
+next
+

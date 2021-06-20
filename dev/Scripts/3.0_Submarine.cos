@@ -1,0 +1,994 @@
+* 3 1 50202 - Submarine
+
+new: vhcl 3 1 50202 "moe_C2toDS_sub" 1 1 5000
+
+cabw 10
+
+cabp -10
+
+cabn 50 30 170 130
+
+cabv grap 8200 48390
+
+attr 12
+
+setv ov00 0
+
+pat: dull 1 "moe_C2toDS_sub" 0 65 22 -11
+
+* left button
+
+pat: butt 2 "moe_C2toDS_sub" 2 2 4 75 2 [1 0] 1001 0
+
+* right button
+
+pat: butt 3 "moe_C2toDS_sub" 4 2 184 75 2 [1 0] 1002 0
+
+pat: dull 4 "moe_C2toDS_sub" 6 191 52 1
+
+pat: dull 5 "moe_C2toDS_sub" 10 1 52 1
+
+pat: dull 6 "moe_C2toDS_sub" 14 -95 40 2
+
+pat: dull 8 "moe_C2toDS_sub" 23 200 40 2
+
+mvto 9186 48430
+
+
+
+scrp 3 1 50202 1001
+
+	lock
+
+	doif ov00 eq 0
+
+		gsub right_to_left
+
+	elif ov00 eq 1
+
+		gsub left_to_bottom
+
+	elif ov00 eq 2
+
+		gsub bottom_to_right
+
+	endi
+
+	unlk
+
+	stop
+
+
+
+	subr right_to_left
+
+		part 2
+
+		frat 2
+
+		anim [0 1 0 1 0 1 0]
+
+		over
+
+		targ ownr
+
+		gpas 4 0 0 1
+
+		part 5
+
+		frat 3
+
+		anim [0 1 2 3 2 1 255]
+
+		part 4
+
+		frat 3
+
+		anim [0 1 2 3 2 1 255]
+
+		setv vely 2.5
+
+		snde "sub1"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+			gsub breathe
+
+		untl posb ge 48700
+
+		setv vely 0
+
+		part 5
+
+		pose 0
+
+		setv velx -5
+
+		snde "sub2"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+			gsub breathe
+
+		untl posl le 8225
+
+		snde "sub2"
+
+		setv velx -2.5
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+		untl posl le 8125
+
+		setv velx 0
+
+		part 5
+
+		frat 3
+
+		anim [0 1 2 3 2 1 255]
+
+		setv vely -2.5
+
+		snde "sub3"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+			gsub breathe
+
+		untl posb le 48546
+
+		setv vely 0
+
+		fade
+
+		part 5
+
+		pose 0
+
+		part 4
+
+		pose 0
+
+		targ ownr
+
+		dpas 4 0 0
+
+		setv ov00 1
+
+		attr 12
+
+		etch 4 0 0
+
+			setv vely -10
+
+		next
+
+	retn
+
+
+
+	subr breathe
+
+		epas 4 0 0
+
+			chem 29 1
+
+		next
+
+		targ ownr
+
+	retn
+
+
+
+	subr left_to_bottom
+
+		part 2
+
+		frat 2
+
+		anim [0 1 0 1 0 1 0]
+
+		over
+
+		targ ownr
+
+		gpas 4 0 0 1
+
+		part 5
+
+		anim [0 1 2 3 2 1 255]
+
+		part 4
+
+		anim [0 1 2 3 2 1 255]
+
+		setv vely 5
+
+		snde "sub1"
+
+		rtar 2 2 50202
+
+		doif name "open" eq 0
+
+			mesg writ targ 0
+
+		endi
+
+		targ ownr
+
+		snde "sub2"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+			gsub breathe
+
+* bottom slow down
+
+		untl posb ge 48830
+
+		setv vely 2.5
+
+		snde "sub3"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+			gsub breathe
+
+* bottom stop
+
+		untl posb ge 49030
+
+		part 4
+
+		pose 0
+
+		setv vely 0
+
+		setv velx 5
+
+		snde "sub1"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+			gsub breathe
+
+		untl posr ge 8550
+
+		setv velx 2.5
+
+		part 4
+
+		anim [0 1 2 3 2 1 255]
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+			gsub breathe
+
+		untl posr ge 8720
+
+		setv velx 0
+
+		part 5
+
+		pose 0
+
+		setv ov00 2
+
+		rtar 2 2 50203
+
+		mesg writ targ 0
+
+		wait 20
+
+		targ ownr
+
+		fade
+
+		reps 5
+
+			mvby 0 4
+
+		repe
+
+		part 4
+
+		pose 0
+
+		dpas 4 0 0
+
+		attr 12
+
+	retn
+
+
+
+	subr bottom_to_right
+
+		part 2
+
+		frat 2
+
+		anim [0 1 0 1 0 1 0]
+
+		over
+
+		targ ownr
+
+		gpas 4 0 0 1
+
+		rtar 2 2 50202
+
+		doif name "open" eq 0
+
+			mesg writ targ 0
+
+		endi
+
+		targ ownr
+
+		reps 5
+
+			mvby 0 -4
+
+		repe
+
+		part 4
+
+		frat 3
+
+		anim [0 1 2 3 2 1 255]
+
+		snde "sub1"
+
+		setv velx -2.5
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+			gsub breathe
+
+		untl posl le 8120
+
+		snde "sub2"
+
+		part 5
+
+		frat 3
+
+		anim [0 1 2 3 2 1 255]
+
+		setv velx 0
+
+		setv vely -5
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+			gsub breathe
+
+		untl posb le 48750
+
+		setv vely -2.5
+
+		snde "sub3"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+			gsub breathe
+
+		untl posb le 48693
+
+		setv vely 0
+
+		setv velx 5
+
+		snde "sub2"
+
+		part 4
+
+		pose 0
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+			gsub breathe
+
+		untl posr ge 9100
+
+		setv velx 2.5
+
+		snde "sub1"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+			gsub breathe
+
+		untl posr ge 9404
+
+		setv velx 0
+
+		part 4
+
+		frat 3
+
+		anim [0 1 2 3 2 1 255]
+
+		setv vely -2.5
+
+		snde "sub3"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+			gsub breathe
+
+		untl posb le 48598
+
+		setv vely 0
+
+		part 5
+
+		pose 0
+
+		part 4
+
+		pose 0
+
+		fade
+
+		setv ov00 0
+
+		targ ownr
+
+		dpas 4 0 0
+
+		attr 12
+
+		etch 4 0 0
+
+			setv vely -10
+
+		next
+
+
+
+	retn
+
+endm
+
+
+
+scrp 3 1 50202 1002
+
+	lock
+
+	doif ov00 eq 0
+
+		gsub right_to_bottom
+
+	elif ov00 eq 1
+
+		gsub left_to_right
+
+	elif ov00 eq 2
+
+		gsub bottom_to_left
+
+	endi
+
+	unlk
+
+	stop
+
+
+
+	subr breathe
+
+		epas 4 0 0
+
+			chem 29 1
+
+		next
+
+		targ ownr
+
+	retn
+
+
+
+	subr right_to_bottom
+
+		part 3
+
+		frat 2
+
+		anim [0 1 0 1 0 1 0]
+
+		over
+
+		targ ownr
+
+		gpas 4 0 0 1
+
+		rtar 2 2 50202
+
+		doif name "open" eq 0
+
+			mesg writ targ 0
+
+		endi
+
+		targ ownr
+
+		part 4
+
+		frat 3
+
+		anim [0 1 2 3 2 1 255]
+
+		part 5
+
+		frat 3
+
+		anim [0 1 2 3 2 1 255]
+
+		setv vely 2.5
+
+		snde "sub1"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+			gsub breathe
+
+		untl posb ge 48700
+
+		setv vely 0
+
+		part 5
+
+		pose 0
+
+		setv velx -5
+
+		snde "sub3"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+			gsub breathe
+
+		untl posl le 8225
+
+		setv velx -2.5
+
+		snde "sub2"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+			gsub breathe
+
+		untl posl le 8125
+
+		setv velx 0
+
+		part 5
+
+		frat 3
+
+		anim [0 1 2 3 2 1 255]
+
+		setv vely 5
+
+		snde "sub3"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+			gsub breathe
+
+* bottom slow down
+
+		untl posb ge 48830
+
+		setv vely 2.5
+
+		snde "sub3"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+* bottom stop
+
+		untl posb ge 49030
+
+		setv vely 0
+
+		part 4
+
+		pose 0
+
+		setv velx 5
+
+		snde "sub1"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+		untl posr ge 8550
+
+		setv velx 2.5
+
+		snde "sub3"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+		untl posr ge 8720
+
+		setv velx 0
+
+		part 5
+
+		pose 0
+
+		setv ov00 1
+
+		rtar 2 2 50203
+
+		mesg writ targ 0
+
+		wait 20
+
+		targ ownr
+
+		fade
+
+		reps 5
+
+			mvby 0 4
+
+		repe
+
+		dpas 4 0 0
+
+		attr 12
+
+		setv ov00 2
+
+	retn
+
+
+
+	subr left_to_right
+
+		part 3
+
+		frat 2
+
+		anim [0 1 0 1 0 1 0]
+
+		over
+
+		targ ownr
+
+		gpas 4 0 0 1
+
+		part 5
+
+		frat 3
+
+		anim [0 1 2 3 2 1 255]
+
+		part 4
+
+		frat 3
+
+		anim [0 1 2 3 2 1 255]
+
+		setv vely 2.5
+
+		snde "sub3"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+		untl posb ge 48700
+
+		setv vely 0
+
+		part 4
+
+		pose 0
+
+		setv velx 5
+
+		snde "sub1"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+		untl posr ge 9100
+
+		setv velx 2.5
+
+		snde "sub2"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+		untl posr ge 9404
+
+		setv velx 0
+
+		part 5
+
+		frat 3
+
+		anim [0 1 2 3 2 1 255]
+
+		setv vely -2.5
+
+		snde "sub3"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+		untl posb le 48598
+
+		setv vely 0
+
+		fade
+
+		part 5
+
+		pose 0
+
+		part 4
+
+		pose 0
+
+		targ ownr
+
+		dpas 4 0 0
+
+		setv ov00 0
+
+		attr 12
+
+		etch 4 0 0
+
+			setv vely -10
+
+		next
+
+
+
+	retn
+
+
+
+	subr bottom_to_left
+
+		part 3
+
+		frat 2
+
+		anim [0 1 0 1 0 1 0]
+
+		over
+
+		targ ownr
+
+		gpas 4 0 0 1
+
+		rtar 2 2 50202
+
+		doif name "open" eq 0
+
+			mesg writ targ 0
+
+		endi
+
+		targ ownr
+
+		gpas 4 0 0 1
+
+		reps 5
+
+			mvby 0 -4
+
+		repe
+
+		part 4
+
+		frat 3
+
+		anim [0 1 2 3 2 1 255]
+
+		setv velx -2.5
+
+		snde "sub1"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+			gpas 4 0 0 1
+
+		untl posl le 8120
+
+		setv velx 0
+
+		targ ownr
+
+		part 5
+
+		frat 3
+
+		anim [0 1 2 3 2 1 255]
+
+		setv vely -5
+
+		snde "sub2"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+		untl posb le 48546
+
+		setv vely -2.5
+
+		snde "sub3"
+
+		loop
+
+			wait 1
+
+			gsub breathe
+
+		untl posb le 48546
+
+		fade
+
+		part 4
+
+		pose 0
+
+		part 5
+
+		pose 0
+
+		etch 4 0 0
+
+			reps 5
+
+				mvby 0 -2
+
+			repe
+
+		next
+
+		targ ownr
+
+		dpas 4 0 0
+
+		setv vely 0
+
+		setv ov00 1
+
+		attr 12
+
+		etch 4 0 0
+
+			setv vely -10
+
+		next
+
+	retn
+
+endm
+
+rscr
+
+enum 3 1 50202
+
+	kill targ
+
+next
+
+scrx 3 1 50202 1001
+

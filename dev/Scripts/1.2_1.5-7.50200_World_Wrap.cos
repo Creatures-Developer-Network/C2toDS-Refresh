@@ -1,0 +1,653 @@
+* This file has scripts for:
+*1	5	50200	World Wrap Camera
+*1	6	50200	World Wrap Grabber
+*1	7	50200	Mouse Pointer Tracker
+
+
+*CA links for the "wrap" rooms.*
+
+*Atmosphere
+
+link grap 2070 47640 grap 10375 47640 100
+
+*Desert Beach
+
+link grap 2070 48090 grap 10375 48090 100
+
+*Biome 1
+
+link grap 2070 48340 grap 10375 48340 100
+
+*Bome 2
+
+link grap 2070 48822 grap 10375 48822 100
+
+*Machines to Volcano
+
+link grap 2070 49340 grap 10375 49340 100
+
+*----------------------*
+
+*Yggdrasil to Desert
+
+link grap 12950 47678 grap 4890 48110 100
+
+
+
+*Set the game variables for easy reference.*
+
+setv game "C2toDSTop" 47600
+
+setv game "C2toDSBottom" 49999
+
+setv game "C2toDSLeft" 0
+
+setv game "CtoDSRight" 12448
+
+setv game "C2toDSRoomID" gmap 6753 48383
+
+
+
+
+
+*--//--References---*
+
+*10399 is the point of wrap on the RIGHT side of the map.*
+
+*2048 is the point of wrap on the LEFT side of the map.*
+
+*--//---------------*
+
+
+
+*Begin counter for injecting Cameras*
+
+setv va03 0
+
+setv va04 game "C2toDSTop"
+
+subv va04 299
+
+*Set up camera heights and widths for easy change -This was mainly for Development.*
+
+*They are 400 wide, 300 high.  This helps for 800x600 displays, the minimum size for Creatures.*
+
+setv game "Camwidth" 400
+
+setv game "Camheight" 300
+
+*----------------------------------------------------------------------------------*
+
+*----------------------------------*
+
+
+
+*-Inject the Cameras and Wrap Pieces-*
+
+loop
+
+	addv va04 299
+
+	addv va03 1
+
+
+
+*DS used a surprise Genus classifier for it's Icons, 1 4 *, and who knows what else!! 
+
+*So just to be on the safe side for these non-interactable pieces, let's start at Genus 10*
+
+
+
+	new: comp 1 5 50200 "moe_C2toDS_camera" 1 1 1
+
+	pat: cmra 1 "moe_C2toDS_camera" 1 0 0 0 game "Camwidth" game "Camheight" game "Camwidth" game "Camheight"
+
+	attr 0
+
+	accg 0
+
+	fric 100
+
+	aero 0
+
+	mvto 10399 va04
+
+	scam targ 1
+
+	setv va00 10399
+
+	subv va00 8352
+
+	cmra va00 va04 0
+
+	setv ov00 va00
+
+	setv ov04 va04
+
+	tick 100
+
+
+
+	new: comp 1 5 50200 "moe_C2toDS_camera" 1 1 1
+
+	pat: cmra 1 "moe_C2toDS_camera" 1 0 0 0 game "Camwidth" game "Camheight" game "Camwidth" game "Camheight"
+
+	attr 0
+
+	accg 0
+
+	fric 100
+
+	aero 0
+
+	mvto 10799 va04
+
+	scam targ 1
+
+	setv va00 10799
+
+	subv va00 8352
+
+	cmra va00 va04 0
+
+	setv ov00 va00
+
+	setv ov04 va04
+
+	tick 100
+
+
+
+*right side to show left side
+
+	new: comp 1 5 50200 "moe_C2toDS_camera" 1 1 1
+
+	pat: cmra 1 "moe_C2toDS_camera" 1 0 0 0 game "Camwidth" game "Camheight" game "Camwidth" game "Camheight"
+
+	attr 0
+
+	accg 0
+
+	fric 100
+
+	aero 0
+
+	mvto 10000 va04
+
+	scam targ 1
+
+	setv va00 10000
+
+	subv va00 8352
+
+	cmra va00 va04 0
+
+	setv ov00 va00
+
+	setv ov04 va04
+
+	tick 100
+
+
+
+*left side to show right side
+
+	new: comp 1 5 50200 "moe_C2toDS_camera" 1 1 1
+
+	pat: cmra 1 "moe_C2toDS_camera" 1 0 0 0 game "Camwidth" game "Camheight" game "Camwidth" game "Camheight"
+
+	attr 0
+
+	accg 0
+
+	fric 100
+
+	aero 0
+
+	mvto 2048 va04
+
+	scam targ 1
+
+	setv va00 2048
+
+	addv va00 8352
+
+	cmra va00 va04 0
+
+	setv ov00 va00
+
+	setv ov04 va04
+
+	tick 100
+
+
+
+
+
+	new: comp 1 5 50200 "moe_C2toDS_camera" 1 1 1
+
+	pat: cmra 1 "moe_C2toDS_camera" 1 0 0 0 game "Camwidth" game "Camheight" game "Camwidth" game "Camheight"
+
+	attr 0
+
+	accg 0
+
+	fric 100
+
+	aero 0
+
+	mvto 11199 va04
+
+	scam targ 1
+
+	setv va00 11199
+
+	subv va00 8352
+
+	cmra va00 va04 0
+
+	setv ov00 va00
+
+	setv ov04 va04
+
+	tick 100
+
+
+
+	new: comp 1 5 50200 "moe_C2toDS_camera" 1 1 1
+
+	pat: cmra 1 "moe_C2toDS_camera" 1 0 0 0 game "Camwidth" game "Camheight" game "Camwidth" game "Camheight"
+
+	attr 0
+
+	accg 0
+
+	fric 100
+
+	aero 0
+
+	mvto 1648 va04
+
+	scam targ 1
+
+	setv va00 1648
+
+	addv va00 8352
+
+	cmra va00 va04 0
+
+	setv ov00 va00
+
+	setv ov04 va04
+
+	tick 100
+
+
+
+	new: comp 1 5 50200 "moe_C2toDS_camera" 1 1 1
+
+	pat: cmra 1 "moe_C2toDS_camera" 1 0 0 0 game "Camwidth" game "Camheight" game "Camwidth" game "Camheight"
+
+	attr 0
+
+	accg 0
+
+	fric 100
+
+	aero 0
+
+	mvto 1248 va04
+
+	scam targ 1
+
+	setv va00 1248
+
+	addv va00 8352
+
+	cmra va00 va04 0
+
+	setv ov00 va00
+
+	setv ov04 va04
+
+	tick 100
+
+
+
+
+
+
+
+*----------*
+
+
+
+*Right Side Grabber
+
+	new: simp 1 6 50200 "moe_C2toDS_Camera" 1 1 1
+
+	attr 0
+
+	accg 0
+
+	tick 9.75
+
+	fric 100
+
+	aero 0
+
+	mvto 10400 va04
+
+*I Am on the right of the world, in the 100000 range*
+
+	sets name "WhichWrapPieceAmI?" "Right"
+
+
+
+*Left Side Grabber
+
+	new: simp 1 6 50200 "moe_C2toDS_Camera" 1 1 1
+
+	attr 0
+
+	accg 0
+
+	tick 9.75
+
+	fric 100
+
+	aero 0
+
+	mvto 1647 va04
+
+	sets name "WhichWrapPieceAmI?" "Left"
+
+untl va03 eq 8
+
+
+
+*----END INJECT CAMERAS AND WRAP PIECES----*
+
+
+
+*mouse pointer tracker
+
+new: simp 1 7 50200 "blank" 1 0 1
+
+attr 0
+
+accg 0
+
+tick 1
+
+fric 100
+
+aero 0
+
+
+*This might be the cause of a mild performance hit, but it keeps the cameras from blacking out.*
+
+scrp 1 5 50200 9
+
+	tick 1000
+
+	scam targ 1
+
+	cmra ov00 ov04 0
+
+endm
+
+
+
+*This might be the cause of a mild performance hit, but it keeps the cameras from blacking out.*
+
+scrp 1 5 50200 128
+
+	scam targ 1
+
+	cmra ov00 ov04 0
+
+endm
+
+
+
+
+
+
+
+scrp 1 6 50200 9
+
+
+
+	inst
+
+	doif name "WhichWrapPieceAmI?" eq "Right"
+
+*inst
+
+		etch 2 0 0
+
+			doif targ ne null
+
+*	slow
+
+*if more than half of the width has passed to the other side, move it*
+
+*			setv va02 posl
+
+*			setv va03 wdth
+
+*			mulv va03 .5
+
+*			subv va02 va03
+
+
+
+				doif targ ne pntr and attr ge 64 and movs eq 0 and posx gt 10399
+
+					doif crea targ ne 1
+
+						setv va00 posl
+
+						setv va01 post
+
+						addv va01 5
+
+						subv va00 8351
+
+						mvsf va00 va01
+
+					else
+
+						setv va00 dftx
+
+						setv va01 dfty
+
+						addv va01 1
+
+						subv va00 8351
+
+						mvsf va00 va01
+
+						DIRN 2
+
+					endi
+
+				endi
+
+			endi
+
+		next
+
+	elif name "WhichWrapPieceAmI?" eq "Left"
+
+		etch 2 0 0
+
+			doif targ ne pntr and attr ge 64 and movs eq 0 and posx lt 2047
+
+				doif crea targ ne 1
+
+					setv va00 posl
+
+					setv va01 post
+
+					addv va01 5
+
+					addv va00 8352
+
+					mvsf va00 va01
+
+				else
+
+					setv va00 dftx
+
+					setv va01 dfty
+
+					addv va01 1
+
+					addv va00 8352
+
+					mvsf va00 va01
+
+				endi
+
+			endi
+
+		next
+
+
+
+	endi
+
+endm
+
+
+
+*Pointer Tracker*
+
+scrp 1 7 50200 9
+
+	inst
+
+	targ pntr
+
+	setv va00 posl
+
+	setv va01 post
+
+	inst
+
+	doif game "C2toDSRoomID" = gmap va00 va01
+
+		targ pntr
+
+		doif posl <= 2047
+
+			scam null 0
+
+			setv va04 wndl
+
+			addv va04 8352
+
+			setv va05 wndt
+
+			doif gmap va04 va05 <> -1
+
+				cmra va04 va05 0
+
+			endi
+
+		endi
+
+		targ pntr
+
+		doif posl >= 10399
+
+			scam null 0
+
+			setv va04 wndl
+
+			subv va04 8352
+
+			setv va05 wndt
+
+			doif gmap va04 va05 <> -1
+
+				cmra va04 va05 0
+
+			endi
+
+		endi
+
+	endi
+
+endm
+
+*P-------------r*
+
+rscr
+
+
+*Delete Cameras*
+
+enum 1 5 50200
+
+	kill targ
+
+next
+
+*Delete Wrap Pieces*
+
+enum 1 6 50200
+
+	kill targ
+
+next
+
+*Delete Pointer Tracker*
+
+enum 1 7 50200
+
+	kill targ
+
+next
+
+
+
+
+
+scrx 1 7 50200 9
+
+scrx 1 5 50200 9
+
+scrx 1 6 50200 9
+
+
+*Remove "wrap" room links*
+
+doif grap 2070 4764 ne -1 and link grap 2070 47640 grap 10375 47640 ne 0
+
+*Atmosphere
+
+	link grap 2070 47640 grap 10375 47640 0
+
+*Desert Beach
+
+	link grap 2070 48090 grap 10375 48090 0
+
+*Biome 1
+
+	link grap 2070 48340 grap 10375 48340 0
+
+*Biome 2
+
+	link grap 2070 48822 grap 10375 48822 0
+
+*Machines to Volcano
+
+	link grap 2070 49340 grap 10375 49340 0
+
+endi
+
+
+

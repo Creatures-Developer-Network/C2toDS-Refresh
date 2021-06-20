@@ -1,0 +1,1109 @@
+*Bat 2 16 50203 
+*Bat Nest 2 17 50204 <----4*****
+
+
+
+new: simp 2 17 50204 "moe_C2toDS_bats" 1 60 0
+
+mvsf 7572 48910
+
+
+
+new: simp 2 17 50204 "moe_C2toDS_bats" 1 60 0
+
+mvsf 3890 48950
+
+
+
+
+scrp 2 17 50204 10
+
+	show 0
+
+	wait 1
+
+	setv va00 posl
+
+	setv va01 post
+
+	new: simp 2 16 50203 "moe_C2toDS_bats" 30 30 1000
+
+	mvsf va00 va01
+
+*Nest
+
+	seta ov09 ownr
+
+
+
+endm
+
+
+
+scrp 2 16 50203 10
+
+	attr 199
+
+	aero 5
+
+	accg .025
+
+	elas 0
+
+	fric 50
+
+
+
+*Food
+
+	seta ov08 null
+
+*Nest
+
+*seta ov09 null
+
+*Mate
+
+*seta ov10 null
+
+*Range
+
+	rnge 250
+
+
+
+*Velx
+
+	setv ov06 5
+
+
+
+*Vely
+
+	setv ov07 5
+
+
+
+	sets ov28 ""
+
+
+
+	tick rand 19.5 25
+
+
+
+	setv ov13 10
+
+endm
+
+
+
+scrp 2 16 50203 9
+
+
+
+*ov13 = 0 - Awake
+
+*ov13 = 1 - Asleep
+
+*ov13 = 2 - Dropped
+
+*ov13 = 3 - Eaten something
+
+
+
+*If it's nighttime, activate!
+
+	doif time ge 3 and ov14 ne 1
+
+		doif ov13 eq 1
+
+			gsub wakeup
+
+			setv ov13 0
+
+		endi
+
+		gsub findfood
+
+	elif time lt 3 and ov13 ne 1 or ov14 eq 1
+
+		gsub fly
+
+		doif seee ownr ov09 eq 0
+
+			doif ov22 gt 0 and sins ov28 1 vtos room ownr ne -1
+
+*You have the fruit, go home with it!
+
+				gsub backtrack
+
+				stop
+
+			else
+
+				doif visi 1 eq 0
+
+					gsub warpback
+
+					stop
+
+				else
+
+					gsub wander
+
+				endi
+
+			endi
+
+		elif seee ownr ov09 eq 1
+
+			loop
+
+				setv va07 ov07
+
+				gsub up
+
+				wait tick
+
+			untl obst _up_ lt 10
+
+			accg 0
+
+			velo 0 0
+
+			gsub sleep
+
+			stop
+
+		endi
+
+	endi
+
+
+
+	subr eat
+
+		setv ov13 3
+
+		frat 2
+
+		anim [16 17 18 19 20]
+
+		over
+
+		frat 2
+
+		anim [26 27 28 29]
+
+		over
+
+		gsub clear
+
+	retn
+
+
+
+	subr sleep
+
+		doif ov13 ne 1
+
+			setv ov13 1
+
+			frat 2
+
+			anim [16 17 18 19 20]
+
+			over
+
+			frat 2
+
+			anim [26 27 28 29]
+
+			over
+
+			stpc
+
+			gsub clear
+
+		endi
+
+	retn
+
+
+
+	subr wakeup
+
+		frat 2
+
+		anim [29 28 27 26]
+
+		over
+
+		frat 2
+
+		anim [8 9 10 11]
+
+		over
+
+		accg .025
+
+		gsub fly
+
+		gsub clear
+
+	retn
+
+
+
+	subr fly
+
+		doif ov13 ne 0
+
+			setv ov13 0
+
+			accg .025
+
+			sndl "flp2"
+
+			doif ov11 eq 0
+
+				base 0
+
+			else
+
+				base 30
+
+			endi
+
+			frat 2
+
+			anim [0 1 2 3 2 1 255]
+
+		endi
+
+	retn
+
+
+
+	subr clear
+
+		setv ov22 0
+
+		sets ov28 ""
+
+		setv ov14 0
+
+	retn
+
+
+
+
+
+	subr findfood
+
+		gsub fly
+
+*This subroutine checks to see if ov08 eq null, and finds food.
+
+		doif ov08 eq null
+
+			star 2 8 0
+
+			doif targ ne null and targ ne ownr
+
+				doif carr eq null
+
+					setv va00 bhvr
+
+					andv va00 48
+
+*must be carryable and edible
+
+					doif va00 eq 48
+
+						setv va00 attr
+
+						andv va00 1
+
+*If it's carryable and edible by creatures, MAKE IT carryable by us
+
+						doif va00 ne 1
+
+							setv va00 attr
+
+							addv va00 1
+
+							attr va00
+
+						endi
+
+						seta mv08 targ
+
+					endi
+
+				endi
+
+			endi
+
+			targ ownr
+
+			setv va10 1
+
+			gsub search
+
+*So you have a target, go get it.
+
+		elif ov08 ne null
+
+
+
+*doif relx ownr ov08 gt 250 or rely ownr ov08 gt 250
+
+			doif seee ownr ov08 ne 1 and held ne ov08
+
+				seta ov08 null
+
+				stop
+
+			endi
+
+*endi
+
+
+
+*Forget it if it's inedible.
+
+			targ ov08
+
+			setv va00 bhvr
+
+			andv va00 48
+
+			doif va00 ne 48
+
+				seta mv08 null
+
+				stop
+
+			endi
+
+			targ ownr
+
+
+
+
+
+
+
+			doif held ne ov08
+
+				seta va04 ov08
+
+				setv va02 0
+
+				gsub follow
+
+
+
+				doif touc ownr ov08 eq 1
+
+
+
+*If you've touched it, grab it.
+
+					targ ov08
+
+					setv va00 wdth
+
+					setv va01 hght
+
+					setv va02 hght
+
+					divv va02 4
+
+					targ ownr
+
+					subv va00 wdth
+
+					absv va00
+
+					addv va01 va02
+
+					pupt -1 va00 va01
+
+					mesg writ ov08 4
+
+				endi
+
+
+
+			else
+
+*If you can't see the nest, backtrack if possible
+
+				doif seee ownr ov09 eq 0
+
+					doif ov22 gt 0
+
+*You have the fruit, go home with it!
+
+						gsub backtrack
+
+					else
+
+						doif visi 1 eq 0
+
+							gsub warpback
+
+							stop
+
+						else
+
+							gsub wander
+
+						endi
+
+					endi
+
+				elif seee ownr ov09 eq 1
+
+					inst
+
+					loop
+
+						setv va07 ov07
+
+						gsub up
+
+						wait tick
+
+					untl obst _up_ lt 10
+
+					inst
+
+					velo 0 -5
+
+					gsub eat
+
+					drop
+
+					mesg writ ov08 12
+
+					gsub wakeup
+
+					stop
+
+					slow
+
+				endi
+
+			endi
+
+		endi
+
+	retn
+
+
+
+
+
+	subr warpback
+
+		targ ov09
+
+		setv va00 posx
+
+		setv va01 posb
+
+		targ ownr
+
+		mvsf va00 va01
+
+	retn
+
+
+
+	subr search
+
+*What are we searching for? Highest (1) or lowest (0) concentration?
+
+*Or a specific room? (2) (va02)
+
+		setv va00 1
+
+*What CA are we looking for?
+
+		setv va01 9
+
+
+
+		doif va00 eq 0
+
+			setv va00 lorp room ownr va01 1
+
+			doif va00 eq room ownr
+
+				gsub wander
+
+			endi
+
+		elif va00 eq 1
+
+			setv va00 hirp room ownr va01 1
+
+			doif va00 eq room ownr
+
+				gsub wander
+
+			endi
+
+		elif va00 eq 2
+
+			setv va00 va02
+
+		endi
+
+
+
+*If the room with the highest concentration is water...Pick another room!		
+
+		doif rtyp va00 eq 8 or rtyp va00 eq 9
+
+			gsub pickroom
+
+		endi
+
+		targ ownr
+
+		gsub gotoroom
+
+
+
+	retn
+
+
+
+	subr wander
+
+		doif name "room" eq room ownr or name "room" eq 0
+
+			gsub pickroom
+
+		endi
+
+		setv va00 name "room"
+
+		setv va10 0
+
+		gsub gotoroom
+
+	retn
+
+
+
+	subr pickroom
+
+		inst
+
+		loop
+
+			setv va00 rand 0 3
+
+			doif va00 eq 0
+
+				setv name "room" grid ownr rght
+
+			elif va00 eq 1
+
+				setv name "room" grid ownr left
+
+			elif va00 eq 2
+
+				setv name "room" grid ownr _up_
+
+			elif va00 eq 3
+
+				setv name "room" grid ownr down
+
+			endi
+
+			gsub checkrooms
+
+		untl name "room" ne -1 and rtyp name "room" ne 8 and rtyp name "room" ne 9
+
+	retn
+
+
+
+
+
+	subr checkrooms
+
+		inst
+
+		setv va07 0
+
+*We need to check the adjacent rooms and ensure that we're not submerged or locked in a box.
+
+		setv va03 grid ownr left
+
+		gsub checkit
+
+		setv va03 grid ownr rght
+
+		gsub checkit
+
+		setv va03 grid ownr _up_
+
+		gsub checkit
+
+		setv va03 grid ownr down
+
+		gsub checkit
+
+
+
+
+
+		doif va07 eq 4
+
+*You're trapped!
+
+		endi
+
+
+
+		doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+
+			loop
+
+				gsub up
+
+				wait tick
+
+			untl rtyp room ownr ne 8 and rtyp room ownr ne 9
+
+		endi
+
+
+
+		slow
+
+	retn
+
+
+
+	subr checkit
+
+		doif va03 ne -1 and room ownr ne -1
+
+			doif rtyp va03 eq 8 or rtyp va03 eq 9 or door room ownr va03 lt perm
+
+				addv va07 1
+
+			endi
+
+		else
+
+			addv va07 1
+
+		endi
+
+	retn
+
+
+
+	subr gotoroom
+
+*va00 eq the room
+
+
+
+		setv va01 torx va00
+
+		setv va02 tory va00
+
+
+
+*If you're less than 100px away, adjust speed
+
+		doif va01 lt 100 and va01 gt -100
+
+			setv va03 va01
+
+			absv va03
+
+			divv va03 100
+
+			setv va06 ov06
+
+			mulv va06 va03
+
+		else
+
+			setv va06 ov06
+
+		endi
+
+
+
+*If you're less than 100px away, adjust speed
+
+		doif va02 lt 100 and va02 gt -100
+
+			setv va03 va02
+
+			absv va03
+
+			divv va03 100
+
+			setv va07 ov07
+
+			mulv va07 va03
+
+		else
+
+			setv va07 ov07
+
+		endi
+
+
+
+		doif va01 gt 0
+
+			gsub right
+
+		elif va01 lt 0
+
+			gsub left
+
+		endi
+
+		doif va02 lt 0
+
+			gsub up
+
+		elif va02 gt 0
+
+			gsub down
+
+		endi
+
+
+
+		doif va10 eq 1
+
+			gsub track
+
+		endi
+
+	retn
+
+
+
+	subr track
+
+		doif room ownr ne ov21
+
+			inst
+
+			doif sins ov28 1 vtos ov21 eq -1
+
+				sets va50 "RID"
+
+				addv ov22 1
+
+				adds va50 vtos ov22
+
+*RID1*
+
+				setv name va50 room ownr
+
+			endi
+
+*name RID1 = RID at posx posy
+
+			setv ov21 room ownr
+
+			adds ov28 vtos name va50
+
+			adds ov28 " "
+
+			slow
+
+		endi
+
+	retn
+
+
+
+***TRACKING SCRIPTS
+
+	subr backtrack
+
+		sets va00 "RID"
+
+		adds va00 vtos ov22
+
+		setv va01 name va00
+
+*If you're in the room you're looking for, subtract 1 and look for the
+
+*next room.
+
+		doif va01 eq room ownr
+
+*or torx va01 lt 50 and tory va01 gt -50
+
+*doif ov22 ne 1
+
+			subv ov22 1
+
+*elif ov22 eq 1
+
+*gsub warpback
+
+*endi
+
+		endi
+
+
+
+*va01 should be the RID of the room we're looking for
+
+		setv va00 name va00
+
+		setv va02 2
+
+		setv va10 0
+
+		gsub gotoroom
+
+	retn
+
+
+
+	subr up
+
+		subv vely va07
+
+	retn
+
+
+
+	subr down
+
+		addv vely va07
+
+		doif obst down lt hght
+
+			subv vely 2
+
+		endi
+
+	retn
+
+
+
+	subr left
+
+		mira 0
+
+		subv velx va06
+
+	retn
+
+
+
+	subr right
+
+		mira 1
+
+		addv velx va06
+
+	retn
+
+
+
+
+
+	subr follow
+
+*If VA02 eq 0, you follow the va04 target,
+
+*else, you use whatever coordinates are provided
+
+*va01 posx
+
+*va02 posy
+
+		doif va02 eq 0
+
+			targ va04
+
+*This assumes you've set va04 to your target before calling the follow subr.
+
+			setv va01 relx ownr targ
+
+			setv va02 rely ownr targ
+
+			targ ownr
+
+		else
+
+			setv va01 va08
+
+			setv va02 va09
+
+
+
+			subv va01 posx
+
+			subv va02 posy
+
+		endi
+
+
+
+*If you're less than 100px away, adjust speed
+
+		doif va01 lt 100 and va01 gt -100
+
+			setv va03 va01
+
+			absv va03
+
+			divv va03 100
+
+			setv va06 ov06
+
+			mulv va06 va03
+
+		else
+
+			setv va06 ov06
+
+		endi
+
+
+
+*If you're less than 100px away, adjust speed
+
+		doif va02 lt 100 and va02 gt -100
+
+			setv va03 va02
+
+			absv va03
+
+			divv va03 100
+
+			setv va07 ov07
+
+			mulv va07 va03
+
+		else
+
+			setv va07 ov07
+
+		endi
+
+
+
+		doif va01 gt 0
+
+			gsub right
+
+		elif va01 lt 0
+
+			gsub left
+
+		endi
+
+		doif va02 lt 0
+
+			gsub up
+
+		elif va02 gt 0
+
+			gsub down
+
+		endi
+
+
+
+		doif va10 eq 1
+
+			gsub track
+
+		endi
+
+
+
+		targ ownr
+
+	retn
+
+endm
+
+
+
+scrp 2 16 50203 5
+
+	setv ov14 1
+
+endm
+
+rscr
+
+enum 2 16 50203
+
+	kill targ
+
+next
+
+*Removes all scripts for the specified agent class if it exists.
+
+*No need to micromanage. :)
+
+loop
+
+	doif sorq 2 16 50203 va00 eq 1
+
+		scrx 2 16 50203 va00
+
+	endi
+
+	addv va00 1
+
+untl va00 eq 2000
+
+setv va00 0
+
+
+
+
+
+enum 2 17 50204
+
+	kill targ
+
+next
+
+*Removes all scripts for the specified agent class if it exists.
+
+*No need to micromanage. :)
+
+loop
+
+	doif sorq 2 17 50204 va00 eq 1
+
+		scrx 2 17 50204 va00
+
+	endi
+
+	addv va00 1
+
+untl va00 eq 2000
+
+setv va00 0

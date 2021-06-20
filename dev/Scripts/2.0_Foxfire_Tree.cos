@@ -1,0 +1,552 @@
+*Foxfire Tree Leaves/Branches
+* 1 26 50210 - Foxfire Tree Part
+* 2 6 50209 - Foxfire Tree Leaves
+* 2 7 50209 - Foxfire Flower
+* 2 8 50209 - Foxfire Berry
+* 2 8 50210 - Winter Foxfire Berry
+
+new: simp 2 6 50209 "moe_C2toDS_humming" 1 59 0
+
+mvto 4677 48422
+
+setv name "nestable" 1
+
+tick 350
+
+new: simp 1 26 50210 "moe_C2toDS_humming" 1 12 0
+
+mvto 4677 48422
+
+tick 0
+
+
+scrp 2 6 50209 10
+	reps 30
+
+		setv va02 rand 0 5
+
+
+
+		doif va02 eq 0
+
+			setv va01 0
+
+		elif va02 eq 1
+
+			setv va01 4
+
+		elif va02 eq 2
+
+			setv va01 8
+
+		elif va02 eq 3
+
+			setv va01 13
+
+		elif va02 eq 4
+
+			setv va01 16
+
+		elif va02 eq 5
+
+			setv va01 18
+
+		elif va02 eq 6
+
+			setv va01 22
+
+		endi
+
+
+
+		loop
+
+			setv va02 rand posl posr
+
+			setv va03 rand post posb
+
+		untl tran va02 va03 eq 0
+
+
+
+		new: simp 2 7 50209 "moe_C2toDS_humming" 4 va01 2
+
+		subv va03 hght
+
+		setv va04 wdth
+
+		divv va04 2
+
+		subv va02 va04
+
+		mvsf va02 va03
+
+		setv va05 0
+
+		addv va05 rand 0 3
+
+		pose va05
+
+		targ ownr
+
+	repe
+
+
+
+endm
+
+
+
+scrp 2 6 50209 9
+
+
+
+	esee 2 7 50209
+
+		doif targ ne null
+
+			addv va00 1
+
+		endi
+
+	next
+
+	targ ownr
+
+	doif va00 lt 30
+
+*Summer Foxfire
+
+
+
+		setv va02 rand 0 2
+
+
+
+		doif va02 eq 0
+
+			setv va01 0
+
+		elif va02 eq 1
+
+			setv va01 4
+
+		elif va02 eq 2
+
+			setv va01 8
+
+		endi
+
+
+
+		loop
+
+
+
+			setv va02 rand posl posr
+
+			setv va03 rand post posb
+
+
+
+		untl tran va02 va03 eq 0
+
+
+
+		new: simp 2 7 50209 "moe_C2toDS_humming" 4 va01 2
+
+		subv va03 hght
+
+		setv va04 wdth
+
+		divv va04 2
+
+		subv va02 va04
+
+		mvsf va02 va03
+
+
+
+		targ ownr
+
+	endi
+
+
+
+
+
+endm
+
+
+
+*Flower Create
+
+scrp 2 7 50209 10
+
+	mira rand 0 1
+
+	tick 1500
+
+	emit 9 .15
+
+*nectar
+
+	setv name "nectar" 10
+
+endm
+
+
+
+scrp 2 7 50209 9
+
+*restore nectar
+
+	addv name "nectar" 10
+
+	doif pose lt 3
+
+		setv va00 pose
+
+		addv va00 1
+
+		pose va00
+
+	elif pose eq 3
+
+*make fruit
+
+		gsub fruit
+
+	endi
+
+
+
+	subr fruit
+
+		doif sean lt 3
+
+			setv va00 posl
+
+			setv va01 posb
+
+			subv va00 6
+
+
+
+			new: simp 2 8 50209 "moe_C2toDS_berries" 1 7 rand 500 1500
+
+			mvsf va00 va01
+
+			kill ownr
+
+		elif sean eq 3
+
+			setv va00 posl
+
+			setv va01 posb
+
+			addv va00 4
+
+
+
+			new: simp 2 8 50210 "moe_C2toDS_berries" 1 5 rand 500 1500
+
+			mvsf va00 va01
+
+			kill ownr
+
+		endi
+
+	retn
+
+
+
+endm
+
+*Foxfire MAKE
+
+scrp 2 8 50209 10
+
+	perm rand 50 51
+
+	accg 0
+
+	elas 35
+
+	aero 3
+
+	fric 45
+
+	attr 195
+
+	tick 500
+
+	bhvr 51
+
+	emit 6 .15
+
+endm
+
+
+
+scrp 2 8 50210 10
+
+	perm rand 50 51
+
+	accg 0
+
+	elas 35
+
+	aero 3
+
+	fric 45
+
+	attr 195
+
+	tick 500
+
+	bhvr 51
+
+	emit 6 .15
+
+endm
+
+
+
+
+
+*Pickup FoxfireS
+
+scrp 2 8 50209 4
+
+	accg 5
+
+endm
+
+
+
+scrp 2 8 50210 4
+
+	accg 5
+
+endm
+
+
+
+*Foxfire Collision
+
+
+
+scrp 2 8 50209 6
+
+	sndc "dr12"
+
+endm
+
+
+
+scrp 2 8 50210 6
+
+	sndc "dr12"
+
+endm
+
+
+
+
+
+*Foxfire Push 1 and 2
+
+
+
+scrp 2 8 50209 1
+
+	doif crea from eq 1
+
+		mesg writ ownr 12
+
+	endi
+
+endm
+
+
+
+scrp 2 8 50210 1
+
+	doif crea from eq 1
+
+		mesg writ ownr 12
+
+	endi
+
+endm
+
+
+
+scrp 2 8 50209 2
+
+	mesg writ ownr 12
+
+endm
+
+
+
+scrp 2 8 50210 2
+
+	mesg writ ownr 12
+
+endm
+
+
+
+*Foxfire EAT
+
+
+
+scrp 2 8 50209 12
+
+	sndc "chwp"
+
+	stim writ from 78 1
+
+	targ from
+
+*starch
+
+*	chem 5 .4
+
+*water
+
+	chem 33 .15
+
+*fat
+
+*	chem 10 .19
+
+	kill ownr
+
+endm
+
+
+
+scrp 2 8 50210 12
+
+	snde "chwp"
+
+	stim writ from 78 1
+
+*starch
+
+*	chem 5 .35
+
+*water
+
+	chem 33 .15
+
+*protein
+
+*	chem 12 .117
+
+	kill ownr
+
+endm
+
+
+
+*Foxfire Timer
+
+
+
+scrp 2 8 50209 9
+
+	doif accg eq 0
+
+		accg 5
+
+		tick 5000
+
+		stop
+
+	else
+
+		doif carr eq null and fall eq 0
+
+			kill ownr
+
+		endi
+
+	endi
+
+endm
+
+
+
+scrp 2 8 50210 9
+
+	doif accg eq 0
+
+		accg 5
+
+		tick 5000
+
+		stop
+
+	else
+
+		doif carr eq null and fall eq 0
+
+			kill ownr
+
+		endi
+
+	endi
+
+endm
+
+rscr
+
+*Branches
+
+enum 2 6 50209
+
+	kill targ
+
+next
+
+
+*nectar
+
+enum 2 7 50209
+
+	kill targ
+
+next
+
+
+
+*Summer Fruit
+
+enum 2 8 50209
+
+	kill targ
+
+next
+
+enum 2 8 50210
+
+	kill targ
+
+next
+
+
+*Winter Fruit
+
+enum 1 26 50210
+
+	kill targ
+
+next
+
+
+
+

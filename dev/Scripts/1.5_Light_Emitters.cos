@@ -1,0 +1,898 @@
+*All light emitters are 1 14 50200
+
+*Are the Light Emitters Visible?  1 = No 0 = Yes
+
+setv va02 0
+
+*///----Lights----///*
+
+
+
+*OV00 -Posx
+
+*OV01 - Posy
+
+*OV02 - CA Light
+
+*OV03 - CA Amount
+
+*OV04 - Pose
+
+*OV05 - Type of Light
+
+*OV06 - SubType of Light
+
+
+
+*///Types of Light///*
+
+**Artificial
+
+**Natural
+
+**Natural Constant
+
+**Misc
+
+****///SubTypes of Lights - OV06///*
+
+****SkyLine
+
+****Ambient
+
+****Fire
+
+****Lava
+
+****Led
+
+****Fluorescent
+
+****Incandescent
+
+****Misc
+
+
+
+*--Skyline Emitters--*
+
+setv va00 2050
+
+setv va01 47600
+
+reps 12
+
+	addv va00 700
+
+	new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+	setv ov00 va00
+
+	setv ov01 va01
+
+	mvto ov00 ov01
+
+	setv ov04 1
+
+	sets ov05 "Natural"
+
+	sets ov06 "SkyLine"
+
+repe
+
+*--S**************s--*
+
+
+
+*--Ambient Lights--*
+
+*Ambient Light for Tantris Garden
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 3920
+
+setv ov01 48710
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Ambient"
+
+
+
+
+
+*Ambient Light for the TreeHouse
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 5155
+
+setv ov01 48564
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Ambient"
+
+
+
+*Ambient Light for the Waterfall below TreeHouse
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 4980
+
+setv ov01 49390
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Ambient"
+
+
+
+*Ambient Light for the Waterfall below TreeHouse
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 6000
+
+setv ov01 49580
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Ambient"
+
+
+
+*Ambient Light for the Waterfall below TreeHouse
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 6000
+
+setv ov01 49580
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural"
+
+sets ov06 "Ambient"
+
+
+
+*Ambient Light for the Volcano
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 9777
+
+setv ov01 49540
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Natural Constant"
+
+sets ov06 "Lava"
+
+
+
+*--A************s--*
+
+
+
+
+
+*--Fire Lights--*
+
+
+
+*Fire Light for the Shee Statue L
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 3125
+
+setv ov01 49760
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Fire"
+
+
+
+*Fire Light for the Shee Statue R
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 3435
+
+setv ov01 49760
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Fire"
+
+
+
+*Fire Light for the Lab R
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 2670
+
+setv ov01 49740
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Fire"
+
+
+
+*Fire Light for the Lab L
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 2320
+
+setv ov01 49740
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Fire"
+
+
+
+*Fire Light for the Furnace
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 2278
+
+setv ov01 49388
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Fire"
+
+
+
+*Fire Light for the Furnace
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 7251
+
+setv ov01 48674
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Fire"
+
+
+
+*Fire Light for the Library
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 3301
+
+setv ov01 49318
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Fire"
+
+
+
+*--F*********s--*
+
+
+
+*--LED Lights--*
+
+
+
+*LED Light for the Swamp 1
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 7852
+
+setv ov01 49370
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "LED"
+
+
+
+*LED Light for the Swamp 2
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 8300
+
+setv ov01 49550
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "LED"
+
+
+
+*LED Light for the Swamp 3
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 8440
+
+setv ov01 49540
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "LED"
+
+
+
+*LED Light for the Swamp 4
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 7150
+
+setv ov01 49105
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "LED"
+
+
+
+*LED Light for Above Library
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 3277
+
+setv ov01 49050
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "LED"
+
+
+
+*LED Light for Special Shroom Cave
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 3199
+
+setv ov01 48474
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "LED"
+
+
+
+*LED Light for Below the Special Shroom Cave
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 2975
+
+setv ov01 48925
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "LED"
+
+
+
+*LED Light for the Splicer L
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 8430
+
+setv ov01 49230
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "LED"
+
+
+
+*LED Light for the Splicer R
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 8605
+
+setv ov01 49280
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "LED"
+
+
+
+*LED Light for the Sub Dock L
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 8125
+
+setv ov01 48350
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "LED"
+
+
+
+*LED Light for the Sub Dock R
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 9395
+
+setv ov01 48400
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "LED"
+
+
+
+*LED Light for the Biomes Up 1
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 2060
+
+setv ov01 48530
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "LED"
+
+
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 2060
+
+setv ov01 48530
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "LED"
+
+
+
+*LED Light for the Biomes Down 1
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 2247
+
+setv ov01 49060
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "LED"
+
+
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 2247
+
+setv ov01 49060
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "LED"
+
+
+
+*LED Light for the Biomes Down 2
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 2360
+
+setv ov01 49080
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "LED"
+
+
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 2360
+
+setv ov01 49080
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "LED"
+
+
+
+
+
+
+
+*LED Light for the Biomes Beneath the World TRee
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 3811
+
+setv ov01 49304
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "LED"
+
+
+
+
+
+*LED Light for the Small Biosphere
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 3941
+
+setv ov01 49250
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Fluorescent"
+
+
+
+
+
+*--L********s--*
+
+
+
+
+
+
+
+*--Incandescent Lights--*
+
+
+
+*Incandescent Light for the Labs
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 6320
+
+setv ov01 49375
+
+mvto ov00 ov01
+
+setv ov04 1.5
+
+sets ov05 "Artificial"
+
+sets ov06 "Incandescent"
+
+
+
+*Incandescent Light for the Labs 2
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 6332
+
+setv ov01 48925
+
+mvto ov00 ov01
+
+setv ov04 1.5
+
+sets ov05 "Artificial"
+
+sets ov06 "Incandescent"
+
+
+
+
+
+*Incandescent Light for the Norn Burrow
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 7260
+
+setv ov01 48265
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Incandescent"
+
+
+
+*Incandescent Light for the Hidden Labs
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 6322
+
+setv ov01 48888
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Incandescent"
+
+
+
+*Incandescent Light for the Grendel Hatchery
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 9100
+
+setv ov01 48830
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Incandescent"
+
+
+
+*--I*****************s--*
+
+
+
+
+
+*--Fluorescent Lights--*
+
+
+
+*Fluorescent Light for the Biome 1
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 4250
+
+setv ov01 49480
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Incandescent"
+
+
+
+*Fluorescent Light for the Biome 2
+
+new: simp 1 14 50200 "moe_C2toDS_emitters" 2 va02 1
+
+setv ov00 3853
+
+setv ov01 49550
+
+mvto ov00 ov01
+
+setv ov04 1
+
+sets ov05 "Artificial"
+
+sets ov06 "Incandescent"
+
+scrp 1 14 50200 10
+
+	attr 0
+
+*//Light Emitters//*
+
+*Skyline Emitters*
+
+	doif ov06 eq "SkyLine"
+
+		setv ov02 1
+
+		setv ov03 1.5000
+
+	elif ov06 eq "Ambient"
+
+		setv ov02 1
+
+		setv ov03 1.0000
+
+	elif ov06 eq "Lava"
+
+		setv ov02 1
+
+		setv ov03 1.0000
+
+	elif ov06 eq "Fire"
+
+		setv ov02 1
+
+		setv ov03 0.4500
+
+	elif ov06 eq "LED"
+
+		setv ov02 1
+
+		setv ov03 0.1500
+
+	elif ov06 eq "Incandescent"
+
+		setv ov02 1
+
+		setv ov03 0.4500
+
+	elif ov06 eq "Fluorescent"
+
+		setv ov02 1
+
+		setv ov03 0.6500
+
+	endi
+
+	emit ov02 ov03
+
+endm
+
+rscr
+
+
+enum 1 14 50200
+
+	kill targ
+
+next
