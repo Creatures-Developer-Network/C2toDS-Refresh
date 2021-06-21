@@ -126,7 +126,7 @@ scrp 3 1 50201 1001
 
 		setv ov01 0
 		unlk
-		dbg: outv totl 3 13 50201
+*		dbg: outv totl 3 13 50201
 	untl totl 3 13 50201 le 0
 
 	subr rght
@@ -196,7 +196,7 @@ scrp 3 1 50201 1001
 		epas 4 0 0
 			rpas ownr targ
 			mvft 9283 48246
-			stim writ 96 0
+			stim writ targ 96 0
 			driv 19 -1.0
 		next
 	retn
@@ -266,7 +266,7 @@ scrp 3 1 50201 1001
 		epas 4 0 0
 			rpas ownr targ
 			mvft 8543 48246
-			stim writ 96 0
+			stim writ targ 96 0
 			driv 19 -1.0
 		next
 	retn
