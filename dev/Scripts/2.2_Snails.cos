@@ -227,12 +227,16 @@ scrp 2 15 50201 9
 		doif ov20 ne null
 
 			targ ov20
+			
+			inst
 
 			doif targ ne null
 
 				setv mv90 posx
 
 			endi
+			
+			slow
 
 		else
 
