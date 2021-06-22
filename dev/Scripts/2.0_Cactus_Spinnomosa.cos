@@ -112,7 +112,7 @@ endm
 
 scrp 2 23 50206 1
 
-
+stim writ from 90 1
 
 	reps rand 5 7
 
