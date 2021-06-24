@@ -474,25 +474,13 @@ scrp 2 8 50214 12
 
 	sndc "chwp"
 
-	bhvr 32
-
-	base 17
-
-	pose 0
-
 	stim writ from 78 1
-
-	wait 1
-
-	targ from
 
 	chem 94 .6
 
 	chem 95 .6
-
-	wait 1
-
-	targ ownr
+	
+	kill ownr
 
 endm
 
