@@ -1,0 +1,236 @@
+type,Fmly,Gnus,Spcs,Sprite File,First Sprite,Friendly Name,Description
+comp,1,1,229,blank,0,Map Editor Helper,Injected by the Room Editor for Metaroom Viability Tests
+,1,1,50200,lnk,,C2DS Night Switcher,
+simp,1,3,50200,moe_C2toDS_Fav,0,C2toDS Favorite Place Icon,Clicking this takes you to the C2toDS Metaroom.
+comp,1,5,50200,moe_C2toDS_camera,1,C2DS World Wrap Camera,"What are you looking at? This is the world! No really, it is!"
+simp,1,6,50200,moe_C2toDS_Camera,1,C2DS World Wrap Grabber,Grabs objects touching the world wrap and puts them in their equivlent real-world places
+simp,1,7,50200,blank,0,C2DS Mouse Pointer Tracker,Tracks where the mouse is on the world wrap
+simp,1,8,50200,moe_C2toDS_doors,11,C2DS World Overlays,World Overlays
+simp,1,8,50202,moe_C2toDS_trolly,5,C2DS Trolly Decoration,Trolly Decoration
+comp,1,9,50200,moe_C2toDS_Weather,32,C2DS Weather Status Bar,This bar shows you the time of day and current weather.
+simp,1,11,50200,moe_C2toDS_bubs,0,C2DS Sub Door Water/Bubbles,Sub Door Water/Bubbles
+simp,1,12,50200,moe_C2toDS_vflm,0,C2DS Ambient Sound Generator,Plays ambient sounds ocassionally
+simp,1,14,50200,moe_C2toDS_emitters,va02,C2DS Light Emitter,Emitter for different kinds of light
+simp,1,15,50200,moe_C2toDS_emitters,va02,C2DS Heat Emitter,Emitter for different kinds of heat
+simp,1,17,50200,smoke,10,C2DS Puff of Smoke,"Something was here, but it's gone now..."
+simp,1,17,50201,moe_C2toDS_tele,22,C2DS Teleporter Beam,Teleporter Beam
+simp,1,18,50200,moe_C2toDS_hand,va03,C2DS Hand Monitor,Constantly monitors the room that the hand is in so it can switch to the C2 hand-sprites and back again as needed 
+simp,1,19,50200,moe_C2toDS_emitters,4,C2DS Water Emitter,Emitter for different kinds of water
+comp,1,20,50200,moe_C2toDS_Weather,47,C2DS World Calendar Scroll,This Calendar keeps track of the time of day and world year!
+simp,1,21,50200,moe_C2toDS_UI,1,C2DS ToolTips Pointer Watcher,C2 ToolTips Pointer Watcher
+comp,1,22,50200,moe_C2toDS_UI,0,C2DS ToolTips,C2 ToolTips
+simp,1,23,50201,moe_C2toDS_manure,va01,C2DS Nutrient Bits,Nutrient Bits from manure
+simp,1,23,50204,moe_C2toDS_Zs,0,C2DS Zzz Generator,Zzz Generator
+simp,1,23,50205,moe_C2toDS_Zs,0,C2DS Zzz,Zzz
+simp,1,23,50212,moe_C2toDS_foghorn,13,C2DS Foghorn Fog,Foghorn Fog
+simp,1,23,50213,moe_C2toDS_foghorn,25,C2DS Foghorn Fog,Foghorn Fog
+simp,1,24,50200,moe_C2toDS_hive,va00,C2DS Hive Spawn Point,Hive Spawn Point
+simp,1,24,50201,moe_C2toDS_wasp,19,C2DS Wasp Nest Spawn Point,Wasp Nest Spawn Point
+simp,1,25,50200,moe_C2toDS_emitters,0,C2DS CA19 Emitters (Pressure),CA19 Emitters (Pressure)
+simp,1,26,50210,moe_C2toDS_humming,12,C2DS Foxfire Tree Part,Foxfire Tree Part
+simp,1,27,50200,moe_C2toDS_emitters,0,C2DS Creature Home & Nutrient Emitters,Creature Home & Nutrient Emitters
+simp,1,27,50205,moe_C2toDS_triff,17,C2DS Triffid Popping Effect,Triffid Popping Effect
+simp,1,27,50206,moe_C2toDS_drops,0,C2DS Water Droplet,Water Droplet
+simp,1,27,50222,moe_C2toDS_grass,9,C2DS Grass Seed Vendor Fading Decorations,Grass Seed Vendor Fading Decorations
+simp,2,1,50200,moe_C2toDS_hand,0,C2DS Hand,C2 Hand
+simp,2,1,50201,moe_C2toDS_hand,17,C2DS Hand Fader,C2 Hand Fader
+simp,2,2,50200,moe_C2toDS_doors,0,C2DS Volcano Door,A door between the volcano and the swamp. Only the hand can control access.
+simp,2,2,50201,moe_C2toDS_doors,5,C2DS Terrarium Door,A door to allow or restrict creature acess to the terrarium 
+simp,2,2,50202,moe_C2toDS_doors,12,C2DS Left Sub Door,A door to the submarine airlock
+simp,2,2,50203,moe_C2toDS_doors,16,C2DS Right Sub Door,A door to the submarine airlock
+simp,2,3,24206,moe_C2toDS_sunflower,rand,C2DS Sunflower Seed,Sunflower Seed
+simp,2,3,50200,moe_C2toDS_carrots,10,C2DS Carrot Seed,Carrot Seed
+simp,2,3,50201,moe_C2toDS_potato,0,C2DS Potato Seed,Potato Seed
+simp,2,3,50202,moe_C2toDS_nuts,31,C2DS Nut,"This nut is highly nutritious, and can grow into a Nut Plant when it is left undisturbed for a period of time."
+simp,2,3,50203,moe_C2toDS_trumpet,65,C2DS Trumpet Seed,Trumpet Seed
+simp,2,3,50204,moe_C2toDS_pear,8,C2DS Pear Seed,Pear Seed
+simp,2,3,50205,moe_C2toDS_triff,8,C2DS Triffid Seed,Triffid Seed
+simp,2,3,50206,moe_C2toDS_cacti,20,C2DS Spinnomosa Seed,"A little bitter, but a good source of EDTA"
+simp,2,3,50207,moe_C2toDS_cacti,45,C2DS Spikeocausius Seed,"A little bitter, but a good source of EDTA"
+simp,2,3,50214,moe_C2toDS_berries,23,C2DS Albian Coconut,I heard a rumor that this wasn't actually a coconut...
+simp,2,3,50218,moe_C2toDS_deathcap,13,C2DS Deathcap Mushroom Spore,Deathcap Mushroom Spore
+simp,2,3,50220,moe_C2toDS_tend,6,C2DS Walking Tendril Seed,Walking Tendril Seed
+simp,2,3,50222,moe_C2toDS_grass,19,C2DS Grass Seed,Grass Seed
+simp,2,3,50226,moe_C2toDS_pidgeonlauncher,17,C2DS World Tree Seed,World Tree Seed
+simp,2,3,50227,moe_C2toDS_coral,0,C2DS Coral Seed,Coral Seed
+simp,2,4,50200,moe_C2toDS_toms,0,C2DS Tomato Plant,Tomato Plant
+simp,2,4,50201,moe_C2toDS_mush,16,C2DS Mushroom Patch,Mushroom Patch
+comp,2,4,50202,moe_C2toDS_nuts,17,C2DS Nut Plant,Nut Plant
+simp,2,4,50204,moe_C2toDS_gelsemium,0,C2DS Gelsemium Plant,Gelsemium Plant
+simp,2,4,50217,moe_C2toDS_aubergine,0,C2DS Aubergine Plant,Aubergine Plant
+simp,2,4,50222,moe_C2toDS_grass,22,C2DS Grass,Grass
+simp,2,5,50200,moe_C2toDS_deathcap,0,C2DS Deathcap Mushroom,Deathcap Mushroom
+simp,2,5,50203,moe_C2toDS_tend,8,C2DS Walking Tendril,Walking Tendril
+simp,2,5,50206,moe_C2toDS_cacti,0,C2DS Spinnomosa,Spinnomosa
+simp,2,5,50207,moe_C2toDS_cacti,32,C2DS Spikeocausius,Spikeocausius
+simp,2,6,50200,moe_C2tods_tre2,0,C2DS World Tree Leaf,World Tree Leaf
+simp,2,6,50202,moe_C2toDS_berries,0,C2DS Pulsatilla Berry Leaf,Pulsatilla Berry Leaf
+simp,2,6,50203,moe_C2toDS_berries,0,C2DS Ledum Berry Leaf,Ledum Berry Leaf
+simp,2,6,50205,moe_C2toDS_berries,0,C2DS Albian Coconut Leaf,"From this, a coconut is born!"
+simp,2,6,50207,moe_C2toDS_berries,0,C2DS Cantharis Berry Leaf,Cantharis Berry Leaf
+simp,2,6,50208,moe_C2toDS_berries,0,C2DS Arnica Berry Leaf,There might be an Arnica Berry nearby...
+simp,2,6,50209,moe_C2toDS_humming,59,C2DS Foxfire Tree Leaf,Foxfire Tree Leaf
+simp,2,6,50212,moe_C2toDS_berries,0,C2DS Masham Berry Leaf,Masham Berry Leaf
+simp,2,6,50213,moe_C2toDS_berries,11,C2DS Bryonia Berry Leaf,There might be a Byronia Berry nearby...
+simp,2,6,50214,moe_C2toDS_tgun,14,C2DS Tomato Gun Tomato,Tomato Gun Tomato
+simp,2,6,50216,moe_C2toDS_Atmos_vinesjungle,0,C2DS Jungle Vines,Jungle Vines
+simp,2,6,50217,moe_C2toDS_Atmos_WorldTreeVines,1,C2DS World Tree Vines,World Tree Vines
+simp,2,7,24206,moe_C2toDS_sunflower,va01,C2DS Sunflower,Sunflower
+simp,2,7,50203,moe_C2toDS_trumpet,19,C2DS Trumpet Flower,Trumpet Flower
+comp,2,7,50204,moe_C2toDS_pear,24,C2DS Pear Flower,Pear Flower
+simp,2,7,50205,moe_C2toDS_triff,21,C2DS Triffid Flower,Triffid Flower
+simp,2,7,50209,moe_C2toDS_humming,va01,C2DS Foxfire Flower,Foxfire Flower
+simp,2,8,50200,moe_C2toDS_toms,15,C2DS Tomato,Tomato
+simp,2,8,50202,moe_C2toDS_berries,9,C2DS Pulsatilla Berry,Pulsatilla Berry
+simp,2,8,50203,moe_C2toDS_trumpet,44,C2DS Trumpet Fruit,Trumpet Fruit
+simp,2,8,50204,moe_C2toDS_pear,80,C2DS Pear,Pear
+simp,2,8,50205,moe_C2toDS_triff,44,C2DS Triffid Fruit,Triffid Fruit
+simp,2,8,50207,moe_C2toDS_berries,8,C2DS Cantharis Berry,"A good source of Sodium Thisulphite, but can leave creatures a little sniffly."
+simp,2,8,50208,moe_C2toDS_berries,6,C2DS Arnica Berry,"The original, all-natural organic source of Arnica!"
+simp,2,8,50209,moe_C2toDS_berries,7,C2DS Summer Foxfire Berry,"Summer Foxfire Berry, Pyrocanis aestivus"
+simp,2,8,50210,moe_C2toDS_berries,5,C2DS Winter Foxfire Berry,"Winter Foxfire Berry, Pyrocanis hibernus"
+simp,2,8,50212,moe_C2toDS_berries,1,C2DS Masham Berry Leaf,Masham Berry Leaf
+simp,2,8,50213,moe_C2toDS_berries,11,C2DS Bryonia Berry,A good source of Prostaglandin!
+simp,2,8,50214,moe_C2toDS_gelsemium,1,C2DS Gelsemium Fruit,Gelsemium Fruit
+simp,2,8,50217,moe_C2toDS_berries,rand,C2DS Albian Coconut Fruit,So fresh and juicy!
+simp,2,10,50200,moe_C2toDS_carrots,17,C2DS Carrot Detritus,Carrot Detritus
+simp,2,10,50201,moe_C2toDS_potato,7,C2DS Potato Detritus,Potato Detritus
+simp,2,10,50202,moe_C2toDS_hive,38,C2DS Bee Detritus,Bee Detritus
+simp,2,10,50203,moe_C2toDS_trumpet,va02,C2DS Trumpet Detritus,Trumpet Detritus
+simp,2,10,50204,moe_C2toDS_pear,84,C2DS Pear Detritus,Pear Detritus
+simp,2,10,50205,moe_C2toDS_triff,60,C2DS Triffid Detritus,Triffid Detritus
+simp,2,10,50207,moe_C2toDS_deathcap,5,C2DS Deathcap Mushroom Detritus,Deathcap Mushroom Detritus
+simp,2,10,50209,moe_C2toDS_manure,1,C2DS Moe's Manure,Drop this anywhere for a burst of plant growth!
+simp,2,10,50210,moe_C2tods_Tbarb,44,C2DS Tiger Barb Detritus,Tiger Barb Detritus
+simp,2,10,50211,moe_C2toDS_zand,44,C2DS Zander Fish Detritus,Zander Fish Detritus
+simp,2,10,50212,moe_C2toDS_coral,30,C2DS Coral Detritus,Coral Detritus
+simp,2,10,50213,moe_C2toDS_goldf,30,C2DS Goldfish Detritus,Goldfish Detritus
+simp,2,10,50214,moe_C2toDS_berries,rand,C2DS Albian Coconut Detritus,"You may not want to eat this, unless you're into that sort of thing."
+simp,2,10,50215,moe_C2toDS_crab,39,C2DS Crab Detritus,Crab Detritus
+simp,2,10,50217,moe_C2toDS_aubergine,9,C2DS Aubergine Detritus,"You may not want to eat this, unless you're into that sort of thing."
+simp,2,10,50218,moe_C2toDS_Afish,44,C2DS Angelfish Detritus,Angelfish Detritus
+simp,2,11,50200,moe_C2toDS_carrots,11,C2DS Carrot,Carrot
+simp,2,11,50201,moe_C2toDS_potato,1,C2DS Potato,Potato
+simp,2,11,50202,moe_C2toDS_cheese,rand,C2DS Cheese,A staple part of a norn's diet
+simp,2,11,50203,moe_C2toDS_hive,42,C2DS Honey Pot,Honey Pot
+simp,2,11,50204,moe_C2toDS_hive,40,C2DS Glass Honey Pot,Glass Honey Pot
+simp,2,11,50207,moe_C2toDS_hive,45,C2DS Heritage Honey Pot,Heritage Honey Pot
+simp,2,11,50209,moe_C2toDS_mush,va03,C2DS Mushroom,Mushroom
+simp,2,11,50217,moe_C2toDS_aubergine,8,C2DS Aubergine,Best fried with fresh basil and tomato!
+comp,2,12,50200,moe_C2toDS_lifts,7,C2DS Lift Call Button,Lift Call Button
+simp,2,12,50203,moe_C2toDS_hive,44,C2DS Honey Pot Stash,Honey Pot Stash
+simp,2,13,50205,moe_C2toDS_bufl,16,C2DS Red Caterpillar,Red Caterpillar
+simp,2,13,50206,moe_C2toDS_bufl,81,C2DS Purple Caterpillar,Purple Caterpillar
+simp,2,13,50207,moe_C2toDS_bufl,46,C2DS Red Butterfly,Red Butterfly
+simp,2,13,50208,moe_C2toDS_bufl,111,C2DS Purple Butterfly,Purple Butterfly
+simp,2,13,50209,moe_C2toDS_c1bufl,16,C2DS Heritage Caterpillar,Heritage Caterpillar
+simp,2,13,50210,moe_C2toDS_c1bufl,46,C2DS Heritage Butterfly,Heritage Butterfly
+simp,2,14,50200,moe_C2toDS_hive,26,C2DS Bee,Bee
+simp,2,14,50201,moe_C2toDS_hive,30,C2DS Queen Bee,Queen Bee
+simp,2,14,50204,moe_c2tods_ants,15,C2DS Queen Ant,Queen Ant
+simp,2,14,50205,moe_C2toDS_ants,0,C2DS Ant,Ant
+simp,2,14,50209,moe_C2toDS_wasp,3,C2DS Wasp,Wasp
+simp,2,15,50201,moe_C2toDS_snail,0,C2DS Snail,Snail
+simp,2,15,50202,moe_c2tods_zand,12,C2DS Zander Fish,Zander Fish
+simp,2,15,50203,moe_c2tods_goldf,12,C2DS Goldfish,Goldfish
+simp,2,15,50204,moe_C2toDS_humming,va01,C2DS Hummingbird,Hummingbird
+simp,2,15,50205,moe_c2tods_barnacles,0,C2DS Barnacle,Barnacle
+simp,2,15,50208,moe_C2toDS_anem,0,C2DS Anemone,Anemone
+simp,2,15,50209,moe_C2toDS_polyp,0,C2DS Jellyfish Polyp,Jellyfish Polyp
+simp,2,15,50212,moe_c2tods_coral,va00,C2DS Coral,Coral
+simp,2,15,50213,moe_C2toDS_jellyfish,0,C2DS Jellyfish,Jellyfish
+simp,2,15,50214,moe_C2toDS_fish,12,C2DS Jellyfish Larvae,Jellyfish Larvae
+simp,2,15,50215,moe_C2toDS_bluebird,0,C2DS Bluebird,Bluebird
+simp,2,15,50216,moe_C2toDS_frogs,0,C2DS Frog,Frog
+simp,2,15,50217,moe_C2toDS_tadp,0,C2DS Tadpole,Tadpole
+simp,2,15,50218,moe_c2tods_Afish,12,C2DS Angelfish,Angelfish
+vhcl,2,16,50200,moe_C2toDS_clam,21,C2DS Clam,Clam
+simp,2,16,50201,moe_C2toDS_crab,7,C2DS Crab,Crab
+simp,2,16,50203,moe_C2toDS_bats,30,C2DS Bat,Bat
+simp,2,16,50210,moe_c2tods_Tbarb,12,C2DS Tiger Barb,Tiger Barb
+simp,2,17,50200,moe_C2toDS_hive,2,C2DS Beehive,Beehive
+simp,2,17,50202,moe_C2toDS_puffball,0,C2DS Puffball Nest ,Puffball Nest 
+simp,2,17,50204,moe_C2toDS_bats,60,C2DS Bat Nest,Bat Nest
+simp,2,17,50205,moe_C2toDS_ants,19,C2DS Anthill,Anthill
+simp,2,17,50208,moe_C2toDS_humming,58,C2DS Hummingbird Nest,Hummingbird Nest
+simp,2,17,50209,moe_C2toDS_wasp,0,C2DS Wasp Nest,Wasp Nest
+vhcl,2,17,50215,moe_C2toDS_bluebird,98,C2DS Bluebird Nest,Bluebird Nest
+simp,2,18,50201,moe_C2toDS_crab,6,C2DS Crab Egg,Crab Egg
+simp,2,18,50202,moe_C2toDS_zand,11,C2DS Zander Fish Egg,Zander Fish Egg
+simp,2,18,50203,moe_C2toDS_goldf,11,C2DS Goldfish Egg,Goldfish Egg
+simp,2,18,50205,moe_C2toDS_bufl,64,C2DS Red Caterpillar Egg,Red Caterpillar Egg
+simp,2,18,50206,moe_C2toDS_bufl,129,C2DS Purple Caterpillar Egg,Purple Caterpillar Egg
+simp,2,18,50208,moe_C2toDS_barnacles,55,C2DS Barnacle Egg,Barnacle Egg
+simp,2,18,50209,moe_C2toDS_c1bufl,64,C2DS Heritage Caterpillar Egg,Heritage Caterpillar Egg
+simp,2,18,50210,moe_C2tods_Tbarb,11,C2DS Tiger Barb Egg,Tiger Barb Egg
+simp,2,18,50215,moe_C2toDS_bluebird,103,C2DS Bluebird Egg,Bluebird Egg
+simp,2,18,50216,moe_C2toDS_tadp,17,C2DS Frog Egg,Frog Egg
+simp,2,18,50218,moe_C2toDS_Afish,11,C2DS Angelfish Egg,Angelfish Egg
+comp,2,19,50200,moe_C2toDs_weather,0,C2DS Clouds,Clouds
+simp,2,19,50201,moe_C2toDS_weather,23,C2DS Raindrop,Just a raindrop.
+simp,2,19,50202,moe_C2toDS_weather,9,C2DS Snowflake,It's so pretty!
+comp,2,19,50205,moe_c2tods_bubf,0,C2DS Fish Bubbles,Fish Bubbles
+simp,2,19,50206,moe_C2toDS_drops,0,C2DS Water Drops,Water Drops
+comp,2,19,50207,moe_C2toDS_weather,80,C2DS Dust Devil,Watch out! This force of nature will pick up anything it can carry!
+simp,2,19,50208,moe_C2toDS_weather,62,C2DS Rainbow,"Wow, a rainbow! I wonder if there's something at the end of it..."
+simp,2,19,50209,moe_C2toDS_weather,63,C2DS Rainbow Sparkles,How pretty!
+simp,2,20,50200,moe_C2toDS_deathcap,5,C2DS Deathcap Mushroom Cap,Deathcap Mushroom Cap
+simp,2,20,50202,moe_C2toDS_puffball,22,C2DS Puffball,Puffball
+simp,2,20,50203,moe_C2toDS_berries,10,C2DS Ledum Berry,"A mildly poisonous berry causing pain, sleepiness, and general allergy symptoms"
+simp,2,21,50200,moe_C2toDS_toys,0,C2DS Ball,Ball
+simp,2,21,50201,moe_C2toDS_toydog,0,C2DS Robo-Dog,Robo-Dog
+simp,2,21,50202,moe_C2toDS_toys,119,C2DS Saxophone,Saxophone
+simp,2,21,50203,moe_C2toDS_toys,8,C2DS Punching Bag,Punching Bag
+simp,2,21,50204,moe_C2toDS_toys,52,C2DS Racecar,Racecar
+simp,2,21,50206,moe_C2toDS_spring,0,C2DS Spring,Spring
+simp,2,21,50207,moe_C2toDS_triangle,0,C2DS Triangle Toy 1,Triangle Toy 1
+simp,2,21,50208,moe_C2toDS_toys,102,C2DS Top,Top
+simp,2,21,50209,moe_C2toDS_toys,62,C2DS Tennis Ball,Tennis Ball
+simp,2,21,50210,moe_C2toDS_guitar,0,C2DS Guitar,Guitar
+simp,2,21,50211,moe_C2toDS_triangle,10,C2DS Drum,Drum
+comp,2,21,50212,moe_C2toDS_foghorn,0,C2DS Foghorn,Foghorn
+simp,2,21,50213,moe_C2toDS_slinky,0,C2DS Slinky,Slinky
+comp,2,21,50214,moe_C2toDS_tgun,0,C2DS Tomato Gun,Tomato Gun
+simp,2,21,50217,moe_C2toDS_weather,79,C2DS Pot o' Cheese,A pot of cheese found at the end of a rainbow.
+simp,2,21,50218,moe_C2toDS_guitar,7,C2DS Triangle Toy 2,Triangle Toy 2
+simp,2,21,50224,moe_C2toDS_clam,va00,C2DS Pearl,Pearl
+vhcl,2,21,50225,moe_c2tods_fishbowl,0,C2DS Fishbowl,Fishbowl
+vhcl,2,22,50200,moe_C2toDS_incubator,0,C2DS Incubator,Incubator
+comp,2,23,24206,moe_C2toDS_sunflowervend,0,C2DS Sunflower Seed Vendor,Sunflower Seed Vendor
+simp,2,23,50200,moe_C2toDS_carrots,0,C2DS Carrot Seed Vendor,Carrot Seed Vendor
+simp,2,23,50201,moe_C2toDS_potato,9,C2DS Potato Seed Launcher,Potato Seed Launcher
+comp,2,23,50202,moe_C2toDS_nuts,0,C2DS Nut Vendor,You're gonna love my nuts
+simp,2,23,50203,moe_C2toDS_trumpet,0,C2DS Trumpet Vendor,Trumpet Vendor
+comp,2,23,50204,moe_C2toDS_pear,0,C2DS Pear Seed Launcher,Pear Seed Launcher
+comp,2,23,50205,moe_C2toDS_triff,0,C2DS Triffid Vendor,Triffid Vendor
+comp,2,23,50206,moe_C2toDS_cacti,72,C2DS Spinnomosa Seed Launcher,Now you can grow Spinnomosa Cacti anywhere! Because everyone really wants to do that.
+comp,2,23,50207,moe_C2toDS_cacti,80,C2DS Spikeocausius Seed Launcher,Now you can grow Spikeocausius Cacti anywhere!
+comp,2,23,50208,moe_C2toDS_cheese,0,C2DS Cheese Machine,A source of infinite cheese! Who needs conservation of matter anyway?
+simp,2,23,50209,moe_C2toDS_tend,0,C2DS Walking Tendril Seed Vendor,Walking Tendril Seed Vendor
+simp,2,23,50215,moe_C2toDS_crab,0,C2DS Crab Egg Launcher,Crab Egg Launcher
+simp,2,23,50217,moe_C2toDS_aubergine,14,C2DS Aubergine Launcher,"It's actually an Aubergine plant launcher, but an Aubergine Launcher sounds more fun."
+simp,2,24,50202,moe_C2toDS_zand,0,C2DS Zander Fish Egg Launcher,Zander Fish Egg Launcher
+simp,2,24,50203,moe_c2tods_goldf,0,C2DS Goldfish Egg Launcher,This bad boy can fit so many goldfish eggs in it
+simp,2,24,50205,moe_C2toDS_bufl,0,C2DS Red Caterpillar Egg Maker,Red Caterpillar Egg Maker
+simp,2,24,50206,moe_C2toDS_bufl,65,C2DS Purple Caterpillar Egg Maker,Purple Caterpillar Egg Maker
+simp,2,24,50207,moe_C2toDS_c1bufl,0,C2DS Heritage Caterpillar Egg Maker,Heritage Caterpillar Egg Maker
+comp,2,24,50208,moe_C2toDS_mush,31,C2DS Mushroom Maker,Mushroom Maker
+simp,2,24,50209,moe_C2toDS_puffball,29,C2DS Puffball Spore Launcher,Puffball Spore Launcher
+simp,2,24,50213,moe_C2tods_Tbarb,0,C2DS Tiger Barb Egg Launcher,Tiger Barb Egg Launcher
+comp,2,24,50216,moe_C2toDS_froglayer,0,C2DS Frog Egg Layer,Frog Egg Layer
+simp,2,24,50218,moe_C2toDS_Afish,0,C2DS Angelfish Egg Maker,Angelfish Egg Maker
+simp,2,24,50222,moe_C2toDS_grass,0,C2DS Grass Seed Vendor,Grass Seed Vendor
+simp,2,25,50200,moe_C2toDS_foun,0,C2DS Water Fountain,Water Fountain
+simp,2,25,50202,moe_C2toDS_pump,0,C2DS Pump,Pump
+vhcl,3,1,50200,moe_C2toDS_lifts,1,C2DS Lift,Lift
+vhcl,3,1,50201,moe_C2toDS_boat,0,C2DS Boat,Boat
+vhcl,3,1,50202,moe_C2toDS_sub,1,C2DS Submarine,Submarine
+vhcl,3,1,50203,moe_C2toDS_dingy,0,C2DS Yellow Raft,Yellow Raft
+vhcl,3,1,50204,moe_C2toDS_shuttle,0,C2DS Splicer Shuttle,Splicer Shuttle
+vhcl,3,1,50205,moe_C2toDS_trolly,0,C2DS Trolly,Trolly
+simp,3,2,50200,moe_C2toDS_tele,0,C2DS Metaroom Teleporter,Metaroom Teleporter
+comp,3,2,50202,moe_C2toDS_tele,9,C2DS Teleporter,Teleporter
+vhcl,3,2,50206,moe_C2toDS_sola,2,C2DS Helicopter,Helicopter
+comp,3,8,50204,moe_C2toDS_ObjectPack1_gate,0,C2DS Electric Gate,Electric Gate
+,3,12,50201,-,,C2DS Call Buttons For boats,
+,3,13,50201,-,,C2DS Queue Agents for boats,
