@@ -1,0 +1,791 @@
+*Here we are in the future and it's dsajkfhdajkslghfaljkdasfkjh
+
+* Inject this when you're developing a metaroom and remove it when you're NOT
+*Because the window WILL keep popping up every 300 ticks and annoy you
+* it scans periodically because it might catch something new that spawned/became un-invisible etc
+
+* Also, this is NOT FOOLPROOF! It's not even well-tested.
+* It doesn't account for things that are CATO'd and scripts where the stim is in a variable.
+* It does, however, skip agents that are invisible to creatures.
+
+* TODOs that would be nice: 
+* - strip tint tags out of the journal output
+* - have this still be continously scanning but only pop the window up when you magic-word-tell it to
+* - Segment this somehow over multiple timer-ticks
+*   so it doesn't think it's caught in an infinite loop if there's too many agents in the world 
+
+enum 3 5 5000
+kill targ
+next
+
+new: simp 3 5 5000 "blnk" 0 0 0
+
+* Define the x/y of the metaroom you are checking here, or -1 -1 to check all rooms.
+*vvvvvvvvvvvvvvvvvvvvvvvvv
+setv name "meta_x" 6224
+setv name "meta_y" 48800
+*^^^^^^^^^^^^^^^^^^^^^^^^^
+
+doif name "meta_x" eq -1 or name "meta_y" eq -1
+setv name "meta" -1
+else
+setv name "meta" gmap name "meta_x" name "meta_y"
+endi
+
+sets name "classifiers" ""
+sets name "bhvrs" ""
+sets name "scripts" ""
+sets name "stims" ""
+
+*You can change these if you want, they're just "standards" as of Right Now in
+* https://docs.google.com/spreadsheets/d/1CHKnTzjdAJap-tcMcpKPR5NMYvmmpRYZZUxLJo453-c/
+* note that the numbers in Scripts and Stims run parallel, that is the first
+* number in scripts corresponds to the first stim number in stims.
+* if no stim is required, use -1. If a script might use one stim or another, 
+* (as in doors), divide the two with a slash ( / ).
+* also note that this script will "allow" deactivate bhvrs added, but not require them
+* (it won't be considered 'wrong' if an agent has it)
+* Keep the "#" at the end-- it's the delimiter.
+* A 'blank' string must contain at least a space and a #, ie " #"
+
+*vvvvvvvvvvvvvvvvvvvvvvvv
+
+* Door
+adds name "classifiers" "2 2 0#"
+adds name "bhvrs" "3#"
+adds name "scripts" "1 2#"
+adds name "stims" "95/96 95/96#"
+
+* Seed
+adds name "classifiers" "2 3 0#"
+adds name "bhvrs" "48#"
+adds name "scripts" "12#"
+adds name "stims" "77#"
+
+* Good Plant
+adds name "classifiers" "2 4 0#"
+adds name "bhvrs" "11#"
+adds name "scripts" "1 2 3#"
+adds name "stims" "84 84 84#"
+
+* Bad Plant
+adds name "classifiers" "2 5 0#"
+adds name "bhvrs" "11#"
+adds name "scripts" "1 2 3#"
+adds name "stims" "83 83 83#"
+
+* Leaf
+adds name "classifiers" "2 6 0#"
+adds name "bhvrs" "48#"
+adds name "scripts" "12#"
+adds name "stims" "77#"
+
+* Flower
+adds name "classifiers" "2 7 0#"
+adds name "bhvrs" "0#"
+adds name "scripts" " #"
+adds name "stims" " #"
+
+* Good Fruit
+adds name "classifiers" "2 8 0#"
+adds name "bhvrs" "48#"
+adds name "scripts" "12#"
+adds name "stims" "78#"
+
+* Bad Fruit / Manky
+adds name "classifiers" "2 9 0#"
+adds name "bhvrs" "48#"
+adds name "scripts" "12#"
+adds name "stims" "82#"
+
+* Detritus
+adds name "classifiers" "2 10 0#"
+adds name "bhvrs" "48#"
+adds name "scripts" "12#"
+adds name "stims" "81#"
+
+* Food
+adds name "classifiers" "2 11 0#"
+adds name "bhvrs" "48#"
+adds name "scripts" "12#"
+adds name "stims" "79#"
+
+* Buttons and Switches
+adds name "classifiers" "2 12 0#"
+adds name "bhvrs" "11#"
+adds name "scripts" "1 2 3#"
+adds name "stims" "-1/89 -1/89 92#"
+
+* Good Bug
+adds name "classifiers" "2 13 0#"
+adds name "bhvrs" "59#"
+adds name "scripts" "1 2 3 12#"
+adds name "stims" "85 85 87 90#"
+
+* Bad Bug / Pest
+adds name "classifiers" "2 14 0#"
+adds name "bhvrs" "59#"
+adds name "scripts" "1 2 3 12#"
+adds name "stims" "88 88 87 80#"
+
+* Good Critter
+adds name "classifiers" "2 15 0#"
+adds name "bhvrs" "59#"
+adds name "scripts" "1 2 3 12#"
+adds name "stims" "86 86 87 80#"
+
+* Bad Critter / Beast
+adds name "classifiers" "2 16 0#"
+adds name "bhvrs" "11#"
+adds name "scripts" "1 2 3#"
+adds name "stims" "88 88 87#"
+
+* Nest
+adds name "classifiers" "2 17 0#"
+adds name "bhvrs" "11#"
+adds name "scripts" "1 2 3#"
+adds name "stims" "86 86 87#"
+
+* Animal Egg
+adds name "classifiers" "2 18 0#"
+adds name "bhvrs" "48#"
+adds name "scripts" "12#"
+adds name "stims" "80#"
+
+* Weather
+adds name "classifiers" "2 19 0#"
+adds name "bhvrs" "0#"
+adds name "scripts" " #"
+adds name "stims" " #"
+
+* Bad
+adds name "classifiers" "2 20 0#"
+adds name "bhvrs" "43#"
+adds name "scripts" "1 2 3#"
+adds name "stims" "88 88 88#"
+
+* Toy
+adds name "classifiers" "2 21 0#"
+adds name "bhvrs" "43#"
+adds name "scripts" "1 2 3#"
+adds name "stims" "97 97 97#"
+
+* Incubator
+adds name "classifiers" "2 22 0#"
+adds name "bhvrs" "0#"
+adds name "scripts" " #"
+adds name "stims" " #"
+
+* Vendors
+adds name "classifiers" "2 23 0#"
+adds name "bhvrs" "11#"
+adds name "scripts" "1 2 3#"
+adds name "stims" "90 90 92#"
+
+* Tools
+adds name "classifiers" "2 24 0#"
+adds name "bhvrs" "43#"
+adds name "scripts" "1 2 3#"
+adds name "stims" "90 90 92#"
+
+* Potions
+adds name "classifiers" "2 25 0#"
+adds name "bhvrs" "48#"
+adds name "scripts" "12#"
+adds name "stims" "0#"
+
+* Lifts
+adds name "classifiers" "3 1 0#"
+adds name "bhvrs" "3#"
+adds name "scripts" "1 2#"
+adds name "stims" "-1/94 -1/94#"
+
+* Teleporters
+adds name "classifiers" "3 2 0#"
+adds name "bhvrs" "3#"
+adds name "scripts" "1 2#"
+adds name "stims" "27 27#"
+
+* Machinery (fixed, non-movable)
+adds name "classifiers" "3 3 0#"
+adds name "bhvrs" "11#"
+adds name "scripts" "1 2 3#"
+adds name "stims" "90 90 92#"
+
+* Creature Egg
+adds name "classifiers" "3 4 0#"
+adds name "bhvrs" "32#"
+adds name "scripts" "4#"
+adds name "stims" "93#"
+
+* Gadgets
+adds name "classifiers" "3 8 0#"
+adds name "bhvrs" "43#"
+adds name "scripts" "1 2 3 4#"
+adds name "stims" "90 90 92 91#"
+
+* Portals
+adds name "classifiers" "3 9 0#"
+adds name "bhvrs" "3#"
+adds name "scripts" "1 2#"
+adds name "stims" "27 27#"
+
+*Script Names
+sets name "script_1" "Activate 1/Push"
+sets name "script_2" "Activate 2/Pull"
+sets name "script_3" "Hit"
+sets name "script_4" "Pick Up"
+sets name "script_12" "Eat"
+
+tick 1
+
+* don't ask me why I'm doing it this way, I'm too tired. 
+scrp 3 5 5000 9
+	* Wait until you're in the right DS room to run
+	* Also don't run if there's already a box up
+	doif name "meta" ne -1 
+		doif meta ne name "meta" or totl 1 2 5 gt 0
+		 stop
+		endi
+	endi
+	
+	tick 300
+	
+	sets va30 name "classifiers"
+	sets va31 "#"
+	gsub set_va32_to_number_of_substrings_in_string_va30_delimited_by_string_va31
+	setv name "counting" 0
+	setv name "max_count" va32
+	sets name "report" ""
+	
+	loop
+		wait 1
+		inst
+		addv name "counting" 1
+		
+	* set up to get at the current index for classifier
+		sets va30 name "classifiers"
+		sets va31 "#"
+		setv va32 name "counting"
+		gsub set_va33_to_string_at_index_va32_from_string_va30_with_delimiter_va31
+		*dbg: outs va33
+		sets va00 va33
+		
+	* set up to get at the current index for bhvr
+		sets va30 name "bhvrs"
+		gsub set_va33_to_string_at_index_va32_from_string_va30_with_delimiter_va31
+		setv va01 stoi va33
+		*dbg: outv va01
+		
+	* Parse the classifier where va00 is the classifier string
+		sets va30 va00
+		sets va31 " "
+		
+		* Family - va02
+		setv va32 1
+		gsub set_va33_to_string_at_index_va32_from_string_va30_with_delimiter_va31
+		setv va02 stoi va33
+		
+		* Genus - va03
+		setv va32 2
+		gsub set_va33_to_string_at_index_va32_from_string_va30_with_delimiter_va31
+		setv va03 stoi va33
+		
+		* Species - va04
+		setv va32 3
+		gsub set_va33_to_string_at_index_va32_from_string_va30_with_delimiter_va31
+		setv va04 stoi va33
+		
+		* Actually enuming the thing now
+		inst
+		enum va02 va03 va04
+			* see if it's in the room you care about
+			doif gmap posx posy eq mame "meta" or mame "meta" eq -1
+			* see if it'svisble to creatures (if it's invisible, we give it a pass)
+			setv va05 attr
+			andv va05 16
+				doif va05 ne 16
+				* start the reporting string
+				sets va07 "\n"
+				sets va13 ""
+				* "allow" it to have a deactivatable behavior because it doesn't matter
+					setv va05 bhvr
+					orrv va05 4
+					setv va06 va01
+					orrv va06 4
+				* if the bhvrs don't match, freak out!
+					doif va05 ne va06
+						* build the string
+						 adds va07 "\nFound BHVR "
+						 adds va07 vtos bhvr
+						 adds va07 " in "
+						 * Find the catalogue tag if that's a thing
+						 adds va07 "<tint 1 255 255>"
+						 adds va07 wild fmly gnus spcs "Agent Help" 0
+						 adds va07 "<tint> ("
+						 adds va07 vtos fmly
+						 adds va07 " "
+						 adds va07 vtos gnus
+						 adds va07 " "
+						 adds va07 vtos spcs
+						 adds va07 "); wanted " 
+	
+						 adds va07 vtos va01
+						 
+						 * if you're not in the report yet, you can do the thing.
+						 doif sins mame "report" 1 va07 eq -1
+							sets va13 "pass"
+						 endi
+					endi
+					*completed behavior check, now for script check.
+					
+					*set up to get script list
+					sets va30 mame "scripts"
+					sets va31 "#"
+					setv va32 mame "counting"
+					gsub set_va33_to_string_at_index_va32_from_string_va30_with_delimiter_va31
+					sets va08 va33
+					
+					*set up to get stim list
+					sets va30 mame "stims"
+					sets va31 "#"
+					setv va32 mame "counting"
+					gsub set_va33_to_string_at_index_va32_from_string_va30_with_delimiter_va31
+					sets va09 va33
+					
+					*only loop through lists with things in them
+					doif va08 ne " " and va13 eq "pass"
+						setv mame "script_counting" 0
+						loop
+							addv mame "script_counting" 1
+							
+							*set up to get the script
+							sets va30 va08
+							sets va31 " "
+							setv va32 mame "script_counting" 
+							gsub set_va33_to_string_at_index_va32_from_string_va30_with_delimiter_va31
+							sets va10 va33
+							
+							*you have the script number in va10
+							*make sure it's not empty
+							doif va10 eq ""
+								setv mame "script_counting" -1
+							else
+							* it's not empty, carry on
+								setv va10 stoi va33
+								
+							* set up to get stim number - va11
+								sets va30 va09
+								sets va31 " "
+								setv va32 mame "script_counting" 
+								gsub set_va33_to_string_at_index_va32_from_string_va30_with_delimiter_va31
+								sets va11 va33
+								
+								* see if the script exists
+								doif sorq fmly gnus spcs va10 eq 1
+									* the script exists, now we have to find it Exactly:
+									setv va50 va10
+									setv va51 fmly 
+									setv va52 gnus
+									setv va53 spcs
+									gsub get_script_va50_in_f/g/s_va51_va52_va53_as_f/g/s_va54_va55_va56
+									
+									sets va41 "/"
+									sets va42 "stim writ"
+									sets va43 sorc va54 va55 va56 va10
+									setv va44 4
+									gsub set_va45_to_va41-delimited_string_of_the_va44th_word_after_va42_in_va43
+									sets va14 va45
+									
+									*if it's empty, treat as no stim
+									doif va14 eq ""
+										sets va14 "-1"
+									endi
+									*dbg: outs va45
+									
+									*now we have to find the difference between va11 and va14
+									doif va11 eq va14
+										*great! Nothing else to be done here, this script is stimming perfectly.
+									else
+										*if any item from va11 is eq to va14, also great!
+										sets va32 va14
+										sets va30 va11
+										sets va31 "/"
+										
+										gsub set_va33_to_true_if_va32_is_in_va30_delimited_by_va31
+										doif va33 eq "true"
+										* You're good, don't worry.
+										else
+										* let's rule out a few easy ones before we get into the crazy stuff
+											doif va14 eq "-1"
+												* if va14 is blank, report va11 as stims missing
+												sets va15 va11
+												gsub report_missing_stim_va15
+	
+											elif va11 eq "-1"
+												* if va11 is blank, report va14 as potentially unwanted.
+												sets va15 va14
+												gsub report_unwanted_stim_va15
+											else
+											* okay, here's the complicated stuff 
+												*is any item from va11 part of va14?
+												* to do this we're gonna subtract the contents of va11 (the desired stims)
+												* from the contents of va14 (the existing stims)
+												sets va41 "/"
+												sets va42 va14
+												sets va43 va11
+												gsub set_va44_to_va41-delimited_string_of_items_in_va42_minus_items_in_va43
+												* if the length of va14 goes down, then we know something was in there
+												* and we only need to report the remainders
+												doif strl va14 gt strl va44
+													sets va15 va44
+													gsub report_unwanted_stim_va15
+												else
+												* if the length does *not* go down we need to report both the
+												* remainders and the missing stim
+													sets va15 va11
+													gsub report_missing_stim_va15
+													sets va15 va44
+													gsub report_unwanted_stim_va15
+												endi
+											endi
+	
+										endi
+										
+									endi
+									
+								else
+								* that script doesn't exist, we have to report it.
+									adds va07 "\n<tint 255 1 1>"
+									sets va12 "script_"
+									adds va12 vtos va10
+									adds va07 mame va12
+									adds va07 " Script ("
+									adds va07 vtos va10
+									adds va07 ") missing."
+									adds va07 "<tint>"
+									
+								endi
+								*adds va07 "\n"
+							endi
+						untl mame "script_counting" eq -1
+					endi
+					* ^ end of script check
+					
+					* Time to add what we found to the report string!
+					* see if the string is already in the report 
+					* (We don't want to have duplicates)
+					doif sins mame "report" 1 va07 eq -1
+						adds mame "report" va07
+					endi	
+					
+				endi
+				* ^ end of visibility check
+				
+			endi
+			* ^ end of metaroom check
+		next
+		targ ownr
+	
+	untl name "max_count" eq name "counting"
+	
+	* I CAAAAAN'T BELIVVVVVE WE'VE COME SO FAAAAAARRRRRR @.@ \loud and-off key exasperated singing
+	
+	* Peel the leading /ns off just because jhasdgfhkdjsaf
+	sets mame "report_" subs mame "report" 2 -1
+	
+	* Outs it to the journal
+	file oope 0 "Agent Report.txt" 0
+		outs mame "report_" 
+	file oclo
+	
+	* Make the textbox:
+		inst
+	*Make the window
+		new: comp 1 2 5 "useful_screen" 1 0 9000
+		attr 304
+	* the description text
+		pat: fixd 1 "useful_screen" 1 25 59 1 "WhiteOnTransparentChars"
+		part 1
+		frmt 8 8 8 18 3 0 0
+		ptxt mame "report_"
+	* close button
+		pat: butt 2 "useful_screen" 2 2 237 24 0 [] 1000 0
+	* title text
+		pat: fixd 3 "useful_screen" 12 22 22 1 "WhiteOnTransparentChars"
+		part 3
+		frmt 8 0 37 0 2 0 8
+		ptxt "Agent Report"
+	* pgdn button
+		pat: butt 4 "useful_screen" 9 3 238 302 0 [] 1001 0
+	* pgup button
+		pat: butt 5 "useful_screen" 6 3 20 302 0 [] 1002 0
+	* page counter
+		pat: fixd 6 "useful_screen" 15 119 306 1 "WhiteOnTransparentChars"
+		part 6
+		frmt 0 0 0 0 3 0 2
+	
+	*centering the window on the screen
+		setv va90 wndw
+		divv va90 2
+		setv va91 wndh
+		divv va91 2
+		setv va92 wdth
+		divv va92 2
+		setv va93 hght
+		divv va93 2
+	
+		subv va90 va92
+		subv va91 va93
+	
+		flto va90 va91
+	
+		mesg writ targ 1003
+		
+	*assumes targ is the agent you're complaining about and va10 is the script number 
+	* and that ownr has the script tags in it..... basically don't try to reuse this 
+	subr report_missing_stim_va15
+		adds va07 "\n<tint 128 50 1>"
+		sets va12 "script_"
+		adds va12 vtos va10
+		adds va07 mame va12
+		adds va07 " Script ("
+		adds va07 vtos va10
+		adds va07 ") missing stim "
+		adds va07 va15	
+		adds va07 "<tint>"
+	retn
+	
+	subr report_unwanted_stim_va15
+		adds va07 "\n<tint 128 255 20>"
+		sets va12 "script_"
+		adds va12 vtos va10
+		adds va07 mame va12
+		adds va07 " Script ("
+		adds va07 vtos va10
+		adds va07 ") has possibly unwanted stim(s) "
+		adds va07 va15	
+		adds va07 "<tint>"
+	retn
+	
+	
+	subr set_va33_to_string_at_index_va32_from_string_va30_with_delimiter_va31
+		*in string va30, where the splitting charater is va31 and va32 is the index 
+		* (indicies start a 1) of the thing you want, va33 is the item, or "" if it
+		* doesn't exist
+		setv va39 1
+		setv va36 0
+		sets va33 ""
+		loop
+			*if the first character is the delimiter, skip it 
+			doif sins va30 va39 va31 ne -1
+				doif subs va30 1 1 eq va31 and va39 eq 1
+					addv va39 1
+				endi
+				setv va38 sins va30 va39 va31
+				subv va38 va39
+				sets va37 subs va30 va39 va38
+			else
+				sets va37 subs va30 va39 -1
+				setv va39 -999999
+			endi
+			doif va37 ne ""
+				addv va36 1
+				doif va36 eq va32 
+		*vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+					sets va33 va37
+		*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+					setv va39 -999999
+				endi
+			endi
+			addv va39 va38
+			addv va39 1
+		untl va39 lt 1
+	retn
+	
+	
+	 subr set_va32_to_number_of_substrings_in_string_va30_delimited_by_string_va31
+		*in string va30, where the splitting charater is va31, va32 is the number of
+		*words/items in said string.
+		setv va32 0
+		setv va39 1
+		loop
+			*if the first character is the delimiter, skip it 
+			doif sins va30 va39 va31 ne -1
+				doif subs va30 1 1 eq va31 and va39 eq 1
+					addv va39 1
+				endi
+				setv va38 sins va30 va39 va31
+				subv va38 va39
+				sets va37 subs va30 va39 va38
+			else
+				sets va37 subs va30 va39 -1
+				setv va39 -99
+			endi
+			doif va37 ne ""
+		*vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+				addv va32 1
+		*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+			endi
+			addv va39 va38
+			addv va39 1
+		untl va39 lt 1
+	 retn
+	 
+	 subr set_va33_to_true_if_va32_is_in_va30_delimited_by_va31
+		sets va33 "false"
+		setv va39 1
+		loop
+			*if the first character is the delimiter, skip it 
+			doif sins va30 va39 va31 ne -1
+				doif subs va30 1 1 eq va31 and va39 eq 1
+					addv va39 1
+				endi
+				setv va38 sins va30 va39 va31
+				subv va38 va39
+				sets va37 subs va30 va39 va38
+			else
+				sets va37 subs va30 va39 -1
+				setv va39 -99
+			endi
+			doif va37 ne ""
+		*vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+				doif va37 eq va32
+					sets va33 "true"
+				endi
+		*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+			endi
+			addv va39 va38
+			addv va39 1
+		untl va39 lt 1
+	 retn
+	 
+	 * this only works if va43 is space-delimited
+	 subr set_va45_to_va41-delimited_string_of_the_va44th_word_after_va42_in_va43
+		sets va45 ""
+	
+		 * see what we're working with:
+		 sets va30 va43
+		 sets va31 va42
+		 gsub set_va32_to_number_of_substrings_in_string_va30_delimited_by_string_va31
+	 
+		 *we're basically gonna work backwards, here
+		 setv va46 va32
+		 doif va46 gt 1
+			 loop
+				* first, get your substring
+				sets va30 va43
+				sets va31 va42
+				setv va32 va46
+				gsub set_va33_to_string_at_index_va32_from_string_va30_with_delimiter_va31
+				*dbg: outs va33
+				
+				* now get your word *from* that substring
+				sets va30 va33
+				sets va31 " "
+				setv va32 va44
+				gsub set_va33_to_string_at_index_va32_from_string_va30_with_delimiter_va31
+				
+				*did you get something?
+				doif va33 ne ""
+					* add the delimiter if you're not empty
+					doif va45 ne ""
+						adds va45 va41
+					endi
+					adds va45 va33
+				endi	 
+				subv va46 1
+			 untl va46 eq 1
+		 endi		 
+	 retn
+	 
+	 * A workaround for the fact that sorq believes in fallback scripts but sorc doesn't!
+	 subr get_script_va50_in_f/g/s_va51_va52_va53_as_f/g/s_va54_va55_va56
+		setv va54 va51
+		setv va55 va52
+		setv va56 va53
+	
+		* it's really silly that we have to make gids work this way, lol
+		gsub set_va57_to_gids_spcs_string_from_f/g/s_va54_va55_va56
+		sets va30 caos 0 0 0 0 va57 0 0 va99
+		sets va31 " "
+		sets va32 vtos va50
+		gsub set_va33_to_true_if_va32_is_in_va30_delimited_by_va31
+	
+		doif va33 ne "true"
+		
+			setv va56 0
+			gsub set_va57_to_gids_spcs_string_from_f/g/s_va54_va55_va56
+			sets va30 caos 0 0 0 0 va57 0 0 va99
+			sets va31 " "
+			sets va32 vtos va50
+			gsub set_va33_to_true_if_va32_is_in_va30_delimited_by_va31
+			doif va33 ne "true"
+				setv va55 0
+				gsub set_va57_to_gids_spcs_string_from_f/g/s_va54_va55_va56
+				sets va30 caos 0 0 0 0 va57 0 0 va99
+				sets va31 " "
+				sets va32 vtos va50
+				gsub set_va33_to_true_if_va32_is_in_va30_delimited_by_va31
+				doif va33 ne "true"
+					setv va54 0
+					*if you get here, the script doesn't exist at all >>
+				endi
+			endi
+		endi
+	 
+	 retn
+	 
+	 subr set_va57_to_gids_spcs_string_from_f/g/s_va54_va55_va56
+	 * build caos string because caos won't preserve our vaxx if we give it vaxx
+		sets va57 "gids spcs "
+		adds va57 vtos va54
+		adds va57 " "
+		adds va57 vtos va55
+		adds va57 " "
+		adds va57 vtos va56
+	 retn
+	 
+	 * for this to work you need to be inputting two strings of the same delimiter as you are hoping to return.
+	 subr set_va44_to_va41-delimited_string_of_items_in_va42_minus_items_in_va43
+		sets va44 ""
+		setv va47 0
+	
+		loop
+			addv va47 1
+			
+		* get the item from the main
+			setv va32 va47
+			sets va31 va41
+			sets va30 va42
+			gsub set_va33_to_string_at_index_va32_from_string_va30_with_delimiter_va31
+			sets va45 va33
+			doif va45 ne ""
+			* see if the item is in the subtractant
+				sets va32 va45
+				sets va31 va41
+				sets va30 va43
+				gsub set_va33_to_true_if_va32_is_in_va30_delimited_by_va31
+			* if it's not there, you can add it to the return string
+				doif va33 ne "true"
+					* add the delimiter if it's not empty
+					doif va44 ne ""
+						adds va44 va41
+					endi
+					adds va44 va45
+				endi	
+			endi 	
+		untl va45 eq ""
+	 retn
+ 
+endm
+
+rscr
+
+enum 3 5 5000
+	kill targ
+next
+enum 1 2 5
+	kill targ
+next
+scrx 3 5 5000 9
