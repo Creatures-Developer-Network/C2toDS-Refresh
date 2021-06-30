@@ -906,6 +906,14 @@ TAG "Agent Help 3 1 50203"
 "C2DS Yellow Raft"
 "Yellow Raft "
 
+TAG "Agent Help 3 12 50203"
+"C2DS Call Buttons For Yellow Raft"
+" "
+
+TAG "Agent Help 3 13 50203"
+"C2DS Queue Agents for Yellow Raft"
+"You shouldn't be able to ever see this, but if you have congrats?"
+
 TAG "Agent Help 3 1 50204"
 "C2DS Splicer Shuttle"
 "Splicer Shuttle "
@@ -913,6 +921,14 @@ TAG "Agent Help 3 1 50204"
 TAG "Agent Help 3 1 50205"
 "C2DS Trolly"
 "Trolly "
+
+TAG "Agent Help 3 12 50205"
+"C2DS Call Buttons For Trolly"
+" "
+
+TAG "Agent Help 3 13 50205"
+"C2DS Queue Agents for Trolly"
+"You shouldn't be able to ever see this, but if you have congrats?"
 
 TAG "Agent Help 3 2 50200"
 "C2DS Metaroom Teleporter"
@@ -931,10 +947,10 @@ TAG "Agent Help 3 8 50204"
 "Electric Gate "
 
 TAG "Agent Help 3 12 50201"
-"C2DS Call Buttons For boats"
+"C2DS Call Buttons For Boat"
 " "
 
 TAG "Agent Help 3 13 50201"
-"C2DS Queue Agents for boats"
-" "
+"C2DS Queue Agents for Boat"
+"You shouldn't be able to ever see this, but if you have congrats?"
 
