@@ -2,19 +2,19 @@
 * 3 1 50205 - Trolly
 
 new: simp 1 8 50202 "moe_C2toDS_trolly" 1 5 2
-
+attr 16
 mvto 4457 48574
 
 
 
 new: simp 1 8 50202 "moe_C2toDS_trolly" 1 6 8002
-
+attr 16
 mvto 5878 48235
 
 
 
 new: simp 1 8 50202 "moe_C2toDS_trolly" 1 7 1
-
+attr 16
 mvto 4483 48265
 
 
@@ -32,8 +32,8 @@ new: vhcl 3 1 50205 "moe_C2toDS_trolly" 1 0 2000
 mvsf 5800 48260
 
 *mvsf 4582 48915
-
-
+cato 35
+attr 16
 
 *Left
 
@@ -55,37 +55,105 @@ cabp -10
 
 cabw 10
 
+new: simp 3 12 50205 "blnk" 1 1 2000
 
+attr 0
 
-bhvr 1
+bhvr 3
+* Left Butt
+setv ov00 0
 
+cato 2
 
-scrp 3 1 50205 1
+mvto 4523 48863
 
-	stim writ from 94 1
+new: simp 3 12 50205 "blnk" 1 1 2000
 
-	stim writ from 75 1
+attr 0
 
+bhvr 3
+* Right Butt
+setv ov00 1
 
+cato 2
 
-	doif posl gt 4530
+mvto 5879 48388
 
-		mesg writ ownr 1001
-
-	else
-
-		mesg writ ownr 1002
-
+**Call Button scripts
+scrp 3 12 50205 1
+	inst
+*Queue Object!
+	targ from
+	doif crea targ eq 1
+		sets va00 gtos 0
+		new: simp 3 13 50205 "blnk" 1 0 0
+		setv ov00 mv00
+		sets ov01 va00
+		tick 20
+		stim writ from 75 1
+		stim writ from 96 1
+		urge writ from 0 0.5 0 0.5
+		rtar 3 1 50205
+		mesg writ targ 0
 	endi
+endm
+**Call Button scripts
+scrp 3 12 50205 2
+	inst
+*Queue Object!
+	targ from
+	doif crea targ eq 1
+		sets va00 gtos 0
+		new: simp 3 13 50205 "blnk" 1 0 0
+		setv ov00 mv00
+		sets ov01 va00
+		tick 20
+		stim writ from 75 1
+		stim writ from 96 1
+		urge writ from 0 0.5 0 0.5
+		rtar 3 1 50205
+		mesg writ targ 0
+	endi
+endm
 
+scrp 3 13 50203 9
+	inst
+* Just here to continue injecting wait
+	doif ooww ov01 eq 3
+		targ mtoc ov01
+		doif targ ne null
+			stim writ from 75 1
+		else
+			kill ownr
+		endi
+	else
+		kill ownr
+	endi
+endm
 
+**For later
+scrp 3 1 50205 1
+*
+*	stim writ from 94 1
 
+*	stim writ from 75 1
+	doif velx eq 0
+		doif posl gt 4530
+
+			mesg writ ownr 1001
+
+		else
+
+			mesg writ ownr 1002
+
+		endi
+	endi
 endm
 
 
 
 scrp 3 1 50205 1001
-
+	lock
 	tick 2
 
 
@@ -118,16 +186,28 @@ scrp 3 1 50205 1001
 
 
 
-	gpas 4 0 0 1
+	inst
+* Get the queued creatures
+	enum 3 13 50205
+		doif ov00 eq 1
+			doif ooww ov01 eq 3
+				spas ownr mtoc ov01
+				kill targ
+			else
+				kill targ
+			endi
+		endi
+	next
+	slow
 
 
-
+	unlk
 endm
 
 
 
 scrp 3 1 50205 1002
-
+	lock
 	tick 2
 
 
@@ -160,22 +240,35 @@ scrp 3 1 50205 1002
 
 
 
-	gpas 4 0 0 1
+	inst
+* Get the queued creatures
+	enum 3 13 50205
+		doif ov00 eq 0
+			doif ooww ov01 eq 3
+				spas ownr mtoc ov01
+				kill targ
+			else
+				kill targ
+			endi
+		endi
+	next
+	slow
 
 
-
+	unlk
 endm
 
 
-
+*Trolly Timer
 scrp 3 1 50205 9
-
-
-
-
-
+	lock
 	doif ov00 lt 0
-
+		inst
+		epas 4 0 0
+			stim writ from 94 0
+			stim writ from 75 1
+		next
+		slow
 		doif posl gt 4500
 
 			setv velx ov00
@@ -183,7 +276,7 @@ scrp 3 1 50205 9
 			setv vely ov01
 
 		else
-
+			inst
 			setv velx 0
 
 			setv vely 0
@@ -195,13 +288,24 @@ scrp 3 1 50205 9
 			part 3
 
 			pose 0
-
+			epas 4 0 0
+				driv 19 -1.0
+			next
 			dpas 4 0 0
-
+			unlk
+			mvsf 4498 48725
+			doif totl 3 13 50205 gt 0
+				mesg writ ownr 0
+			endi
 		endi
 
 	elif ov00 gt 0
-
+		inst
+		epas 4 0 0
+			stim writ from 94 0
+			stim writ from 75 1
+		next
+		slow
 		doif posl lt 5800
 
 			setv velx ov00
@@ -209,7 +313,7 @@ scrp 3 1 50205 9
 			setv vely ov01
 
 		else
-
+			inst
 			setv velx 0
 
 			setv vely 0
@@ -221,17 +325,18 @@ scrp 3 1 50205 9
 			part 3
 
 			pose 0
-
+			epas 4 0 0
+				driv 19 -1.0
+			next
 			dpas 4 0 0
-
-
-
+			unlk
+			mvsf 5800 48260
+			doif totl 3 13 50205 gt 0
+				mesg writ ownr 0
+			endi
 		endi
-
+		unlk
 	endi
-
-
-
 endm
 
 
@@ -248,4 +353,13 @@ enum 1 8 50202
 	kill targ
 
 next
+enum 3 12 50205
 
+	kill targ
+
+next
+enum 3 13 50205
+
+	kill targ
+
+next
