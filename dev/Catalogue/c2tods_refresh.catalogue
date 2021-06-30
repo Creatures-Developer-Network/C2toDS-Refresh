@@ -1,0 +1,940 @@
+TAG "Agent Help 1 1 229"
+"Map Editor Helper"
+"Injected by the Room Editor for Metaroom Viability Tests "
+
+TAG "Agent Help 1 1 50200"
+"C2DS Night Switcher"
+" "
+
+TAG "Agent Help 1 3 50200"
+"C2toDS Favorite Place Icon"
+"Clicking this takes you to the C2toDS Metaroom. "
+
+TAG "Agent Help 1 5 50200"
+"C2DS World Wrap Camera"
+"What are you looking at? This is the world! No really, it is! "
+
+TAG "Agent Help 1 6 50200"
+"C2DS World Wrap Grabber"
+"Grabs objects touching the world wrap and puts them in their equivlent real-world places "
+
+TAG "Agent Help 1 7 50200"
+"C2DS Mouse Pointer Tracker"
+"Tracks where the mouse is on the world wrap "
+
+TAG "Agent Help 1 8 50200"
+"C2DS World Overlays"
+"World Overlays "
+
+TAG "Agent Help 1 8 50202"
+"C2DS Trolly Decoration"
+"Trolly Decoration "
+
+TAG "Agent Help 1 9 50200"
+"C2DS Weather Status Bar"
+"This bar shows you the time of day and current weather. "
+
+TAG "Agent Help 1 11 50200"
+"C2DS Sub Door Water/Bubbles"
+"Sub Door Water/Bubbles "
+
+TAG "Agent Help 1 12 50200"
+"C2DS Ambient Sound Generator"
+"Plays ambient sounds ocassionally "
+
+TAG "Agent Help 1 14 50200"
+"C2DS Light Emitter"
+"Emitter for different kinds of light "
+
+TAG "Agent Help 1 15 50200"
+"C2DS Heat Emitter"
+"Emitter for different kinds of heat "
+
+TAG "Agent Help 1 17 50200"
+"C2DS Puff of Smoke"
+"Something was here, but it's gone now... "
+
+TAG "Agent Help 1 17 50201"
+"C2DS Teleporter Beam"
+"Teleporter Beam "
+
+TAG "Agent Help 1 18 50200"
+"C2DS Hand Monitor"
+"Constantly monitors the room that the hand is in so it can switch to the C2 hand-sprites and back again as needed  "
+
+TAG "Agent Help 1 19 50200"
+"C2DS Water Emitter"
+"Emitter for different kinds of water "
+
+TAG "Agent Help 1 20 50200"
+"C2DS World Calendar Scroll"
+"This Calendar keeps track of the time of day and world year! "
+
+TAG "Agent Help 1 21 50200"
+"C2DS ToolTips Pointer Watcher"
+"C2 ToolTips Pointer Watcher "
+
+TAG "Agent Help 1 22 50200"
+"C2DS ToolTips"
+"C2 ToolTips "
+
+TAG "Agent Help 1 23 50201"
+"C2DS Nutrient Bits"
+"Nutrient Bits from manure "
+
+TAG "Agent Help 1 23 50204"
+"C2DS Zzz Generator"
+"Zzz Generator "
+
+TAG "Agent Help 1 23 50205"
+"C2DS Zzz"
+"Zzz "
+
+TAG "Agent Help 1 23 50212"
+"C2DS Foghorn Fog"
+"Foghorn Fog "
+
+TAG "Agent Help 1 23 50213"
+"C2DS Foghorn Fog"
+"Foghorn Fog "
+
+TAG "Agent Help 1 24 50200"
+"C2DS Hive Spawn Point"
+"Hive Spawn Point "
+
+TAG "Agent Help 1 24 50201"
+"C2DS Wasp Nest Spawn Point"
+"Wasp Nest Spawn Point "
+
+TAG "Agent Help 1 25 50200"
+"C2DS CA19 Emitters (Pressure)"
+"CA19 Emitters (Pressure) "
+
+TAG "Agent Help 1 26 50210"
+"C2DS Foxfire Tree Part"
+"Foxfire Tree Part "
+
+TAG "Agent Help 1 27 50200"
+"C2DS Creature Home & Nutrient Emitters"
+"Creature Home & Nutrient Emitters "
+
+TAG "Agent Help 1 27 50205"
+"C2DS Triffid Popping Effect"
+"Triffid Popping Effect "
+
+TAG "Agent Help 1 27 50206"
+"C2DS Water Droplet"
+"Water Droplet "
+
+TAG "Agent Help 1 27 50222"
+"C2DS Grass Seed Vendor Fading Decorations"
+"Grass Seed Vendor Fading Decorations "
+
+TAG "Agent Help 2 1 50200"
+"C2DS Hand"
+"C2 Hand "
+
+TAG "Agent Help 2 1 50201"
+"C2DS Hand Fader"
+"C2 Hand Fader "
+
+TAG "Agent Help 2 2 50200"
+"C2DS Volcano Door"
+"A door between the volcano and the swamp. Only the hand can control access. "
+
+TAG "Agent Help 2 2 50201"
+"C2DS Terrarium Door"
+"A door to allow or restrict creature acess to the terrarium  "
+
+TAG "Agent Help 2 2 50202"
+"C2DS Left Sub Door"
+"A door to the submarine airlock "
+
+TAG "Agent Help 2 2 50203"
+"C2DS Right Sub Door"
+"A door to the submarine airlock "
+
+TAG "Agent Help 2 3 24206"
+"C2DS Sunflower Seed"
+"Sunflower Seed "
+
+TAG "Agent Help 2 3 50200"
+"C2DS Carrot Seed"
+"Carrot Seed "
+
+TAG "Agent Help 2 3 50201"
+"C2DS Potato Seed"
+"Potato Seed "
+
+TAG "Agent Help 2 3 50202"
+"C2DS Nut"
+"This nut is highly nutritious, and can grow into a Nut Plant when it is left undisturbed for a period of time. "
+
+TAG "Agent Help 2 3 50203"
+"C2DS Trumpet Seed"
+"Trumpet Seed "
+
+TAG "Agent Help 2 3 50204"
+"C2DS Pear Seed"
+"Pear Seed "
+
+TAG "Agent Help 2 3 50205"
+"C2DS Triffid Seed"
+"Triffid Seed "
+
+TAG "Agent Help 2 3 50206"
+"C2DS Spinnomosa Seed"
+"A little bitter, but a good source of EDTA "
+
+TAG "Agent Help 2 3 50207"
+"C2DS Spikeocausius Seed"
+"A little bitter, but a good source of EDTA "
+
+TAG "Agent Help 2 3 50214"
+"C2DS Albian Coconut"
+"I heard a rumor that this wasn't actually a coconut... "
+
+TAG "Agent Help 2 3 50218"
+"C2DS Deathcap Mushroom Spore"
+"Deathcap Mushroom Spore "
+
+TAG "Agent Help 2 3 50220"
+"C2DS Walking Tendril Seed"
+"Walking Tendril Seed "
+
+TAG "Agent Help 2 3 50222"
+"C2DS Grass Seed"
+"Grass Seed "
+
+TAG "Agent Help 2 3 50226"
+"C2DS World Tree Seed"
+"World Tree Seed "
+
+TAG "Agent Help 2 3 50227"
+"C2DS Coral Seed"
+"Coral Seed "
+
+TAG "Agent Help 2 4 50200"
+"C2DS Tomato Plant"
+"Tomato Plant "
+
+TAG "Agent Help 2 4 50201"
+"C2DS Mushroom Patch"
+"Mushroom Patch "
+
+TAG "Agent Help 2 4 50202"
+"C2DS Nut Plant"
+"Nut Plant "
+
+TAG "Agent Help 2 4 50204"
+"C2DS Gelsemium Plant"
+"Gelsemium Plant "
+
+TAG "Agent Help 2 4 50217"
+"C2DS Aubergine Plant"
+"Aubergine Plant "
+
+TAG "Agent Help 2 4 50222"
+"C2DS Grass"
+"Grass "
+
+TAG "Agent Help 2 5 50200"
+"C2DS Deathcap Mushroom"
+"Deathcap Mushroom "
+
+TAG "Agent Help 2 5 50203"
+"C2DS Walking Tendril"
+"Walking Tendril "
+
+TAG "Agent Help 2 5 50206"
+"C2DS Spinnomosa"
+"Spinnomosa "
+
+TAG "Agent Help 2 5 50207"
+"C2DS Spikeocausius"
+"Spikeocausius "
+
+TAG "Agent Help 2 6 50200"
+"C2DS World Tree Leaf"
+"World Tree Leaf "
+
+TAG "Agent Help 2 6 50202"
+"C2DS Pulsatilla Berry Leaf"
+"Pulsatilla Berry Leaf "
+
+TAG "Agent Help 2 6 50203"
+"C2DS Ledum Berry Leaf"
+"Ledum Berry Leaf "
+
+TAG "Agent Help 2 6 50205"
+"C2DS Albian Coconut Leaf"
+"From this, a coconut is born! "
+
+TAG "Agent Help 2 6 50207"
+"C2DS Cantharis Berry Leaf"
+"Cantharis Berry Leaf "
+
+TAG "Agent Help 2 6 50208"
+"C2DS Arnica Berry Leaf"
+"There might be an Arnica Berry nearby... "
+
+TAG "Agent Help 2 6 50209"
+"C2DS Foxfire Tree Leaf"
+"Foxfire Tree Leaf "
+
+TAG "Agent Help 2 6 50212"
+"C2DS Masham Berry Leaf"
+"Masham Berry Leaf "
+
+TAG "Agent Help 2 6 50213"
+"C2DS Bryonia Berry Leaf"
+"There might be a Byronia Berry nearby... "
+
+TAG "Agent Help 2 6 50214"
+"C2DS Tomato Gun Tomato"
+"Tomato Gun Tomato "
+
+TAG "Agent Help 2 6 50216"
+"C2DS Jungle Vines"
+"Jungle Vines "
+
+TAG "Agent Help 2 6 50217"
+"C2DS World Tree Vines"
+"World Tree Vines "
+
+TAG "Agent Help 2 7 24206"
+"C2DS Sunflower"
+"Sunflower "
+
+TAG "Agent Help 2 7 50203"
+"C2DS Trumpet Flower"
+"Trumpet Flower "
+
+TAG "Agent Help 2 7 50204"
+"C2DS Pear Flower"
+"Pear Flower "
+
+TAG "Agent Help 2 7 50205"
+"C2DS Triffid Flower"
+"Triffid Flower "
+
+TAG "Agent Help 2 7 50209"
+"C2DS Foxfire Flower"
+"Foxfire Flower "
+
+TAG "Agent Help 2 8 50200"
+"C2DS Tomato"
+"Tomato "
+
+TAG "Agent Help 2 8 50202"
+"C2DS Pulsatilla Berry"
+"Pulsatilla Berry "
+
+TAG "Agent Help 2 8 50203"
+"C2DS Trumpet Fruit"
+"Trumpet Fruit "
+
+TAG "Agent Help 2 8 50204"
+"C2DS Pear"
+"Pear "
+
+TAG "Agent Help 2 8 50205"
+"C2DS Triffid Fruit"
+"Triffid Fruit "
+
+TAG "Agent Help 2 8 50207"
+"C2DS Cantharis Berry"
+"A good source of Sodium Thisulphite, but can leave creatures a little sniffly. "
+
+TAG "Agent Help 2 8 50208"
+"C2DS Arnica Berry"
+"The original, all-natural organic source of Arnica! "
+
+TAG "Agent Help 2 8 50209"
+"C2DS Summer Foxfire Berry"
+"Summer Foxfire Berry, Pyrocanis aestivus "
+
+TAG "Agent Help 2 8 50210"
+"C2DS Winter Foxfire Berry"
+"Winter Foxfire Berry, Pyrocanis hibernus "
+
+TAG "Agent Help 2 8 50212"
+"C2DS Masham Berry Leaf"
+"Masham Berry Leaf "
+
+TAG "Agent Help 2 8 50213"
+"C2DS Bryonia Berry"
+"A good source of Prostaglandin! "
+
+TAG "Agent Help 2 8 50214"
+"C2DS Gelsemium Fruit"
+"Gelsemium Fruit "
+
+TAG "Agent Help 2 8 50217"
+"C2DS Albian Coconut Fruit"
+"So fresh and juicy! "
+
+TAG "Agent Help 2 10 50200"
+"C2DS Carrot Detritus"
+"Carrot Detritus "
+
+TAG "Agent Help 2 10 50201"
+"C2DS Potato Detritus"
+"Potato Detritus "
+
+TAG "Agent Help 2 10 50202"
+"C2DS Bee Detritus"
+"Bee Detritus "
+
+TAG "Agent Help 2 10 50203"
+"C2DS Trumpet Detritus"
+"Trumpet Detritus "
+
+TAG "Agent Help 2 10 50204"
+"C2DS Pear Detritus"
+"Pear Detritus "
+
+TAG "Agent Help 2 10 50205"
+"C2DS Triffid Detritus"
+"Triffid Detritus "
+
+TAG "Agent Help 2 10 50207"
+"C2DS Deathcap Mushroom Detritus"
+"Deathcap Mushroom Detritus "
+
+TAG "Agent Help 2 10 50209"
+"C2DS Moe's Manure"
+"Drop this anywhere for a burst of plant growth! "
+
+TAG "Agent Help 2 10 50210"
+"C2DS Tiger Barb Detritus"
+"Tiger Barb Detritus "
+
+TAG "Agent Help 2 10 50211"
+"C2DS Zander Fish Detritus"
+"Zander Fish Detritus "
+
+TAG "Agent Help 2 10 50212"
+"C2DS Coral Detritus"
+"Coral Detritus "
+
+TAG "Agent Help 2 10 50213"
+"C2DS Goldfish Detritus"
+"Goldfish Detritus "
+
+TAG "Agent Help 2 10 50214"
+"C2DS Albian Coconut Detritus"
+"You may not want to eat this, unless you're into that sort of thing. "
+
+TAG "Agent Help 2 10 50215"
+"C2DS Crab Detritus"
+"Crab Detritus "
+
+TAG "Agent Help 2 10 50217"
+"C2DS Aubergine Detritus"
+"You may not want to eat this, unless you're into that sort of thing. "
+
+TAG "Agent Help 2 10 50218"
+"C2DS Angelfish Detritus"
+"Angelfish Detritus "
+
+TAG "Agent Help 2 11 50200"
+"C2DS Carrot"
+"Carrot "
+
+TAG "Agent Help 2 11 50201"
+"C2DS Potato"
+"Potato "
+
+TAG "Agent Help 2 11 50202"
+"C2DS Cheese"
+"A staple part of a norn's diet "
+
+TAG "Agent Help 2 11 50203"
+"C2DS Honey Pot"
+"Honey Pot "
+
+TAG "Agent Help 2 11 50204"
+"C2DS Glass Honey Pot"
+"Glass Honey Pot "
+
+TAG "Agent Help 2 11 50207"
+"C2DS Heritage Honey Pot"
+"Heritage Honey Pot "
+
+TAG "Agent Help 2 11 50209"
+"C2DS Mushroom"
+"Mushroom "
+
+TAG "Agent Help 2 11 50217"
+"C2DS Aubergine"
+"Best fried with fresh basil and tomato! "
+
+TAG "Agent Help 2 12 50200"
+"C2DS Lift Call Button"
+"Lift Call Button "
+
+TAG "Agent Help 2 12 50203"
+"C2DS Honey Pot Stash"
+"Honey Pot Stash "
+
+TAG "Agent Help 2 13 50205"
+"C2DS Red Caterpillar"
+"Red Caterpillar "
+
+TAG "Agent Help 2 13 50206"
+"C2DS Purple Caterpillar"
+"Purple Caterpillar "
+
+TAG "Agent Help 2 13 50207"
+"C2DS Red Butterfly"
+"Red Butterfly "
+
+TAG "Agent Help 2 13 50208"
+"C2DS Purple Butterfly"
+"Purple Butterfly "
+
+TAG "Agent Help 2 13 50209"
+"C2DS Heritage Caterpillar"
+"Heritage Caterpillar "
+
+TAG "Agent Help 2 13 50210"
+"C2DS Heritage Butterfly"
+"Heritage Butterfly "
+
+TAG "Agent Help 2 14 50200"
+"C2DS Bee"
+"Bee "
+
+TAG "Agent Help 2 14 50201"
+"C2DS Queen Bee"
+"Queen Bee "
+
+TAG "Agent Help 2 14 50204"
+"C2DS Queen Ant"
+"Queen Ant "
+
+TAG "Agent Help 2 14 50205"
+"C2DS Ant"
+"Ant "
+
+TAG "Agent Help 2 14 50209"
+"C2DS Wasp"
+"Wasp "
+
+TAG "Agent Help 2 15 50201"
+"C2DS Snail"
+"Snail "
+
+TAG "Agent Help 2 15 50202"
+"C2DS Zander Fish"
+"Zander Fish "
+
+TAG "Agent Help 2 15 50203"
+"C2DS Goldfish"
+"Goldfish "
+
+TAG "Agent Help 2 15 50204"
+"C2DS Hummingbird"
+"Hummingbird "
+
+TAG "Agent Help 2 15 50205"
+"C2DS Barnacle"
+"Barnacle "
+
+TAG "Agent Help 2 15 50208"
+"C2DS Anemone"
+"Anemone "
+
+TAG "Agent Help 2 15 50209"
+"C2DS Jellyfish Polyp"
+"Jellyfish Polyp "
+
+TAG "Agent Help 2 15 50212"
+"C2DS Coral"
+"Coral "
+
+TAG "Agent Help 2 15 50213"
+"C2DS Jellyfish"
+"Jellyfish "
+
+TAG "Agent Help 2 15 50214"
+"C2DS Jellyfish Larvae"
+"Jellyfish Larvae "
+
+TAG "Agent Help 2 15 50215"
+"C2DS Bluebird"
+"Bluebird "
+
+TAG "Agent Help 2 15 50216"
+"C2DS Frog"
+"Frog "
+
+TAG "Agent Help 2 15 50217"
+"C2DS Tadpole"
+"Tadpole "
+
+TAG "Agent Help 2 15 50218"
+"C2DS Angelfish"
+"Angelfish "
+
+TAG "Agent Help 2 16 50200"
+"C2DS Clam"
+"Clam "
+
+TAG "Agent Help 2 16 50201"
+"C2DS Crab"
+"Crab "
+
+TAG "Agent Help 2 16 50203"
+"C2DS Bat"
+"Bat "
+
+TAG "Agent Help 2 16 50210"
+"C2DS Tiger Barb"
+"Tiger Barb "
+
+TAG "Agent Help 2 17 50200"
+"C2DS Beehive"
+"Beehive "
+
+TAG "Agent Help 2 17 50202"
+"C2DS Puffball Nest "
+"Puffball Nest  "
+
+TAG "Agent Help 2 17 50204"
+"C2DS Bat Nest"
+"Bat Nest "
+
+TAG "Agent Help 2 17 50205"
+"C2DS Anthill"
+"Anthill "
+
+TAG "Agent Help 2 17 50208"
+"C2DS Hummingbird Nest"
+"Hummingbird Nest "
+
+TAG "Agent Help 2 17 50209"
+"C2DS Wasp Nest"
+"Wasp Nest "
+
+TAG "Agent Help 2 17 50215"
+"C2DS Bluebird Nest"
+"Bluebird Nest "
+
+TAG "Agent Help 2 18 50201"
+"C2DS Crab Egg"
+"Crab Egg "
+
+TAG "Agent Help 2 18 50202"
+"C2DS Zander Fish Egg"
+"Zander Fish Egg "
+
+TAG "Agent Help 2 18 50203"
+"C2DS Goldfish Egg"
+"Goldfish Egg "
+
+TAG "Agent Help 2 18 50205"
+"C2DS Red Caterpillar Egg"
+"Red Caterpillar Egg "
+
+TAG "Agent Help 2 18 50206"
+"C2DS Purple Caterpillar Egg"
+"Purple Caterpillar Egg "
+
+TAG "Agent Help 2 18 50208"
+"C2DS Barnacle Egg"
+"Barnacle Egg "
+
+TAG "Agent Help 2 18 50209"
+"C2DS Heritage Caterpillar Egg"
+"Heritage Caterpillar Egg "
+
+TAG "Agent Help 2 18 50210"
+"C2DS Tiger Barb Egg"
+"Tiger Barb Egg "
+
+TAG "Agent Help 2 18 50215"
+"C2DS Bluebird Egg"
+"Bluebird Egg "
+
+TAG "Agent Help 2 18 50216"
+"C2DS Frog Egg"
+"Frog Egg "
+
+TAG "Agent Help 2 18 50218"
+"C2DS Angelfish Egg"
+"Angelfish Egg "
+
+TAG "Agent Help 2 19 50200"
+"C2DS Clouds"
+"Clouds "
+
+TAG "Agent Help 2 19 50201"
+"C2DS Raindrop"
+"Just a raindrop. "
+
+TAG "Agent Help 2 19 50202"
+"C2DS Snowflake"
+"It's so pretty! "
+
+TAG "Agent Help 2 19 50205"
+"C2DS Fish Bubbles"
+"Fish Bubbles "
+
+TAG "Agent Help 2 19 50206"
+"C2DS Water Drops"
+"Water Drops "
+
+TAG "Agent Help 2 19 50207"
+"C2DS Dust Devil"
+"Watch out! This force of nature will pick up anything it can carry! "
+
+TAG "Agent Help 2 19 50208"
+"C2DS Rainbow"
+"Wow, a rainbow! I wonder if there's something at the end of it... "
+
+TAG "Agent Help 2 19 50209"
+"C2DS Rainbow Sparkles"
+"How pretty! "
+
+TAG "Agent Help 2 20 50200"
+"C2DS Deathcap Mushroom Cap"
+"Deathcap Mushroom Cap "
+
+TAG "Agent Help 2 20 50202"
+"C2DS Puffball"
+"Puffball "
+
+TAG "Agent Help 2 20 50203"
+"C2DS Ledum Berry"
+"A mildly poisonous berry causing pain, sleepiness, and general allergy symptoms "
+
+TAG "Agent Help 2 21 50200"
+"C2DS Ball"
+"Ball "
+
+TAG "Agent Help 2 21 50201"
+"C2DS Robo-Dog"
+"Robo-Dog "
+
+TAG "Agent Help 2 21 50202"
+"C2DS Saxophone"
+"Saxophone "
+
+TAG "Agent Help 2 21 50203"
+"C2DS Punching Bag"
+"Punching Bag "
+
+TAG "Agent Help 2 21 50204"
+"C2DS Racecar"
+"Racecar "
+
+TAG "Agent Help 2 21 50206"
+"C2DS Spring"
+"Spring "
+
+TAG "Agent Help 2 21 50207"
+"C2DS Triangle Toy 1"
+"Triangle Toy 1 "
+
+TAG "Agent Help 2 21 50208"
+"C2DS Top"
+"Top "
+
+TAG "Agent Help 2 21 50209"
+"C2DS Tennis Ball"
+"Tennis Ball "
+
+TAG "Agent Help 2 21 50210"
+"C2DS Guitar"
+"Guitar "
+
+TAG "Agent Help 2 21 50211"
+"C2DS Drum"
+"Drum "
+
+TAG "Agent Help 2 21 50212"
+"C2DS Foghorn"
+"Foghorn "
+
+TAG "Agent Help 2 21 50213"
+"C2DS Slinky"
+"Slinky "
+
+TAG "Agent Help 2 21 50214"
+"C2DS Tomato Gun"
+"Tomato Gun "
+
+TAG "Agent Help 2 21 50217"
+"C2DS Pot o' Cheese"
+"A pot of cheese found at the end of a rainbow. "
+
+TAG "Agent Help 2 21 50218"
+"C2DS Triangle Toy 2"
+"Triangle Toy 2 "
+
+TAG "Agent Help 2 21 50224"
+"C2DS Pearl"
+"Pearl "
+
+TAG "Agent Help 2 21 50225"
+"C2DS Fishbowl"
+"Fishbowl "
+
+TAG "Agent Help 2 22 50200"
+"C2DS Incubator"
+"Incubator "
+
+TAG "Agent Help 2 23 24206"
+"C2DS Sunflower Seed Vendor"
+"Sunflower Seed Vendor "
+
+TAG "Agent Help 2 23 50200"
+"C2DS Carrot Seed Vendor"
+"Carrot Seed Vendor "
+
+TAG "Agent Help 2 23 50201"
+"C2DS Potato Seed Launcher"
+"Potato Seed Launcher "
+
+TAG "Agent Help 2 23 50202"
+"C2DS Nut Vendor"
+"You're gonna love my nuts "
+
+TAG "Agent Help 2 23 50203"
+"C2DS Trumpet Vendor"
+"Trumpet Vendor "
+
+TAG "Agent Help 2 23 50204"
+"C2DS Pear Seed Launcher"
+"Pear Seed Launcher "
+
+TAG "Agent Help 2 23 50205"
+"C2DS Triffid Vendor"
+"Triffid Vendor "
+
+TAG "Agent Help 2 23 50206"
+"C2DS Spinnomosa Seed Launcher"
+"Now you can grow Spinnomosa Cacti anywhere! Because everyone really wants to do that. "
+
+TAG "Agent Help 2 23 50207"
+"C2DS Spikeocausius Seed Launcher"
+"Now you can grow Spikeocausius Cacti anywhere! "
+
+TAG "Agent Help 2 23 50208"
+"C2DS Cheese Machine"
+"A source of infinite cheese! Who needs conservation of matter anyway? "
+
+TAG "Agent Help 2 23 50209"
+"C2DS Walking Tendril Seed Vendor"
+"Walking Tendril Seed Vendor "
+
+TAG "Agent Help 2 23 50215"
+"C2DS Crab Egg Launcher"
+"Crab Egg Launcher "
+
+TAG "Agent Help 2 23 50217"
+"C2DS Aubergine Launcher"
+"It's actually an Aubergine plant launcher, but an Aubergine Launcher sounds more fun. "
+
+TAG "Agent Help 2 24 50202"
+"C2DS Zander Fish Egg Launcher"
+"Zander Fish Egg Launcher "
+
+TAG "Agent Help 2 24 50203"
+"C2DS Goldfish Egg Launcher"
+"This bad boy can fit so many goldfish eggs in it "
+
+TAG "Agent Help 2 24 50205"
+"C2DS Red Caterpillar Egg Maker"
+"Red Caterpillar Egg Maker "
+
+TAG "Agent Help 2 24 50206"
+"C2DS Purple Caterpillar Egg Maker"
+"Purple Caterpillar Egg Maker "
+
+TAG "Agent Help 2 24 50207"
+"C2DS Heritage Caterpillar Egg Maker"
+"Heritage Caterpillar Egg Maker "
+
+TAG "Agent Help 2 24 50208"
+"C2DS Mushroom Maker"
+"Mushroom Maker "
+
+TAG "Agent Help 2 24 50209"
+"C2DS Puffball Spore Launcher"
+"Puffball Spore Launcher "
+
+TAG "Agent Help 2 24 50213"
+"C2DS Tiger Barb Egg Launcher"
+"Tiger Barb Egg Launcher "
+
+TAG "Agent Help 2 24 50216"
+"C2DS Frog Egg Layer"
+"Frog Egg Layer "
+
+TAG "Agent Help 2 24 50218"
+"C2DS Angelfish Egg Maker"
+"Angelfish Egg Maker "
+
+TAG "Agent Help 2 24 50222"
+"C2DS Grass Seed Vendor"
+"Grass Seed Vendor "
+
+TAG "Agent Help 2 25 50200"
+"C2DS Water Fountain"
+"Water Fountain "
+
+TAG "Agent Help 2 25 50202"
+"C2DS Pump"
+"Pump "
+
+TAG "Agent Help 3 1 50200"
+"C2DS Lift"
+"Lift "
+
+TAG "Agent Help 3 1 50201"
+"C2DS Boat"
+"Boat "
+
+TAG "Agent Help 3 1 50202"
+"C2DS Submarine"
+"Submarine "
+
+TAG "Agent Help 3 1 50203"
+"C2DS Yellow Raft"
+"Yellow Raft "
+
+TAG "Agent Help 3 1 50204"
+"C2DS Splicer Shuttle"
+"Splicer Shuttle "
+
+TAG "Agent Help 3 1 50205"
+"C2DS Trolly"
+"Trolly "
+
+TAG "Agent Help 3 2 50200"
+"C2DS Metaroom Teleporter"
+"Metaroom Teleporter "
+
+TAG "Agent Help 3 2 50202"
+"C2DS Teleporter"
+"Teleporter "
+
+TAG "Agent Help 3 2 50206"
+"C2DS Helicopter"
+"Helicopter "
+
+TAG "Agent Help 3 8 50204"
+"C2DS Electric Gate"
+"Electric Gate "
+
+TAG "Agent Help 3 12 50201"
+"C2DS Call Buttons For boats"
+" "
+
+TAG "Agent Help 3 13 50201"
+"C2DS Queue Agents for boats"
+" "
+

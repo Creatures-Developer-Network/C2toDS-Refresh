@@ -5,6 +5,7 @@
 * 2 23 50204 - Pear Seed Launcher
 
 * Verm here just to check things...they already got the basics covered.
+* Aiko here to fix the weird seed attr drama
 
 new: comp 2 23 50204 "moe_C2toDS_pear" 8 0 rand 500 2500
 
@@ -355,8 +356,27 @@ scrp 2 3 50204 9
 			show 0
 
 			bhvr 0
+			
+* this attr change was throwing errors if the seed somehow ended up 
+* ouside the room system...
+* Why the seeds were ending up outside the room system in the first place
+* might still need to be addressed.
+			targ ownr
+			
+			inst
+
+			*this is so rare I can't seem to reproduce it but I'm
+			* going to hope this works.
+			doif tmvt posl post eq 0
+			
+				mvsf posl post
+				*dbg: outs "A pear seed was moved"
+			
+			endi
 
 			attr 209
+			
+			slow
 
 		endi
 

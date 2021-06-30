@@ -4,13 +4,14 @@
 * 2 18 50209 - Heritage Caterpillar Egg 
 * 2 24 50207 - Heritage Caterpillar Egg Maker
 
+* Initial Conversion by Moe
+* Aiko was here adding blank pickup scripts and butterfly drowning stuff
+
 new: simp 2 24 50207 "moe_C2toDS_c1bufl" 16 0 rand 1500 2501
 
 mvsf 6297 49350
 
 *mvsf mopx mopy
-
-
 
 reps rand 10 15
 
@@ -28,19 +29,9 @@ reps rand 5 10
 
 	mvsf rand 3395 4091 48055
 
-
-
-
-
-
-
 	new: simp 2 18 50209 "moe_C2toDS_c1bufl" 1 64 rand 1500 2501
 
 	mvsf rand 5110 6525 49720
-
-
-
-
 
 repe
 
@@ -215,11 +206,14 @@ scrp 2 18 50209 10
 
 endm
 
+scrp 2 18 50209 4
 
+* this just exists to interupt the timer script if it's picked up
+* If it works that way. Should it work that way?
+
+endm
 
 scrp 2 18 50209 9
-
-
 
 	doif carr ne null or fall ne 0
 
@@ -327,6 +321,12 @@ scrp 2 13 50209 12
 
 endm
 
+scrp 2 13 50209 4
+
+* this just exists to interupt the timer script if it's picked up
+* If it works that way. Should it work that way?
+
+endm
 
 
 scrp 2 13 50209 9
@@ -819,13 +819,35 @@ scrp 2 13 50210 10
 
 endm
 
+scrp 2 13 50210 4
+
+*pick up
+
+endm
+
 
 
 scrp 2 13 50210 9
-
-
-
-
+	*dbg: outs "butterfly tick?"
+	
+	* don't do anthing if you're being held
+	doif carr ne null
+		stop
+	endi
+	
+*	die if you're underwate
+	targ ownr
+	doif rtyp grap posx posy eq 8 or rtyp grap posx posy eq 9
+		addv name "waterlogged" 1
+		doif name "waterlogged" gt 10
+			gsub die
+		else
+		*try to escape the water
+			velo velx -10
+		endi
+	else
+		setv name "waterlogged" 0
+	endi
 
 	doif TIME eq 4
 
@@ -844,8 +866,6 @@ scrp 2 13 50210 9
 		endi
 
 	endi
-
-
 
 
 
@@ -934,14 +954,16 @@ scrp 2 13 50210 9
 
 
 	subr die
-
+	*dbg: outs "subr die"
 *there are no death sprites? :(
+		kill ownr
 
 	retn
 
 
 
 	subr perch
+	*dbg: outs "subr perch"
 
 		lock
 
@@ -972,6 +994,7 @@ scrp 2 13 50210 9
 
 
 	subr layeggs
+	*dbg: outs "subr layeggs"
 
 		loop
 
@@ -1004,6 +1027,7 @@ scrp 2 13 50210 9
 	subr follow
 
 		inst
+		*dbg: outs "subr follow"
 
 		targ ov07
 
