@@ -185,7 +185,7 @@ scrp 3 1 50205 1001
 	pose 1
 
 
-
+doif velx eq 0
 	inst
 * Get the queued creatures
 	enum 3 13 50205
@@ -199,7 +199,7 @@ scrp 3 1 50205 1001
 		endi
 	next
 	slow
-
+endi
 
 	unlk
 endm
@@ -239,7 +239,7 @@ scrp 3 1 50205 1002
 	pose 2
 
 
-
+doif velx eq 0
 	inst
 * Get the queued creatures
 	enum 3 13 50205
@@ -253,7 +253,7 @@ scrp 3 1 50205 1002
 		endi
 	next
 	slow
-
+endi
 
 	unlk
 endm
