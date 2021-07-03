@@ -20,7 +20,7 @@ rtyp grap 8758 48936 1
 
 new: simp 2 2 50200 "moe_C2toDS_doors" 5 0 3
 
-attr 4
+attr 20
 
 pose 4
 
@@ -38,7 +38,7 @@ new: simp 2 2 50201 "moe_C2toDS_doors" 6 5 1
 
 pose 5
 
-attr 4
+attr 20
 
 mvto 4095 49222
 
@@ -52,7 +52,7 @@ setv name "open" 1
 
 new: simp 2 2 50202 "moe_C2toDS_doors" 5 12 1
 
-attr 4
+attr 20
 
 pose 0
 
@@ -94,7 +94,7 @@ setv name "whatamI?" 1
 
 new: simp 1 11 50200 "moe_C2toDS_bubs" 11 0 8000
 
-attr 4
+attr 20
 
 pose 10
 
@@ -110,7 +110,7 @@ setv name "whatamI?" 2
 
 new: simp 1 11 50200 "moe_C2toDS_bubs" 11 0 8000
 
-attr 4
+attr 20
 
 pose 10
 
@@ -412,7 +412,7 @@ scrp 2 2 50202 10
 
 	new: simp 2 2 50203 "moe_C2toDS_doors" 5 16 1
 
-	attr 4
+	attr 20
 
 	pose 3
 
