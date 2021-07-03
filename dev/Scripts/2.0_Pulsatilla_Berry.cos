@@ -9,7 +9,7 @@
 
 new: simp 2 6 50202 "moe_C2toDS_berries" 0 0 5000
 
-attr 0
+attr 16
 
 mvto 3786 48261
 

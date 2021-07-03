@@ -7,7 +7,7 @@
 
 new: simp 2 6 50207 "moe_C2toDS_berries" 0 0 5000
 
-attr 0
+attr 16
 
 mvto 10340 48376
 
@@ -51,7 +51,7 @@ scrp 2 8 50207 10
 
 	perm rand 45 55
 
-	bhvr 49
+	bhvr 48
 
 	accg 0
 

@@ -22,6 +22,8 @@ mvsf 7770 47950
 reps rand 7 9
 
 	new: simp 2 5 50206 "moe_C2toDS_cacti" 20 0 rand 1000 2500
+	
+	bhvr 11
 
 	pose 9
 
@@ -40,6 +42,8 @@ repe
 reps rand 5 7
 
 	new: simp 2 5 50206 "moe_C2toDS_cacti" 20 0 rand 1000 2500
+	
+	bhvr 11
 
 	pose 9
 
@@ -255,6 +259,8 @@ scrp 2 3 50206 9
 *Create Spinnomosa
 
 			new: simp 2 5 50206 "moe_C2toDS_cacti" 20 0 rand 1000 2500
+			
+			bhvr 11
 
 			doif va02 eq 1
 
@@ -334,17 +340,17 @@ scrp 2 3 50206 9
 
 
 
-*Obey the Winds!*
+* Removing Wind Interaction
 
-		setv va00 lorp grap posx posy 19 0
-
-
-
-		setv va01 torx va00
+	*	setv va00 lorp grap posx posy 19 0
 
 
 
-		setv ov01 prop grap posx posy 19
+	*	setv va01 torx va00
+
+
+* make wind random instead
+		setv ov01 rand 0.00000 1.00000
 
 
 
@@ -503,12 +509,15 @@ endm
 
 
 scrp 2 5 50206 1
-
+inst
 *stim norns
-
-	stim writ from 83 1
-
-	stim writ from 76 .5
+	targ from 
+	doif fmly eq 4
+	
+		stim writ from 83 1
+	endi
+	targ ownr
+	snde "stng"
 
 	doif pose eq 9
 
@@ -518,9 +527,7 @@ scrp 2 5 50206 1
 
 *Poke the hand	
 
-		doif held eq null and hhld = null and pure = 0
-
-			snde "stng"
+		doif from eq pntr
 
 			targ pntr
 
@@ -549,6 +556,46 @@ scrp 2 5 50206 1
 		endi
 
 
+
+	endi
+
+endm
+
+scrp 2 5 50206 2
+inst
+*stim norns
+	targ from 
+	doif fmly eq 4
+	
+		stim writ from 83 1
+	endi
+	targ ownr
+
+	doif pose eq 9
+
+		frat 2
+
+		anim [9 10 11 12 11 10 9]
+
+	endi
+
+endm
+
+scrp 2 5 50206 3
+inst
+*stim norns
+	targ from 
+	doif fmly eq 4
+	
+		stim writ from 83 1
+	endi
+	targ ownr
+
+	doif pose eq 9
+
+		frat 2
+
+		anim [9 10 11 12 11 10 9]
 
 	endi
 

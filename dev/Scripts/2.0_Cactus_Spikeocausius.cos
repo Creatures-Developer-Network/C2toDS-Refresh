@@ -15,6 +15,7 @@ new: comp 2 23 50207 "moe_C2toDS_cacti" 8 80 rand 1000 2500
 
 mvsf 7290 48092
 
+
 *prt: inew 0 "Input" "Recieves signal inputs for the Spikeocausius launcher." 3 24 0
 
 *pat: dull 1 "moe_C2toDS_cacti" 88 0 0 0
@@ -30,6 +31,8 @@ reps rand 7 9
 	new: simp 2 5 50207 "moe_C2toDS_cacti" 13 32 rand 1000 2500
 
 	pose 6
+	
+	bhvr 11
 
 	setv va00 rand 7556 7750
 
@@ -48,6 +51,8 @@ reps rand 5 7
 	new: simp 2 5 50207 "moe_C2toDS_cacti" 13 32 rand 1000 2500
 
 	pose 6
+	
+	bhvr 11
 
 	setv va00 rand 6260 6650
 
@@ -298,7 +303,7 @@ scrp 2 3 50207 9
 
 			new: simp 2 5 50207 "moe_C2toDS_cacti" 13 32 rand 1000 2500
 
-
+			bhvr 11
 
 			setv va02 tmvt va00 va01
 
@@ -542,23 +547,39 @@ endm
 
 scrp 2 5 50207 1
 
-*stim norns
+	targ from 
+	doif fmly eq 4
+	
+		stim writ from 83 1
+	endi
+	targ ownr
+	snde "stng"
 
-	stim writ from 83 1
-
-	stim writ from 76 .5
 
 endm
 
 
 scrp 2 5 50207 2
-*stim norns
-	stim writ from 83 1
+ 	targ from 
+	doif fmly eq 4
+	
+		stim writ from 83 1
+	endi
+	targ ownr
+	snde "stng"
+
 endm
 
+
 scrp 2 5 50207 3
-*stim norns
-	stim writ from 83 1
+	targ from 
+	doif fmly eq 4
+	
+		stim writ from 83 1
+	endi
+	targ ownr
+	snde "stng"
+
 endm
 
 
