@@ -19,7 +19,7 @@ subv va00 hght
 
 flto 0 va00
 
-tick 19.5
+tick 19
 
 *tick 1
 
@@ -356,8 +356,8 @@ scrp 2 19 50200 10
 	tick 100
 
 	addv ov00 1
-
-	emit 19 .05
+*Clouds make stuff a bit warmer, only a bit, hopefully not too warm - Verm
+	emit 2 .005
 
 endm
 
@@ -452,14 +452,14 @@ scrp 2 19 50200 9
 
 
 *Find the room with the lowest concentration
-
+** of Heat! - Verm
 	doif velx gt 0
 
-		setv va00 lorp grap posr posy 19 0
+		setv va00 lorp grap posr posy 2 0
 
 	elif velx le 0
 
-		setv va00 lorp grap posl posy 19 0
+		setv va00 lorp grap posl posy 2 0
 
 	endi
 
