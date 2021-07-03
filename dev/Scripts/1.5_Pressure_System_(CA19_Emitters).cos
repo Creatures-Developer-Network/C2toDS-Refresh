@@ -4,37 +4,37 @@
 
 *At the moment, it's a constant thing...and it's only for the clouds.
 
-
+*Goodbye Pressure! - Verm
 
 *Light Ocean*
 
-new: simp 1 25 50200 "moe_C2toDS_emitters" 2 0 1
+*new: simp 1 25 50200 "moe_C2toDS_emitters" 2 0 1
 
-setv ov00 8900
+*setv ov00 8900
 
-setv ov01 47900
+*setv ov01 47900
 
-mvto ov00 ov01
+*mvto ov00 ov01
 
-setv ov02 1
+*setv ov02 1
 
-emit 19 ov02
+*emit 19 ov02
 
 
 
 *Dark Ocean*
 
-new: simp 1 25 50200 "moe_C2toDS_emitters" 2 0 1
+*new: simp 1 25 50200 "moe_C2toDS_emitters" 2 0 1
 
-setv ov00 2730
+*setv ov00 2730
 
-setv ov01 47800
+*setv ov01 47800
 
-mvto ov00 ov01
+*mvto ov00 ov01
 
-setv ov02 1
+*setv ov02 1
 
-emit 19 ov02
+*emit 19 ov02
 
 rscr
 

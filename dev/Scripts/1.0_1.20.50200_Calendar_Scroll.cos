@@ -149,19 +149,19 @@ scrp 1 20 50200 10
 
 *Change Pressure On/Off
 
-		enum 1 25 50200
+*		enum 1 25 50200
 
-			doif TIME eq 4
+*			doif TIME eq 4
 
-				emit 19 0
+*				emit 19 0
 
-			else
+*			else
 
-				emit 19 ov02
+*				emit 19 ov02
 
-			endi
+*			endi
 
-		next
+*		next
 
 		targ ownr
 
@@ -509,19 +509,19 @@ scrp 1 20 50200 9
 
 *Change Pressure On/Off
 
-		enum 1 25 50200
+*		enum 1 25 50200
 
-			doif TIME eq 4
+*			doif TIME eq 4
 
-				emit 19 0
+*				emit 19 0
 
-			else
+*			else
 
-				emit 19 ov02
+*				emit 19 ov02
 
-			endi
+*			endi
 
-		next
+*		next
 
 		targ ownr
 
