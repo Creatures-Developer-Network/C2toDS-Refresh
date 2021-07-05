@@ -7,10 +7,10 @@ cabw 10
 cabp -10
 
 cabn 50 30 170 130
+** As part of the sub upgrade, making the room type be whatever's in the lab - Verm
+cabv grap 6325 49072
 
-cabv grap 8200 48390
-
-attr 12
+attr 20
 
 setv ov00 0
 
@@ -34,8 +34,105 @@ pat: dull 8 "moe_C2toDS_sub" 23 200 40 2
 
 mvto 9186 48430
 
+cato 35
+**Also to note, only the pointer can make the sub go down - Verm
+new: simp 3 12 50202 "blnk" 1 1 2000
 
+attr 0
 
+bhvr 3
+* Left-Right Butt
+setv ov00 0
+
+cato 2
+
+mvto 8300 48432
+
+new: simp 3 12 50202 "blnk" 1 1 2000
+
+attr 0
+
+bhvr 3
+
+* Right-Left Butt
+setv ov00 1
+
+cato 2
+
+mvto 9363 48432
+
+scrp 3 12 50202 1
+	inst
+*Queue Object!
+	targ from
+	doif crea targ eq 1
+		sets va00 gtos 0
+		new: simp 3 13 50202 "blnk" 1 0 0
+		setv ov00 mv00
+		sets ov01 va00
+		tick 20
+		stim writ from 75 1
+		stim writ from 96 1
+		urge writ from 0 0.5 0 0.5
+		rtar 3 1 50202
+*It's on the right!
+		doif ov00 eq 0
+			mesg writ targ 1001
+*It's on the left!
+		elif ov00 eq 1
+**So go right!
+			mesg writ targ 1002
+*It's on the Bottom!
+		elif ov00 eq 2
+			mesg writ targ 1002
+		endi
+	endi
+endm
+
+scrp 3 12 50202 2
+	inst
+*Queue Object!
+	targ from
+	doif crea targ eq 1
+		sets va00 gtos 0
+		new: simp 3 13 50202 "blnk" 1 0 0
+		setv ov00 mv00
+		sets ov01 va00
+		tick 20
+		stim writ from 75 1
+		stim writ from 96 1
+		urge writ from 0 0.5 0 0.5
+		rtar 3 1 50202
+*It's on the right!
+		doif ov00 eq 0
+**So go left!
+			mesg writ targ 1001
+*It's on the left!
+		elif ov00 eq 1
+			mesg writ targ 1002
+*It's on the Bottom!
+		elif ov00 eq 2
+			mesg writ targ 1001
+		endi
+	endi
+endm
+
+scrp 3 13 50202 9
+	inst
+* Just here to continue injecting wait
+	doif ooww ov01 eq 3
+		targ mtoc ov01
+		doif targ ne null
+			stim writ from 75 1
+		else
+			kill ownr
+		endi
+	else
+		kill ownr
+	endi
+endm
+
+**Telling it where to go
 scrp 3 1 50202 1001
 
 	lock
@@ -53,15 +150,65 @@ scrp 3 1 50202 1001
 		gsub bottom_to_right
 
 	endi
-
+	inst
+*There's still passengers!	
+	doif totl 3 13 50202 gt 0
+		setv va00 0
+		doif ov00 eq 0
+*Your on the right, go left
+			setv va00 1
+		elif ov00 eq 1
+*Your on the left, go right
+			setv va00 2
+		elif ov00 eq 2
+*Your on the bottom, see if the left or right has more passangers
+			setv va12 0
+			setv va13 0
+			enum 3 13 50202
+				doif ov00 eq 0
+					addv va12 1
+				else
+					addv va13 1
+				endi
+			next
+**If equal go random
+			doif va12 eq va13
+				setv va00 rand 1 2
+**More passangers on the left
+			elif va12 gt va13
+				setv va00 2
+**More passangers on the right
+			elif va13 gt 12
+				setv va00 1
+			endi
+		endi
+	endi
 	unlk
-
+* Do 1001
+	doif va00 eq 1
+		mesg writ ownr 1001
+* Do 1002
+	elif va00 eq 2
+		mesg writ ownr 1002
+	endi
 	stop
 
 
 
 	subr right_to_left
-
+		inst
+* Get the queued creatures
+		enum 3 13 50202
+			doif ov00 eq 1
+				doif ooww ov01 eq 3
+					spas ownr mtoc ov01
+					kill targ
+				else
+					kill targ
+				endi
+			endi
+		next
+		slow
 		part 2
 
 		frat 2
@@ -71,9 +218,9 @@ scrp 3 1 50202 1001
 		over
 
 		targ ownr
-
-		gpas 4 0 0 1
-
+		doif from eq pntr
+			gpas 4 0 0 1
+		endi
 		part 5
 
 		frat 3
@@ -152,7 +299,7 @@ scrp 3 1 50202 1001
 
 			gsub breathe
 
-		untl posb le 48546
+		untl posb le 48580
 
 		setv vely 0
 
@@ -167,6 +314,11 @@ scrp 3 1 50202 1001
 		pose 0
 
 		targ ownr
+
+		epas 4 0 0
+			stim writ targ 96 0
+			driv 19 -1.0
+		next
 
 		dpas 4 0 0
 
@@ -190,6 +342,10 @@ scrp 3 1 50202 1001
 
 			chem 29 1
 
+			stim writ targ 75 1
+
+			stim writ targ 96 0
+
 		next
 
 		targ ownr
@@ -210,7 +366,9 @@ scrp 3 1 50202 1001
 
 		targ ownr
 
-		gpas 4 0 0 1
+		doif from eq pntr
+			gpas 4 0 0 1
+		endi
 
 		part 5
 
@@ -328,6 +486,11 @@ scrp 3 1 50202 1001
 
 		pose 0
 
+		epas 4 0 0
+			stim writ targ 96 0
+			driv 19 -1.0
+		next
+
 		dpas 4 0 0
 
 		attr 12
@@ -348,7 +511,9 @@ scrp 3 1 50202 1001
 
 		targ ownr
 
-		gpas 4 0 0 1
+		doif from eq pntr
+			gpas 4 0 0 1
+		endi
 
 		rtar 2 2 50202
 
@@ -494,6 +659,11 @@ scrp 3 1 50202 1001
 
 		targ ownr
 
+		epas 4 0 0
+			stim writ targ 96 0
+			driv 19 -1.0
+		next
+
 		dpas 4 0 0
 
 		attr 12
@@ -511,7 +681,7 @@ scrp 3 1 50202 1001
 endm
 
 
-
+**Almost the same, diff direction.
 scrp 3 1 50202 1002
 
 	lock
@@ -529,8 +699,47 @@ scrp 3 1 50202 1002
 		gsub bottom_to_left
 
 	endi
-
+	inst
+*There's still passengers!	
+	doif totl 3 13 50202 gt 0
+		setv va00 0
+		doif ov00 eq 0
+*Your on the right, go left
+			setv va00 1
+		elif ov00 eq 1
+*Your on the left, go right
+			setv va00 2
+		elif ov00 eq 2
+*Your on the bottom, see if the left or right has more passangers
+			setv va12 0
+			setv va13 0
+			enum 3 13 50202
+				doif ov00 eq 0
+					addv va12 1
+				else
+					addv va13 1
+				endi
+			next
+**If equal go random
+			doif va12 eq va13
+				setv va00 rand 1 2
+**More passangers on the left
+			elif va12 gt va13
+				setv va00 2
+**More passangers on the right
+			elif va13 gt 12
+				setv va00 1
+			endi
+		endi
+	endi
 	unlk
+* Do 1001
+	doif va00 eq 1
+		mesg writ ownr 1001
+* Do 1002
+	elif va00 eq 2
+		mesg writ ownr 1002
+	endi
 
 	stop
 
@@ -542,6 +751,9 @@ scrp 3 1 50202 1002
 
 			chem 29 1
 
+			stim writ targ 75 1
+
+			stim writ targ 96 0
 		next
 
 		targ ownr
@@ -562,7 +774,9 @@ scrp 3 1 50202 1002
 
 		targ ownr
 
-		gpas 4 0 0 1
+		doif from eq pntr
+			gpas 4 0 0 1
+		endi
 
 		rtar 2 2 50202
 
@@ -725,7 +939,10 @@ scrp 3 1 50202 1002
 			mvby 0 4
 
 		repe
-
+		epas 4 0 0
+			stim writ targ 96 0
+			driv 19 -1.0
+		next
 		dpas 4 0 0
 
 		attr 12
@@ -738,6 +955,19 @@ scrp 3 1 50202 1002
 
 	subr left_to_right
 
+		inst
+* Get the queued creatures
+		enum 3 13 50202
+			doif ov00 eq 0
+				doif ooww ov01 eq 3
+					spas ownr mtoc ov01
+					kill targ
+				else
+					kill targ
+				endi
+			endi
+		next
+		slow
 		part 3
 
 		frat 2
@@ -748,7 +978,9 @@ scrp 3 1 50202 1002
 
 		targ ownr
 
-		gpas 4 0 0 1
+		doif from eq pntr
+			gpas 4 0 0 1
+		endi
 
 		part 5
 
@@ -838,6 +1070,11 @@ scrp 3 1 50202 1002
 
 		targ ownr
 
+		epas 4 0 0
+			stim writ targ 96 0
+			driv 19 -1.0
+		next
+
 		dpas 4 0 0
 
 		setv ov00 0
@@ -868,7 +1105,9 @@ scrp 3 1 50202 1002
 
 		targ ownr
 
-		gpas 4 0 0 1
+		doif from eq pntr
+			gpas 4 0 0 1
+		endi
 
 		rtar 2 2 50202
 
@@ -928,7 +1167,7 @@ scrp 3 1 50202 1002
 
 			gsub breathe
 
-		untl posb le 48546
+		untl posb le 48600
 
 		setv vely -2.5
 
@@ -940,7 +1179,7 @@ scrp 3 1 50202 1002
 
 			gsub breathe
 
-		untl posb le 48546
+		untl posb le 48600
 
 		fade
 
@@ -964,6 +1203,11 @@ scrp 3 1 50202 1002
 
 		targ ownr
 
+		epas 4 0 0
+			stim writ targ 96 0
+			driv 19 -1.0
+		next
+
 		dpas 4 0 0
 
 		setv vely 0
@@ -983,7 +1227,12 @@ scrp 3 1 50202 1002
 endm
 
 rscr
-
+enum 3 12 50202
+	kill targ
+next
+enum 3 13 50202
+	kill targ
+next
 enum 3 1 50202
 
 	kill targ
@@ -991,4 +1240,3 @@ enum 3 1 50202
 next
 
 scrx 3 1 50202 1001
-
