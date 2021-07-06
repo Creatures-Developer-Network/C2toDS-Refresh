@@ -945,7 +945,7 @@ scrp 2 19 50200 1001
 
 		divv va08 80
 
-		doif va08 le 0 or va08 ge 30
+		doif va08 lt 1 or va08 ge 30
 
 			setv va08 3
 
