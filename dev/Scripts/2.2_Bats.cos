@@ -310,6 +310,8 @@ scrp 2 16 50203 9
 
 			star 2 8 0
 
+			inst
+
 			doif targ ne null and targ ne ownr
 
 				doif carr eq null
@@ -355,7 +357,7 @@ scrp 2 16 50203 9
 *So you have a target, go get it.
 
 		elif ov08 ne null
-
+			inst
 
 
 *doif relx ownr ov08 gt 250 or rely ownr ov08 gt 250
@@ -405,6 +407,7 @@ scrp 2 16 50203 9
 				gsub follow
 
 
+				inst
 
 				doif touc ownr ov08 eq 1
 
@@ -509,6 +512,8 @@ scrp 2 16 50203 9
 
 
 	subr warpback
+
+		inst
 
 		targ ov09
 
@@ -718,6 +723,7 @@ scrp 2 16 50203 9
 
 *va00 eq the room
 
+		slow
 
 
 		setv va01 torx va00
@@ -938,7 +944,9 @@ scrp 2 16 50203 9
 
 *va02 posy
 
-		doif va02 eq 0
+		inst
+
+		doif va02 eq 0 and va04 ne null
 
 			targ va04
 
@@ -1009,6 +1017,7 @@ scrp 2 16 50203 9
 		endi
 
 
+		slow
 
 		doif va01 gt 0
 
