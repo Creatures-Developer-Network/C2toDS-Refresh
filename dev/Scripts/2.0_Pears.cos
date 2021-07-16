@@ -369,8 +369,9 @@ scrp 2 3 50204 9
 			* going to hope this works.
 			doif tmvt posl post eq 0
 			
-				mvsf posl post
-				*dbg: outs "A pear seed was moved"
+				kill ownr
+				
+				stop
 			
 			endi
 
@@ -466,6 +467,8 @@ scrp 2 7 50204 9
 
 	elif pose eq 12
 
+		lock
+
 		inst
 
 		gsub getposxpost
@@ -523,6 +526,8 @@ scrp 2 7 50204 9
 			mira 1
 
 		endi
+
+		unlk
 
 	endi
 
@@ -1232,6 +1237,11 @@ scrp 2 8 50204 10
 
 	emit 6 .15
 
+*	Will this prevent decimal error on checks
+	seta ov04 null
+
+	seta ov05 null
+
 endm
 
 
@@ -1267,8 +1277,6 @@ scrp 2 8 50204 255
 		setv ov03 0
 
 	endi
-
-
 
 endm
 
