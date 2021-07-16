@@ -1,4 +1,3 @@
-
 * 2 3 50203 - Trumpet Seed
 * 2 7 50203 - Trumpet Flower
 * 2 8 50203 - Trumpet Fruit
@@ -200,7 +199,6 @@ scrp 2 3 50203 9
 
 
 
-
 	doif ov01 eq 0
 
 		tick rand 250 500
@@ -211,8 +209,18 @@ scrp 2 3 50203 9
 
 		endi
 
-		addv ov02 1
+* 		Growth check increment
+		doif sean ne 3
 
+			addv ov02 1
+
+		else
+
+			setv ov02 0
+
+		endi
+
+* 		Has been around a while and has not grown
 		doif ov02 gt 10
 
 			kill targ
@@ -221,7 +229,7 @@ scrp 2 3 50203 9
 
 	else
 
-		velo rand -1 2 rand -2 0
+		velo rand -2 2 rand -2 0
 
 		addv ov02 1
 
@@ -254,20 +262,20 @@ scrp 2 3 50203 9
 	endi
 
 
-
-	doif ov02 gt 10
-
-
-
-	endi
-
-
-
 	gsub check
 
 
 
 	subr check
+
+*		Check for when seed goes off map as this was causing errors
+		doif tmvt posl post eq 0
+
+			kill ownr
+
+			stop
+
+		endi
 
 		rnge 200
 
@@ -345,13 +353,23 @@ scrp 2 3 50203 9
 
 	subr dormantcheck
 
+		inst
+
 		rnge 200
 
 		setv va00 0
 
+* 		Wait so that not all seeds are checking for too many seeds at the same time
+*		Causing them all to delete themselves together. As this uses wait until seeds are destroyed meaning
+*		They linger while all others are counting
+*		Should seed count be checked one last time before killing later
+		wait rand 10 1200
+
+		inst
+
 		esee 2 3 50203
 
-			doif targ ne null
+			doif targ ne null and ov22 eq 0
 
 				addv va00 1
 
@@ -359,16 +377,25 @@ scrp 2 3 50203 9
 
 		next
 
+		slow
+
 		targ ownr
 
-		doif va00 gt 3
+		doif va00 gt 3 and totl 2 3 50203 gt 5
+
+
+*Mark that this seed is pending being killed
+			setv mv22 1
 
 *Let something eat you?
 
-			wait rand 1500 2000
+			wait rand 1500 2300
 
-			kill ownr
+			doif sean ne 3 or rand 0 3 eq 0
 
+			    kill ownr
+
+            endi
 		else
 
 			show 0
@@ -377,7 +404,7 @@ scrp 2 3 50203 9
 
 			attr 193
 
-			tick 1200
+			tick rand 1000 1600
 
 		endi
 
@@ -455,11 +482,15 @@ scrp 2 7 50203 9
 
 	doif time eq 3
 
+		setv mv21 1
+
 	elif time eq 0 and pose eq 9
 
 *Seed in the morning
 
-		doif name "seeded" eq 0
+		doif name "seeded" lt rand 1 2 and mv21 gt 0
+
+			setv mv21 0
 
 			gsub seed
 
@@ -475,9 +506,9 @@ scrp 2 7 50203 9
 
 
 
-*Flowers die in one day. That's 1440 seconds.
+* Flowers die in one day. That's 1440 seconds AND after seeding a few times
 
-	doif ov10 ge 1440
+	doif ov10 ge 1440 and name "seeded" ge rand 1 3
 
 		inst
 
@@ -604,6 +635,7 @@ scrp 2 7 50203 9
 
 
 	subr seed
+		wait rand 200 1200
 
 *Make sure all flower fruits are on, or this is gonna look funky. lol
 
@@ -671,7 +703,7 @@ scrp 2 7 50203 9
 
 			over
 
-			setv name "seeded" 1
+			addv name "seeded" 1
 
 			gsub growfirst
 
