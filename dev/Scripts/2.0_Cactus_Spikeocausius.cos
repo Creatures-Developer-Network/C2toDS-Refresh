@@ -5,7 +5,7 @@
 * 2 23 50207 - Spikeocausius Seed Launcher
 
 * Initial Conversion By Moe
-* Some Modifications By the one who screams i guess
+* Some Modifications By the one who screams i guess (dormant seed smell fix + something i don't remember -t1ws)
 * (if you worked on this file, feel free to add your name!)
 
 *Likes warm, desert conditions, produces flowers in springtime nights. 
@@ -31,7 +31,7 @@ reps rand 7 9
 	new: simp 2 5 50207 "moe_C2toDS_cacti" 13 32 rand 1000 2500
 
 	pose 6
-	
+
 	bhvr 11
 
 	setv va00 rand 7556 7750
@@ -51,7 +51,7 @@ reps rand 5 7
 	new: simp 2 5 50207 "moe_C2toDS_cacti" 13 32 rand 1000 2500
 
 	pose 6
-	
+
 	bhvr 11
 
 	setv va00 rand 6260 6650
@@ -71,7 +71,7 @@ scrp 2 23 50207 10
 
 	elas 10
 
-*BHVR
+	bhvr 9
 
 	fric 65
 
@@ -127,7 +127,9 @@ endm
 
 scrp 2 23 50207 1
 
-stim writ from 90 1
+	lock
+
+	stim writ from 90 1
 
 	reps rand 5 7
 
@@ -200,6 +202,16 @@ stim writ from 90 1
 	retn
 
 
+
+endm
+
+scrp 2 23 50207 3
+
+	stim writ from 92 1
+
+	snde "hit_"
+
+	velo rand -2 2 rand -10 -5
 
 endm
 
@@ -368,6 +380,9 @@ scrp 2 3 50207 9
 			show 0
 
 			bhvr 0
+
+*Stop emitting carb smell so you don't confuse creatures. -T1WS
+			emit 7 0
 
 			attr 209
 
@@ -547,9 +562,9 @@ endm
 
 scrp 2 5 50207 1
 
-	targ from 
+	targ from
 	doif fmly eq 4
-	
+
 		stim writ from 83 1
 	endi
 	targ ownr
@@ -560,9 +575,9 @@ endm
 
 
 scrp 2 5 50207 2
- 	targ from 
+	targ from
 	doif fmly eq 4
-	
+
 		stim writ from 83 1
 	endi
 	targ ownr
@@ -572,9 +587,9 @@ endm
 
 
 scrp 2 5 50207 3
-	targ from 
+	targ from
 	doif fmly eq 4
-	
+
 		stim writ from 83 1
 	endi
 	targ ownr
@@ -658,6 +673,8 @@ next
 
 scrx 2 23 50207 1
 
+scrx 2 23 50207 3
+
 
 
 enum 2 3 50207
@@ -681,4 +698,3 @@ enum 2 5 50207
 	kill targ
 
 next
-

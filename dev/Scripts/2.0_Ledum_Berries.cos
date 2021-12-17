@@ -4,6 +4,8 @@
 
 *Matthew, "Moe", '10*
 
+*The one who screams stopped the berries emitting protein smell.
+
 new: simp 2 6 50203 "moe_C2toDS_berries" 0 0 rand 1000 3000
 
 attr 16
@@ -112,7 +114,7 @@ scrp 2 20 50203 10
 
 	tick rand 50 100
 
-	emit 6 .15
+*emit 6 .15
 
 endm
 

@@ -672,6 +672,22 @@ scrp 2 24 50208 1
 
 	lock
 
+	etch 2 4 50201
+
+		addv va02 1
+
+	next
+
+	doif ov00 eq 0 and va02 gt 0
+
+		snde "buzz"
+
+		stop
+
+		unlk
+
+	endi
+
 	sndc "m_a7"
 
 	anim [0 1 2 3 4 5 6 7 8 9 10]

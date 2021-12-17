@@ -4,6 +4,7 @@
 * 2 6 50213 - Bryonia Berry Leaf (maker)
 
 *Matthew, "Moe", '10*
+*The one who screams removed empty hunger decrease and made berries invisible until picked.
 
 new: simp 2 6 50213 "moe_C2toDS_berries" 0 11 5000
 
@@ -67,7 +68,7 @@ scrp 2 8 50213 10
 
 	accg 0
 
-	attr 195
+	attr 211
 
 	elas 10
 
@@ -75,7 +76,7 @@ scrp 2 8 50213 10
 
 	tick rand 50 100
 
-	emit 6 .15
+*emit 6 .15
 
 endm
 
@@ -89,13 +90,17 @@ scrp 2 8 50213 9
 
 
 
-*you don't fall
+*you don't fall (actually yes you do but only on special occasions)
 
-*		doif ov00 ge rand 10 30
+		doif ov00 ge rand 50 100 and accg ne 4
 
-*			accg 4
+			emit 6 .15
 
-*		endi
+			attr 195
+
+			accg 4
+
+		endi
 
 
 
@@ -120,6 +125,10 @@ endm
 
 
 scrp 2 8 50213 5
+
+	emit 6 .15
+
+	attr 195
 
 	accg 4
 
@@ -157,7 +166,7 @@ scrp 2 8 50213 12
 
 *Hunger for Carbs Decrease*
 
-	chem 150 -.31
+*	chem 150 -.31
 
 *Prostaglandin*
 
@@ -194,4 +203,3 @@ scrx 2 8 50213 6
 scrx 2 8 50213 5
 
 scrx 2 8 50213 12
-

@@ -6,6 +6,7 @@
 
 
 *Matthew, "Moe", '10*
+*The one who screams removed empty hunger decrease and shortened lifespan. (Doesn't need invisibility.)
 
 new: simp 2 6 50202 "moe_C2toDS_berries" 0 0 5000
 
@@ -31,15 +32,15 @@ scrp 2 6 50202 9
 
 		doif va00 eq 0
 
-			setv va01 rand 3773 3903
+			setv va01 rand 3790 3890
 
-			setv va02 rand 48324 48398
+			setv va02 rand 48350 48386
 
 		elif va00 eq 1
 
-			setv va01 rand 3702 3840
+			setv va01 rand 3730 3810
 
-			setv va02 rand 48147 48218
+			setv va02 rand 48165 48200
 
 		endi
 
@@ -96,12 +97,13 @@ scrp 2 8 50202 9
 			accg 4
 
 			velo rand -5 5 0
+			setv ov00 0
 
 		endi
 
 
 
-		doif ov00 ge rand 125 150
+		doif ov00 ge rand 5 10 and accg eq 4
 
 			kill targ
 
@@ -131,6 +133,12 @@ endm
 
 scrp 2 8 50202 5
 
+	doif accg ne 4
+
+		setv ov00 0
+
+	endi
+
 	accg 4
 
 endm
@@ -157,15 +165,15 @@ scrp 2 8 50202 12
 
 *Hunger for Fat 50*
 
-	chem 151 -.23
+*chem 151 -.23
 
 *Hunger for Starch 50*
 
-	chem 150 -.19
+*chem 150 -.19
 
 *Hunger for Protein 50*
 
-	chem 149 -.23
+*chem 149 -.23
 
 *Fat* 60
 

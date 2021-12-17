@@ -9,6 +9,8 @@
 *2 19 50202 - Snowflake
 *2 19 50207 - Dust Devil
 
+*The one who screams toned down the scares from thunder and stopped dustdevils from creating mushroom patches.
+
 new: comp 1 9 50200 "moe_C2toDS_Weather" 1 32 9000
 
 attr 34
@@ -321,11 +323,11 @@ scrp 1 9 50200 9
 		adds va00 "C"
 	else
 		mulv va00 100
-		
+
 		setv va00 ftoi va00
-		
+
 		sets va00 vtos va00
-		
+
 		adds va00 "ca"
 	endi
 
@@ -357,7 +359,7 @@ scrp 2 19 50200 10
 
 	elas 0
 
-	rnge 1999
+	rnge 570
 
 	seta ov04 targ
 
@@ -955,7 +957,7 @@ scrp 2 19 50200 1001
 
 		esee 4 0 0
 
-			chem 158 .5
+			chem 158 .1
 
 		next
 
@@ -1636,9 +1638,15 @@ scrp 2 19 50207 9
 
 		andv va04 32
 
+*		to prevent the uprising, don't carry mushrooms
+		doif fmly eq 2 and gnus eq 11 and spcs eq 50209
+
+				setv va05 1
+
+		endi
 
 
-		doif va04 ne 32 and va02 eq 2 and va03 eq 128 and accg gt 0 and carr eq null
+		doif va04 ne 32 and va02 eq 2 and va03 eq 128 and accg gt 0 and carr eq null and va05 ne 1
 
 			doif name "dustdevil" ne 1 and accg ge .1
 

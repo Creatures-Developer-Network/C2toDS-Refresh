@@ -197,11 +197,8 @@ scrp 2 15 50208 5
 
 endm
 
+rscr
 
 enum 2 15 50208
-
 	kill targ
-
 next
-
-

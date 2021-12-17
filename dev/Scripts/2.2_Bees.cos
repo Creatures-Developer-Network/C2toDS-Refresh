@@ -21,10 +21,6 @@ mvsf va00 49675
 
 setv name "type" 1
 
-*Make it interactable and change its category
-bhvr 1
-cato 23
-
 cabn 10 0 60 50
 
 mira rand 0 1
@@ -357,6 +353,12 @@ scrp 2 17 50200 10
 
 		accg 4
 
+		rnge 500
+		
+		bhvr 1
+		
+		cato 23
+
 	endi
 
 	tick 1
@@ -367,91 +369,109 @@ endm
 
 scrp 2 17 50200 9
 
+	doif name "type" eq 1
+
+		esee 2 11 50204
+
+			addv va00 1
+
+		next
+
+		doif va00 ge 10
+
+			attr 732
+
+		else
+
+			attr 716
+
+		endi
+
+	else
+
+		doif time eq 3 or time eq 4 and 0 eq 1
+
+			stop
+
+		endi
 
 
-	doif time eq 3 or time eq 4 and 0 eq 1
 
-		stop
+		doif sean eq 3 and 0 eq 1
 
-	endi
+			stop
 
-
-
-	doif sean eq 3 and 0 eq 1
-
-		stop
-
-	endi
+		endi
 
 
 
-	tick rand 500 700
+		tick rand 500 700
 
 *look for bees
 
-	enum 2 14 50200
+		enum 2 14 50200
 
-		inst
+			inst
 
-		doif targ ne null
+			doif targ ne null
 
 *make sure their hive is you or else you don't want to see them
 
-			doif ov05 eq ownr
+				doif ov05 eq ownr
 
-				addv va00 1
+					addv va00 1
+
+				endi
+
+			endi
+
+			slow
+
+		next
+
+		targ ownr
+
+		doif va00 lt 5
+
+			setv va00 posx
+
+			setv va01 posy
+
+			inst
+
+			new: simp 2 14 50200 "moe_C2toDS_hive" 4 26 rand 2000 5000
+
+			seta ov05 ownr
+
+			mvsf va00 va01
+
+			slow
+
+			targ ownr
+
+		endi
+
+*ov08 is honey, which dictates your size.
+
+		doif name "type" eq 0
+
+			doif ov08 ge 50 and ov08 lt 51
+
+				base 6
+
+			elif ov08 ge 100 and ov08 lt 101
+
+				base 12
+
+			elif ov08 ge 150 and ov08 lt 151
+
+				base 18
 
 			endi
 
 		endi
 
-		slow
-
-	next
-
-	targ ownr
-
-	doif va00 lt 5
-
-		setv va00 posx
-
-		setv va01 posy
-
-		inst
-
-		new: simp 2 14 50200 "moe_C2toDS_hive" 4 26 rand 2000 5000
-
-		seta ov05 ownr
-
-		mvsf va00 va01
-
-		slow
-
-		targ ownr
-
 	endi
-
-*ov08 is honey, which dictates your size.
-
-	doif name "type" eq 0
-
-		doif ov08 ge 50 and ov08 lt 51
-
-			base 6
-
-		elif ov08 ge 100 and ov08 lt 101
-
-			base 12
-
-		elif ov08 ge 150 and ov08 lt 151
-
-			base 18
-
-		endi
-
-	endi
-
-
 
 endm
 

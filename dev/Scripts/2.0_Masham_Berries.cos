@@ -4,6 +4,7 @@
 
 
 *Matthew, "Moe", '10*
+*The one who screams removed empty hunger decrease and made berries invisible until picked.
 
 new: simp 2 6 50212 "moe_C2toDS_berries" 0 0 5000
 
@@ -41,13 +42,13 @@ scrp 2 6 50212 9
 
 		perm 55
 
-		bhvr 49
+		bhvr 48
 
 		mvsf va01 va02
 
 		accg 0
 
-		attr 195
+		attr 211
 
 		elas 10
 
@@ -63,7 +64,7 @@ endm
 
 scrp 2 8 50212 10
 
-	emit 6 .15
+*emit 6 .15
 
 endm
 
@@ -75,17 +76,23 @@ scrp 2 8 50212 9
 
 		addv ov00 1
 
-		doif ov00 ge rand 10 50 and accg ne 4
+		doif ov00 ge rand 20 40 and accg ne 6
 
-			accg 4
+				accg 6
+
+	attr 195
+
+	emit 6 .15
 
 			velo rand -5 5 0
+
+			setv ov00 0
 
 		endi
 
 
 
-		doif ov00 ge rand 125 150
+		doif ov00 ge rand 10 20 and accg eq 6
 
 			kill targ
 
@@ -111,15 +118,18 @@ scrp 2 8 50212 4
 
 endm
 
-
-
 scrp 2 8 50212 5
 
-	accg 6
+	doif accg ne 6
+		setv ov00 0
+	endi
+		accg 6
+
+	attr 195
+
+	emit 6 .15
 
 endm
-
-
 
 scrp 2 8 50212 6
 
@@ -141,15 +151,15 @@ scrp 2 8 50212 12
 
 *Hunger for Fat *
 
-	chem 151 -.31
+*chem 151 -.31
 
 *Hunger for Starch *
 
-	chem 150 -.39
+*chem 150 -.39
 
 *Hunger for Protein *
 
-	chem 149 -.27
+*chem 149 -.27
 
 *Fat* 80
 
@@ -170,7 +180,6 @@ scrp 2 8 50212 12
 	kill targ
 
 endm
-
 
 rscr
 

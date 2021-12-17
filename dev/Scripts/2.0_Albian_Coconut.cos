@@ -6,7 +6,7 @@
 * 2 10 50214 - Coconut Detritus
 
 *Matthew, "Moe", '10*
-* Some Modifications By the one who screams i guess
+* Some Modifications By the one who screams i guess (instinct friendliness, removed empty hunger decrease)
 * (if you worked on this file, feel free to add your name!)
 
 
@@ -432,11 +432,11 @@ scrp 2 8 50217 12
 
 	targ from
 
-	chem 151 -.31
+*	chem 151 -.31
 
-	chem 150 -.39
+*	chem 150 -.39
 
-	chem 149 -.27
+*	chem 149 -.27
 
 *	chem 10 .31
 

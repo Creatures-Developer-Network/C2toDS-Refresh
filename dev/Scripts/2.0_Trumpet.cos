@@ -5,6 +5,7 @@
 * 2 23 50203 - Trumpet Vendor
 
 * Verm here, making detritus edible/toxic friendly!
+* The one who screams made dormant seeds invisible to creatures and made them stop emitting smell
 
 reps rand 5 7
 
@@ -180,9 +181,9 @@ scrp 2 3 50203 12
 
 	targ from
 
-	chem 5 .19
+	*chem 5 .19
 
-	chem 10 .19
+	*chem 10 .19
 
 	snde "chwp"
 
@@ -393,16 +394,19 @@ scrp 2 3 50203 9
 
 			doif sean ne 3 or rand 0 3 eq 0
 
-			    kill ownr
+				kill ownr
 
-            endi
+			endi
 		else
 
 			show 0
 
+*stop smelling when dormant pls -t1ws
+			emit 7 0
+
 			bhvr 0
 
-			attr 193
+			attr 209
 
 			tick rand 1000 1600
 
@@ -1202,7 +1206,7 @@ endm
 
 
 scrp 2 10 50203 9
-inst
+	inst
 	doif carr eq null
 
 		altr -1 2 .005
@@ -1224,7 +1228,7 @@ endm
 
 
 scrp 2 10 50203 12
-inst
+	inst
 	lock
 
 	stim writ from 81 1
