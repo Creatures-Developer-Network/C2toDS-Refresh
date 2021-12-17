@@ -5,7 +5,7 @@
 * 2 23 50206 - Spinnomosa Seed Launcher
 
 *Likes warm, desert conditions, grows all year round (except winter) in the mornings, produces flowers at night. 
-
+*The one who screams stopped dormant seeds emitting a smell.
 
 new: comp 2 23 50206 "moe_C2toDS_cacti" 8 72 rand 1000 2500
 
@@ -22,7 +22,7 @@ mvsf 7770 47950
 reps rand 7 9
 
 	new: simp 2 5 50206 "moe_C2toDS_cacti" 20 0 rand 1000 2500
-	
+
 	bhvr 11
 
 	pose 9
@@ -42,7 +42,7 @@ repe
 reps rand 5 7
 
 	new: simp 2 5 50206 "moe_C2toDS_cacti" 20 0 rand 1000 2500
-	
+
 	bhvr 11
 
 	pose 9
@@ -64,7 +64,7 @@ scrp 2 23 50206 10
 
 	elas 10
 
-*BHVR
+	bhvr 9
 
 	fric 65
 
@@ -116,7 +116,7 @@ endm
 
 scrp 2 23 50206 1
 
-stim writ from 90 1
+	stim writ from 90 1
 
 	reps rand 5 7
 
@@ -155,6 +155,17 @@ stim writ from 90 1
 	retn
 
 
+
+endm
+
+
+scrp 2 23 50206 3
+
+	stim writ from 92 1
+
+	snde "hit_"
+
+	velo rand -2 2 rand -10 -5
 
 endm
 
@@ -259,7 +270,7 @@ scrp 2 3 50206 9
 *Create Spinnomosa
 
 			new: simp 2 5 50206 "moe_C2toDS_cacti" 20 0 rand 1000 2500
-			
+
 			bhvr 11
 
 			doif va02 eq 1
@@ -322,6 +333,9 @@ scrp 2 3 50206 9
 
 			bhvr 0
 
+*Stop emitting carb smell so you don't confuse creatures. -T1WS
+			emit 7 0
+
 			attr 209
 
 			tick 1200
@@ -342,11 +356,11 @@ scrp 2 3 50206 9
 
 * Removing Wind Interaction
 
-	*	setv va00 lorp grap posx posy 19 0
+*	setv va00 lorp grap posx posy 19 0
 
 
 
-	*	setv va01 torx va00
+*	setv va01 torx va00
 
 
 * make wind random instead
@@ -509,11 +523,11 @@ endm
 
 
 scrp 2 5 50206 1
-inst
+	inst
 *stim norns
-	targ from 
+	targ from
 	doif fmly eq 4
-	
+
 		stim writ from 83 1
 	endi
 	targ ownr
@@ -562,11 +576,11 @@ inst
 endm
 
 scrp 2 5 50206 2
-inst
+	inst
 *stim norns
-	targ from 
+	targ from
 	doif fmly eq 4
-	
+
 		stim writ from 83 1
 	endi
 	targ ownr
@@ -582,11 +596,11 @@ inst
 endm
 
 scrp 2 5 50206 3
-inst
+	inst
 *stim norns
-	targ from 
+	targ from
 	doif fmly eq 4
-	
+
 		stim writ from 83 1
 	endi
 	targ ownr
@@ -689,6 +703,8 @@ enum 2 23 50206
 next
 
 scrx 2 23 50206 1
+
+scrx 2 23 50206 3
 
 
 

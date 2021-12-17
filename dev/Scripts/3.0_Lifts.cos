@@ -474,6 +474,8 @@ scrp 3 1 50200 10
 
 	cabp 0
 
+	seta ov05 null
+
 *cabin can't hold more than 40 creatures
 
 	cabw 40
@@ -1546,6 +1548,7 @@ endm
 scrp 3 1 50200 1
 	lock
 	inst
+	seta ov05 from
 	gsub movelift
 
 	subr movelift
@@ -1575,6 +1578,7 @@ endm
 scrp 3 1 50200 2
 	lock
 	inst
+	seta ov05 from
 	gsub movelift
 
 	subr movelift
@@ -1677,7 +1681,21 @@ scrp 3 1 50200 9
 
 		doif posb lt va01
 
-			gpas 4 0 0 0
+			doif crea ov05 eq 1
+
+				doif touc ownr ov05 eq 1
+
+					spas ownr ov05
+
+				endi
+
+			else
+
+				gpas 4 0 0 0
+
+			endi
+
+			seta ov05 null
 
 			doif ov04 eq 1
 
@@ -1705,7 +1723,21 @@ scrp 3 1 50200 9
 
 		elif posb gt va01
 
-			gpas 4 0 0 0
+			doif crea ov05 eq 1
+
+				doif touc ownr ov05 eq 1
+
+					spas ownr ov05
+
+				endi
+
+			else
+
+				gpas 4 0 0 0
+
+			endi
+
+			seta ov05 null
 
 			doif ov04 eq 1
 
@@ -1898,6 +1930,8 @@ scrp 2 12 50200 2
 
 		targ ov00
 
+		seta ov05 from
+
 		doif vtos name "current level" ne mv01
 
 			adds name "call list" mv01
@@ -1959,6 +1993,8 @@ scrp 2 12 50200 1
 		inst
 
 		targ ov00
+
+		seta ov05 from
 
 		doif vtos name "current level" ne mv01
 

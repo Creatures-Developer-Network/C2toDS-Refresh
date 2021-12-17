@@ -6,6 +6,8 @@
 
 * Verm here just to check things...they already got the basics covered.
 * Aiko here to fix the weird seed attr drama
+* Scream here stopping dormant seeds from emitting carb smell 
+* and letting creatures eat pears directly off the plant.
 
 new: comp 2 23 50204 "moe_C2toDS_pear" 8 0 rand 500 2500
 
@@ -356,27 +358,30 @@ scrp 2 3 50204 9
 			show 0
 
 			bhvr 0
-			
+
+*stop smelling when dormant pls
+			emit 7 0
+
 * this attr change was throwing errors if the seed somehow ended up 
 * ouside the room system...
 * Why the seeds were ending up outside the room system in the first place
 * might still need to be addressed.
 			targ ownr
-			
+
 			inst
 
-			*this is so rare I can't seem to reproduce it but I'm
-			* going to hope this works.
+*this is so rare I can't seem to reproduce it but I'm
+* going to hope this works.
 			doif tmvt posl post eq 0
-			
+
 				kill ownr
-				
+
 				stop
-			
+
 			endi
 
 			attr 209
-			
+
 			slow
 
 		endi
@@ -713,7 +718,7 @@ scrp 2 7 50204 9
 
 			attr 231
 
-			bhvr 32
+			bhvr 48
 
 		endi
 
@@ -725,7 +730,7 @@ scrp 2 7 50204 9
 
 			attr 231
 
-			bhvr 32
+			bhvr 48
 
 		endi
 
@@ -737,7 +742,7 @@ scrp 2 7 50204 9
 
 			attr 231
 
-			bhvr 32
+			bhvr 48
 
 		endi
 
@@ -1425,7 +1430,7 @@ endm
 
 
 scrp 2 10 50204 12
-inst
+	inst
 ** oh hey they already made this - Verm
 	stim writ from 81 1
 

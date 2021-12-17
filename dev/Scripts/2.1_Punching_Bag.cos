@@ -69,11 +69,15 @@ scrp 2 21 50203 1
 
 *Added pointer smack animations to fit the direction hit. -- Moe 
 
-		targ pntr
+		doif from eq pntr
 
-		anim [4 4 5 5 0]
+			targ pntr
+
+			anim [4 4 5 5 0]
 
 		targ ownr
+		
+		endi
 
 		anim [10 11 12 13 14 15 16 17 0]
 
@@ -82,12 +86,16 @@ scrp 2 21 50203 1
 		wait 20
 
 	else
+	
+	doif from eq pntr
 
 		targ pntr
 
 		anim [10 10 11 11 12 12 0]
 
 		targ ownr
+		
+		endi
 
 		anim [1 2 3 4 5 6 7 8 9 0]
 
@@ -208,8 +216,6 @@ enum 2 21 50203
 	kill targ
 
 next
-
-
 
 
 

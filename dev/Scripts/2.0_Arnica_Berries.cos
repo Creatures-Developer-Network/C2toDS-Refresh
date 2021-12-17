@@ -4,6 +4,8 @@
 * 2 8 50208 - Arnica Berry
 
 *Matthew, "Moe", '10*
+*The one who screams removed empty hunger decreases, made berries invisible until picked,
+*and stopped berries from dying on the vine.
 
 new: simp 2 6 50208 "moe_C2toDS_berries" 0 0 5000
 
@@ -65,7 +67,7 @@ scrp 2 8 50208 10
 
 	bhvr 48
 
-	attr 195
+	attr 211
 
 	elas 10
 
@@ -73,7 +75,7 @@ scrp 2 8 50208 10
 
 	tick rand 500 1000
 
-	emit 6 .15
+*emit 6 .15
 
 	wait 1
 
@@ -97,17 +99,24 @@ scrp 2 8 50208 9
 
 		addv ov00 1
 
-		doif ov00 ge rand 10 50 and ov01 eq 1
+		doif ov01 eq 1
 
-			accg 4
+			doif ov00 ge rand 30 50
 
-			velo rand -5 5 0
+				accg 4
 
-		endi
+				attr 195
 
+				emit 6 .15
 
+				velo rand -5 5 0
 
-		doif ov00 ge rand 3 5
+				setv ov01 0
+
+				setv ov00 0
+			endi
+
+		elif ov00 ge rand 3 5
 
 			kill targ
 
@@ -138,6 +147,10 @@ endm
 scrp 2 8 50208 5
 
 	accg 4
+
+	attr 195
+
+	emit 6 .15
 
 endm
 
@@ -175,7 +188,7 @@ scrp 2 8 50208 12
 
 *Hunger for carbs Decrease*
 
-	chem 150 -.19
+*chem 150 -.19
 
 	targ ownr
 

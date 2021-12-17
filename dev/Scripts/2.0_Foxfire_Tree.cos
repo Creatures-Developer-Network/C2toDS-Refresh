@@ -5,6 +5,8 @@
 * 2 8 50209 - Foxfire Berry
 * 2 8 50210 - Winter Foxfire Berry
 
+*The one who screams made the berries invisible while still on the tree.
+
 new: simp 2 6 50209 "moe_C2toDS_humming" 1 59 0
 
 mvto 4677 48422
@@ -277,13 +279,13 @@ scrp 2 8 50209 10
 
 	fric 45
 
-	attr 195
+	attr 211
 
 	tick 500
 
 	bhvr 51
 
-	emit 6 .15
+*	emit 6 .15
 
 endm
 
@@ -301,13 +303,13 @@ scrp 2 8 50210 10
 
 	fric 45
 
-	attr 195
+	attr 211
 
 	tick 500
 
 	bhvr 51
 
-	emit 6 .15
+*	emit 6 .15
 
 endm
 
@@ -319,7 +321,11 @@ endm
 
 scrp 2 8 50209 4
 
+	attr 195
+
 	accg 5
+
+	emit 6 .15
 
 endm
 
@@ -327,7 +333,11 @@ endm
 
 scrp 2 8 50210 4
 
+	attr 195
+
 	accg 5
+
+	emit 6 .15
 
 endm
 
@@ -461,7 +471,11 @@ scrp 2 8 50209 9
 
 	doif accg eq 0
 
+		attr 195
+
 		accg 5
+
+		emit 6 .15
 
 		tick 5000
 
@@ -485,7 +499,11 @@ scrp 2 8 50210 9
 
 	doif accg eq 0
 
+		attr 195
+
 		accg 5
+
+		emit 6 .15
 
 		tick 5000
 
@@ -546,7 +564,3 @@ enum 1 26 50210
 	kill targ
 
 next
-
-
-
-

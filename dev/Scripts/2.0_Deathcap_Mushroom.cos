@@ -5,6 +5,7 @@
 
 * Verm here, to make the detritus edible/toxic friendly! And I guess generally a bit too...
 * Aiko fixed some syntax weirdnesses
+* The one who screams made spores invisible to creatures
 
 reps rand 1 2
 
@@ -67,7 +68,7 @@ repe
 
 scrp 2 3 50218 10
 
-	attr 198
+	attr 214
 
 	elas 0
 
@@ -86,7 +87,7 @@ endm
 
 
 scrp 2 3 50218 12
-inst
+	inst
 	stim writ from 77 0.7
 	snde "reat"
 
@@ -372,7 +373,7 @@ scrp 2 10 50207 10
 	aero 2
 
 	attr 194
-	
+
 	bhvr 48
 
 	tick rand 500 1000
@@ -510,36 +511,36 @@ endm
 * Deathcap detritus timer script
 
 scrp 2 10 50207 9
-inst
-doif carr eq null
-	doif pose lt 2
+	inst
+	doif carr eq null
+		doif pose lt 2
 
-		setv va00 pose
+			setv va00 pose
 
-		addv va00 1
+			addv va00 1
 
-		pose va00
+			pose va00
 
+		endi
+
+		doif pose eq 2
+
+			kill ownr
+
+		endi
 	endi
-
-	doif pose eq 2
-
-		kill ownr
-
-	endi
-endi
 endm
 
 * Deathcap detritus eat script
 scrp 2 10 50207 12
-inst
-stim writ from 81 1
+	inst
+	stim writ from 81 1
 endm
 * Deathcap top timer script
 
 scrp 2 20 50200 9
-inst
-attr 208
+	inst
+	attr 208
 	wait rand 2000 5000
 
 	kill ownr
@@ -551,10 +552,10 @@ endm
 * Deathcap top eat script
 
 scrp 2 20 50200 12
-inst
+	inst
 * Insert nasty chemicals here! 
 ** I'm just goign to stim writ a good amount of detritus - Verm
-	
+
 	stim writ from 81 1.5
 	stim writ from 82 0
 	attr 208
@@ -606,4 +607,3 @@ scrx 2 20 50200 10
 scrx 2 20 50200 9
 
 scrx 2 20 50200 12
-
