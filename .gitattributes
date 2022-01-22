@@ -4,3 +4,14 @@
 # Explicitly declare text files you want to always be normalized and converted
 # to native line endings on checkout.
 *.cos text eol=crlf
+*.att text eol=crlf
+*.catalogue text eol=crlf
+*.ps text eol=crlf
+
+*.blk binary
+*.c16 binary
+*.s16 binary
+*.spr binary
+*.agents binary
+*.agent binary
+*.cob binary
