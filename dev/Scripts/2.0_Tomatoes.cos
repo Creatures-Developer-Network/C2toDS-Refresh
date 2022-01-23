@@ -634,6 +634,7 @@ scrp 2 8 50200 9
 		endi
 
 
+		inst
 
 		esee 2 4 50200
 *don't factor old dying plants in the population check pls -t1ws
@@ -644,6 +645,8 @@ scrp 2 8 50200 9
 			endi
 
 		next
+
+		slow
 
 		targ ownr
 
