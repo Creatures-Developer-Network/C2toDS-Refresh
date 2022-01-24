@@ -27,7 +27,7 @@ attr 20
 
 setv ov00 1
 
-mvsf 2380 48200
+mvto 2380 48195
 
 cato 35
 
@@ -161,18 +161,18 @@ scrp 3 1 50203 1001
 			anim [2 1 0]
 
 			targ ownr
+			doif post lt 48195
+				loop
 
-			loop
+					addv vely 0.5
 
-				addv vely -1
+					wait 1
+					epas 4 0 0
+						stim writ targ 75 1
+					next
 
-				wait 1
-				epas 4 0 0
-					stim writ targ 75 1
-				next
-
-			untl posy ge 48200
-
+				untl post ge 48195
+			endi
 			setv vely 0
 
 			inst
@@ -228,17 +228,16 @@ scrp 3 1 50203 1001
 			anim [2 1 0]
 
 			targ ownr
+			doif post lt 48195
+				loop
+					addv vely 0.5
 
-			loop
-
-				addv vely -1
-
-				wait 1
-				epas 4 0 0
-					stim writ targ 75 1
-				next
-			untl posy ge 48200
-
+					wait 1
+					epas 4 0 0
+						stim writ targ 75 1
+					next
+				untl post ge 48195
+			endi
 			setv vely 0
 
 			inst
