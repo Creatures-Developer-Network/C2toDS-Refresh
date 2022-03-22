@@ -177,6 +177,8 @@ scrp 1 7 20201 9
 
 	setv va22 game "C2toDSWrapLeft"
 
+	addv va22 game "CamWidth"
+
 	subv va22 va00
 
 *Set first X Right
