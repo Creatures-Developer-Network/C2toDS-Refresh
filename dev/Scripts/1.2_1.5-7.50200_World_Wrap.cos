@@ -2,6 +2,8 @@
 *1	5	50200	World Wrap Camera
 *1	6	50200	World Wrap Grabber
 *1	7	50200	Mouse Pointer Tracker
+*1  7   20201   Window Resize Camera Builder
+
 
 
 *CA links for the "wrap" rooms.*
@@ -32,8 +34,6 @@ link grap 2070 49340 grap 10375 49340 100
 
 link grap 12950 47678 grap 4890 48110 100
 
-
-
 *Set the game variables for easy reference.*
 
 setv game "C2toDSTop" 47600
@@ -42,11 +42,17 @@ setv game "C2toDSBottom" 49999
 
 setv game "C2toDSLeft" 0
 
-setv game "CtoDSRight" 12448
+setv game "C2toDSRight" 12448
 
 setv game "C2toDSRoomID" gmap 6753 48383
 
+setv game "C2toDSWrapLeft" 2047
 
+setv game "C2toDSWrapRight" 10399
+
+* Wrap padding determines how many panels are pushed back onto the actual non-wrapped part of the world
+
+setv game "C2toDSWrapPadding" 1
 
 
 
@@ -60,314 +66,16 @@ setv game "C2toDSRoomID" gmap 6753 48383
 
 
 
-*Begin counter for injecting Cameras*
-
-setv va03 0
-
-setv va04 game "C2toDSTop"
-
-subv va04 299
 
 *Set up camera heights and widths for easy change -This was mainly for Development.*
 
 *They are 400 wide, 300 high.  This helps for 800x600 displays, the minimum size for Creatures.*
 
-setv game "Camwidth" 400
+setv game "CamWidth" 400
 
-setv game "Camheight" 300
+setv game "CamHeight" 300
 
 *----------------------------------------------------------------------------------*
-
-*----------------------------------*
-
-
-
-*-Inject the Cameras and Wrap Pieces-*
-
-loop
-
-	addv va04 299
-
-	addv va03 1
-
-
-
-*DS used a surprise Genus classifier for it's Icons, 1 4 *, and who knows what else!! 
-
-*So just to be on the safe side for these non-interactable pieces, let's start at Genus 10*
-
-
-
-	new: comp 1 5 50200 "moe_C2toDS_camera" 1 1 1
-
-	pat: cmra 1 "moe_C2toDS_camera" 1 0 0 0 game "Camwidth" game "Camheight" game "Camwidth" game "Camheight"
-
-	attr 0
-
-	accg 0
-
-	fric 100
-
-	aero 0
-
-	mvto 10399 va04
-
-	scam targ 1
-
-	setv va00 10399
-
-	subv va00 8352
-
-	cmra va00 va04 0
-
-	setv ov00 va00
-
-	setv ov04 va04
-
-	tick 100
-
-
-
-	new: comp 1 5 50200 "moe_C2toDS_camera" 1 1 1
-
-	pat: cmra 1 "moe_C2toDS_camera" 1 0 0 0 game "Camwidth" game "Camheight" game "Camwidth" game "Camheight"
-
-	attr 0
-
-	accg 0
-
-	fric 100
-
-	aero 0
-
-	mvto 10799 va04
-
-	scam targ 1
-
-	setv va00 10799
-
-	subv va00 8352
-
-	cmra va00 va04 0
-
-	setv ov00 va00
-
-	setv ov04 va04
-
-	tick 100
-
-
-
-*right side to show left side
-
-	new: comp 1 5 50200 "moe_C2toDS_camera" 1 1 1
-
-	pat: cmra 1 "moe_C2toDS_camera" 1 0 0 0 game "Camwidth" game "Camheight" game "Camwidth" game "Camheight"
-
-	attr 0
-
-	accg 0
-
-	fric 100
-
-	aero 0
-
-	mvto 10000 va04
-
-	scam targ 1
-
-	setv va00 10000
-
-	subv va00 8352
-
-	cmra va00 va04 0
-
-	setv ov00 va00
-
-	setv ov04 va04
-
-	tick 100
-
-
-
-*left side to show right side
-
-	new: comp 1 5 50200 "moe_C2toDS_camera" 1 1 1
-
-	pat: cmra 1 "moe_C2toDS_camera" 1 0 0 0 game "Camwidth" game "Camheight" game "Camwidth" game "Camheight"
-
-	attr 0
-
-	accg 0
-
-	fric 100
-
-	aero 0
-
-	mvto 2048 va04
-
-	scam targ 1
-
-	setv va00 2048
-
-	addv va00 8352
-
-	cmra va00 va04 0
-
-	setv ov00 va00
-
-	setv ov04 va04
-
-	tick 100
-
-
-
-
-
-	new: comp 1 5 50200 "moe_C2toDS_camera" 1 1 1
-
-	pat: cmra 1 "moe_C2toDS_camera" 1 0 0 0 game "Camwidth" game "Camheight" game "Camwidth" game "Camheight"
-
-	attr 0
-
-	accg 0
-
-	fric 100
-
-	aero 0
-
-	mvto 11199 va04
-
-	scam targ 1
-
-	setv va00 11199
-
-	subv va00 8352
-
-	cmra va00 va04 0
-
-	setv ov00 va00
-
-	setv ov04 va04
-
-	tick 100
-
-
-
-	new: comp 1 5 50200 "moe_C2toDS_camera" 1 1 1
-
-	pat: cmra 1 "moe_C2toDS_camera" 1 0 0 0 game "Camwidth" game "Camheight" game "Camwidth" game "Camheight"
-
-	attr 0
-
-	accg 0
-
-	fric 100
-
-	aero 0
-
-	mvto 1648 va04
-
-	scam targ 1
-
-	setv va00 1648
-
-	addv va00 8352
-
-	cmra va00 va04 0
-
-	setv ov00 va00
-
-	setv ov04 va04
-
-	tick 100
-
-
-
-	new: comp 1 5 50200 "moe_C2toDS_camera" 1 1 1
-
-	pat: cmra 1 "moe_C2toDS_camera" 1 0 0 0 game "Camwidth" game "Camheight" game "Camwidth" game "Camheight"
-
-	attr 0
-
-	accg 0
-
-	fric 100
-
-	aero 0
-
-	mvto 1248 va04
-
-	scam targ 1
-
-	setv va00 1248
-
-	addv va00 8352
-
-	cmra va00 va04 0
-
-	setv ov00 va00
-
-	setv ov04 va04
-
-	tick 100
-
-
-
-
-
-
-
-*----------*
-
-
-
-*Right Side Grabber
-
-	new: simp 1 6 50200 "moe_C2toDS_Camera" 1 1 1
-
-	attr 0
-
-	accg 0
-
-	tick 9.75
-
-	fric 100
-
-	aero 0
-
-	mvto 10400 va04
-
-*I Am on the right of the world, in the 100000 range*
-
-	sets name "WhichWrapPieceAmI?" "Right"
-
-
-
-*Left Side Grabber
-
-	new: simp 1 6 50200 "moe_C2toDS_Camera" 1 1 1
-
-	attr 0
-
-	accg 0
-
-	tick 9.75
-
-	fric 100
-
-	aero 0
-
-	mvto 1647 va04
-
-	sets name "WhichWrapPieceAmI?" "Left"
-
-untl va03 eq 8
-
-
-
-*----END INJECT CAMERAS AND WRAP PIECES----*
-
 
 
 *mouse pointer tracker
@@ -383,6 +91,310 @@ tick 1
 fric 100
 
 aero 0
+
+
+*----------------------------------*
+
+* Window resize watcher/ camera builder
+
+new: simp 1 7 20201 "blnk" 1 0 0
+
+attr 16
+
+* Delay init or right side panels will not be created properly
+
+tick 40
+
+*----------------------------------*
+
+*-Inject the Cameras and Wrap Pieces-*
+
+scrp 1 7 20201 123
+	tick 80
+endm
+
+
+scrp 1 7 20201 9
+
+	inst
+
+	lock
+
+	doif wndw eq name "CamWidth::last"
+
+		tick 0
+
+		unlk
+
+		stop
+
+	endi
+
+	setv name "CamWidth::last" wndw
+
+* Kill existing wrap cameras and grabbers
+
+	enum 1 5 50200
+		kill targ
+	next
+
+	enum 1 6 50200
+		kill targ
+	next
+
+*Calculate panels wide
+
+	setv va00 wndw
+
+	setv va11 va00
+
+	divv va11 game "CamWidth"
+
+	addv va11 game "C2toDSWrapPadding"
+
+	setv va12 va00
+
+	modv va12 game "CamWidth"
+
+	doif va12 gt 0
+
+		addv va11 1
+
+	endi
+
+
+*Begin counter for injecting Cameras*
+
+	setv va03 0
+
+*Set first Y
+
+	setv va04 game "C2toDSTop"
+
+	subv va04 299
+
+*Set first X Left
+
+	setv va22 game "C2toDSWrapLeft"
+
+	addv va22 game "CamWidth"
+
+	subv va22 va00
+
+*Set first X Right
+
+	setv va23 game "C2toDSWrapRight"
+
+	setv va15 100
+
+	loop
+
+		addv va04 299
+
+		addv va03 1
+
+*Offset the wrap onto the non-wrapped part of the world
+
+		setv va10 game "C2toDSWrapPadding"
+
+		negv va10
+
+		reps va11
+
+
+*left side to show right side
+
+*Calculate left side camera x-position
+
+			setv va12 va10
+
+			mulv va12 game "CamWidth"
+
+			addv va12 va22
+
+			setv va14 game "CamWidth"
+
+			doif va12 lt 0
+
+				addv va14 va12
+
+*Ensure that camera has width and can be placed at zero
+
+				doif va14 gt 20
+
+					setv va12 0
+
+				endi
+
+			endi
+
+*Calculate left side camera view x-position
+
+			setv va13 va12
+
+			addv va13 8352
+
+
+*Make sure left side camera is in bounds
+
+			doif va12 >= 0
+
+*DS used a surprise Genus classifier for it's Icons, 1 4 *, and who knows what else!!
+
+*So just to be on the safe side for these non-interactable pieces, let's start at Genus 10*
+
+				new: comp 1 5 50200 "moe_C2toDS_camera" 1 1 1
+
+				pat: cmra 1 "moe_C2toDS_camera" 1 0 0 0 va14 game "CamHeight" va14 game "CamHeight"
+
+				attr 0
+
+				accg 0
+
+				fric 100
+
+				aero 0
+
+				mvto va12 va04
+
+				scam targ 1
+
+				cmra va13 va04 0
+
+				setv ov00 va13
+
+				setv ov04 va04
+
+				tick 100
+
+			endi
+
+
+*Left Side Grabber
+
+			new: simp 1 6 50200 "moe_C2toDS_Camera" 1 1 1
+
+			attr 0
+
+			accg 0
+
+			tick 9.75
+
+			fric 100
+
+			aero 0
+
+			mvto va12 va04
+
+*I Am on the right of the world, in the 10000 range*
+
+			sets name "WhichWrapPieceAmI?" "Left"
+
+
+
+*right side to show left side
+
+*Calculate right side camera agent x
+
+			setv va12 va10
+
+			mulv va12 game "CamWidth"
+
+			addv va12 va23
+
+*Calculate camera position focus x
+
+			setv va13 va12
+
+			subv va13 8352
+
+*Make sure camera is still in bounds
+
+			setv va14 va12
+
+			addv va14 game "CamWidth"
+
+			doif va14 gt game "C2toDSRight"
+
+				setv va15 va14
+
+				subv va15 game "C2toDSRight"
+
+			else
+
+				setv va15 game "CamWidth"
+
+			endi
+
+			setv va14 va12
+
+			addv va14 va15
+
+
+			doif va15 gt 20 and va14 le game "C2toDSRight"
+
+				new: comp 1 5 50200 "moe_C2toDS_camera" 1 1 1
+
+				pat: cmra 1 "moe_C2toDS_camera" 1 0 0 0 va15 game "CamHeight" va15 game "CamHeight"
+
+				attr 0
+
+				accg 0
+
+				fric 100
+
+				aero 0
+
+				mvto va12 va04
+
+				scam targ 1
+
+				cmra va13 va04 0
+
+				setv ov00 va13
+
+				setv ov04 va04
+
+				tick 100
+
+			endi
+
+*----------*
+
+*Right Side Grabber
+
+				new: simp 1 6 50200 "moe_C2toDS_Camera" 1 1 1
+
+				attr 0
+
+				accg 0
+
+				tick 9.75
+
+				fric 100
+
+				aero 0
+
+				mvto va12 va04
+
+				sets name "WhichWrapPieceAmI?" "Right"
+
+*Increment X-wide
+
+				addv va10 1
+
+		repe
+
+	untl va03 eq 8
+
+	unlk
+
+endm
+
+
+
+*----END INJECT CAMERAS AND WRAP PIECES----*
+
 
 
 *This might be the cause of a mild performance hit, but it keeps the cameras from blacking out.*
@@ -615,12 +627,17 @@ next
 
 
 
+scrx 1 5 50200 9
+
+scrx 1 5 50200 128
+
+scrx 1 6 50200 9
 
 scrx 1 7 50200 9
 
-scrx 1 5 50200 9
+scrx 1 7 50201 9
 
-scrx 1 6 50200 9
+scrx 1 7 50201 123
 
 
 *Remove "wrap" room links*
