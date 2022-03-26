@@ -1,11 +1,13 @@
 *Manure is 2 10 50209
 *Nutrient Bits is 1 23 50201
 
+* Aiko made these invisible to creatures even though there's no point really
+
 *Norn Burrow Nutrients
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -21,7 +23,7 @@ mvsf 6970 48275
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -37,7 +39,7 @@ mvsf 7140 48275
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -53,7 +55,7 @@ mvsf 7263 48275
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -73,7 +75,7 @@ mvsf 7310 48275
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -89,7 +91,7 @@ mvsf 6970 47800
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -105,7 +107,7 @@ mvsf 7140 47800
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -127,7 +129,7 @@ mvsf 7310 47800
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -149,7 +151,7 @@ mvsf 6080 48455
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -165,7 +167,7 @@ mvsf 6420 49510
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -181,7 +183,7 @@ mvsf 6128 49639
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -203,7 +205,7 @@ mvsf 5370 49639
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -221,7 +223,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -245,7 +247,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -263,7 +265,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -281,7 +283,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -301,7 +303,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -321,7 +323,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -339,7 +341,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -357,7 +359,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -375,7 +377,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -393,7 +395,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -411,7 +413,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -435,7 +437,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -453,7 +455,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -471,7 +473,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -493,7 +495,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -511,7 +513,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -531,7 +533,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -549,7 +551,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -569,7 +571,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -587,7 +589,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -609,7 +611,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -631,7 +633,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -651,7 +653,7 @@ mesg writ targ 0
 
 new: simp 2 10 50209 "moe_C2toDS_manure" 15 1 1000
 
-attr 199
+attr 215
 
 elas 0
 
@@ -670,7 +672,7 @@ scrp 2 10 50209 1
 
 	lock
 
-	attr 195
+	attr 211
 
 
 

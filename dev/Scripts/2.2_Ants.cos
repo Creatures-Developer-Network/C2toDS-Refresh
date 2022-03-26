@@ -143,6 +143,8 @@ endm
 scrp 2 17 50205 10
 
 	lock
+	
+	attr 16
 
 	doif pose lt 3
 
@@ -153,6 +155,8 @@ scrp 2 17 50205 10
 		over
 
 	endi
+	
+	bhvr 11
 
 	attr 197
 
@@ -165,8 +169,6 @@ scrp 2 17 50205 10
 	perm 51
 
 	tick rand 50 50
-
-	bhvr 11
 
 	unlk
 
@@ -284,7 +286,7 @@ scrp 2 17 50205 2
 		stim writ from 86 1
 	endi
 	
-	mesg writ ownr 1
+	mesg writ ownr 0
 	
 endm
 
@@ -294,7 +296,7 @@ scrp 2 17 50205 3
 		stim writ from 87 1
 	endi
 	
-	mesg writ ownr 1
+	mesg writ ownr 0
 	
 endm
 

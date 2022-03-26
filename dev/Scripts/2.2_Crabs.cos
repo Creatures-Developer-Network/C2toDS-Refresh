@@ -1,6 +1,6 @@
 
 * 2 10 50215 - Crab Detritus
-* 2 16 50201 - Crab
+* 2 13 50211 - Crab
 * 2 18 50201 - Crab Egg
 * 2 23 50215 - Crab Maker
 
@@ -21,7 +21,7 @@ mvsf 8585 48920
 
 reps 2
 
-	new: simp 2 16 50201 "moe_C2toDS_crab" 32 7 rand 1000 3000
+	new: simp 2 13 50211 "moe_C2toDS_crab" 32 7 rand 1000 3000
 
 	mvsf rand 8181 8336 48833
 
@@ -31,7 +31,7 @@ repe
 
 reps rand 2 3
 
-	new: simp 2 16 50201 "moe_C2toDS_crab" 32 7 rand 1000 3000
+	new: simp 2 13 50211 "moe_C2toDS_crab" 32 7 rand 1000 3000
 
 	mvsf rand 8580 9050 48595
 
@@ -142,7 +142,7 @@ scrp 2 18 50201 9
 
 
 
-	esee 2 16 50201
+	esee 2 13 50211
 
 		doif targ ne null and targ ne ownr
 
@@ -184,7 +184,7 @@ scrp 2 18 50201 9
 
 		seta va02 carr
 
-		new: simp 2 16 50201 "moe_C2toDS_crab" 32 7 rand 1000 3000
+		new: simp 2 13 50211 "moe_C2toDS_crab" 32 7 rand 1000 3000
 
 		mvsf va00 va01
 
@@ -208,7 +208,7 @@ endm
 
 
 
-scrp 2 16 50201 10
+scrp 2 13 50211 10
 
 	inst
 
@@ -314,16 +314,16 @@ endm
 
 *Push
 
-scrp 2 16 50201 1
+scrp 2 13 50211 1
+
+	doif crea from eq 1
+		stim writ from 86 1 
+	endi
 
 	doif relx ownr from gt 0
-
 		setv ov14 1
-
 	elif relx ownr targ lt 0
-
 		setv ov14 0
-
 	endi
 
 endm
@@ -332,9 +332,29 @@ endm
 
 *Pull
 
-scrp 2 16 50201 2
+scrp 2 13 50211 2
 
-	mesg writ targ 0
+	doif crea from eq 1
+		stim writ from 86 1 
+	endi
+
+	doif relx ownr from gt 0
+		setv ov14 1
+	elif relx ownr targ lt 0
+		setv ov14 0
+	endi
+endm
+
+*hit
+scrp 2 13 50211 3
+
+	inst
+	doif crea from eq 1
+		stim writ from 87 1 
+	endi
+	
+	velo rand -5 5 rand -5 0
+
 
 endm
 
@@ -342,30 +362,11 @@ endm
 
 *Pickup
 
-scrp 2 16 50201 4
+scrp 2 13 50211 4
 
 	mesg writ targ 0
 
 endm
-
-
-
-*Hit
-
-scrp 2 16 50201 3
-
-	doif crea from eq 1
-
-		stim writ from 88 1
-
-	endi
-
-endm
-
-
-
-
-
 
 
 
@@ -376,7 +377,7 @@ endm
 
 *and vice versa
 
-scrp 2 16 50201 6
+scrp 2 13 50211 6
 
 	doif wall eq rght
 
@@ -394,7 +395,7 @@ endm
 
 
 
-scrp 2 16 50201 9
+scrp 2 13 50211 9
 
 	addv ov01 1
 
@@ -1101,7 +1102,7 @@ endm
 
 
 
-scrp 2 16 50201 12
+scrp 2 13 50211 12
 
 	inst
 
@@ -1152,7 +1153,7 @@ endm
 
 
 
-scrp 2 16 50201 255
+scrp 2 13 50211 255
 * Might wanna look into why this is needed - Verm
 	stop
 
@@ -1162,7 +1163,7 @@ rscr
 
 
 
-enum 2 16 50201
+enum 2 13 50211
 
 	kill targ
 

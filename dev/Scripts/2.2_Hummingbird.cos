@@ -1224,6 +1224,8 @@ scrp 2 17 50208 10
 
 *Create a mate for the bird that made you
 
+	attr 16
+
 	wait 10
 
 	setv va00 posl

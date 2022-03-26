@@ -607,6 +607,8 @@ endm
 scrp 2 10 50200 10
 
 	inst
+	
+	bhvr 48
 
 	attr 3
 

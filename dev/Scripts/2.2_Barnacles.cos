@@ -55,7 +55,7 @@ scrp 2 18 50208 10
 
 	attr 199
 
-	bhvr 63
+	bhvr 48
 
 	tick rand 32 45
 
@@ -381,7 +381,7 @@ scrp 2 18 50208 12
 
 	doif crea from eq 1
 
-		stim writ from 90 1
+		stim writ from 80 1
 
 	endi
 
