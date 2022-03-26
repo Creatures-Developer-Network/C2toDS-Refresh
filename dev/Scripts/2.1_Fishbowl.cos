@@ -1,5 +1,7 @@
 * 2 21 50225 - Fishbowl
 
+* Aiko made this invisible to creatures.
+
 *Saltwater
 
 new: vhcl 2 21 50225 "moe_c2tods_fishbowl" 2 0 rand 1000 3000
@@ -17,6 +19,8 @@ cabp 1
 cabw 0
 
 tint 1 200 125 125 125
+
+alph 50 1
 
 
 
@@ -42,7 +46,7 @@ scrp 2 21 50225 10
 
 	inst
 
-	attr 719
+	attr 735
 
 	accg 3
 

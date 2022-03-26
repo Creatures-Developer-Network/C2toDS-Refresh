@@ -24,7 +24,7 @@ if os.path.isdir(os.getcwd() + "/dev"):
 	current_folder = os.getcwd() + "/dev"
 	  
 	# list of folders to be merged
-	list_dir = ['Backgrounds', 'Images', 'Sounds', 'Scripts']
+	list_dir = ['Backgrounds', 'Images', 'Sounds', 'Scripts', 'Catalogue']
 	  
 	# enumerate on list_dir to get the 
 	# content of all the folders ans store 

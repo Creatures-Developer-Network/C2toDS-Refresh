@@ -1,4 +1,4 @@
-* 2 17 50202 - Puffball Nest 
+* 2 17 50202 - Puffball Nest - Invisible to creatures for now
 * 2 20 50202 - Puffball
 * 2 24 50209 - Puffball Launcher
 
@@ -47,7 +47,7 @@ scrp 2 24 50209 10
 
 	perm 51
 
-	bhvr 1
+	bhvr 43
 
 	emit 10 .25
 
@@ -61,7 +61,7 @@ scrp 2 17 50202 10
 
 	perm .51
 
-	attr 192
+	attr 208
 
 	elas 0
 
@@ -567,10 +567,13 @@ endm
 
 scrp 2 24 50209 1
 
+	inst
+	doif crea from eq 1
+		stim writ from 90 1
+	endi
+
 	lock
-
-	stim writ from 90 1
-
+	
 	anim [0 1 2 3 4 5]
 
 	over
@@ -631,6 +634,28 @@ scrp 2 24 50209 1
 
 endm
 
+* pull
+scrp 2 24 50209 2
+
+	inst
+	doif crea from eq 1
+		stim writ from 90 1
+	endi
+	mesg writ ownr 0
+	
+endm	
+
+* hit
+scrp 2 24 50209 3
+	inst
+	doif crea from eq 1
+		stim writ from 92 1
+	endi
+	
+	snde "hit_"
+	velo rand -2 2 rand -10 -5
+
+endm
 
 
 scrp 2 24 50209 6

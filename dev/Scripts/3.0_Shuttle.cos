@@ -1,12 +1,14 @@
 *  3 1 50204 -- Lab Shuttle
 
 * Woo, another almost-straight convert. Took a lot of fiddling to get exact values, though. 
-
 *Shut sound is used in, I believe, C1toDS, renamed to shtl.
+
+* Aiko asks, should a creature even ever use this?? Gonna make it invisible to them 
+* until we figure it out
 
 new: vhcl 3 1 50204 "moe_C2toDS_shuttle" 12 0 100
 
-attr 12
+attr 28
 
 setv ov00 1
 

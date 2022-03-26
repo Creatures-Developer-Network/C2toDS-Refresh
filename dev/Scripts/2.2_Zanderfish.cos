@@ -90,7 +90,7 @@ scrp 2 15 50202 10
 
 	gsub gettimes
 
-	bhvr 48
+	bhvr 59
 
 
 
@@ -1095,12 +1095,20 @@ endm
 *activate 1
 
 scrp 2 15 50202 1
+	inst
+	doif crea from eq 1
+		stim writ from 86 1
+	endi
 
 endm
 
 *activate 2
 
 scrp 2 15 50202 2
+	inst
+	doif crea from eq 1
+		stim writ from 86 1
+	endi
 
 endm
 
@@ -1108,13 +1116,21 @@ endm
 
 scrp 2 15 50202 3
 
+	inst
+	doif crea from eq 1
+		stim writ from 87 1
+	endi
+	
+	setv va00 rand -10 10
+	setv velx va00
+
 endm
 
 *pickup
 
-scrp 2 15 50202 4
+*scrp 2 15 50202 4
 
-endm
+*endm
 
 *drop
 
@@ -1525,7 +1541,7 @@ endm
 
 scrp 2 24 50202 10
 
-	attr 198
+	attr 214
 
 	elas 20
 

@@ -189,9 +189,11 @@ endm
 
 scrp 2 21 50214 1
 
-	lock
-
-	stim writ from 97 3
+	inst
+	
+	doif crea from eq 1
+		stim writ from 97 3
+	endi
 
 	frat 2
 
@@ -239,6 +241,32 @@ scrp 2 21 50214 1
 
 endm
 
+*pull
+
+scrp 2 21 50214 2
+
+	lock
+	
+	doif crea from eq 1
+		stim writ from 97 3
+	endi
+	
+	mesg writ ownr 0
+	
+endm
+
+*hit
+scrp 2 21 50214 3
+
+	lock
+	
+	doif crea from eq 1
+		stim writ from 97 3
+	endi
+	
+	mesg writ ownr 0
+	
+endm
 
 
 scrp 2 6 50214 10

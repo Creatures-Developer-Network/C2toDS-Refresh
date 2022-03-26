@@ -8,6 +8,7 @@
 * Initial Conversion By Moe
 * Some Modifications By the one who screams i guess
 * And Verm! (Checking stuffs for toxics)
+* Aiko added pull and hit scripts to the seed vendor
 * (if you worked on this file, feel free to add your name!)
 
 reps rand 10 15
@@ -64,7 +65,7 @@ scrp 2 23 50205 10
 
 	perm 51
 
-	bhvr 1
+	bhvr 11
 
 	emit 10 .015
 
@@ -98,7 +99,9 @@ scrp 2 23 50205 1
 
 	lock
 
-	stim writ from 90 1
+	doif crea from eq 1
+		stim writ from 90 1
+	endi
 
 	reps rand 4 6
 
@@ -145,6 +148,27 @@ scrp 2 23 50205 1
 	retn
 
 endm
+
+*pull
+scrp 2 23 50205 2
+	inst
+	doif crea from eq 1
+		stim writ from 90 1
+	endi
+	mesg writ ownr 0
+endm
+
+*hit
+scrp 2 23 50205 3
+	inst
+	doif crea from eq 1
+		stim writ from 92 1
+	endi
+	
+	snde "hit_"
+	velo rand -2 2 rand -10 -5
+endm
+
 
 
 
@@ -1106,22 +1130,16 @@ endm
 
 
 scrp 2 10 50205 12
-inst
-	lock
-
-	stim writ from 81 1
-
+	inst
+	
 	targ from
-
-*	chem 5 .15
+	
+	doif fmly eq 4
+		stim writ from 81 1
+	endi
 
 	snde "chwp"
-
-	targ ownr
-
-	kill targ
-
-
+	kill ownr
 
 endm
 
@@ -1129,13 +1147,13 @@ endm
 
 scrp 2 8 50205 12
 
-	lock
-
-	stim writ from 78 1
+	inst
 
 	targ from
+	doif fmly eq 4
+		stim writ from 78 1
+	endi
 
-*	chem 5 .31
 
 	snde "chwp"
 
@@ -1156,20 +1174,14 @@ endm
 
 
 scrp 2 3 50205 12
-
-	stim writ from 77 1
-
+	inst
 	targ from
-
-*	chem 5 .19
-
-*	chem 10 .19
+	doif fmly eq 4
+		stim writ from 77 1
+	endi
 
 	snde "chwp"
-
-	targ ownr
-
-	kill targ
+	kill ownr
 
 endm
 

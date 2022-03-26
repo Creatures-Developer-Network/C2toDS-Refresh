@@ -10,6 +10,7 @@
 * Reproduces in 1s and 2s, and when Norn eats it.
 
 * Verm here, making it edible and toxic friendly!
+* Aiko made the plant itself invisible since creatures can't interact with it
 
 new: simp 2 23 50217 "moe_C2toDS_aubergine" 2 14 rand 500 1500
 
@@ -49,7 +50,7 @@ repe
 
 scrp 2 23 50217 10
 
-	attr 199
+	attr 215
 
 	elas 10
 
@@ -127,7 +128,7 @@ endm
 
 scrp 2 4 50217 10
 
-	attr 192
+	attr 208
 
 	perm 51
 

@@ -26,7 +26,7 @@ mvto 9090 48149
 
 frat 3
 
-bhvr 3
+bhvr 11
 
 pat: dull 1 "moe_C2toDS_foghorn" 1 48 0 50
 
@@ -41,14 +41,19 @@ pat: dull 4 "moe_C2toDS_foghorn" 10 152 0 50
 
 scrp 2 21 50212 1
 
-	lock
+	inst
 
-	stim writ from 97 1
+	doif crea from eq 1
+		stim writ from 97 1
+	endi
 
 	setv va00 posl
 
 	setv va01 post
 
+	lock
+	slow
+	
 	part 1
 
 	frat 2
@@ -189,97 +194,25 @@ endm
 
 scrp 2 21 50212 2
 
-	lock
+	inst
 
-	stim writ from 97 1
-
-	setv va00 posl
-
-	setv va01 post
-
-	part 1
-
-	anim [ 0 1 2 1 255]
-
-	setv va02 rand 0 1
-
-	doif va02 eq 0
-
-		snde "hrn1"
-
-	else
-
-		snde "hrn2"
-
+	doif crea from eq 1
+		stim writ from 97 1
 	endi
+	
+	mesg writ ownr 0
 
-	reps 5
+endm
 
-		setv va03 rand 2 4
+scrp 2 21 50212 3
 
-		part va03
+	inst
 
-		anim [ 0 1 2 1 0 ]
-
-		wait 1
-
-		inst
-
-		new: simp 1 23 50212 "moe_C2toDS_foghorn" 12 13 7000
-
-		attr 16
-
-		setv va02 rand 0 2
-
-		mulv va02 4
-
-		base va02
-
-		pose 0
-
-		mvto va00 va01
-
-		slow
-
-		setv va02 rand -2 -1
-
-		setv vely va02
-
-		setv velx rand -3 3
-
-		mesg writ targ 8
-
-		setv va04 va00
-
-		setv va06 rand 30 80
-
-		addv va04 va06
-
-		setv va05 va01
-
-		inst
-
-		new: simp 1 23 50213 "moe_C2toDS_foghorn" 9 25 9000
-
-		attr 64
-
-		mvto va04 va05
-
-		setv va02 rand 0 -1
-
-		setv velx 1
-
-		slow
-
-		targ ownr
-
-	repe
-
-	part 1
-
-	pose 0
-
-	unlk
+	doif crea from eq 1
+		stim writ from 97 1
+	endi
+	
+	mesg writ ownr 0
 
 endm
 

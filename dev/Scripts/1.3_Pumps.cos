@@ -20,7 +20,7 @@ scrp 2 25 50202 10
 
 	attr 4
 
-	bhvr 31
+	bhvr 48
 
 endm
 
@@ -31,41 +31,47 @@ scrp 2 25 50202 9
 endm
 
 *activate 1
-
+* if the hand activates this, it cools off creatures touching it.
+* creatures can't push this, they can only drink it (which also cools them down)
 scrp 2 25 50202 1
-
-	doif crea from eq 1
-
-		seta va00 from
-
-		snde "drnk"
-
-		inst
-
-		targ va00
-
-*decrease hotness
-
-		chem 153 -.25
-
-*increase coolness
-
-		chem 152 .15
-
-*Water
-
-		chem 33 .25
-
-		slow
-
-		targ ownr
-
+	inst
+	doif from eq pntr
+		etch 4 0 0
+			snde "drnk"
+	*decrease hotness
+			chem 153 -.25
+	*increase coolness
+			chem 152 .15
+	*Water
+			chem 33 .25
+		next
+		
 	endi
 
 	frat 3
-
 	sndc "wat1"
+	anim [ 0 1 2 3 4 5 6 7 8 9 10 9 8 7 6 5 4 3 2 1 0]
 
+endm
+
+scrp 2 25 50202 12
+
+	inst
+
+	doif crea from eq 1
+		seta va00 from
+		snde "drnk"
+		targ va00
+*decrease hotness
+		chem 153 -.25
+*increase coolness
+		chem 152 .15
+*Water
+		chem 33 .25
+	endi
+	
+	frat 3
+	sndc "wat1"
 	anim [ 0 1 2 3 4 5 6 7 8 9 10 9 8 7 6 5 4 3 2 1 0]
 
 endm

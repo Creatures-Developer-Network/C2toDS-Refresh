@@ -1,5 +1,8 @@
 * 2 15 50201 - Snail 
 
+* for now, these are invisible to creatures. If at some point we feel like 
+* adding push/pull/hit/eat scripts (and population management) we can change that. - Aiko
+
 
 * Creation - garden
 
@@ -54,7 +57,7 @@ repe
 
 scrp 2 15 50201 10
 
-	attr 194
+	attr 210
 
 	accg .5
 

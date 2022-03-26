@@ -55,7 +55,7 @@ scrp 2 18 50208 10
 
 	attr 199
 
-	bhvr 63
+	bhvr 48
 
 	tick rand 32 45
 
@@ -381,7 +381,7 @@ scrp 2 18 50208 12
 
 	doif crea from eq 1
 
-		stim writ from 90 1
+		stim writ from 80 1
 
 	endi
 
@@ -406,7 +406,7 @@ scrp 2 15 50205 10
 
 	aero 5
 
-	bhvr 32
+	bhvr 59
 
 	tick rand 360 1000
 
@@ -422,8 +422,13 @@ endm
 
 scrp 2 15 50205 1
 
-	doif pose gt 0
+	doif crea from eq 1
+		stim writ from 86 1
+	endi
 
+
+	doif pose gt 0
+	
 		loop
 
 			setv va00 pose
@@ -442,11 +447,23 @@ endm
 
 scrp 2 15 50205 2
 
+	doif crea from eq 1
+		stim writ from 86 1
+	endi
+	
+	mesg writ ownr 0
+
 endm
 
 *hit
 
 scrp 2 15 50205 3
+
+	doif crea from eq 1
+		stim writ from 87 1
+	endi
+	
+	mesg writ ownr 0
 
 endm
 
@@ -538,8 +555,11 @@ endm
 
 scrp 2 15 50205 12
 
-	stim writ from 77 .25
 
+	doif crea from eq 1
+		stim writ from 80 1
+	endi
+	
 	snde "eat1"
 
 	setv va00 posx

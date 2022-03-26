@@ -3,6 +3,9 @@
 * 2 4 50222 - Grass
 * 2 24 50222 - Grass Seed Vendor
 
+* Aiko made the vendor invisible to creatures until we write action scripts for it 
+*   (if we even want to do that)
+
 new: simp 2 24 50222 "moe_C2toDS_grass" 9 0 rand 1000 3000
 
 mvsf 6142 49080
@@ -45,7 +48,7 @@ repe
 
 scrp 2 24 50222 10
 
-	attr 198
+	attr 214
 
 	elas 10
 
@@ -291,7 +294,7 @@ scrp 2 4 50222 10
 
 	accg 7
 
-	attr 193
+	attr 209
 
 	aero 0
 

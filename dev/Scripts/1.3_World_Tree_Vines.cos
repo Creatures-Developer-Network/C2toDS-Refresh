@@ -14,6 +14,8 @@ scrp 2 6 50217 10
 
 *tick 1800
 
+	attr 16
+
 	tick 1
 
 	setv name "donotnest" 1

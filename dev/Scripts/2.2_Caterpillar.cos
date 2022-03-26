@@ -6,6 +6,7 @@
 
 * Initial Conversion by Moe
 * Aiko was here adding blank pickup scripts and butterfly drowning stuff
+* also making the eggs invisible to creatures
 
 new: simp 2 24 50207 "moe_C2toDS_c1bufl" 16 0 rand 1500 2501
 
@@ -46,16 +47,48 @@ reps rand 2 3
 repe
 
 
+scrp 2 13 50210 1
+
+	inst
+	doif crea from eq 1
+		stim writ from 85 1 
+	endi
+	
+	* should the insect react to being pushed?
+
+endm
+
+scrp 2 13 50210 2
+
+	inst
+	doif crea from eq 1
+		stim writ from 85 1 
+	endi
+	
+	* should the insect react to being pulled?
+
+endm
+
+scrp 2 13 50210 3
+
+	inst
+	doif crea from eq 1
+		stim writ from 87 1 
+	endi
+	
+	* should the insect react to being hit?
+	velo rand -5 5 rand -5 0
+
+endm
 
 
 scrp 2 13 50210 12
 
+	inst
 	doif crea from eq 1
-
-		stim writ from 80 .15
-
+		stim writ from 80 1 
 	endi
-
+	
 	kill ownr
 
 endm
@@ -68,9 +101,7 @@ scrp 2 24 50207 10
 
 	inst
 
-
-
-	attr 199
+	attr 215
 
 	perm 51
 
@@ -192,7 +223,7 @@ scrp 2 18 50209 10
 
 	inst
 
-	attr 198
+	attr 214
 
 	elas 10
 
@@ -291,32 +322,51 @@ scrp 2 13 50209 10
 
 	seta ov07 null
 
-	bhvr 48
+	bhvr 59
+
+endm
+
+scrp 2 13 50209 1
+
+	inst
+	doif crea from eq 1
+		stim writ from 85 1 
+	endi
+	
+	* should the insect react to being pushed?
+
+endm
+
+scrp 2 13 50209 2
+
+	inst
+	doif crea from eq 1
+		stim writ from 85 1 
+	endi
+	
+	* should the insect react to being pulled?
+
+endm
+
+scrp 2 13 50209 3
+
+	inst
+	doif crea from eq 1
+		stim writ from 87 1 
+	endi
+	
+	* should the insect react to being hit?
 
 endm
 
 
-
 scrp 2 13 50209 12
 
-	stim writ from 80 .15
-
-	targ from
-
-*starch
-
-	chem 5 .04
-
-*fat
-
-	chem 10 .04
-
-*protein
-
-	chem 12 .04
-
-	targ ownr
-
+	inst
+	doif crea from eq 1
+		stim writ from 80 1 
+	endi
+	
 	kill ownr
 
 endm
@@ -815,7 +865,7 @@ scrp 2 13 50210 10
 
 	endi
 
-	bhvr 32
+	bhvr 59
 
 endm
 

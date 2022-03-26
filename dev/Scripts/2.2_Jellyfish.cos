@@ -2,6 +2,8 @@
 * 2 15 50209 - Jellyfish Polyp
 * 2 15 50214 - Jellyfish Larvae
 
+* for now, these are all invisible to creatures. If at some point we feel like 
+* adding push/pull/hit/eat scripts we can change that. - Aiko
 
 * C2toDS Jellyfish
 
@@ -52,7 +54,7 @@ scrp 2 15 50214 10
 
 	elas 0
 
-	attr 195
+	attr 211
 
 	tick 1
 
@@ -72,7 +74,7 @@ scrp 2 15 50209 10
 
 	elas 0
 
-	attr 192
+	attr 208
 
 	rnge 100
 
@@ -98,7 +100,7 @@ scrp 2 15 50213 10
 
 	aero 10
 
-	attr 195
+	attr 211
 
 	frat 2
 

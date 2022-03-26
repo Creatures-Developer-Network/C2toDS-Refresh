@@ -339,7 +339,10 @@ endm
 
 scrp 2 19 50200 10
 
-	bhvr 1
+	* aiko is changing this to 0 for consistency because weather isn't generally pushable
+	* but if we want to make the classic pushable lighting clouds at some point 
+	* we could class them as 'bad'??
+	bhvr 0
 
 	dcor 0
 
@@ -1205,7 +1208,7 @@ scrp 2 19 50200 1003
 
 		new: simp 2 19 50202 "moe_C2toDS_weather" 0 9 rand 1000 6000
 
-		bhvr 48
+		bhvr 0
 
 		attr 195
 
@@ -1430,7 +1433,7 @@ endm
 
 
 
-*Eat Snowflake
+*Eat Snowflake -- not used because weather is not edible.
 
 scrp 2 19 50202 12
 

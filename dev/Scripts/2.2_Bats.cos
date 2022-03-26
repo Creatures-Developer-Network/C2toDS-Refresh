@@ -1,7 +1,8 @@
 *Bat 2 16 50203 
 *Bat Nest 2 17 50204 <----4*****
 
-
+* for now, these are all invisible to creatures. If at some point we feel like 
+* adding push/pull/hit/eat scripts we can change that. - Aiko
 
 new: simp 2 17 50204 "moe_C2toDS_bats" 1 60 0
 
@@ -17,6 +18,8 @@ mvsf 3890 48950
 
 
 scrp 2 17 50204 10
+
+	attr 16
 
 	show 0
 
@@ -42,7 +45,7 @@ endm
 
 scrp 2 16 50203 10
 
-	attr 199
+	attr 215
 
 	aero 5
 
