@@ -83,7 +83,7 @@ scrp 2 15 50212 10
 
 	fric 100
 
-	bhvr 9
+	bhvr 59
 
 	attr 199
 
@@ -113,14 +113,9 @@ endm
 
 scrp 2 15 50212 1
 
-
-
 	doif crea from eq 1
-
 		stim writ from 86 1
-
 	endi
-
 
 
 *Coral is fragile
@@ -189,18 +184,20 @@ endm
 
 scrp 2 15 50212 2
 
+	doif crea from eq 1
+		stim writ from 86 1
+	endi
+	
+	mesg writ ownr 0
+
 endm
 
 *hit
 
 scrp 2 15 50212 3
 
-
-
 	doif crea from eq 1
-
-		stim writ from 86 1
-
+		stim writ from 87 1
 	endi
 
 
@@ -217,7 +214,13 @@ endm
 
 scrp 2 15 50212 4
 
+	doif crea from eq 1
+		stim writ from 86 1
+	else
+
 	wait 5
+	
+	endi
 
 	mesg writ targ 0
 
@@ -624,9 +627,10 @@ endm
 scrp 2 3 50227 12
 
 	snde "reat"
-
-
-	stim writ from 77 .25
+	
+	doif crea from eq 1
+		stim writ from 80 1
+	endi
 
 
 	kill ownr
@@ -697,7 +701,7 @@ scrp 2 10 50212 10
 
 	attr 199
 
-	bhvr 49
+	bhvr 48
 
 	accg 3
 
@@ -715,7 +719,7 @@ scrp 2 10 50212 0
 
 endm
 
-*activate 1
+*activate 1 - unused
 
 scrp 2 10 50212 1
 
@@ -727,13 +731,13 @@ scrp 2 10 50212 1
 
 endm
 
-*activate 2
+*activate 2 - unused
 
 scrp 2 10 50212 2
 
 endm
 
-*hit
+*hit - unused
 
 scrp 2 10 50212 3
 
@@ -773,7 +777,9 @@ endm
 
 scrp 2 10 50212 12
 
-	stim writ from 81 1
+	doif crea from eq 1
+		stim writ from 81 1
+	endi
 
 endm
 

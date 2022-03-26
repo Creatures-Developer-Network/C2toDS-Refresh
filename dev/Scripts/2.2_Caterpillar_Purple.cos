@@ -47,7 +47,7 @@ scrp 2 24 50206 10
 
 
 
-	attr 199
+	attr 215
 
 	perm 51
 
@@ -175,7 +175,7 @@ scrp 2 18 50206 10
 
 	inst
 
-	attr 198
+	attr 214
 
 	elas 10
 

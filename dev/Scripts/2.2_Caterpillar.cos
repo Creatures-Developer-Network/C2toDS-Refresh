@@ -6,6 +6,7 @@
 
 * Initial Conversion by Moe
 * Aiko was here adding blank pickup scripts and butterfly drowning stuff
+* also making the eggs invisible to creatures
 
 new: simp 2 24 50207 "moe_C2toDS_c1bufl" 16 0 rand 1500 2501
 
@@ -68,9 +69,7 @@ scrp 2 24 50207 10
 
 	inst
 
-
-
-	attr 199
+	attr 215
 
 	perm 51
 
@@ -192,7 +191,7 @@ scrp 2 18 50209 10
 
 	inst
 
-	attr 198
+	attr 214
 
 	elas 10
 

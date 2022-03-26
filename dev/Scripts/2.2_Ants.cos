@@ -166,7 +166,7 @@ scrp 2 17 50205 10
 
 	tick rand 50 50
 
-	bhvr 9
+	bhvr 11
 
 	unlk
 
@@ -252,50 +252,50 @@ endm
 
 scrp 2 17 50205 1
 
-
-
-	doif name "power" eq 0
-
-		setv va00 posx
-
-		setv va01 posy
-
-		new: simp 2 14 50204 "moe_c2tods_ants" 8 15 rand 500 1000
-
-		mvsf va00 va01
-
-		kill ownr
-
-		stop
-
+	doif crea from eq 1
+		stim writ from 86 1
 	endi
 
-
-
-
+	doif name "power" eq 0
+		setv va00 posx
+		setv va01 posy
+		new: simp 2 14 50204 "moe_c2tods_ants" 8 15 rand 500 1000
+		mvsf va00 va01
+		kill ownr
+		stop
+	endi
 
 	setv va02 plne
-
 	addv va02 rand 100 500
-
 	setv va00 posx
-
 	setv va01 posb
-
 	subv va00 15
-
 	new: simp 2 14 50205 "moe_C2toDS_ants" 15 0 va02
-
 	seta ov08 ownr
-
 	mvsf va00 va01
-
 	targ ownr
-
 	subv name "power" 1
 
+endm
 
+scrp 2 17 50205 2
 
+	doif crea from eq 1
+		stim writ from 86 1
+	endi
+	
+	mesg writ ownr 1
+	
+endm
+
+scrp 2 17 50205 3
+
+	doif crea from eq 1
+		stim writ from 87 1
+	endi
+	
+	mesg writ ownr 1
+	
 endm
 
 
@@ -320,7 +320,7 @@ scrp 2 14 50205 10
 
 	seta ov07 null
 
-	bhvr 49
+	bhvr 59
 
 endm
 
@@ -331,8 +331,6 @@ scrp 2 14 50205 12
 	doif crea from eq 1
 
 		stim writ from 80 .5
-
-		stim writ from 88 .1
 
 	endi
 
@@ -354,6 +352,33 @@ scrp 2 14 50205 1
 
 endm
 
+scrp 2 14 50205 2
+
+	doif crea from eq 1
+
+		stim writ from 88 .1
+
+	endi
+
+	setv name "state" 1
+
+	seta ov07 from
+
+endm
+
+scrp 2 14 50205 3
+
+	doif crea from eq 1
+		stim writ from 87 1
+	endi
+	
+	setv va00 rand -10 10
+	setv velx va00
+	setv va00 rand -10 -1
+	setv vely va00
+
+
+endm
 
 
 scrp 2 14 50205 9

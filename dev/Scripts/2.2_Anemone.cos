@@ -1,5 +1,8 @@
 * 2 15 50208 - Anemone
 
+* for now, these are all invisible to creatures. If at some point we feel like 
+* adding push/pull/hit/eat scripts we can change that. - Aiko
+
 * Create anemones (Ocean 1)
 
 reps rand 2 3
@@ -29,7 +32,7 @@ mvsf 2775 48677
 
 scrp 2 15 50208 10
 
-	attr 199
+	attr 215
 
 	accg 10
 

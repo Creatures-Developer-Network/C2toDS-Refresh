@@ -11,6 +11,7 @@
 * Initial Conversion By Moe
 * Some Modifications By the one who screams i guess
 * And Verm!(Checking for detritus stuffs here aswell)
+* Aiko tweaked creature action scripts
 * (if you worked on this file, feel free to add your name!)
 
 setv va00 rand 6000 6275
@@ -337,7 +338,7 @@ scrp 2 17 50200 10
 
 	accg 0
 
-	attr 196
+	attr 212
 
 	frat 3
 
@@ -355,7 +356,7 @@ scrp 2 17 50200 10
 
 		rnge 500
 		
-		bhvr 1
+		bhvr 11
 		
 		cato 23
 
@@ -482,6 +483,10 @@ endm
 scrp 2 17 50200 1
 
 	inst
+	
+	doif crea from eq 1
+		stim writ from 86 1
+	endi
 
 	doif name "type" ne 1
 
@@ -583,7 +588,32 @@ scrp 2 17 50200 1
 
 endm
 
+*push
 
+scrp 2 17 50200 2
+
+	inst
+	
+	doif crea from eq 1
+		stim writ from 86 1
+	endi
+	
+	mesg writ ownr 0
+	
+endm
+
+*hit
+
+scrp 2 17 50200 3
+	inst
+	
+	doif crea from eq 1
+		stim writ from 87 1
+	endi
+	
+	mesg writ ownr 0
+	
+endm
 
 *Honey Jar Make
 
@@ -641,7 +671,7 @@ scrp 2 14 50200 10
 
 	setv ov13 0
 
-	bhvr 48
+	bhvr 59
 
 *	rnge 500
 
@@ -670,14 +700,45 @@ endm
 scrp 2 14 50200 1
 
 	inst
-
 	seta ov11 from
-
 	seta ov07 ov11
-
 	setv ov09 1
+	
+	doif crea from eq 1
+		stim writ from 88 1
+	endi
+	
 
 endm
+
+scrp 2 14 50200 2
+
+	inst
+	seta ov11 from
+	seta ov07 ov11
+	setv ov09 1
+	
+	doif crea from eq 1
+		stim writ from 88 1
+	endi
+	
+endm
+
+scrp 2 14 50205 3
+
+	doif crea from eq 1
+		stim writ from 87 1
+	endi
+
+* sends them flying a little.... might need to be tweaked since they're already flying
+	setv va00 rand -10 10
+	setv velx va00
+	setv va00 rand -10 -1
+	setv vely va00
+
+
+endm
+
 
 
 

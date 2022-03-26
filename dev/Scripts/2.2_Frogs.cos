@@ -95,7 +95,7 @@ scrp 2 18 50216 10
 	accg .5
 	fric 100
 	tick 500
-	bhvr 59
+	bhvr 48
 	rnge 500
 endm
 
@@ -110,6 +110,7 @@ scrp 2 18 50216 12
 	kill ownr
 endm
 
+* not used 
 scrp 2 18 50216 1
 	doif crea from eq 1
 		stim writ from 86 1

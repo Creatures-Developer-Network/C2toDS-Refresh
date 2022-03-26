@@ -1,6 +1,12 @@
 * 2 16 50200 - Clam
 * 2 21 50224 - Pearl
 
+*clams are shelled marine or freshwater molluscs belonging to the class bivalvia
+*clams, invertebrates with shells divided into two pieces called valves
+*these pieces are joined with a hinge joint
+*and with two adductor muscles that open and and close the shell
+*oh, clams are shelled marine or freshwater molluscs belonging to the class bivalvia~
+
 *you can hide small things in clams
 
 *put things in clams for 3 nights to make black pearls
@@ -37,15 +43,13 @@ scrp 2 16 50200 10
 
 	cabp -1
 
-
-
 	elas 0
 
 	accg 10
 
 	aero 30
 
-	attr 207
+	attr 223
 
 	frat 2
 
@@ -73,7 +77,7 @@ scrp 2 21 50224 10
 
 	perm 51
 
-	bhvr 49
+	bhvr 43
 
 endm
 
@@ -99,14 +103,39 @@ endm
 
 scrp 2 21 50224 1
 
+	inst
 	doif crea from eq 1
-
 		stim writ from 97 1
-
 	endi
 
 	addv vely rand -7 -10
+	addv velx rand -7 7
 
+endm
+
+*push
+scrp 2 21 50224 2
+
+	inst
+	doif crea from eq 1
+		stim writ from 97 1
+	endi
+
+	addv vely rand -7 -10
+	addv velx rand -7 7
+
+endm
+
+*hit
+
+scrp 2 21 50224 3
+
+	inst
+	doif crea from eq 1
+		stim writ from 97 1
+	endi
+
+	addv vely rand -7 -10
 	addv velx rand -7 7
 
 endm

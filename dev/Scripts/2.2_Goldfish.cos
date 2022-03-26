@@ -61,7 +61,9 @@ repe
 
 new: simp 2 24 50203 "moe_c2tods_goldf" 11 0 rand 1000 3000
 
-attr 198
+*invisible to creatures
+
+attr 214
 
 elas 20
 
@@ -213,7 +215,7 @@ scrp 2 15 50203 10
 
 	gsub gettimes
 
-	bhvr 48
+	bhvr 59
 
 *No food target yet
 
@@ -1050,6 +1052,10 @@ endm
 *activate 1
 
 scrp 2 15 50203 1
+	inst
+	doif crea from eq 1
+		stim writ from 86 1
+	endi
 
 endm
 
@@ -1057,11 +1063,21 @@ endm
 
 scrp 2 15 50203 2
 
+	inst
+	doif crea from eq 1
+		stim writ from 86 1
+	endi
+
 endm
 
 *hit
 
 scrp 2 15 50203 3
+
+	inst
+	doif crea from eq 1
+		stim writ from 87 1
+	endi
 
 endm
 
