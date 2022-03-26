@@ -1106,22 +1106,16 @@ endm
 
 
 scrp 2 10 50205 12
-inst
-	lock
-
-	stim writ from 81 1
-
+	inst
+	
 	targ from
-
-*	chem 5 .15
+	
+	doif fmly eq 4
+		stim writ from 81 1
+	endi
 
 	snde "chwp"
-
-	targ ownr
-
-	kill targ
-
-
+	kill ownr
 
 endm
 
@@ -1129,13 +1123,13 @@ endm
 
 scrp 2 8 50205 12
 
-	lock
-
-	stim writ from 78 1
+	inst
 
 	targ from
+	doif fmly eq 4
+		stim writ from 78 1
+	endi
 
-*	chem 5 .31
 
 	snde "chwp"
 
@@ -1156,20 +1150,14 @@ endm
 
 
 scrp 2 3 50205 12
-
-	stim writ from 77 1
-
+	inst
 	targ from
-
-*	chem 5 .19
-
-*	chem 10 .19
+	doif fmly eq 4
+		stim writ from 77 1
+	endi
 
 	snde "chwp"
-
-	targ ownr
-
-	kill targ
+	kill ownr
 
 endm
 

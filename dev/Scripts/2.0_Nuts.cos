@@ -322,13 +322,13 @@ scrp 2 4 50202 10
 
 	inst
 
-	attr 192
+	attr 195
 
 	elas 0
 
 	accg 4
 
-	bhvr 27
+	bhvr 11
 
 	fric 100
 
@@ -348,7 +348,10 @@ endm
 
 scrp 2 4 50202 1
 
-	urge writ from 3 .5 12 .5
+	targ from
+	doif fmly eq 4
+		stim writ from 84 1
+	endi
 
 endm
 
@@ -356,7 +359,10 @@ endm
 
 scrp 2 4 50202 2
 
-	urge writ from 3 .5 12 .5
+	targ from
+	doif fmly eq 4
+		stim writ from 84 1
+	endi
 
 endm
 
@@ -364,17 +370,20 @@ endm
 
 scrp 2 4 50202 3
 
-	urge writ from 3 .5 12 .5
+	targ from
+	doif fmly eq 4
+		stim writ from 84 1
+	endi
 
 endm
 
 
 
-scrp 2 4 50202 12
+*scrp 2 4 50202 12
 
-	urge writ from 3 .5 12 .5
+*	urge writ from 3 .5 12 .5
 
-endm
+*endm
 
 
 

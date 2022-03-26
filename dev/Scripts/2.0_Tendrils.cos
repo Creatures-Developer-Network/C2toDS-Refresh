@@ -257,7 +257,7 @@ scrp 2 5 50203 10
 
 	perm 51
 
-	attr 195
+	attr 211
 
 	accg 3
 
@@ -284,6 +284,8 @@ scrp 2 5 50203 9
 
 
 	doif pose lt 6
+		
+		attr 211
 
 		setv va00 pose
 
@@ -454,8 +456,10 @@ scrp 2 5 50203 1
 *Poke Norns, Move
 
 
-
-	stim writ from 83 1
+	targ from
+	doif fmly eq 4 
+		stim writ from 83 1
+	endi
 
 
 
@@ -526,8 +530,11 @@ endm
 
 
 scrp 2 5 50203 2
-
-	stim writ from 83 1
+	
+	targ from
+	doif fmly eq 4 
+		stim writ from 83 1
+	endi
 
 	mesg writ ownr 0
 
@@ -537,7 +544,10 @@ endm
 
 scrp 2 5 50203 3
 
-	stim writ from 83 1
+	targ from
+	doif fmly eq 4 
+		stim writ from 83 1
+	endi
 
 	mesg writ ownr 0
 

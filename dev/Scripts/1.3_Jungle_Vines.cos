@@ -7,9 +7,11 @@ new: simp 2 6 50216 "moe_C2toDS_Atmos_vinesjungle" 15 0 1
 mvto 5935 49595
 
 
+
 scrp 2 6 50216 10
 
 *Update every one and a half minutes, this make you mature by summer.
+	attr 16
 
 	tick 1
 

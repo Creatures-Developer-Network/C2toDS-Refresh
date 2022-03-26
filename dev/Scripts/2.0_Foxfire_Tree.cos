@@ -8,17 +8,13 @@
 *The one who screams made the berries invisible while still on the tree.
 
 new: simp 2 6 50209 "moe_C2toDS_humming" 1 59 0
-
 mvto 4677 48422
-
 setv name "nestable" 1
-
 tick 350
+attr 16
 
 new: simp 1 26 50210 "moe_C2toDS_humming" 1 12 0
-
 mvto 4677 48422
-
 tick 0
 
 
@@ -283,7 +279,7 @@ scrp 2 8 50209 10
 
 	tick 500
 
-	bhvr 51
+	bhvr 48
 
 *	emit 6 .15
 
@@ -307,7 +303,7 @@ scrp 2 8 50210 10
 
 	tick 500
 
-	bhvr 51
+	bhvr 48
 
 *	emit 6 .15
 

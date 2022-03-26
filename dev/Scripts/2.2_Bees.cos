@@ -1388,7 +1388,7 @@ scrp 2 11 50203 10
 
 	accg 10
 
-	bhvr 51
+	bhvr 48
 
 	elas 10
 
@@ -1492,33 +1492,20 @@ scrp 2 11 50203 12
 
 		subv ov00 1
 
-*Ate Food
-
-		stim writ from 79 1.5
+*Ate FooD
 
 		targ from
+		doif fmly = 4
 
-*starch
+			stim writ from 79 1
+		
+		endi
 
-*		chem 5 .4
 
-*hunger decrease
-
-*		chem 133 -.2
-
-*		chem 134 -.2
-
-*sugar
-
-*		chem 3 .4
-
-*stim writ from 0 255 0 0 73 100 37 100 0 0 0 0
-
-		targ ownr
 
 	endi
 
-
+	targ ownr
 
 	doif ov00 le 0
 

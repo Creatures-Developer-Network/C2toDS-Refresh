@@ -16,7 +16,7 @@ scrp 2 4 50204 10
 
 	attr 719
 
-	bhvr 41
+	bhvr 11
 
 	accg 4
 
@@ -42,17 +42,31 @@ endm
 
 scrp 2 4 50204 1
 
-	stim writ from 83 1
+	targ from
+	doif fmly = 4
+		stim writ from 84 1
+	endi
 
 endm
 
+scrp 2 4 50204 2
+
+	targ from
+	doif fmly = 4
+		stim writ from 84 1
+	endi
+
+endm
 
 
 *hit
 
 scrp 2 4 50204 3
 
-	stim writ from 83 1
+	targ from
+	doif fmly = 4
+		stim writ from 84 1
+	endi
 
 endm
 
