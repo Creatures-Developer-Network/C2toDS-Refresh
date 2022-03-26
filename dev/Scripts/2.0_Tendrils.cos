@@ -1,6 +1,7 @@
 * 2 3 50220 - Walking Tendril Seed
 * 2 5 50203 - Walking Tendril
 * 2 23 50209 - Walking Tendril Seed Vendor
+** Seed vendor is invisible to creatures (for the time being)
 
 *Walking Tendril
 
@@ -23,7 +24,7 @@ prt: onew 0 "Output" "Sends signal inputs from the tendril layer." 47 58
 
 scrp 2 23 50209 10
 
-	attr 199
+	attr 215
 
 	accg 3
 

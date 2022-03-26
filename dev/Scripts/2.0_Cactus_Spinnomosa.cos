@@ -64,7 +64,7 @@ scrp 2 23 50206 10
 
 	elas 10
 
-	bhvr 9
+	bhvr 11
 
 	fric 65
 
@@ -158,19 +158,26 @@ scrp 2 23 50206 1
 
 endm
 
-
-scrp 2 23 50206 3
-
-	stim writ from 92 1
-
-	snde "hit_"
-
-	velo rand -2 2 rand -10 -5
+scrp 2 23 50206 2
+	inst
+	doif crea from eq 1
+		stim writ from 90 1
+	endi
+	mesg writ ownr 0
 
 endm
 
 
+scrp 2 23 50206 3
 
+	inst
+	doif crea from eq 1
+		stim writ from 92 1
+	endi
+	
+	snde "hit_"
+	velo rand -2 2 rand -10 -
+endm
 
 
 *Spinnomosa Seed Timer*

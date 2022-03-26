@@ -5,6 +5,7 @@
 *Initial Conversion By Moe
 * Survivability edits by the one who screams i guess
 *Also tweaked lifespan a little to be more in line with C2 nuts (more prolific than tomatoes)...
+* Aiko added pull and hit scripts to the nut vendor
 * (if you worked on this file, feel free to add your name!)
 
 reps rand 5 7
@@ -47,13 +48,18 @@ scrp 2 23 50202 10
 
 	emit 10 .15
 
-	bhvr 1
+	bhvr 11
 
 endm
 
 
 
 scrp 2 23 50202 1
+
+	inst
+	doif crea from eq 1
+		stim writ from 90 1
+	endi
 
 	lock
 
@@ -107,8 +113,30 @@ scrp 2 23 50202 1
 
 endm
 
+*pull
+scrp 2 23 50202 2
 
+	inst
+	doif crea from eq 1
+		stim writ from 90 1
+	endi
+	
+	mesg writ ownr 0
+	
+endm
 
+*hit
+scrp 2 23 50202 3
+
+	inst
+	doif crea from eq 1
+		stim writ from 92 1
+	endi
+	
+	snde "hit_"
+	velo rand -2 2 rand -10 -5
+	
+endm
 
 
 scrp 2 3 50202 9

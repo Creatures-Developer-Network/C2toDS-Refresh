@@ -6,6 +6,7 @@
 
 * Initial Conversion By Moe
 * Some Modifications By the one who screams i guess (dormant seed smell fix + something i don't remember -t1ws)
+* Aiko added pull and hit scripts to the seed vendor
 * (if you worked on this file, feel free to add your name!)
 
 *Likes warm, desert conditions, produces flowers in springtime nights. 
@@ -71,7 +72,7 @@ scrp 2 23 50207 10
 
 	elas 10
 
-	bhvr 9
+	bhvr 11
 
 	fric 65
 
@@ -127,9 +128,10 @@ endm
 
 scrp 2 23 50207 1
 
-	lock
-
-	stim writ from 90 1
+	inst
+	doif crea from eq 1
+		stim writ from 90 1
+	endi
 
 	reps rand 5 7
 
@@ -205,17 +207,28 @@ scrp 2 23 50207 1
 
 endm
 
-scrp 2 23 50207 3
 
-	stim writ from 92 1
+* pull
+scrp 2 23 50207 2
 
-	snde "hit_"
-
-	velo rand -2 2 rand -10 -5
-
+	inst
+	doif crea from eq 1
+		stim writ from 90 1
+	endi
+	mesg writ ownr 0
 endm
 
+* hit
+scrp 2 23 50207 3
 
+	inst
+	doif crea from eq 1
+		stim writ from 92 1
+	endi
+	
+	snde "hit_"
+	velo rand -2 2 rand -10 -5
+endm
 
 
 

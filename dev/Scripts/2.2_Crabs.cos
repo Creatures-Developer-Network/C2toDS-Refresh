@@ -1,10 +1,13 @@
 
 * 2 10 50215 - Crab Detritus
 * 2 16 50201 - Crab
-* 2 18 50291 - Crab Egg
+* 2 18 50201 - Crab Egg
 * 2 23 50215 - Crab Maker
 
 * Verm here, seems crabs are ok in the detritus department.
+* Aiko here making crab eggs and crab maker invisble to creatures-- we can change
+** this later when/if we feel like it's appropriate and want to write scripts for
+** creature interactions
 
 *install
 
@@ -45,7 +48,7 @@ scrp 2 23 50215 10
 
 	accg 3
 
-	attr 199
+	attr 215
 
 	elas 0
 
@@ -109,7 +112,7 @@ scrp 2 18 50201 10
 
 	inst
 
-	attr 195
+	attr 211
 
 	elas 0
 

@@ -5,6 +5,7 @@
 *Matthew, "Moe", '10*
 
 *The one who screams stopped the berries emitting protein smell.
+*Aiko added creature-interactive scripts
 
 new: simp 2 6 50203 "moe_C2toDS_berries" 0 0 rand 1000 3000
 

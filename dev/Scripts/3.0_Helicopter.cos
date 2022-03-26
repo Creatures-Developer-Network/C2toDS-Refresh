@@ -1,5 +1,7 @@
 * 3 2 50206 - Helicopter
 
+* Aiko made this invisible to creatures for now 
+
 
 new: vhcl 3 2 50206 "moe_C2toDS_sola" 14 2 1000
 
@@ -34,7 +36,7 @@ cabn 125 75 270 200
 
 scrp 3 2 50206 10
 
-	attr 199
+	attr 215
 
 	elas 0
 

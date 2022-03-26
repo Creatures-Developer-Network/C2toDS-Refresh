@@ -83,7 +83,7 @@ scrp 3 2 50200 10
 
 		accg 10
 
-		bhvr 1
+		bhvr 3
 
 		frat 2
 
@@ -97,7 +97,7 @@ scrp 3 2 50200 10
 
 		attr 4
 
-		bhvr 1
+		bhvr 3
 
 		frat 2
 
@@ -122,6 +122,12 @@ endm
 *Creatures Can Activate This Machine, it brings them to DS.
 
 scrp 3 2 50200 1
+
+	inst
+	doif crea from eq 1
+		stim writ from 27 1
+	endi
+
 
 	anim [ 4 5 6 7]
 
@@ -168,10 +174,6 @@ scrp 3 2 50200 1
 	anim [0 1 2 3 255]
 
 *TRANSPORT HERE*
-
-
-
-
 
 	targ ov01
 
@@ -280,13 +282,170 @@ scrp 3 2 50200 1
 		next
 
 	endi
-
-
-
-
-
 endm
 
+scrp 3 2 50200 2
+
+	inst
+	doif crea from eq 1
+		stim writ from 27 1
+	endi
+
+
+	anim [ 4 5 6 7]
+
+	over
+
+	inst
+
+	setv va00 posl
+
+	setv va01 post
+
+	doif ov00 eq 0
+
+		subv va00 -10
+
+		subv va01 -50
+
+	else
+
+		subv va00 20
+
+		subv va01 -50
+
+	endi
+
+
+
+	new: simp 1 17 50201 "moe_C2toDS_tele" 9 22 6998
+
+	mvto va00 va01
+
+	snde "tel2"
+
+*wait 10
+
+	targ ownr
+
+	slow
+
+	anim [ 6 5 4 3 2 1 0]
+
+	over
+
+	anim [0 1 2 3 255]
+
+*TRANSPORT HERE*
+
+	targ ov01
+
+	mesg writ targ 200
+
+	setv va00 posl
+
+	setv va01 post
+
+*addv va01 200
+
+	targ ownr
+
+	doif from eq pntr
+
+		cmrp va00 va01 0
+
+	endi
+
+
+
+	doif crea from eq 1 or from eq pntr
+
+		inst
+
+		etch 0 0 0
+
+			doif targ ne ownr and targ ne null
+
+				seta va50 targ
+
+				targ mv01
+
+				setv va00 posx
+
+				setv va01 posy
+
+				targ va50
+
+
+
+*doif attr eq 194 or attr eq 195 or attr eq 199 or attr eq 198 and accg gt 0 and carr eq null
+
+*Must be Pickupable
+
+				setv va02 attr
+
+				andv va02 2
+
+
+
+*And suffer physics
+
+				setv va03 attr
+
+				andv va03 128
+
+
+
+				setv va04 attr
+
+				andv va04 32
+
+
+
+
+
+
+
+				doif va04 ne 32 and va02 eq 2 and va03 eq 128 and accg gt 0.0 and carr eq null
+
+					setv va06 relx ownr targ
+
+					setv va07 rely ownr targ
+
+					addv va00 va06
+
+					addv va01 va07
+
+					setv va08 wdth
+
+					divv va08 2
+
+					setv va09 hght
+
+					divv va09 2
+
+
+
+					subv va00 va08
+
+					subv va01 va09
+
+
+
+
+
+					mvsf va00 va01
+
+					addv vely 1
+
+				endi
+
+			endi
+
+		next
+
+	endi
+endm
 
 
 scrp 3 2 50200 200

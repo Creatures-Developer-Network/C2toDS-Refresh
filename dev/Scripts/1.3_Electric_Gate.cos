@@ -4,10 +4,12 @@ new: comp 3 8 50204 "moe_C2toDS_ObjectPack1_gate" 10 0 5000
 
 mvto 8325 49275
 
+* Aiko made this invisible to creatures 
+
 
 scrp 3 8 50204 10
 
-	attr 198
+	attr 214
 
 	elas 0
 

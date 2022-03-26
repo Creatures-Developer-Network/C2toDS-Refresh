@@ -5,6 +5,7 @@
 
 * Verm here, making the detritus edible/toxic friendly!
 * Aiko fixed a thing where the detritus couldn't mvto safely because the attr in the constructor kicked in before the mvto did
+* - also added pull and hit scripts to the launch
 
 new: simp 2 23 50201 "moe_C2toDS_potato" 21 9 2500
 
@@ -21,7 +22,7 @@ scrp 2 23 50201 10
 
 	attr 199
 
-	bhvr 1
+	bhvr 11
 
 	elas 10
 
@@ -42,6 +43,9 @@ endm
 scrp 2 23 50201 1
 
 	inst
+	doif crea from eq 1
+		stim writ from 90 1
+	endi
 
 	lock
 
@@ -103,8 +107,26 @@ scrp 2 23 50201 1
 
 endm
 
+*pull 
+scrp 2 23 50201 2
 
+	inst
+	doif crea from eq 1
+		stim writ from 90 1
+	endi
+	mesg writ ownr 0
+endm
 
+*hit
+scrp 2 23 50201 3
+	inst
+	doif crea from eq 1
+		stim writ from 92 1
+	endi
+	
+	snde "hit_"
+	velo rand -2 2 rand -5 0
+endm
 
 
 *Seed Timer
