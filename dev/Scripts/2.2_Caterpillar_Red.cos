@@ -775,7 +775,14 @@ scrp 2 13 50205 9
 
 				subv va00 4
 
-				mvsf posl va00
+				doif movs eq 0
+
+					mvsf posl va00
+				else
+				* stop if you've been picked up
+					stop
+				
+				endi
 
 				anim [16 17]
 
@@ -791,7 +798,14 @@ scrp 2 13 50205 9
 
 				subv va00 4
 
-				mvsf posl va00
+				doif movs eq 0
+
+					mvsf posl va00
+				else
+				* stop if you've been picked up
+					stop
+				
+				endi
 
 				anim [22 23]
 
