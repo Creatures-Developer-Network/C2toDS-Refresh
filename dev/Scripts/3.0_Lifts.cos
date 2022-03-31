@@ -1824,7 +1824,7 @@ scrp 2 12 50200 10
 
 	attr 4
 
-	bhvr 1
+	bhvr 3
 
 	setv ov02 0
 
