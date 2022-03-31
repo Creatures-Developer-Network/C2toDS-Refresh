@@ -3,6 +3,8 @@
 * 3 13 50201 - Queue Agents
 
 * Verm here, redoing the entire boat system so it's better for creature navigation, hopefully
+* Aiko changed the placeholder sprites to call buttons (and made them light up)
+* Also made the creature-grabbing more reliable
 new: vhcl 3 1 50201 "moe_C2toDS_boat" 1 0 2000
 
 cabp 1
@@ -23,11 +25,11 @@ pat: butt 3 "moe_C2toDS_boat" 12 3 60 22 21 [] 1001 0
 
 cato 35
 
-mvto 8617 48180
+mvto 8490 48180
 
-new: simp 3 12 50201 "blnk" 1 1 2000
+new: simp 3 12 50201 "moe_C2toDS_lifts" 2 7 2000
 
-attr 0
+attr 4
 
 bhvr 3
 * Left Butt
@@ -35,11 +37,11 @@ setv ov00 1
 
 cato 2
 
-mvto 8531 48204
+mvto 8531 48153
 
-new: simp 3 12 50201 "blnk" 1 1 2000
+new: simp 3 12 50201 "moe_C2toDS_lifts" 2 7 2000
 
-attr 0
+attr 4
 
 bhvr 3
 * Right Butt
@@ -47,42 +49,78 @@ bhvr 3
 
 cato 2
 
-mvto 9278 48204
+mvto 9278 48153
 
 * 1 & 2 will be the same
 scrp 3 12 50201 1
 	inst
+	* light up, light up
+	rtar 3 1 50201
+	doif ov00 eq mv00
+		targ ownr
+		pose 1
+	endi
 *Queue Object!
 	targ from
 	doif crea targ eq 1
-		sets va00 gtos 0
-		new: simp 3 13 50201 "blnk" 1 0 0
-		setv ov00 mv00
-		sets ov01 va00
-		tick 20
+		sets va48 gtos 0
+		* check for any existing queue object
+		enum 3 13 50201
+			doif ov01 eq va48
+				addv va49 1
+			endi
+		next
+		* make a queue object if there's not one already
+		doif va49 eq 0
+			new: simp 3 13 50201 "blnk" 1 0 0
+			setv ov00 mv00
+			sets ov01 va48
+			tick 20
+		endi
+
 		stim writ from 75 1
 		stim writ from 96 1
 		urge writ from 0 0.5 0 0.5
-		rtar 3 1 50201
-		mesg writ targ 1001
 	endi
+	rtar 3 1 50201
+	mesg writ targ 1001
 endm
+
 scrp 3 12 50201 2
 	inst
+	
+* light up, light up
+	rtar 3 1 50201
+	doif ov00 eq mv00
+		targ ownr
+		pose 1
+	endi
+	
 *Queue Object!
 	targ from
 	doif crea targ eq 1
-		sets va00 gtos 0
-		new: simp 3 13 50201 "blnk" 1 0 0
-		setv ov00 mv00
-		sets ov01 va00
-		tick 20
+		sets va48 gtos 0
+		* check for any existing queue object
+		enum 3 13 50201
+			doif ov01 eq va48
+				addv va49 1
+			endi
+		next 
+		* if there's no queue objects, make one
+		doif va49 eq 0
+			new: simp 3 13 50201 "blnk" 1 0 0
+			setv ov00 mv00
+			sets ov01 va48
+			tick 20
+		endi
+		
 		stim writ from 75 1
 		stim writ from 96 1
 		urge writ from 0 0.5 0 0.5
-		rtar 3 1 50201
-		mesg writ targ 1001
 	endi
+	rtar 3 1 50201
+	mesg writ targ 1001
+
 endm
 
 scrp 3 13 50201 9
@@ -111,13 +149,12 @@ endm
 scrp 3 1 50201 1001
 	lock
 	inst
+	
 	loop
 		doif ov00 eq 0
-
 			gsub rght
 
 		else
-
 			gsub left
 
 		endi
@@ -127,6 +164,9 @@ scrp 3 1 50201 1001
 		setv ov01 0
 *		dbg: outv totl 3 13 50201
 	untl totl 3 13 50201 le 0
+	enum 3 12 50201
+		pose 0
+	next
 	unlk
 	subr rght
 		inst
@@ -134,7 +174,23 @@ scrp 3 1 50201 1001
 		enum 3 13 50201
 			doif ov00 eq 1
 				doif ooww ov01 eq 3
-					spas ownr mtoc ov01
+					
+					* spas takes some time to work, so loop
+					* and keep checking if you got a creature
+					* before continuing
+					
+					loop
+						spas ownr mtoc ov01
+						wait 1
+						addv va46 1
+						seta va45 targ
+						targ ownr
+						epas 4 0 0
+							addv va44 1
+						next
+						targ va45
+					untl va44 gt 0 or ooww ov01 ne 3 
+
 					kill targ
 				else
 					kill targ
@@ -206,7 +262,25 @@ scrp 3 1 50201 1001
 		enum 3 13 50201
 			doif ov00 eq 0
 				doif ooww ov01 eq 3
-					spas ownr mtoc ov01
+		
+					* spas takes some (inconsistent amount of) to work, so loop
+					* and keep checking if you got a creature
+					* before continuing
+					
+					loop
+						spas ownr mtoc ov01
+						wait 1
+						addv va46 1
+						seta va45 targ
+						targ ownr
+						* epas says it works on ownr but...it seems to work on targ actually? 
+						epas 4 0 0
+							addv va44 1
+						next
+						targ va45
+					untl va44 gt 0 or ooww ov01 ne 3 
+					* dbg: outs "It took this many tries to get the norn"
+					* dbg: outv va46
 					kill targ
 				else
 					kill targ
