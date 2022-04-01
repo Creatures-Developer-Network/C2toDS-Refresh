@@ -9,6 +9,25 @@
 * Scream here stopping dormant seeds from emitting carb smell 
 * and letting creatures eat pears directly off the plant.
 
+
+* OVs and script numbers (the best Aiko can guess)
+* Pear Seed OV00 (int) - age, increments  Bounces around til age 5-7 before trying to sprout
+
+* Pear OV00 (int) - 1 = on the plant, 2 = off the plant.
+* Pear OV01 (agent) - The plant it is on, or came from.
+
+* Pear Flower OV01 (int) - 1 if it has a left fruit
+* Pear Flower OV02 (int) - 1 if it has a middle fruit
+* Pear Flower OV03 (int) - 1 if it has a right fruit
+* Pear Flower OV04 (agent) - The left fruit
+* Pear Flower OV05 (agent) - The middle fruit
+* Pear Flower OV06 (agent) - The right fruit
+* Pear Flower OV07 (int) - either 0 or 1. If 0, at night, all the flowers "close",
+*		if 1 at night, the fruits all become visible/edible/pickable.
+* Pear Flower OV10 (int) - age? Plant dies/goes to seed at age 50
+
+
+
 new: comp 2 23 50204 "moe_C2toDS_pear" 8 0 rand 500 2500
 
 mvsf 3950 48530
@@ -481,6 +500,7 @@ scrp 2 7 50204 9
 
 *addv name "nectar" 1
 
+* if you're still small. grow,
 	doif pose lt 12
 
 		setv va00 pose
@@ -490,7 +510,8 @@ scrp 2 7 50204 9
 		pose va00
 
 		stop
-
+		
+* if you are big, start producing fruit
 	elif pose eq 12
 
 		lock
@@ -522,6 +543,9 @@ scrp 2 7 50204 9
 		setv ov03 1
 
 		pose 14
+		 * Sometimes we get errors here indicating one or more of these parts already exist. Why would these 
+		 * parts ever already exist? They only get created here, when they hit pose 12 and they
+		 * change to pose 14 beforehand...
 
 		doif mira eq 0
 
@@ -578,6 +602,8 @@ scrp 2 7 50204 9
 		setv ov03 0
 
 	endi
+	
+*if you are at age 50 and have all your fruits
 
 	doif ov10 ge 50 and ov01 eq 1 and ov02 eq 1 and ov03 eq 1
 
@@ -597,6 +623,8 @@ scrp 2 7 50204 9
 
 					pose 12
 
+* and they are all pose 0... kill them all
+					
 					inst
 
 					targ ov04
@@ -632,6 +660,7 @@ scrp 2 7 50204 9
 					over
 
 					snde "laun"
+* go to seed!
 
 					gsub seed
 
@@ -660,7 +689,7 @@ scrp 2 7 50204 9
 	unlk
 
 
-
+* if it is night, and your fruit is not done growing, grow your fruit
 	doif time eq 4 and ov07 eq 0
 
 		part 1
@@ -728,6 +757,8 @@ scrp 2 7 50204 9
 			endi
 
 		endi
+		
+* if it is night and your fruit is grown, make it seen/edible
 
 	elif time ne 4 and ov07 eq 1
 
@@ -773,7 +804,7 @@ scrp 2 7 50204 9
 
 
 
-
+* now, if it is night.... stop.
 
 	doif time eq 4
 
@@ -785,7 +816,8 @@ scrp 2 7 50204 9
 
 	endi
 
-
+* if you are here, it is not night
+* if you don't have a left fruit, make your left fruit!
 
 	inst
 
@@ -806,6 +838,8 @@ scrp 2 7 50204 9
 			setv ov01 1
 
 		endi
+		
+* IF you do have a left fruit, open its flower
 
 	elif ov01 eq 1
 
@@ -815,7 +849,7 @@ scrp 2 7 50204 9
 
 	endi
 
-
+* if you don't have a middle fruit, make your middle fruit!
 
 	doif ov02 eq 0
 
@@ -834,6 +868,8 @@ scrp 2 7 50204 9
 			setv ov02 1
 
 		endi
+		
+* if you have a middle fruit, open its flower
 
 	elif ov02 eq 1
 
@@ -843,7 +879,7 @@ scrp 2 7 50204 9
 
 	endi
 
-
+* if you don't have a left fruit, make your left fruit!
 
 	doif ov03 eq 0
 
@@ -862,6 +898,8 @@ scrp 2 7 50204 9
 			setv ov03 1
 
 		endi
+		
+* if you have a left fruit, open its flower
 
 	elif ov03 eq 1
 
@@ -875,7 +913,7 @@ scrp 2 7 50204 9
 
 
 
-
+* if you are starting to get old, and you have all your fruits, start dropping them in preparation for death.
 
 	doif ov10 ge rand 35 45 and ov10 lt 50 and ov01 eq 1 and ov02 eq 1 and ov03 eq 1
 
@@ -1240,7 +1278,7 @@ scrp 2 7 50204 9
 endm
 
 
-
+* pear creation
 scrp 2 8 50204 10
 
 	inst
@@ -1284,7 +1322,7 @@ endm
 
 
 
-scrp 2 8 50204 255
+scrp 2 7 50204 255
 
 	doif ov04 eq null
 
