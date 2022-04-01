@@ -193,6 +193,8 @@ scrp 2 3 50206 9
 	doif ov00 lt rand 10 60 and name "lifestage" eq 0
 
 		addv ov00 1
+		
+		*dbg: outs "drifting"
 
 		gsub drift
 
@@ -356,39 +358,23 @@ scrp 2 3 50206 9
 
 
 	subr drift
-
-		addv vely rand -3 -5
-
-
-
-* Removing Wind Interaction
-
-*	setv va00 lorp grap posx posy 19 0
-
-
-
-*	setv va01 torx va00
-
-
-* make wind random instead
-		setv ov01 rand 0.00000 1.00000
-
-
-
-		mulv ov01 rand 10 30
-
-
-
-		doif va01 gt 0.00
-
-			addv velx ov01
-
-		elif va01 lt 0.00
-
-			subv velx ov01
-
+	
+		* an alternate wind mechanic ... feel free to tweak
+		
+		setv vely rand -5 -3
+		setv va00 wtik
+		subv va00 game "c2ds wind timer"
+		
+		doif va00 gt 300
+			setv game "c2ds wind dirn" rand -1.0 1.0
+			setv game "c2ds wind timer" wtik
 		endi
 
+		setv va01 game "c2ds wind dirn" 
+		mulv va01 5
+		
+		setv velx va01
+		
 	retn
 
 
