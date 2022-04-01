@@ -239,6 +239,8 @@ scrp 2 21 50214 1
 		setv va01 post
 
 	endi
+	
+	inst
 
 	new: simp 2 6 50214 "moe_C2toDS_tgun" 17 14 rand 1000 3000
 
