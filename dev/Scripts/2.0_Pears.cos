@@ -618,6 +618,8 @@ scrp 2 7 50204 9
 				part 3
 
 				doif pose eq 0
+				
+					inst
 
 					part 0
 
@@ -625,7 +627,6 @@ scrp 2 7 50204 9
 
 * and they are all pose 0... kill them all
 					
-					inst
 
 					targ ov04
 
