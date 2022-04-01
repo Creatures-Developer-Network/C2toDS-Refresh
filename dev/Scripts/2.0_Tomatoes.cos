@@ -5,6 +5,17 @@
 * Instinct friendliness and survivability edits by the one who screams i guess
 * (if you worked on this file, feel free to add your name!)
 
+* Some guesses about what these OVs are (on the plant):
+* ov01 - Agent representing Left tomato
+* ov02 - Agent representing Middle tomato
+* ov03 - Agent representing Right tomato
+* ov10 - Age of the plant (?) At 40-45, starts dropping its fruit, dies at age 50
+
+*Tomato Fruit script 1001 seems to be the "I have been picked/plant has dropped me" script
+* Tomato Fruit ov00 (int) is either state 1 (on the plant) or 0 (off the plant)
+* Tomato Fruit ov01 (agent) is the plant that it came from.
+* Tomato Fruit ov02 (int) is the number of tomato that they were (1 Left 2 Middle 3 Right)
+
 reps rand 5 7
 
 	new: simp 2 4 50200 "moe_C2toDS_toms" 15 0 rand 1000 3000
@@ -244,10 +255,10 @@ scrp 2 4 50200 9
 	endi
 
 	doif ov10 ge 50
+	
+		inst
 
 		doif ov01 ne null and ov02 ne null and ov03 ne null
-
-			inst
 
 			lock
 
@@ -476,10 +487,12 @@ scrp 2 8 50200 4
 endm
 
 
-
+* tomato being picked (or old plant dropping it)
 scrp 2 8 50200 1001
 
 	inst
+	
+	*ov00 1 = still growing on the plant
 
 	doif ov00 eq 1
 
@@ -498,32 +511,32 @@ scrp 2 8 50200 1001
 		tick rand 1000 2500
 
 		setv ov00 0
+		
+		* tell the mother plant you are being picked by blanking their OV for you
+		
+		* the fact that I am having to write in targ eq null checks here makes me wonder 
+		* what situation this script is being triggered wherein a tomato is being 'picked' but there is no longer
+		* a mother plant... there might actually be a deeper issue here, or maybe not.
+		targ ov01
+		
+		doif targ ne null
+	
+			doif mv02 eq 1
 
-		doif ov02 eq 1
-
-			targ ov01
-
-			seta ov01 null
-
-			targ ownr
-
-		elif ov02 eq 2
-
-			targ ov01
-
-			seta ov02 null
-
-			targ ownr
-
-		elif ov02 eq 3
-
-			targ ov01
-
-			seta ov03 null
-
-			targ ownr
-
+					seta ov01 null
+	
+			elif mv02 eq 2
+	
+					seta ov02 null
+	
+			elif mv02 eq 3
+	
+					seta ov03 null
+			endi
+			
 		endi
+		
+		targ ownr
 
 		doif carr eq null
 
@@ -544,11 +557,12 @@ scrp 2 8 50200 1001
 endm
 
 
+* fruit timer
 
 scrp 2 8 50200 9
 
 
-
+*Don't do anything at night
 	doif time eq 4
 
 		stop
@@ -556,7 +570,7 @@ scrp 2 8 50200 9
 	endi
 
 
-
+* If you are on the plant, grow!
 	doif ov00 eq 1
 
 		doif pose lt 3
@@ -570,6 +584,8 @@ scrp 2 8 50200 9
 			stop
 
 		else
+		
+		* If you are on the plant and fully grown, become visible.
 
 			bhvr 48
 
@@ -577,6 +593,7 @@ scrp 2 8 50200 9
 
 		endi
 
+* If you are off the plant, and not falling or being carried
 	elif ov00 eq 0
 
 		doif carr ne null or fall eq 1
@@ -584,9 +601,11 @@ scrp 2 8 50200 9
 			stop
 
 		endi
-
+		
+* And it is not night or dawn
 		doif time ne 4 and time ne 0
 
+			* become invisible and break down
 			lock
 
 			frat 75
@@ -719,11 +738,14 @@ scrp 2 8 50200 12
 
 	targ ownr
 
+* to ensure creatures don't eat these to extinction, make them invisible after
+* taking a bite and tell them to go directly to seed.
 	doif base ne 17
 		base 17
 		pose 0
 		attr 211
 		emit 6 0
+		tick 1
 	else
 		kill ownr
 	endi
