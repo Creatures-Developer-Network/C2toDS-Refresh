@@ -1,0 +1,316 @@
+* These are just very quick & dirty temp fixes to get us by until we can get more deeply into things --Aiko
+* These is also by no means a complete set of fixes, just a few that were bugging me the most at the time.
+
+setv va80 gmap 4400 49142
+sets va99 " "
+
+*  removes one of the scaffoldy platforms by the waterfall that tall creatures seem to glitch onto/through
+door grap 4400 49142 grap 4382 49205 100
+
+* the existence of this tiny room in the pond is probably asking for trouble
+doif grap 4286 49084 gt 1
+	delr grap 4286 49084
+endi
+
+* Using the sets_vaxx_from_va00_with_delimiter_va99 subr for room adjustments:
+* va01 = x_left
+* va02 = x_right
+* va03 = y_left_ceiling
+* va04 = y_right_ceiling 
+* va05 = y_left_floor 
+* va06 = y_right_floor
+
+*remember that you also have to reset the room type and any doors between rooms if you
+* do it this way...oh and if the game crashes when you do this,
+* it's probably because there's a CA link in the room you tried to adjust.
+* You'll have to break the CA link first (use LINK to set the permiability to 0)
+* then adjust the room, then re-add the link when you're done.
+
+********************************************
+
+*Trying something else.. adjust a room by increasing the ceiling til it bumps into another room.
+
+sets va00 rloc grap 4353 48975
+setv va07 rtyp grap 4353 48975
+gsub sets_vaxx_from_va00_with_delimiter_va99
+
+loop
+	subv va03 1
+untl grap va01 va03 ne -1
+
+setv va20 grap va01 va03
+
+addv va03 1
+*setv va03 va04
+*setv va12 va03
+delr grap 4353 48975
+setv va13 addr va80 va01 va02 va03 va04 va05 va06
+rtyp grap 4353 48975 va07
+
+*set the door with the new room you're bumping up against!
+door va13 va20 0
+
+*********************************************
+
+* this does the same thing as above I think but raises both left and right ceilings
+* this isn't a one size fits all.... things vary a lot.
+
+setv va13 grap 4312 48977
+
+sets va00 rloc va13
+setv va07 rtyp va13
+gsub sets_vaxx_from_va00_with_delimiter_va99
+
+*left ceiling
+
+loop
+	subv va03 1
+untl grap va01 va03 ne -1 and grap va01 va03 ne grap 4246 48970
+
+setv va20 grap va01 va03
+dbg: outs "va13"
+dbg: outv va13
+dbg: outs "va20"
+dbg: outv va20
+
+*right ceiling
+
+loop
+	subv va04 1
+untl grap va02 va04 ne -1 and grap va02 va04 ne grap 4353 48975
+
+setv va21 grap va02 va04
+dmap 1
+dbg: outs "va21"
+dbg: outv va21
+
+addv va03 1
+* I don't know why this breaks it but it does
+*addv va04 1
+
+delr va13
+setv va13 addr va80 va01 va02 va03 va04 va05 va06
+rtyp va13 va07
+
+dbg: outs "va13 new"
+dbg: outv va13
+
+*set the door with the new room you're bumping up against!
+door va13 va20 0
+door va13 va21 0
+
+*******************************
+
+* here's a more templated example... with doors...
+
+*set the two rooms the door is between .. remember there might be many doors between
+* your room and adjacent rooms.
+setv va13 grap 4246 48970
+setv va14 grap 4244 49078
+
+* remember the door.
+setv va15 door va13 va14
+
+* remember your room type
+setv va07 rtyp va13
+
+*get the room
+sets va00 rloc va13
+gsub sets_vaxx_from_va00_with_delimiter_va99
+
+*make any adjustments
+subv va03 30
+subv va04 30
+
+*delete and remake the room
+delr va13
+
+setv va13 addr va80 va01 va02 va03 va04 va05 va06
+
+*reset the room type
+rtyp va13 va07
+
+*reset any doors:
+door va13 va14 va15
+
+************************************
+
+*set the two rooms the door is between .. remember there might be many doors between
+* your room and adjacent rooms.
+setv va13 grap 4159 48970
+setv va14 grap 4159 49078
+
+* remember the door.
+setv va15 door va13 va14
+
+* remember your room type
+setv va07 rtyp va13
+
+*get the room
+sets va00 rloc va13
+gsub sets_vaxx_from_va00_with_delimiter_va99
+
+*make any adjustments
+subv va03 30
+subv va04 30
+
+*delete and remake the room
+delr va13
+
+setv va13 addr va80 va01 va02 va03 va04 va05 va06
+
+*reset the room type
+rtyp va13 va07
+
+*reset any doors:
+door va13 va14 va15
+
+*******************************
+
+*set the two rooms the door is between .. remember there might be many doors between
+* your room and adjacent rooms.
+setv va13 grap 4100 48970
+setv va14 grap 4100 49078
+
+* remember the door.
+setv va15 door va13 va14
+
+* remember your room type
+setv va07 rtyp va13
+
+*get the room
+sets va00 rloc va13
+gsub sets_vaxx_from_va00_with_delimiter_va99
+
+*make any adjustments
+subv va03 30
+subv va04 30
+
+*delete and remake the room
+delr va13
+
+setv va13 addr va80 va01 va02 va03 va04 va05 va06
+
+*reset the room type
+rtyp va13 va07
+
+*reset any doors:
+door va13 va14 va15
+
+*******************************
+
+* don't need doors for this one!
+setv va13 grap 4024 48970
+
+* remember your room type
+setv va07 rtyp va13
+
+*get the room
+sets va00 rloc va13
+gsub sets_vaxx_from_va00_with_delimiter_va99
+
+*make any adjustments
+subv va03 30
+subv va04 30
+
+*delete and remake the room
+delr va13
+
+setv va13 addr va80 va01 va02 va03 va04 va05 va06
+
+*reset the room type
+rtyp va13 va07
+
+*******************************
+
+* don't need doors for this one!
+setv va13 grap 3908 48970
+
+* remember your room type
+setv va07 rtyp va13
+
+*get the room
+sets va00 rloc va13
+gsub sets_vaxx_from_va00_with_delimiter_va99
+
+*make any adjustments
+subv va04 30
+
+*delete and remake the room
+delr va13
+
+setv va13 addr va80 va01 va02 va03 va04 va05 va06
+
+*reset the room type
+rtyp va13 va07
+
+*******************************
+
+
+
+
+
+
+
+
+subr sets_vaxx_from_va00_with_delimiter_va99
+		* string va00, where the splitting charater(s?) is va99
+		* va93 -- Position
+		setv va93 1
+		* va96 -- Index Number
+		setv va96 0
+		* va98 -- string to return
+		loop
+			*start only if the string contains the delimiter
+			doif sins va00 va93 va99 ne -1
+			* 	if it starts with the delimter, add the length of the delimter to skip it
+				doif subs va00 1 strl va99 eq va99 and va93 eq 1
+					addv va93 strl va99
+				endi
+			* 	find the position of the slice (va94) by searching for the delimiter
+				setv va94 sins va00 va93 va99
+			* 	subtract the starting position to get the length of a slice
+				subv va94 va93
+			* 	sets va95 to be your slice
+				sets va95 subs va00 va93 va94
+			* if the string doesn't contain the delimiter, you must be at the end
+			else
+			* return the remainder of the string
+				sets va95 subs va00 va93 -1
+			* flag the loop to stop by setting the position to negative
+				setv va93 -999999
+			endi
+			* if you returned something
+			doif va95 ne ""
+			* add one to the index
+				addv va96 1
+			* if index is one
+		*vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+			* set the string to return to the vaxx of the index
+				doif va96 eq 1 
+					setv va01 stoi va95
+				elif va96 eq 2
+					setv va02 stoi va95
+				elif va96 eq 3
+					setv va03 stoi va95
+				elif va96 eq 4
+					setv va04 stoi va95
+				elif va96 eq 5
+					setv va05 stoi va95
+				elif va96 eq 6
+					setv va06 stoi va95
+					* Look I'm only gonna go this far but you can do whatever if you really need to...
+		*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^				
+				endi
+			endi
+	* finished setting the string...
+	* Increment the position by the length of the word
+			addv va93 va94
+	* Add the length of the delimiter
+			addv va93 strl va99	
+	* if the string is empty, end the loop
+			doif strl va00 le va93
+				setv va93 -999999
+			endi	
+		untl va93 lt 1
+	retn
