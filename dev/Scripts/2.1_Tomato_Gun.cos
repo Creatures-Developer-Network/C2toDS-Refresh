@@ -32,7 +32,7 @@ scrp 2 21 50214 10
 
 	accg 3
 
-	bhvr 33
+	bhvr 43
 
 	perm 51
 
@@ -178,12 +178,21 @@ endm
 
 
 scrp 2 21 50214 2
-	stim writ from 97 3
-	call 1 0 0
+
+	doif crea from eq 1
+		stim writ from 97 3
+	endi
+	
+	mesg writ ownr 0
 endm
+
 scrp 2 21 50214 3
-	stim writ from 97 3
-	call 1 0 0
+
+	doif crea from eq 1
+		stim writ from 97 3
+	endi
+	
+	mesg writ ownr 0
 endm
 
 
@@ -230,6 +239,8 @@ scrp 2 21 50214 1
 		setv va01 post
 
 	endi
+	
+	inst
 
 	new: simp 2 6 50214 "moe_C2toDS_tgun" 17 14 rand 1000 3000
 

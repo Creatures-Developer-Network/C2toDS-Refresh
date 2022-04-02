@@ -1315,6 +1315,11 @@ scrp 2 14 50200 9
 
 endm
 
+* you lost your target !!
+scrp 2 14 50200 255
+ stop
+endm
+
 
 
 scrp 2 10 50202 10

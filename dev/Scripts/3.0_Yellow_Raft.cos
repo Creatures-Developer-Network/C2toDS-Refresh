@@ -2,6 +2,9 @@
 * 3 12 50203 - Call Buttons
 * 3 13 50203 - Queue Agents
 
+* Aiko changed the placeholder sprites to call buttons (and made them light up)
+* Also made the creature-grabbing more reliable
+
 * UNFINISHED: Need to add code to detect which direction the norn wants to go in, rather than
 *             relying on where they are in relation to the dingy when they activated it.
 * UNFINISHED: We also need to ensure that norns falling off ledge are caught by dingy. I 
@@ -10,6 +13,8 @@
 * Rubber dingy
 
 new: vhcl 3 1 50203 "moe_C2toDS_dingy" 22 0 3000
+
+tick 4
 
 cabn 60 -50 225 88
 
@@ -29,11 +34,13 @@ setv ov00 1
 
 mvto 2380 48195
 
+setv ov99 posy
+
 cato 35
 
-new: simp 3 12 50203 "blnk" 1 1 2000
+new: simp 3 12 50203 "moe_C2toDS_lifts" 2 7 2000
 
-attr 0
+attr 4
 
 bhvr 3
 * Left Butt
@@ -41,11 +48,11 @@ setv ov00 0
 
 cato 2
 
-mvto 2395 48170
+mvto 2395 48128
 
-new: simp 3 12 50203 "blnk" 1 1 2000
+new: simp 3 12 50203 "moe_C2toDS_lifts" 2 7 2000
 
-attr 0
+attr 4
 
 bhvr 3
 * Right Butt
@@ -53,42 +60,76 @@ setv ov00 1
 
 cato 2
 
-mvto 3085 48170
+mvto 3085 48128
 
 scrp 3 12 50203 1
 	inst
+	* light up, light up
+	rtar 3 1 50203
+	doif ov00 eq mv00
+		targ ownr
+		pose 1
+	endi
 *Queue Object!
 	targ from
 	doif crea targ eq 1
-		sets va00 gtos 0
-		new: simp 3 13 50203 "blnk" 1 0 0
-		setv ov00 mv00
-		sets ov01 va00
-		tick 20
+		sets va48 gtos 0
+		* check for any existing queue object
+		enum 3 13 50203
+			doif ov01 eq va48
+				addv va49 1
+			endi
+		next
+		* make a queue object if there's not one already
+		doif va49 eq 0
+			new: simp 3 13 50203 "blnk" 1 0 0
+			*dbg: outs "making quere"
+			setv ov00 mv00
+			sets ov01 va48
+			tick 20
+		endi
+
 		stim writ from 75 1
 		stim writ from 96 1
 		urge writ from 0 0.5 0 0.5
-		rtar 3 1 50203
-		mesg writ targ 1001
 	endi
+	rtar 3 1 50203
+	mesg writ targ 1001
 endm
 
 scrp 3 12 50203 2
 	inst
+	* light up, light up
+	rtar 3 1 50203
+	doif ov00 eq mv00
+		targ ownr
+		pose 1
+	endi
 *Queue Object!
 	targ from
 	doif crea targ eq 1
-		sets va00 gtos 0
-		new: simp 3 13 50203 "blnk" 1 0 0
-		setv ov00 mv00
-		sets ov01 va00
-		tick 20
+		sets va48 gtos 0
+		* check for any existing queue object
+		enum 3 13 50203
+			doif ov01 eq va48
+				addv va49 1
+			endi
+		next
+		* make a queue object if there's not one already
+		doif va49 eq 0
+			new: simp 3 13 50203 "blnk" 1 0 0
+			*dbg: outs "making quere"
+			setv ov00 mv00
+			sets ov01 va48
+			tick 20
+		endi
+
 		stim writ from 75 1
 		stim writ from 96 1
 		urge writ from 0 0.5 0 0.5
-		rtar 3 1 50203
-		mesg writ targ 1001
 	endi
+	rtar 3 1 50203
+	mesg writ targ 1001
 endm
 
 scrp 3 13 50203 9
@@ -114,6 +155,7 @@ endm
 scrp 3 1 50203 1001
 
 	lock
+	*dbg: outs "1001!!!"
 	loop
 *Going left - right station
 		doif ov00 eq 0
@@ -122,7 +164,22 @@ scrp 3 1 50203 1001
 			enum 3 13 50203
 				doif ov00 eq 1
 					doif ooww ov01 eq 3
-						spas ownr mtoc ov01
+						
+						* spas takes some time to work, so loop
+						* and keep checking if you got a creature
+						* before continuing
+						loop
+							spas ownr mtoc ov01
+							wait 1
+							addv va46 1
+							seta va45 targ
+							targ ownr
+							epas 4 0 0
+								addv va44 1
+							next
+							targ va45
+						untl va44 gt 0 or ooww ov01 ne 3 
+	
 						kill targ
 					else
 						kill targ
@@ -190,7 +247,22 @@ scrp 3 1 50203 1001
 			enum 3 13 50203
 				doif ov00 eq 0
 					doif ooww ov01 eq 3
-						spas ownr mtoc ov01
+						
+						* spas takes some time to work, so loop
+						* and keep checking if you got a creature
+						* before continuing
+						loop
+							spas ownr mtoc ov01
+							wait 1
+							addv va46 1
+							seta va45 targ
+							targ ownr
+							epas 4 0 0
+								addv va44 1
+							next
+							targ va45
+						untl va44 gt 0 or ooww ov01 ne 3 
+	
 						kill targ
 					else
 						kill targ
@@ -228,7 +300,7 @@ scrp 3 1 50203 1001
 			anim [2 1 0]
 
 			targ ownr
-			doif post lt 48195
+			doif post gt 48195
 				loop
 					addv vely 0.5
 
@@ -236,7 +308,7 @@ scrp 3 1 50203 1001
 					epas 4 0 0
 						stim writ targ 75 1
 					next
-				untl post ge 48195
+				untl post le 48195
 			endi
 			setv vely 0
 
@@ -251,7 +323,35 @@ scrp 3 1 50203 1001
 		endi
 		targ ownr
 	untl totl 3 13 50203 le 0
+	
+	enum 3 12 50203
+		pose 0
+	next
 	unlk
+	
+
+endm
+
+* pickup creatures who fall in you
+scrp 3 1 50203 9
+	inst
+	targ ownr
+	etch 4 0 0
+		doif posb ge mv99
+			*targ ownr
+			spas ownr targ
+			*gpas 4 0 0 0
+		endi
+	next
+	
+	epas 4 0 0
+		addv va00 1
+	next
+	
+	doif va00 gt 0
+		mesg writ ownr 1001
+		wait 1
+	endi
 
 endm
 

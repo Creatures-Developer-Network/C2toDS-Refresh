@@ -1,6 +1,9 @@
 * 1 8 50202 - Some decorative bit related to the trolly
 * 3 1 50205 - Trolly
 
+* The call buttons still aren't consistent with how they light up
+* But I'm tired and it's a very minor issue that can be fixed on a more detailed pass x.x
+
 new: simp 1 8 50202 "moe_C2toDS_trolly" 1 5 2
 attr 16
 mvto 4457 48574
@@ -34,6 +37,7 @@ mvsf 5800 48260
 *mvsf 4582 48915
 cato 35
 attr 16
+setv ov00 5
 
 *Left
 
@@ -55,65 +59,99 @@ cabp -10
 
 cabw 10
 
-new: simp 3 12 50205 "blnk" 1 1 2000
+new: simp 3 12 50205 "moe_C2toDS_lifts" 2 7 1999
 
-attr 0
+attr 4
 
 bhvr 3
 * Left Butt
-setv ov00 0
+setv ov00 5
 
 cato 2
 
-mvto 4523 48863
+mvto 4523 48825
 
-new: simp 3 12 50205 "blnk" 1 1 2000
+new: simp 3 12 50205 "moe_C2toDS_lifts" 2 7 1999
 
-attr 0
+attr 4
 
 bhvr 3
 * Right Butt
-setv ov00 1
+setv ov00 -5
 
 cato 2
 
-mvto 5879 48388
+mvto 5879 48340
 
 **Call Button scripts
 scrp 3 12 50205 1
 	inst
+	* light up, light up
+	rtar 3 1 50205
+	doif ov00 eq mv00
+		targ ownr
+		pose 1
+	endi
 *Queue Object!
 	targ from
 	doif crea targ eq 1
-		sets va00 gtos 0
-		new: simp 3 13 50205 "blnk" 1 0 0
-		setv ov00 mv00
-		sets ov01 va00
-		tick 20
+		sets va48 gtos 0
+		* check for any existing queue object
+		enum 3 13 50205
+			doif ov01 eq va48
+				addv va49 1
+			endi
+		next
+		* make a queue object if there's not one already
+		doif va49 eq 0
+			new: simp 3 13 50205 "blnk" 1 0 0
+			*dbg: outs "making quere"
+			setv ov00 mv00
+			sets ov01 va48
+			tick 20
+		endi
+
 		stim writ from 75 1
 		stim writ from 96 1
 		urge writ from 0 0.5 0 0.5
-		rtar 3 1 50205
-		mesg writ targ 0
 	endi
+	rtar 3 1 50205
+	mesg writ targ 0
 endm
 **Call Button scripts
 scrp 3 12 50205 2
 	inst
+	* light up, light up
+	rtar 3 1 50205
+	doif ov00 eq mv00
+		targ ownr
+		pose 1
+	endi
 *Queue Object!
 	targ from
 	doif crea targ eq 1
-		sets va00 gtos 0
-		new: simp 3 13 50205 "blnk" 1 0 0
-		setv ov00 mv00
-		sets ov01 va00
-		tick 20
+		sets va48 gtos 0
+		* check for any existing queue object
+		enum 3 13 50205
+			doif ov01 eq va48
+				addv va49 1
+			endi
+		next
+		* make a queue object if there's not one already
+		doif va49 eq 0
+			new: simp 3 13 50205 "blnk" 1 0 0
+			*dbg: outs "making quere"
+			setv ov00 mv00
+			sets ov01 va48
+			tick 20
+		endi
+
 		stim writ from 75 1
 		stim writ from 96 1
 		urge writ from 0 0.5 0 0.5
-		rtar 3 1 50205
-		mesg writ targ 0
 	endi
+	rtar 3 1 50205
+	mesg writ targ 0
 endm
 
 scrp 3 13 50203 9
@@ -139,10 +177,12 @@ scrp 3 1 50205 1
 *	stim writ from 75 1
 	doif velx eq 0
 		doif posl gt 4530
+		* go left - will setv ov00 -5
 
 			mesg writ ownr 1001
 
 		else
+		* go right - will setv ov00 5
 
 			mesg writ ownr 1002
 
@@ -189,9 +229,24 @@ doif velx eq 0
 	inst
 * Get the queued creatures
 	enum 3 13 50205
-		doif ov00 eq 1
+		doif ov00 eq -5
 			doif ooww ov01 eq 3
-				spas ownr mtoc ov01
+				
+				* spas takes some time to work, so loop
+				* and keep checking if you got a creature
+				* before continuing
+				loop
+					spas ownr mtoc ov01
+					wait 1
+					addv va46 1
+					seta va45 targ
+					targ ownr
+					epas 4 0 0
+						addv va44 1
+					next
+					targ va45
+				untl va44 gt 0 or ooww ov01 ne 3 
+
 				kill targ
 			else
 				kill targ
@@ -199,7 +254,7 @@ doif velx eq 0
 		endi
 	next
 	slow
-endi
+endi	
 
 	unlk
 endm
@@ -243,9 +298,24 @@ doif velx eq 0
 	inst
 * Get the queued creatures
 	enum 3 13 50205
-		doif ov00 eq 0
+		doif ov00 eq 5
 			doif ooww ov01 eq 3
-				spas ownr mtoc ov01
+				
+				* spas takes some time to work, so loop
+				* and keep checking if you got a creature
+				* before continuing
+				loop
+					spas ownr mtoc ov01
+					wait 1
+					addv va46 1
+					seta va45 targ
+					targ ownr
+					epas 4 0 0
+						addv va44 1
+					next
+					targ va45
+				untl va44 gt 0 or ooww ov01 ne 3 
+
 				kill targ
 			else
 				kill targ
@@ -254,7 +324,6 @@ doif velx eq 0
 	next
 	slow
 endi
-
 	unlk
 endm
 
@@ -294,6 +363,9 @@ scrp 3 1 50205 9
 			dpas 4 0 0
 			unlk
 			mvsf 4498 48725
+			enum 3 12 50205
+				pose 0
+			next
 			doif totl 3 13 50205 gt 0
 				mesg writ ownr 0
 			endi
@@ -331,6 +403,9 @@ scrp 3 1 50205 9
 			dpas 4 0 0
 			unlk
 			mvsf 5800 48260
+			enum 3 12 50205
+				pose 0
+			next
 			doif totl 3 13 50205 gt 0
 				mesg writ ownr 0
 			endi

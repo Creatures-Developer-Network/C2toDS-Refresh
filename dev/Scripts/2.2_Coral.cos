@@ -123,6 +123,10 @@ scrp 2 15 50212 1
 	doif pose ge 2
 
 		gsub break
+		
+	else
+		
+		kill targ
 
 	endi
 
@@ -243,8 +247,13 @@ endm
 scrp 2 15 50212 9
 
 	doif rtyp room ownr ne 9
+	
+		doif pose ge 2
 
-		gsub break
+			gsub break
+		else
+			kill targ
+		endi
 
 	endi
 
@@ -303,6 +312,8 @@ scrp 2 15 50212 9
 				setv va01 posb
 
 				addv va01 rand -10 -35
+				
+				inst
 
 				new: simp 2 3 50227 "moe_C2toDS_coral" 6 0 rand 1000 3000
 
@@ -311,6 +322,8 @@ scrp 2 15 50212 9
 				addv vely -2
 
 				targ ownr
+				
+				slow
 
 			repe
 
@@ -553,7 +566,8 @@ scrp 2 3 50227 9
 			setv va00 24
 
 		endi
-
+		
+		inst
 
 
 		doif carr eq null or type carr ne 6

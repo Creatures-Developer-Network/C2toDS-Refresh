@@ -209,7 +209,7 @@ scrp 3 2 50200 1
 
 				setv va00 posx
 
-				setv va01 posy
+				setv va01 posb
 
 				targ va50
 
@@ -265,7 +265,7 @@ scrp 3 2 50200 1
 
 					subv va00 va08
 
-					subv va01 va09
+					*subv va01 va09
 
 
 
@@ -344,7 +344,7 @@ scrp 3 2 50200 2
 
 	setv va00 posl
 
-	setv va01 post
+	setv va01 posb
 
 *addv va01 200
 
@@ -372,7 +372,7 @@ scrp 3 2 50200 2
 
 				setv va00 posx
 
-				setv va01 posy
+				setv va01 posb
 
 				targ va50
 
@@ -428,7 +428,7 @@ scrp 3 2 50200 2
 
 					subv va00 va08
 
-					subv va01 va09
+					*subv va01 va09
 
 
 
@@ -601,10 +601,16 @@ scrp 3 2 50202 1001
 		endi
 
 	untl targ ne ownr
+	
+	doif targ eq null
+	
+		stop
+	
+	endi
 
 	setv va00 posl
 
-	setv va01 post
+	setv va01 posb
 
 	seta va51 targ
 
@@ -632,7 +638,7 @@ scrp 3 2 50202 1001
 
 			setv va00 posx
 
-			setv va01 posy
+			setv va01 posb
 
 			targ va50
 
@@ -690,7 +696,7 @@ scrp 3 2 50202 1001
 
 					subv va00 va08
 
-					subv va01 va09
+					*subv va01 va09
 
 
 
@@ -777,10 +783,17 @@ scrp 3 2 50202 1002
 		rtar 3 2 50202
 
 	untl targ ne ownr
+	
+	doif targ eq null
+	
+		stop
+	
+	endi
 
+	
 	setv va00 posl
 
-	setv va01 post
+	setv va01 posb
 
 	seta va51 targ
 
@@ -818,7 +831,7 @@ scrp 3 2 50202 1002
 
 			setv va00 posx
 
-			setv va01 posy
+			setv va01 posb
 
 			targ va50
 
@@ -868,7 +881,7 @@ scrp 3 2 50202 1002
 
 					subv va00 va08
 
-					subv va01 va09
+					*subv va01 va09
 
 
 

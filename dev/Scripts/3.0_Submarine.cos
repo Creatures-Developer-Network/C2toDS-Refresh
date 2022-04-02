@@ -36,9 +36,9 @@ mvto 9186 48430
 
 cato 35
 **Also to note, only the pointer can make the sub go down - Verm
-new: simp 3 12 50202 "blnk" 1 1 2000
+new: simp 3 12 50202 "moe_C2toDS_lifts" 2 7 2000
 
-attr 0
+attr 4
 
 bhvr 3
 * Left-Right Butt
@@ -46,11 +46,11 @@ setv ov00 0
 
 cato 2
 
-mvto 8300 48432
+mvto 8300 48400
 
-new: simp 3 12 50202 "blnk" 1 1 2000
+new: simp 3 12 50202 "moe_C2toDS_lifts" 2 7 2000
 
-attr 0
+attr 4
 
 bhvr 3
 
@@ -59,61 +59,95 @@ setv ov00 1
 
 cato 2
 
-mvto 9363 48432
+mvto 9363 48415
 
 scrp 3 12 50202 1
 	inst
+	* light up, light up
+	rtar 3 1 50202
+	doif ov00 eq mv00
+		targ ownr
+		pose 1
+	endi
 *Queue Object!
 	targ from
 	doif crea targ eq 1
-		sets va00 gtos 0
-		new: simp 3 13 50202 "blnk" 1 0 0
-		setv ov00 mv00
-		sets ov01 va00
-		tick 20
+		sets va48 gtos 0
+		* check for any existing queue object
+		enum 3 13 50202
+			doif ov01 eq va48
+				addv va49 1
+			endi
+		next
+		* make a queue object if there's not one already
+		doif va49 eq 0
+			new: simp 3 13 50202 "blnk" 1 0 0
+			*dbg: outs "making quere"
+			setv ov00 mv00
+			sets ov01 va48
+			tick 20
+		endi
+
 		stim writ from 75 1
 		stim writ from 96 1
 		urge writ from 0 0.5 0 0.5
-		rtar 3 1 50202
+	endi
+	rtar 3 1 50202
 *It's on the right!
-		doif ov00 eq 0
-			mesg writ targ 1001
+	doif ov00 eq 0
+		mesg writ targ 1001
 *It's on the left!
-		elif ov00 eq 1
+	elif ov00 eq 1
 **So go right!
-			mesg writ targ 1002
+		mesg writ targ 1002
 *It's on the Bottom!
-		elif ov00 eq 2
-			mesg writ targ 1002
-		endi
+	elif ov00 eq 2
+		mesg writ targ 1002
 	endi
 endm
 
 scrp 3 12 50202 2
 	inst
+	* light up, light up
+	rtar 3 1 50202
+	doif ov00 eq mv00
+		targ ownr
+		pose 1
+	endi
 *Queue Object!
 	targ from
 	doif crea targ eq 1
-		sets va00 gtos 0
-		new: simp 3 13 50202 "blnk" 1 0 0
-		setv ov00 mv00
-		sets ov01 va00
-		tick 20
+		sets va48 gtos 0
+		* check for any existing queue object
+		enum 3 13 50202
+			doif ov01 eq va48
+				addv va49 1
+			endi
+		next
+		* make a queue object if there's not one already
+		doif va49 eq 0
+			new: simp 3 13 50202 "blnk" 1 0 0
+			*dbg: outs "making queue"
+			setv ov00 mv00
+			sets ov01 va48
+			tick 20
+		endi
+
 		stim writ from 75 1
 		stim writ from 96 1
 		urge writ from 0 0.5 0 0.5
-		rtar 3 1 50202
+	endi
+	rtar 3 1 50202
 *It's on the right!
-		doif ov00 eq 0
+	doif ov00 eq 0
 **So go left!
-			mesg writ targ 1001
+		mesg writ targ 1001
 *It's on the left!
-		elif ov00 eq 1
-			mesg writ targ 1002
+	elif ov00 eq 1
+		mesg writ targ 1002
 *It's on the Bottom!
-		elif ov00 eq 2
-			mesg writ targ 1001
-		endi
+	elif ov00 eq 2
+		mesg writ targ 1001
 	endi
 endm
 
@@ -183,6 +217,9 @@ scrp 3 1 50202 1001
 			endi
 		endi
 	endi
+	enum 3 12 50202
+		pose 0
+	next
 	unlk
 * Do 1001
 	doif va00 eq 1
@@ -201,7 +238,22 @@ scrp 3 1 50202 1001
 		enum 3 13 50202
 			doif ov00 eq 1
 				doif ooww ov01 eq 3
-					spas ownr mtoc ov01
+					
+					* spas takes some time to work, so loop
+					* and keep checking if you got a creature
+					* before continuing
+					loop
+						spas ownr mtoc ov01
+						wait 1
+						addv va46 1
+						seta va45 targ
+						targ ownr
+						epas 4 0 0
+							addv va44 1
+						next
+						targ va45
+					untl va44 gt 0 or ooww ov01 ne 3 
+
 					kill targ
 				else
 					kill targ
@@ -324,7 +376,7 @@ scrp 3 1 50202 1001
 
 		setv ov00 1
 
-		attr 12
+		attr 28
 
 		etch 4 0 0
 
@@ -493,7 +545,7 @@ scrp 3 1 50202 1001
 
 		dpas 4 0 0
 
-		attr 12
+		attr 28
 
 	retn
 
@@ -666,7 +718,7 @@ scrp 3 1 50202 1001
 
 		dpas 4 0 0
 
-		attr 12
+		attr 28
 
 		etch 4 0 0
 
@@ -732,6 +784,9 @@ scrp 3 1 50202 1002
 			endi
 		endi
 	endi
+	enum 3 12 50202
+			pose 0
+	next
 	unlk
 * Do 1001
 	doif va00 eq 1
@@ -945,7 +1000,7 @@ scrp 3 1 50202 1002
 		next
 		dpas 4 0 0
 
-		attr 12
+		attr 28
 
 		setv ov00 2
 
@@ -960,7 +1015,22 @@ scrp 3 1 50202 1002
 		enum 3 13 50202
 			doif ov00 eq 0
 				doif ooww ov01 eq 3
-					spas ownr mtoc ov01
+					
+					* spas takes some time to work, so loop
+					* and keep checking if you got a creature
+					* before continuing
+					loop
+						spas ownr mtoc ov01
+						wait 1
+						addv va46 1
+						seta va45 targ
+						targ ownr
+						epas 4 0 0
+							addv va44 1
+						next
+						targ va45
+					untl va44 gt 0 or ooww ov01 ne 3 
+
 					kill targ
 				else
 					kill targ
@@ -1079,7 +1149,7 @@ scrp 3 1 50202 1002
 
 		setv ov00 0
 
-		attr 12
+		attr 28
 
 		etch 4 0 0
 
@@ -1214,7 +1284,7 @@ scrp 3 1 50202 1002
 
 		setv ov00 1
 
-		attr 12
+		attr 28
 
 		etch 4 0 0
 

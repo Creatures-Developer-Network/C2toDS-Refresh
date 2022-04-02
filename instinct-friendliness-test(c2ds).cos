@@ -37,6 +37,15 @@ sets name "bhvrs" ""
 sets name "scripts" ""
 sets name "stims" ""
 
+*Script Names
+sets name "script_1" "Activate 1/Push"
+sets name "script_2" "Activate 2/Pull"
+sets name "script_3" "Hit"
+sets name "script_4" "Pick Up"
+sets name "script_12" "Eat"
+
+tick 1
+
 *You can change these if you want, they're just "standards" as of Right Now in
 * https://docs.google.com/spreadsheets/d/1CHKnTzjdAJap-tcMcpKPR5NMYvmmpRYZZUxLJo453-c/
 * note that the numbers in Scripts and Stims run parallel, that is the first
@@ -166,7 +175,7 @@ adds name "stims" "88 88 88#"
 
 * Toy
 adds name "classifiers" "2 21 0#"
-adds name "bhvrs" "43#"
+adds name "bhvrs" "11/43#"
 adds name "scripts" "1 2 3#"
 adds name "stims" "97 97 97#"
 
@@ -178,7 +187,7 @@ adds name "stims" " #"
 
 * Vendors
 adds name "classifiers" "2 23 0#"
-adds name "bhvrs" "11#"
+adds name "bhvrs" "11/43#"
 adds name "scripts" "1 2 3#"
 adds name "stims" "90 90 92#"
 
@@ -190,9 +199,9 @@ adds name "stims" "90 90 92#"
 
 * Potions
 adds name "classifiers" "2 25 0#"
-adds name "bhvrs" "48#"
+adds name "bhvrs" "16/48#"
 adds name "scripts" "12#"
-adds name "stims" "0#"
+adds name "stims" "-1#"
 
 * Lifts
 adds name "classifiers" "3 1 0#"
@@ -230,14 +239,7 @@ adds name "bhvrs" "3#"
 adds name "scripts" "1 2#"
 adds name "stims" "27 27#"
 
-*Script Names
-sets name "script_1" "Activate 1/Push"
-sets name "script_2" "Activate 2/Pull"
-sets name "script_3" "Hit"
-sets name "script_4" "Pick Up"
-sets name "script_12" "Eat"
 
-tick 1
 
 * don't ask me why I'm doing it this way, I'm too tired. 
 scrp 3 5 5000 9
@@ -274,8 +276,8 @@ scrp 3 5 5000 9
 	* set up to get at the current index for bhvr
 		sets va30 name "bhvrs"
 		gsub set_va33_to_string_at_index_va32_from_string_va30_with_delimiter_va31
-		setv va01 stoi va33
-		*dbg: outv va01
+		sets va01 va33
+		* We are making this a string in case it is a set of multiple
 		
 	* Parse the classifier where va00 is the classifier string
 		sets va30 va00
@@ -311,8 +313,36 @@ scrp 3 5 5000 9
 				* "allow" it to have a deactivatable behavior because it doesn't matter
 					setv va05 bhvr
 					orrv va05 4
-					setv va06 va01
+				* now, va05 is the current BHVR, va01 is a string that might contain multiple bhvrs 
+				* first check if there's a slash in there
+				doif sins va01 1 "/" gt -1
+				* there's more than one.... so we have to parse this out.
+				dbg: outs "parsing bhvr string"
+				dbg: outs va01
+					sets va30 va01
+					sets va31 "/"
+					gsub set_va32_to_number_of_substrings_in_string_va30_delimited_by_string_va31
+					setv va06 -1
+					setv va34 va32
+					setv va32 1
+					reps va34
+						* only try again if you didn't get it on the last loop
+						doif va05 ne va06
+							gsub set_va33_to_string_at_index_va32_from_string_va30_with_delimiter_va31
+							dbg: outs "got substring"
+							dbg: outs va33
+							setv va06 stoi va33
+							orrv va06 4
+						endi
+						addv va32 1
+					repe
+				else					
+					setv va06 stoi va01
 					orrv va06 4
+				endi
+				
+
+
 				* if the bhvrs don't match, freak out!
 					doif va05 ne va06
 						* build the string
@@ -330,7 +360,7 @@ scrp 3 5 5000 9
 						 adds va07 vtos spcs
 						 adds va07 "); wanted " 
 	
-						 adds va07 vtos va01
+						 adds va07 va01
 						 
 						 * if you're not in the report yet, you can do the thing.
 						 doif sins mame "report" 1 va07 eq -1
@@ -477,6 +507,7 @@ scrp 3 5 5000 9
 					* (We don't want to have duplicates)
 					doif sins mame "report" 1 va07 eq -1
 						adds mame "report" va07
+						dbg: outs va07
 					endi	
 					
 				endi
