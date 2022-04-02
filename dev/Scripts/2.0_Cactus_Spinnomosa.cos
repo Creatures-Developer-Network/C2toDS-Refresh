@@ -344,7 +344,9 @@ scrp 2 3 50206 9
 
 *Stop emitting carb smell so you don't confuse creatures. -T1WS
 			emit 7 0
-
+* Sometimes we get errors when setting ATTR here-- why?
+* Seeds suffer collisions from the moment they are created so this is a weird
+* time to freak out about it...
 			attr 209
 
 			tick 1200
@@ -661,6 +663,8 @@ endm
 
 
 scrp 2 3 50206 10
+
+	inst
 
 	attr 199
 
