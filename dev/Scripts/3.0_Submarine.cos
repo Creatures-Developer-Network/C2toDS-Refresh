@@ -376,7 +376,7 @@ scrp 3 1 50202 1001
 
 		setv ov00 1
 
-		attr 12
+		attr 28
 
 		etch 4 0 0
 
@@ -545,7 +545,7 @@ scrp 3 1 50202 1001
 
 		dpas 4 0 0
 
-		attr 12
+		attr 28
 
 	retn
 
@@ -718,7 +718,7 @@ scrp 3 1 50202 1001
 
 		dpas 4 0 0
 
-		attr 12
+		attr 28
 
 		etch 4 0 0
 
@@ -1000,7 +1000,7 @@ scrp 3 1 50202 1002
 		next
 		dpas 4 0 0
 
-		attr 12
+		attr 28
 
 		setv ov00 2
 
@@ -1149,7 +1149,7 @@ scrp 3 1 50202 1002
 
 		setv ov00 0
 
-		attr 12
+		attr 28
 
 		etch 4 0 0
 
@@ -1284,7 +1284,7 @@ scrp 3 1 50202 1002
 
 		setv ov00 1
 
-		attr 12
+		attr 28
 
 		etch 4 0 0
 
