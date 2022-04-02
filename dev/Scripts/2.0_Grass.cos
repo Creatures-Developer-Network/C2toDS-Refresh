@@ -93,6 +93,8 @@ scrp 2 24 50222 1
 		setv va02 plne
 
 		addv va02 rand -1 0
+		
+		inst
 
 		new: simp 1 27 50222 "moe_C2toDS_grass" 10 9 va02
 
@@ -118,7 +120,7 @@ scrp 2 24 50222 1
 
 		targ ownr
 
-
+		slow
 
 	repe
 

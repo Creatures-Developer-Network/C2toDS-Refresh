@@ -1204,7 +1204,7 @@ scrp 2 19 50200 1003
 
 		addv va00 rand 0 va02
 
-
+		inst
 
 		new: simp 2 19 50202 "moe_C2toDS_weather" 0 9 rand 1000 6000
 
@@ -1229,6 +1229,8 @@ scrp 2 19 50200 1003
 		anim [0 1 2 3 4 5 6 7 255]
 
 		targ ownr
+		
+		slow
 
 
 

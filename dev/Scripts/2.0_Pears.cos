@@ -1476,6 +1476,8 @@ scrp 2 8 50204 12
 	setv va00 posl
 
 	setv va01 post
+	
+	inst
 
 	new: simp 2 10 50204 "moe_C2toDS_pear" 0 84 va02
 
@@ -1595,6 +1597,8 @@ endm
 
 
 scrp 2 8 50204 9
+
+	inst
 
 	doif ov00 eq 0 and carr eq null and fall eq 0
 
