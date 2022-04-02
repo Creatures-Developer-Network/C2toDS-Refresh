@@ -302,7 +302,7 @@ scrp 3 1 50203 1001
 			targ ownr
 			doif post gt 48195
 				loop
-					addv vely 0.5
+					subv vely 0.5
 
 					wait 1
 					epas 4 0 0
