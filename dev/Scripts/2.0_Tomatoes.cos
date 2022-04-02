@@ -672,6 +672,8 @@ scrp 2 8 50200 9
 		doif va25 lt 4
 
 			doif va21 gt .302157 and va22 ge .254510 and va23 ge .254510 and va24 ge .254510
+			
+				inst
 
 				gsub grow
 
