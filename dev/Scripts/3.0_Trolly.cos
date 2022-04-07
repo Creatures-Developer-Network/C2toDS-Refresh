@@ -154,7 +154,7 @@ scrp 3 12 50205 2
 	mesg writ targ 0
 endm
 
-scrp 3 13 50203 9
+scrp 3 13 50205 9
 	inst
 * Just here to continue injecting wait
 	doif ooww ov01 eq 3
