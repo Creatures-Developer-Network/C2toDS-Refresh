@@ -1,3 +1,4 @@
+**Changing all the links from 1 to 100 since they need an int, I think that's correct - Verm
 
 *Create Signpost*
 
@@ -20,9 +21,9 @@ setv va01 grap 6277 48348
 
 setv va02 grap 6277 48022
 
-link va00 va01 1
+link va00 va01 100
 
-link va01 va02 1
+link va01 va02 100
 
 
 
@@ -36,11 +37,11 @@ setv va05 grap 7857 48106
 
 setv va06 grap 7857 47962
 
-link va03 va04 1
+link va03 va04 100
 
-link va04 va05 1
+link va04 va05 100
 
-link va05 va06 1
+link va05 va06 100
 
 
 
@@ -52,9 +53,9 @@ setv va12 grap 5270 49071
 
 setv va13 grap 5289 49501
 
-link va11 va12 1
+link va11 va12 100
 
-link va12 va13 1
+link va12 va13 100
 
 
 
@@ -66,9 +67,9 @@ setv va15 grap 5591 49460
 
 setv va16 grap 5597 49743
 
-link va14 va15 1
+link va14 va15 100
 
-link va15 va16 1
+link va15 va16 100
 
 
 
@@ -78,7 +79,7 @@ setv va17 grap 6631 49730
 
 setv va18 grap 6631 49592
 
-link va17 va18 1
+link va17 va18 100
 
 
 
@@ -90,9 +91,9 @@ setv va20 grap 7204 49188
 
 setv va21 grap 7204 49122
 
-link va19 va20 1
+link va19 va20 100
 
-link va20 va21 1
+link va20 va21 100
 
 
 
@@ -102,7 +103,7 @@ setv va22 grap 7804 49756
 
 setv va23 grap 7804 49322
 
-link va22 va23 1
+link va22 va23 100
 
 
 
@@ -118,13 +119,13 @@ setv va27 grap 9601 48890
 
 setv va28 grap 9585 49662
 
-link va24 va25 1
+link va24 va25 100
 
-link va25 va26 1
+link va25 va26 100
 
-link va26 va27 1
+link va26 va27 100
 
-link va27 va28 1
+link va27 va28 100
 
 
 
@@ -136,9 +137,9 @@ setv va30 grap 10165 48855
 
 setv va31 grap 10164 48785
 
-link va29 va30 1
+link va29 va30 100
 
-link va30 va31 1
+link va30 va31 100
 
 
 
@@ -148,7 +149,7 @@ setv va32 grap 2143 48531
 
 setv va33 grap 2140 48991
 
-link va32 va33 1
+link va32 va33 100
 
 
 
@@ -158,7 +159,7 @@ setv va34 grap 2387 49030
 
 setv va35 grap 2387 49344
 
-link va34 va35 1
+link va34 va35 100
 
 
 
@@ -170,9 +171,9 @@ setv va37 grap 3433 49022
 
 setv va38 grap 3433 48831
 
-link va36 va37 1
+link va36 va37 100
 
-link va37 va38 1
+link va37 va38 100
 
 
 
@@ -182,7 +183,7 @@ setv va39 grap 3630 48990
 
 setv va40 grap 3630 49661
 
-link va39 va40 1
+link va39 va40 100
 
 
 
@@ -198,13 +199,13 @@ setv va44 grap 3630 47911
 
 setv va45 grap 3630 47803
 
-link va41 va42 1
+link va41 va42 100
 
-link va42 va43 1
+link va42 va43 100
 
-link va43 va44 1
+link va43 va44 100
 
-link va44 va45 1
+link va44 va45 100
 
 
 
@@ -216,9 +217,9 @@ setv va47 grap 4421 48842
 
 setv va48 grap 4421 48969
 
-link va46 va47 1
+link va46 va47 100
 
-link va47 va48 1
+link va47 va48 100
 
 
 
@@ -228,17 +229,17 @@ setv va49 grap 4279 49666
 
 setv va50 grap 4279 49808
 
-link va49 va50 1
+link va49 va50 100
 
 
 
-* cablecar
+* cablecar - Moved out into World Extra Links - Verm
 
-setv va09 grap 5879 48328
+*setv va09 grap 5879 48328
 
-setv va10 grap 4458 48735
+*setv va10 grap 4458 48735
 
-link va09 va10 1
+*link va09 va10 100
 
 *Move the Camera and enlarge and display the Map -  These are for the dev phase.*
 
@@ -513,8 +514,5 @@ setv va09 grap 5879 48328
 setv va10 grap 4458 48735
 
 link va09 va10 0
-
-
-
 
 
