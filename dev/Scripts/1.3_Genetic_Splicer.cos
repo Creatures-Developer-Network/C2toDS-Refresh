@@ -1,0 +1,640 @@
+* 1 28 50200 - Genetic Splicer Main Lever
+* 1 28 50201 - Genetic Splicer Pod
+* 1 28 50202 - Genetic Splicer Turret
+* 1 28 50203 - Genetic Splicer Screw-Gear
+* 1 28 50204 - Genetic Splicer Cooling Coils
+* 1 28 50205 - Genetic Splicer Egg Drop/Ettin Mama
+
+* Converted by NeoDement
+
+
+
+
+***************
+**SOUNDS USED**
+***************
+* GSP1 - TRAP *
+* GSP2 - HUMM *
+* GSP3 - TEL4 *
+* GSP4 - BOM2 *
+* GSP5 - PLSM *
+***************
+
+
+
+*GENETIC SPLICER OBJECTS (NOT a giant comp object due to the way the timing is set up)
+
+
+* Splicer Main Lever - Simp
+new: simp 1 28 50200 "moe_C2toDS_GeneticSplicer" 3 31 10
+
+*set framerate to match C2 better
+frat 2
+
+*4 - Activateable
+attr 4
+
+mvto 8583 49248
+
+*run the script which creates the pods
+mesg writ targ 1001
+
+
+
+* Splicer Turret - Simp
+new: simp 1 28 50202 "moe_C2toDS_GeneticSplicer" 6 0 10
+
+*set framerate to match C2 better
+frat 2
+
+mvto 8238 49150
+
+
+
+* Splicer Screw-Gear - Simp
+*plane 7999 - 1 behind the genetic splicer overlay already present.
+new: simp 1 28 50203 "moe_C2toDS_GeneticSplicer" 10 12 7999
+
+*set framerate to match C2 better
+frat 2
+
+mvto 8512 49102
+
+
+
+* Splicer Cooling Coils - Comp
+*plane 7999 - 1 behind the genetic splicer overlay already present.
+
+*part 0 - left plasma pipe
+new: comp 1 28 50204 "moe_C2toDS_GeneticSplicer" 9 22 7999
+
+*part 1 - right plasma pipe
+pat: dull 1 "moe_C2toDS_GeneticSplicer" 34 129 0 0
+
+*set framerate to match C2 better
+frat 2
+part 1
+frat 2
+
+mvto 8706 49120
+
+
+
+* Splicer Egg Drop - Simp
+new: simp 1 28 50205 "moe_C2toDS_GeneticSplicer" 6 6 10
+
+*set framerate to be slower to match C2 better
+frat 2
+
+mvto 8315 49691
+
+*endm
+
+
+
+
+*Splicer Main Lever Activate 1 Script
+
+scrp 1 28 50200 1
+
+	lock
+
+	setv va02 0
+	seta va50 null
+	seta va51 null
+
+	enum 1 28 50201
+
+*store the 2 pods in VA50 and VA51
+		addv va02 1
+		doif va02 = 1
+			seta va50 targ
+		elif va02 = 2
+			seta va51 targ
+		endi
+
+*let the pods know not to respond to clicks while the machine is active.
+		setv ov99 1
+
+	next
+
+*if either of the pods couldn't be found, panic!
+	doif va50 = null or va51 = null
+		snde "no__"
+*re-run the script which creates the pods
+		mesg writ ownr 1001
+		stop
+	endi
+
+
+*so you can't keep spamming it and seeing the finger click anim
+	attr 0
+
+*store egg layer agent in va00 to target later
+*	seta va00 ov03
+
+	enum 1 28 50205
+		seta va00 targ
+	next
+
+
+*animate the main button
+*	part 3
+	anim [0 1 2]
+	over
+
+*target the screwgear and tell it to start animating
+	enum 1 28 50203
+		mesg writ targ 1001
+	next
+
+	wait 40
+
+*target the 1st plasma pipe and tell it to start animating
+	enum 1 28 50204
+		mesg writ targ 1001
+	next
+
+	wait 10
+
+*target the 2nd plasma pipe and tell it to start animating
+	enum 1 28 50204
+		mesg writ targ 1002
+	next
+
+*target the ceiling turret and tell it to start animating
+	enum 1 28 50202
+		mesg writ targ 1001
+	next
+
+	wait 80
+
+*target the two pods, animate them, store the genomes, and kill the creatures inside
+	targ va50
+	mesg writ targ 1002
+
+	targ va51
+	mesg writ targ 1002
+
+	targ ownr
+
+*wait until BOTH pods have sent back a "yep" response
+	loop
+		wait 1
+	untl ov99 = 2
+
+	setv ov99 0
+
+*grab the creatures stored in the pods (if any)
+	targ va50
+	seta va88 ov01
+
+	targ va51
+	seta va89 ov01
+
+*generate a new genome if we found valid creatures in either/both pods!
+
+*set va03 to 1 if we're going to create an egg
+
+*mutation chance is set to 40 (last 4 parameters) to match the c3 splicer.
+	doif va88 <> null and va89 <> null
+		gene cros ownr 1 va88 0 va89 0 40 40 40 40
+		setv va03 1
+*using GENE CROS instead of GENE CLON allows for random mutations and prevents the creature history saying "Cloned - Not in world"
+	elif va88 <> null
+		gene cros ownr 1 va88 0 va88 0 40 40 40 40
+*		gene clon ownr 1 va88 0
+		setv va03 1
+	elif va89 <> null
+		gene cros ownr 1 va89 0 va89 0 40 40 40 40
+*		gene clon ownr 1 va89 0
+		setv va03 1
+	endi
+
+*79 instead of 80 because we will have waited at least one tick for the valid genomes
+	wait 79
+
+**let's make the egg (if a valid genome was created earlier)
+	doif va03 = 1
+
+*select egg sprite
+		setv va60 rand 0 10
+		mulv va60 8
+
+		inst
+		new: simp 3 4 1 "eggs" 8 va60 0
+		puhl 0 15 45
+		puhl 1 15 35
+		puhl 2 15 25
+		puhl 3 15 10
+		puhl 4 15 10
+		puhl 5 15 10
+
+		emit 11 0.65
+
+		gene move targ 1 ownr 1
+
+		elas 10
+*slightly higher friction than usual so it doesn't slide down the hill
+		fric 50
+		attr 195
+		bhvr 32
+		aero 10
+		accg 4
+		perm 60
+*starts fully grown
+		pose 3
+
+		seta va01 targ
+
+		targ va00
+		plne 6000
+		anim [0 1 2 3 4]
+		over
+
+		targ va01
+		mvto 8357 49720
+
+		targ va00
+		anim [5 5 5 5 5 4 3 2 1 0]
+		over
+		plne 10
+
+		targ va01
+
+*try and hatch asap! timer will reset to a sensible value automatically if it fails to hatch straight away.
+		tick 30
+
+*bioenergy
+		setv ov61 100
+	else
+
+		targ va00
+		anim [0 1 2 3 4 5 5 5 5 5 4 3 2 1 0]
+	endi
+
+
+	wait 160
+
+*target the plasma pipes and tell them to stop animating
+	enum 1 28 50204
+		mesg writ targ 1003
+	next
+
+
+	wait 40
+
+*ov00 is set to 1 to let the Screw-gear know it's time to stop animating
+	enum 1 28 50203
+		setv ov00 1
+	next
+
+*reset switch to unpressed position
+	targ ownr
+	anim [2 1 0]
+
+*reset attr to 4 - Activateable so we can do it all over again
+	attr 4
+
+*let the pods know it's ok to respond to clicks again
+	enum 1 28 50201
+		setv ov99 0
+	next
+
+endm
+
+
+
+*Splicer Main Lever Create Pods Script
+*this script is run to handle an error if the main lever activate 1 script ever notices either of the pods are missing
+*it is also run once while injecting the splicer
+
+scrp 1 28 50200 1001
+
+	enum 1 28 50201
+		kill targ
+	next
+
+* Splicer Left Pod - Vehc
+
+*part 0 - pod overlay
+	new: vhcl 1 28 50201 "moe_C2toDS_GeneticSplicer" 9 43 10
+
+*relative plane of -10
+*Did you know? Setting numbers higher than the vehicle plane causes clicks on the creature to take priority over clicks on the button!
+	cabp -10
+
+	cabw 1
+
+	cabn 40 36 146 198
+
+*part 1 - white trap bars
+	pat: dull 1 "moe_C2toDS_GeneticSplicer" 54 45 37 -1
+
+*set framerate to match C2 better
+	frat 2
+	part 1
+	frat 2
+
+**part 2 (BUTTON) - left creature pod button
+	pat: butt 2 "moe_C2toDS_GeneticSplicer" 52 2 40 37 100 [] 1001 0
+
+	mvto 8620 49154
+
+
+
+* Splicer Right Pod - Vehc
+
+*part 0 - pod overlay
+	new: vhcl 1 28 50201 "moe_C2toDS_GeneticSplicer" 9 65 10
+
+*relative plane of -10
+*Did you know? Setting numbers higher than the vehicle plane causes clicks on the creature to take priority over clicks on the button!
+	cabp -10
+
+	cabw 1
+
+	cabn 12 19 118 181
+
+*part 1 - white trap bars
+	pat: dull 1 "moe_C2toDS_GeneticSplicer" 54 17 21 -1
+
+*part 2 (BUTTON) - right creature pod button
+	pat: butt 2 "moe_C2toDS_GeneticSplicer" 52 2 12 21 6001 [] 1001 0
+
+*set framerate to match C2 better
+	frat 2
+	part 1
+	frat 2
+
+	mvto 8818 49172
+
+endm
+
+
+
+*Splicer Screw-Gear Animate Script - called by the main button after playing its anim
+scrp 1 28 50203 1001
+	loop
+		anim [0 1 2 3 4 5 6 7 8 9]
+		over
+		sndc "gsp4"
+*ov00 is set to 1 when it's time for the screwgear to stop animating
+	untl ov00 = 1
+	setv ov00 0
+	fade
+	pose 0
+endm
+
+
+
+
+*Ceiling Turret Start Animating Script - called by the main button as the 2nd plasma pipe starts animating
+scrp 1 28 50202 1001
+	reps 2
+		anim [0 1 2 3 4 5]
+		over
+		wait 20
+		anim [5 4 3 2 1 0]
+		over
+		wait 20
+	repe
+endm
+
+
+
+
+*1st Splicer Plasma Pipe Start Animating Script - called by the main button shortly after the Screw-Gear has started animating
+scrp 1 28 50204 1001
+	anim [0 1 2 3 4 5 6 7 8 255]
+	sndl "gsp5"
+endm
+
+*2nd Splicer Plasma Pipe Start Animating Script - called by the main button very shortly after the first pipe has started animating
+scrp 1 28 50204 1002
+	part 1
+	anim [0 1 2 3 4 5 6 7 8 255]
+endm
+
+*Splicer Plasma Pipes Stop Animating Script - called by the main button shortly after the Pods have stopped animating
+scrp 1 28 50204 1003
+	fade
+	loop
+		wait 1
+	untl pose eq 8
+	pose 0
+
+*turn off 2nd pipe after 1st pipe is off
+	part 1
+	loop
+		wait 1
+	untl pose eq 8
+	pose 0
+endm
+
+
+
+
+*Splicer Cage Open/Close Script - called by clicking either Cage
+
+scrp 1 28 50201 1001
+
+*this variable is used to disable the pods while the machine is active
+	doif ov99 = 0
+
+*animate the hand
+
+		doif from eq pntr
+
+			targ from
+
+			anim [0 1 0]
+
+			targ ownr
+		endi
+
+		lock
+
+		doif OV00 = 0
+
+*press button
+			part 2
+			pose 1
+
+*drop everything first
+			dpas 0 0 0
+
+			wait 1
+
+*first try and pick up creatures the normal way
+			gpas 4 0 0 1
+
+*wait a tick...
+			wait 1
+
+*count how many creatures are in the pod
+			setv va00 0
+			epas 4 0 0
+				addv va00 1
+			next
+
+			doif va00 = 0
+*target all creatures touching the pod
+				etch 4 0 0
+
+*if any creatures touching the pod still aren't being held by anything
+					doif carr = null
+
+*force creatures to face SOUTH. this helps with large creatures like adult Jungle Grendels being too wide to fit into vehicle cabins.
+						zomb 1
+						wait 1
+						dirn 1
+
+*stick 'em in the pod. NOTE: this seems to not count towards cabw so you can have multiple creatures in one pod.
+						wait 1
+						spas ownr targ
+						zomb 0
+					endi
+				next
+
+*if this line is commented, the creature always faces towards the camera while in the pod.
+*otherwise it will usually face whichever direction it was previously facing.
+				wait 1
+			endi
+
+			epas 4 0 0
+				zomb 1
+			next
+
+*original sound name was "trap", but that name is already in use in C3.
+			sndl "gsp1"
+
+*select white beams part 
+			part 1
+*animate white beams to close
+			anim [0 1 2 3 4 5 6 7 8 9]
+			over
+			pose 10
+
+*set OV00 to 1 (closed state) now that we're done animating
+			setv OV00 1
+
+*loop white beams closed idle anim forever
+			anim [5 6 7 8 9 255]
+
+		else
+
+*unpress button
+			part 2
+			pose 0
+
+			epas 4 0 0
+				zomb 0
+			next
+
+
+*select white beams part
+			part 1
+*animte white beams to open
+			anim [9 8 7 6 5 4 3 2 1 0]
+			over
+			dpas 0 0 0
+			fade
+
+*set OV00 to 0 (open state)
+			setv OV00 0
+
+		endi
+
+	endi
+endm
+
+
+*Splicer Cage Start Animating Script - called by the main button shortly after the ceiling turret starts animating
+
+scrp 1 28 50201 1002
+
+	inst
+	lock
+	seta va00 null
+	setv va01 0
+*iterate through all passengers
+	epas 4 0 0
+		seta va00 targ
+	next
+	targ ownr
+	seta ov01 va00
+
+*send back a "yep" response to the main splicer button
+	enum 1 28 50200
+		addv ov99 1
+	next
+
+	slow
+	targ ownr
+	part 0
+	sndl "gsp2"
+	anim [0 1 2 3 4 5 6 7]
+	over
+	doif ov01 <> null
+		targ ov01
+		dead
+		wait 1
+		kill targ
+	endi
+	targ ownr
+	reps 10
+		anim [4 5 6 7]
+		over
+	repe
+	fade
+	snde "gsp3"
+	anim [4 5 6 7 8 0]
+	over
+*resume trap beams sound, if appropriate
+	doif ov00 eq 1
+		sndl "gsp1"
+	endi
+endm
+
+
+
+
+
+
+
+rscr
+
+scrx 1 28 50200 1
+scrx 1 28 50200 1001
+scrx 1 28 50203 1001
+scrx 1 28 50202 1001
+scrx 1 28 50204 1001
+scrx 1 28 50204 1002
+scrx 1 28 50204 1003
+scrx 1 28 50201 1001
+scrx 1 28 50201 1002
+
+enum 1 28 50200
+	kill targ
+next
+
+enum 1 28 50201
+	kill targ
+next
+
+enum 1 28 50202
+	kill targ
+next
+
+enum 1 28 50203
+	kill targ
+next
+
+enum 1 28 50204
+	kill targ
+next
+
+enum 1 28 50205
+	kill targ
+next
