@@ -1,3 +1,5 @@
+* Some fixes by NeoDement - The Terrarium door now remembers the correct pose when changing to/from the night gallery
+
 ******************
 * Night switcher *
 ******************
@@ -60,8 +62,11 @@ scrp 1 1 50200 9
 ************************** small sphere door **************************
 		enum 2 2 50201
 			doif abba eq 5
+				inst
 				setv va00 abba
+				setv va01 pose
 				gall "moe_c2tods_doors_night" va00
+				pose va01
 			endi
 		next
 
@@ -148,8 +153,11 @@ scrp 1 1 50200 9
 ************************** small sphere door **************************
 		enum 2 2 50201
 			doif abba eq 5
+				inst
 				setv va00 abba
+				setv va01 pose
 				gall "moe_c2tods_doors" va00
+				pose va01
 			endi
 		next
 
@@ -184,9 +192,9 @@ scrp 1 1 50200 9
 		enum 1 8 50200
 
 ************************** small sphere door screw **************************
-			doif gall eq "moe_c2tods_doors" and abba eq 11
+			doif gall eq "moe_c2tods_doors_night" and abba eq 11
 				setv va00 abba
-				gall "moe_c2tods_doors_night" va00
+				gall "moe_c2tods_doors" va00
 			endi
 
 ************************** Waterfalls **************************
