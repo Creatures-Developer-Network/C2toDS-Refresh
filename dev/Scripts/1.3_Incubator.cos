@@ -4,6 +4,7 @@
 
 *Incubator is now properly placed - Moe
 * Aiko fixed invalid targ errors by inst'ing the enuming of creatures
+* NeoDement made it pickupable by the hand, gave it some physics, stopped it being possible to grab eggs mid-hatching and fixed up the framerate
 
 
 
@@ -17,29 +18,46 @@ pat: dull 10 "moe_C2toDS_incubator" 8 0 0 23
 
 pat: dull 11 "moe_C2toDS_incubator" 16 69 44 22
 
-attr 24
-
 pose 7
 
-frat 3
+frat 2
 
 part 10
 
-frat 3
+frat 2
 
 pose 7
 
 part 11
 
-frat 3
+frat 2
 
 tick 500
 
-mvto 7043 48340
+mvto 7043 48332
+
+
+*Creation script
+
+scrp 2 22 50200 10
+
+*Greedy Cabin + Invisible + Mouseable + Suffer Collisions + Suffer Physics
+	attr 218
+
+*make the hitbox a lil bit smaller so the feet can sink through the floor a bit like in C2
+	core 23 130 4 185
+
+	elas 0
+	accg 5
+	aero 5
+	perm 100
+
+endm
+
 
 
 scrp 2 22 50200 9
-	
+
 	inst
 
 	setv va98 game "breeding_limit"
@@ -76,7 +94,9 @@ scrp 2 22 50200 9
 
 		anim [ 7 6 5 4 3 2 1 0 ]
 
-		attr 16
+*Invisible + Suffer Collisions + Suffer Physics
+*(disable picking up and greedy cabin when you put an egg in it)
+		attr 208
 
 		tick 200
 
@@ -94,7 +114,9 @@ scrp 2 22 50200 9
 
 		over
 
-		attr 24
+*Greedy Cabin + Invisible + Mouseable + Suffer Collisions + Suffer Physics
+*(reset attributes to default now the egg has hatched)
+		attr 218
 
 		tick 1
 
@@ -152,9 +174,14 @@ scrp 2 22 50200 1001
 
 		elif gtos 1 <> "" and targ <> null
 
+*zero out attributes on egg and make it invisible to norns, so we can't take it back out of the incubator
+			attr 16
+
 			targ ownr
 
-			attr 16
+*Invisible + Suffer Collisions + Suffer Physics
+*(disable picking up and greedy cabin when you put an egg in it)
+			attr 208
 
 			part 0
 
@@ -324,7 +351,9 @@ scrp 2 22 50200 1001
 
 			targ ownr
 
-			attr 24
+*Greedy Cabin + Invisible + Mouseable + Suffer Collisions + Suffer Physics
+*(reset attributes to default now the egg has hatched)
+			attr 218
 
 		endi
 
@@ -357,4 +386,3 @@ enum 2 22 50200
 next
 
 scrx 2 22 50200 9
-

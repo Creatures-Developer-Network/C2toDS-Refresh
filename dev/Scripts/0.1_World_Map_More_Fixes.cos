@@ -1,0 +1,113 @@
+*some very rough and ready fixes/changes to the map by NeoDement
+
+
+
+*deleted a lot of rooms that seemed to serve no purpose other than to confuse players when objects with the wrong perm fall into them
+
+
+*the soil under the incubator room where norns often get stuck
+delr grap 6820 48500
+delr grap 6871 48500
+delr grap 7010 48500
+delr grap 7346 48500
+delr grap 7538 48500
+delr grap 7641 48500
+delr grap 7740 48500
+
+
+*the room under the triffids, under the season tree
+*(this isn't even a room in the original c2 so I'm not sure why it is in c2tods)
+delr grap 3427 48327
+
+*the room under the triffids, under the season tree (world wrap copy)
+delr grap 11788 48327
+
+
+*strange small rooms between the desert and the incubator room
+delr grap 6461 48224
+delr grap 7055 48200
+delr grap 7648 48215
+
+
+*strange small room between the beach and the inf scroll/fly trap biodome
+delr grap 10423 48264
+
+*strange small room between the beach and the inf scroll/fly trap biodome (world wrap copy)
+delr grap 2070 48264
+
+
+*volcano lava pool
+delr grap 9064 49827
+delr grap 9165 49827
+delr grap 9282 49827
+delr grap 9391 49827
+delr grap 9536 49827
+delr grap 9711 49827
+delr grap 9859 49827
+delr grap 10006 49827
+delr grap 10113 49827
+delr grap 10193 49827
+
+*volcano lava pool (world wrap copy)
+delr grap 716 49827
+delr grap 804 49827
+delr grap 932 49827
+delr grap 1032 49827
+delr grap 1169 49827
+delr grap 1348 49827
+delr grap 1496 49827
+delr grap 1648 49827
+delr grap 1754 49827
+delr grap 1859 49827
+
+
+
+*changed these wall permeabilities to stop norns walking off and drowning/hurting themselves :(
+
+
+*left side of light blue ocean
+door grap 8546 48097 grap 8718 48097 99
+door grap 8546 48226 grap 8718 48226 99
+
+*right side of light blue ocean
+door grap 9066 48097 grap 9229 48097 99
+door grap 9066 48226 grap 9229 48226 99
+
+*right side of light blue ocean (world wrap copy)
+door grap 762 48097 grap 838 48097 99
+door grap 762 48226 grap 838 48226 99
+
+
+*left side of dark blue ocean
+door grap 2418 48111 grap 2503 48111 99
+door grap 2418 48207 grap 2503 48207 99
+
+*right side of dark blue ocean
+door grap 2969 48111 grap 3060 48111 99
+door grap 2969 48207 grap 3060 48207 99
+
+*left side of dark blue ocean (world wrap copy)
+door grap 10779 48111 grap 10849 48111 99
+door grap 10779 48207 grap 10849 48207 99
+
+*right side of dark blue ocean (world wrap copy)
+door grap 11352 48111 grap 11409 48111 99
+door grap 11352 48207 grap 11409 48207 99
+
+
+*frog pond
+door grap 2860 48841 grap 2923 48841 99
+
+*frog pond (world wrap copy)
+door grap 11218 48841 grap 11261 48841 99
+
+
+*incubator pond
+door grap 6719 48371 grap 6759 48371 50
+
+
+*far right volcano platform (probably needs to be divided into more rooms to match the other barriers)
+door grap 10079 49299 grap 10114 49299 50
+
+*far right volcano platform (world wrap copy)
+door grap 1724 49299 grap 1764 49299 50

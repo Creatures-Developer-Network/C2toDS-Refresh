@@ -347,11 +347,8 @@ scrp 2 2 50200 1
 
 	endi
 
-
-
-
-
 endm
+
 
 
 *Terrarium Door
@@ -360,7 +357,7 @@ scrp 2 2 50201 1
 
 	lock
 
-	doif name "open" eq 1
+	doif name "open" eq 0
 
 		anim [5 4 3 2 1 0]
 
@@ -374,7 +371,7 @@ scrp 2 2 50201 1
 
 		door grap 4051 49224 grap 4132 49318 100
 
-	elif name "open" eq 0
+	elif name "open" eq 1
 
 		anim [0 1 2 3 4 5]
 
@@ -387,9 +384,12 @@ scrp 2 2 50201 1
 		setv name "open" 0
 
 		door grap 4051 49224 grap 4132 49318 0
+
 	endi
 
 endm
+
+
 
 scrp 2 2 50202 10
 
@@ -648,5 +648,3 @@ enum 2 2 50203
 	kill targ
 
 next
-
-

@@ -6,7 +6,7 @@
 new: vhcl 3 2 50206 "moe_C2toDS_sola" 14 2 1000
 
 mvsf 6480 47986
-
+cmrt 0
 
 
 pat: butt 1 "moe_C2toDS_sola" 32 2 180 48 0 [] 1000 0
@@ -40,7 +40,11 @@ scrp 3 2 50206 10
 
 	elas 0
 
-	accg 10
+	accg 2
+
+*perm 51 stops it falling through the bridge and volcano
+*... but it also stops it spawning, so I guess we gotta edit the map...
+*	perm 51
 
 	setv ov03 0
 
@@ -440,4 +444,3 @@ enum 3 2 50206
 	kill targ
 
 next
-

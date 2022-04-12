@@ -755,7 +755,7 @@ mvto 7607 48672
 
 emit 2 0.0500
 
-frat 3
+frat 2
 
 anim [0 1 2 3 4 255]
 
@@ -771,7 +771,7 @@ mvto 7238 48671
 
 emit 2 0.0500
 
-frat 3
+frat 2
 
 anim [0 1 2 3 4 255]
 
@@ -787,7 +787,7 @@ mvto 6923 48672
 
 emit 2 0.0500
 
-frat 3
+frat 2
 
 anim [0 1 2 3 4 255]
 
@@ -877,7 +877,7 @@ attr 0
 
 mvto 9605 49242
 
-frat 5
+frat 2
 
 *emit 2 10.2
 
@@ -893,7 +893,7 @@ attr 0
 
 mvto 9262 48864
 
-frat 5
+frat 2
 
 
 
@@ -905,7 +905,7 @@ attr 0
 
 mvto 9576 48864
 
-frat 5
+frat 2
 
 
 
@@ -927,7 +927,7 @@ attr 0
 
 mvto 8043 49078
 
-frat 5
+frat 2
 
 
 
@@ -939,7 +939,7 @@ attr 0
 
 mvto 8584 49078
 
-frat 5
+frat 2
 
 
 
@@ -951,7 +951,7 @@ attr 0
 
 mvto 8484 49079
 
-frat 5
+frat 2
 
 
 
@@ -963,7 +963,7 @@ attr 0
 
 mvto 7971 49070
 
-frat 5
+frat 2
 
 
 
@@ -987,7 +987,7 @@ attr 0
 
 mvto 4922 49698
 
-frat 1.5
+frat 2
 
 anim [0 1 2 3 4 255]
 
@@ -1003,7 +1003,7 @@ attr 0
 
 mvto 4766 49873
 
-frat 1.5
+frat 2
 
 anim [0 1 2 3 4 255]
 
@@ -1061,11 +1061,13 @@ mvto 8395 48240
 
 *Incubator Room Waterfall*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 6 17 500
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 6 17 1
 
 attr 0
 
 mvto 6420 48333
+
+frat 2
 
 anim [0 1 2 3 4 5 255]
 
@@ -1081,7 +1083,7 @@ attr 0
 
 mvto 6440 48460
 
-frat 3
+frat 2
 
 anim [0 1 2 255]
 
@@ -1511,9 +1513,9 @@ attr 0
 
 mvto 2693 49148
 
-frat 10
+frat 6
 
-anim [0 1 2 255]
+anim [0 1 2 1 0 255]
 
 
 
@@ -1585,7 +1587,7 @@ attr 0
 
 mvto 2233 49367
 
-frat 5
+frat 2
 
 emit 2 0.1500
 
@@ -1603,7 +1605,7 @@ attr 0
 
 mvto 2654 49479
 
-frat 5
+frat 2
 
 emit 2 0.0300
 
@@ -1621,7 +1623,7 @@ attr 0
 
 mvto 2337 49483
 
-frat 5
+frat 2
 
 emit 2 0.0300
 
@@ -1675,7 +1677,7 @@ attr 0
 
 mvto 3136 49769
 
-frat 3
+frat 2
 
 emit 2 0.3300
 
@@ -1693,7 +1695,7 @@ attr 0
 
 mvto 3434 49769
 
-frat 3
+frat 2
 
 emit 2 0.3300
 
@@ -1727,7 +1729,7 @@ attr 0
 
 mvto 6936 49875
 
-frat 3
+frat 8
 
 emit 2 0.3300
 
@@ -1743,7 +1745,7 @@ attr 0
 
 mvto 7134 49875
 
-frat 3
+frat 8
 
 emit 2 0.3300
 
@@ -1759,7 +1761,7 @@ attr 0
 
 mvto 7332 49875
 
-frat 3
+frat 8
 
 emit 2 0.3300
 
@@ -1775,7 +1777,7 @@ attr 0
 
 mvto 7528 49875
 
-frat 3
+frat 8
 
 emit 2 0.3300
 
@@ -1795,7 +1797,7 @@ attr 0
 
 mvto 3313 49076
 
-frat 10
+frat 2
 
 anim [0 1 2 3 4 5 255]
 
@@ -1823,5 +1825,3 @@ loop
 	scrx 1 8 50200 va00
 
 untl va00 ge 2000
-
-
