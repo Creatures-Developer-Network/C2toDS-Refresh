@@ -1,0 +1,25 @@
+*Just to make all the connecting links for the updated stuff. Might need to be changed when the map changes
+
+**Boat
+link grap 8538 48172 grap 9279 48150 100
+**Sub
+link grap 8288 48418 grap 9357 48427 100
+**Trolly
+link grap 4542 48845 grap 5879 48359 100
+**Raft
+link grap 2400 48161 grap 3078 48133 100
+**Shuttle
+link grap 6674 49082 grap 8232 49243 100
+
+
+rscr
+**Boat
+link grap 8538 48172 grap 9279 48150 0
+**Sub
+link grap 8288 48418 grap 9357 48427 0
+**Trolly
+link grap 4542 48845 grap 5879 48359 0
+**Raft
+link grap 2400 48161 grap 3078 48133 0
+**Shuttle
+link grap 6674 49082 grap 8232 49243 0

@@ -154,13 +154,20 @@ scrp 3 12 50205 2
 	mesg writ targ 0
 endm
 
-scrp 3 13 50203 9
+scrp 3 13 50205 9
 	inst
 * Just here to continue injecting wait
 	doif ooww ov01 eq 3
 		targ mtoc ov01
 		doif targ ne null
-			stim writ from 75 1
+			doif carr eq null
+				stim writ from 75 1
+			else
+* Picked up, stop queueing
+				stim writ targ 96 0
+				driv 19 -1.0
+				kill ownr
+			endi
 		else
 			kill ownr
 		endi

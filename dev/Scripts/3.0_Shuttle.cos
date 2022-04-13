@@ -6,9 +6,14 @@
 * Aiko asks, should a creature even ever use this?? Gonna make it invisible to them 
 * until we figure it out
 
+* Verm responds, yeah sure, sort of, but I'm doing the queue thing here too so... invisibility was the right choice
+* No greedy cabin! hard to tell creatures get stuck
+
 new: vhcl 3 1 50204 "moe_C2toDS_shuttle" 12 0 100
 
-attr 28
+attr 20
+
+cato 35
 
 setv ov00 1
 
@@ -20,171 +25,400 @@ part 1
 
 mvto 8008 49085
 
+**Call buttons
+
+new: simp 3 12 50204 "moe_C2toDS_lifts" 2 7 1999
+
+attr 4
+
+bhvr 3
+* Left Butt
+*setv ov00 0
+
+cato 2
+
+mvto 6690 49054
+
+new: simp 3 12 50204 "moe_C2toDS_lifts" 2 7 1999
+
+attr 4
+
+bhvr 3
+* Right Butt
+setv ov00 1
+
+cato 2
+
+mvto 8281 49300
+
+**Call Button scripts
+scrp 3 12 50204 1
+	inst
+* light up, light up
+	rtar 3 1 50204
+	doif ov00 eq mv00
+		targ ownr
+		pose 1
+	endi
+*Queue Object!
+	targ from
+	doif crea targ eq 1
+		sets va48 gtos 0
+* check for any existing queue object
+		enum 3 13 50204
+			doif ov01 eq va48
+				addv va49 1
+			endi
+		next
+* make a queue object if there's not one already
+		doif va49 eq 0
+			new: simp 3 13 50204 "blnk" 1 0 0
+*dbg: outs "making quere"
+			setv ov00 mv00
+			sets ov01 va48
+			tick 20
+		endi
+
+		stim writ from 75 1
+		stim writ from 96 1
+		urge writ from 0 0.5 0 0.5
+	endi
+	rtar 3 1 50204
+	mesg writ targ 0
+endm
+**Call Button scripts
+scrp 3 12 50204 2
+	inst
+* light up, light up
+	rtar 3 1 50204
+	doif ov00 eq mv00
+		targ ownr
+		pose 1
+	endi
+*Queue Object!
+	targ from
+	doif crea targ eq 1
+		sets va48 gtos 0
+* check for any existing queue object
+		enum 3 13 50204
+			doif ov01 eq va48
+				addv va49 1
+			endi
+		next
+* make a queue object if there's not one already
+		doif va49 eq 0
+			new: simp 3 13 50204 "blnk" 1 0 0
+*dbg: outs "making quere"
+			setv ov00 mv00
+			sets ov01 va48
+			tick 20
+		endi
+
+		stim writ from 75 1
+		stim writ from 96 1
+		urge writ from 0 0.5 0 0.5
+	endi
+	rtar 3 1 50205
+	mesg writ targ 0
+endm
+
+scrp 3 13 50204 9
+	inst
+* Just here to continue injecting wait
+	doif ooww ov01 eq 3
+		targ mtoc ov01
+		doif targ ne null
+			doif carr eq null
+				stim writ from 75 1
+			else
+* Picked up, stop queueing
+				stim writ targ 96 0
+				driv 19 -1.0
+				kill ownr
+			endi
+		else
+			kill ownr
+		endi
+	else
+		kill ownr
+	endi
+endm
 
 
 scrp 3 1 50204 1
-
+***Oh wow, this used to have the whole script, Imma seperate it into left/right instead for easier management - Verm
+	inst
 	lock
 
 	doif ov00 eq 0
-
-		attr 8
-
-		part 1
-
-		anim [2 1 0]
-
-		wait 10
-
-		gpas 4 0 0 1
-
-		part 1
-
-		anim [0 1 2]
-
-		wait 10
-
-		part 1
-
-		anim [2 3 4 5 6 255]
-
-		setv velx 20
-
-		sndl "shtl"
-
-		loop
-
-			mvby 0 1.15
-
-			wait 1
-
-		untl posr ge 8254
-
-		fade
-
-		setv velx 0
-
-		part 1
-
-		pose 6
-
-		reps 10
-
-			mvby 0 2
-
-			wait 1
-
-		repe
-
-		part 1
-
-		anim [8 9]
-
-		over
-
-		dpas 4 0 0
-
-		etch 4 0 0
-
-			setv velx 20
-
-			setv vely -8
-
-		next
-
-		targ ownr
-
-		wait 5
-
-		part 1
-
-		anim [9 8 7]
-
-		attr 12
-
-		setv ov00 1
-
+		mesg writ ownr 1002
 	else
-
-		attr 8
-
-		part 1
-
-		anim [8 9]
-
-		wait 10
-
-		gpas 4 0 0 1
-
-		part 1
-
-		anim [9 8 6]
-
-		reps 10
-
-			mvby 0 -2
-
-			wait 1
-
-		repe
-
-		part 1
-
-		anim [6 5 4 3 2 255]
-
-		setv velx -20
-
-		sndl "shtl"
-
-		loop
-
-			mvby 0 -1.15
-
-			wait 1
-
-		untl posl le 6620
-
-		fade
-
-		setv velx 0
-
-		part 1
-
-		anim [1 0]
-
-		over
-
-		dpas 4 0 0
-
-		etch 4 0 0
-
-			setv velx -5
-
-			setv vely -5
-
-		next
-
-		targ ownr
-
-		wait 5
-
-		part 1
-
-		anim [0 1 7]
-
-		attr 12
-
-		setv ov00 0
-
+		mesg writ ownr 1001
 	endi
 
 	unlk
 
 endm
 
+*Right to Left
+scrp 3 1 50204 1001
+	lock
+
+	attr 0
+
+	part 1
+
+	anim [8 9]
+
+	wait 10
+
+	inst
+* Get the queued creatures
+	enum 3 13 50204
+		doif ov00 eq 1
+			doif ooww ov01 eq 3
+
+* spas takes some time to work, so loop
+* and keep checking if you got a creature
+* before continuing
+				loop
+*do this early to force laydown
+					seta va45 targ
+					targ mtoc ov01
+					pose 58
+					targ va45
+					spas ownr mtoc ov01
+					wait 1
+					addv va46 1
+					targ ownr
+					epas 4 0 0
+						addv va44 1
+					next
+					targ va45
+				untl va44 gt 0 or ooww ov01 ne 3
+
+				kill targ
+			else
+				kill targ
+			endi
+		endi
+	next
+	slow
+	part 1
+
+	anim [9 8 6]
+
+	reps 10
+
+		mvby 0 -2
+		inst
+		wait 1
+		epas 4 0 0
+			stim writ targ 75 1
+		next
+		slow
+	repe
+
+	part 1
+
+	anim [6 5 4 3 2 255]
+
+	setv velx -20
+
+	sndl "shtl"
+
+	loop
+*Whyyyy is physics dumb		
+*		mvby 0 -1.15
+		mvby 0 -2.3
+		inst
+		wait 1
+		epas 4 0 0
+			stim writ targ 75 1
+		next
+		slow
+	untl posl le 6620
+
+	fade
+
+	setv velx 0
+
+	part 1
+
+	anim [1 0]
+
+	over
+
+	inst
+	epas 4 0 0
+		rpas ownr targ
+		mvft 6705 49143
+		stim writ targ 96 0
+		driv 19 -1.0
+	next
+
+
+	targ ownr
+
+	wait 5
+
+	part 1
+
+	anim [0 1 7]
+
+	attr 20
+
+	setv ov00 0
+	unlk
+	enum 3 12 50204
+		pose 0
+	next
+	doif totl 3 13 50204 gt 0
+		mesg writ ownr 0
+	endi
+endm
+
+*Left to Right
+scrp 3 1 50204 1002
+	lock
+	attr 0
+
+	part 1
+
+	anim [2 1 0]
+
+	wait 10
+
+	inst
+* Get the queued creatures
+	enum 3 13 50204
+		doif ov00 eq 0
+			doif ooww ov01 eq 3
+
+* spas takes some time to work, so loop
+* and keep checking if you got a creature
+* before continuing
+				loop
+*do this early to force laydown
+					seta va45 targ
+					targ mtoc ov01
+					pose 58
+					targ va45
+					spas ownr mtoc ov01
+					wait 1
+					addv va46 1
+					targ ownr
+					epas 4 0 0
+						addv va44 1
+					next
+					targ va45
+				untl va44 gt 0 or ooww ov01 ne 3
+
+				kill targ
+			else
+				kill targ
+			endi
+		endi
+	next
+	slow
+
+	part 1
+
+	anim [0 1 2]
+
+	wait 10
+
+	part 1
+
+	anim [2 3 4 5 6 255]
+
+	setv velx 20
+
+	sndl "shtl"
+
+	loop
+*dumb physics is dumb?
+		mvby 0 2.3
+
+		inst
+		wait 1
+		epas 4 0 0
+			stim writ targ 75 1
+		next
+		slow
+
+	untl posr ge 8254
+
+	fade
+
+	setv velx 0
+
+	part 1
+
+	pose 6
+
+	reps 10
+
+		mvby 0 2
+
+		inst
+		wait 1
+		epas 4 0 0
+			stim writ targ 75 1
+		next
+		slow
+
+	repe
+
+	part 1
+
+	anim [8 9]
+
+	over
+
+	inst
+	epas 4 0 0
+		rpas ownr targ
+		mvft 6705 49143
+		stim writ targ 96 0
+		driv 19 -1.0
+	next
+
+	targ ownr
+
+	wait 5
+
+	part 1
+
+	anim [9 8 7]
+
+	attr 20
+
+	setv ov00 1
+	unlk
+	enum 3 12 50204
+		pose 0
+	next
+	doif totl 3 13 50204 gt 0
+		mesg writ ownr 0
+	endi
+endm
+
 rscr
 
 enum 3 1 50204
+
+	kill targ
+
+next
+
+enum 3 12 50204
+
+	kill targ
+
+next
+
+enum 3 13 50204
 
 	kill targ
 

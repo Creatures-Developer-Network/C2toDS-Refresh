@@ -898,17 +898,33 @@ TAG "Agent Help 3 1 50201"
 "C2DS Boat"
 "Boat "
 
+TAG "Agent Help 3 12 50201"
+"C2DS Call Buttons for Boat"
+"Allows creatures to call for the boat to get to the other side."
+
+TAG "Agent Help 3 13 50201"
+"C2DS Queue Agents for Boat"
+"You shouldn't be able to ever see this, but if you have congrats?"
+
 TAG "Agent Help 3 1 50202"
 "C2DS Submarine"
 "Submarine "
+
+TAG "Agent Help 3 12 50202"
+"C2DS Call Buttons for Submarine"
+"Allows creatures to call for the submarine to take a trip to the volcano and back."
+
+TAG "Agent Help 3 13 50202"
+"C2DS Queue Agents for Submarine"
+"You shouldn't be able to ever see this, but if you have congrats?"
 
 TAG "Agent Help 3 1 50203"
 "C2DS Yellow Raft"
 "Yellow Raft "
 
 TAG "Agent Help 3 12 50203"
-"C2DS Call Buttons For Yellow Raft"
-" "
+"C2DS Call Buttons for Yellow Raft"
+"Allows creatures to call for the yellow raft to travel safely and effectively."
 
 TAG "Agent Help 3 13 50203"
 "C2DS Queue Agents for Yellow Raft"
@@ -918,13 +934,21 @@ TAG "Agent Help 3 1 50204"
 "C2DS Splicer Shuttle"
 "Splicer Shuttle "
 
+TAG "Agent Help 3 12 50204"
+"C2DS Call Buttons for Shuttle"
+"Allows creatures to call for the splicer shuttle to go from one underground area to the next underground area."
+
+TAG "Agent Help 3 13 50204"
+"C2DS Queue Agents for Shuttle"
+"You shouldn't be able to ever see this, but if you have congrats?"
+
 TAG "Agent Help 3 1 50205"
 "C2DS Trolly"
 "Trolly "
 
 TAG "Agent Help 3 12 50205"
-"C2DS Call Buttons For Trolly"
-" "
+"C2DS Call Buttons for Trolly"
+"Allows creatures to call for the trolly, and take a nostalgic trip up or down."
 
 TAG "Agent Help 3 13 50205"
 "C2DS Queue Agents for Trolly"
@@ -945,12 +969,4 @@ TAG "Agent Help 3 2 50206"
 TAG "Agent Help 3 8 50204"
 "C2DS Electric Gate"
 "Electric Gate "
-
-TAG "Agent Help 3 12 50201"
-"C2DS Call Buttons For Boat"
-" "
-
-TAG "Agent Help 3 13 50201"
-"C2DS Queue Agents for Boat"
-"You shouldn't be able to ever see this, but if you have congrats?"
 

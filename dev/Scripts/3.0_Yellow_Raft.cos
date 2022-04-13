@@ -7,8 +7,9 @@
 
 * UNFINISHED: Need to add code to detect which direction the norn wants to go in, rather than
 *             relying on where they are in relation to the dingy when they activated it.
-* UNFINISHED: We also need to ensure that norns falling off ledge are caught by dingy. I 
+* UNFINISHED?: We also need to ensure that norns falling off ledge are caught by dingy. I 
 * 		  thought setting greedy cabin would do this, but apparently not.
+* Note: Might be working better due to Aiko's changes - Verm
 
 * Rubber dingy
 
@@ -138,7 +139,14 @@ scrp 3 13 50203 9
 	doif ooww ov01 eq 3
 		targ mtoc ov01
 		doif targ ne null
-			stim writ from 75 1
+			doif carr eq null
+				stim writ from 75 1
+			else
+* Picked up, stop queueing
+				stim writ targ 96 0
+				driv 19 -1.0
+				kill ownr
+			endi
 		else
 			kill ownr
 		endi
