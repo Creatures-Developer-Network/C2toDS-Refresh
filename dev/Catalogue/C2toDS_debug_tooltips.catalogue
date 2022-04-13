@@ -1,0 +1,21 @@
+TAG "ToolTip 1 99 9999 1 0"
+"Click to Enable Guardrails"
+
+TAG "ToolTip 1 99 9999 1 1"
+"Click to Disable Guardrails"
+
+
+
+TAG "ToolTip 1 99 9999 2 0"
+"Click to Enable Dust Devils"
+
+TAG "ToolTip 1 99 9999 2 1"
+"Click to Disable Dust Devils"
+
+
+
+TAG "ToolTip 1 99 9999 3 0"
+"Click to Enable Day/Night cycle"
+
+TAG "ToolTip 1 99 9999 3 1"
+"Click to Disable Day/Night cycle"
