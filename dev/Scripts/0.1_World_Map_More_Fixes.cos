@@ -1,0 +1,66 @@
+*some very rough and ready fixes/changes to the map by NeoDement
+
+
+*Never mind! It turns out DELR is busted as hell and doesn't properly reset DOOR perms between deleted rooms and other rooms.
+*Leaving these here as a guide of which rooms I think should be deleted when we do a proper pass on the map data though.
+
+**TODO:!!!!! also delete the swamp
+*
+*
+**deleted a lot of rooms that seemed to serve no purpose other than to confuse players when objects with the wrong perm fall into them
+*
+*
+**the soil under the incubator room where norns often get stuck
+*delr grap 6820 48500
+*delr grap 6871 48500
+*delr grap 7010 48500
+*delr grap 7346 48500
+*delr grap 7538 48500
+*delr grap 7641 48500
+*delr grap 7740 48500
+*
+*
+**the room under the triffids, under the season tree
+**(this isn't even a room in the original c2 so I'm not sure why it is in c2tods)
+*delr grap 3427 48327
+*
+**the room under the triffids, under the season tree (world wrap copy)
+*delr grap 11788 48327
+*
+*
+**strange small rooms between the desert and the incubator room
+*delr grap 6461 48224
+*delr grap 7055 48200
+*delr grap 7648 48215
+*
+*
+**strange small room between the beach and the inf scroll/fly trap biodome
+*delr grap 10423 48264
+*
+**strange small room between the beach and the inf scroll/fly trap biodome (world wrap copy)
+*delr grap 2070 48264
+*
+*
+**volcano lava pool
+*delr grap 9064 49827
+*delr grap 9165 49827
+*delr grap 9282 49827
+*delr grap 9391 49827
+*delr grap 9536 49827
+*delr grap 9711 49827
+*delr grap 9859 49827
+*delr grap 10006 49827
+*delr grap 10113 49827
+*delr grap 10193 49827
+*
+**volcano lava pool (world wrap copy)
+*delr grap 716 49827
+*delr grap 804 49827
+*delr grap 932 49827
+*delr grap 1032 49827
+*delr grap 1169 49827
+*delr grap 1348 49827
+*delr grap 1496 49827
+*delr grap 1648 49827
+*delr grap 1754 49827
+*delr grap 1859 49827

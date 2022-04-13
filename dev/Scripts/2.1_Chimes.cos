@@ -1,0 +1,156 @@
+* 2 21 50205 - Chimes
+
+* Converted by NeoDement
+
+
+
+* Chimes - Comp
+new: comp 2 21 50205 "moe_C2toDS_Chimes" 1 0 50
+
+pat: butt 1 "moe_C2toDS_Chimes" 1 4 32 0 1 [] 1001 0
+pat: butt 2 "moe_C2toDS_Chimes" 5 4 48 0 1 [] 1002 0
+pat: butt 3 "moe_C2toDS_Chimes" 9 4 60 0 1 [] 1003 0
+pat: butt 4 "moe_C2toDS_Chimes" 13 4 76 0 1 [] 1004 0
+pat: butt 5 "moe_C2toDS_Chimes" 17 4 88 0 1 [] 1005 0
+pat: butt 6 "moe_C2toDS_Chimes" 21 4 104 0 1 [] 1006 0
+
+mvto 3154 48807
+
+*set framerate to match C2 better
+part 1
+frat 2
+part 2
+frat 2
+part 3
+frat 2
+part 4
+frat 2
+part 5
+frat 2
+part 6
+frat 2
+
+
+*Chime creation script
+scrp 2 21 50205 10
+
+* Carryable + Mouseable + Suffer Collisions + Suffer Physics
+	attr 195
+
+*Activate 1 + Activate 2 + Hit
+	bhvr 11
+
+	elas 0
+	accg 5
+	aero 5
+	perm 51
+
+endm
+
+
+*Chime master script
+
+*_P1_ is whoever called the script
+*_P2_ is which chime was activated
+scrp 2 21 50205 1000
+
+*Stimulate the creature with "Played with toy"
+	doif crea _p1_ = 1
+		stim writ _p1_ 97 1
+	endi
+
+*animate whichever part you were told to
+	part _p2_
+	anim [0 1 2 1 3 0]
+
+*play the appropriate sound
+	doif _p2_ eq 1
+		snde "vib1"
+	elif _p2_ eq 2
+		snde "vib2"
+	elif _p2_ eq 3
+		snde "vib3"
+	elif _p2_ eq 4
+		snde "vib4"
+	elif _p2_ eq 5
+		snde "vib5"
+	else
+		snde "vib6"
+	endi
+	
+endm
+
+
+*Chime Activate 1 script (creatures only!)
+scrp 2 21 50205 1
+	setv va00 rand 1 6
+	call 1000 from va00
+endm
+
+*Chime Activate 2 script (creatures only!)
+scrp 2 21 50205 2
+	setv va00 rand 1 6
+	call 1000 from va00
+endm
+
+*Chime Hit script (creatures only!)
+scrp 2 21 50205 3
+	sndc "hit_"
+	velo rand -3 3 rand -8 -12
+	stim writ from 92 1
+endm
+
+
+
+
+*Chime 1 script
+scrp 2 21 50205 1001
+	call 1000 from 1
+endm
+
+*Chime 2 script
+scrp 2 21 50205 1002
+	call 1000 from 2
+endm
+
+*Chime 3 script
+scrp 2 21 50205 1003
+	call 1000 from 3
+endm
+
+*Chime 4 script
+scrp 2 21 50205 1004
+	call 1000 from 4
+endm
+
+*Chime 5 script
+scrp 2 21 50205 1005
+	call 1000 from 5
+endm
+
+*Chime 6 script
+scrp 2 21 50205 1006
+	call 1000 from 6
+endm
+
+
+
+rscr
+
+scrx 2 21 50205 1
+scrx 2 21 50205 2
+scrx 2 21 50205 3
+
+scrx 2 21 50205 10
+
+scrx 2 21 50205 1000
+scrx 2 21 50205 1001
+scrx 2 21 50205 1002
+scrx 2 21 50205 1003
+scrx 2 21 50205 1004
+scrx 2 21 50205 1005
+scrx 2 21 50205 1006
+
+enum 2 21 50205
+	kill targ
+next

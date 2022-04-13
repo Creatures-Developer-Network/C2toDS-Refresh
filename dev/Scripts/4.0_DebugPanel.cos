@@ -1,0 +1,226 @@
+*crappy lil debug panel so we can configure a handful of things in the world
+
+*feel free to add more and assign a proper classifier, graphics etc
+
+*tooltips are in C2toDS_debug_tooltips.catalogue
+
+enum 1 99 9999
+	kill targ
+next
+
+new: comp 1 99 9999 "blnk" 0 0 8000
+pat: butt 1 "ds gui" 56 0 0 0 2 [] 1001 0
+pat: butt 2 "ds gui" 56 0 0 25 2 [] 1002 0
+pat: butt 3 "ds gui" 56 0 0 50 2 [] 1003 0
+
+part 1
+pose 0
+
+part 2
+pose 1
+
+part 3
+pose 1
+
+mvto 8017 48551
+
+
+*ENABLE/DISABLE GUARD RAILS
+*changed these wall permeabilities to stop norns walking off and drowning/hurting themselves :(
+
+scrp 1 99 9999 1001
+
+	lock
+
+	part 1
+
+	doif pose = 0
+
+		pose 1
+
+		dmap 1
+
+		wait 10
+
+		inst
+
+*left side of light blue ocean
+		door grap 8546 48097 grap 8718 48097 99
+		door grap 8546 48226 grap 8718 48226 99
+
+*right side of light blue ocean
+		door grap 9066 48097 grap 9229 48097 99
+		door grap 9066 48226 grap 9229 48226 99
+
+*right side of light blue ocean (world wrap copy)
+		door grap 762 48097 grap 838 48097 99
+		door grap 762 48226 grap 838 48226 99
+
+
+*left side of dark blue ocean
+		door grap 2418 48111 grap 2503 48111 99
+		door grap 2418 48207 grap 2503 48207 99
+
+*right side of dark blue ocean
+		door grap 2969 48111 grap 3060 48111 99
+		door grap 2969 48207 grap 3060 48207 99
+
+*left side of dark blue ocean (world wrap copy)
+		door grap 10779 48111 grap 10849 48111 99
+		door grap 10779 48207 grap 10849 48207 99
+
+*right side of dark blue ocean (world wrap copy)
+		door grap 11352 48111 grap 11409 48111 99
+		door grap 11352 48207 grap 11409 48207 99
+
+
+*frog pond
+		door grap 2860 48841 grap 2923 48841 99
+
+*frog pond (world wrap copy)
+		door grap 11218 48841 grap 11261 48841 99
+
+
+*incubator pond
+		door grap 6719 48371 grap 6759 48371 50
+
+
+*far right volcano platform (probably needs to be divided into more rooms to match the other barriers)
+		door grap 10079 49299 grap 10114 49299 50
+
+*far right volcano platform (world wrap copy)
+		door grap 1724 49299 grap 1764 49299 50
+
+		wait 10
+
+		dmap 0
+
+	else
+
+		pose 0
+
+		dmap 1
+
+		wait 10
+
+		inst
+
+
+*left side of light blue ocean
+		door grap 8546 48097 grap 8718 48097 100
+		door grap 8546 48226 grap 8718 48226 100
+
+*right side of light blue ocean
+		door grap 9066 48097 grap 9229 48097 100
+		door grap 9066 48226 grap 9229 48226 100
+
+*right side of light blue ocean (world wrap copy)
+		door grap 762 48097 grap 838 48097 100
+		door grap 762 48226 grap 838 48226 100
+
+
+*left side of dark blue ocean
+		door grap 2418 48111 grap 2503 48111 100
+		door grap 2418 48207 grap 2503 48207 100
+
+*right side of dark blue ocean
+		door grap 2969 48111 grap 3060 48111 100
+		door grap 2969 48207 grap 3060 48207 100
+
+*left side of dark blue ocean (world wrap copy)
+		door grap 10779 48111 grap 10849 48111 100
+		door grap 10779 48207 grap 10849 48207 100
+
+*right side of dark blue ocean (world wrap copy)
+		door grap 11352 48111 grap 11409 48111 100
+		door grap 11352 48207 grap 11409 48207 100
+
+
+*frog pond
+		door grap 2860 48841 grap 2923 48841 100
+
+*frog pond (world wrap copy)
+		door grap 11218 48841 grap 11261 48841 100
+
+
+*incubator pond
+		door grap 6719 48371 grap 6759 48371 100
+
+
+*far right volcano platform (probably needs to be divided into more rooms to match the other barriers)
+		door grap 10079 49299 grap 10114 49299 100
+
+*far right volcano platform (world wrap copy)
+		door grap 1724 49299 grap 1764 49299 100
+
+		wait 10
+
+		dmap 0
+
+	endi
+
+endm
+
+*ENABLE/DISABLE DUST DEVILS
+*(they spawn far too often and made it very frustrating to test the pop rocket)
+
+scrp 1 99 9999 1002
+
+	lock
+
+	part 2
+
+	doif pose = 1
+
+		pose 0
+
+		tick 20
+
+	else
+
+		pose 1
+
+		tick 0
+
+	endi
+endm
+
+*DELETE DUST DEVILS EVERY 20 TICKS!
+*(button 2 enables/disables the timer)
+
+scrp 1 99 9999 9
+
+	enum 2 19 50207
+		kill targ
+	next
+
+endm
+
+
+*ENABLE/DISABLE DAY/NIGHT CYCLE
+*(todo: edit the night script so we can externally force an override to whichever time of day we want)
+
+scrp 1 99 9999 1003
+
+	lock
+
+	part 3
+
+	doif pose = 1
+
+		pose 0
+
+		enum 1 1 50200
+			tick 0
+		next
+
+	else
+
+		pose 1
+
+		enum 1 1 50200
+			tick 200
+		next
+
+	endi
+endm

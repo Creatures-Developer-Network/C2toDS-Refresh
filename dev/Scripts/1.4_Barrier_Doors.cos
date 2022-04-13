@@ -6,6 +6,8 @@
 *2	2	50202	Left Sub Door
 *2	2	50203	Right Sub Door (New: line is in Left Sub Doors Creation Script)
 
+* Some fixes by NeoDement - Fixed some issues with the volcano door sprite, fixed backwards logic in Terrarium Door open/close script, moved FRAT commands into the creation scripts instead of just before animating.
+
 
 * Sets the airlock rooms to Wooden Walkway (the airlock is empty to start)
 rtyp grap 8439 48936 1
@@ -20,11 +22,13 @@ rtyp grap 8758 48936 1
 
 new: simp 2 2 50200 "moe_C2toDS_doors" 5 0 3
 
-attr 20
-
 pose 4
 
-mvto 8604 49665
+frat 2
+
+attr 20
+
+mvto 8603 49665
 
 door grap 8707 49736 grap 8540 49754 100
 
@@ -38,13 +42,15 @@ new: simp 2 2 50201 "moe_C2toDS_doors" 6 5 1
 
 pose 5
 
+frat 2
+
 attr 20
 
 mvto 4095 49222
 
 door grap 4051 49224 grap 4132 49318 0
 
-setv name "open" 1
+setv name "open" 0
 
 
 
@@ -52,9 +58,11 @@ setv name "open" 1
 
 new: simp 2 2 50202 "moe_C2toDS_doors" 5 12 1
 
-attr 20
-
 pose 0
+
+frat 2
+
+attr 20
 
 mvto 8273 48846
 
@@ -76,9 +84,11 @@ setv name "open" 0
 
 new: simp 1 11 50200 "moe_C2toDS_doors" 9 20 8000
 
-attr 0
-
 pose 8
+
+frat 2
+
+attr 0
 
 mvto 8450 48809
 
@@ -94,9 +104,11 @@ setv name "whatamI?" 1
 
 new: simp 1 11 50200 "moe_C2toDS_bubs" 11 0 8000
 
-attr 20
-
 pose 10
+
+frat 2
+
+attr 20
 
 mvto 8685 48990
 
@@ -110,9 +122,11 @@ setv name "whatamI?" 2
 
 new: simp 1 11 50200 "moe_C2toDS_bubs" 11 0 8000
 
-attr 20
-
 pose 10
+
+frat 2
+
+attr 20
 
 mvto 8532 48990
 
@@ -127,15 +141,11 @@ scrp 1 11 50200 1001
 
 		doif name "flooded" eq 0
 
-			frat 2
-
 			anim [8 7 6 5 4 3 2 1 0]
 
 			setv name "flooded" 1
 
 		elif name "flooded" eq 1
-
-			frat 2
 
 			anim [0 1 2 3 4 5 6 7 8]
 
@@ -144,8 +154,6 @@ scrp 1 11 50200 1001
 		endi
 
 	elif name "whatamI?" eq 2
-
-		frat 2
 
 *doif name "flooded" eq 1
 
@@ -169,8 +177,6 @@ scrp 2 2 50200 1
 
 	doif name "open" eq 0
 
-		frat 2
-
 		anim [ 0 1 2 3 4]
 
 *door grap posl posy grap posr posy 50
@@ -186,8 +192,6 @@ scrp 2 2 50200 1
 		door grap 8707 49736 grap 8540 49754 100
 
 	elif name "open" eq 1
-
-		frat 2
 
 		anim [ 4 3 2 1 0]
 
@@ -226,8 +230,6 @@ scrp 2 2 50200 1
 			doif name "whatamI?" eq 3
 
 				doif name "open" eq 1
-
-					frat 2
 
 					anim [3 2 1 0]
 
@@ -279,8 +281,6 @@ scrp 2 2 50200 1
 
 	doif name "whatamI?" eq 3 and name "open" eq 0
 
-		frat 2
-
 		anim [ 0 1 2 3]
 
 *door grap posl posy grap posr posy 50
@@ -296,8 +296,6 @@ scrp 2 2 50200 1
 		door grap 8388 48918 grap 8440 48938 100
 
 	elif name "whatamI?" eq 3 and name "open" eq 1
-
-		frat 2
 
 		anim [3 2 1 0]
 
@@ -319,8 +317,6 @@ scrp 2 2 50200 1
 
 	doif name "whatamI?" eq 4 and name "open" eq 0
 
-		frat 2
-
 		anim [ 0 1 2 3]
 
 *door grap posl posy grap posr posy 50
@@ -337,8 +333,6 @@ scrp 2 2 50200 1
 
 	elif name "whatamI?" eq 4 and name "open" eq 1
 
-		frat 2
-
 		anim [3 2 1 0]
 
 		door grap 8758 48931 grap 8794 48931 50
@@ -353,11 +347,8 @@ scrp 2 2 50200 1
 
 	endi
 
-
-
-
-
 endm
+
 
 
 *Terrarium Door
@@ -368,11 +359,7 @@ scrp 2 2 50201 1
 
 	doif name "open" eq 0
 
-		frat 2
-
-		anim [ 0 1 2 3 4 5]
-
-*door grap posl posy grap posr posy 50
+		anim [5 4 3 2 1 0]
 
 		door grap 4051 49224 grap 4132 49318 50
 
@@ -382,13 +369,11 @@ scrp 2 2 50201 1
 
 		setv name "open" 1
 
-		door grap 4051 49224 grap 4132 49318 0
+		door grap 4051 49224 grap 4132 49318 100
 
 	elif name "open" eq 1
 
-		frat 2
-
-		anim [5 4 3 2 1 0]
+		anim [0 1 2 3 4 5]
 
 		door grap 4051 49224 grap 4132 49318 50
 
@@ -398,11 +383,13 @@ scrp 2 2 50201 1
 
 		setv name "open" 0
 
-		door grap 4051 49224 grap 4132 49318 100
+		door grap 4051 49224 grap 4132 49318 0
 
 	endi
 
 endm
+
+
 
 scrp 2 2 50202 10
 
@@ -412,9 +399,11 @@ scrp 2 2 50202 10
 
 	new: simp 2 2 50203 "moe_C2toDS_doors" 5 16 1
 
-	attr 20
-
 	pose 3
+
+	frat 2
+
+	attr 20
 
 	mvto 8749 48820
 
@@ -437,8 +426,6 @@ scrp 2 2 50203 1
 	lock
 
 	doif name "open" eq 1
-
-		frat 3
 
 		anim [3 2 1 0]
 
@@ -570,8 +557,6 @@ scrp 2 2 50202 1
 
 		endi
 
-		frat 3
-
 		anim [0 1 2 3]
 
 		over
@@ -583,8 +568,6 @@ scrp 2 2 50202 1
 
 
 	elif name "open" eq 1
-
-		frat 3
 
 		anim [3 2 1 0]
 
@@ -665,5 +648,3 @@ enum 2 2 50203
 	kill targ
 
 next
-
-
