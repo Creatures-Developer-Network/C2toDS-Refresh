@@ -1,0 +1,128 @@
+***Stores all the stuff for the Norn to Frog transformation
+***Spooky!
+
+*Creation!
+scrp 2 5649 5611 10
+	inst
+	tick 4
+endm
+
+*Timer!
+scrp 2 5649 5611 9
+	inst
+	doif ov00 ne null
+**We're attached to a norn!
+		targ ov00
+		doif dead eq 1
+*Dead
+			kill ownr
+		endi
+		doif carr eq null
+*Check only if nothing is going on
+			doif posx gt 3512 or posx lt 2725 or posy gt 49040 or posy lt 48745
+**Too far from the pond :O
+*frog tim
+				gsub frog
+			endi
+		endi
+	else
+**:( It's gone
+		kill ownr
+	endi
+
+	subr frog
+**And back again...
+***What's our age?
+		doif cage lt 2
+*Tadpole
+			setv va00 1
+			doif cage eq 1 and name "FrogTrackerC2toDS-Age" lt 150
+				setv name "FrogTrackerC2toDS-Age" 150
+			endi
+		else
+*Froog
+**Make sure to shave 300 off the age, since frog
+			doif cage eq 2 and name "FrogTrackerC2toDS-Age" lt 300
+				setv name "FrogTrackerC2toDS-Age" 300
+			elif cage eq 3 and name "FrogTrackerC2toDS-Age" lt 450
+				setv name "FrogTrackerC2toDS-Age" 450
+			elif cage eq 4 and name "FrogTrackerC2toDS-Age" lt 600
+				setv name "FrogTrackerC2toDS-Age" 600
+			elif cage eq 5 and name "FrogTrackerC2toDS-Age" lt 1100
+				setv name "FrogTrackerC2toDS-Age" 1100
+			elif cage eq 6 and name "FrogTrackerC2toDS-Age" lt 1150
+				setv name "FrogTrackerC2toDS-Age" 1150
+			endi
+		endi
+		gsub makefrog
+**Made basic frogg
+		targ mv00
+		doif gtos 1 ne ""
+**!!! Babies
+			setv va48 1
+			loop
+				setv va12 va48
+				addv va12 1
+				doif gtos va12 ne ""
+					addv va48 1
+				else
+					setv va11 1
+				endi
+			untl va11 eq 1
+*Got all babies, time to put them in the norn
+			setv va12 va48
+			reps va48
+				gene move mv00 va12 va10 va12
+				subv va12 1
+			repe
+			targ va10
+			doif ov11 gt 1
+				setv ov11 2
+			endi
+		endi
+		targ mv00
+		sets va15 gtos 0
+		targ va10
+		sets name "Stored Moniker" va15
+*I think that was everything?
+		gsub move
+	retn
+
+	subr makefrog
+		doif va00 eq 1
+			new: simp 2 15 5611 "moe_C2toDS_tadp" 16 0 rand 1000 3000
+		else
+			new: simp 2 15 5610 "moe_C2toDS_frogs" 105 0 rand 1000 3000
+			doif mame "FrogTrackerC2toDS-Age" ge 600
+				setv ov11 1
+				base 53
+				doif mame "FrogTrackerC2toDS-HasBred" eq 1
+					setv ov11 3
+				endi
+			endi
+*Fix age
+			subv mame "FrogTrackerC2toDS-Age" 300
+		endi
+		seta va10 targ
+		setv ov01 mame "FrogTrackerC2toDS-Age"
+	retn
+
+	subr move
+		targ mv00
+		setv va00 posx
+		setv va01 posy
+		targ va10
+		mvsf va00 va01
+		targ mv00
+		setv va99 pray expo "FROG"
+		kill ownr
+	retn
+endm
+
+rscr
+inst
+enum 2 5649 5611
+	kill targ
+next
+scrx 2 5649 5611 10
+scrx 2 5649 5611 9
