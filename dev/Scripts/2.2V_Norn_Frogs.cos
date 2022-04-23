@@ -393,31 +393,31 @@ scrp 2 15 5611 4242
 		endi
 	next
 	setv va99 game "total_population"
-doif va98 lt va99
+	doif va98 lt va99
 *Child Life Percent
-	setv va70 0.898
-
+		setv va70 0.898
 *va10 = the creature!
-	doif name "Stored Moniker" ne ""
+		doif name "Stored Moniker" ne ""
 *We've been a norn before! Just turn back into one
-		sets va49 mame "Stored Moniker"
-		adds va49 ".FROG"
-		doif pray impo va49 0 1 lt 2
-			setv va99 pray impo va49 1 0
-			seta va10 targ
-			gsub frogginess
-			gsub move
-		else
+			sets va49 mame "Stored Moniker"
+			adds va49 ".FROG"
+			doif pray impo va49 0 1 lt 2
+				setv va99 pray impo va49 1 0
+				seta va10 targ
+				gsub frogginess
+				gsub move
+			else
 *It's not going to work out, make me a new boy!
+				gsub new
+				gsub move
+			endi
+		else
+*Becoming a norn for the first time! Weee
 			gsub new
 			gsub move
 		endi
-	else
-*Becoming a norn for the first time! Weee
-		gsub new
-		gsub move
 	endi
-endi
+
 	subr new
 		gene load ownr 1 "norn.bondi.48"
 		new: crea 4 ownr 1 _p1_ 0
@@ -462,6 +462,17 @@ endi
 		targ ownr
 		setv va00 posx
 		setv va01 posb
+		setv va30 posx
+		subv va30 32
+		setv va40 posy
+		subv va40 32
+		new: simp 2 5649 5612 "moe_C2toDS_frogs" 8 105 rand 1000 3000
+		attr 16
+		mvto va30 va40
+		snde "zapp"
+		anim [0 1 2 3 4 5 6 7]
+		over
+		kill targ
 		targ va10
 		mvsf va00 va01
 *Froggy Tracker
@@ -573,11 +584,13 @@ scrp 2 15 5610 9
 	doif ov11 ge 1 and ov01 gt 900
 *GSUB DIE
 		lock
+		attr 211
 		accg 3
+		call 444 1 0
 		frat tick
 		anim [49 50 51]
 		over
-		call 444 0 0
+		kill ownr
 		unlk
 	endi
 
@@ -977,8 +990,10 @@ scrp 2 15 5610 444
 		setv ov01 7
 		wait 2
 	endi
-	kill ownr
-	stpt
+	doif _p1_ ne 1
+		kill ownr
+		stpt
+	endi
 endm
 
 *Transformation Script
@@ -994,38 +1009,38 @@ scrp 2 15 5610 4242
 		endi
 	next
 	setv va99 game "total_population"
-doif va98 lt va99
+	doif va98 lt va99
 *Adolecent Life Percent
-	setv va70 0.761
+		setv va70 0.761
 *Youth Life Percent
-	setv va71 0.647
+		setv va71 0.647
 *Adult Life Percent
-	setv va72 0.533
+		setv va72 0.533
 *Old Life Percent
-	setv va73 0.075
+		setv va73 0.075
 *Ancient Life Percent
-	setv va74 0.039
+		setv va74 0.039
 *va10 = the creature!
-	doif name "Stored Moniker" ne ""
+		doif name "Stored Moniker" ne ""
 *We've been a norn before! Just turn back into one
-		sets va49 mame "Stored Moniker"
-		adds va49 ".FROG"
-		doif pray impo va49 0 1 eq 0
-			setv va99 pray impo va49 1 0
-			seta va10 targ
-			gsub frogginess
-			gsub move
-		else
+			sets va49 mame "Stored Moniker"
+			adds va49 ".FROG"
+			doif pray impo va49 0 1 eq 0
+				setv va99 pray impo va49 1 0
+				seta va10 targ
+				gsub frogginess
+				gsub move
+			else
 *It's not going to work out, make me a new boy!
+				gsub new
+				gsub move
+			endi
+		else
+*Becoming a norn for the first time! Weee
 			gsub new
 			gsub move
 		endi
-	else
-*Becoming a norn for the first time! Weee
-		gsub new
-		gsub move
 	endi
-endi
 
 	subr new
 		gene load ownr 1 "norn.bondi.48"
@@ -1137,6 +1152,17 @@ endi
 		targ ownr
 		setv va00 posx
 		setv va01 posb
+		setv va30 posx
+		subv va30 32
+		setv va40 posy
+		subv va40 32
+		new: simp 2 5649 5612 "moe_C2toDS_frogs" 8 105 rand 1000 3000
+		attr 16
+		mvto va30 va40
+		snde "zapp"
+		anim [0 1 2 3 4 5 6 7]
+		over
+		kill targ
 		targ va10
 		mvsf va00 va01
 *Froggy Tracker

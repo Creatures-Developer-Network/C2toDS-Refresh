@@ -111,10 +111,21 @@ scrp 2 5649 5611 9
 		targ mv00
 		setv va00 posx
 		setv va01 posy
-		targ va10
-		mvsf va00 va01
-		targ mv00
 		setv va99 pray expo "FROG"
+		setv va30 va00
+		subv va30 32
+		setv va40 va01
+		subv va40 32
+		new: simp 2 5649 5612 "moe_C2toDS_frogs" 8 105 rand 1000 3000
+		attr 16
+		mvto va30 va40
+		snde "zapp"
+		anim [0 1 2 3 4 5 6 7]
+		over
+		kill targ
+		targ va10
+		mvsf va30 va40
+		targ mv00
 		kill ownr
 	retn
 endm
