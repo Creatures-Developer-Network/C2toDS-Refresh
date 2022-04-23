@@ -43,7 +43,7 @@ endm
 *Eat
 scrp 2 18 5610 12
 	sndc "chwp"
-	stim writ targ 80 .5
+	stim writ from 80 .5
 	kill ownr
 endm
 
@@ -385,6 +385,15 @@ endm
 ***Check them out if needed
 scrp 2 15 5611 4242
 	inst
+* Check the Pop limit!
+	setv va98 0
+	enum 4 0 0
+		doif dead = 0
+			addv va98 1
+		endi
+	next
+	setv va99 game "total_population"
+doif va98 lt va99
 *Child Life Percent
 	setv va70 0.898
 
@@ -408,7 +417,7 @@ scrp 2 15 5611 4242
 		gsub new
 		gsub move
 	endi
-
+endi
 	subr new
 		gene load ownr 1 "norn.bondi.48"
 		new: crea 4 ownr 1 _p1_ 0
@@ -977,6 +986,15 @@ endm
 ***Note: When you change the genome out, make sure to adjust the "life" variables to the breed in the end!
 scrp 2 15 5610 4242
 	inst
+* Check the Pop limit!
+	setv va98 0
+	enum 4 0 0
+		doif dead = 0
+			addv va98 1
+		endi
+	next
+	setv va99 game "total_population"
+doif va98 lt va99
 *Adolecent Life Percent
 	setv va70 0.761
 *Youth Life Percent
@@ -1007,6 +1025,7 @@ scrp 2 15 5610 4242
 		gsub new
 		gsub move
 	endi
+endi
 
 	subr new
 		gene load ownr 1 "norn.bondi.48"
