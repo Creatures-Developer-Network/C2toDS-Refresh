@@ -661,7 +661,7 @@ scrp 2 15 50216 9
 
 	subr layeggs
 		setv va04 0
-		esee 2 15 50206
+		esee 2 15 50216
 			doif targ ne null and targ ne ownr
 				doif ov11 lt 2
 					addv va04 1
