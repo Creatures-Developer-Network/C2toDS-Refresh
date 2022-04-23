@@ -6,7 +6,6 @@
 door grap 3439 48836 grap 3470 48950 25
 door grap 5060 49830 grap 5347 49698 75
 
-
 new: comp 2 24 50216 "moe_C2toDS_froglayer" 23 0 rand 1000 3000
 pat: dull 1 "moe_C2toDS_froglayer" 21 0 0 1
 pat: dull 2 "moe_C2toDS_froglayer" 22 0 0 -2
@@ -26,21 +25,18 @@ repe
 *install
 
 scrp 2 24 50216 10
-
 	perm 51
 	bhvr 43
 	attr 199
 	accg 5
 	elas 0
 endm
-*timer
-scrp 2 24 50216 9
-endm
+*timer - why is this here? Pop control? Though it doesn't have tick normally... - Verm
+*scrp 2 24 50216 9
+*endm
 *activate 1
 scrp 2 24 50216 1
-	doif crea from eq 1
-		stim writ from 90 1
-	endi
+	stim writ from 90 1
 	lock
 	anim [ 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20]
 	over
@@ -63,28 +59,18 @@ scrp 2 24 50216 6
 		sndc "drop"
 	endi
 endm
-*deactivate
-scrp 2 24 50216 0
-endm
 *activate 2
 scrp 2 24 50216 2
-	doif crea from eq 1
-		stim writ from 90 1
-	endi
+	stim writ from 90 1
 	mesg writ ownr 0
 endm
 *hit
 scrp 2 24 50216 3
-	doif crea from eq 1
-		stim writ from 92 1
-	endi
+	stim writ from 92 1
 endm
-*drop
-*scrp 2 24 50216 5
-*endm
 *catchall
-scrp 2 24 50216 255
-endm
+*scrp 2 24 50216 255
+*endm
 
 
 scrp 2 18 50216 10
@@ -99,33 +85,13 @@ scrp 2 18 50216 10
 	rnge 500
 endm
 
-scrp 2 18 50216 12
-	doif from ne ownr
-		sndc "chwp"
-	endi
-	doif crea from eq 1
-		stim writ targ 80 .5
-	endi
-
+scrp 2 18 50216 
+	sndc "chwp"
+	stim writ from 80 .5
 	kill ownr
 endm
 
-* not used 
-scrp 2 18 50216 1
-	doif crea from eq 1
-		stim writ from 86 1
-	endi
-endm
-scrp 2 18 50216 2
-	doif crea from eq 1
-		stim writ from 86 1
-	endi
-endm
-scrp 2 18 50216 3
-	doif crea from eq 1
-		stim writ from 87 1
-	endi
-endm
+* not used - so I'm cleaning them out
 
 *drop
 scrp 2 18 50216 5
@@ -213,22 +179,20 @@ scrp 2 15 50217 10
 endm
 
 scrp 2 15 50217 1
+	stim writ from 86 1
 endm
 
 scrp 2 15 50217 2
+	stim writ from 86 1
 endm
 
 scrp 2 15 50217 3
+	stim writ from 87 1
 endm
 
 scrp 2 15 50217 12
-	doif from ne ownr
-		sndc "chwp"
-	endi
-	doif crea from eq 1
-		stim writ targ 80 .5
-	endi
-
+	sndc "chwp"
+	stim writ from 80 .5
 	kill ownr
 
 endm
@@ -587,18 +551,7 @@ scrp 2 15 50216 9
 						slow
 					endi
 				endi
-
-
-
-
-
-
-
-
 			endi
-
-
-
 		endi
 	retn
 
@@ -723,9 +676,7 @@ scrp 2 15 50216 9
 endm
 *activate 1
 scrp 2 15 50216 1
-	doif crea from eq 1
-		stim writ from 86 1
-	endi
+	stim writ from 86 1
 endm
 *collision
 *scrp 2 15 50216 6
@@ -735,72 +686,23 @@ endm
 scrp 2 15 50216 12
 	lock
 	snde "chwp"
-	doif crea from eq 1
-		stim writ from 80 1
-	endi
+	stim writ from 80 1
 	kill ownr
 	unlk
 endm
 
 
-
-*deactivate
-scrp 2 15 50216 0
-endm
 *activate 2
 scrp 2 15 50216 2
-	doif crea from eq 1
-		stim writ from 86 1
-	endi
+	stim writ from 86 1
 endm
 *hit
 scrp 2 15 50216 3
-	doif crea from eq 1
-		stim writ from 87 1
-	endi
-endm
-*pickup
-scrp 2 15 50216 4
-endm
-*drop
-scrp 2 15 50216 5
+	stim writ from 87 1
 endm
 *catchall
-scrp 2 15 50216 255
-endm
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+*scrp 2 15 50216 255
+*endm
 
 rscr
 inst
@@ -860,7 +762,7 @@ loop
 untl va00 eq 2000
 setv va00 0
 
-
+***These aren't quite accurate - Verm
 ***OV## Definitions***		***STIMULUS NUMBERS***		***ATTR***			***BHVR***
 *ov00	OWNR				76	Discomfort			1	Carryable		1	Activate 1
 *ov01	Age Counter			77	Eaten plant			2	Mousable		2	Activate 2
