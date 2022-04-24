@@ -1,0 +1,529 @@
+* 2 21 50215 - Pop Rocket
+* 1 23 50215 - Pop Rocket Pop (this classifier is also used for a 1 pixel big collision tester object)
+
+* Converted by NeoDement, has a few nice features the C2 one doesn't :)
+
+
+
+inst
+new: simp 2 21 50215 "moe_C2toDS_PopRocket" 19 0 5000
+
+*random X coord, but to the general left of the incubator
+setv va00 rand 6852 7020
+
+mvto va00 48338
+
+
+*creation script
+
+scrp 2 21 50215 10
+
+*C2 framerate
+	frat 2
+
+	attr 199
+	bhvr 43
+	accg 2
+	aero 5
+
+	elas 0
+	fric 100
+
+*perm 51 means it can't fall through wooden platforms
+	perm 51
+
+endm
+
+
+
+*activate 1 script
+
+scrp 2 21 50215 1
+
+*played with a toy stim
+	stim writ from 97 1
+
+*launch rocket!
+	call 1001 from 0
+
+endm
+
+
+
+*activate 2 script
+
+scrp 2 21 50215 2
+
+*played with a toy stim
+	stim writ from 97 1
+
+*launch rocket!
+	call 1001 from 0
+
+endm
+
+
+
+*hit script
+
+scrp 2 21 50215 3
+
+*played with a toy stim
+	stim writ from 97 1
+
+*check if the rocket is in the unlaunched pose.
+	doif base = 0
+
+*face either left or right and enter the crashed pose.
+		setv va00 rand 0 1
+
+		doif va00 = 0
+			base 1
+		else
+			base 10
+		endi
+
+		pose 8
+		setv ov99 0
+	endi
+
+	velo rand -5 5 rand -6 -2
+
+endm
+
+
+
+
+*launch rocket script
+
+*_P1_ is whoever called the script
+
+scrp 2 21 50215 1001
+
+	inst
+
+*reset ov97 just in case...
+	setv ov97 0
+
+*before you launch, check if you're in the correct base (0 is used for not launched) and NOT being held by the hand
+	doif base = 0 and carr <> pntr
+
+
+*force it to be dropped if a creature is holding it
+		doif crea carr = 1
+*set a reminder that a creature just dropped you. if this variable is true when the drop script runs, then it runs the activate script again instead.
+			setv ov97 1
+			targ carr
+			drop
+			targ ownr
+		endi
+
+*ov99 is set to 1 when a rocket launches and back to 0 when it lands. it's used for locking scripts out.
+		setv ov99 1
+
+		setv va00 rand 0 1
+
+		setv vely -40
+
+*temporarily switching to perm 50 so it can go through wooden platforms on the way up
+*(should be cool for the lift shaft)
+
+*(only do this if you were activated by the pointer. otherwise creatures might launch it out of their own reach by mistake.
+		doif _p1_ = pntr
+			perm 50
+		endi
+
+		doif va00 eq 0
+			setv velx -10
+			base 1
+		else
+			setv velx 10
+			base 10
+		endi
+
+*in C2 these frames were doubled, but that didn't make sense with the double physics framerate of C3/DS
+		anim [0 1 2 3 4 5 6 7]
+		over
+
+*down we go!
+
+		inst
+
+*if it was sent up by the pointer it doesn't need to try to reset the perm
+		doif _p1_ = pntr
+*start the timer ticking, to try and set perm back to 51 as soon as possible
+			tick 1
+		endi
+
+		doif va00 eq 0
+			setv velx -2
+		else
+			setv velx 2
+		endi
+
+*otherwise do a lil jump and reset all your variables if you are activated while in crashed state or in default state
+*this prevents you from activating the rocket again while it's in mid-air
+
+	elif base = 0 or pose = 8
+		base 0
+		pose 0
+		setv ov99 0
+		velo rand -2 2 -3
+	endi
+
+endm
+
+
+
+*timer script
+
+scrp 2 21 50215 9
+
+*try and set perm to 51 if it's not inside a wall
+	call 1000 51 0
+
+endm
+
+
+
+*pick up script
+
+scrp 2 21 50215 4
+
+	inst
+
+*stop ticking, no point trying to reset perm right now
+	tick 0
+
+*reset variables
+	base 0
+	pose 0
+	setv ov99 0
+
+endm
+
+
+*drop script
+
+scrp 2 21 50215 5
+
+*if ov97 is true, it means a creature was just forced to drop it because they activated it while it was in their hand.
+	doif ov97 = 0
+		inst
+
+*start the timer ticking, to try and set perm back to 51 as soon as possible
+		tick 1
+
+	else
+
+*launch rocket!
+		call 1001 from 0
+	endi
+
+endm
+
+
+
+*collision script
+
+scrp 2 21 50215 6
+
+*stop ticking, no point trying to reset perm right now
+	tick 0
+
+	lock
+*disable picking it up or anything else while it's locked
+	attr 0
+
+	gsub cpop
+	doif ov99 eq 1
+		doif va09 eq 1
+			pose 8
+			setv va00 posl
+			subv va00 8
+			setv va01 post
+
+			inst
+
+*variable to let the rocket know it just exploded and shouldn't make a collision sound
+			setv ov98 1
+
+			new: simp 1 23 50215 "moe_C2toDS_PopRocket" 5 19 5001
+*C2 framerate
+			frat 2
+			mvto va00 va01
+			snde "popr"
+			base 0
+			anim [1 2 3 4]
+			slow
+			over
+			inst
+			kill targ
+
+*Some stuff for when nearby creatures see it pop
+			esee 4 0 0
+
+*				boredom -0.5
+				chem 159 -0.5
+
+*the original script from C2 also made them a bit scared and uncomfortable whenever the rocket landed.
+*which to me, seemed like an unintuitive thing for a toy to do...
+*				fear +0.1
+*				chem 158 0.1
+*				comfort -0.1
+*				chem 162 -0.1
+
+			next
+
+		else
+			pose 8
+
+*only make a sound when hitting the floor and do NOT make the sound if you just exploded.
+			doif wall ne _up_ and ov98 ne 1
+				setv ov98 0
+				snde "drp6"
+			endi
+		endi
+	else
+*only make a sound when hitting the floor
+		doif wall ne _up_
+			snde "drp6"
+		endi
+	endi
+	unlk
+*re-enable picking it up and etc now it's unlocked
+	attr 199
+
+	subr cpop
+		setv va09 0
+		doif pose eq 7
+			doif wall eq down
+				setv va09 1
+			endi
+		endi
+	retn
+endm
+
+
+
+
+*CHECK IF ANY OF THE OBJECTS SPRITE BOUNDS INTERSECT WITH AN IMPERMEABLE WALL (according to _P1_)
+
+*if none of them do, set our perm to _P1_!
+
+
+* NOTE: this currently doesn't respect CORE and just uses the bounds of the image.
+* NOTE: this currently only checks the rooms immediately next to the object.
+* this means even if there are no impermeable walls between an object, if it has to search more than one room over to find, it will simply fail and not set the perm.
+
+scrp 2 21 50215 1000
+
+	inst
+
+*starts at 0, gets set to 1 if we find a nonpermeable wall.
+*if it's ever not 0 we don't set the perm.
+	setv va80 0
+
+*Loop Iteration Number
+	setv va00 0
+
+
+*because of a caos limitation, we create a 1x1 object and use it to test what room is Above, Below, to the Right and to the Left
+*of our object by positioning it in each corner of the real object in sequence
+	new: simp 1 23 50215 "moe_C2toDS_PopRocket" 1 23 9999
+
+*after 10 ticks, automatically delete yourself (in case something later in the perm check script fails)
+	tick 10
+	seta va99 targ
+
+
+*we need to check the topleft, topright, bottom right and bottomleft coords.
+	reps 4
+
+		inst
+
+		targ ownr
+
+*check loop iteration to see which pair of coords we're checking
+
+		doif va00 = 0
+
+*	(TOP LEFT X, Y)
+			setv va03 posl
+			setv va04 post
+
+*	(TOP RIGHT X, Y)
+			setv va13 posr
+			setv va14 post
+
+			setv va06 rght
+			setv va16 left
+
+		elif va00 = 1
+
+*	(TOP RIGHT X, Y)
+			setv va03 posr
+			setv va04 post
+
+*	(BOTTOM RIGHT X, Y)
+			setv va13 posr
+			setv va14 posb
+
+			setv va06 down
+			setv va16 _up_
+
+		elif va00 = 2
+
+*	(BOTTOM RIGHT X, Y)
+			setv va03 posr
+			setv va04 posb
+
+*	(BOTTOM LEFT X, Y)
+			setv va13 posl
+			setv va14 posb
+
+			setv va06 left
+			setv va16 rght
+
+		elif va00 = 3
+
+*	(BOTTOM LEFT X, Y)
+			setv va03 posl
+			setv va04 posb
+
+*	(TOP LEFT X, Y)
+			setv va13 posl
+			setv va14 post
+
+			setv va06 _up_
+			setv va16 down
+
+		endi
+
+
+*	get room ID of FIRST coord
+		setv va01 grap va03 va04
+*	get room ID of SECOND coord
+		setv va02 grap va13 va14
+
+*	target collision tester
+		targ va99
+
+*	get room ID of room across from FIRST coord. va06 is the direction to search.
+		mvto va03 va04
+		setv va05 grid targ va06
+
+*	get room ID of room across from SECOND coord. va16 is the direction to search.
+		mvto va13 va14
+		setv va15 grid targ va16
+
+
+
+*increment loop counter
+		addv va00 1
+
+
+
+**VARIABLES IN USE (using first coordinate pair as an example)
+
+*va01 - TOP LEFT COORDINATE OF ROCKET
+*va02 - TOP RIGHT COORDINATE OF ROCKET
+
+*va05 - room to the RIGHT of the topleft coord.
+*va15 - room to the LEFT of the topright coord.
+
+*va79 - IS IT UNSAFE TO RUN A DOOR CHECK?
+*va80 - IS IT UNSAFE TO CHANGE THE PERM?
+
+
+		setv va79 0
+
+*		first, check the 2 coords are actually in different rooms. if they're not, don't check anything else and return a pass.
+		doif va01 <> va02
+
+
+
+*			make sure all 4 coords are inside the room system
+			doif va01 <> -1 and va02 <> -1 and va05 <> -1 and va15 <> -1
+*				make sure both coords are in the rooms that are actually next to the object/connected to each other.
+*				(if you don't do this, the DOOR command will throw script errors when checking unconnected rooms.
+				doif va01 = va15 and va02 = va05
+*					setv va79 0			
+*				(there was a mismatch between room ID and expected room ID)
+				else
+					setv va79 1
+					setv va80 1
+				endi
+*			(at least one of the 4 coordinates was outside the room system)
+			else
+				setv va79 1
+				setv va80 1
+			endi
+
+
+*			if nothing ever set va79 to 1, then we can do a valid DOOR check!
+			doif va79 = 0
+*				if the PERM between the two rooms is less than or equal to _P1_, that means it's ok to change to the new perm (_P1_)
+				doif door va01 va02 <= _P1_
+					setv va80 1
+				endi
+			endi
+
+*		(the 2 coords were in the same room, everything above is skipped and we return a pass!)
+		else
+			setv va79 1
+		endi
+
+	repe
+
+
+
+*hooray, we can now safely change the perm
+	doif va80 = 0
+		targ ownr
+		perm _p1_
+	endi
+
+*kill the collision tester before it even gets a chance to render!
+	targ va99
+	kill targ
+	targ ownr
+
+endm
+
+
+
+
+*collision tester timer script
+*(automatically kills itself after a few ticks incase something goes wrong in the perm check script)
+
+scrp 1 23 50215 9
+	kill ownr
+endm
+
+
+
+*goodbye
+
+rscr
+
+scrx 2 21 50215 10
+scrx 2 21 50215 1
+scrx 2 21 50215 2
+scrx 2 21 50215 3
+scrx 2 21 50215 1001
+scrx 2 21 50215 9
+scrx 2 21 50215 4
+scrx 2 21 50215 5
+scrx 2 21 50215 6
+
+enum 2 21 50215
+	kill targ
+next
+
+
+scrx 1 23 50215 9
+
+enum 1 23 50215
+	kill targ
+next
