@@ -1,22 +1,24 @@
-* 1 8 50202 - Some decorative bit related to the trolly
+* 1 8 50202 - Some decorative bits related to the trolly
 * 3 1 50205 - Trolly
 
 * The call buttons still aren't consistent with how they light up
 * But I'm tired and it's a very minor issue that can be fixed on a more detailed pass x.x
 
-new: simp 1 8 50202 "moe_C2toDS_trolly" 1 5 2
+
+*left pulley
+new: simp 1 8 50202 "moe_C2toDS_trolly" 1 5 3
 attr 16
 mvto 4457 48574
 
 
-
-new: simp 1 8 50202 "moe_C2toDS_trolly" 1 6 8002
+*right pulley
+new: simp 1 8 50202 "moe_C2toDS_trolly" 1 6 3
 attr 16
 mvto 5878 48235
 
 
-
-new: simp 1 8 50202 "moe_C2toDS_trolly" 1 7 1
+*cable
+new: simp 1 8 50202 "moe_C2toDS_trolly" 1 7 2
 attr 16
 mvto 4483 48265
 
@@ -86,7 +88,7 @@ mvto 5879 48340
 **Call Button scripts
 scrp 3 12 50205 1
 	inst
-	* light up, light up
+* light up, light up
 	rtar 3 1 50205
 	doif ov00 eq mv00
 		targ ownr
@@ -96,16 +98,16 @@ scrp 3 12 50205 1
 	targ from
 	doif crea targ eq 1
 		sets va48 gtos 0
-		* check for any existing queue object
+* check for any existing queue object
 		enum 3 13 50205
 			doif ov01 eq va48
 				addv va49 1
 			endi
 		next
-		* make a queue object if there's not one already
+* make a queue object if there's not one already
 		doif va49 eq 0
 			new: simp 3 13 50205 "blnk" 1 0 0
-			*dbg: outs "making quere"
+*dbg: outs "making quere"
 			setv ov00 mv00
 			sets ov01 va48
 			tick 20
@@ -121,7 +123,7 @@ endm
 **Call Button scripts
 scrp 3 12 50205 2
 	inst
-	* light up, light up
+* light up, light up
 	rtar 3 1 50205
 	doif ov00 eq mv00
 		targ ownr
@@ -131,16 +133,16 @@ scrp 3 12 50205 2
 	targ from
 	doif crea targ eq 1
 		sets va48 gtos 0
-		* check for any existing queue object
+* check for any existing queue object
 		enum 3 13 50205
 			doif ov01 eq va48
 				addv va49 1
 			endi
 		next
-		* make a queue object if there's not one already
+* make a queue object if there's not one already
 		doif va49 eq 0
 			new: simp 3 13 50205 "blnk" 1 0 0
-			*dbg: outs "making quere"
+*dbg: outs "making quere"
 			setv ov00 mv00
 			sets ov01 va48
 			tick 20
@@ -177,12 +179,12 @@ scrp 3 1 50205 1
 *	stim writ from 75 1
 	doif velx eq 0
 		doif posl gt 4530
-		* go left - will setv ov00 -5
+* go left - will setv ov00 -5
 
 			mesg writ ownr 1001
 
 		else
-		* go right - will setv ov00 5
+* go right - will setv ov00 5
 
 			mesg writ ownr 1002
 
@@ -225,36 +227,36 @@ scrp 3 1 50205 1001
 	pose 1
 
 
-doif velx eq 0
-	inst
+	doif velx eq 0
+		inst
 * Get the queued creatures
-	enum 3 13 50205
-		doif ov00 eq -5
-			doif ooww ov01 eq 3
-				
-				* spas takes some time to work, so loop
-				* and keep checking if you got a creature
-				* before continuing
-				loop
-					spas ownr mtoc ov01
-					wait 1
-					addv va46 1
-					seta va45 targ
-					targ ownr
-					epas 4 0 0
-						addv va44 1
-					next
-					targ va45
-				untl va44 gt 0 or ooww ov01 ne 3 
+		enum 3 13 50205
+			doif ov00 eq -5
+				doif ooww ov01 eq 3
 
-				kill targ
-			else
-				kill targ
+* spas takes some time to work, so loop
+* and keep checking if you got a creature
+* before continuing
+					loop
+						spas ownr mtoc ov01
+						wait 1
+						addv va46 1
+						seta va45 targ
+						targ ownr
+						epas 4 0 0
+							addv va44 1
+						next
+						targ va45
+					untl va44 gt 0 or ooww ov01 ne 3
+
+					kill targ
+				else
+					kill targ
+				endi
 			endi
-		endi
-	next
-	slow
-endi	
+		next
+		slow
+	endi
 
 	unlk
 endm
@@ -294,36 +296,36 @@ scrp 3 1 50205 1002
 	pose 2
 
 
-doif velx eq 0
-	inst
+	doif velx eq 0
+		inst
 * Get the queued creatures
-	enum 3 13 50205
-		doif ov00 eq 5
-			doif ooww ov01 eq 3
-				
-				* spas takes some time to work, so loop
-				* and keep checking if you got a creature
-				* before continuing
-				loop
-					spas ownr mtoc ov01
-					wait 1
-					addv va46 1
-					seta va45 targ
-					targ ownr
-					epas 4 0 0
-						addv va44 1
-					next
-					targ va45
-				untl va44 gt 0 or ooww ov01 ne 3 
+		enum 3 13 50205
+			doif ov00 eq 5
+				doif ooww ov01 eq 3
 
-				kill targ
-			else
-				kill targ
+* spas takes some time to work, so loop
+* and keep checking if you got a creature
+* before continuing
+					loop
+						spas ownr mtoc ov01
+						wait 1
+						addv va46 1
+						seta va45 targ
+						targ ownr
+						epas 4 0 0
+							addv va44 1
+						next
+						targ va45
+					untl va44 gt 0 or ooww ov01 ne 3
+
+					kill targ
+				else
+					kill targ
+				endi
 			endi
-		endi
-	next
-	slow
-endi
+		next
+		slow
+	endi
 	unlk
 endm
 

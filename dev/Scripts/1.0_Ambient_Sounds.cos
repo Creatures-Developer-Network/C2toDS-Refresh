@@ -154,6 +154,8 @@ sndl "m_uw"
 
 new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
 
+frat 2
+
 attr 0
 
 mvto 9020 49334
@@ -356,6 +358,8 @@ setv name "whatamI?" 6
 
 new: simp 1 12 50200 "moe_C2toDS_vflm" 11 11 1
 
+frat 2
+
 attr 0
 
 mvto 9700 48345
@@ -370,6 +374,8 @@ setv name "whatamI?" 7
 
 new: simp 1 12 50200 "moe_C2toDS_vflm" 11 21 1
 
+frat 2
+
 attr 0
 
 mvto 9581 49795
@@ -383,6 +389,8 @@ setv name "whatamI?" 9
 *Left Lava Bubble
 
 new: simp 1 12 50200 "moe_C2toDS_vflm" 11 30 1
+
+frat 2
 
 attr 0
 
@@ -405,8 +413,6 @@ scrp 1 12 50200 9
 *sndc "moev"
 
 			tick rand 10 200
-
-			frat 2
 
 			anim [0 1 2 3 4 5 6 7 8 9]
 
@@ -730,8 +736,6 @@ scrp 1 12 50200 9
 
 		snde "stea"
 
-		frat 2
-
 		anim [0 1 2 3 4 5 6 7 8 9 0]
 
 		setv va00 rand 60 160
@@ -782,7 +786,7 @@ scrp 1 12 50200 9
 
 		anim [0 1 2 3 4 5 6 7 8 9 0]
 
-		setv va00 rand 160 260
+		setv va00 rand 60 160
 
 		tick va00
 
@@ -828,7 +832,7 @@ scrp 1 12 50200 9
 
 		anim [0 1 2 3 4 5 6 7 8  8 0]
 
-		setv va00 rand 160 260
+		setv va00 rand 60 160
 
 		tick va00
 
