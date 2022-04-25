@@ -1,4 +1,4 @@
-* Some fixes by NeoDement - The Terrarium door now remembers the correct pose when changing to/from the night gallery
+* Some fixes by NeoDement - The Terrarium door now remembers the correct pose when changing to/from the night gallery, the trolly cable overlays now have previously missing night galleries.
 
 ******************
 * Night switcher *
@@ -145,6 +145,14 @@ scrp 1 1 50200 9
 			endi
 
 		next
+
+************************** Trolly Overlays **************************
+		enum 1 8 50202
+			doif abba = 5 or abba = 6
+				setv va00 abba
+				gall "moe_c2tods_trolly_night" va00
+			endi
+		next
 	retn
 
 
@@ -235,6 +243,15 @@ scrp 1 1 50200 9
 			endi
 
 		next
+
+************************** Trolly Overlays **************************
+		enum 1 8 50202
+			doif abba = 5 or abba = 6
+				setv va00 abba
+				gall "moe_c2tods_trolly" va00
+			endi
+		next
+
 	retn
 
 endm
