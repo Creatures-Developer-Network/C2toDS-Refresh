@@ -5,6 +5,7 @@
 *Incubator is now properly placed - Moe
 * Aiko fixed invalid targ errors by inst'ing the enuming of creatures
 * NeoDement fixed a bunch of things!
+* Adding support for Custom Eggs Framework too why not - Verm
 
 new: vhcl 2 22 50200 "moe_C2toDS_incubator" 26 0 20
 
@@ -296,7 +297,59 @@ scrp 2 22 50200 1001
 				over
 
 				pose 6
+*Special stuff for custom eggs framework
+			elif spcs = 5
+				anms name "Anim 1"
 
+				snde "crak"
+
+				over
+
+				stpc
+
+				wait 30
+
+				anms name "Anim 2"
+
+				snde "crak"
+
+				over
+
+				stpc
+
+				wait 40
+
+				anms name "Anim 3"
+
+				snde "crak"
+
+				over
+
+				stpc
+
+				wait 40
+
+				anms name "Anim 4"
+
+				snde "crak"
+
+				over
+
+				stpc
+
+				wait 20
+
+				anms name "Anim 5"
+
+				snde "crak"
+
+				setv va00 posl
+
+				setv va01 posb
+
+				over
+
+				pose name "Cracked"
 *regular hatch anim for norns and geats
 			else
 
@@ -434,6 +487,11 @@ scrp 2 22 50200 1001
 
 endm
 
+*If things go wrong, dump all contents
+scrp 2 22 50200 255
+inst
+dpas 0 0 0
+endm
 
 *goodbye!
 
@@ -449,3 +507,4 @@ scrx 2 22 50200 10
 scrx 2 22 50200 9
 scrx 2 22 50200 124
 scrx 2 22 50200 1001
+scrx 2 22 50200 255
