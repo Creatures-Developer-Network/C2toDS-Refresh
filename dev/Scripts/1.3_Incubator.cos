@@ -4,13 +4,11 @@
 
 *Incubator is now properly placed - Moe
 * Aiko fixed invalid targ errors by inst'ing the enuming of creatures
-* NeoDement made it pickupable by the hand, gave it some physics, stopped it being possible to grab eggs mid-hatching and fixed up the framerate
-
-
+* NeoDement fixed a bunch of things!
 
 new: vhcl 2 22 50200 "moe_C2toDS_incubator" 26 0 20
 
-cabn 53 35 135 111
+cabn 53 35 135 106
 
 cabp 21
 
@@ -32,7 +30,7 @@ part 11
 
 frat 2
 
-tick 500
+tick 200
 
 mvto 7043 48332
 
@@ -55,6 +53,7 @@ scrp 2 22 50200 10
 endm
 
 
+*Timer script - used to check if the incubator should close (or re-open) due to the breeding limit
 
 scrp 2 22 50200 9
 
@@ -94,10 +93,6 @@ scrp 2 22 50200 9
 
 		anim [ 7 6 5 4 3 2 1 0 ]
 
-*Invisible + Suffer Collisions + Suffer Physics
-*(disable picking up and greedy cabin when you put an egg in it)
-		attr 208
-
 		tick 200
 
 	elif va99 < va98 and ov00 ne 0
@@ -114,9 +109,6 @@ scrp 2 22 50200 9
 
 		over
 
-*Greedy Cabin + Invisible + Mouseable + Suffer Collisions + Suffer Physics
-*(reset attributes to default now the egg has hatched)
-		attr 218
 
 		tick 1
 
@@ -124,13 +116,10 @@ scrp 2 22 50200 9
 
 	endi
 
-
-
-
-
 endm
 
 
+*Got Carried Agent - used to check if we gotta hatch some eggs!
 
 scrp 2 22 50200 124
 
@@ -152,6 +141,8 @@ endm
 
 
 
+*Script 1001 - Try and hatch the egg that was just put in you!
+
 scrp 2 22 50200 1001
 
 	wait 5
@@ -165,6 +156,10 @@ scrp 2 22 50200 1001
 ** 		get egg agent
 
 		seta va99 targ
+
+*override plane so it draws behind the new baby creature
+*also fixes a problem with grendel and ettin eggs trying to override the plane (scrp 3 4 2 6 and scrp 3 4 3 6 in "DS creatureBreeding.cos")
+		plne 21
 
 		setv va01 ov01
 
@@ -247,57 +242,117 @@ scrp 2 22 50200 1001
 
 			targ va99
 
-			anim [4 5 6 4 5 6 4 5 6 3 3 6 4 5 6 4 4 5 6 3]
+*alternate hatch anim for grendels and ettins (their eggs have 1 less frame than norn/geat eggs)
+			doif spcs = 2 or spcs = 3
 
-			snde "crak"
+				anim [4 5 4 4 5 4 4 5 4 3 3 4 4 5 4 4 4 5 4 3]
 
-			over
+				snde "crak"
 
-			stpc
+				over
 
-			wait 30
+				stpc
 
-			anim [4 5 6 4 5 6 4 5 6 3 3 6 4 5 6 4 4 5 6 3]
+				wait 30
 
-			snde "crak"
+				anim [4 5 4 4 5 4 4 5 4 3 3 4 4 5 4 4 4 5 4 3]
 
-			over
+				snde "crak"
 
-			stpc
+				over
 
-			wait 40
+				stpc
 
-			anim [4 5 4 5 4 5 6 5 3 3 4 5 6 6 5 6 5 6 5 6 5 3]
+				wait 40
 
-			snde "crak"
+				anim [4 5 4 5 4 5 4 5 3 3 4 5 4 4 5 4 5 4 5 4 5 3]
 
-			over
+				snde "crak"
 
-			stpc
+				over
 
-			wait 40
+				stpc
 
-			anim [4 5 4 5 4 5 6 5 3 3 4 5 6 6 5 6 5 6 5 6 5 3]
+				wait 40
 
-			snde "crak"
+				anim [4 5 4 5 4 5 4 5 3 3 4 5 4 4 5 4 5 4 5 4 5 3]
 
-			over
+				snde "crak"
 
-			stpc
+				over
 
-			wait 20
+				stpc
 
-			anim [4 5 6 4 5 6 4 5 6 5 6 5 6 4 5 6 4 5 6 6 6 5 6 5 6 5 6 5 4 5 6]
+				wait 20
 
-			snde "crak"
+				anim [4 5 4 4 5 4 4 5 4 5 4 5 4 4 5 4 4 5 4 4 4 5 4 5 4 5 4 5 4 5 4]
 
-			setv va00 posl
+				snde "crak"
 
-			setv va01 posb
+				setv va00 posl
 
-			over
+				setv va01 posb
 
-			pose 7
+				over
+
+				pose 6
+
+*regular hatch anim for norns and geats
+			else
+
+				anim [4 5 6 4 5 6 4 5 6 3 3 6 4 5 6 4 4 5 6 3]
+
+				snde "crak"
+
+				over
+
+				stpc
+
+				wait 30
+
+				anim [4 5 6 4 5 6 4 5 6 3 3 6 4 5 6 4 4 5 6 3]
+
+				snde "crak"
+
+				over
+
+				stpc
+
+				wait 40
+
+				anim [4 5 4 5 4 5 6 5 3 3 4 5 6 6 5 6 5 6 5 6 5 3]
+
+				snde "crak"
+
+				over
+
+				stpc
+
+				wait 40
+
+				anim [4 5 4 5 4 5 6 5 3 3 4 5 6 6 5 6 5 6 5 6 5 3]
+
+				snde "crak"
+
+				over
+
+				stpc
+
+				wait 20
+
+				anim [4 5 6 4 5 6 4 5 6 5 6 5 6 4 5 6 4 5 6 6 6 5 6 5 6 5 6 5 4 5 6]
+
+				snde "crak"
+
+				setv va00 posl
+
+				setv va01 posb
+
+				over
+
+				pose 7
+
+			endi
 
 			fade
 
@@ -339,7 +394,7 @@ scrp 2 22 50200 1001
 
 			subv va01 10
 
-			wait 20
+			wait 7
 
 			mvsf va00 va01
 
@@ -348,6 +403,8 @@ scrp 2 22 50200 1001
 			born
 
 			over
+
+
 
 			targ ownr
 
@@ -377,6 +434,9 @@ scrp 2 22 50200 1001
 
 endm
 
+
+*goodbye!
+
 rscr
 
 enum 2 22 50200
@@ -385,4 +445,7 @@ enum 2 22 50200
 
 next
 
+scrx 2 22 50200 10
 scrx 2 22 50200 9
+scrx 2 22 50200 124
+scrx 2 22 50200 1001
