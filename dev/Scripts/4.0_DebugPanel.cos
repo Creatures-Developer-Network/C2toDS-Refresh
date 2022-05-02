@@ -81,15 +81,15 @@ scrp 1 99 9999 1001
 		door grap 11218 48841 grap 11261 48841 99
 
 
-*incubator pond
-		door grap 6719 48371 grap 6759 48371 50
+		
+*top volcano ledge (right of sub bay)
+		door grap 1352 48430 grap 1467 48430 99
 
-
-*far right volcano platform (probably needs to be divided into more rooms to match the other barriers)
-		door grap 10079 49299 grap 10114 49299 50
-
-*far right volcano platform (world wrap copy)
-		door grap 1724 49299 grap 1764 49299 50
+*top volcano ledge (world wrap copy)
+		door grap 1724 49299 grap 1764 49299 99
+		
+		
+				
 
 		wait 10
 
@@ -140,19 +140,19 @@ scrp 1 99 9999 1001
 		door grap 2860 48841 grap 2923 48841 100
 
 *frog pond (world wrap copy)
-		door grap 11218 48841 grap 11261 48841 100
+		door grap 11218 48841 grap 11261 48841 100		
+		
+		
+*top volcano ledge (right of sub bay)
+		door grap 1352 48430 grap 1467 48430 99
 
-
-*incubator pond
-		door grap 6719 48371 grap 6759 48371 100
-
-
-*far right volcano platform (probably needs to be divided into more rooms to match the other barriers)
-		door grap 10079 49299 grap 10114 49299 100
-
-*far right volcano platform (world wrap copy)
-		door grap 1724 49299 grap 1764 49299 100
-
+*top volcano ledge (world wrap copy)
+		door grap 1724 49299 grap 1764 49299 99
+	
+	
+	
+	
+	
 		wait 10
 
 		dmap 0

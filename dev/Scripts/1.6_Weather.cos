@@ -339,9 +339,9 @@ endm
 
 scrp 2 19 50200 10
 
-	* aiko is changing this to 0 for consistency because weather isn't generally pushable
-	* but if we want to make the classic pushable lighting clouds at some point 
-	* we could class them as 'bad'??
+* aiko is changing this to 0 for consistency because weather isn't generally pushable
+* but if we want to make the classic pushable lighting clouds at some point 
+* we could class them as 'bad'??
 	bhvr 0
 
 	dcor 0
@@ -1229,7 +1229,7 @@ scrp 2 19 50200 1003
 		anim [0 1 2 3 4 5 6 7 255]
 
 		targ ownr
-		
+
 		slow
 
 
@@ -1368,18 +1368,24 @@ endm
 scrp 2 19 50201 6
 
 	lock
+	inst
 
-	altr -1 3 0.1250
+*check the rain is in a valid room before you try to alter the room
+	doif grap posx posy ne -1
+
+		altr -1 3 0.1250
 
 *Rain Brings Nutrients
 
-	altr -1 4 0.1250
+		altr -1 4 0.1250
 
 *Rain also Cools
 
-	altr -1 2 -0.01250
+		altr -1 2 -0.01250
 
-	kill targ
+		kill targ
+
+	endi
 
 	unlk
 
@@ -1391,6 +1397,7 @@ scrp 2 19 50201 9
 
 	inst
 
+*check the rain is in a valid room before you try to alter the room
 	doif grap posx posy ne -1
 
 		altr -1 3 0.001000
@@ -1437,19 +1444,19 @@ endm
 
 *Eat Snowflake -- not used because weather is not edible.
 
-scrp 2 19 50202 12
-
-	stim writ from 97 1
-
-	chem 33 .15
-
-	chem 162 .15
-
-	chem 152 .15
-
-	chem 153 -.15
-
-endm
+*scrp 2 19 50202 12
+*
+*	stim writ from 97 1
+*
+*	chem 33 .15
+*
+*	chem 162 .15
+*
+*	chem 152 .15
+*
+*	chem 153 -.15
+*
+*endm
 
 
 
@@ -1458,24 +1465,30 @@ endm
 scrp 2 19 50202 6
 
 	lock
+	inst
 
-	altr -1 3 0.06250
+*check the snow is in a valid room before you try to alter the room
+	doif grap posx posy ne -1
+
+		altr -1 3 0.06250
 
 *Snow Brings Nutrients
 
-	altr -1 4 0.1250
+		altr -1 4 0.1250
 
 *Snow also Cools Considerably
 
-	altr -1 2 -0.00010
+		altr -1 2 -0.00010
 
-	frat 5
+		frat 5
 
-	anim [8 9]
+		anim [8 9]
 
-	over
+		over
 
-	kill targ
+		kill targ
+
+	endi
 
 	unlk
 
@@ -1491,6 +1504,7 @@ scrp 2 19 50202 9
 
 	doif grap posx posy ne -1
 
+*check the snow is in a valid room before you try to alter the room
 		altr -1 3 0.001000
 
 		doif rtyp grap posx posb eq 9
@@ -1646,7 +1660,7 @@ scrp 2 19 50207 9
 *		to prevent the uprising, don't carry mushrooms
 		doif fmly eq 2 and gnus eq 11 and spcs eq 50209
 
-				setv va05 1
+			setv va05 1
 
 		endi
 

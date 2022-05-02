@@ -5,7 +5,6 @@
 *1  7   20201   Window Resize Camera Builder
 
 
-
 *CA links for the "wrap" rooms.*
 
 *Atmosphere
@@ -36,23 +35,28 @@ link grap 12950 47678 grap 4890 48110 100
 
 *Set the game variables for easy reference.*
 
-setv game "C2toDSTop" 47600
+setv game "C2toDS_Top" 47600
 
-setv game "C2toDSBottom" 49999
+*unused
+*setv game "C2toDS_Bottom" 49999
 
-setv game "C2toDSLeft" 0
+*unused
+*setv game "C2toDS_Left" 0
 
-setv game "C2toDSRight" 12448
+setv game "C2toDS_Right" 12448
 
-setv game "C2toDSRoomID" gmap 6753 48383
+setv game "C2toDS_RoomID" gmap 6753 48383
 
-setv game "C2toDSWrapLeft" 2047
+setv game "C2toDS_WrapLeft" 2047
 
-setv game "C2toDSWrapRight" 10399
+setv game "C2toDS_WrapRight" 10399
 
 * Wrap padding determines how many panels are pushed back onto the actual non-wrapped part of the world
 
-setv game "C2toDSWrapPadding" 1
+setv game "C2toDS_WrapPadding" 1
+
+* Wrap Offset - how many pixels to add or remove from an X coordinate to get its wrapped equivalent?
+setv game "C2toDS_WrapOffset" 8352
 
 
 
@@ -67,13 +71,13 @@ setv game "C2toDSWrapPadding" 1
 
 
 
-*Set up camera heights and widths for easy change -This was mainly for Development.*
+*Set up camera heights and widths for easy change.*
 
 *They are 400 wide, 300 high.  This helps for 800x600 displays, the minimum size for Creatures.*
 
-setv game "CamWidth" 400
+setv game "C2toDS_CamWidth" 400
 
-setv game "CamHeight" 300
+setv game "C2toDS_CamHeight" 300
 
 *----------------------------------------------------------------------------------*
 
@@ -105,7 +109,9 @@ attr 16
 
 tick 40
 
+
 *----------------------------------*
+
 
 *-Inject the Cameras and Wrap Pieces-*
 
@@ -148,13 +154,13 @@ scrp 1 7 20201 9
 
 	setv va11 va00
 
-	divv va11 game "CamWidth"
+	divv va11 game "C2toDS_CamWidth"
 
-	addv va11 game "C2toDSWrapPadding"
+	addv va11 game "C2toDS_WrapPadding"
 
 	setv va12 va00
 
-	modv va12 game "CamWidth"
+	modv va12 game "C2toDS_CamWidth"
 
 	doif va12 gt 0
 
@@ -169,21 +175,21 @@ scrp 1 7 20201 9
 
 *Set first Y
 
-	setv va04 game "C2toDSTop"
+	setv va04 game "C2toDS_Top"
 
 	subv va04 299
 
 *Set first X Left
 
-	setv va22 game "C2toDSWrapLeft"
+	setv va22 game "C2toDS_WrapLeft"
 
-	addv va22 game "CamWidth"
+	addv va22 game "C2toDS_CamWidth"
 
 	subv va22 va00
 
 *Set first X Right
 
-	setv va23 game "C2toDSWrapRight"
+	setv va23 game "C2toDS_WrapRight"
 
 	setv va15 100
 
@@ -195,7 +201,7 @@ scrp 1 7 20201 9
 
 *Offset the wrap onto the non-wrapped part of the world
 
-		setv va10 game "C2toDSWrapPadding"
+		setv va10 game "C2toDS_WrapPadding"
 
 		negv va10
 
@@ -208,11 +214,11 @@ scrp 1 7 20201 9
 
 			setv va12 va10
 
-			mulv va12 game "CamWidth"
+			mulv va12 game "C2toDS_CamWidth"
 
 			addv va12 va22
 
-			setv va14 game "CamWidth"
+			setv va14 game "C2toDS_CamWidth"
 
 			doif va12 lt 0
 
@@ -232,20 +238,17 @@ scrp 1 7 20201 9
 
 			setv va13 va12
 
-			addv va13 8352
+			addv va13 game "C2toDS_WrapOffset"
 
 
 *Make sure left side camera is in bounds
 
 			doif va12 >= 0
 
-*DS used a surprise Genus classifier for it's Icons, 1 4 *, and who knows what else!!
-
-*So just to be on the safe side for these non-interactable pieces, let's start at Genus 10*
-
+*create world wrap camera
 				new: comp 1 5 50200 "moe_C2toDS_camera" 1 1 1
 
-				pat: cmra 1 "moe_C2toDS_camera" 1 0 0 0 va14 game "CamHeight" va14 game "CamHeight"
+				pat: cmra 1 "moe_C2toDS_camera" 1 0 0 0 va14 game "C2toDS_CamHeight" va14 game "C2toDS_CamHeight"
 
 				attr 0
 
@@ -278,7 +281,7 @@ scrp 1 7 20201 9
 
 			accg 0
 
-			tick 9.75
+			tick 10
 
 			fric 100
 
@@ -298,7 +301,7 @@ scrp 1 7 20201 9
 
 			setv va12 va10
 
-			mulv va12 game "CamWidth"
+			mulv va12 game "C2toDS_CamWidth"
 
 			addv va12 va23
 
@@ -306,23 +309,23 @@ scrp 1 7 20201 9
 
 			setv va13 va12
 
-			subv va13 8352
+			subv va13 game "C2toDS_WrapOffset"
 
 *Make sure camera is still in bounds
 
 			setv va14 va12
 
-			addv va14 game "CamWidth"
+			addv va14 game "C2toDS_CamWidth"
 
-			doif va14 gt game "C2toDSRight"
+			doif va14 gt game "C2toDS_Right"
 
 				setv va15 va14
 
-				subv va15 game "C2toDSRight"
+				subv va15 game "C2toDS_Right"
 
 			else
 
-				setv va15 game "CamWidth"
+				setv va15 game "C2toDS_CamWidth"
 
 			endi
 
@@ -331,11 +334,11 @@ scrp 1 7 20201 9
 			addv va14 va15
 
 
-			doif va15 gt 20 and va14 le game "C2toDSRight"
+			doif va15 gt 20 and va14 le game "C2toDS_Right"
 
 				new: comp 1 5 50200 "moe_C2toDS_camera" 1 1 1
 
-				pat: cmra 1 "moe_C2toDS_camera" 1 0 0 0 va15 game "CamHeight" va15 game "CamHeight"
+				pat: cmra 1 "moe_C2toDS_camera" 1 0 0 0 va15 game "C2toDS_CamHeight" va15 game "C2toDS_CamHeight"
 
 				attr 0
 
@@ -363,25 +366,25 @@ scrp 1 7 20201 9
 
 *Right Side Grabber
 
-				new: simp 1 6 50200 "moe_C2toDS_Camera" 1 1 1
+			new: simp 1 6 50200 "moe_C2toDS_Camera" 1 1 1
 
-				attr 0
+			attr 0
 
-				accg 0
+			accg 0
 
-				tick 9.75
+			tick 10
 
-				fric 100
+			fric 100
 
-				aero 0
+			aero 0
 
-				mvto va12 va04
+			mvto va12 va04
 
-				sets name "WhichWrapPieceAmI?" "Right"
+			sets name "WhichWrapPieceAmI?" "Right"
 
 *Increment X-wide
 
-				addv va10 1
+			addv va10 1
 
 		repe
 
@@ -411,6 +414,8 @@ endm
 
 
 
+* World Wrap Grabber - World Loaded script
+
 *This might be the cause of a mild performance hit, but it keeps the cameras from blacking out.*
 
 scrp 1 5 50200 128
@@ -426,6 +431,7 @@ endm
 
 
 
+* World Wrap Grabber - Timer script
 
 scrp 1 6 50200 9
 
@@ -435,27 +441,12 @@ scrp 1 6 50200 9
 
 	doif name "WhichWrapPieceAmI?" eq "Right"
 
-*inst
-
-		etch 2 0 0
+*		etch 2 0 0
+		etch 0 0 0
 
 			doif targ ne null
 
-*	slow
-
-*if more than half of the width has passed to the other side, move it*
-
-*			setv va02 posl
-
-*			setv va03 wdth
-
-*			mulv va03 .5
-
-*			subv va02 va03
-
-
-
-				doif targ ne pntr and attr ge 64 and movs eq 0 and posx gt 10399
+				doif targ ne null and targ ne pntr and attr ge 64 and movs eq 0 and posx gt game "C2toDS_WrapRight"
 
 					doif crea targ ne 1
 
@@ -467,7 +458,14 @@ scrp 1 6 50200 9
 
 						subv va00 8351
 
-						mvsf va00 va01
+*move the object to the other side of the wrap
+
+*do an unsafe move if possible
+						doif tmvt va00 va01 = 1
+							mvto va00 va01
+						else
+							mvsf va00 va01
+						endi
 
 					else
 
@@ -477,11 +475,17 @@ scrp 1 6 50200 9
 
 						addv va01 1
 
+
 						subv va00 8351
 
-						mvsf va00 va01
+*move the creature to the other side of the wrap
 
-						DIRN 2
+*do an unsafe move if possible
+						doif tmvf va00 va01 = 1
+							mvft va00 va01
+						else
+							mvsf va00 va01
+						endi
 
 					endi
 
@@ -493,9 +497,10 @@ scrp 1 6 50200 9
 
 	elif name "WhichWrapPieceAmI?" eq "Left"
 
-		etch 2 0 0
+*	etch 2 0 0
+		etch 0 0 0
 
-			doif targ ne pntr and attr ge 64 and movs eq 0 and posx lt 2047
+			doif targ ne null and targ ne pntr and attr ge 64 and movs eq 0 and posx lt game "C2toDS_WrapLeft"
 
 				doif crea targ ne 1
 
@@ -505,9 +510,16 @@ scrp 1 6 50200 9
 
 					addv va01 5
 
-					addv va00 8352
+					addv va00 game "C2toDS_WrapOffset"
 
-					mvsf va00 va01
+*move the object to the other side of the wrap
+
+*do an unsafe move if possible
+					doif tmvt va00 va01 = 1
+						mvto va00 va01
+					else
+						mvsf va00 va01
+					endi
 
 				else
 
@@ -517,13 +529,21 @@ scrp 1 6 50200 9
 
 					addv va01 1
 
-					addv va00 8352
+					addv va00 game "C2toDS_WrapOffset"
 
-					mvsf va00 va01
+*do an unsafe move if possible
+					doif tmvf va00 va01 = 1
+						mvft va00 va01
+					else
+						mvsf va00 va01
+					endi
 
 				endi
 
+
 			endi
+
+
 
 		next
 
@@ -535,31 +555,40 @@ endm
 
 
 
-*Pointer Tracker*
+*Pointer Tracker - Timer Script, runs once per tick*
 
 scrp 1 7 50200 9
 
 	inst
 
+*grab the pointer so we can check where it is
 	targ pntr
 
+*remember the pointer coords
 	setv va00 posl
-
 	setv va01 post
 
 	inst
 
-	doif game "C2toDSRoomID" = gmap va00 va01
+	doif game "C2toDS_RoomID" = gmap va00 va01
 
-		targ pntr
+*if it's too far off the left side, we need to wrap the camera round to the right
+		doif va00 <= game "C2toDS_WrapLeft"
 
-		doif posl <= 2047
+*let go of any creatures hand first
+			targ hhld
+			doif crea targ eq 1
+				nohh
+
+*				remember this creature target in va99!
+				seta va99 targ
+			endi
 
 			scam null 0
 
 			setv va04 wndl
 
-			addv va04 8352
+			addv va04 game "C2toDS_WrapOffset"
 
 			setv va05 wndt
 
@@ -568,18 +597,34 @@ scrp 1 7 50200 9
 				cmra va04 va05 0
 
 			endi
+
+*hold hands with the creature again now we're on the other side of the map
+*todo: get this working
+*			doif crea targ eq 1
+*				wait 1
+*				mesg writ targ 13
+*			endi
 
 		endi
 
-		targ pntr
 
-		doif posl >= 10399
+*if it's too far off the right side, we need to wrap the camera round to the left
+		doif va00 >= game "C2toDS_WrapRight"
+
+*let go of the creatures hand first
+			targ hhld
+			doif crea targ eq 1
+				nohh
+
+*				remember this creature target for the hand hold watcher
+				seta va99 targ
+			endi
 
 			scam null 0
 
 			setv va04 wndl
 
-			subv va04 8352
+			subv va04 game "C2toDS_WrapOffset"
 
 			setv va05 wndt
 
@@ -588,6 +633,13 @@ scrp 1 7 50200 9
 				cmra va04 va05 0
 
 			endi
+
+*hold hands with the creature again now we're on the other side of the map
+*todo: get this working
+*			doif crea targ eq 1
+*				wait 1
+*				mesg writ targ 13
+*			endi
 
 		endi
 
@@ -596,6 +648,8 @@ scrp 1 7 50200 9
 endm
 
 *P-------------r*
+
+
 
 rscr
 
@@ -624,6 +678,14 @@ enum 1 7 50200
 
 next
 
+
+*Delete Pointer Hand Hold Watcher
+
+enum 1 7 20202
+
+	kill targ
+
+next
 
 
 
@@ -665,6 +727,3 @@ doif grap 2070 4764 ne -1 and link grap 2070 47640 grap 10375 47640 ne 0
 	link grap 2070 49340 grap 10375 49340 0
 
 endi
-
-
-
