@@ -72,7 +72,6 @@ endm
 *scrp 2 24 50216 255
 *endm
 
-
 scrp 2 18 50216 10
 	inst
 	aero 10
@@ -85,7 +84,7 @@ scrp 2 18 50216 10
 	rnge 500
 endm
 
-scrp 2 18 50216 
+scrp 2 18 50216 12
 	sndc "chwp"
 	stim writ from 80 .5
 	kill ownr
