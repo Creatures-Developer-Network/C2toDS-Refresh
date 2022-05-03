@@ -622,21 +622,23 @@ scrp 2 7 50204 9
 * and they are all pose 0... kill them all
 
 
-					targ ov04
+					targ mv04
+					
+					doif targ ne null					
+						kill targ
+					endi
 
-					kill targ
+					targ mv05
+					
+					doif targ ne null					
+						kill targ
+					endi
 
-					targ ownr
+					targ mv06
 
-					targ ov05
-
-					kill targ
-
-					targ ownr
-
-					targ ov06
-
-					kill targ
+					doif targ ne null					
+						kill targ
+					endi
 
 					targ ownr
 
