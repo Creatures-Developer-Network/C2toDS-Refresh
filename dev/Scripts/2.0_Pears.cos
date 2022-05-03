@@ -8,6 +8,7 @@
 * Aiko here to fix the weird seed attr drama and add pull and hit scripts to the seed vendor
 * Scream here stopping dormant seeds from emitting carb smell 
 * and letting creatures eat pears directly off the plant.
+* Verm back, tried getting rid of some checks with checking the fruit directly or if the part exists
 
 
 * OVs and script numbers (the best Aiko can guess)
@@ -215,7 +216,7 @@ scrp 2 23 50204 3
 	doif crea from eq 1
 		stim writ from 92 1
 	endi
-	
+
 	snde "hit_"
 	velo rand -2 2 rand -10 -5
 endm
@@ -488,11 +489,11 @@ endm
 
 
 
-scrp 2 7 50204 255
+*scrp 2 7 50204 255
 
-	stop
+*	stop
 
-endm
+*endm
 
 
 
@@ -510,7 +511,7 @@ scrp 2 7 50204 9
 		pose va00
 
 		stop
-		
+
 * if you are big, start producing fruit
 	elif pose eq 12
 
@@ -518,51 +519,44 @@ scrp 2 7 50204 9
 
 		inst
 
-		gsub getposxpost
-
 		gsub leftfruit
-
-		targ ownr
-
-		setv ov01 1
-
-		gsub getposxpost
 
 		gsub middlefruit
 
-		targ ownr
-
-		setv ov02 1
-
-		gsub getposxpost
-
 		gsub rightfruit
 
-		targ ownr
-
-		setv ov03 1
-
 		pose 14
-		 * Sometimes we get errors here indicating one or more of these parts already exist. Why would these 
-		 * parts ever already exist? They only get created here, when they hit pose 12 and they
-		 * change to pose 14 beforehand...
+* Sometimes we get errors here indicating one or more of these parts already exist. Why would these 
+* parts ever already exist? They only get created here, when they hit pose 12 and they
+* change to pose 14 beforehand...
+
+*Double making sure by checking if they exist
 
 		doif mira eq 0
 
-			pat: dull 1 "moe_C2toDS_pear" 65 10 28 1
+			doif part 1 eq 0
+				pat: dull 1 "moe_C2toDS_pear" 65 10 28 1
+			endi
 
-			pat: dull 2 "moe_C2toDS_pear" 70 23 0 1
+			doif part 2 eq 0
+				pat: dull 2 "moe_C2toDS_pear" 70 23 0 1
+			endi
 
-			pat: dull 3 "moe_C2toDS_pear" 75 33 23 1
+			doif part 3 eq 0
+				pat: dull 3 "moe_C2toDS_pear" 75 33 23 1
+			endi
 
 		else
 
-			pat: dull 1 "moe_C2toDS_pear" 65 31 28 1
-
-			pat: dull 2 "moe_C2toDS_pear" 70 16 0 1
-
-			pat: dull 3 "moe_C2toDS_pear" 75 7 23 1
-
+			doif part 1 eq 0
+				pat: dull 1 "moe_C2toDS_pear" 65 31 28 1
+			endi
+			doif part 2 eq 0
+				pat: dull 2 "moe_C2toDS_pear" 70 16 0 1
+			endi
+			doif part 3 eq 0
+				pat: dull 3 "moe_C2toDS_pear" 75 7 23 1
+			endi
 			part 1
 
 			mira 1
@@ -584,28 +578,28 @@ scrp 2 7 50204 9
 
 
 	lock
+**Umm, I guess we don't need these anymore, huh?
+*	doif ov04 eq null
 
-	doif ov04 eq null
+*		setv ov01 0
 
-		setv ov01 0
+*	endi
 
-	endi
+*	doif ov05 eq null
 
-	doif ov05 eq null
+*		setv ov02 0
 
-		setv ov02 0
+*	endi
 
-	endi
+*	doif ov06 eq null
 
-	doif ov06 eq null
+*		setv ov03 0
 
-		setv ov03 0
+*	endi
 
-	endi
-	
 *if you are at age 50 and have all your fruits
 
-	doif ov10 ge 50 and ov01 eq 1 and ov02 eq 1 and ov03 eq 1
+	doif ov10 ge 50 and part 1 eq 1 and part 2 eq 1 and part 3 eq 1
 
 		part 1
 
@@ -618,7 +612,7 @@ scrp 2 7 50204 9
 				part 3
 
 				doif pose eq 0
-				
+
 					inst
 
 					part 0
@@ -626,7 +620,7 @@ scrp 2 7 50204 9
 					pose 12
 
 * and they are all pose 0... kill them all
-					
+
 
 					targ ov04
 
@@ -758,7 +752,7 @@ scrp 2 7 50204 9
 			endi
 
 		endi
-		
+
 * if it is night and your fruit is grown, make it seen/edible
 
 	elif time ne 4 and ov07 eq 1
@@ -822,7 +816,7 @@ scrp 2 7 50204 9
 
 	inst
 
-	doif ov01 eq 0
+	doif ov04 eq null
 
 		part 1
 
@@ -830,19 +824,13 @@ scrp 2 7 50204 9
 
 		doif pose eq 4
 
-			gsub getposxpost
-
 			gsub leftfruit
 
-			targ ownr
-
-			setv ov01 1
-
 		endi
-		
+
 * IF you do have a left fruit, open its flower
 
-	elif ov01 eq 1
+	elif ov04 ne null
 
 		part 1
 
@@ -852,7 +840,7 @@ scrp 2 7 50204 9
 
 * if you don't have a middle fruit, make your middle fruit!
 
-	doif ov02 eq 0
+	doif ov05 eq null
 
 		part 2
 
@@ -860,19 +848,13 @@ scrp 2 7 50204 9
 
 		doif pose eq 4
 
-			gsub getposxpost
-
 			gsub middlefruit
 
-			targ ownr
-
-			setv ov02 1
-
 		endi
-		
+
 * if you have a middle fruit, open its flower
 
-	elif ov02 eq 1
+	elif ov05 ne null
 
 		part 2
 
@@ -882,7 +864,7 @@ scrp 2 7 50204 9
 
 * if you don't have a left fruit, make your left fruit!
 
-	doif ov03 eq 0
+	doif ov06 eq null
 
 		part 3
 
@@ -890,19 +872,13 @@ scrp 2 7 50204 9
 
 		doif pose eq 4
 
-			gsub getposxpost
-
 			gsub rightfruit
 
-			targ ownr
-
-			setv ov03 1
-
 		endi
-		
+
 * if you have a left fruit, open its flower
 
-	elif ov03 eq 1
+	elif ov06 ne null
 
 		part 3
 
@@ -916,7 +892,7 @@ scrp 2 7 50204 9
 
 * if you are starting to get old, and you have all your fruits, start dropping them in preparation for death.
 
-	doif ov10 ge rand 35 45 and ov10 lt 50 and ov01 eq 1 and ov02 eq 1 and ov03 eq 1
+	doif ov10 ge rand 35 45 and ov10 lt 50 and part 1 eq 1 and part 2 eq 1 and part 3 eq 1
 
 		part 1
 
@@ -964,18 +940,7 @@ scrp 2 7 50204 9
 
 	endi
 
-
-
-
-
-
-
-
-
-
-
-
-
+*Making a Seed
 	subr seed
 
 		inst
@@ -1111,7 +1076,7 @@ scrp 2 7 50204 9
 *Subroutines!*
 
 
-
+*Closing Flower - Target Part First
 	subr close
 
 		doif pose lt 4
@@ -1127,7 +1092,7 @@ scrp 2 7 50204 9
 	retn
 
 
-
+*Opening Flower - Target Part First
 	subr open
 
 		doif pose gt 0
@@ -1142,7 +1107,7 @@ scrp 2 7 50204 9
 
 	retn
 
-
+*Used in the fruit getting
 
 	subr getposxpost
 
@@ -1156,11 +1121,13 @@ scrp 2 7 50204 9
 
 	retn
 
-
+*Make Left Fruit!
 
 	subr leftfruit
 
 		inst
+
+		gsub getposxpost
 
 		doif mira eq 0
 
@@ -1192,13 +1159,17 @@ scrp 2 7 50204 9
 
 		seta mv04 targ
 
+		targ ownr
+
 	retn
 
-
+*Make Middle Fruit!
 
 	subr middlefruit
 
 		inst
+
+		gsub getposxpost
 
 		doif mira eq 0
 
@@ -1232,13 +1203,17 @@ scrp 2 7 50204 9
 
 		seta mv05 targ
 
+		targ ownr
+
 	retn
 
-
+*Make Right Fruit!
 
 	subr rightfruit
 
 		inst
+
+		gsub getposxpost
 
 		doif mira eq 0
 
@@ -1273,6 +1248,8 @@ scrp 2 7 50204 9
 		mira va04
 
 		seta mv06 targ
+
+		targ ownr
 
 	retn
 
@@ -1323,27 +1300,24 @@ endm
 
 
 
-scrp 2 7 50204 255
+*scrp 2 7 50204 255
 
-	doif ov04 eq null
+*	doif ov04 eq null
 
-		setv ov01 0
 
-	endi
+*	endi
 
-	doif ov05 eq null
+*	doif ov05 eq null
 
-		setv ov02 0
 
-	endi
+*	endi
 
-	doif ov06 eq null
+*	doif ov06 eq null
 
-		setv ov03 0
 
-	endi
+*	endi
 
-endm
+*endm
 
 
 
@@ -1476,7 +1450,7 @@ scrp 2 8 50204 12
 	setv va00 posl
 
 	setv va01 post
-	
+
 	inst
 
 	new: simp 2 10 50204 "moe_C2toDS_pear" 0 84 va02
@@ -1614,6 +1588,9 @@ scrp 2 8 50204 9
 
 		mvsf va00 va01
 
+		kill ownr
+	elif ov00 eq 1 and ov01 eq null
+*Out in the middle of nowhere, die!	
 		kill ownr
 
 	endi
