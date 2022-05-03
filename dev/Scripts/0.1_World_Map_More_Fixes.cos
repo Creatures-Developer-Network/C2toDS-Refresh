@@ -64,3 +64,39 @@
 *delr grap 1648 49827
 *delr grap 1754 49827
 *delr grap 1859 49827
+
+
+
+*left volcano perm fix - let creatures pass through!
+door grap 9398 48227 grap 9468 48227 100
+door grap 9468 48227 grap 9468 48108 100
+door grap 9545 47989 grap 9545 48088 100
+
+
+*left volcano perm fix (world wrap copy)
+door grap 1044 48227 grap 1096 48227 100
+door grap 1096 48227 grap 1096 48122 100
+door grap 1197 47982 grap 1197 48146 100
+
+
+
+*right volcano perm fix - let creatures pass through!
+door grap 10031 47820 grap 10031 47977 100
+
+
+*right volcano perm fix (world wrap copy)
+door grap 1691 47820 grap 1691 47977 100
+
+
+
+*incubator pond - stop creatures hitting balls and etc into the pond where they can't get them
+door grap 6719 48371 grap 6759 48371 50
+
+
+
+
+*far right volcano platform ( needs to be divided into more rooms to match the other barriers)
+door grap 10079 49299 grap 10114 49299 0
+
+*far right volcano platform (world wrap copy)
+door grap 1724 49299 grap 1764 49299 0
