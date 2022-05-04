@@ -1,3 +1,52 @@
+*todo: one more spring to left of the sub doors, it ejects norns one way through the platform there?
+*todo: detect if norns are suffocating and not in a vehicle. if they are, give them an overwhelming urge to press the spring!
+
+
+
+
+*TEST CODE NEEDS NEW CLASSIFIERS:
+
+enum 1 29 50209
+	kill targ
+next
+
+new: simp 1 29 50209 "blnk" 1 0 0
+
+tick 20
+
+scrp 1 29 50209 9
+
+	enum 4 0 0
+
+
+
+**if room type is Fresh Water or Salt Water
+*		doif rtyp room targ eq 8 or rtyp room targ eq 9
+**if air < 0.5 and chemical 110 (twb body heat?) <= 0 or oxygen < 0.4
+*			doif chem 29 lt 0.5 and chem 110 le 0 or chem 30 lt 0.4
+*
+*				sezz "i think im drowning"
+*
+*			endi
+*
+*		endi
+
+*		sezz vtos chem 29
+*		sezz vtos chem 1
+
+*		sezz vtos chem 30
+
+*if oxygen < 0.4 (not checking air because some amphibious breeds such as Shag-a-Delic always have less than 0.5 air)
+		doif chem 30 < 0.4
+			sezz "i think im drowning"
+		endi
+
+	next
+
+endm
+
+
+
 * 2 21 50206 - Spring
 
 * To left of norn burrow
