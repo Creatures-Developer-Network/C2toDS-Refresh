@@ -18,6 +18,13 @@
 *pearls take several days to grow inside of clams depending on the bounding box size
 
 
+*NeoDement worked on these a bit but didn't get these things done:
+
+*todo: clams should play their rocking animation far more frequently, like in C2
+*todo: maybe clams shouldn't bounce their pearls for so long? they didn't do this very often in C2
+*todo: work out what the point is in a black pearl???
+
+
 
 * Creation
 
@@ -35,11 +42,16 @@ reps 3
 repe
 
 
+*Clam - Constructor Script
+
 scrp 2 16 50200 10
 
 	inst
 
 	cabn 7 20 57 60
+
+*only hold one thing at a time. this doesn't seem to work as expected?
+*	cabw 1
 
 	cabp -1
 
@@ -49,6 +61,7 @@ scrp 2 16 50200 10
 
 	aero 30
 
+*Carryable, Mouseable, Activateable, Greedy Cabin, Invisible, Suffer Collisions, Suffer Physics
 	attr 223
 
 	frat 2
@@ -64,6 +77,7 @@ scrp 2 16 50200 10
 endm
 
 
+*Pearl - Constructor Script
 
 scrp 2 21 50224 10
 
@@ -82,24 +96,29 @@ scrp 2 21 50224 10
 endm
 
 
+*unused! creatures can't eat toys!
 
-scrp 2 21 50224 12
+**Pearl - Eat Script
+*
+*scrp 2 21 50224 12
+*
+*	snde "reat"
+*
+*	doif crea from eq 1
+*
+*		targ from
+*
+**inject the creature with some stress
+*		chem 125 .015
+*
+*	endi
+*
+*	kill ownr
+*
+*endm
 
-	snde "reat"
 
-	doif crea from eq 1
-
-		targ from
-
-		chem 125 .015
-
-	endi
-
-	kill ownr
-
-endm
-
-
+*Pearl - Activate 1 Script
 
 scrp 2 21 50224 1
 
@@ -113,7 +132,9 @@ scrp 2 21 50224 1
 
 endm
 
-*push
+
+*Pearl - Activate 2 Script
+
 scrp 2 21 50224 2
 
 	inst
@@ -126,7 +147,8 @@ scrp 2 21 50224 2
 
 endm
 
-*hit
+
+*Pearl - Hit Script
 
 scrp 2 21 50224 3
 
@@ -141,40 +163,66 @@ scrp 2 21 50224 3
 endm
 
 
-
-*activate by clam
+*Pearl - Activate by clam Script
 
 scrp 2 21 50224 1001
 
+	lock
+
+*				reps rand 20 30
+
+*no point bouncing more than 20 times
+	reps 20
+
+*constantly make sure you're inside an open clam so you can immediately stop jumping if the clam ever closes.
+		doif carr <> null
+			targ carr
+			doif fmly = 2 and gnus = 16 and spcs = 50200
+*make sure the clam is open
+				doif part 1 = 1 and part 2 = 1
+
+*target the pearl again and make it a do a lil jump
+					targ ownr
+					subv vely 12
+
+					wait 20
+
+*immediately stop the script if anything goes wrong (todo: this is a mess clean it up...)
+				else
+					targ ownr
+					stop
+				endi
+			else
+				targ ownr
+				stop
+			endi
+		else
+			targ ownr
+			stop
+		endi
+	repe
 
 
-	doif ov15 eq 0
 
-		setv ov15 1
-
-		reps rand 20 30
-
-			subv vely 12
-
-			wait 20
-
-		repe
-
-	else
-
-		setv ov15 0
-
-		stop
-
-	endi
+	unlk
 
 endm
 
 
 
-scrp 2 21 50224 4
 
-	accg 5
+
+*Clam - Got Carried Agent Script
+
+scrp 2 16 50200 124
+
+*if it's a pearl
+	epas 2 21 50224
+*store the pearl in ov08
+		seta mv08 targ
+
+	next
+
 
 endm
 
@@ -200,9 +248,13 @@ endm
 
 
 
-
+*Clam - Timer Script
 
 scrp 2 16 50200 9
+
+*	lock
+
+	inst
 
 *check for pearl
 
@@ -216,11 +268,11 @@ scrp 2 16 50200 9
 
 *don't rock if you're open
 
-	doif ov15 ne 1
+	doif part 1 = 0 and part 2 = 0
 
 		anim [0 1 2 3 4 5 6 7 0]
 
-	elif ov15 eq 1
+	else
 
 *if you're open, for some reason... close
 
@@ -256,8 +308,10 @@ scrp 2 16 50200 9
 
 		epas 0 0 0
 
+*if it's a pearl
 			doif fmly eq 2 and gnus eq 21 and spcs eq 50224
 
+*store the pearl in ov08
 				seta mv08 targ
 
 			endi
@@ -276,12 +330,14 @@ scrp 2 16 50200 9
 
 *if no pearl, make one, IF you're closed.
 
-		doif ov08 eq null and ov15 eq 0
+		doif ov08 eq null and part 1 = 0 and part 2 = 0
 
+*make a white pearl
 			doif ov13 eq 0
 
 				setv va00 37
 
+*make a black pearl
 			else
 
 				setv va00 38
@@ -296,6 +352,7 @@ scrp 2 16 50200 9
 
 				doif targ ne null
 
+*don't kill pearls
 					doif fmly eq 2 and gnus eq 21 and spcs eq 50224
 
 					else
@@ -316,9 +373,8 @@ scrp 2 16 50200 9
 
 			setv va04 posy
 
-
-
-			new: simp 2 21 50224 "moe_C2toDS_clam" 2 va00 rand 1000 3000
+*plane isn't important as it gets overridden when ejecting from the clam anyway
+			new: simp 2 21 50224 "moe_C2toDS_clam" 2 va00 3000
 
 			mvsf va03 va04
 
@@ -336,17 +392,22 @@ scrp 2 16 50200 9
 
 
 
-*if you're out of water, open up for a bit, then shut like a bitch
+
+*set focus back to the clam that ran this script
+	targ ownr
+
+
+*if you're out of water, open up for a bit, then shut like a bitch (like a WHAT??)
 
 	setv va00 rtyp room ownr
 
 	doif va00 ne 8 and va00 ne 9
 
-		doif ov15 eq 0
+		doif part 1 = 0 and part 2 = 0
 
 			mesg writ ownr 0
 
-		elif ov15 eq 1
+		else
 
 			wait tick
 
@@ -362,45 +423,98 @@ scrp 2 16 50200 9
 
 	endi
 
-
+*	unlk
 
 endm
 
 
+*Clam - Activate 1 Script
 
 scrp 2 16 50200 1
 
+*hopefully lock here helps prevent a "part already exists" bug
+	lock
+
 	inst
 
-	doif ov15 eq 0
+*remember clam plane for later
+	setv va01 plne
+
+*if part 1 and 2 don't exist, then the clam is closed
+	doif part 1 = 0 and part 2 = 0
 
 *stage open
-
-		setv ov15 1
 
 		pose 10
 
 		pat: dull 1 "moe_C2toDS_clam" 31 0 0 1
 
-		pat: dull 2 "moe_C2toDS_clam" 32 0 0 -2
+*		pat: dull 2 "moe_C2toDS_clam" 32 0 0 -2
+
+*starts on a higher plane and is swapped for the same part but on a lower plane later instead.
+*this stops the pearl drawing in front of the clam for a couple of frames.
+		pat: dull 2 "moe_C2toDS_clam" 32 0 0 2
 
 		slow
 
-
-
 		part 2
 
-		frat 2
+*DON'T set c2 framerate - we are manually controlling it so we can fix an animation hitch
+*		frat 2
 
-		anim [0 1 2 3 4]
+*start clamshell opening anim...
+		anim [0 0 1]
+		over
 
-		setv va00 0
+		inst
 
+
+*check the passengers and do things with them!
 		epas 0 0 0
 
 			doif targ ne null
 
-				addv va00 1
+*if it's a pearl and click was NOT from the pointer, do the idle jump anim
+				doif targ eq mv08 and from ne pntr
+					mesg writ targ 1001
+
+*if it's a pearl and click was from the pointer, eject it!
+				elif targ eq mv08 and from eq pntr
+
+					rpas ownr targ
+
+*set plane of ejected object 5 higher than the clam itself so it doesn't get lost behind the clam
+					addv va01 5
+					plne va01
+
+*move the ejected pearl up a few pixels so it appears to eject from the mouth of the clam instead of near the bottom
+					setv va02 posl
+					setv va03 post
+
+					subv va03 9
+
+*clams don't want their pearls back once humans have had their hands on them
+*					seta mv08 null
+
+*do an unsafe move if possible
+					doif tmvt va02 va03 = 1
+						mvto va02 va03
+					else
+						mvsf va02 va03
+					endi
+
+*apply some velocity
+					setv vely -12
+
+*only drop stuff that was in the clam when clicked
+				elif from eq pntr
+
+					rpas ownr targ
+
+*apply some velocity
+					setv vely -12
+
+				endi
 
 			endi
 
@@ -409,62 +523,53 @@ scrp 2 16 50200 1
 		targ ownr
 
 
+*re-create the clamshell top half to change the plane to a lower one
+		inst
+		pat: kill 2
+		pat: dull 2 "moe_C2toDS_clam" 32 0 0 -2
 
-		doif va00 eq 0
+		part 2
 
-
-
-		else
-
-			epas 0 0 0
-
-				doif fmly eq 2 and gnus eq 21 and spcs eq 50224
-
-					mesg writ mv08 1001
-
-				else
-
-*don't drop what you've got if you're out of water, only when clicked
-
-					doif from eq pntr
-
-						rpas ownr targ
-
-					endi
-
-				endi
-
-			next
-
-		endi
-
-
+*...finish clamshell opening anim		
+		anim [1 2 2 3 3 4 4]
 
 	else
 
-		setv ov15 0
+*moved this up to the top of the script...
+*		lock
 
-		lock
-
-		epas 0 0 0
-
-			doif fmly eq 2 and gnus eq 21 and spcs eq 50224
-
-				mesg writ mv08 1001
-
-			else
-
-*	rpas ownr targ
-
-			endi
-
-		next
+*disabled this entirely, all it seemed to do is make the pearl jump and down inside a closed clam
+*		epas 0 0 0
+*
+*			doif fmly eq 2 and gnus eq 21 and spcs eq 50224
+*
+*				mesg writ mv08 1001
+*
+*			else
+*
+**	rpas ownr targ
+*
+*			endi
+*
+*		next
 
 		targ ownr
 
 		part 2
 
-		anim [4 3 2 1 0]
+*start clamshell closing anim...
+		anim [4 4 3 3 2 2 1]
+		over
+
+*re-create the clamshell top half to change the plane to a higher one
+		inst
+		pat: kill 2
+		pat: dull 2 "moe_C2toDS_clam" 32 0 0 2
+
+		part 2
+
+*...finish clamshell closing anim		
+		anim [1 0 0]
 
 		over
 
@@ -482,13 +587,11 @@ scrp 2 16 50200 1
 
 
 
-
-
-
-
 endm
 
 
+
+*OLD:
 
 * Timer script
 
@@ -651,6 +754,7 @@ endm
 *endm
 
 
+*Clam - Agent Exception Script
 
 scrp 2 16 50200 255
 
@@ -658,10 +762,10 @@ scrp 2 16 50200 255
 
 endm
 
+
+*Remove Script
+
 rscr
-
-
-
 
 enum 2 16 50200
 
@@ -675,3 +779,16 @@ enum 2 21 50224
 
 next
 
+scrx 2 16 50200 10
+scrx 2 16 50200 9
+scrx 2 16 50200 1
+scrx 2 16 50200 124
+scrx 2 16 50200 255
+
+scrx 2 21 50224 10
+*scrx 2 21 50224 12
+scrx 2 21 50224 1
+scrx 2 21 50224 2
+scrx 2 21 50224 3
+scrx 2 21 50224 1001
+scrx 2 21 50224 4
