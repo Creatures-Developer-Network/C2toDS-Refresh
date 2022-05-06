@@ -5,6 +5,7 @@
 *1  7   20201   Window Resize Camera Builder
 
 
+
 *CA links for the "wrap" rooms.*
 
 *Atmosphere
@@ -431,61 +432,75 @@ endm
 
 
 
-* World Wrap Grabber - Timer script
+* World Wrap Grabber - Timer script (runs once every 10 ticks)
 
 scrp 1 6 50200 9
-
-
 
 	inst
 
 	doif name "WhichWrapPieceAmI?" eq "Right"
 
-*		etch 2 0 0
 		etch 0 0 0
 
-			doif targ ne null
+*if the target isn't null, has attribute Suffer Physics, is Autonomous and is over the Right hand side of the wrap
+			doif targ ne null and targ ne pntr and attr ge 64 and movs eq 0 and posx gt game "C2toDS_WrapRight"
 
-				doif targ ne null and targ ne pntr and attr ge 64 and movs eq 0 and posx gt game "C2toDS_WrapRight"
+*if the target is an object
+				doif crea targ ne 1
 
-					doif crea targ ne 1
+					setv va00 posl
+					setv va01 post
 
-						setv va00 posl
+					addv va01 1
 
-						setv va01 post
-
-						addv va01 5
-
-						subv va00 8351
+					subv va00 game "C2toDS_WrapOffset"
 
 *move the object to the other side of the wrap
 
 *do an unsafe move if possible
-						doif tmvt va00 va01 = 1
-							mvto va00 va01
-						else
-							mvsf va00 va01
-						endi
-
+					doif tmvt va00 va01 = 1
+						mvto va00 va01
 					else
+						mvsf va00 va01
+					endi
 
-						setv va00 dftx
+*if the target is a creature
+				else
 
-						setv va01 dfty
+					setv va00 dftx
+					setv va01 dfty
 
-						addv va01 1
+					addv va01 1
+
+					subv va00 game "C2toDS_WrapOffset"
 
 
-						subv va00 8351
+*check if the target creature is holding the players hand for camera reasons
+					doif targ eq hhld
+
+*remember current camera coordinates before we jump
+						setv va02 cmrx
+						setv va03 cmry
+*offset them to the other side of the world
+						subv va02 game "C2toDS_WrapOffset"
+
+					endi
+
 
 *move the creature to the other side of the wrap
+*(do an unsafe move if possible)
+					doif tmvf va00 va01 = 1
+						mvft va00 va01
+					else
+						mvsf va00 va01
+					endi
 
-*do an unsafe move if possible
-						doif tmvf va00 va01 = 1
-							mvft va00 va01
-						else
-							mvsf va00 va01
-						endi
+*if we have stored some camera coordinates to jump to (and they're not out of bounds)
+					doif va02 > 0 and va03 > 0 and va02 < game "C2toDS_Right"
+
+*move camera to equivalent coordinate on other side of world
+*(the automatic camera reposition is offset as if you dragged the creature to the far edge of the window)
+						cmrp va02 va03 0
 
 					endi
 
@@ -497,18 +512,18 @@ scrp 1 6 50200 9
 
 	elif name "WhichWrapPieceAmI?" eq "Left"
 
-*	etch 2 0 0
 		etch 0 0 0
 
+*if the target isn't null, has attribute Suffer Physics, is Autonomous and is over the Left hand side of the wrap
 			doif targ ne null and targ ne pntr and attr ge 64 and movs eq 0 and posx lt game "C2toDS_WrapLeft"
 
+*if the target is an object
 				doif crea targ ne 1
 
 					setv va00 posl
-
 					setv va01 post
 
-					addv va01 5
+					addv va01 1
 
 					addv va00 game "C2toDS_WrapOffset"
 
@@ -521,33 +536,51 @@ scrp 1 6 50200 9
 						mvsf va00 va01
 					endi
 
+*if the target is a creature
 				else
 
 					setv va00 dftx
-
 					setv va01 dfty
 
 					addv va01 1
 
 					addv va00 game "C2toDS_WrapOffset"
 
-*do an unsafe move if possible
+
+*check if the target creature is holding the players hand for camera reasons
+					doif targ eq hhld
+
+*remember current camera coordinates before we jump
+						setv va02 cmrx
+						setv va03 cmry
+*offset them to the other side of the world
+						addv va02 game "C2toDS_WrapOffset"
+
+					endi
+
+
+*move the creature to the other side of the wrap
+*(do an unsafe move if possible)
 					doif tmvf va00 va01 = 1
 						mvft va00 va01
 					else
 						mvsf va00 va01
 					endi
 
-				endi
+*if we have stored some camera coordinates to jump to (and they're not out of bounds)
+					doif va02 > 0 and va03 > 0 and va02 < game "C2toDS_Right"
 
+*move camera to equivalent coordinate on other side of world
+*(the automatic camera reposition is offset as if you dragged the creature to the far edge of the window)
+						cmrp va02 va03 0
+
+					endi
+
+				endi
 
 			endi
 
-
-
 		next
-
-
 
 	endi
 
@@ -568,42 +601,30 @@ scrp 1 7 50200 9
 	setv va00 posl
 	setv va01 post
 
-	inst
-
 	doif game "C2toDS_RoomID" = gmap va00 va01
 
 *if it's too far off the left side, we need to wrap the camera round to the right
 		doif va00 <= game "C2toDS_WrapLeft"
 
-*let go of any creatures hand first
+*don't automatically move the camera if we're holding a creatures hand, let the World Wrap Grabber timer script handle it
 			targ hhld
-			doif crea targ eq 1
-				nohh
+			doif crea targ ne 1
 
-*				remember this creature target in va99!
-				seta va99 targ
-			endi
+				scam null 0
 
-			scam null 0
+				setv va04 wndl
 
-			setv va04 wndl
+				addv va04 game "C2toDS_WrapOffset"
 
-			addv va04 game "C2toDS_WrapOffset"
+				setv va05 wndt
 
-			setv va05 wndt
+				doif gmap va04 va05 <> -1
 
-			doif gmap va04 va05 <> -1
+					cmra va04 va05 0
 
-				cmra va04 va05 0
+				endi
 
 			endi
-
-*hold hands with the creature again now we're on the other side of the map
-*todo: get this working
-*			doif crea targ eq 1
-*				wait 1
-*				mesg writ targ 13
-*			endi
 
 		endi
 
@@ -611,43 +632,31 @@ scrp 1 7 50200 9
 *if it's too far off the right side, we need to wrap the camera round to the left
 		doif va00 >= game "C2toDS_WrapRight"
 
-*let go of the creatures hand first
+*don't automatically move the camera if we're holding a creatures hand, let the World Wrap Grabber timer script handle it
 			targ hhld
-			doif crea targ eq 1
-				nohh
+			doif crea targ ne 1
 
-*				remember this creature target for the hand hold watcher
-				seta va99 targ
-			endi
+				scam null 0
 
-			scam null 0
+				setv va04 wndl
 
-			setv va04 wndl
+				subv va04 game "C2toDS_WrapOffset"
 
-			subv va04 game "C2toDS_WrapOffset"
+				setv va05 wndt
 
-			setv va05 wndt
+				doif gmap va04 va05 <> -1
 
-			doif gmap va04 va05 <> -1
+					cmra va04 va05 0
 
-				cmra va04 va05 0
+				endi
 
 			endi
-
-*hold hands with the creature again now we're on the other side of the map
-*todo: get this working
-*			doif crea targ eq 1
-*				wait 1
-*				mesg writ targ 13
-*			endi
 
 		endi
 
 	endi
 
 endm
-
-*P-------------r*
 
 
 

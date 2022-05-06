@@ -10,12 +10,14 @@
 * UNFINISHED?: We also need to ensure that norns falling off ledge are caught by dingy. I 
 * 		  thought setting greedy cabin would do this, but apparently not.
 * Note: Might be working better due to Aiko's changes - Verm
+* Note: Might want to stop creatures that are bounching up from the spring from automatically getting grabbed by the boat - NeoDement
+
 
 * Rubber dingy
 
 new: vhcl 3 1 50203 "moe_C2toDS_dingy" 22 0 3000
 
-tick 4
+tick 2
 
 cabn 60 -50 225 88
 
@@ -65,7 +67,7 @@ mvto 3085 48128
 
 scrp 3 12 50203 1
 	inst
-	* light up, light up
+* light up, light up
 	rtar 3 1 50203
 	doif ov00 eq mv00
 		targ ownr
@@ -75,16 +77,16 @@ scrp 3 12 50203 1
 	targ from
 	doif crea targ eq 1
 		sets va48 gtos 0
-		* check for any existing queue object
+* check for any existing queue object
 		enum 3 13 50203
 			doif ov01 eq va48
 				addv va49 1
 			endi
 		next
-		* make a queue object if there's not one already
+* make a queue object if there's not one already
 		doif va49 eq 0
 			new: simp 3 13 50203 "blnk" 1 0 0
-			*dbg: outs "making quere"
+*dbg: outs "making quere"
 			setv ov00 mv00
 			sets ov01 va48
 			tick 20
@@ -100,7 +102,7 @@ endm
 
 scrp 3 12 50203 2
 	inst
-	* light up, light up
+* light up, light up
 	rtar 3 1 50203
 	doif ov00 eq mv00
 		targ ownr
@@ -110,16 +112,16 @@ scrp 3 12 50203 2
 	targ from
 	doif crea targ eq 1
 		sets va48 gtos 0
-		* check for any existing queue object
+* check for any existing queue object
 		enum 3 13 50203
 			doif ov01 eq va48
 				addv va49 1
 			endi
 		next
-		* make a queue object if there's not one already
+* make a queue object if there's not one already
 		doif va49 eq 0
 			new: simp 3 13 50203 "blnk" 1 0 0
-			*dbg: outs "making quere"
+*dbg: outs "making quere"
 			setv ov00 mv00
 			sets ov01 va48
 			tick 20
@@ -163,7 +165,7 @@ endm
 scrp 3 1 50203 1001
 
 	lock
-	*dbg: outs "1001!!!"
+*dbg: outs "1001!!!"
 	loop
 *Going left - right station
 		doif ov00 eq 0
@@ -172,10 +174,10 @@ scrp 3 1 50203 1001
 			enum 3 13 50203
 				doif ov00 eq 1
 					doif ooww ov01 eq 3
-						
-						* spas takes some time to work, so loop
-						* and keep checking if you got a creature
-						* before continuing
+
+* spas takes some time to work, so loop
+* and keep checking if you got a creature
+* before continuing
 						loop
 							spas ownr mtoc ov01
 							wait 1
@@ -186,8 +188,8 @@ scrp 3 1 50203 1001
 								addv va44 1
 							next
 							targ va45
-						untl va44 gt 0 or ooww ov01 ne 3 
-	
+						untl va44 gt 0 or ooww ov01 ne 3
+
 						kill targ
 					else
 						kill targ
@@ -255,10 +257,10 @@ scrp 3 1 50203 1001
 			enum 3 13 50203
 				doif ov00 eq 0
 					doif ooww ov01 eq 3
-						
-						* spas takes some time to work, so loop
-						* and keep checking if you got a creature
-						* before continuing
+
+* spas takes some time to work, so loop
+* and keep checking if you got a creature
+* before continuing
 						loop
 							spas ownr mtoc ov01
 							wait 1
@@ -269,8 +271,8 @@ scrp 3 1 50203 1001
 								addv va44 1
 							next
 							targ va45
-						untl va44 gt 0 or ooww ov01 ne 3 
-	
+						untl va44 gt 0 or ooww ov01 ne 3
+
 						kill targ
 					else
 						kill targ
@@ -331,12 +333,12 @@ scrp 3 1 50203 1001
 		endi
 		targ ownr
 	untl totl 3 13 50203 le 0
-	
+
 	enum 3 12 50203
 		pose 0
 	next
 	unlk
-	
+
 
 endm
 
@@ -345,17 +347,18 @@ scrp 3 1 50203 9
 	inst
 	targ ownr
 	etch 4 0 0
-		doif posb ge mv99
-			*targ ownr
+*don't pick up creatures that aren't autonomous (stops the raft stealing creatures out of the hands grasp)
+		doif posb ge mv99 and movs eq 0
+*targ ownr
 			spas ownr targ
-			*gpas 4 0 0 0
+*gpas 4 0 0 0
 		endi
 	next
-	
+
 	epas 4 0 0
 		addv va00 1
 	next
-	
+
 	doif va00 gt 0
 		mesg writ ownr 1001
 		wait 1

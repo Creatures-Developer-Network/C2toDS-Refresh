@@ -22,6 +22,8 @@
 
 *todo: clams should play their rocking animation far more frequently, like in C2
 *todo: maybe clams shouldn't bounce their pearls for so long? they didn't do this very often in C2
+*todo: automatically eject anything extra put into the clam if there's already at least 1 object in the clam.
+*todo: turn off Greedy Cabin while the clam is closed
 *todo: work out what the point is in a black pearl???
 
 
