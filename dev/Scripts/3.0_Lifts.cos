@@ -1923,8 +1923,8 @@ endm
 scrp 2 12 50200 2
 
 	doif name "on" eq 0
-
-		stim writ from 75 2
+*stimulate with 'pushed a button' stimulus
+		stim writ from 89 2
 
 		inst
 
@@ -1987,8 +1987,8 @@ endm
 scrp 2 12 50200 1
 
 	doif name "on" eq 0
-
-		stim writ from 75 2
+*stimulate with 'pushed a button' stimulus
+		stim writ from 89 2
 
 		inst
 
