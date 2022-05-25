@@ -162,15 +162,9 @@ scrp 2 11 50217 10
 
 	fric 90
 
-	accg 3
+	accg 2
 
 	elas 10
-
-*MOE MOE MOE MOE MOE what was this for?
-
-*LIAM LIAM LIAM LIAM LIAM I don't know? :x
-
-*pose 1
 
 	emit 8 .15
 
@@ -184,15 +178,19 @@ endm
 
 scrp 2 10 50217 10
 
+	inst
+
+	perm 51
+
 	attr 194
 
 	bhvr 48
 
-	perm 51
+	fric 90
 
-	fric 100
+	accg 2
 
-	elas 0
+	elas 10
 
 	tick rand 200 500
 
@@ -341,55 +339,41 @@ endm
 * Detritus Timer script
 
 scrp 2 10 50217 9
-inst
-doif carr ne null
-attr 208
-emit 0 0
-slow
-	frat 5
+	inst
+	doif carr ne null
+		attr 208
+		emit 0 0
+		slow
+		frat 5
 
-	anim [0 1 2 3 4]
+		anim [0 1 2 3 4]
 
-	over
+		over
 * Since this might take a bit, make sure that it's still invised and emitting nothin
-attr 208
-emit 0 0
+		attr 208
+		emit 0 0
 
-	esee 2 4 50217
+		esee 2 4 50217
 
-		addv va10 1
+			addv va10 1
 
-	next
+		next
 
-	esee 2 11 50217
+		esee 2 11 50217
 
-		addv va10 1
+			addv va10 1
 
-	next
+		next
 
 
 
-	doif va10 gt 5
+		doif va10 gt 5
 
-		wait 50
+			wait 50
 
-		setv va00 posl
+			setv va00 posl
 
-		setv va01 post
-
-		new: simp 2 4 50217 "moe_C2toDS_aubergine" 14 0 3000
-
-		doif tmvt va00 va01 eq 1
-
-			mvto va00 va01
-
-		else
-
-			mvsf va00 va01
-
-		endi
-
-		doif rand 0 1 eq 0
+			setv va01 post
 
 			new: simp 2 4 50217 "moe_C2toDS_aubergine" 14 0 3000
 
@@ -403,16 +387,30 @@ emit 0 0
 
 			endi
 
-			velo rand 10 -10 rand -4 -12
+			doif rand 0 1 eq 0
+
+				new: simp 2 4 50217 "moe_C2toDS_aubergine" 14 0 3000
+
+				doif tmvt va00 va01 eq 1
+
+					mvto va00 va01
+
+				else
+
+					mvsf va00 va01
+
+				endi
+
+				velo rand 10 -10 rand -4 -12
+
+			endi
 
 		endi
 
+		wait 50
+
+		kill ownr
 	endi
-
-	wait 50
-
-	kill ownr
-endi
 
 
 endm
@@ -540,5 +538,3 @@ untl va00 ge 2000
 
 
 setv va00 0
-
-
