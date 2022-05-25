@@ -1,5 +1,6 @@
 * 2 21 50209 - Tennis Ball
 
+*NeoDement fixed the hand being able to activate balls that weren't ready, causing the hand slap anim to play but applying no velocity to the balls. 
 
 new: simp 2 21 50209 "moe_C2toDS_toys" 128 62 5000
 
@@ -37,6 +38,14 @@ endm
 * Script 1 - activate 1
 
 scrp 2 21 50209 1
+
+*animate hand slap anim
+	doif from eq pntr
+		targ from
+		anim [4 4 5 5 0]
+		targ ownr
+		lock
+	endi
 
 	stim writ from 97 1
 
@@ -210,18 +219,6 @@ endm
 
 
 
-scrp 2 21 50209 101
-
-	targ pntr
-
-	anim [4 4 5 5]
-
-	over
-
-	pose 0
-
-endm
-
 
 
 
@@ -235,4 +232,8 @@ enum 2 21 50209
 
 next
 
-
+scrx 2 21 50209 10
+scrx 2 21 50209 1
+scrx 2 21 50209 2
+scrx 2 21 50209 3
+scrx 2 21 50209 6
