@@ -1,6 +1,8 @@
 * 2 21 50203 - Punching bag
 
 
+*NeoDement enabled picking up punching bags and tweaked the left-sided slap anim to match the right one more closely.
+
 
 new: simp 2 21 50203 "moe_C2toDS_toys" 128 8 800
 
@@ -21,7 +23,10 @@ mvsf 9329 48824
 
 scrp 2 21 50203 10
 
-	attr 196
+*	attr 196
+	attr 198
+
+	core 0 88 35 93
 
 	bhvr 11
 
@@ -52,6 +57,8 @@ scrp 2 21 50203 1
 	targ from
 
 	setv va00 posl
+*slight bias toward right to left side slaps. nicer anim.
+	addv va00 6
 
 	targ ownr
 
@@ -75,8 +82,8 @@ scrp 2 21 50203 1
 
 			anim [4 4 5 5 0]
 
-		targ ownr
-		
+			targ ownr
+
 		endi
 
 		anim [10 11 12 13 14 15 16 17 0]
@@ -86,15 +93,14 @@ scrp 2 21 50203 1
 		wait 20
 
 	else
-	
-	doif from eq pntr
 
-		targ pntr
+		doif from eq pntr
 
-		anim [10 10 11 11 12 12 0]
+			targ pntr
 
-		targ ownr
-		
+			anim [11 11 12 12 0]
+			targ ownr
+
 		endi
 
 		anim [1 2 3 4 5 6 7 8 9 0]
@@ -216,6 +222,3 @@ enum 2 21 50203
 	kill targ
 
 next
-
-
-
