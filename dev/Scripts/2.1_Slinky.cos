@@ -3,6 +3,7 @@
 * Initial Conversion By Moe
 * Some Modifications By the one who screams i guess
 * Aiko fixed a mvsf erorr that happened if the creature grabbed the slinky mid-animation
+* NeoDement adjusted animation speed to match C2 spring better and added a PUHL.
 * (if you worked on this file, feel free to add your name!)
 
 * Create slinky
@@ -34,6 +35,8 @@ scrp 2 21 50213 10
 	core 30 hght 30 70
 
 	bhvr 43
+
+	puhl -1 50 40
 
 endm
 
@@ -190,7 +193,7 @@ scrp 2 21 50213 1
 
 		base 0
 
-		anim [0 1 2 3 4 5 6 7]
+		anim [0 1 1 2 2 3 3 4 4 5 5 6 6 7]
 
 		over
 
@@ -198,11 +201,11 @@ scrp 2 21 50213 1
 
 		base 9
 
-		anim [0 1 2]
+		anim [0 1 1 2]
 
 		over
 
-		anim [3 4 5 6]
+		anim [3 4 4 5 5 6]
 
 		over
 
@@ -217,13 +220,13 @@ scrp 2 21 50213 1
 		subv va00 39
 
 		inst
-		
+
 		doif carr = null
 
 			mvsf va00 post
-		
+
 		endi
-		
+
 		slow
 
 		accg 2
@@ -240,19 +243,19 @@ scrp 2 21 50213 1
 
 		base 0
 
-		anim [0 1 2 3 4 5 6 7]
+		anim [0 1 1 2 2 3 3 4 4 5 5 6 6 7]
 
 		over
 
 		base 9
 
-		anim [0 1 2]
+		anim [0 1 1 2]
 
 		over
 
 		snde "slnk"
 
-		anim [3 4 5 6]
+		anim [3 4 4 5 5 6]
 
 		over
 
@@ -265,15 +268,15 @@ scrp 2 21 50213 1
 		setv va00 posl
 
 		addv va00 39
-		
+
 		inst
-		
+
 		doif carr = null
 
 			mvsf va00 post
-		
+
 		endi
-		
+
 		slow
 
 		accg 2
@@ -442,7 +445,7 @@ scrp 2 21 50213 6
 
 endm
 
-rscr 
+rscr
 
 
 
@@ -453,4 +456,3 @@ enum 2 21 50213
 	kill targ
 
 next
-

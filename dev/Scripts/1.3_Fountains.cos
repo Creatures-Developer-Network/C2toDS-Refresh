@@ -1,5 +1,13 @@
 * 2 25 50200 - Water Fountain
- 
+
+*NeoDement:
+
+*- Enabled picking up fountains.
+*- Cleaned up unused script numbers.
+*- Made spray anim match the C2 one more precisely.
+*- The fountain can be rotated in mid-air like the tomato launcher.
+
+
 *Burrow
 
 new: simp 2 25 50200 "moe_C2toDS_foun" 11 0 rand 1000 3000
@@ -9,257 +17,233 @@ mvto 7485 48667
 
 scrp 2 25 50200 10
 
-	attr 4
+*Activateable
+*	attr 4
+
+*Mouseable + Activateable + Suffer Collisions + Suffer Physics
+	attr 198
+
+*physics!
+	accg 2
+
+	fric 100
+
+	perm 51
+
+	elas 0
+
+	base 0
+
+	puhl -1 82 45
+
+*Creatures can only EAT the fountain (for a tasty drink)
 	bhvr 16
 
+	core 22 108 53 109
+*	dcor 1
+
+*C2 framerate
+	frat 2
+
 endm
 
-*timer
 
-scrp 2 25 50200 9
-
-endm
 
 *activate 1
 * if the hand activates this, it cools off creatures touching it.
-* creatures can't push this, they can only drink it (which also cools them down)
+* creatures can't push this, they can only EAT it (which also cools them down)
 
 scrp 2 25 50200 1
 
-	inst
-	doif from eq pntr
-		etch 4 0 0
-			snde "drnk"
-	*decrease hotness
-			chem 153 -.25
-	*increase coolness
-			chem 152 .15
-	*Water
-			chem 33 .25
-		next
-		
-	endi
+*don't activate in mid-air
+	doif fall = 0 and pose = 0
 
-	frat 3
 
-	sndc "wat1"
+*		lock
 
-	anim [ 0 1 2 3 4 5 6 7 6 5 4 3 2 1 0]
+**don't let the pointer pick it up while it's making a wet mess
+*		attr 196
 
-endm
+*check which direction water is coming from
+		setv va01 mira
 
-*eat
-scrp 2 25 50200 12
-	doif crea from eq 1
-		seta va00 from
-		snde "drnk"
-		targ va00
+		setv va02 posx
+
+		inst
+		doif from eq pntr
+			etch 4 0 0
+
+				doif va01 = 0
+
+					subv va02 64
+
+					doif posx <= va02
+*fountain facing RIGHT but no norns are close enough for a drink from this side
+						stop
+					endi
+
+				else
+
+					addv va02 64
+
+					doif posx >= va02
+*fountain facing LEFT but no norns are close enough for a drink from this side
+						stop
+					endi
+				endi
+
+
+				snde "drnk"
 *decrease hotness
-		chem 153 -.25
+				chem 153 -.25
 *increase coolness
-		chem 152 .15
+				chem 152 .15
 *Water
-		chem 33 .25
+				chem 33 .25
+			next
+
+		endi
+
+		sndc "wat1"
+
+*	anim [ 0 1 2 3 4 5 6 7 6 5 4 3 2 1 0]
+
+		anim [1 2 3 4 5 6 7 255]
+		wait 60
+		anim [0]
+
+**reset attr to normal
+*		attr 198
+
+
+*reset anim if you try and use it while it's in use
+	else
+
+		anim [0]
 	endi
-	
-	frat 3
-	sndc "wat1"
-	anim [ 0 1 2 3 4 5 6 7 6 5 4 3 2 1 0]
-	
+
 endm
+
+
 
 *collision
 
 scrp 2 25 50200 6
 
-*snde "drop"
+	snde "drop"
 
 endm
+
+
 
 *eat
 
 scrp 2 25 50200 12
 
-	doif crea from eq 1
+*don't activate in mid-air
+	doif fall = 0 and carr <> pntr and pose = 0
 
-		seta va00 from
+*		lock
 
-		snde "drnk"
+		doif crea from eq 1
 
-		inst
+			seta va00 from
 
-		targ va00
+			snde "drnk"
+
+			inst
+
+			targ va00
 
 *decrease hotness
 
-		chem 153 -.25
+			chem 153 -.25
 
 *increase coolness
 
-		chem 152 .15
+			chem 152 .15
 
 *Water
 
-		chem 33 .25
+			chem 33 .25
 
-		slow
+			slow
 
-		targ ownr
+			targ ownr
+
+		endi
+
+		sndc "wat1"
+
+*	anim [ 0 1 2 3 4 5 6 7 6 5 4 3 2 1 0]
+
+		anim [1 2 3 4 5 6 7 255]
+		wait 60
+		anim [0]
+
+*if a creature tries to use it while it's in use, try and wait out roughly how long it should loop for and then reset
+	else
+
+		wait 30
+		anim [0]
 
 	endi
 
-	frat 3
-
-	sndc "wat1"
-
-	anim [ 0 1 2 3 4 5 6  7 6 5 4 3 2 1 0]
 
 endm
 
 
 
 
-
-
-
-*deactivate
-
-scrp 2 25 50200 0
-
-	doif crea from eq 1
-
-		seta va00 from
-
-		snde "drnk"
-
-		inst
-
-		targ va00
-
-*decrease hotness
-
-		chem 153 -.25
-
-*increase coolness
-
-		chem 152 .15
-
-*Water
-
-		chem 33 .25
-
-		slow
-
-		targ ownr
-
-	endi
-
-	frat 3
-
-	sndc "wat1"
-
-	anim [ 0 1 2 3 4 5 6  7 6 5 4 3 2 1 0]
-
-endm
-
-*activate 2
-
-scrp 2 25 50200 2
-
-	doif crea from eq 1
-
-		seta va00 from
-
-		snde "drnk"
-
-		inst
-
-		targ va00
-
-*decrease hotness
-
-		chem 153 -.25
-
-*increase coolness
-
-		chem 152 .15
-
-*Water
-
-		chem 33 .25
-
-		slow
-
-		targ ownr
-
-	endi
-
-	frat 3
-
-	sndc "wat1"
-
-	anim [ 0 1 2 3 4 5 6  7 6 5 4 3 2 1 0]
-
-endm
-
-*hit
-
-scrp 2 25 50200 3
-
-	doif crea from eq 1
-
-		seta va00 from
-
-		snde "drnk"
-
-		inst
-
-		targ va00
-
-*decrease hotness
-
-		chem 153 -.25
-
-*increase coolness
-
-		chem 152 .15
-
-*Water
-
-		chem 33 .25
-
-		slow
-
-		targ ownr
-
-	endi
-
-	frat 3
-
-	sndc "wat1"
-
-	anim [ 0 1 2 3 4 5 6  7 6 5 4 3 2 1 0]
-
-endm
-
-*pickup
+*pickup (used to mirror the fountain whichever way the pointer seems to be moving, taken from the tomato gun)
 
 scrp 2 25 50200 4
 
+	tick 15
+
+*stop it animating immediately if picked up
+	anim [0]
+
 endm
+
 
 *drop
 
 scrp 2 25 50200 5
 
-endm
-
-*catchall
-
-scrp 2 25 50200 255
+	tick 0
 
 endm
 
+
+
+*timer
+
+scrp 2 25 50200 9
+
+	doif carr eq null
+
+		tick 0
+
+	endi
+
+	targ pntr
+
+	setv va00 velx
+
+	targ ownr
+
+	doif velx gt 0
+
+		mira 0
+
+	elif velx lt 0
+
+		mira 1
+
+	endi
+
+endm
 
 
 

@@ -1,6 +1,9 @@
-*C2 hand Checker: 1 18 50200
-*2 1 50200 - Hand?
-*2 1 50201 - Hand  fade controller?
+*C2 Hand Checker - 1 18 50200
+*2 1 50200 - C2 Hand
+*2 1 50201 - Red NO Circle (temporary object)
+
+*NeoDement fixed this to not show a Red NO Circle when dropping an object with collisions disabled outside the room system.
+
 
 targ pntr
 
@@ -29,6 +32,10 @@ setv ov00 gmap posx posy
 setv ov05 gmap 12953 47957
 
 tick 1
+
+
+
+*Timer Script
 
 scrp 1 18 50200 9
 
@@ -83,6 +90,8 @@ scrp 1 18 50200 9
 endm
 
 
+
+*Switch to C2 Pointer Script
 
 scrp 1 18 50200 200
 
@@ -149,6 +158,7 @@ scrp 1 18 50200 200
 endm
 
 
+*Switch to DS Pointer Script
 
 scrp 1 18 50200 201
 
@@ -201,6 +211,8 @@ scrp 1 18 50200 201
 endm
 
 
+*Timer Script
+
 scrp 2 1 50200 9
 
 	inst
@@ -220,6 +232,7 @@ scrp 2 1 50200 9
 endm
 
 
+*Raw Mouse Down Script
 
 scrp 2 1 50200 76
 
@@ -235,9 +248,20 @@ scrp 2 1 50200 76
 
 	setv va02 post
 
-	doif _p1_ eq 2 and grap posx posy eq -1 and held ne null
+*target the held object (if it exists) and remember the ATTR
+	doif held ne null
+		targ held
+		setv va03 attr
+	else
+		setv va03 -1
+	endi
+
+*if the right mouse button was pressed, and the room under the pointer was out of bounds, and the held object had an ATTR greater than 64 (Suffer Collisions)
+	doif _p1_ eq 2 and grap posx posy eq -1 and va03 > 64
 
 		sndc "excl"
+
+*Create red NO circle
 
 		new: simp 2 1 50201 "moe_C2toDS_hand" 0 17 va00
 
@@ -250,6 +274,10 @@ scrp 2 1 50200 76
 	endi
 
 endm
+
+
+
+*Creation Script (red NO circle)
 
 scrp 2 1 50201 10
 
@@ -265,6 +293,9 @@ scrp 2 1 50201 10
 
 endm
 
+
+
+*Get Rid
 
 rscr
 
@@ -300,5 +331,9 @@ enum 2 1 50201
 next
 
 
-
-
+scrx 1 18 50200 9
+scrx 1 18 50200 200
+scrx 1 18 50200 201
+scrx 2 1 50200 9
+scrx 2 1 50200 76
+scrx 2 1 50201 10

@@ -2,6 +2,12 @@
 
 * Aiko made this invisible to creatures for now 
 
+* NeoDement:
+* - Fixed heli being categorized as a Teleporter
+* - Changed heli to pick up creatures as it takes flight instead of requiring a seperate press on the body of the vehicle.
+* - Added some chemical reductions to make it fun for creatures to ride
+* - Fixed an issue where the heli ACCG would end up way too high after flying once 
+
 
 new: vhcl 3 2 50206 "moe_C2toDS_sola" 14 2 1000
 
@@ -15,86 +21,89 @@ mvsf 6480 47986
 scrp 3 2 50206 10
 
 
-pat: butt 1 "moe_C2toDS_sola" 32 2 180 48 0 [] 1000 0
+*override the category to Vehicle instead of Teleporter
+	cato 35
 
 
+	pat: butt 1 "moe_C2toDS_sola" 32 2 180 48 0 [] 1000 0
 
-pat: butt 2 "moe_C2toDS_sola" 34 2 257 175 0 [] 1001 0
+	pat: butt 2 "moe_C2toDS_sola" 34 2 257 175 0 [] 1001 0
 
-
-
-pat: butt 3 "moe_C2toDS_sola" 36 2 102 176 0 [] 1002 0
+	pat: butt 3 "moe_C2toDS_sola" 36 2 102 176 0 [] 1002 0
 
 
 *C2 framerate
 
-frat 2
-part 1
-frat 2
-part 2
-frat 2
-part 3
-frat 2
-part 0
+	frat 2
+	part 1
+	frat 2
+	part 2
+	frat 2
+	part 3
+	frat 2
+	part 0
 
 
 *pat: dull 4 "moe_C2toDS_sola" 0 0 0 0
 
 
+	cabw 10
 
-cabw 10
+	cabp -10
 
-cabp -10
-
-
-
-cabn 125 75 270 200
+	cabn 125 75 270 200
 
 
-
+*Carryable + Mouseable + Activateable + Invisible + Suffer Collisions + Suffer Physics
 	attr 215
 
 	elas 0
 
-	accg 2
 
-*perm 51 stops it falling through the bridge and volcano
+*TODO: perm 51 stops it falling through the bridge and volcano
 *... but it also stops it spawning, so I guess we gotta edit the map...
 *	perm 51
 
 	perm 50
 
+*accg value (default)
+	setv ov05 2
+	accg ov05
+
+*accg value (during landing? not sure)
 	setv ov03 0
 
-	setv ov04 19.5
+*tick value
+	setv ov04 20
 
 endm
 
 
 
-*activate 1
+**activate 1 - puts any nearby creatures in the cabin
+**(commented out for now, it wasn't obvious this was the way to get creatures into the cabin)
+**(there was also no way to eject creatures without taking flight and landing it)
+*
+*scrp 3 2 50206 1
+*
+**doif from ne pntr
+*
+*	gpas 4 0 0 0
+*
+**endi
+*
+*endm
 
-scrp 3 2 50206 1
-
-*doif from ne pntr
-
-	gpas 4 0 0 0
-
-*endi
-
-endm
 
 
 
-
-*timer
+*timer - seems to run while the helicopter is flying left or right (not turning) and once just before touching the floor while landing.
 
 scrp 3 2 50206 9
 
 
-
+*if we are currently in flight
 	doif ov01 eq 1
-
 
 
 		doif obst _up_ gt 100
@@ -120,6 +129,20 @@ scrp 3 2 50206 9
 			setv velx 3
 
 		endi
+
+
+		epas 4 0 0
+
+*reduce boredom a bit. heli rides are fun.
+			chem 159 -0.1
+*reduce anger a bit. heli rides are relaxing.
+			chem 160 -0.1
+*reduce crowded a bit. creatures might be stuck in this in close proximity for a while.
+			chem 157 -0.1
+
+		next
+
+		targ ownr
 
 	else
 
@@ -157,8 +180,11 @@ scrp 3 2 50206 1000
 
 		untl obst down lt 10
 
-		accg 10
+*reset ACCG to default value
+		accg ov05
 
+*ACCG was previously being set really high here and never returning to the correct value?
+*		accg 10
 
 
 		doif ov00 eq 0
@@ -209,6 +235,9 @@ scrp 3 2 50206 1001
 			setv ov01 1
 
 *if you're on the ground...
+
+*grab nearby creatures (touching cabin)
+			gpas 4 0 0 1
 
 			anim [2 3 4 5]
 
@@ -273,6 +302,9 @@ scrp 3 2 50206 1001
 			setv ov01 1
 
 *if you're on the ground...
+
+*grab nearby creatures (touching cabin)
+			gpas 4 0 0 1
 
 			anim [6 7 8 9]
 
@@ -370,6 +402,9 @@ scrp 3 2 50206 1002
 
 *if you're on the ground...
 
+*grab nearby creatures (touching cabin)
+			gpas 4 0 0 1
+
 			anim [2 3 4 5]
 
 			over
@@ -426,6 +461,9 @@ scrp 3 2 50206 1002
 			setv ov01 1
 
 *if you're on the ground...
+
+*grab nearby creatures (touching cabin)
+			gpas 4 0 0 1
 
 			anim [6 7 8 9]
 

@@ -1,5 +1,7 @@
 * 2 21 50200 - Ball
 
+*NeoDement fixed the hand being able to activate balls that weren't ready, causing the hand slap anim to play but applying no velocity to the balls. 
+
 new: simp 2 21 50200 "moe_C2toDS_toys" 8 0 5000
 
 mvsf 7190 48340
@@ -38,6 +40,14 @@ endm
 * Script 1 - activate 1
 
 scrp 2 21 50200 1
+
+*animate hand slap anim
+	doif from eq pntr
+		targ from
+		anim [4 4 5 5 0]
+		targ ownr
+		lock
+	endi
 
 	stim writ from 97 1
 
@@ -213,17 +223,7 @@ endm
 
 
 
-scrp 2 21 50200 101
 
-	targ pntr
-
-	anim [4 4 5 5]
-
-	over
-
-	pose 0
-
-endm
 
 rscr
 
@@ -232,3 +232,9 @@ enum 2 21 50200
 	kill targ
 
 next
+
+scrx 2 21 50200 10
+scrx 2 21 50200 1
+scrx 2 21 50200 2
+scrx 2 21 50200 3
+scrx 2 21 50200 6

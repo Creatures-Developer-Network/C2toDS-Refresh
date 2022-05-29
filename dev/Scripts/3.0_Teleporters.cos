@@ -2,11 +2,19 @@
 * 3 2 50202 - All other Teleporters
 * 1 17 50201 - Teleporter Beam Animation
 
-*Teleporter - Norn Burrow
+
+*NeoDement made the main teleporter in the Incubator Room pickupable, to match it's counterpart in the Workshop
+
+*todo: sometimes big creatures like boney grendels get stuck in the ceiling when using the main teleporter
+*or sometimes even just regular norns fall through the floor in the DS Workshop :(
+
+
+*Teleporter - Norn Burrow (MAIN)
 
 new: simp 3 2 50200 "moe_C2toDS_tele" 8 0 200
 
 mvto 7554 48288
+
 
 *mvto 4733 9005
 
@@ -93,11 +101,24 @@ scrp 3 2 50200 10
 
 		slow
 
+*Target C2 side of DS teleporter and animate it too
+
 		targ ownr
 
-		attr 4
+*		attr 4
+
+*		bhvr 3
+
+
+*make it pickupable
+		attr 199
+
+		elas 0
+
+		accg 10
 
 		bhvr 3
+
 
 		frat 2
 
@@ -124,9 +145,7 @@ endm
 scrp 3 2 50200 1
 
 	inst
-	doif crea from eq 1
-		stim writ from 27 1
-	endi
+	stim writ from 27 1
 
 
 	anim [ 4 5 6 7]
@@ -163,11 +182,16 @@ scrp 3 2 50200 1
 
 *wait 10
 
+
 	targ ownr
 
 	slow
 
 	anim [ 6 5 4 3 2 1 0]
+
+
+
+
 
 	over
 
@@ -265,7 +289,7 @@ scrp 3 2 50200 1
 
 					subv va00 va08
 
-					*subv va01 va09
+*subv va01 va09
 
 
 
@@ -428,7 +452,7 @@ scrp 3 2 50200 2
 
 					subv va00 va08
 
-					*subv va01 va09
+*subv va01 va09
 
 
 
@@ -601,11 +625,11 @@ scrp 3 2 50202 1001
 		endi
 
 	untl targ ne ownr
-	
+
 	doif targ eq null
-	
+
 		stop
-	
+
 	endi
 
 	setv va00 posl
@@ -696,7 +720,7 @@ scrp 3 2 50202 1001
 
 					subv va00 va08
 
-					*subv va01 va09
+*subv va01 va09
 
 
 
@@ -783,14 +807,14 @@ scrp 3 2 50202 1002
 		rtar 3 2 50202
 
 	untl targ ne ownr
-	
+
 	doif targ eq null
-	
+
 		stop
-	
+
 	endi
 
-	
+
 	setv va00 posl
 
 	setv va01 posb
@@ -881,7 +905,7 @@ scrp 3 2 50202 1002
 
 					subv va00 va08
 
-					*subv va01 va09
+*subv va01 va09
 
 
 
@@ -1012,4 +1036,3 @@ enum 3 2 50202
 next
 
 scrx 3 2 50202 10
-

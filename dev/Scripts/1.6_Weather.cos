@@ -1246,6 +1246,8 @@ scrp 2 19 50200 1005
 
 *Dust Devil*
 
+	inst
+
 	setv va01 posx
 
 	setv va02 posb

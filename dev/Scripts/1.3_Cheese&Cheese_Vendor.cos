@@ -3,6 +3,9 @@
 *2 23 50208 - Cheese Machine
 
 
+*NeoDement sped the machine up a bit and fixed it so the fake cheese and the real cheese are never on screen at the same time.
+
+
 * Associate the cheese vendor agent with fat smell?
 cacl 2 23 50208 8
 
@@ -62,6 +65,8 @@ accg 5
 
 perm 51
 
+frat 8
+
 mvsf 6415 48658
 
 pat: dull 1 "moe_C2toDS_cheese" 9 25 0 0
@@ -70,7 +75,10 @@ pat: dull 2 "moe_C2toDS_cheese" 27 70 15 0
 
 part 1
 
-frat 4
+frat 10
+
+*frat 16 is completely accurate to C2, but it just feels a bit too slow in the DS engine.
+*frat 16
 
 anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 255]
 
@@ -215,23 +223,27 @@ endm
 *Cheese Vendor
 
 scrp 2 23 50208 1
-	
+
 	inst
-	doif crea from eq 1
-		stim writ from 90 1
-	endi
-	
+	stim writ from 90 1
+
 	lock
 
 	sndl "cmac"
 
-	frat 10
-
-	anim [ 0 1 2 3 4 5 6 7 8 8]
+	anim [0 1 2 3 4 5 6 7]
 
 	over
 
+*do it like this so the fake cheese and the real cheese are never on screen at the same time
+	pose 8
 
+	wait 4
+
+	pose 7
+
+
+	inst
 
 *Output Signal
 
@@ -240,6 +252,8 @@ scrp 2 23 50208 1
 
 
 	stpc
+
+	inst
 
 	setv va00 posl
 
@@ -251,46 +265,51 @@ scrp 2 23 50208 1
 
 	mvsf va00 va01
 
-	velo rand -5 0 -10
+	velo rand -5 -2 -10
 
 	targ ownr
 
-	anim [7 6 5 4 3 2 1 0 ]
+	anim [7 6 5 4]
 
 	over
 
-
-
+*unlock before the cheese goes back down anim finishes playing, so it feels less boring
 	unlk
+
+	anim [3 2 1 0]
+
+
+
+
 
 endm
 
 *pull
 scrp 2 23 50208 2
-	
+
 	inst
 	doif crea from eq 1
 		stim writ from 90 1
 	endi
-	
+
 	mesg writ ownr 0
-	
+
 endm
 
 *hit
 scrp 2 23 50208 3
-	
+
 	inst
 	doif crea from eq 1
 		stim writ from 92 1
 	endi
-	
+
 	mesg writ ownr 0
 * should we have a bang sound effect here?
 
 endm
 
-rscr 
+rscr
 
 
 enum 2 11 50202

@@ -80,6 +80,16 @@ door grap 1197 47982 grap 1197 48146 100
 
 
 
+
+*music room small shelf perm fix (required for movable drums to spawn)
+door grap 3244 49098 grap 3244 49142 100
+
+*music room small shelf perm fix (world wrap copy)
+door grap 11595 49098 grap 11595 49142 100
+
+
+
+
 *right volcano perm fix - let creatures pass through!
 door grap 10031 47820 grap 10031 47977 100
 
