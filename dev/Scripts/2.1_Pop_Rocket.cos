@@ -1,5 +1,5 @@
 * 2 21 50215 - Pop Rocket
-* 1 23 50215 - Pop Rocket Pop (this classifier is also used for a 1 pixel big collision tester object)
+* 1 23 50215 - 1 pixel big collision tester object (this classifier is also used for the Pop Rocket Pop)
 
 * Converted by NeoDement, has a few nice features the C2 one doesn't :)
 
@@ -330,7 +330,7 @@ scrp 2 21 50215 1000
 
 *because of a caos limitation, we create a 1x1 object and use it to test what room is Above, Below, to the Right and to the Left
 *of our object by positioning it in each corner of the real object in sequence
-	new: simp 1 23 50215 "moe_C2toDS_PopRocket" 1 23 9999
+	new: simp 1 23 50215 "moe_C2toDS_CollisionTester" 1 0 9999
 
 *after 10 ticks, automatically delete yourself (in case something later in the perm check script fails)
 	tick 10
@@ -426,8 +426,8 @@ scrp 2 21 50215 1000
 
 **VARIABLES IN USE (using first coordinate pair as an example)
 
-*va01 - TOP LEFT COORDINATE OF ROCKET
-*va02 - TOP RIGHT COORDINATE OF ROCKET
+*va01 - TOP LEFT COORDINATE OF OBJECT
+*va02 - TOP RIGHT COORDINATE OF OBJECT
 
 *va05 - room to the RIGHT of the topleft coord.
 *va15 - room to the LEFT of the topright coord.
