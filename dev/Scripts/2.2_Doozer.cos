@@ -1,10 +1,11 @@
 * 1 15 50219 - Doozer
-* 1 23 50215 - Pop Rocket Pop (this classifier is also used for a 1 pixel big collision tester object)
-*todo: REMOVE POP ROCKET REFERENCES!!!!
+* 1 23 50215 - 1 pixel big collision tester object (this classifier is also used for the Pop Rocket Pop)
 
 
 
-* Initial version by NeoDement based off Moe's Devil Doozer from https://eemfoo.org/archive/downloads/4c9f
+* Initial version by NeoDement
+
+* Some script based off Moe's Devil Doozer from https://eemfoo.org/archive/downloads/4c9f
 * Some script also based off Clucky's C12DS Learning Computer from https://eemfoo.org/archive/downloads/de80
 
 
@@ -23,41 +24,34 @@
 
 
 
-*todo: make sure 5 is the correct number of doozers
-*todo: the way he bumps into the far right slightly diagonal wall of the volcano sucks - could maybe detect if X position hasn't changed by more than (sprite width/2) every tick and if it doesn't change for N ticks in a row, change direction because you got stuck. maybe disable random dir change too.
-*todo: perm 50 and 51 should probably be OVs.
-*todo: fix bad sprites on that talking one direction
-*todo: sprites need to go on github as well
-
 
 *make 5 doozers
 
 
-new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 500 1500
+new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 4500 5500
 
 *in the biome
 mvsf 3963 49299
 
-new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 500 1500
+new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 4500 5500
 
 *near the incubator room sub bay
 mvsf 8312 48433
 
-new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 500 1500
+new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 4500 5500
 
 *at the bottom of the incubator room lift shaft 
 mvsf 7882 48718
 
-new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 500 1500
+new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 4500 5500
 
 *to the left of the volcano door
 mvsf 8584 49787
 
-new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 500 1500
+new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 4500 5500
 
 *in the swamp
 mvsf 7479 49820
-
 
 
 
@@ -93,9 +87,19 @@ scrp 2 15 50219 10
 *Y velocity per step
 	setv ov07 6
 
+*perm is adjusted to 50 later in the script so doozers can jump through thin platforms if stuck underwater,
+*then reset back to 51 in the timer script so they can stand on the platform they just jumped through.
 	perm 51
 
-	tick 12
+*tick rate
+	setv ov00 12
+
+*tick rate / 3 ( used for applying walk velocity gradually between ticks)
+	setv ov01 ov00
+	divv ov01 3
+
+
+	tick ov00
 
 *easier to click if we use bounding box instead of pixel perfect
 	tran 0 -1
@@ -103,6 +107,14 @@ scrp 2 15 50219 10
 *random starting direction
 	setv ov02 rand 0 1
 
+
+*variables used to detect when a doozer is stuck in a corner:
+
+*what position were you at least time the timer ticked?
+	setv ov03 0
+
+*how long have you been stuck in this same spot?
+	setv ov04 0
 
 endm
 
@@ -142,6 +154,8 @@ scrp 2 15 50219 1
 endm
 
 
+
+
 *Activate 2 Script
 
 scrp 2 15 50219 2
@@ -166,6 +180,11 @@ scrp 2 15 50219 1001
 
 	lock
 
+	setv velx 0
+
+	wait 2
+
+	inst
 
 *teaching words. a doozer teaches nouns like "food" or "grendel"
 
@@ -256,7 +275,7 @@ scrp 2 15 50219 1001
 
 	targ ownr
 
-*	wait 10
+	wait 10
 
 *now actually say the hidden command so that norns can hear it, repeat it, learn from it
 *	ordr shou va40
@@ -264,14 +283,10 @@ scrp 2 15 50219 1001
 *doing it based on norns that can see it so that RNGE is respected and they dont hear through walls.
 	ordr sign va40
 
-*let anim finish
-	over
-
 *reset timer for consistency
 	tick 0
 	wait 1
-*todo: tick needs to be an OV...
-	tick 12
+	tick ov00
 
 endm
 
@@ -334,12 +349,7 @@ scrp 2 15 50219 3
 *make a smack sound if a creature hit you
 	snde "spnk"
 
-
 *	wait 7
-
-
-*	east is 2 and right
-*	west is 3 and left
 
 	inst
 
@@ -347,12 +357,14 @@ scrp 2 15 50219 3
 	snde "doz3"
 	setv vely -17
 
-
-
 *if you were hit by a creature, store their direction
 	doif crea from = 1
 		targ from
+
+*		dirn 2 - right
+*		dirn 3 - left
 		setv va01 dirn
+
 	else
 		setv va01 -1
 	endi
@@ -361,8 +373,6 @@ scrp 2 15 50219 3
 
 *norn was facing right
 	doif va01 = 2
-
-*TODO: WHY DOESNT THIS WORK? THE DOOZER SEEMS TO JUST GET BATTED UPWARDS
 
 *apply random positive X velocity
 		setv velx rand 14 17
@@ -384,16 +394,11 @@ scrp 2 15 50219 3
 
 	endi
 
-**set direction of travel to match new random velocity
-*	doif va00 < 0
-*		setv ov02 0
-*	elif va00 > 0
-*		setv ov02 1
-*	endi
-
-
 
 endm
+
+
+
 
 
 
@@ -401,6 +406,7 @@ endm
 *Timer Script
 
 scrp 2 15 50219 9
+
 
 **rare chance for a doozer to teach a word without interaction
 *	setv va02 rand 0 100
@@ -439,10 +445,6 @@ scrp 2 15 50219 9
 			setv ov02 1
 		endi
 
-*debug jump right
-*		setv velx 20
-*		setv ov02 1
-
 	else
 
 
@@ -455,88 +457,17 @@ scrp 2 15 50219 9
 	endi
 
 
+
+	inst
+
+
 	doif perm = 50
 *try and set perm to 51 if it's not inside a wall
 		call 1000 51 0
 	endi
 
 
-*MOVE:
 
-*5% chance to roll the chance below
-	setv va03 rand 0 100
-
-	doif va03 gt 95
-
-*50% chance to change direction
-		setv ov02 rand 0 1
-
-	endi
-
-
-
-
-
-
-*left
-	doif ov02 eq 0
-
-		anim [0 1 2 3 4 5]
-
-*
-** debug - say my Y velocity
-*		sets va01 vtos vely
-*		rtar 1 2 10
-*		mesg wrt+ targ 126 va01 ownr 0
-*
-*		targ ownr
-
-
-*if they're falling, no velocity
-		doif fall = 0
-			subv vely ov07
-
-			subv velx ov06
-
-			wait 4
-
-			subv vely ov07
-
-			subv velx ov06
-
-			wait 4
-
-			subv vely ov07
-
-			subv velx ov06
-		endi
-
-*right
-	elif ov02 eq 1
-
-		anim [6 7 8 9 10 11]
-
-*if they're falling, no velocity
-		doif fall = 0
-			subv vely ov07
-
-			addv velx ov06
-
-			wait 4
-
-			subv vely ov07
-
-			addv velx ov06
-
-			wait 4
-
-			subv vely ov07
-
-			addv velx ov06
-		endi
-	endi
-
-*endi
 
 
 
@@ -556,6 +487,114 @@ scrp 2 15 50219 9
 	endi
 
 
+
+
+*UNSTUCK CODE:
+
+*if he bumps into the far right slightly diagonal wall of the volcano he gets stuck - so we detect if X position hasn't changed by more than 5
+*every timer tick and if it doesn't change for N ticks in a row, change direction because you got stuck.
+
+
+*ov03 - what position was this doozer at last frame?
+*va10 - what position is this doozer at this frame? +5
+*va11 - what position is this doozer at this frame? -5
+
+
+	setv va10 posx
+	setv va11 va10
+
+	addv va10 5
+	subv va11 5
+
+*for example:
+*ov03 = 0
+*va10 = 5
+*va11 = -5
+*0 < 5 and 0 > 5 is true
+
+	doif ov03 < va10 and ov03 > va11 and movs = 0
+*add 1 to how long we've been stuck counter
+		addv ov04 1
+	else
+*we moved! reset stuck counter
+		setv ov04 0
+	endi
+
+	setv ov03 posx
+
+
+*if you haven't moved much the last N ticks
+	doif ov04 > 1
+
+		doif ov02 = 0
+			setv ov02 1
+		else
+			setv ov02 0
+		endi
+
+*reset ov04 for next time we have trouble with a wall
+		setv ov04 0
+
+	endi
+
+
+
+
+
+
+
+
+*MOVE:
+
+
+*LEFT
+	doif ov02 eq 0
+
+		anim [0 1 2 3 4 5]
+
+*if they're falling, no velocity
+		doif fall = 0
+			subv vely ov07
+
+			subv velx ov06
+
+			wait ov01
+
+			subv vely ov07
+
+			subv velx ov06
+
+			wait ov01
+
+			subv vely ov07
+
+			subv velx ov06
+		endi
+
+*RIGHT
+	elif ov02 eq 1
+
+		anim [6 7 8 9 10 11]
+
+*if they're falling, no velocity
+		doif fall = 0
+			subv vely ov07
+
+			addv velx ov06
+
+			wait ov01
+
+			subv vely ov07
+
+			addv velx ov06
+
+			wait ov01
+
+			subv vely ov07
+
+			addv velx ov06
+		endi
+	endi
 
 endm
 
@@ -592,8 +631,7 @@ scrp 2 15 50219 1000
 
 *because of a caos limitation, we create a 1x1 object and use it to test what room is Above, Below, to the Right and to the Left
 *of our object by positioning it in each corner of the real object in sequence
-	new: simp 1 23 50215 "moe_C2toDS_PopRocket" 1 23 9999
-*todo: REMOVE POP ROCKET REFERENCES!!!!
+	new: simp 1 23 50215 "moe_C2toDS_CollisionTester" 1 0 9999
 
 *after 10 ticks, automatically delete yourself (in case something later in the perm check script fails)
 	tick 10
@@ -689,8 +727,8 @@ scrp 2 15 50219 1000
 
 **VARIABLES IN USE (using first coordinate pair as an example)
 
-*va01 - TOP LEFT COORDINATE OF ROCKET
-*va02 - TOP RIGHT COORDINATE OF ROCKET
+*va01 - TOP LEFT COORDINATE OF OBJECT
+*va02 - TOP RIGHT COORDINATE OF OBJECT
 
 *va05 - room to the RIGHT of the topleft coord.
 *va15 - room to the LEFT of the topright coord.
