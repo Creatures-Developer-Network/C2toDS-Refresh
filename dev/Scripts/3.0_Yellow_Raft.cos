@@ -174,7 +174,7 @@ scrp 3 1 50203 1001
 			enum 3 13 50203
 				doif ov00 eq 1
 					doif ooww ov01 eq 3
-
+					tick 0
 * spas takes some time to work, so loop
 * and keep checking if you got a creature
 * before continuing
@@ -257,7 +257,7 @@ scrp 3 1 50203 1001
 			enum 3 13 50203
 				doif ov00 eq 0
 					doif ooww ov01 eq 3
-
+tick 0
 * spas takes some time to work, so loop
 * and keep checking if you got a creature
 * before continuing
