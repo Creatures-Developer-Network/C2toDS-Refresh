@@ -23,11 +23,11 @@
 
 
 
-*todo: conform to development standards. maybe eating a doozer stims the norn that they ate a critter a tiny bit (.25), but the doozer shrieks and jumps away.
 *todo: make sure 5 is the correct number of doozers
 *todo: the way he bumps into the far right slightly diagonal wall of the volcano sucks - could maybe detect if X position hasn't changed by more than (sprite width/2) every tick and if it doesn't change for N ticks in a row, change direction because you got stuck. maybe disable random dir change too.
 *todo: perm 50 and 51 should probably be OVs.
-*todo: i think i like random direction better when talking than just whatever you're facing.
+*todo: fix bad sprites on that talking one direction
+*todo: sprites need to go on github as well
 
 
 *make 5 doozers
@@ -72,7 +72,7 @@ scrp 2 15 50219 10
 *range is a bit lower than default (500)
 	rnge 400
 
-*physics n stuff
+*physics
 	accg 3
 
 	aero 2
@@ -81,12 +81,13 @@ scrp 2 15 50219 10
 
 	fric 50
 
+*Carryable + Mouseable + Activateable + Suffer Collisions + Suffer Physics
 	attr 199
 
-	bhvr 1
+*Activate 1 + Activate 2 + Hit + Eat + Pick Up
+	bhvr 59
 
 *X velocity per step
-*	setv ov06 5
 	setv ov06 3
 
 *Y velocity per step
@@ -104,6 +105,8 @@ scrp 2 15 50219 10
 
 
 endm
+
+
 
 
 *Collision Script
@@ -129,29 +132,49 @@ endm
 
 scrp 2 15 50219 1
 
+	inst
+
 *let the norn know they played with a critter
 	stim writ from 86 1
 
+	call 1001 0 0
+
+endm
+
+
+*Activate 2 Script
+
+scrp 2 15 50219 2
+
+	inst
+
+*let the norn know they played with a critter
+	stim writ from 86 1
+
+	call 1001 0 0
+
+
+endm
+
+
+
+
+
+*Talk Script (called by Activate 1 and 2)
+
+scrp 2 15 50219 1001
+
 	lock
-
-**todo: multiply anim length by number of characters in word string
-*	doif pose le 5
-*
-*		anim [12 13 14 12 13 14 12 13 14 12 13 14]
-*
-*	elif post gt 5
-*
-*		anim [15 16 17 15 16 17 15 16 17 15 16 17]
-*
-*	endi
-
 
 
 *teaching words. a doozer teaches nouns like "food" or "grendel"
 
 
 *what type of word is this? for constructing a functional ORDER SHOU string.
+
+*"perfect " means learn straight away, "learn " means learn gradually.
 	sets va03 "perfect noun "
+*	sets va03 "learn noun "
 
 *what array name are we looking for?
 	sets va04 "Agent Categories"
@@ -178,8 +201,12 @@ scrp 2 15 50219 1
 	endi
 
 
+*randomly choose a direction before talking
+	setv va00 rand 0 1
+
 *facing left
-	doif pose le 5
+*	doif pose le 5
+	doif va00 = 0
 
 *construct anim string based on word length
 		sets va60 "12 13 14 "
@@ -188,8 +215,11 @@ scrp 2 15 50219 1
 			adds va60 "12 13 14 "
 		repe
 
+		setv ov02 0
+
 *facing right
-	elif post gt 5
+*	elif post gt 5
+	else
 
 *construct anim string based on word length
 		sets va60 "15 16 17 "
@@ -197,6 +227,8 @@ scrp 2 15 50219 1
 		reps va61
 			adds va60 "15 16 17 "
 		repe
+
+		setv ov02 1
 
 	endi
 
@@ -224,13 +256,16 @@ scrp 2 15 50219 1
 
 	targ ownr
 
-	wait 10
+*	wait 10
 
 *now actually say the hidden command so that norns can hear it, repeat it, learn from it
 *	ordr shou va40
 
 *doing it based on norns that can see it so that RNGE is respected and they dont hear through walls.
 	ordr sign va40
+
+*let anim finish
+	over
 
 *reset timer for consistency
 	tick 0
@@ -239,6 +274,127 @@ scrp 2 15 50219 1
 	tick 12
 
 endm
+
+
+
+
+*Eat Script - Creatures "take a bite" of the Doozer which makes them panic and jump away, stimming the creature with some "Ate a critter/animal"
+
+scrp 2 15 50219 12
+
+	lock
+
+*tell the norn they ate a critter... but only a little bit
+	stim writ from 80 .25
+
+*force it to be dropped if a creature is holding it
+	doif crea carr = 1
+		targ carr
+		drop
+		snde "chwp"
+		targ ownr
+	endi
+
+	wait 7
+
+
+*AAAAA DONT EAT ME!!!!
+	snde "doz3"
+	setv vely -35
+
+*apply random X velocity
+	loop
+		setv va00 rand -1 1
+	untl va00 <> 0
+	mulv va00 20
+	setv velx va00
+
+*set direction of travel to match new random velocity
+	doif va00 < 0
+		setv ov02 0
+	elif va00 > 0
+		setv ov02 1
+	endi
+
+
+
+endm
+
+
+
+*Hit Script
+
+scrp 2 15 50219 3
+
+	lock
+
+*let the norn know they hit a critter
+	stim writ from 87 1
+
+*make a smack sound if a creature hit you
+	snde "spnk"
+
+
+*	wait 7
+
+
+*	east is 2 and right
+*	west is 3 and left
+
+	inst
+
+*AAAAA DONT HIT ME!!!!
+	snde "doz3"
+	setv vely -17
+
+
+
+*if you were hit by a creature, store their direction
+	doif crea from = 1
+		targ from
+		setv va01 dirn
+	else
+		setv va01 -1
+	endi
+
+	targ ownr
+
+*norn was facing right
+	doif va01 = 2
+
+*TODO: WHY DOESNT THIS WORK? THE DOOZER SEEMS TO JUST GET BATTED UPWARDS
+
+*apply random positive X velocity
+		setv velx rand 14 17
+
+*norn was facing left
+	elif va01 = 3
+
+*apply random negative X velocity
+		setv velx rand -14 -17
+
+	else
+
+*apply random X velocity
+		loop
+			setv va00 rand -5 5
+		untl va00 <> 0
+
+		setv velx va00
+
+	endi
+
+**set direction of travel to match new random velocity
+*	doif va00 < 0
+*		setv ov02 0
+*	elif va00 > 0
+*		setv ov02 1
+*	endi
+
+
+
+endm
+
 
 
 
