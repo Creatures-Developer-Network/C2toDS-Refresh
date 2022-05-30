@@ -302,11 +302,13 @@ scrp 2 15 50219 12
 *tell the norn they ate a critter... but only a little bit
 	stim writ from 80 .25
 
+*make a bite sound	
+	snde "reat"
+
 *force it to be dropped if a creature is holding it
 	doif crea carr = 1
 		targ carr
 		drop
-		snde "chwp"
 		targ ownr
 	endi
 
@@ -346,7 +348,7 @@ scrp 2 15 50219 3
 *let the norn know they hit a critter
 	stim writ from 87 1
 
-*make a smack sound if a creature hit you
+*make a smack sound
 	snde "spnk"
 
 *	wait 7
