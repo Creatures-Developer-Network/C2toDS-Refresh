@@ -651,7 +651,7 @@ scrp 3 5 5000 9
 				sets va37 subs va30 va39 va38
 			else
 				sets va37 subs va30 va39 -1
-				setv va39 -99
+				setv va39 -999
 			endi
 			doif va37 ne ""
 		*vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
