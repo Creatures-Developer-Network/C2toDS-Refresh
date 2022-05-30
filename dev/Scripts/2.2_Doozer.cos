@@ -227,31 +227,17 @@ scrp 2 15 50219 1001
 *	doif pose le 5
 	doif va00 = 0
 
-*construct anim string based on word length
-		sets va60 "12 13 14 "
-
-		reps va61
-			adds va60 "12 13 14 "
-		repe
-
+		anim [12 13 14 255]
 		setv ov02 0
 
 *facing right
 *	elif post gt 5
 	else
 
-*construct anim string based on word length
-		sets va60 "15 16 17 "
-
-		reps va61
-			adds va60 "15 16 17 "
-		repe
-
+		anim [15 16 17 255]
 		setv ov02 1
 
 	endi
-
-	anms va60
 
 
 *construct string - "perfect noun N whatever"
