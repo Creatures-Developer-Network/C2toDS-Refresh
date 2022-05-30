@@ -1,0 +1,637 @@
+* 1 15 50219 - Doozer
+* 1 23 50215 - Pop Rocket Pop (this classifier is also used for a 1 pixel big collision tester object)
+*todo: REMOVE POP ROCKET REFERENCES!!!!
+
+
+
+* Initial version by NeoDement based off Moe's Devil Doozer from https://eemfoo.org/archive/downloads/4c9f
+* Some script also based off Clucky's C12DS Learning Computer from https://eemfoo.org/archive/downloads/de80
+
+
+
+
+***************
+**SOUNDS USED**
+***************
+* DOOZ - DOZ2 *
+* DOZ2 - DOOS *
+* DOZ3 - DOZ3 *
+***************
+* Sounds were renamed to match Mr nStuff's Doozer DS from https://eemfoo.org/archive/downloads/c18d
+* (to prevent either one having the wrong sounds if both are installed)
+
+
+
+
+*todo: conform to development standards. maybe eating a doozer stims the norn that they ate a critter a tiny bit (.25), but the doozer shrieks and jumps away.
+*todo: make sure 5 is the correct number of doozers
+*todo: the way he bumps into the far right slightly diagonal wall of the volcano sucks - could maybe detect if X position hasn't changed by more than (sprite width/2) every tick and if it doesn't change for N ticks in a row, change direction because you got stuck. maybe disable random dir change too.
+*todo: perm 50 and 51 should probably be OVs.
+*todo: i think i like random direction better when talking than just whatever you're facing.
+
+
+*make 5 doozers
+
+
+new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 500 1500
+
+*in the biome
+mvsf 3963 49299
+
+new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 500 1500
+
+*near the incubator room sub bay
+mvsf 8312 48433
+
+new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 500 1500
+
+*at the bottom of the incubator room lift shaft 
+mvsf 7882 48718
+
+new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 500 1500
+
+*to the left of the volcano door
+mvsf 8584 49787
+
+new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 500 1500
+
+*in the swamp
+mvsf 7479 49820
+
+
+
+
+
+*Constructor Script
+
+scrp 2 15 50219 10
+
+*C2 Framerate
+	frat 2
+
+*range is a bit lower than default (500)
+	rnge 400
+
+*physics n stuff
+	accg 3
+
+	aero 2
+
+	elas 25
+
+	fric 50
+
+	attr 199
+
+	bhvr 1
+
+*X velocity per step
+*	setv ov06 5
+	setv ov06 3
+
+*Y velocity per step
+	setv ov07 6
+
+	perm 51
+
+	tick 12
+
+*easier to click if we use bounding box instead of pixel perfect
+	tran 0 -1
+
+*random starting direction
+	setv ov02 rand 0 1
+
+
+endm
+
+
+*Collision Script
+
+scrp 2 15 50219 6
+
+	doif wall eq left
+
+		setv ov02 1
+
+	elif wall eq rght
+
+		setv ov02 0
+
+	endi
+
+endm
+
+
+
+
+*Activate 1 Script
+
+scrp 2 15 50219 1
+
+*let the norn know they played with a critter
+	stim writ from 86 1
+
+	lock
+
+**todo: multiply anim length by number of characters in word string
+*	doif pose le 5
+*
+*		anim [12 13 14 12 13 14 12 13 14 12 13 14]
+*
+*	elif post gt 5
+*
+*		anim [15 16 17 15 16 17 15 16 17 15 16 17]
+*
+*	endi
+
+
+
+*teaching words. a doozer teaches nouns like "food" or "grendel"
+
+
+*what type of word is this? for constructing a functional ORDER SHOU string.
+	sets va03 "perfect noun "
+
+*what array name are we looking for?
+	sets va04 "Agent Categories"
+
+*how many entries are there in "Agent Categories"?
+	setv va52 rean va04
+
+*grab a random entry from that array (-1 for base 0/1 reasons)
+	subv va52 1
+	setv va51 rand 0 va52
+
+*start to construct string, starting with the chosen noun
+	doif va51 <> 1
+		sets va50 read va04 va51
+*if va51 was 1, that means it was "hand", so get the hand name instead.
+	elif va51 = 1
+		sets va50 hand
+	endi
+
+*minimum anim length of 3
+	setv va61 strl va50
+	doif va61 < 3
+		setv va61 3
+	endi
+
+
+*facing left
+	doif pose le 5
+
+*construct anim string based on word length
+		sets va60 "12 13 14 "
+
+		reps va61
+			adds va60 "12 13 14 "
+		repe
+
+*facing right
+	elif post gt 5
+
+*construct anim string based on word length
+		sets va60 "15 16 17 "
+
+		reps va61
+			adds va60 "15 16 17 "
+		repe
+
+	endi
+
+	anms va60
+
+
+*construct string - "perfect noun N whatever"
+	sets va40 va03
+	adds va40 vtos va51
+	adds va40 " "
+	adds va40 va50
+
+*sound
+*	sndc "doz2"
+	snde "doz2"
+
+* send message to bubble factory to do visuals
+	rtar 1 2 10
+
+*	say what you mean
+	mesg wrt+ targ 126 va50 ownr 0
+
+*	show the hidden command
+*	mesg wrt+ targ 126 va40 ownr 0
+
+	targ ownr
+
+	wait 10
+
+*now actually say the hidden command so that norns can hear it, repeat it, learn from it
+*	ordr shou va40
+
+*doing it based on norns that can see it so that RNGE is respected and they dont hear through walls.
+	ordr sign va40
+
+*reset timer for consistency
+	tick 0
+	wait 1
+*todo: tick needs to be an OV...
+	tick 12
+
+endm
+
+
+
+*Timer Script
+
+scrp 2 15 50219 9
+
+**rare chance for a doozer to teach a word without interaction
+*	setv va02 rand 0 100
+*	doif va02 = 1
+*		call 1 0 0
+*	endi
+
+**reduce boredom of nearby creatures
+*	esee 4 0 0
+*		chem 156 -0.01
+*	next
+*
+*	targ ownr
+
+
+*we are UNDERWATER!!
+	doif rtyp room targ eq 8 or rtyp room targ eq 9
+
+*temporarily set PERM to 50 so doozer can jump out of water easier by going through the bottom of platforms
+		perm 50
+
+		snde "doz3"
+		setv vely -35
+
+*apply random X velocity
+		loop
+			setv va00 rand -1 1
+		untl va00 <> 0
+		mulv va00 20
+		setv velx va00
+
+*set direction of travel to match new random velocity
+		doif va00 < 0
+			setv ov02 0
+		elif va00 > 0
+			setv ov02 1
+		endi
+
+*debug jump right
+*		setv velx 20
+*		setv ov02 1
+
+	else
+
+
+
+*50% chance to make a sound every time it takes a step while not underwater
+		setv va00 rand 0 1
+		doif va00 = 1
+			sndc "dooz"
+		endi
+	endi
+
+
+	doif perm = 50
+*try and set perm to 51 if it's not inside a wall
+		call 1000 51 0
+	endi
+
+
+*MOVE:
+
+*5% chance to roll the chance below
+	setv va03 rand 0 100
+
+	doif va03 gt 95
+
+*50% chance to change direction
+		setv ov02 rand 0 1
+
+	endi
+
+
+
+
+
+
+*left
+	doif ov02 eq 0
+
+		anim [0 1 2 3 4 5]
+
+*
+** debug - say my Y velocity
+*		sets va01 vtos vely
+*		rtar 1 2 10
+*		mesg wrt+ targ 126 va01 ownr 0
+*
+*		targ ownr
+
+
+*if they're falling, no velocity
+		doif fall = 0
+			subv vely ov07
+
+			subv velx ov06
+
+			wait 4
+
+			subv vely ov07
+
+			subv velx ov06
+
+			wait 4
+
+			subv vely ov07
+
+			subv velx ov06
+		endi
+
+*right
+	elif ov02 eq 1
+
+		anim [6 7 8 9 10 11]
+
+*if they're falling, no velocity
+		doif fall = 0
+			subv vely ov07
+
+			addv velx ov06
+
+			wait 4
+
+			subv vely ov07
+
+			addv velx ov06
+
+			wait 4
+
+			subv vely ov07
+
+			addv velx ov06
+		endi
+	endi
+
+*endi
+
+
+
+*flip direction if you touched a wall recently
+	doif wall eq left
+
+		setv ov02 1
+
+	endi
+
+
+
+	doif wall eq rght
+
+		setv ov02 0
+
+	endi
+
+
+
+endm
+
+
+
+
+
+
+
+
+
+
+
+*CHECK IF ANY OF THE OBJECTS SPRITE BOUNDS INTERSECT WITH AN IMPERMEABLE WALL (according to _P1_)
+
+*if none of them do, set our perm to _P1_!
+
+
+* NOTE: this currently doesn't respect CORE and just uses the bounds of the image.
+* NOTE: this currently only checks the rooms immediately next to the object.
+* this means even if there are no impermeable walls between an object, if it has to search more than one room over to find, it will simply fail and not set the perm.
+
+scrp 2 15 50219 1000
+
+	inst
+
+*starts at 0, gets set to 1 if we find a nonpermeable wall.
+*if it's ever not 0 we don't set the perm.
+	setv va80 0
+
+*Loop Iteration Number
+	setv va00 0
+
+
+*because of a caos limitation, we create a 1x1 object and use it to test what room is Above, Below, to the Right and to the Left
+*of our object by positioning it in each corner of the real object in sequence
+	new: simp 1 23 50215 "moe_C2toDS_PopRocket" 1 23 9999
+*todo: REMOVE POP ROCKET REFERENCES!!!!
+
+*after 10 ticks, automatically delete yourself (in case something later in the perm check script fails)
+	tick 10
+	seta va99 targ
+
+
+*we need to check the topleft, topright, bottom right and bottomleft coords.
+	reps 4
+
+		inst
+
+		targ ownr
+
+*check loop iteration to see which pair of coords we're checking
+
+		doif va00 = 0
+
+*	(TOP LEFT X, Y)
+			setv va03 posl
+			setv va04 post
+
+*	(TOP RIGHT X, Y)
+			setv va13 posr
+			setv va14 post
+
+			setv va06 rght
+			setv va16 left
+
+		elif va00 = 1
+
+*	(TOP RIGHT X, Y)
+			setv va03 posr
+			setv va04 post
+
+*	(BOTTOM RIGHT X, Y)
+			setv va13 posr
+			setv va14 posb
+
+			setv va06 down
+			setv va16 _up_
+
+		elif va00 = 2
+
+*	(BOTTOM RIGHT X, Y)
+			setv va03 posr
+			setv va04 posb
+
+*	(BOTTOM LEFT X, Y)
+			setv va13 posl
+			setv va14 posb
+
+			setv va06 left
+			setv va16 rght
+
+		elif va00 = 3
+
+*	(BOTTOM LEFT X, Y)
+			setv va03 posl
+			setv va04 posb
+
+*	(TOP LEFT X, Y)
+			setv va13 posl
+			setv va14 post
+
+			setv va06 _up_
+			setv va16 down
+
+		endi
+
+
+*	get room ID of FIRST coord
+		setv va01 grap va03 va04
+*	get room ID of SECOND coord
+		setv va02 grap va13 va14
+
+*	target collision tester
+		targ va99
+
+*	get room ID of room across from FIRST coord. va06 is the direction to search.
+		mvto va03 va04
+		setv va05 grid targ va06
+
+*	get room ID of room across from SECOND coord. va16 is the direction to search.
+		mvto va13 va14
+		setv va15 grid targ va16
+
+
+
+*increment loop counter
+		addv va00 1
+
+
+
+**VARIABLES IN USE (using first coordinate pair as an example)
+
+*va01 - TOP LEFT COORDINATE OF ROCKET
+*va02 - TOP RIGHT COORDINATE OF ROCKET
+
+*va05 - room to the RIGHT of the topleft coord.
+*va15 - room to the LEFT of the topright coord.
+
+*va79 - IS IT UNSAFE TO RUN A DOOR CHECK?
+*va80 - IS IT UNSAFE TO CHANGE THE PERM?
+
+
+		setv va79 0
+
+*		first, check the 2 coords are actually in different rooms. if they're not, don't check anything else and return a pass.
+		doif va01 <> va02
+
+
+
+*			make sure all 4 coords are inside the room system
+			doif va01 <> -1 and va02 <> -1 and va05 <> -1 and va15 <> -1
+*				make sure both coords are in the rooms that are actually next to the object/connected to each other.
+*				(if you don't do this, the DOOR command will throw script errors when checking unconnected rooms.
+				doif va01 = va15 and va02 = va05
+*					setv va79 0			
+*				(there was a mismatch between room ID and expected room ID)
+				else
+					setv va79 1
+					setv va80 1
+				endi
+*			(at least one of the 4 coordinates was outside the room system)
+			else
+				setv va79 1
+				setv va80 1
+			endi
+
+
+*			if nothing ever set va79 to 1, then we can do a valid DOOR check!
+			doif va79 = 0
+*				if the PERM between the two rooms is less than or equal to _P1_, that means it's ok to change to the new perm (_P1_)
+				doif door va01 va02 <= _P1_
+					setv va80 1
+				endi
+			endi
+
+*		(the 2 coords were in the same room, everything above is skipped and we return a pass!)
+		else
+			setv va79 1
+		endi
+
+	repe
+
+
+
+*hooray, we can now safely change the perm
+	doif va80 = 0
+		targ ownr
+		perm _p1_
+	endi
+
+*kill the collision tester before it even gets a chance to render!
+	targ va99
+	kill targ
+	targ ownr
+
+
+endm
+
+
+
+
+*collision tester timer script
+*(automatically kills itself after a few ticks incase something goes wrong in the perm check script)
+
+scrp 1 23 50215 9
+	kill ownr
+endm
+
+
+
+
+
+
+
+
+
+
+*hell no we won't go
+
+rscr
+
+enum 2 15 50219
+
+	kill targ
+
+next
+
+scrx 2 21 50223 10
+scrx 2 21 50223 1
+scrx 2 15 50219 10
+scrx 2 15 50219 6
+scrx 2 15 50219 1
+scrx 2 15 50219 9
+scrx 2 21 50222 6
