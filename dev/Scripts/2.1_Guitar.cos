@@ -1,6 +1,9 @@
 * 2 21 50210 - Guitar
 
-new: simp 2 21 50210 "moe_C2toDS_guitar" 7 0 rand 1000 50000
+*NeoDement removed the random Plane, now it's always 3500. Previously it could be up to 50000.
+
+
+new: simp 2 21 50210 "moe_C2toDS_guitar" 7 0 3500
 
 mvsf 3400 49067
 
