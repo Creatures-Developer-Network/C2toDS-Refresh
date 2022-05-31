@@ -1,0 +1,428 @@
+* 3 8 50205 - Shee Laptop
+
+
+
+* Converted by NeoDement. Slight difference from the C2 one, the big flashing arrow will disappear forever the first time the laptop is used.
+
+* Some script based off Clucky's C12DS Learning Computer from https://eemfoo.org/archive/downloads/de80
+
+
+
+
+
+
+
+
+*make the laptop
+
+new: comp 3 8 50205 "moe_C2toDS_Laptop" 1 17 2500
+
+*to the left of the incubator room
+mvsf 6917 48390
+
+
+
+
+
+*Constructor Script
+
+scrp 3 8 50205 10
+
+*create main visible laptop (clickable part)
+	pat: butt 1 "moe_C2toDS_Laptop" 0 15 0 -37 1 [] 1001 1
+
+*create flashing arrow
+	pat: dull 2 "moe_C2toDS_Laptop" 15 50 -77 1
+
+
+*C2 Framerate
+	part 1
+	frat 2
+
+*animate flashing arrow
+	part 2
+	frat 6
+	anim [0 1 255]
+
+*range is a bit lower than default (500)
+	rnge 400
+
+*physics
+	accg 3
+
+	aero 2
+
+	elas 25
+
+	fric 50
+
+*Carryable + Mouseable + Suffer Collisions + Suffer Physics
+	attr 195
+
+*Activate 1 + Activate 2 + Hit + Pick Up
+	bhvr 43
+
+	perm 51
+
+*can't click part 0 unless we use bounding box instead of pixel perfect
+	tran 0 -1
+
+	puhl -1 35 14
+
+*smells like a gadget
+	emit 18 .25
+
+endm
+
+
+
+
+*Activate 1 Script (creatures only)
+
+scrp 3 8 50205 1
+
+	inst
+
+*stim norn with 90 - Activate machine
+	stim writ from 90 1
+
+	call 1001 0 0
+
+endm
+
+
+
+
+*Activate 2 Script (creatures only)
+
+scrp 3 8 50205 2
+
+	inst
+
+*stim norn with 90 - Activate machine
+	stim writ from 90 1
+
+	call 1001 9 0
+
+
+endm
+
+
+
+
+*Talk Script (called by Activate 1 and 2 and directly by the main button)
+
+scrp 3 8 50205 1001
+
+	inst
+
+*if its held by a creature, drop it.
+	doif crea carr = 1
+		targ carr
+		drop
+*if its held by pntr, dont let anyone use it.
+	elif carr = pntr
+		stop
+	endi
+
+
+	part 1
+
+*don't activate unless you're in the idle pose
+	doif pose = 0
+
+*stop it being picked up while it's talking
+*(-3, Carryable + Mousable)
+		attr 192
+
+**(-32, Pickup)
+*		bhvr 11
+
+		bhvr 0
+
+*animate pointer
+		doif from eq pntr
+			targ from
+			anim [0 1 0]
+			targ ownr
+		endi
+
+
+*	*can't be activated while moving
+*	doif fall = 0
+
+*fade out arrow
+		lock
+		doif part 2 = 1
+			part 2
+
+
+			setv va00 0
+			loop
+				inst
+				addv va00 16
+				alph va00 1
+				slow
+			untl va00 >= 256
+			pat: kill 2
+
+		endi
+
+
+*open lid
+		part 1
+		anim [1 2 3 4 5 6 7]
+		over
+
+		unlk
+
+		wait 2
+
+*talk anim loop
+		anim [7 8 9 10 11 12 13 14 255]
+
+		wait 15
+
+*variable to keep track of loop iterations
+		setv va01 0
+
+		reps 5
+
+			inst
+
+*teaching words. a doozer teaches nouns like "food" or "grendel"
+
+
+*what type of word is this? for constructing a functional ORDER SHOU string.
+
+
+*first 3 words/loop iterations are VERBS
+			doif va01 < 3
+
+*"perfect " means learn straight away, "learn " means learn gradually.
+				sets va03 "perfect verb "
+*	sets va03 "learn noun "
+
+*what array name are we looking for?
+				sets va04 "Creature Actions"
+
+*the last 2 words/loop iterations are NOUNS
+			else
+
+*"perfect " means learn straight away, "learn " means learn gradually.
+				sets va03 "perfect noun "
+*	sets va03 "learn noun "
+
+*what array name are we looking for?
+				sets va04 "Agent Categories"
+
+			endi
+
+
+
+*choose the correct index for each aray
+
+*verb 0 - look
+			doif va01 = 0
+				setv va51 0
+
+*verb 4 - approach (come in C2)
+			elif va01 = 1
+				setv va51 4
+
+*verb 12 - eat
+			elif va01 = 2
+				setv va51 12
+
+*noun 8 - fruit
+			elif va01 = 3
+				setv va51 8
+
+*noun 11 - food
+			else
+				setv va51 11
+			endi
+
+*start to construct string, starting with the chosen noun
+			doif va51 <> 1
+				sets va50 read va04 va51
+*if va51 was 1, that means it was "hand", so get the hand name instead.
+			elif va51 = 1
+				sets va50 hand
+			endi
+
+
+*construct string - "perfect noun/verb N whatever"
+			sets va40 va03
+			adds va40 vtos va51
+			adds va40 " "
+			adds va40 va50
+
+*play random talking sound
+			setv va00 rand 0 1
+			doif va00 = 0
+				snde "lap1"
+			else
+				snde "lap2"
+			endi
+
+
+* send message to bubble factory to do visuals
+			rtar 1 2 10
+
+*	say what you mean
+			mesg wrt+ targ 126 va50 ownr 0
+
+*	show the hidden command
+*	mesg wrt+ targ 126 va40 ownr 0
+
+			targ ownr
+
+			wait 30
+
+
+*now actually say the hidden command so that norns can hear it, repeat it, learn from it
+*	ordr shou va40
+
+*doing it based on norns that can see it so that RNGE is respected and they dont hear through walls.
+			ordr sign va40
+
+			wait 30
+
+*increase loop iteration count
+			addv va01 1
+
+		repe
+
+*		wait 10
+
+		part 1
+		anim [6 5 4 3 2 1 0]
+		over
+
+*reset attr and bhvr
+		attr 195
+		bhvr 43
+
+
+*you weren't in the idle pose but the hand activated you, so close prematurely
+	elif pose > 6
+
+		doif from = pntr
+
+*animate pointer
+			targ from
+			anim [0 1 0]
+			targ ownr
+
+			part 1
+			anim [6 5 4 3 2 1 0]
+
+*reset attr and bhvr
+			attr 195
+			bhvr 43
+
+		endi
+	endi
+
+endm
+
+
+
+
+
+
+*Hit Script
+
+scrp 3 8 50205 3
+
+	inst
+
+*stim norn with 92 - Hit machine
+	stim writ from 92 1
+
+	snde "hit_"
+	velo rand -2 2 rand -10 -5
+
+endm
+
+
+
+
+*Pickup Script
+
+scrp 3 8 50205 4
+
+*stim norn with 91 - Got machine
+	stim writ from 91 1
+
+
+*fade out arrow (a bit faster than the activate script)
+	doif part 2 = 1
+		lock
+		part 2
+
+
+		setv va00 0
+		loop
+			inst
+			addv va00 64
+			alph va00 1
+			slow
+		untl va00 >= 256
+		unlk
+
+	endi
+
+
+endm
+
+
+
+
+*Drop Script
+
+scrp 3 8 50205 5
+
+*fade in arrow
+	doif part 2 = 1
+		lock
+		part 2
+
+
+		setv va00 256
+		loop
+			inst
+			subv va00 64
+			alph va00 1
+			slow
+		untl va00 <= 0
+		alph 0 0
+		unlk
+
+	endi
+
+endm
+
+
+
+
+
+
+
+*logging off
+
+rscr
+
+enum 3 8 50205
+	kill targ
+
+next
+
+scrx 3 8 50205 10
+scrx 3 8 50205 1
+scrx 3 8 50205 2
+scrx 3 8 50205 1001
+scrx 3 8 50205 3
+scrx 3 8 50205 4
+scrx 3 8 50205 5
