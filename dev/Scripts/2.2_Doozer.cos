@@ -213,12 +213,6 @@ scrp 2 15 50219 1001
 		sets va50 hand
 	endi
 
-*minimum anim length of 3
-	setv va61 strl va50
-	doif va61 < 3
-		setv va61 3
-	endi
-
 
 *randomly choose a direction before talking
 	setv va00 rand 0 1
@@ -247,7 +241,6 @@ scrp 2 15 50219 1001
 	adds va40 va50
 
 *sound
-*	sndc "doz2"
 	snde "doz2"
 
 * send message to bubble factory to do visuals
