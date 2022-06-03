@@ -28,29 +28,31 @@
 *make 5 doozers
 
 
-new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 4500 5500
-
-*in the biome
-mvsf 3963 49299
-
-new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 4500 5500
-
 *near the incubator room sub bay
+new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 4500 5500
+tick 1
 mvsf 8312 48433
 
-new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 4500 5500
-
 *at the bottom of the incubator room lift shaft 
+new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 4500 5500
+tick 4
 mvsf 7882 48718
 
+
+*in the biome
 new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 4500 5500
+tick 5
+mvsf 3963 49299
+
 
 *to the left of the volcano door
+new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 4500 5500
+tick 6
 mvsf 8584 49787
 
-new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 4500 5500
-
 *in the swamp
+new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 4500 5500
+tick 8
 mvsf 7479 49820
 
 
@@ -59,6 +61,8 @@ mvsf 7479 49820
 *Constructor Script
 
 scrp 2 15 50219 10
+
+	inst
 
 *C2 Framerate
 	frat 2
@@ -99,7 +103,9 @@ scrp 2 15 50219 10
 	divv ov01 3
 
 
+*initial tick is overridden just after creation but I'm leaving this line here as a default in case we make a doozer agent or something
 	tick ov00
+
 
 *easier to click if we use bounding box instead of pixel perfect
 	tran 0 -1
@@ -388,6 +394,13 @@ endm
 
 scrp 2 15 50219 9
 
+*if the tick rate wasn't what we expected when the timer went off, fix it
+*because we are putting a slight variety on each doozer's initial tick so they're not all in sync
+	doif tick <> ov00
+		tick ov00
+	endi
+
+
 
 **rare chance for a doozer to teach a word without interaction
 *	setv va02 rand 0 100
@@ -442,15 +455,16 @@ scrp 2 15 50219 9
 	inst
 
 
-	doif perm = 50
+
+
+
+
+		doif perm = 50
 *try and set perm to 51 if it's not inside a wall
-		call 1000 51 0
-	endi
-
-
-
-
-
+			call 1000 51 0
+		endi
+		
+		
 
 *flip direction if you touched a wall recently
 	doif wall eq left
