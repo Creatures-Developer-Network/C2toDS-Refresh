@@ -1,9 +1,12 @@
 * This file has scripts for:
-*1	5	50200	World Wrap Camera
-*1	6	50200	World Wrap Grabber
-*1	7	50200	Mouse Pointer Tracker
-*1  7   20201   Window Resize Camera Builder
+*1 5 50200 - World Wrap Camera
+*1 6 50200 - World Wrap Grabber
+*1 7 50200 - Mouse Pointer Tracker
+*1 7 20201 - Window Resize Camera Builder
+*1 7 50202 - World Wrap Temporary Object
 
+
+*todo: probably dont transport any objects that have a creatures attention on them. there would need to be some sort of fail safe if they move too far past the wrap.
 
 
 *CA links for the "wrap" rooms.*
@@ -34,6 +37,8 @@ link grap 2070 49340 grap 10375 49340 100
 
 link grap 12950 47678 grap 4890 48110 100
 
+
+
 *Set the game variables for easy reference.*
 
 setv game "C2toDS_Top" 47600
@@ -52,8 +57,11 @@ setv game "C2toDS_WrapLeft" 2047
 
 setv game "C2toDS_WrapRight" 10399
 
-* Wrap padding determines how many panels are pushed back onto the actual non-wrapped part of the world
+*A value between WrapLeft and WrapRight
 
+setv game "C2toDS_WrapMiddle" 6223
+
+* Wrap padding determines how many panels are pushed back onto the actual non-wrapped part of the world
 setv game "C2toDS_WrapPadding" 1
 
 * Wrap Offset - how many pixels to add or remove from an X coordinate to get its wrapped equivalent?
@@ -97,6 +105,8 @@ fric 100
 
 aero 0
 
+*listen for Raw Key Down (1) + Raw Mouse Down (8). We use them to intercept speech and agent help clicks.
+imsk 9
 
 *----------------------------------*
 
@@ -133,7 +143,7 @@ scrp 1 7 20201 9
 
 		unlk
 
-		stop
+*		stop
 
 	endi
 
@@ -436,6 +446,8 @@ endm
 
 scrp 1 6 50200 9
 
+*stop
+
 	inst
 
 	doif name "WhichWrapPieceAmI?" eq "Right"
@@ -592,6 +604,8 @@ endm
 
 scrp 1 7 50200 9
 
+*stop
+
 	inst
 
 *grab the pointer so we can check where it is
@@ -657,6 +671,278 @@ scrp 1 7 50200 9
 	endi
 
 endm
+
+
+
+
+
+*Pointer Tracker - Raw Mouse Down script
+*This copies the effect of agent help bubbles over the world wrap.
+
+scrp 1 7 50200 76
+
+	inst
+
+*check if "agent help watcher" IMSK is set to 9. If it is, that means agent help mode is active.
+	rtar 1 2 4
+	doif imsk <> 9
+		stop
+	endi
+
+	seta va05 hots
+	doif va05 <> null
+
+* left mouse - shout your name
+		doif _p1_ = 1
+			targ va05
+
+
+*store XY coords for later
+			setv va00 posl
+			setv va01 post
+
+*fake temp object needs to have the same category as the real one
+			setv va50 cata
+*and also the same visibility setting according to attr
+			setv va51 attr
+
+
+*stop the script if we're not in the C2toDS metaroom
+			doif game "C2toDS_RoomID" <> gmap va00 va01
+				stop
+			endi
+
+*		set up string with name of object
+			setv va98 cata
+			sets va99 catx va98
+
+* icons gui
+			doif fmly eq 1 and gnus eq 2 and spcs eq 14
+				stop
+* agent help box
+			elif fmly eq 1 and gnus eq 2 and spcs eq 5
+				stop
+			else
+* unclassified (39) things don't say their name
+				doif va98 <> -1
+
+					targ va05
+
+					new: simp 1 7 50202 "blnk" 1 1 0
+
+*fake temp object needs to have the same category as the real one
+					cato va50
+*and also the same visibility setting according to attr
+					doif va51 >= 16
+						attr 16
+					else
+						attr 0
+					endi
+
+*check which side of the wrap the object is on and add or remove the appropriate offset
+					doif va00 <= game "C2toDS_WrapRight" and va00 > game "C2toDS_WrapMiddle"
+
+						subv va00 game "C2toDS_WrapOffset"
+
+					elif va00 >= game "C2toDS_WrapLeft" and va00 < game "C2toDS_WrapMiddle"
+
+						addv va00 game "C2toDS_WrapOffset"
+
+					else
+						stop
+					endi
+
+					mvto va00 va01
+
+*					seta va06 targ
+*
+** send message to bubble factory to do visuals
+*					rtar 1 2 10
+*					mesg wrt+ targ 126 va99 va06 0
+** target agent again, and send shout from it
+*					targ va06
+
+					ordr shou va99
+
+					kill targ
+
+				endi
+			endi
+		endi
+	endi
+
+endm
+
+
+
+
+
+
+
+
+*A keypress
+scrp 1 7 50200 73
+
+	lock
+*if the user pressed enter (or control S)
+	doif _p1_ eq 'S' or _p1_ eq 13
+*WHY IS THIS NEEDED. IT MAKES NO SENSE.
+*(I believe it's waiting until the start of the next tick because the Key Down event takes place before the speech bubble exiss)
+		wait 0
+		targ ownr
+		inst
+
+		sets va00 ""
+
+
+*grab the pointer so we can check where it is
+		targ pntr
+
+*remember the pointer coords
+		setv va00 posl
+		setv va01 post
+
+		doif game "C2toDS_RoomID" = gmap va00 va01
+*		doif 0 = 0
+
+			setv va10 va00
+			setv va11 va01
+			addv va10 10
+			addv va11 10
+
+
+*make a blank object near the cursor so we can etch instead of enum
+*			new: simp 1 7 50202 "blnk" 1 1 0
+
+*			tran 0 0
+
+*			mvto va10 va11
+*			frel pntr
+
+*			wait 1
+
+
+*setv va20 posl
+
+*			setv va21 post
+*			subv va21 5
+
+*setv va22 posr
+*setv va23 posb
+
+*scan speech bubbles
+			enum 1 2 9
+
+*				dbg: outs "va00:"
+*				dbg: outs vtos va00
+*				dbg: outs "va10:"
+*				dbg: outs vtos va10
+*				dbg: outs "posr:"
+*				dbg: outs vtos posr
+
+
+*todo: not accounting for X pos yet because sometimes speech bubble draws on other side.
+*and posr > va00 and posr < va10
+
+				doif posb > va01 and posb < va11
+
+*set the ptxt in va02 for now
+					part 1
+					doif targ ne null
+						sets va02 ptxt
+
+
+*make sure the hand said something and didn't just press enter by mistake
+						doif strl va02 > 1
+							inst
+
+*make fake hand with same classifier as real one so norns can't tell the difference
+							new: simp 2 1 1 "blnk" 1 1 0
+
+							seta va99 targ
+
+*this temporary object acts as an auto-delete timer for the fake hand created above
+							new: simp 1 7 50202 "blnk" 1 0 0
+							tick 20
+							seta ov00 va99
+
+*switch back to fake hand for the rest of this script
+							targ va99
+
+*check which side of the wrap the pointer is on and add or remove the appropriate offset
+							doif va00 <= game "C2toDS_WrapRight" and va00 > game "C2toDS_WrapMiddle"
+
+								subv va00 game "C2toDS_WrapOffset"
+
+							elif va00 >= game "C2toDS_WrapLeft" and va00 < game "C2toDS_WrapMiddle"
+
+								addv va00 game "C2toDS_WrapOffset"
+
+							else
+								stop
+							endi
+
+							mvto va00 va01
+
+*todo: could check if it starts with "maybe " or "me " (if hand name ISNT "me") or other stuff (aka detect if its probably from a creature) and ignore it if it is
+*this will be challenging because of other languages.
+
+
+*fake hand shouts out an order
+
+							ordr shou va02
+
+*test string to show that indeed, creatures can hear it
+
+*							ordr shou "perfect noun 2 hand"
+
+
+** send message to bubble factory to do visuals
+*							seta va03 targ
+*
+*							rtar 1 2 10
+*
+*							mesg wrt+ targ 126 va02 va03 0
+*
+*							targ ownr
+
+						endi
+
+					endi
+
+				endi
+
+			next
+
+		endi
+
+	endi
+
+endm
+
+
+
+
+*World Wrap Temporary Object Timer Script - used to automatically remove the fake hand after a while
+
+scrp 1 7 50202 9
+
+	inst
+
+*but only if you're not any creature's IT!
+
+	enum 4 0 0
+		doif aslp = 0 and dead = 0 and targ <> null
+			doif mv00 <> _it_ and mv00 <> iitt
+				kill mv00
+				kill ownr
+			endi
+		endi
+	next
+
+endm
+
+
 
 
 
