@@ -7,6 +7,15 @@
 
 
 *todo: probably dont transport any objects that have a creatures attention on them. there would need to be some sort of fail safe if they move too far past the wrap.
+*todo: improve speech bubble grabbing. it doesn't check the X coord, currently. also might be able to check if Aiko's Speech Bubbles Upgrade 1.2 is installed which stores which agent created the bubble as an enhancement.
+
+
+*NeoDement:
+*General cleanup
+*We are now ENUMing over all objects (0 0 0) instead of just objects in family 2 (2 0 0). This means creatures should now transport properly through the wrap. Probably needs a fair bit of testing...
+*The world wrap now handles hand holding properly.
+*Creatures can hear Hand and Agent Help speech over wrap. WIP.
+
 
 
 *CA links for the "wrap" rooms.*
@@ -803,32 +812,11 @@ scrp 1 7 50200 73
 		setv va01 post
 
 		doif game "C2toDS_RoomID" = gmap va00 va01
-*		doif 0 = 0
 
 			setv va10 va00
 			setv va11 va01
 			addv va10 10
 			addv va11 10
-
-
-*make a blank object near the cursor so we can etch instead of enum
-*			new: simp 1 7 50202 "blnk" 1 1 0
-
-*			tran 0 0
-
-*			mvto va10 va11
-*			frel pntr
-
-*			wait 1
-
-
-*setv va20 posl
-
-*			setv va21 post
-*			subv va21 5
-
-*setv va22 posr
-*setv va23 posb
 
 *scan speech bubbles
 			enum 1 2 9
@@ -995,6 +983,8 @@ scrx 1 7 50200 9
 scrx 1 7 50201 9
 
 scrx 1 7 50201 123
+
+scrx 1 7 50202 9
 
 
 *Remove "wrap" room links*
