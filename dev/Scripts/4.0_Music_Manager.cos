@@ -1,25 +1,31 @@
 * 1 1 50201 - Music Manager
 
 *Initial version by NeoDement. Overrides standard Near Death, Death and Birth music with Creatures 2 equivalents.
+*Sometimes (rarely) the original Birth music plays instead of the override. This doesn't seem to happen with Death. No idea why.
+
 
 
 *init this variable to the engine default in case something goes wrong and it tries to play it early.
 sets game "C2toDS_Previous_near_death_track_name" "ds_music.mng\\MetallicChords"
 
-
 new: simp 1 1 50201 "blnk" 1 0 0
 attr 16
 
+
+
+
 *creature history event
-*runs just before (or after?) the one included with DS and manages to hijack the event and play C2 music before the usual script tries to play its own uninterruptible music
+*runs just before (or after?) the one included with DS and usually manages to hijack the event and play C2 music before the usual script tries to play its own uninterruptible music
 scrp 1 1 50201 127
+
+	lock
+
+	inst
 
 	targ pntr
 
 *MAKE SURE WE ARE IN THE C2TODS METAROOM (if not, do nothing, to allow the original script to play music)
 	doif game "C2toDS_RoomID" = gmap posl post
-
-		inst
 
 		setv va00 hist type _p1_ _p2_
 
@@ -32,24 +38,20 @@ scrp 1 1 50201 127
 
 * music
 
-*trying to play it multiple times seems to make the override more consistent.
-		setv va01 0
-
 		doif va00 = 3
-			loop
-				strk 30 "c2tods.mng\\Birth"
-				addv va01 1
-			untl va01 = 8
+			strk 30 "c2tods.mng\\Birth"
 		elif va00 = 7
-			loop
-				strk 20 "c2tods.mng\\Death"
-				addv va01 1
-			untl va01 = 8
+			strk 20 "c2tods.mng\\Death"
 		endi
 
 	endi
 
 endm
+
+
+
+
+
 
 
 *switch room event
@@ -80,6 +82,7 @@ scrp 1 1 50201 900
 	endi
 
 endm
+
 
 
 rscr
