@@ -1,7 +1,7 @@
 *Bat 2 16 50203 
 *Bat Nest 2 17 50204 <----4*****
 
-* for now, these are all invisible to creatures. If at some point we feel like 
+* todo: for now, these are all invisible to creatures. If at some point we feel like 
 * adding push/pull/hit/eat scripts we can change that. - Aiko
 
 *NeoDement fixed an invalid agent error when the bat attempts to eat food that doesn't exist anymore.
