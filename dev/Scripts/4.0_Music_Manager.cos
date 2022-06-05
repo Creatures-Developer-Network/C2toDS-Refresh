@@ -1,0 +1,94 @@
+* 1 1 50201 - Music Manager
+
+*Initial version by NeoDement. Overrides standard Near Death, Death and Birth music with Creatures 2 equivalents.
+*Sometimes (rarely) the original Birth music plays instead of the override. This doesn't seem to happen with Death. No idea why.
+
+
+
+*init this variable to the engine default in case something goes wrong and it tries to play it early.
+sets game "C2toDS_Previous_near_death_track_name" "ds_music.mng\\MetallicChords"
+
+new: simp 1 1 50201 "blnk" 1 0 0
+attr 16
+
+
+
+
+*creature history event
+*runs just before (or after?) the one included with DS and usually manages to hijack the event and play C2 music before the usual script tries to play its own uninterruptible music
+scrp 1 1 50201 127
+
+	lock
+
+	inst
+
+	targ pntr
+
+*MAKE SURE WE ARE IN THE C2TODS METAROOM (if not, do nothing, to allow the original script to play music)
+	doif game "C2toDS_RoomID" = gmap posl post
+
+		setv va00 hist type _p1_ _p2_
+
+		doif game "Grettin" = 0
+* if it's not a Norn, ignore it
+			doif 1 <> hist gnus _p1_
+				stop
+			endi
+		endi
+
+* music
+
+		doif va00 = 3
+			strk 30 "c2tods.mng\\Birth"
+		elif va00 = 7
+			strk 20 "c2tods.mng\\Death"
+		endi
+
+	endi
+
+endm
+
+
+
+
+
+
+
+*switch room event
+*This script is not natively excucted by the engine, but is triggered by a script in DS Favorite Places.cos. Called when the main camera is switched to a different metaroom.
+
+scrp 1 1 50201 900
+
+	targ pntr
+
+*WE ARE IN THE C2TODS METAROOM
+	doif game "C2toDS_RoomID" = gmap posl post
+
+*store a copy of what this track was before you entered the room. don't bother overwriting this with the c2tods music.
+		doif game "engine_near_death_track_name" <> "c2tods.mng\\NearDeath"
+			sets game "C2toDS_Previous_near_death_track_name" game "engine_near_death_track_name"
+		endi
+
+* track for near death
+		sets game "engine_near_death_track_name" "c2tods.mng\\NearDeath"
+
+*WE ARE IN SOME OTHER METAROOM
+	else
+
+*reset near death music back to what it was before. only execute this code if it was set to c2tods music, otherwise it's not our problem.
+		doif game "engine_near_death_track_name" = "c2tods.mng\\NearDeath"
+			sets game "engine_near_death_track_name" game "C2toDS_Previous_near_death_track_name"
+		endi
+	endi
+
+endm
+
+
+
+rscr
+
+enum 1 1 50201
+	kill targ
+next
+scrx 1 1 50201 127
+scrx 1 1 50201 900

@@ -1,12 +1,14 @@
 * 2 21 50225 - Fishbowl
 
 * Aiko made this invisible to creatures.
+* NeoDement moved these out of the incubator room and into their respective seas, and lowered the plane
+
 
 *Saltwater
 
-new: vhcl 2 21 50225 "moe_c2tods_fishbowl" 2 0 rand 1000 3000
+new: vhcl 2 21 50225 "moe_c2tods_fishbowl" 2 0 1000
 
-mvsf 8135 47972
+mvsf 8652 48636
 
 pat: dull 1 "moe_c2tods_fishbowl" 1 0 0 10
 
@@ -26,9 +28,8 @@ alph 50 1
 
 *Freshwater
 
-new: vhcl 2 21 50225 "moe_c2tods_fishbowl" 2 0 rand 1000 3000
-
-mvsf 6787 48358
+new: vhcl 2 21 50225 "moe_c2tods_fishbowl" 2 0 1000
+mvsf 2656 48567
 
 pat: dull 1 "moe_c2tods_fishbowl" 1 0 0 10
 
