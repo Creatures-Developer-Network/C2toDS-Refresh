@@ -4,18 +4,26 @@
 * for now, these are all invisible to creatures. If at some point we feel like 
 * adding push/pull/hit/eat scripts we can change that. - Aiko
 
+*NeoDement fixed an invalid agent error when the bat attempts to eat food that doesn't exist anymore.
+
+
+*Install
+
 new: simp 2 17 50204 "moe_C2toDS_bats" 1 60 0
 
-mvsf 7572 48910
+mvto 7572 48910
 
 
 
 new: simp 2 17 50204 "moe_C2toDS_bats" 1 60 0
 
-mvsf 3890 48950
+mvto 3890 48950
+
+cmrt 0
 
 
 
+*Bat Nest Constructor Script
 
 scrp 2 17 50204 10
 
@@ -42,6 +50,7 @@ scrp 2 17 50204 10
 endm
 
 
+*Bat Constructor Script
 
 scrp 2 16 50203 10
 
@@ -54,6 +63,9 @@ scrp 2 16 50203 10
 	elas 0
 
 	fric 50
+
+*C2 framerate
+	frat 2
 
 
 
@@ -91,7 +103,7 @@ scrp 2 16 50203 10
 
 
 
-	tick rand 19.5 25
+	tick rand 20 25
 
 
 
@@ -100,6 +112,7 @@ scrp 2 16 50203 10
 endm
 
 
+*Bat Timer Script
 
 scrp 2 16 50203 9
 
@@ -189,13 +202,9 @@ scrp 2 16 50203 9
 
 		setv ov13 3
 
-		frat 2
-
 		anim [16 17 18 19 20]
 
 		over
-
-		frat 2
 
 		anim [26 27 28 29]
 
@@ -213,13 +222,9 @@ scrp 2 16 50203 9
 
 			setv ov13 1
 
-			frat 2
-
 			anim [16 17 18 19 20]
 
 			over
-
-			frat 2
 
 			anim [26 27 28 29]
 
@@ -237,13 +242,9 @@ scrp 2 16 50203 9
 
 	subr wakeup
 
-		frat 2
-
 		anim [29 28 27 26]
 
 		over
-
-		frat 2
 
 		anim [8 9 10 11]
 
@@ -278,8 +279,6 @@ scrp 2 16 50203 9
 				base 30
 
 			endi
-
-			frat 2
 
 			anim [0 1 2 3 2 1 255]
 
@@ -494,7 +493,10 @@ scrp 2 16 50203 9
 
 					drop
 
-					mesg writ ov08 12
+*the "eat" subroutine puts us in slow mode, which gives the food a few ticks to disappear. so check if it still exists before you run the eat script (12).
+					doif ov08 <> null
+						mesg writ ov08 12
+					endi
 
 					gsub wakeup
 
@@ -1059,12 +1061,17 @@ scrp 2 16 50203 9
 endm
 
 
+*Bat Drop Script
 
 scrp 2 16 50203 5
 
 	setv ov14 1
 
 endm
+
+
+
+*no bats? :(
 
 rscr
 
