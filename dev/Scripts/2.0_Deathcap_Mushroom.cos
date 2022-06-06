@@ -6,6 +6,7 @@
 * Verm here, to make the detritus edible/toxic friendly! And I guess generally a bit too...
 * Aiko fixed some syntax weirdnesses
 * The one who screams made spores invisible to creatures
+* NeoDement attempted to a fix a bug where XY coords were grabbed from an invalid object, resulting in a MVSF command trying to put a mushroom out of bounds.
 
 reps rand 1 2
 
@@ -195,7 +196,9 @@ scrp 2 3 50218 9
 
 			gsub check
 
-			slow
+*			slow
+			
+			inst
 
 			setv va00 posl
 
@@ -224,6 +227,8 @@ scrp 2 3 50218 9
 			anim [4 5 6]
 
 			kill ownr
+			
+			slow
 
 		else
 
@@ -406,11 +411,13 @@ endm
 
 scrp 2 5 50200 9
 
+*delete yourself if you're underwater
 	doif rtyp grap posx posy eq 8 and rtyp grap posx posy eq 9
 
 		kill ownr
 
 	endi
+
 
 	doif ov00 eq 1
 
@@ -469,6 +476,8 @@ scrp 2 5 50200 9
 					addv va00 rand -10 10
 
 					reps rand 2 3
+					
+						inst
 
 						new: simp 2 3 50218 "moe_C2toDS_deathcap" 7 13 rand 1000 5000
 
@@ -477,6 +486,8 @@ scrp 2 5 50200 9
 						velo rand -2 2 rand 0 -5
 
 						targ ownr
+						
+						slow
 
 					repe
 

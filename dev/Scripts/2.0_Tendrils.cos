@@ -1,17 +1,24 @@
 * 2 3 50220 - Walking Tendril Seed
 * 2 5 50203 - Walking Tendril
 * 2 23 50209 - Walking Tendril Seed Vendor
-** Seed vendor is invisible to creatures (for the time being)
+** todo: Seed vendor is invisible to creatures (for the time being)
 
 *Walking Tendril
 
 *Moe 2010
 
+*NeoDement cleaned up a bit and attempted to fix a rare bug probably caused by changing FRAT mid-anim.
+*Also made it spawn 2 fully grown tendrils in the green house instead of having the seed launcher launch a seed when created.
+*Also improved anims a bit.
+
+*todo: improve anims?
+
+
 *Vendor
 
 new: simp 2 23 50209 "moe_C2toDS_tend" 6 0 5000
 
-mvsf 4032 49672
+mvto 4032 49672
 
 setv va00 0
 
@@ -21,6 +28,40 @@ prt: onew 0 "Output" "Sends signal inputs from the tendril layer." 47 58
 
 
 
+
+
+*make 2 full grown tendrils
+
+new: simp 2 5 50203 "moe_C2toDS_tend" 21 8 2100
+
+tick 200
+
+attr 199
+
+bhvr 11
+
+pose 5
+
+mvto 3951 49612
+
+
+new: simp 2 5 50203 "moe_C2toDS_tend" 21 8 2000
+
+tick 300
+
+attr 199
+
+bhvr 11
+
+pose 5
+
+mvto 4297 49612
+
+
+
+
+
+*Seed Vendor Create Script
 
 scrp 2 23 50209 10
 
@@ -32,11 +73,14 @@ scrp 2 23 50209 10
 
 	perm 51
 
-	mesg writ targ 0
+*C2 framerate
+	frat 2
 
 endm
 
 
+
+*Seed Vendor Collision Script
 
 scrp 2 23 50209 6
 
@@ -53,6 +97,8 @@ scrp 2 23 50209 6
 endm
 
 
+
+*Seed Vendor Activate 1 Script
 
 scrp 2 23 50209 1
 
@@ -78,9 +124,8 @@ scrp 2 23 50209 1
 
 	addv va01 10
 
+
 *Create Tendril Seed*
-
-
 
 	new: simp 2 3 50220 "moe_C2toDS_tend" 1 6 rand 50 2000
 
@@ -124,11 +169,14 @@ scrp 2 3 50220 10
 
 	mira rand 0 1
 
+*C2 framerate
+	frat 2
+
 endm
 
 
 
-*Seed Timer
+*Seed Timer Script
 
 scrp 2 3 50220 9
 
@@ -227,10 +275,12 @@ scrp 2 3 50220 9
 	retn
 
 
-
 endm
 
 
+
+
+*Seed Collision Script
 
 scrp 2 3 50220 6
 
@@ -239,6 +289,9 @@ scrp 2 3 50220 6
 endm
 
 
+
+
+*Seed Eat Script
 
 scrp 2 3 50220 12
 
@@ -252,9 +305,12 @@ endm
 
 
 
-*Tendril Create
+
+*Tendril Create Script
 
 scrp 2 5 50203 10
+
+	inst
 
 	perm 51
 
@@ -276,16 +332,20 @@ scrp 2 5 50203 10
 
 	bhvr 0
 
+*C2 framerate
+	frat 2
+
 endm
 
 
 
+
+*Tendril Timer Script
+
 scrp 2 5 50203 9
 
+	doif pose lt 5
 
-
-	doif pose lt 6
-		
 		attr 211
 
 		setv va00 pose
@@ -334,6 +394,7 @@ scrp 2 5 50203 9
 
 				setv va01 posb
 
+*create walking tendril seed
 				new: simp 2 3 50220 "moe_C2toDS_tend" 1 6 rand 50 2000
 
 				mvsf va00 va01
@@ -422,6 +483,9 @@ scrp 2 5 50203 9
 
 		reps rand 4 5
 
+*stop current anim. possible fix for engine error caused by changing frat mid-anim.
+			anim []
+
 			frat 2
 
 			anim [6 7 8 9 10]
@@ -440,6 +504,8 @@ scrp 2 5 50203 9
 
 		repe
 
+		anim [9 8 7 6 5]
+
 	retn
 
 
@@ -450,21 +516,73 @@ endm
 
 
 
+*Tendril Activate 1 Script
+
 scrp 2 5 50203 1
 
+*	targ from
+*	doif fmly eq 4
+	stim writ from 83 1
+*	endi
+
+	call 1000 from 0
+
+endm
+
+
+
+
+
+*Tendril Activate 2 Script
+
+scrp 2 5 50203 2
+
+*	targ from
+*	doif fmly eq 4
+	stim writ from 83 1
+*	endi
+
+	call 1000 from 0
+
+endm
+
+
+
+
+*Tendril Hit Script
+
+scrp 2 5 50203 3
+
+*	targ from
+*	doif fmly eq 4
+	stim writ from 83 1
+*	endi
+
+*todo: an actual hit script would be more fun!
+
+	call 1000 from 0
+
+endm
+
+
+
+
+
+
+
+
+
+*Tendril Script 1000 - Called by Activate 1, Activate 2 and currently Hit
+
+*_P1_ is FROM
+
+scrp 2 5 50203 1000
 
 
 *Poke Norns, Move
 
 
-	targ from
-	doif fmly eq 4 
-		stim writ from 83 1
-	endi
-
-
-
-	doif from ne pntr
+	doif _p1_ ne pntr
 
 		doif relx ownr from gt 0
 
@@ -480,7 +598,7 @@ scrp 2 5 50203 1
 
 		sndc "stng"
 
-		targ from
+		targ _p1_
 
 		setv va00 posl
 
@@ -504,6 +622,8 @@ scrp 2 5 50203 1
 
 	reps rand 4 5
 
+*stop current anim. possible fix for engine error caused by changing frat mid-anim.
+		anim []
 		frat 2
 
 		anim [6 7 8 9 10]
@@ -522,38 +642,15 @@ scrp 2 5 50203 1
 
 	repe
 
-
-
-
+	anim [9 8 7 6 5]
 
 endm
 
 
 
-scrp 2 5 50203 2
-	
-	targ from
-	doif fmly eq 4 
-		stim writ from 83 1
-	endi
-
-	mesg writ ownr 0
-
-endm
 
 
-
-scrp 2 5 50203 3
-
-	targ from
-	doif fmly eq 4 
-		stim writ from 83 1
-	endi
-
-	mesg writ ownr 0
-
-endm
-
+*no more tendrils
 
 rscr
 
