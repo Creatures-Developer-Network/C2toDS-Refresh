@@ -6,7 +6,12 @@
 * Survivability edits by the one who screams i guess
 *Also tweaked lifespan a little to be more in line with C2 nuts (more prolific than tomatoes)...
 * Aiko added pull and hit scripts to the nut vendor
+*NeoDement attempted to fix an invalid targ error, moved the FRAT commands to the Constructor Script and fixed an anim that was 1 frame too long.
 * (if you worked on this file, feel free to add your name!)
+
+
+
+*Nuts Install Script
 
 reps rand 5 7
 
@@ -19,6 +24,8 @@ reps rand 5 7
 repe
 
 
+*Nut Vendor Install Script
+
 new: comp 2 23 50202 "moe_C2toDS_nuts" 16 0 rand 1000 3000
 
 mvsf 2900 49787
@@ -27,10 +34,13 @@ pat: dull 1 "moe_C2toDS_nuts" 16 0 0 2
 
 pat: dull 2 "moe_C2toDS_nuts" 56 14 44 2
 
-prt: inew 0 "Input" "Recieves signal inputs for the tomato launcher." 24 47 0
+prt: inew 0 "Input" "Recieves signal inputs for the Nut Vendor." 24 47 0
 
-prt: onew 0 "Output" "Sends signal inputs from the nut layer." 54 47
+prt: onew 0 "Output" "Sends signal inputs from the Nut Vendor." 54 47
 
+
+
+*Nut Vendor Constructor Script
 
 scrp 2 23 50202 10
 
@@ -49,10 +59,15 @@ scrp 2 23 50202 10
 	emit 10 .15
 
 	bhvr 11
+	
+	*C2 framerate
+	frat 2
 
 endm
 
 
+
+*Nut Vendor Activate 1 Script
 
 scrp 2 23 50202 1
 
@@ -113,35 +128,42 @@ scrp 2 23 50202 1
 
 endm
 
-*pull
+
+*Nut Vendor Activate 2 Script
+
 scrp 2 23 50202 2
 
 	inst
 	doif crea from eq 1
 		stim writ from 90 1
 	endi
-	
+
 	mesg writ ownr 0
-	
+
 endm
 
-*hit
+
+
+
+*Nut Vendor Hit Script
+
 scrp 2 23 50202 3
 
 	inst
 	doif crea from eq 1
 		stim writ from 92 1
 	endi
-	
+
 	snde "hit_"
 	velo rand -2 2 rand -10 -5
-	
+
 endm
 
 
+
+*Nut Timer Script
+
 scrp 2 3 50202 9
-
-
 
 	doif ov00 eq 1
 
@@ -249,9 +271,8 @@ scrp 2 3 50202 9
 
 	subr die
 
-		frat 50
-
-		anim [1 2 3 4]
+*play (very slow) death anim
+		anim [1 2 3]
 
 		over
 
@@ -277,8 +298,7 @@ scrp 2 3 50202 9
 
 	subr grow
 
-		frat 50
-
+*play (very slow) death/re-growth anim
 		anim [1 2 3 4]
 
 		over
@@ -288,6 +308,8 @@ scrp 2 3 50202 9
 		setv va06 0
 
 		esee 2 4 50202
+		
+		inst
 
 *don't factor old dying plants in the population check pls -t1ws
 			doif targ ne null and ov10 lt 30
@@ -345,6 +367,7 @@ scrp 2 3 50202 9
 endm
 
 
+*Nut Plant Constructor Script
 
 scrp 2 4 50202 10
 
@@ -369,10 +392,16 @@ scrp 2 4 50202 10
 	seta ov02 null
 
 	seta ov03 null
+	
+	*VERY low framerate for slow anim(s) later
+			frat 250
 
 endm
 
 
+
+
+*Nut Plant Activate 1 Script
 
 scrp 2 4 50202 1
 
@@ -384,6 +413,7 @@ scrp 2 4 50202 1
 endm
 
 
+*Nut Plant Activate 2 Script
 
 scrp 2 4 50202 2
 
@@ -395,6 +425,7 @@ scrp 2 4 50202 2
 endm
 
 
+*Nut Plant Hit Script
 
 scrp 2 4 50202 3
 
@@ -407,15 +438,7 @@ endm
 
 
 
-*scrp 2 4 50202 12
-
-*	urge writ from 3 .5 12 .5
-
-*endm
-
-
-
-
+*Nut Plant Timer Script
 
 scrp 2 4 50202 9
 
@@ -597,8 +620,7 @@ scrp 2 4 50202 9
 
 			targ ownr
 
-			frat 250
-
+*play (very slow) death anim
 			anim [7 8 9 10 11 12 13]
 
 			over
@@ -817,6 +839,8 @@ endm
 
 
 
+*Nut Constructor Script
+
 scrp 2 3 50202 10
 
 	inst
@@ -832,6 +856,10 @@ scrp 2 3 50202 10
 	perm 51
 
 	rnge 200
+	
+		*very low framerate for slow anim(s) later
+			frat 50
+		
 
 	wait 1
 
@@ -869,6 +897,8 @@ endm
 
 
 
+*Nut Pick Up Script
+
 scrp 2 3 50202 4
 
 	inst
@@ -878,6 +908,9 @@ scrp 2 3 50202 4
 endm
 
 
+
+
+*Nut Script 1001 - Called when picked off a plant, when eaten (if on a plant) and when pushed
 
 scrp 2 3 50202 1001
 
@@ -979,8 +1012,8 @@ scrp 2 3 50202 12
 
 *Make it invisible so that creatures don't destroy it.
 		attr 211
-		*And stop smelling.
-			emit 7 0
+*And stop smelling.
+		emit 7 0
 
 	elif ov09 eq 1
 
@@ -999,6 +1032,9 @@ scrp 2 3 50202 12
 endm
 
 
+
+
+*Nut Activate 1 Script
 
 scrp 2 3 50202 1
 
@@ -1050,10 +1086,7 @@ endm
 
 
 
-scrp 2 3 50202 5
-
-endm
-
+*Nut Drop Script
 
 
 scrp 2 3 50202 6
@@ -1080,6 +1113,9 @@ scrp 2 3 50202 6
 
 endm
 
+
+
+*no more nuts
 
 rscr
 
