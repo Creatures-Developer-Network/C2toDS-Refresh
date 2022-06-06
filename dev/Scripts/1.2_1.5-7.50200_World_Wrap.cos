@@ -11,10 +11,10 @@
 
 
 *NeoDement:
-*General cleanup
-*We are now ENUMing over all objects (0 0 0) instead of just objects in family 2 (2 0 0). This means creatures should now transport properly through the wrap. Probably needs a fair bit of testing...
-*The world wrap now handles hand holding properly.
-*Creatures can hear Hand and Agent Help speech over wrap. WIP.
+*-General cleanup
+*-We are now ENUMing over all objects (0 0 0) instead of just objects in family 2 (2 0 0). This means creatures should now transport properly through the wrap. Probably needs a fair bit of testing...
+*-The world wrap now handles hand holding properly.
+*-Creatures can hear Hand and Agent Help speech over wrap. WIP.
 
 
 
@@ -737,7 +737,7 @@ scrp 1 7 50200 76
 
 					targ va05
 
-					new: simp 1 7 50202 "blnk" 1 1 0
+					new: simp 1 7 50202 "blnk" 1 0 0
 
 *fake temp object needs to have the same category as the real one
 					cato va50
@@ -845,7 +845,7 @@ scrp 1 7 50200 73
 							inst
 
 *make fake hand with same classifier as real one so norns can't tell the difference
-							new: simp 2 1 1 "blnk" 1 1 0
+							new: simp 2 1 1 "blnk" 1 0 0
 
 							seta va99 targ
 
@@ -919,14 +919,24 @@ scrp 1 7 50202 9
 
 *but only if you're not any creature's IT!
 
+	setv va00 0
+
 	enum 4 0 0
 		doif aslp = 0 and dead = 0 and targ <> null
 			doif mv00 <> _it_ and mv00 <> iitt
 				kill mv00
 				kill ownr
+				stop
 			endi
 		endi
+		addv va00 1
 	next
+
+*automatically delete yourself if there are no creatures in the world	
+	doif va00 = 0
+		kill mv00
+		kill ownr
+	endi
 
 endm
 
