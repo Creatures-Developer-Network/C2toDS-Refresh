@@ -59,8 +59,8 @@ scrp 2 23 50202 10
 	emit 10 .15
 
 	bhvr 11
-	
-	*C2 framerate
+
+*C2 framerate
 	frat 2
 
 endm
@@ -308,13 +308,14 @@ scrp 2 3 50202 9
 		setv va06 0
 
 		esee 2 4 50202
-		
-		inst
+
+			inst
 
 *don't factor old dying plants in the population check pls -t1ws
-			doif targ ne null and ov10 lt 30
-
-				addv va06 1
+			doif targ ne null
+				doif ov10 lt 30
+					addv va06 1
+				endi
 
 			endi
 
@@ -392,9 +393,9 @@ scrp 2 4 50202 10
 	seta ov02 null
 
 	seta ov03 null
-	
-	*VERY low framerate for slow anim(s) later
-			frat 250
+
+*VERY low framerate for slow anim(s) later
+	frat 250
 
 endm
 
@@ -856,10 +857,10 @@ scrp 2 3 50202 10
 	perm 51
 
 	rnge 200
-	
-		*very low framerate for slow anim(s) later
-			frat 50
-		
+
+*very low framerate for slow anim(s) later
+	frat 50
+
 
 	wait 1
 
