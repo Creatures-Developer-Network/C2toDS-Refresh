@@ -238,27 +238,29 @@ scrp 3 1 50205 1001
 		inst
 * Get the queued creatures
 		enum 3 13 50205
-			doif ov00 eq -5
-				doif ooww ov01 eq 3
-tick 0
+			doif targ ne null
+				doif ov00 eq -5
+					doif ooww ov01 eq 3
+						tick 0
 * spas takes some time to work, so loop
 * and keep checking if you got a creature
 * before continuing
-					loop
-						spas ownr mtoc ov01
-						wait 1
-						addv va46 1
-						seta va45 targ
-						targ ownr
-						epas 4 0 0
-							addv va44 1
-						next
-						targ va45
-					untl va44 gt 0 or ooww ov01 ne 3
-
-					kill targ
-				else
-					kill targ
+						loop
+							spas ownr mtoc ov01
+							wait 1
+							addv va46 1
+							seta va45 targ
+							targ ownr
+							epas 4 0 0
+								addv va44 1
+							next
+							targ va45
+						untl va44 gt 0 or ooww ov01 ne 3
+	
+						kill targ
+					else
+						kill targ
+					endi
 				endi
 			endi
 		next
@@ -307,27 +309,29 @@ scrp 3 1 50205 1002
 		inst
 * Get the queued creatures
 		enum 3 13 50205
-			doif ov00 eq 5
-				doif ooww ov01 eq 3
-tick 0
+			doif targ ne null
+				doif ov00 eq 5
+					doif ooww ov01 eq 3
+						tick 0
 * spas takes some time to work, so loop
 * and keep checking if you got a creature
 * before continuing
-					loop
-						spas ownr mtoc ov01
-						wait 1
-						addv va46 1
-						seta va45 targ
-						targ ownr
-						epas 4 0 0
-							addv va44 1
-						next
-						targ va45
-					untl va44 gt 0 or ooww ov01 ne 3
+						loop
+							spas ownr mtoc ov01
+							wait 1
+							addv va46 1
+							seta va45 targ
+							targ ownr
+							epas 4 0 0
+								addv va44 1
+							next
+							targ va45
+						untl va44 gt 0 or ooww ov01 ne 3
 
-					kill targ
-				else
-					kill targ
+						kill targ
+					else
+						kill targ
+					endi
 				endi
 			endi
 		next
