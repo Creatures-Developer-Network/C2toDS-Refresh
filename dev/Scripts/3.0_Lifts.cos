@@ -2052,24 +2052,27 @@ scrp 2 12 50200 3
 	stim writ from 92 1
 
 *Don't animate if you're already in use!
-doif pose eq 0
+	doif name "on" eq 0
 
 *Do a slightly different anim if you're a Metallic Call Button
-	doif ov04 eq 1
-		anim [0 5 1 5 2 5 3 5 4 5 0 5]
-	else
+		doif ov04 eq 1
+			anim [0 5 1 5 2 5 3 5]
+		else
 *Blink the call button light on and off
-		anim [0 1 0 1 0 1 0 1 0 1 0 1]
-	endi
+			anim [0 1 0 1 0 1 0 1]
+		endi
 
-*Play a buzzing sound (included by default with C3 and DS)
-	snde "buzz"
-*Wait until the buzzing sound is over
-	wait 7
+*Play a hit sound and a buzzing sound (included by default with C3 and DS)
+		sndc "hit_"
+		sndc "buzz"
+
+*Wait until the anim is over
+		over
+*		wait 7
 
 *Resume a ready-to-serve pose.
-	call 1000 0 0
-	
+		call 1000 0 0
+
 	endi
 
 endm
