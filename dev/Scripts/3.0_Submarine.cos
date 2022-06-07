@@ -1,6 +1,8 @@
 * 3 1 50202 - Submarine
 
-new: vhcl 3 1 50202 "moe_C2toDS_sub" 1 1 5000
+*NeoDement gave it a higher plane to stop it intersecting the Ball, disabled the button hover anim because it didn't work very well and moved all FRAT commands to install script to fix a possible crash
+
+new: vhcl 3 1 50202 "moe_C2toDS_sub" 1 1 5213
 
 cabw 10
 
@@ -18,11 +20,11 @@ pat: dull 1 "moe_C2toDS_sub" 0 65 22 -11
 
 * left button
 
-pat: butt 2 "moe_C2toDS_sub" 2 2 4 75 2 [1 0] 1001 0
+pat: butt 2 "moe_C2toDS_sub" 2 2 4 75 2 [] 1001 0
 
 * right button
 
-pat: butt 3 "moe_C2toDS_sub" 4 2 184 75 2 [1 0] 1002 0
+pat: butt 3 "moe_C2toDS_sub" 4 2 184 75 2 [] 1002 0
 
 pat: dull 4 "moe_C2toDS_sub" 6 191 52 1
 
@@ -31,6 +33,22 @@ pat: dull 5 "moe_C2toDS_sub" 10 1 52 1
 pat: dull 6 "moe_C2toDS_sub" 14 -95 40 2
 
 pat: dull 8 "moe_C2toDS_sub" 23 200 40 2
+
+
+*C2 framerate
+frat 2
+part 3
+frat 2
+part 4
+frat 2
+part 5
+frat 2
+part 6
+frat 2
+*(there is no part 7)
+part 8
+frat 2
+
 
 mvto 9186 48430
 
@@ -63,7 +81,7 @@ mvto 9363 48415
 
 scrp 3 12 50202 1
 	inst
-	* light up, light up
+* light up, light up
 	rtar 3 1 50202
 	doif ov00 eq mv00
 		targ ownr
@@ -73,16 +91,16 @@ scrp 3 12 50202 1
 	targ from
 	doif crea targ eq 1
 		sets va48 gtos 0
-		* check for any existing queue object
+* check for any existing queue object
 		enum 3 13 50202
 			doif ov01 eq va48
 				addv va49 1
 			endi
 		next
-		* make a queue object if there's not one already
+* make a queue object if there's not one already
 		doif va49 eq 0
 			new: simp 3 13 50202 "blnk" 1 0 0
-			*dbg: outs "making quere"
+*dbg: outs "making quere"
 			setv ov00 mv00
 			sets ov01 va48
 			tick 20
@@ -108,7 +126,7 @@ endm
 
 scrp 3 12 50202 2
 	inst
-	* light up, light up
+* light up, light up
 	rtar 3 1 50202
 	doif ov00 eq mv00
 		targ ownr
@@ -118,16 +136,16 @@ scrp 3 12 50202 2
 	targ from
 	doif crea targ eq 1
 		sets va48 gtos 0
-		* check for any existing queue object
+* check for any existing queue object
 		enum 3 13 50202
 			doif ov01 eq va48
 				addv va49 1
 			endi
 		next
-		* make a queue object if there's not one already
+* make a queue object if there's not one already
 		doif va49 eq 0
 			new: simp 3 13 50202 "blnk" 1 0 0
-			*dbg: outs "making queue"
+*dbg: outs "making queue"
 			setv ov00 mv00
 			sets ov01 va48
 			tick 20
@@ -246,9 +264,9 @@ scrp 3 1 50202 1001
 			doif ov00 eq 1
 				doif ooww ov01 eq 3
 					tick 0
-					* spas takes some time to work, so loop
-					* and keep checking if you got a creature
-					* before continuing
+* spas takes some time to work, so loop
+* and keep checking if you got a creature
+* before continuing
 					loop
 						spas ownr mtoc ov01
 						wait 1
@@ -259,7 +277,7 @@ scrp 3 1 50202 1001
 							addv va44 1
 						next
 						targ va45
-					untl va44 gt 0 or ooww ov01 ne 3 
+					untl va44 gt 0 or ooww ov01 ne 3
 
 					kill targ
 				else
@@ -270,7 +288,7 @@ scrp 3 1 50202 1001
 		slow
 		part 2
 
-		frat 2
+*		frat 2
 
 		anim [0 1 0 1 0 1 0]
 
@@ -282,13 +300,13 @@ scrp 3 1 50202 1001
 		endi
 		part 5
 
-		frat 3
+*		frat 3
 
 		anim [0 1 2 3 2 1 255]
 
 		part 4
 
-		frat 3
+*		frat 3
 
 		anim [0 1 2 3 2 1 255]
 
@@ -342,7 +360,7 @@ scrp 3 1 50202 1001
 
 		part 5
 
-		frat 3
+*		frat 3
 
 		anim [0 1 2 3 2 1 255]
 
@@ -417,7 +435,7 @@ scrp 3 1 50202 1001
 
 		part 2
 
-		frat 2
+*		frat 2
 
 		anim [0 1 0 1 0 1 0]
 
@@ -562,7 +580,7 @@ scrp 3 1 50202 1001
 
 		part 2
 
-		frat 2
+*		frat 2
 
 		anim [0 1 0 1 0 1 0]
 
@@ -592,7 +610,7 @@ scrp 3 1 50202 1001
 
 		part 4
 
-		frat 3
+*		frat 3
 
 		anim [0 1 2 3 2 1 255]
 
@@ -614,7 +632,7 @@ scrp 3 1 50202 1001
 
 		part 5
 
-		frat 3
+*		frat 3
 
 		anim [0 1 2 3 2 1 255]
 
@@ -684,7 +702,7 @@ scrp 3 1 50202 1001
 
 		part 4
 
-		frat 3
+*		frat 3
 
 		anim [0 1 2 3 2 1 255]
 
@@ -792,7 +810,7 @@ scrp 3 1 50202 1002
 		endi
 	endi
 	enum 3 12 50202
-			pose 0
+		pose 0
 	next
 	unlk
 * Do 1001
@@ -828,7 +846,7 @@ scrp 3 1 50202 1002
 
 		part 3
 
-		frat 2
+*		frat 2
 
 		anim [0 1 0 1 0 1 0]
 
@@ -852,13 +870,13 @@ scrp 3 1 50202 1002
 
 		part 4
 
-		frat 3
+*		frat 3
 
 		anim [0 1 2 3 2 1 255]
 
 		part 5
 
-		frat 3
+*		frat 3
 
 		anim [0 1 2 3 2 1 255]
 
@@ -914,7 +932,7 @@ scrp 3 1 50202 1002
 
 		part 5
 
-		frat 3
+*		frat 3
 
 		anim [0 1 2 3 2 1 255]
 
@@ -1023,9 +1041,9 @@ scrp 3 1 50202 1002
 			doif ov00 eq 0
 				doif ooww ov01 eq 3
 					tick 0
-					* spas takes some time to work, so loop
-					* and keep checking if you got a creature
-					* before continuing
+* spas takes some time to work, so loop
+* and keep checking if you got a creature
+* before continuing
 					loop
 						spas ownr mtoc ov01
 						wait 1
@@ -1036,7 +1054,7 @@ scrp 3 1 50202 1002
 							addv va44 1
 						next
 						targ va45
-					untl va44 gt 0 or ooww ov01 ne 3 
+					untl va44 gt 0 or ooww ov01 ne 3
 
 					kill targ
 				else
@@ -1047,7 +1065,7 @@ scrp 3 1 50202 1002
 		slow
 		part 3
 
-		frat 2
+*		frat 2
 
 		anim [0 1 0 1 0 1 0]
 
@@ -1061,13 +1079,13 @@ scrp 3 1 50202 1002
 
 		part 5
 
-		frat 3
+*		frat 3
 
 		anim [0 1 2 3 2 1 255]
 
 		part 4
 
-		frat 3
+*		frat 3
 
 		anim [0 1 2 3 2 1 255]
 
@@ -1117,7 +1135,7 @@ scrp 3 1 50202 1002
 
 		part 5
 
-		frat 3
+*		frat 3
 
 		anim [0 1 2 3 2 1 255]
 
@@ -1174,7 +1192,7 @@ scrp 3 1 50202 1002
 
 		part 3
 
-		frat 2
+*		frat 2
 
 		anim [0 1 0 1 0 1 0]
 
@@ -1206,7 +1224,7 @@ scrp 3 1 50202 1002
 
 		part 4
 
-		frat 3
+*		frat 3
 
 		anim [0 1 2 3 2 1 255]
 
@@ -1230,7 +1248,7 @@ scrp 3 1 50202 1002
 
 		part 5
 
-		frat 3
+*		frat 3
 
 		anim [0 1 2 3 2 1 255]
 
