@@ -4,7 +4,7 @@
 *//*Norn Burrow Lift*//*
 
 *Matthew, "Moe", '10*
-* Some Modifications By the one who screams i guess, Malkin
+* Some Modifications By the one who screams i guess, Malkin, NeoDement
 * (if you worked on this file, feel free to add your name!)
 
 inst
@@ -1431,7 +1431,7 @@ scrp 3 1 50200 1000
 
 			targ from
 
-			anim [ 0 1 0]
+			anim [0 1 0]
 
 			targ ownr
 
@@ -1830,13 +1830,13 @@ scrp 2 12 50200 10
 
 
 
-	doif ov04 eq 1
-
+*C2 framerate
+	frat 2
 
 
 *Metallic Call Button
 
-		frat 2
+	doif ov04 eq 1
 
 		anim [0 1 2 3 4 255]
 
@@ -1849,7 +1849,7 @@ scrp 2 12 50200 10
 		pat: butt 1 "moe_C2toDS_lifts" 31 2 10 23 0 [] 1001 0
 
 
-
+*Regular Call Button
 	else
 
 		prt: inew 0 "Input" "Recieves signal inputs for the Call Button launcher." 15 63 0
@@ -2048,18 +2048,30 @@ endm
 *Button hit script
 scrp 2 12 50200 3
 
-*lock to fix buttons getting stuck in flicker state sometimes
-	lock
 *Stimulate with "I have hit machine"
 	stim writ from 92 1
+
+*Don't animate if you're already in use!
+doif pose eq 0
+
+*Do a slightly different anim if you're a Metallic Call Button
+	doif ov04 eq 1
+		anim [0 5 1 5 2 5 3 5 4 5 0 5]
+	else
 *Blink the call button light on and off
-	anim [0 1 255]
+		anim [0 1 0 1 0 1 0 1 0 1 0 1]
+	endi
+
 *Play a buzzing sound (included by default with C3 and DS)
 	snde "buzz"
 *Wait until the buzzing sound is over
 	wait 7
+
 *Resume a ready-to-serve pose.
-	pose 0
+	call 1000 0 0
+	
+	endi
+
 endm
 
 
