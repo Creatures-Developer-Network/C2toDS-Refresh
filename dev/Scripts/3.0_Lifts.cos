@@ -2047,19 +2047,20 @@ endm
 
 *Button hit script
 scrp 2 12 50200 3
-*Instantaneously
-    inst
+
+*lock to fix buttons getting stuck in flicker state sometimes
+	lock
 *Stimulate with "I have hit machine"
-    stim writ from 92 1
+	stim writ from 92 1
 *Blink the call button light on and off
-    anim [0 1 255]
+	anim [0 1 255]
 *Play a buzzing sound (included by default with C3 and DS)
-    snde "buzz"
+	snde "buzz"
 *Wait until the buzzing sound is over
-    wait 7
+	wait 7
 *Resume a ready-to-serve pose.
-    pose 0
-endm 
+	pose 0
+endm
 
 
 scrp 2 12 50200 1000
