@@ -3,7 +3,7 @@
 *1 6 50200 - World Wrap Grabber
 *1 7 50200 - Mouse Pointer Tracker
 *1 7 20201 - Window Resize Camera Builder
-*1 7 50202 - World Wrap Temporary Object
+*1 7 50202 - World Wrap Mirror Object
 
 
 *todo: probably dont transport any objects that have a creatures attention on them. there would need to be some sort of fail safe if they move too far past the wrap.
@@ -12,7 +12,7 @@
 
 *NeoDement:
 *-General cleanup
-*-We are now ENUMing over all objects (0 0 0) instead of just objects in family 2 (2 0 0). This means creatures should now transport properly through the wrap. Probably needs a fair bit of testing...
+*-We are now ENUMing over all objects (0 0 0) instead of just objects in family 2 (2 0 0). This means creatures now transport properly through the wrap.
 *-The world wrap now handles hand holding properly.
 *-Creatures can hear Hand and Agent Help speech over wrap. WIP.
 
@@ -422,6 +422,8 @@ endm
 
 *This might be the cause of a mild performance hit, but it keeps the cameras from blacking out.*
 
+*World Wrap Camera - Timer Script
+
 scrp 1 5 50200 9
 
 	tick 1000
@@ -434,7 +436,7 @@ endm
 
 
 
-* World Wrap Grabber - World Loaded script
+* World Wrap Camera - World Loaded script
 
 *This might be the cause of a mild performance hit, but it keeps the cameras from blacking out.*
 
@@ -496,8 +498,8 @@ scrp 1 6 50200 9
 					subv va00 game "C2toDS_WrapOffset"
 
 
-*check if the target creature is holding the players hand for camera reasons
-					doif targ eq hhld
+*check if the target creature is being tracked for camera reasons
+					doif targ eq trck
 
 *remember current camera coordinates before we jump
 						setv va02 cmrx
@@ -568,8 +570,8 @@ scrp 1 6 50200 9
 					addv va00 game "C2toDS_WrapOffset"
 
 
-*check if the target creature is holding the players hand for camera reasons
-					doif targ eq hhld
+*check if the target creature is being tracked for camera reasons
+					doif targ eq trck
 
 *remember current camera coordinates before we jump
 						setv va02 cmrx
@@ -737,6 +739,7 @@ scrp 1 7 50200 76
 
 					targ va05
 
+*create a temporary Mirror Object to shout the Category of our real object
 					new: simp 1 7 50202 "blnk" 1 0 0
 
 *fake temp object needs to have the same category as the real one
@@ -795,14 +798,14 @@ scrp 1 7 50200 73
 	lock
 *if the user pressed enter (or control S)
 	doif _p1_ eq 'S' or _p1_ eq 13
+
 *WHY IS THIS NEEDED. IT MAKES NO SENSE.
 *(I believe it's waiting until the start of the next tick because the Key Down event takes place before the speech bubble exiss)
 		wait 0
 		targ ownr
 		inst
 
-		sets va00 ""
-
+		sets va02 ""
 
 *grab the pointer so we can check where it is
 		targ pntr
@@ -828,7 +831,6 @@ scrp 1 7 50200 73
 *				dbg: outs "posr:"
 *				dbg: outs vtos posr
 
-
 *todo: not accounting for X pos yet because sometimes speech bubble draws on other side.
 *and posr > va00 and posr < va10
 
@@ -839,58 +841,51 @@ scrp 1 7 50200 73
 					doif targ ne null
 						sets va02 ptxt
 
-
 *make sure the hand said something and didn't just press enter by mistake
-						doif strl va02 > 1
+
+*todo: could check if it starts with "maybe " or "me " (if hand name ISNT "me") or other stuff (aka detect if its probably from a creature) and ignore it if it is
+*this will be challenging because of other languages.
+						doif va02 <> ""
+
 							inst
 
-*make fake hand with same classifier as real one so norns can't tell the difference
-							new: simp 2 1 1 "blnk" 1 0 0
-
-							seta va99 targ
-
-*this temporary object acts as an auto-delete timer for the fake hand created above
-							new: simp 1 7 50202 "blnk" 1 0 0
-							tick 20
-							seta ov00 va99
-
-*switch back to fake hand for the rest of this script
-							targ va99
+							setv va20 va00
 
 *check which side of the wrap the pointer is on and add or remove the appropriate offset
 							doif va00 <= game "C2toDS_WrapRight" and va00 > game "C2toDS_WrapMiddle"
 
-								subv va00 game "C2toDS_WrapOffset"
+								subv va20 game "C2toDS_WrapOffset"
 
 							elif va00 >= game "C2toDS_WrapLeft" and va00 < game "C2toDS_WrapMiddle"
 
-								addv va00 game "C2toDS_WrapOffset"
+								addv va20 game "C2toDS_WrapOffset"
 
 							else
 								stop
 							endi
 
-							mvto va00 va01
 
-*todo: could check if it starts with "maybe " or "me " (if hand name ISNT "me") or other stuff (aka detect if its probably from a creature) and ignore it if it is
-*this will be challenging because of other languages.
+*target the pointer and move it across the wrap
+							targ pntr
 
+							mvto va20 va01
 
-*fake hand shouts out an order
-
+*repeat the last thing the pntr said so that creatures can hear it through the wrap
 							ordr shou va02
 
 *test string to show that indeed, creatures can hear it
-
 *							ordr shou "perfect noun 2 hand"
+
+*move it back where it came from
+							mvto va00 va01
+
 
 
 ** send message to bubble factory to do visuals
-*							seta va03 targ
 *
 *							rtar 1 2 10
 *
-*							mesg wrt+ targ 126 va02 va03 0
+*							mesg wrt+ targ 126 va02 pntr 0
 *
 *							targ ownr
 
@@ -909,36 +904,6 @@ scrp 1 7 50200 73
 endm
 
 
-
-
-*World Wrap Temporary Object Timer Script - used to automatically remove the fake hand after a while
-
-scrp 1 7 50202 9
-
-	inst
-
-*but only if you're not any creature's IT!
-
-	setv va00 0
-
-	enum 4 0 0
-		doif aslp = 0 and dead = 0 and targ <> null
-			doif mv00 <> _it_ and mv00 <> iitt
-				kill mv00
-				kill ownr
-				stop
-			endi
-		endi
-		addv va00 1
-	next
-
-*automatically delete yourself if there are no creatures in the world	
-	doif va00 = 0
-		kill mv00
-		kill ownr
-	endi
-
-endm
 
 
 
