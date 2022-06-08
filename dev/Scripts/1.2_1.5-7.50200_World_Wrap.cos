@@ -6,15 +6,26 @@
 *1 7 50202 - World Wrap Mirror Object
 
 
-*todo: probably dont transport any objects that have a creatures attention on them. there would need to be some sort of fail safe if they move too far past the wrap.
-*todo: improve speech bubble grabbing. it doesn't check the X coord, currently. also might be able to check if Aiko's Speech Bubbles Upgrade 1.2 is installed which stores which agent created the bubble as an enhancement.
+
+*todo: possibly improve speech bubble grabbing? might be able to check if Aiko's Speech Bubbles Upgrade 1.2 is installed which stores which agent created the bubble as an enhancement.
 
 
 *NeoDement:
 *-General cleanup
 *-We are now ENUMing over all objects (0 0 0) instead of just objects in family 2 (2 0 0). This means creatures now transport properly through the wrap.
 *-The world wrap now handles hand holding properly.
-*-Creatures can hear Hand and Agent Help speech over wrap. WIP.
+*-Creatures can hear Hand and Agent Help speech over wrap.
+*-Objects and the pointer will no longer transport if they have a creatures attention on them. Left or right click immediately overrides this for the pointer.
+
+*Neo's Notes:
+
+*Objects with attention on them not transporting could probably be optimized instead of looping over all creatures once per grabber.
+*There may also need to be some sort of fail safe if objects move too far past the wrap... but this seems fine in tests so far
+*caveat: you can't pick up an object that has passed through the wrap if a norn hasn't stopped looking at it yet. hopefully this is rare enough to be okay.
+*we also can't hand hold or shift right click creatures on the other side of the wrap if a norn is looking at them.
+*fortunately creatures tend to shift their focus often.
+*todo?: we could detect right clicks and do an offset trick to see if anything is TOUCing the PNTR and if it is then teleport them back where they're meant to be?
+
 
 
 
@@ -114,8 +125,9 @@ fric 100
 
 aero 0
 
-*listen for Raw Key Down (1) + Raw Mouse Down (8). We use them to intercept speech and agent help clicks.
-imsk 9
+*listen for Raw Key Down (1) + Raw Mouse Down (8) + Raw Mouse Up (16). We use them to intercept speech, agent help clicks and mouse clicks over the wrap.
+imsk 25
+
 
 *----------------------------------*
 
@@ -307,6 +319,8 @@ scrp 1 7 20201 9
 
 			aero 0
 
+*			rnge 1000
+
 			mvto va12 va04
 
 *I Am on the right of the world, in the 10000 range*
@@ -398,6 +412,8 @@ scrp 1 7 20201 9
 
 			aero 0
 
+*			rnge 1000
+
 			mvto va12 va04
 
 			sets name "WhichWrapPieceAmI?" "Right"
@@ -409,6 +425,11 @@ scrp 1 7 20201 9
 		repe
 
 	untl va03 eq 8
+
+**debug: no cameras
+*	enum 1 5 50200
+*		kill targ
+*	next
 
 	unlk
 
@@ -450,6 +471,13 @@ endm
 
 
 
+** World Wrap Grabber - Exception Script
+*(this ended up causing more problems than it solved)
+*
+*scrp 1 6 50200 255
+*	stpc
+*endm
+
 
 
 
@@ -459,14 +487,107 @@ scrp 1 6 50200 9
 
 *stop
 
+*	lock
+
 	inst
+
+
+
+*todo: it would be nicer if we only did this once per 10 ticks instead of once for every grabber
+
+*we are using IITT instead of _IT_
+*IITT - Returns the target creature's current agent of attention. 
+*_IT_ - Returns the agent OWNR's attention was on when the current script was entered. 
+
+*start variable numbering at "0"
+	setv va30 0
+
+*loop through all creatures
+*	esee 4 0 0
+	enum 4 0 0
+		seta va32 iitt
+*		seta va32 _it_
+		targ ownr
+*set variabled named "0", "1", "2" etc to current creatures agent of attention
+		seta name va30 va32
+
+*add 1 to variable name
+		addv va30 1
+	next
+
+*set OV99 to amount of IITTs stored this tick
+	setv ov99 va30
+
+
+
 
 	doif name "WhichWrapPieceAmI?" eq "Right"
 
+*loop over all agents touching this grabber
 		etch 0 0 0
 
-*if the target isn't null, has attribute Suffer Physics, is Autonomous and is over the Right hand side of the wrap
-			doif targ ne null and targ ne pntr and attr ge 64 and movs eq 0 and posx gt game "C2toDS_WrapRight"
+*if the target has attribute Suffer Physics, is Autonomous and is over the Right hand side of the wrap
+			doif attr ge 64 and movs eq 0 and posx gt game "C2toDS_WrapRight"
+
+
+
+*CHECK IF THE TARGET AGENT IS ANY CREATURES AGENT OF ATTENTION:
+
+
+*store the agent in va99 so we can switch back to it after the _IT_ check
+				seta va99 targ
+
+*go through all the IITTS stored this tick:
+				setv va30 0
+
+				targ ownr
+
+				doif ov99 > 0
+					reps ov99
+
+
+*fix for IITT sometimes being set to 0 (possibly if creature has no agent of attention?)
+						doif type name va30 = 0
+							seta name va30 null
+*							dbg: outv va30
+						endi
+
+*if any of the IITTs you stored are the same agent as the agent that is touching the world wrap
+						doif name va30 eq va99
+
+*set a note to stop the script when done cleaning up the temp variables
+							setv va31 1
+*forget stored agent
+							setv name va30 0
+						endi
+
+						addv va30 1
+
+					repe
+				endi
+
+*you are a creatures agent of attention, stop!
+				doif va31 eq 1
+					targ ownr
+					stop
+				endi
+
+				targ va99
+
+
+
+*check if the target agent is being tracked for camera reasons
+				doif targ eq trck
+
+*remember current camera coordinates before we jump
+					setv va02 cmrx
+					setv va03 cmry
+*offset them to the other side of the world
+					subv va02 game "C2toDS_WrapOffset"
+
+				endi
+
+
 
 *if the target is an object
 				doif crea targ ne 1
@@ -498,18 +619,6 @@ scrp 1 6 50200 9
 					subv va00 game "C2toDS_WrapOffset"
 
 
-*check if the target creature is being tracked for camera reasons
-					doif targ eq trck
-
-*remember current camera coordinates before we jump
-						setv va02 cmrx
-						setv va03 cmry
-*offset them to the other side of the world
-						subv va02 game "C2toDS_WrapOffset"
-
-					endi
-
-
 *move the creature to the other side of the wrap
 *(do an unsafe move if possible)
 					doif tmvf va00 va01 = 1
@@ -519,7 +628,9 @@ scrp 1 6 50200 9
 					endi
 
 *if we have stored some camera coordinates to jump to (and they're not out of bounds)
-					doif va02 > 0 and va03 > 0 and va02 < game "C2toDS_Right"
+					doif va02 > 0 and va03 > 0 and game "C2toDS_RoomID" = gmap va02 va03
+
+						wait 0
 
 *move camera to equivalent coordinate on other side of world
 *(the automatic camera reposition is offset as if you dragged the creature to the far edge of the window)
@@ -530,15 +641,80 @@ scrp 1 6 50200 9
 				endi
 
 			endi
-
 		next
 
 	elif name "WhichWrapPieceAmI?" eq "Left"
 
+*loop over all agents touching this grabber
 		etch 0 0 0
 
-*if the target isn't null, has attribute Suffer Physics, is Autonomous and is over the Left hand side of the wrap
-			doif targ ne null and targ ne pntr and attr ge 64 and movs eq 0 and posx lt game "C2toDS_WrapLeft"
+*if the target has attribute Suffer Physics, is Autonomous and is over the Left hand side of the wrap
+			doif attr ge 64 and movs eq 0 and posx lt game "C2toDS_WrapLeft"
+
+
+
+
+*CHECK IF THE TARGET AGENT IS ANY CREATURES AGENT OF ATTENTION:
+
+
+*store the agent in va99 so we can switch back to it after the _IT_ check
+				seta va99 targ
+
+*go through all the IITTS stored this tick:
+				setv va30 0
+
+				targ ownr
+
+				doif ov99 > 0
+					reps ov99
+
+
+*fix for IITT sometimes being set to 0 (possibly if creature has no agent of attention?)
+						doif type name va30 = 0
+							seta name va30 null
+*							dbg: outv va30
+						endi
+
+*if any of the IITTs you stored are the same agent as the agent that is touching the world wrap
+						doif name va30 eq va99
+
+*set a note to stop the script when done cleaning up the temp variables
+							setv va31 1
+*forget stored agent
+							setv name va30 0
+						endi
+
+						addv va30 1
+
+					repe
+				endi
+
+*you are a creatures agent of attention, stop!
+				doif va31 eq 1
+					targ ownr
+					stop
+				endi
+
+				targ va99
+
+
+
+
+
+*check if the target agent is being tracked for camera reasons
+				doif targ eq trck
+
+*remember current camera coordinates before we jump
+					setv va02 cmrx
+					setv va03 cmry
+*offset them to the other side of the world
+					addv va02 game "C2toDS_WrapOffset"
+
+				endi
+
+
+
+
 
 *if the target is an object
 				doif crea targ ne 1
@@ -570,16 +746,6 @@ scrp 1 6 50200 9
 					addv va00 game "C2toDS_WrapOffset"
 
 
-*check if the target creature is being tracked for camera reasons
-					doif targ eq trck
-
-*remember current camera coordinates before we jump
-						setv va02 cmrx
-						setv va03 cmry
-*offset them to the other side of the world
-						addv va02 game "C2toDS_WrapOffset"
-
-					endi
 
 
 *move the creature to the other side of the wrap
@@ -591,7 +757,9 @@ scrp 1 6 50200 9
 					endi
 
 *if we have stored some camera coordinates to jump to (and they're not out of bounds)
-					doif va02 > 0 and va03 > 0 and va02 < game "C2toDS_Right"
+					doif va02 > 0 and va03 > 0 and game "C2toDS_RoomID" = gmap va02 va03
+
+						wait 0
 
 *move camera to equivalent coordinate on other side of world
 *(the automatic camera reposition is offset as if you dragged the creature to the far edge of the window)
@@ -608,7 +776,6 @@ scrp 1 6 50200 9
 	endi
 
 endm
-
 
 
 *Pointer Tracker - Timer Script, runs once per tick*
@@ -630,6 +797,20 @@ scrp 1 7 50200 9
 
 *if it's too far off the left side, we need to wrap the camera round to the right
 		doif va00 <= game "C2toDS_WrapLeft"
+
+
+
+*don't transport the pointer if a creature is paying attention to it. if OV01/MV01 is set to 1 then we transport it anyway.
+			enum 4 0 0
+				doif pntr = iitt and mv01 = 0
+*						sezz "had attention on it"
+					stop
+*					else
+*						sezz "no attention"
+				endi
+			next
+
+
 
 *don't automatically move the camera if we're holding a creatures hand, let the World Wrap Grabber timer script handle it
 			targ hhld
@@ -656,6 +837,20 @@ scrp 1 7 50200 9
 
 *if it's too far off the right side, we need to wrap the camera round to the left
 		doif va00 >= game "C2toDS_WrapRight"
+
+
+
+*don't transport the pointer if a creature is paying attention to it. if OV01/MV01 is set to 1 then we transport it anyway.
+			enum 4 0 0
+				doif pntr = iitt and mv01 = 0
+*						sezz "had attention on it"
+					stop
+*					else
+*						sezz "no attention"
+				endi
+			next
+
+
 
 *don't automatically move the camera if we're holding a creatures hand, let the World Wrap Grabber timer script handle it
 			targ hhld
@@ -694,17 +889,24 @@ scrp 1 7 50200 76
 
 	inst
 
-*check if "agent help watcher" IMSK is set to 9. If it is, that means agent help mode is active.
-	rtar 1 2 4
-	doif imsk <> 9
-		stop
-	endi
 
-	seta va05 hots
-	doif va05 <> null
+*any sort of click immediately sends the pointer over the wrap if a creatures attention is currently preventing it from moving
+	setv mv01 1
+
 
 * left mouse - shout your name
-		doif _p1_ = 1
+	doif _p1_ = 1
+
+*check if "agent help watcher" IMSK is set to 9. If it is, that means agent help mode is active.
+		rtar 1 2 4
+		doif imsk <> 9
+			stop
+		endi
+
+		seta va05 hots
+		doif va05 <> null
+
+
 			targ va05
 
 
@@ -781,12 +983,24 @@ scrp 1 7 50200 76
 				endi
 			endi
 		endi
+
 	endi
+
 
 endm
 
 
 
+
+*Pointer Tracker - Raw Mouse Up script
+scrp 1 7 50200 77
+
+*	wait 1
+
+*reset "mouse just clicked" variable
+	setv mv01 0
+
+endm
 
 
 
@@ -800,7 +1014,7 @@ scrp 1 7 50200 73
 	doif _p1_ eq 'S' or _p1_ eq 13
 
 *WHY IS THIS NEEDED. IT MAKES NO SENSE.
-*(I believe it's waiting until the start of the next tick because the Key Down event takes place before the speech bubble exiss)
+*(I believe it's waiting until the start of the next tick because the Key Down event takes place before the speech bubble exists)
 		wait 0
 		targ ownr
 		inst
@@ -818,8 +1032,12 @@ scrp 1 7 50200 73
 
 			setv va10 va00
 			setv va11 va01
+			setv va12 va00
+
 			addv va10 10
 			addv va11 10
+			subv va12 10
+
 
 *scan speech bubbles
 			enum 1 2 9
@@ -831,10 +1049,30 @@ scrp 1 7 50200 73
 *				dbg: outs "posr:"
 *				dbg: outs vtos posr
 
-*todo: not accounting for X pos yet because sometimes speech bubble draws on other side.
-*and posr > va00 and posr < va10
+*				dbg: outs "va00:"
+*				dbg: outs vtos va00
+*				dbg: outs "va12:"
+*				dbg: outs vtos va12
+*				dbg: outs "posl:"
+*				dbg: outs vtos posl
 
+*check if the speech bubble is within 10px of the pointer top left coord.
+				setv va99 0
+
+*first check Y pos
 				doif posb > va01 and posb < va11
+
+*then check X pos, taking into account that the speech bubble can appear on either side of the pointer
+					doif posr >= va00 and posr < va10
+						setv va99 1
+					elif posl <= va00 and posl > va12
+						setv va99 1
+					endi
+
+				endi
+
+*if the above checks were true, carry on with the script
+				doif va99 = 1
 
 *set the ptxt in va02 for now
 					part 1
@@ -843,8 +1081,6 @@ scrp 1 7 50200 73
 
 *make sure the hand said something and didn't just press enter by mistake
 
-*todo: could check if it starts with "maybe " or "me " (if hand name ISNT "me") or other stuff (aka detect if its probably from a creature) and ignore it if it is
-*this will be challenging because of other languages.
 						doif va02 <> ""
 
 							inst
@@ -876,18 +1112,11 @@ scrp 1 7 50200 73
 *test string to show that indeed, creatures can hear it
 *							ordr shou "perfect noun 2 hand"
 
+**debug: put the sentence you repeated in the debug output stream
+*							dbg: outs va02
+
 *move it back where it came from
 							mvto va00 va01
-
-
-
-** send message to bubble factory to do visuals
-*
-*							rtar 1 2 10
-*
-*							mesg wrt+ targ 126 va02 pntr 0
-*
-*							targ ownr
 
 						endi
 
@@ -960,6 +1189,8 @@ scrx 1 7 50201 9
 scrx 1 7 50201 123
 
 scrx 1 7 50202 9
+
+
 
 
 *Remove "wrap" room links*
