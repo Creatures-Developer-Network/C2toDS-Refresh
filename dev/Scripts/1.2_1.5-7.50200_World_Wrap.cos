@@ -505,18 +505,18 @@ scrp 1 6 50200 9
 *loop through all creatures
 *	esee 4 0 0
 	enum 4 0 0
-		seta va32 iitt
-*		seta va32 _it_
-		targ ownr
-*set variabled named "0", "1", "2" etc to current creatures agent of attention
-		seta name va30 va32
+
+*highest possible OV number is 99. this means if you have over 100 creatures in a world, high numbered ones won't track objects properly over the wrap.
+		doif va30 < 100
+*set variable on OWNR: OV00, OV01, OV02 etc to current creatures agent of attention
+			seta avar ownr va30 iitt
+		endi
 
 *add 1 to variable name
 		addv va30 1
 	next
 
-*set OV99 to amount of IITTs stored this tick
-	setv ov99 va30
+*VA30 is now amount of IITTs stored this tick
 
 
 
@@ -534,45 +534,38 @@ scrp 1 6 50200 9
 *CHECK IF THE TARGET AGENT IS ANY CREATURES AGENT OF ATTENTION:
 
 
-*store the agent in va99 so we can switch back to it after the _IT_ check
-				seta va99 targ
 
-*go through all the IITTS stored this tick:
-				setv va30 0
 
-				targ ownr
+*go through all the IITTS stored this tick (in reverse ordre):
 
-				doif ov99 > 0
-					reps ov99
+				doif va30 > 0
+					reps va30
 
 
 *fix for IITT sometimes being set to 0 (possibly if creature has no agent of attention?)
-						doif type name va30 = 0
-							seta name va30 null
+						doif type avar ownr va30 = 0
+							seta avar ownr va30 null
 *							dbg: outv va30
 						endi
 
 *if any of the IITTs you stored are the same agent as the agent that is touching the world wrap
-						doif name va30 eq va99
+						doif avar ownr va30 eq targ
 
 *set a note to stop the script when done cleaning up the temp variables
 							setv va31 1
 *forget stored agent
-							setv name va30 0
+							setv avar ownr va30 0
 						endi
 
-						addv va30 1
+						subv va30 1
 
 					repe
 				endi
 
 *you are a creatures agent of attention, stop!
 				doif va31 eq 1
-					targ ownr
 					stop
 				endi
-
-				targ va99
 
 
 
@@ -657,45 +650,39 @@ scrp 1 6 50200 9
 *CHECK IF THE TARGET AGENT IS ANY CREATURES AGENT OF ATTENTION:
 
 
-*store the agent in va99 so we can switch back to it after the _IT_ check
-				seta va99 targ
 
-*go through all the IITTS stored this tick:
-				setv va30 0
 
-				targ ownr
+*go through all the IITTS stored this tick (in reverse ordre):
 
-				doif ov99 > 0
-					reps ov99
+				doif va30 > 0
+					reps va30
 
 
 *fix for IITT sometimes being set to 0 (possibly if creature has no agent of attention?)
-						doif type name va30 = 0
-							seta name va30 null
+						doif type avar ownr va30 = 0
+							seta avar ownr va30 null
 *							dbg: outv va30
 						endi
 
 *if any of the IITTs you stored are the same agent as the agent that is touching the world wrap
-						doif name va30 eq va99
+						doif avar ownr va30 eq targ
 
 *set a note to stop the script when done cleaning up the temp variables
 							setv va31 1
 *forget stored agent
-							setv name va30 0
+							setv avar ownr va30 0
 						endi
 
-						addv va30 1
+						subv va30 1
 
 					repe
 				endi
 
 *you are a creatures agent of attention, stop!
 				doif va31 eq 1
-					targ ownr
 					stop
 				endi
 
-				targ va99
 
 
 
@@ -776,7 +763,6 @@ scrp 1 6 50200 9
 	endi
 
 endm
-
 
 *Pointer Tracker - Timer Script, runs once per tick*
 
