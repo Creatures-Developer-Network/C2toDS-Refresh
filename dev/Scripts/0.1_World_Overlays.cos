@@ -747,7 +747,7 @@ mvto 7389 48652
 
 *Dungeon Fire Right*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 5 27 500
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 5 27 1
 
 attr 0
 
@@ -763,7 +763,7 @@ anim [0 1 2 3 4 255]
 
 *Dungeon Fire Middle*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 5 22 500
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 5 22 1
 
 attr 0
 
@@ -779,7 +779,7 @@ anim [0 1 2 3 4 255]
 
 *Dungeon Fire Left*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 5 17 500
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 5 17 1
 
 attr 0
 
@@ -826,7 +826,6 @@ attr 0
 mvto 9410 48354
 
 
-
 *Submarine overlay*
 
 new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 26 8000
@@ -838,6 +837,7 @@ mvto 9106 48192
 
 
 *!!! I don't undersatnd this one...  Look into it... :S!!!*
+* ^? todo: maybe make this overlay larger though so it doesn't cut in when tall creatures walk through it
 
 *Volcano Walkway overlay*
 
@@ -1095,8 +1095,6 @@ new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 39 8000
 
 attr 0
 
-mvto 6430 48488
-
 mvto 6431 48488
 
 
@@ -1316,9 +1314,6 @@ frat 2
 anim [0 1 2 3 4 255]
 
 
-
-
-
 *SoundScapes for Waterfall*
 
 new: simp 1 8 50200 "moe_C2toDS_WaterfallSoundscapes" 1 0 1
@@ -1334,7 +1329,6 @@ new: simp 1 8 50200 "moe_C2toDS_WaterfallSoundscapes" 1 1 1
 mvto 5438 48540
 
 sndl "waf2"
-
 
 
 
@@ -1473,13 +1467,16 @@ mvto 3552 49761
 
 
 
-*Wooden Box*
-
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 1 2 1000
-
-attr 0
-
-mvto 2253 49843
+*there is no reason for this to exist because nothing should ever be drawn behind it
+**Wooden Box*
+*
+*new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 1 2 1000
+*
+*attr 0
+*
+*mvto 2253 49843
+**cmrt 0
+**dcor 1
 
 
 
@@ -1507,7 +1504,7 @@ mvto 2138 49394
 
 *Massive Mixer Anim*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 3 92 10
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 3 92 1
 
 attr 0
 
@@ -1523,7 +1520,7 @@ anim [0 1 2 1 0 255]
 
 *Yellow Bubblies*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 10 8 500
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 10 8 1
 
 attr 0
 
@@ -1537,7 +1534,7 @@ anim [0 1 2 3 4 5 6 7 8 9 255]
 
 *Red Dripper*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 10 55 500
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 10 55 1
 
 attr 0
 
@@ -1551,7 +1548,7 @@ anim [0 1 2 3 4 5 6 7 8 9 8 7 6 255]
 
 *Green Bubbler*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 10 74 500
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 10 74 1
 
 attr 0
 
@@ -1565,7 +1562,7 @@ anim [0 1 2 3 4 5 6 7 8 9 255]
 
 *Bubbly Tanks*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 10 39 10
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 10 39 2
 
 attr 0
 
@@ -1581,7 +1578,7 @@ anim [0 1 2 3 4 5 6 7 8 9 255]
 
 *!!!This should emit heat!!!
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 3 5 500
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 3 5 1
 
 attr 0
 
@@ -1599,7 +1596,7 @@ anim [0 1 2 1 255]
 
 *!!!This should emit heat!!!
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 3 24 500
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 3 24 1
 
 attr 0
 
@@ -1617,7 +1614,7 @@ anim [0 1 2 255]
 
 *!!!This should emit heat!!!
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 3 71 500
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 3 71 1
 
 attr 0
 
@@ -1635,7 +1632,7 @@ anim [0 1 2 255]
 
 *!!!This should emit heat!!!
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 6 33 500
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 6 33 1
 
 attr 0
 
@@ -1653,7 +1650,7 @@ anim [0 1 2 3 4 5 255]
 
 *!!!This should emit heat!!!
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 6 65 500
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 6 65 1
 
 attr 0
 
@@ -1671,7 +1668,7 @@ anim [0 1 2 3 4 5 255]
 
 *!!!This should emit heat!!!
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 6 27 500
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 6 27 1
 
 attr 0
 
@@ -1689,7 +1686,7 @@ anim [0 1 2 3 4 5 255]
 
 *!!!This should emit heat!!!
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 6 49 500
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 6 49 1
 
 attr 0
 
@@ -1723,7 +1720,7 @@ anim [0 1 2 3 4 5 255]
 
 *Swamp L*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 14 129 500
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 14 129 1
 
 attr 0
 
@@ -1739,7 +1736,7 @@ anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 255]
 
 *Swamp LM*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 14 115 500
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 14 115 1
 
 attr 0
 
@@ -1755,7 +1752,7 @@ anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 255]
 
 *Swamp M*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 14 143 500
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 14 143 1
 
 attr 0
 
@@ -1771,7 +1768,7 @@ anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 255]
 
 *Swamp R*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 14 101 500
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 14 101 1
 
 attr 0
 
@@ -1791,7 +1788,7 @@ anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 255]
 
 *!!!!Meters*  - I don't like these, they don't look good.!!!!*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 10 18 500
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 10 18 1
 
 attr 0
 
