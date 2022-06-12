@@ -439,6 +439,7 @@ endm
 
 scrp 1 28 50201 124
 
+inst
 	setv va00 0
 
 *automatically drop anything that isn't a creature
