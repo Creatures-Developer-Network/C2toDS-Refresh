@@ -1639,11 +1639,11 @@ scrp 2 19 50207 9
 
 *doif attr eq 194 or attr eq 195 or attr eq 199 or attr eq 198 and accg gt 0 and carr eq null
 
-*Must be Pickupable
+*Must be Carryable - Was set to check mousable before
 
 		setv va02 attr
 
-		andv va02 2
+		andv va02 1
 
 
 
@@ -1659,15 +1659,7 @@ scrp 2 19 50207 9
 
 		andv va04 32
 
-*		to prevent the uprising, don't carry mushrooms
-		doif fmly eq 2 and gnus eq 11 and spcs eq 50209
-
-			setv va05 1
-
-		endi
-
-
-		doif va04 ne 32 and va02 eq 2 and va03 eq 128 and accg gt 0 and carr eq null and va05 ne 1
+		doif va04 ne 32 and va02 eq 1 and va03 eq 128 and accg gt 0 and carr eq null
 
 			doif name "dustdevil" ne 1 and accg ge .1
 
