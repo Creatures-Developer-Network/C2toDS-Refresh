@@ -308,12 +308,23 @@ scrp 1 7 20201 9
 *Left Side Grabber
 
 			new: simp 1 6 50200 "moe_C2toDS_Camera" 1 1 1
+*			new: simp 1 6 50200 "moe_C2toDS_Camera" 2 0 1
+*			pose 1
 
 			attr 0
 
 			accg 0
 
-			tick 10
+			tick 1
+
+*what if there was always at least 1 grabber ticking every tick instead of all of them every 10 ticks?
+			doif va16 < 10
+				addv va16 1
+			else
+				setv va16 0
+			endi
+
+			setv name "WhenDoesThisPieceTick?" va16
 
 			fric 100
 
@@ -401,12 +412,23 @@ scrp 1 7 20201 9
 *Right Side Grabber
 
 			new: simp 1 6 50200 "moe_C2toDS_Camera" 1 1 1
+*			new: simp 1 6 50200 "moe_C2toDS_Camera" 2 0 1
+*			pose 1
 
 			attr 0
 
 			accg 0
 
-			tick 10
+			tick 1
+
+*what if there was always at least 1 grabber ticking every tick instead of all of them every 10 ticks?
+			doif va16 < 10
+				addv va16 1
+			else
+				setv va16 0
+			endi
+
+			setv name "WhenDoesThisPieceTick?" va16
 
 			fric 100
 
@@ -481,7 +503,7 @@ endm
 
 
 
-* World Wrap Grabber - Timer script (runs once every 10 ticks)
+* World Wrap Grabber - Timer script (runs once every tick, but only 10% of them will be ticking at once)
 
 scrp 1 6 50200 9
 
@@ -491,6 +513,15 @@ scrp 1 6 50200 9
 
 	inst
 
+*what if there was always at least 1 grabber ticking every tick instead of all of them every 10 ticks?
+	doif name "WhenDoesThisPieceTick?" <> 10
+		addv name "WhenDoesThisPieceTick?" 1
+*		pose 0
+		stop
+	else
+		setv name "WhenDoesThisPieceTick?" 0
+*		pose 1
+	endi
 
 
 *todo: it would be nicer if we only did this once per 10 ticks instead of once for every grabber
@@ -541,6 +572,7 @@ scrp 1 6 50200 9
 				doif va30 > 0
 					reps va30
 
+						subv va30 1
 
 *fix for IITT sometimes being set to 0 (possibly if creature has no agent of attention?)
 						doif type avar ownr va30 = 0
@@ -557,8 +589,6 @@ scrp 1 6 50200 9
 							setv avar ownr va30 0
 						endi
 
-						subv va30 1
-
 					repe
 				endi
 
@@ -570,7 +600,7 @@ scrp 1 6 50200 9
 
 
 *check if the target agent is being tracked for camera reasons
-				doif targ eq trck
+				doif targ eq trck or targ eq hhld
 
 *remember current camera coordinates before we jump
 					setv va02 cmrx
@@ -689,7 +719,7 @@ scrp 1 6 50200 9
 
 
 *check if the target agent is being tracked for camera reasons
-				doif targ eq trck
+				doif targ eq trck or targ eq hhld
 
 *remember current camera coordinates before we jump
 					setv va02 cmrx
@@ -772,12 +802,21 @@ scrp 1 7 50200 9
 
 	inst
 
-*grab the pointer so we can check where it is
-	targ pntr
+**grab the pointer so we can check where it is
+*	targ pntr
+*
+**remember the pointer coords
+*	setv va00 posl
+*	setv va01 post
+
 
 *remember the pointer coords
-	setv va00 posl
-	setv va01 post
+	setv va00 mopx
+	setv va01 mopy
+
+*todo: could correct offset to get top left instead of centre coords but doesn't seem very important.
+
+
 
 	doif game "C2toDS_RoomID" = gmap va00 va01
 
