@@ -1784,8 +1784,6 @@ anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 255]
 
 
 
-
-
 *!!!!Meters*  - I don't like these, they don't look good.!!!!*
 
 new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 10 18 1
@@ -1799,13 +1797,103 @@ frat 2
 anim [0 1 2 3 4 5 255]
 
 
-scrp 1 8 50200 10
 
-	tick 0
 
-	stop
+
+*Lights above Frog Pond*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 2 157 1
+
+attr 0
+
+mvto 2851 48801
+
+pose 1
+
+setv ov00 0
+
+tick 1
+
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 3 157 1
+
+attr 0
+
+mvto 2955 48789
+
+pose 2
+
+setv ov00 1
+
+tick 1
+
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 4 157 1
+
+attr 0
+
+mvto 3045 48790
+
+pose 3
+
+setv ov00 2
+
+tick 1
+
+
+
+
+
+
+*Timer Script - Currently only used by Lights above Frog Pond (OV00 0, 1 and 2)
+
+scrp 1 8 50200 9
+
+	doif ov00 < 3
+
+*randomly blink
+		doif pose <> 0
+			pose 0
+
+			tick rand 3 5
+		else
+
+*0 - Left Light above Frog Pond
+			doif ov00 = 0
+				pose 1
+*1 - Mid Light above Frog Pond
+			elif ov00 = 1
+				pose 2
+*2 - Right Light above Frog Pond
+			elif ov00 = 2
+				pose 3
+			endi
+
+			setv va00 rand 2 20
+			mulv va00 10
+			tick va00
+
+		endi
+	endi
+
 
 endm
+
+
+
+*redundant script that was precluding the creation of the Lights above the Frog Pond
+*scrp 1 8 50200 10
+*
+*	tick 0
+*
+*	stop
+*
+*endm
+
+
+
+
+
 
 rscr
 
