@@ -687,6 +687,7 @@ scrp 1 6 50200 9
 				doif va30 > 0
 					reps va30
 
+						subv va30 1
 
 *fix for IITT sometimes being set to 0 (possibly if creature has no agent of attention?)
 						doif type avar ownr va30 = 0
@@ -702,8 +703,6 @@ scrp 1 6 50200 9
 *forget stored agent
 							setv avar ownr va30 0
 						endi
-
-						subv va30 1
 
 					repe
 				endi
