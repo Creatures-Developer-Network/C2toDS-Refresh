@@ -45,6 +45,8 @@ mvto 3185 49579
 
 scrp 1 15 50202 9
 
+	inst
+
 *disabled Fear Increase and Loneliness Increase
 *	stim shou 100 255 0 0 27 100 25 50 0 0 0 0
 
