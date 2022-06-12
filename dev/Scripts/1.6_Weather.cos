@@ -10,6 +10,7 @@
 *2 19 50207 - Dust Devil
 
 *The one who screams toned down the scares from thunder and stopped dustdevils from creating mushroom patches.
+*May have changed the mushroom patch fix and actually changed the mushrooms, + other weather tweaks - Verm
 
 new: comp 1 9 50200 "moe_C2toDS_Weather" 1 32 9000
 
@@ -145,7 +146,7 @@ scrp 2 21 50217 9
 
 		new: simp 1 17 50200 "smoke" 5 10 5001
 
-		attr 32
+		attr 48
 
 		mvto va00 va01
 
@@ -351,8 +352,8 @@ scrp 2 19 50200 10
 	core 70 25 150 250
 
 	perm 2
-
-	attr 196
+*Be invisible!
+	attr 212
 
 	accg 0
 
@@ -815,8 +816,8 @@ endm
 *Push Cloud!
 
 scrp 2 19 50200 1
-
-
+*Being careful to not skip a check by rapid clicks - Verm
+inst
 
 
 
@@ -824,13 +825,15 @@ scrp 2 19 50200 1
 
 	setv va00 rand 0 6
 
-	doif va00 eq 2
+	doif va00 eq 2 and name "MadeARainbow?" eq 0
 
 		mesg writ targ 1004
+		
+		setv name "MadeARainbow?" 1
 
 	endi
 
-
+slow
 
 	doif pose gt 2
 
@@ -892,7 +895,7 @@ scrp 2 19 50200 1004
 
 	mvto va00 va01
 
-	attr 32
+	attr 48
 
 	part 100
 
@@ -957,12 +960,8 @@ scrp 2 19 50200 1001
 		endi
 
 *scare creatures
-
-		esee 4 0 0
-
-			chem 158 .1
-
-		next
+**Might need sway sign
+		sway shou 10 0.1 0 0 0 0 0 0
 
 		targ ownr
 
@@ -1122,7 +1121,7 @@ scrp 2 19 50200 1002
 
 		new: simp 2 19 50201 "moe_C2toDS_weather" 0 23 rand 1000 6000
 
-		attr 192
+		attr 208
 
 		perm rand 49 51
 
@@ -1210,7 +1209,7 @@ scrp 2 19 50200 1003
 
 		bhvr 0
 
-		attr 195
+		attr 211
 
 		aero 3
 
@@ -1353,7 +1352,7 @@ scrp 2 19 50208 9
 
 	new: simp 2 19 50209 "moe_C2toDS_weather" 0 63 5000
 
-	attr 195
+	attr 211
 
 	mvsf va00 va01
 
@@ -1578,8 +1577,8 @@ scrp 2 19 50207 10
 	inst
 
 	setv name "dustdevil" 1
-
-	attr 199
+*No carryable, invsi
+	attr 214
 
 	pat: dull 1 "moe_C2toDS_weather" 80 0 0 0
 
@@ -1787,7 +1786,7 @@ scrp 2 19 50207 9
 
 				setv va02 attr
 
-				andv va02 2
+				andv va02 1
 
 
 
@@ -1797,7 +1796,7 @@ scrp 2 19 50207 9
 
 				andv va03 128
 
-
+*And not floatable
 
 				setv va04 attr
 
