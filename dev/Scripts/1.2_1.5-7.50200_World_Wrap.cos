@@ -336,7 +336,7 @@ scrp 1 7 20201 9
 
 *I Am on the right of the world, in the 10000 range*
 
-			sets name "WhichWrapPieceAmI?" "Left"
+			setv name "WhichWrapPieceAmI?" left
 
 
 
@@ -438,7 +438,7 @@ scrp 1 7 20201 9
 
 			mvto va12 va04
 
-			sets name "WhichWrapPieceAmI?" "Right"
+			setv name "WhichWrapPieceAmI?" rght
 
 *Increment X-wide
 
@@ -497,7 +497,7 @@ endm
 *(this ended up causing more problems than it solved)
 *
 *scrp 1 6 50200 255
-*	stpc
+*	stop
 *endm
 
 
@@ -552,13 +552,35 @@ scrp 1 6 50200 9
 
 
 
-	doif name "WhichWrapPieceAmI?" eq "Right"
+	doif name "WhichWrapPieceAmI?" eq rght
 
 *loop over all agents touching this grabber
 		etch 0 0 0
 
-*if the target has attribute Suffer Physics, is Autonomous and is over the Right hand side of the wrap
-			doif attr ge 64 and movs eq 0 and posx gt game "C2toDS_WrapRight"
+
+*just in case
+			doif targ eq null
+				stop
+			endi
+
+*no need to do anything if they're a "system" object
+			doif fmly < 2
+				stop
+			endi
+
+*make sure they Suffer Physics
+			doif attr le 64
+				stop
+			endi
+
+*make sure they're Autonomous
+			doif movs ne 0
+				stop
+			endi
+
+
+*if the target is over the Right hand side of the wrap
+			doif posx gt game "C2toDS_WrapRight"
 
 
 
@@ -615,6 +637,11 @@ scrp 1 6 50200 9
 *if the target is an object
 				doif crea targ ne 1
 
+**debug: what just went through the wrap?
+*					dbg: outv fmly
+*					dbg: outv gnus
+*					dbg: outv spcs
+
 					setv va00 posl
 					setv va01 post
 
@@ -666,13 +693,34 @@ scrp 1 6 50200 9
 			endi
 		next
 
-	elif name "WhichWrapPieceAmI?" eq "Left"
+	elif name "WhichWrapPieceAmI?" eq left
 
 *loop over all agents touching this grabber
 		etch 0 0 0
 
-*if the target has attribute Suffer Physics, is Autonomous and is over the Left hand side of the wrap
-			doif attr ge 64 and movs eq 0 and posx lt game "C2toDS_WrapLeft"
+*just in case
+			doif targ eq null
+				stop
+			endi
+
+*no need to do anything if they're a "system" object
+			doif fmly < 2
+				stop
+			endi
+
+*make sure they Suffer Physics
+			doif attr le 64
+				stop
+			endi
+
+*make sure they're Autonomous
+			doif movs ne 0
+				stop
+			endi
+
+
+*if the target is over the Left hand side of the wrap
+			doif posx lt game "C2toDS_WrapLeft"
 
 
 
@@ -734,6 +782,11 @@ scrp 1 6 50200 9
 
 *if the target is an object
 				doif crea targ ne 1
+
+**debug: what just went through the wrap?
+*					dbg: outv fmly
+*					dbg: outv gnus
+*					dbg: outv spcs
 
 					setv va00 posl
 					setv va01 post
