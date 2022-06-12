@@ -1,6 +1,10 @@
 * 2 18 50208 - Barnacle Egg
 * 2 15 50205 - Barnacle
 
+
+*NeoDement moved an ATTR change (enabling physics) from the Drop script to the Pickup script to hopefully have the same effect but prevent an invalid map position error.
+
+
 reps rand 3 4
 
 	new: simp 2 18 50208 "moe_C2toDS_barnacles" 11 55 rand 1000 3000
@@ -428,7 +432,7 @@ scrp 2 15 50205 1
 
 
 	doif pose gt 0
-	
+
 		loop
 
 			setv va00 pose
@@ -450,7 +454,7 @@ scrp 2 15 50205 2
 	doif crea from eq 1
 		stim writ from 86 1
 	endi
-	
+
 	mesg writ ownr 0
 
 endm
@@ -462,7 +466,7 @@ scrp 2 15 50205 3
 	doif crea from eq 1
 		stim writ from 87 1
 	endi
-	
+
 	mesg writ ownr 0
 
 endm
@@ -472,6 +476,7 @@ endm
 scrp 2 15 50205 4
 
 	lock
+inst
 
 	doif pose gt 0
 
@@ -485,27 +490,37 @@ scrp 2 15 50205 4
 
 		untl pose eq 0
 
-	endi
+	endi	
 
 	base 0
 
 	pose 0
+	
+	*(from drop script)
+		attr 199
+
+	accg 4
+
+	aero 5
+	
 
 	unlk
 
 endm
 
-*drop
+*moved to pickup script for now
+**drop
+*
+*scrp 2 15 50205 5
+*
+*	attr 199
+*
+*	accg 4
+*
+*	aero 5
+*
+*endm
 
-scrp 2 15 50205 5
-
-	attr 199
-
-	accg 4
-
-	aero 5
-
-endm
 
 *collision
 
@@ -559,7 +574,7 @@ scrp 2 15 50205 12
 	doif crea from eq 1
 		stim writ from 80 1
 	endi
-	
+
 	snde "eat1"
 
 	setv va00 posx

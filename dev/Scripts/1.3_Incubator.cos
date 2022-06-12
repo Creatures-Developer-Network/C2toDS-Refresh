@@ -40,8 +40,8 @@ mvto 7043 48332
 
 scrp 2 22 50200 10
 
-*Greedy Cabin + Invisible + Mouseable + Suffer Collisions + Suffer Physics
-	attr 218
+*Greedy Cabin + Invisible + Mouseable + Suffer Collisions + Suffer Physics + Open Air Cabin
+	attr 730
 
 *make the hitbox a lil bit smaller so the feet can sink through the floor a bit like in C2
 	core 23 130 4 185
@@ -176,7 +176,7 @@ scrp 2 22 50200 1001
 			targ ownr
 
 *Invisible + Suffer Collisions + Suffer Physics
-*(disable picking up and greedy cabin when you put an egg in it)
+*(disable Picking Up, Greedy Cabin and Open Air Cabin when you put an egg in it)
 			attr 208
 
 			part 0
@@ -461,9 +461,9 @@ scrp 2 22 50200 1001
 
 			targ ownr
 
-*Greedy Cabin + Invisible + Mouseable + Suffer Collisions + Suffer Physics
+*Greedy Cabin + Invisible + Mouseable + Suffer Collisions + Suffer Physics + Open Air Cabin
 *(reset attributes to default now the egg has hatched)
-			attr 218
+	attr 730
 
 		endi
 
@@ -489,8 +489,8 @@ endm
 
 *If things go wrong, dump all contents
 scrp 2 22 50200 255
-inst
-dpas 0 0 0
+	inst
+	dpas 0 0 0
 endm
 
 *goodbye!

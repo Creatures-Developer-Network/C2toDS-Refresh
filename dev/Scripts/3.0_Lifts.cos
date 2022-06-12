@@ -4,99 +4,84 @@
 *//*Norn Burrow Lift*//*
 
 *Matthew, "Moe", '10*
-* Some Modifications By the one who screams i guess, Malkin
+* Some Modifications By the one who screams i guess, Malkin, NeoDement
 * (if you worked on this file, feel free to add your name!)
+
+
 
 inst
 
 
 
-*NORN BURROW LIFT*
+**PLAIN WOODEN LIFTS (OV04 = 0)**
+
+
+*Norn Burrow Lift*
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 1 1000
 
 mvto 7806 48300
 
-pat: dull 1 "moe_C2toDS_lifts" 0 0 0 3
-
-*Button on lift
-
-pat: butt 2 "moe_C2toDS_lifts" 2 3 80 55 1 [] 1000 0
-
-pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
-
-part 3
-
-sets name "call list" ""
-
 sets name "Lift" "NornBurrow"
-
-seta name "0" null
 
 setv name "total" 2
 
 setv name "current level" 1
 
-*
+setv ov04 0
 
-*TEMPLE LIFT*
+
+
+*Temple Lift*
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 1 1000
 
 mvto 6220 48270
 
-pat: dull 1 "moe_C2toDS_lifts" 0 0 0 40
-
-*Button on lift
-
-pat: butt 2 "moe_C2toDS_lifts" 2 3 80 55 1 [] 1000 0
-
-pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
-
-part 3
-
-sets name "call list" ""
-
 sets name "Lift" "Temple"
-
-seta name "0" null
 
 setv name "total" 2
 
 setv name "current level" 1
 
+setv ov04 0
 
 
-*WORLD TREE LIFT*
+
+*World Tree Lift*
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 1 1000
 
 mvto 3584 48055
 
-pat: dull 1 "moe_C2toDS_lifts" 0 0 0 40
-
-*Button on lift
-
-pat: butt 2 "moe_C2toDS_lifts" 2 3 80 55 1 [] 1000 0
-
-pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
-
-part 3
-
-sets name "call list" ""
-
 sets name "Lift" "WorldTree"
-
-seta name "0" null
 
 setv name "total" 3
 
-setv ov04 0
-
 setv name "current level" 1
 
+setv ov04 0
 
 
+
+*Hollow Tree Lift*
+
+new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 1 1000
+
+mvto 3595 48925
+
+sets name "Lift" "TreeTrunkLift"
+
+setv name "total" 2
+
+setv name "current level" 0
+
+setv ov04 0
+
+
+
+
+**BAMBOO WOODEN LIFTS (OV04 = 1)**
 
 
 *Jungle Lowest Level Lift*
@@ -105,29 +90,13 @@ new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 10 1000
 
 mvto 5575 49700
 
-pat: dull 1 "moe_C2toDS_lifts" 9 0 0 40
-
-*Button on lift
-
-pat: butt 2 "moe_C2toDS_lifts" 2 3 90 63 1 [] 1000 0
-
-pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
-
-part 3
-
-sets name "call list" ""
-
 sets name "Lift" "JungleLowestLevel"
-
-seta name "0" null
 
 setv name "total" 2
 
-setv ov04 0
-
 setv name "current level" 2
 
-
+setv ov04 1
 
 
 
@@ -137,29 +106,13 @@ new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 10 1000
 
 mvto 5242 48981
 
-pat: dull 1 "moe_C2toDS_lifts" 9 0 0 40
-
-*Button on lift
-
-pat: butt 2 "moe_C2toDS_lifts" 2 3 90 63 1 [] 1000 0
-
-pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
-
-part 3
-
-sets name "call list" ""
-
 sets name "Lift" "JungleMidLevel"
-
-seta name "0" null
 
 setv name "total" 2
 
-setv ov04 0
-
 setv name "current level" 1
 
-
+setv ov04 1
 
 
 
@@ -169,27 +122,13 @@ new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 10 1000
 
 mvto 4381 48403
 
-pat: dull 1 "moe_C2toDS_lifts" 9 0 0 40
-
-*Button on lift
-
-pat: butt 2 "moe_C2toDS_lifts" 2 3 90 63 1 [] 1000 0
-
-pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
-
-part 3
-
-sets name "call list" ""
-
 sets name "Lift" "JungleLeftLevel"
-
-seta name "0" null
 
 setv name "total" 2
 
-setv ov04 0
-
 setv name "current level" 0
+
+setv ov04 1
 
 
 
@@ -199,27 +138,13 @@ new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 10 1000
 
 mvto 6599 49700
 
-pat: dull 1 "moe_C2toDS_lifts" 9 0 0 40
-
-*Button on lift
-
-pat: butt 2 "moe_C2toDS_lifts" 2 3 90 63 1 [] 1000 0
-
-pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
-
-part 3
-
-sets name "call list" ""
-
 sets name "Lift" "SwampLeftLevel"
-
-seta name "0" null
 
 setv name "total" 1
 
-setv ov04 0
-
 setv name "current level" 1
+
+setv ov04 1
 
 
 
@@ -229,27 +154,13 @@ new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 10 1000
 
 mvto 7168 49295
 
-pat: dull 1 "moe_C2toDS_lifts" 9 0 0 40
-
-*Button on lift
-
-pat: butt 2 "moe_C2toDS_lifts" 2 3 90 63 1 [] 1000 0
-
-pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
-
-part 3
-
-sets name "call list" ""
-
 sets name "Lift" "SwampMidLevel"
-
-seta name "0" null
 
 setv name "total" 1
 
-setv ov04 0
-
 setv name "current level" 1
+
+setv ov04 1
 
 
 
@@ -259,28 +170,18 @@ new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 10 1000
 
 mvto 7755 49700
 
-pat: dull 1 "moe_C2toDS_lifts" 9 0 0 40
-
-*Button on lift
-
-pat: butt 2 "moe_C2toDS_lifts" 2 3 90 63 1 [] 1000 0
-
-pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
-
-part 3
-
-sets name "call list" ""
-
 sets name "Lift" "SwampRightLevel"
-
-seta name "0" null
 
 setv name "total" 1
 
-setv ov04 0
-
 setv name "current level" 1
 
+setv ov04 1
+
+
+
+
+**METAL LIFTS (OV04 = 2)**
 
 
 *Aubergine Lift*
@@ -289,27 +190,13 @@ new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 15 1000
 
 mvto 4256 49580
 
-pat: dull 1 "moe_C2toDS_lifts" 14 0 0 40
-
-*Button on lift
-
-pat: butt 2 "moe_C2toDS_lifts" 16 3 67 73 1 [] 1000 0
-
-pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
-
-part 3
-
-sets name "call list" ""
-
 sets name "Lift" "AubergineLift"
-
-seta name "0" null
 
 setv name "total" 1
 
-setv ov04 1
-
 setv name "current level" 0
+
+setv ov04 2
 
 
 
@@ -319,57 +206,29 @@ new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 15 1000
 
 mvto 9572 48760
 
-pat: dull 1 "moe_C2toDS_lifts" 14 0 0 40
-
-*Button on lift
-
-pat: butt 2 "moe_C2toDS_lifts" 16 3 67 73 1 [] 1000 0
-
-pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
-
-part 3
-
-sets name "call list" ""
-
 sets name "Lift" "VolcanoLiftLeft"
-
-seta name "0" null
 
 setv name "total" 3
 
-setv ov04 1
-
 setv name "current level" 2
 
+setv ov04 2
 
 
-*Volcano Lift  Right*
+
+*Volcano Lift Right*
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 15 1000
 
 mvto 10165 49280
 
-pat: dull 1 "moe_C2toDS_lifts" 14 0 0 40
-
-*Button on lift
-
-pat: butt 2 "moe_C2toDS_lifts" 16 3 67 73 1 [] 1000 0
-
-pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
-
-part 3
-
-sets name "call list" ""
-
 sets name "Lift" "VolcanoLiftRight"
-
-seta name "0" null
 
 setv name "total" 1
 
-setv ov04 1
-
 setv name "current level" 1
+
+setv ov04 2
 
 
 
@@ -379,27 +238,13 @@ new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 15 1000
 
 mvto 2105 48465
 
-pat: dull 1 "moe_C2toDS_lifts" 14 0 0 40
-
-*Button on lift
-
-pat: butt 2 "moe_C2toDS_lifts" 16 3 67 73 1 [] 1000 0
-
-pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
-
-part 3
-
-sets name "call list" ""
-
 sets name "Lift" "BiosphereLeft"
-
-seta name "0" null
 
 setv name "total" 1
 
-setv ov04 1
-
 setv name "current level" 0
+
+setv ov04 2
 
 
 
@@ -409,87 +254,126 @@ new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 15 1000
 
 mvto 2350 48975
 
-pat: dull 1 "moe_C2toDS_lifts" 14 0 0 40
-
-*Button on lift
-
-pat: butt 2 "moe_C2toDS_lifts" 16 3 67 73 1 [] 1000 0
-
-pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
-
-part 3
-
-sets name "call list" ""
-
 sets name "Lift" "BiosphereRight"
-
-seta name "0" null
 
 setv name "total" 1
 
-setv ov04 1
-
 setv name "current level" 0
 
+setv ov04 2
 
 
 
 
-*HOLLOW TREE LIFT*
+**METAL PLATFORM LIFT (OV04 = 3)**
 
-new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 1 1000
 
-mvto 3595 48925
+*Labs Lift*
 
-pat: dull 1 "moe_C2toDS_lifts" 0 0 0 3
+new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 19 1000
 
-*Button on lift
+mvto 3368 49133
 
-pat: butt 2 "moe_C2toDS_lifts" 2 3 80 55 1 [] 1000 0
-
-pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
-
-part 3
-
-sets name "call list" ""
-
-sets name "Lift" "TreeTrunkLift"
-
-seta name "0" null
+sets name "Lift" "Labs"
 
 setv name "total" 2
 
-setv name "current level" 0
+setv name "current level" 1
 
+setv ov04 3
+
+
+
+
+*Lift Creation Script
 
 scrp 3 1 50200 10
 
-*have it check a variable of the owner, and decide which call buttons to add.
+*wait a tick so variables in install script are properly set
+	wait 1
 
+	inst
 
-
+*Open Air Cabin 512
 	attr 512
-
-	cabn -20 0 120 155
 
 	cabp 0
 
 	seta ov05 null
 
 *cabin can't hold more than 40 creatures
-
 	cabw 40
-
-*Open Air Cabin 512
 
 *Pushable and pullable
 	bhvr 3
 
 
 
+*these need to be initialized for lifts to work properly
+	sets name "call list" ""
+
+	seta name "0" null
 
 
-	wait 1
+
+**PLAIN WOODEN**
+	doif ov04 eq 0
+
+		pat: dull 1 "moe_C2toDS_lifts" 0 0 0 40
+
+*Button on lift
+
+		pat: butt 2 "moe_C2toDS_lifts" 2 3 79 71 1 [] 1000 0
+
+*		pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
+
+		cabn -20 0 120 155
+
+
+**BAMBOO WOODEN**
+	elif ov04 eq 1
+
+		pat: dull 1 "moe_C2toDS_lifts" 9 0 0 40
+
+*Button on lift
+
+		pat: butt 2 "moe_C2toDS_lifts" 2 3 90 65 1 [] 1000 0
+
+*		pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
+
+		cabn -20 0 120 155
+
+
+**METAL**
+	elif ov04 eq 2
+
+		pat: dull 1 "moe_C2toDS_lifts" 14 0 0 40
+
+*Button on lift
+
+		pat: butt 2 "moe_C2toDS_lifts" 16 3 67 73 1 [] 1000 0
+
+*		pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
+
+		cabn -20 0 120 155
+
+
+*METAL PLATFORM**
+	elif ov04 eq 3
+
+		pat: butt 2 "moe_C2toDS_lifts" 22 3 12 -1 1 [] 1000 0
+
+*		pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
+
+		cabn -20 -154 159 59
+
+	endi
+
+
+
+
+
+*have it check the "Lift" variable of the owner, and decide which call buttons to add.
 
 	inst
 
@@ -1403,6 +1287,77 @@ scrp 3 1 50200 10
 
 	endi
 
+
+
+
+*Lab/Electric Guitar Room LIFT*
+
+	doif name "Lift" eq "Labs"
+
+*Labs Call Button Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 3537 48820
+
+		seta mame "0" targ
+
+		seta ov00 ownr
+
+		sets ov01 "0"
+
+*Y offset
+		setv ov03 0
+
+		setv ov04 1
+
+		targ ownr
+
+
+*Labs Call Button Middle*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 3349 49116
+
+		seta mame "1" targ
+
+		seta ov00 ownr
+
+		sets ov01 "1"
+
+*Y offset
+		setv ov03 0
+
+		setv ov04 1
+
+		targ ownr
+
+
+*Labs Call Button Bottom*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 7 2000
+
+		mvto 3353 49339
+
+		seta mame "2" targ
+
+		seta ov00 ownr
+
+		sets ov01 "2"
+
+*Y offset
+		setv ov03 2
+
+		setv ov04 0
+
+		targ ownr
+
+	endi
+
+
+
+
 	plne 1000
 
 
@@ -1411,11 +1366,11 @@ scrp 3 1 50200 10
 
 endm
 
+
 *Push the button hand*
 
 scrp 3 1 50200 1000
 
-	inst
 
 	gsub movelift
 
@@ -1431,22 +1386,29 @@ scrp 3 1 50200 1000
 
 			targ from
 
-			anim [ 0 1 0]
+			anim [0 1 0]
+
+			inst
 
 			targ ownr
 
 			setv va00 post
 
 
+*BUTTON OFFSETS (to determine if you are pressing the up or down button)
 
+*button offset for wooden lifts
 			doif ov04 eq 0
-
-				addv va00 63
-
-			else
-
-				addv va00 80
-
+				addv va00 75
+*button offset for bamboo lifts
+			elif ov04 eq 1
+				addv va00 70
+*button offset for metal lifts
+			elif ov04 eq 2
+				addv va00 83
+*button offset for metal platform lift
+			elif ov04 eq 3
+				addv va00 14
 			endi
 
 
@@ -1511,6 +1473,8 @@ scrp 3 1 50200 1000
 
 		endi
 
+		inst
+
 *If it's from a norn, pick your floor based on the drives for up and down
 
 
@@ -1527,7 +1491,7 @@ scrp 3 1 50200 1000
 
 		adds name "call list" " "
 
-		part 3
+*		part 3
 
 *ptxt name "call list"
 
@@ -1565,7 +1529,7 @@ scrp 3 1 50200 1
 *setv va00 rand 1 name "total"
 		adds name "call list" vtos va00
 		adds name "call list" " "
-		part 3
+*		part 3
 *ptxt name "call list"
 		tick 10
 		stim writ from 75 1
@@ -1595,7 +1559,7 @@ scrp 3 1 50200 2
 *setv va00 rand 1 name "total"
 		adds name "call list" vtos va00
 		adds name "call list" " "
-		part 3
+*		part 3
 *ptxt name "call list"
 		tick 10
 		stim writ from 75 1
@@ -1629,9 +1593,16 @@ scrp 3 1 50200 9
 
 			setv va01 posb
 
+*Y offset
 			addv va01 ov03
 
 			targ ownr
+
+*metal platform lift has a Y offset so that the gears are underground
+			doif ov04 eq 3
+				addv va01 56
+			endi
+
 
 			gsub gotobutton
 
@@ -1659,7 +1630,7 @@ scrp 3 1 50200 9
 
 		stpc
 
-		part 3
+*		part 3
 
 *ptxt name "call list"
 
@@ -1697,17 +1668,35 @@ scrp 3 1 50200 9
 
 			seta ov05 null
 
-			doif ov04 eq 1
+*WOODEN LIFTS (both types)
+			doif ov04 eq 0 or ov04 eq 1
+
+*lift speed
+				setv va99 3
+
+				sndl "m_a3"
+
+*METAL LIFTS
+			elif ov04 eq 2
+
+*lift speed
+				setv va99 3
 
 				sndq "mlf1" 0
 
 				sndl "mlf2"
 
-			elif ov04 eq 0
+*METAL PLATFORM LIFT (twice as fast)
+			elif ov04 eq 3
+*lift speed
+				setv va99 6
 
-				sndl "m_a3"
+				sndq "mlf1" 0
+
+				sndl "mlf2"
 
 			endi
+
 
 			part 2
 
@@ -1715,9 +1704,15 @@ scrp 3 1 50200 9
 
 			loop
 
-				setv vely 3
+				setv vely va99
 
 			untl posb ge va01
+
+*fix for lifts not stopping in their specific end position
+			inst
+			setv va10 va01
+			subv va10 hght
+			mvto posl va10
 
 			velo 0 0
 
@@ -1739,17 +1734,34 @@ scrp 3 1 50200 9
 
 			seta ov05 null
 
-			doif ov04 eq 1
+*WOODEN LIFTS (both types)
+			doif ov04 eq 0 or ov04 eq 1
+
+*lift speed
+				setv va99 -3
+
+				sndl "m_a3"
+
+*METAL LIFTS
+			elif ov04 eq 2
+*lift speed
+				setv va99 -3
 
 				sndq "mlf1" 0
 
 				sndl "mlf2"
 
-			elif ov04 eq 0
+*METAL PLATFORM LIFT (twice as fast)
+			elif ov04 eq 3
+*lift speed
+				setv va99 -6
 
-				sndl "m_a3"
+				sndq "mlf1" 0
+
+				sndl "mlf2"
 
 			endi
+
 
 			part 2
 
@@ -1757,9 +1769,15 @@ scrp 3 1 50200 9
 
 			loop
 
-				setv vely -3
+				setv vely va99
 
 			untl posb le va01
+
+*fix for lifts not stopping in their specific end position
+			inst
+			setv va10 va01
+			subv va10 hght
+			mvto posl va10
 
 			velo 0 0
 
@@ -1780,12 +1798,12 @@ scrp 3 1 50200 9
 		targ ownr
 
 
-
-		doif ov04 eq 1
+*make a stopping sound if you're a metal lift or a platform lift
+		doif ov04 eq 2 or ov04 eq 3
 
 			sndq "mlf3" 0
 
-		elif ov04 eq 0
+		else
 
 			stpc
 
@@ -1830,13 +1848,13 @@ scrp 2 12 50200 10
 
 
 
-	doif ov04 eq 1
-
+*C2 framerate
+	frat 2
 
 
 *Metallic Call Button
 
-		frat 2
+	doif ov04 eq 1
 
 		anim [0 1 2 3 4 255]
 
@@ -1849,7 +1867,7 @@ scrp 2 12 50200 10
 		pat: butt 1 "moe_C2toDS_lifts" 31 2 10 23 0 [] 1001 0
 
 
-
+*Regular Call Button
 	else
 
 		prt: inew 0 "Input" "Recieves signal inputs for the Call Button launcher." 15 63 0
@@ -1922,11 +1940,11 @@ endm
 
 scrp 2 12 50200 2
 
+inst
+
 	doif name "on" eq 0
 *stimulate with 'pushed a button' stimulus
 		stim writ from 89 2
-
-		inst
 
 		targ ov00
 
@@ -1986,11 +2004,11 @@ endm
 
 scrp 2 12 50200 1
 
+		inst
+
 	doif name "on" eq 0
 *stimulate with 'pushed a button' stimulus
 		stim writ from 89 2
-
-		inst
 
 		targ ov00
 
@@ -2047,19 +2065,35 @@ endm
 
 *Button hit script
 scrp 2 12 50200 3
-*Instantaneously
-    inst
+
 *Stimulate with "I have hit machine"
-    stim writ from 92 1
+	stim writ from 92 1
+
+*Don't animate if you're already in use!
+	doif name "on" eq 0
+
+*Do a slightly different anim if you're a Metallic Call Button
+		doif ov04 eq 1
+			anim [0 5 1 5 2 5 3 5]
+		else
 *Blink the call button light on and off
-    anim [0 1 255]
-*Play a buzzing sound (included by default with C3 and DS)
-    snde "buzz"
-*Wait until the buzzing sound is over
-    wait 7
+			anim [0 1 0 1 0 1 0 1]
+		endi
+
+*Play a hit sound and a buzzing sound (included by default with C3 and DS)
+		sndc "hit_"
+		sndc "buzz"
+
+*Wait until the anim is over
+		over
+*		wait 7
+
 *Resume a ready-to-serve pose.
-    pose 0
-endm 
+		call 1000 0 0
+
+	endi
+
+endm
 
 
 scrp 2 12 50200 1000

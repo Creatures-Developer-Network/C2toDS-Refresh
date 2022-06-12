@@ -5,6 +5,9 @@
 * for now, these are all invisible to creatures. If at some point we feel like 
 * adding push/pull/hit/eat scripts we can change that. - Aiko
 
+*NeoDement _tried_ to fix strange coordinate errors and removed an unused, buggy variable assignment.
+
+
 new: simp 2 15 50215 "moe_C2toDS_bluebird" 98 0 3000
 
 mvsf 4000 47750
@@ -159,12 +162,12 @@ scrp 2 15 50215 9
 		doif ov14 ne 3
 
 
-
-			doif ov09 ne null
-
-				setv va25 sqrt disq ov09
-
-			endi
+*this value doesn't seem to be used anywhere and rarely caused a "Negative Square Root" crash
+*			doif ov09 ne null
+*
+*				setv va25 sqrt disq ov09
+*
+*			endi
 
 
 
@@ -172,7 +175,11 @@ scrp 2 15 50215 9
 
 			rnge 1999
 
-			doif ov09 ne null and seee ownr ov09 eq 1
+
+*OV09 - seed object
+			doif ov09 ne null
+			
+			doif seee ownr ov09 eq 1
 
 				doif carr ne ov09
 
@@ -200,7 +207,7 @@ scrp 2 15 50215 9
 
 				endi
 
-			elif ov09 ne null and seee ownr ov09 eq 0
+			elif seee ownr ov09 eq 0
 
 *If you can't see it, make sure you try all your available saved rooms first.
 
@@ -276,6 +283,7 @@ scrp 2 15 50215 9
 
 				endi
 
+			endi
 			endi
 
 
@@ -386,7 +394,7 @@ scrp 2 15 50215 9
 
 				doif targ ne null and targ ne ownr
 
-*Can't be same gender. And must both be adults. No pedobirds!!
+*Can't be same gender. And must both be adults.
 
 					doif ov03 ne mv03 and ov11 eq mv11
 
@@ -834,8 +842,12 @@ scrp 2 15 50215 9
 
 			subv va09 va01
 
-			mvsf va08 va09
 
+*round coords to ints because they once seemed to be 1.#QNAN0?
+			setv va08 ftoi va08
+			setv va09 ftoi va09
+
+			mvsf va08 va09
 
 
 			seta mv09 targ
@@ -896,6 +908,7 @@ scrp 2 15 50215 9
 
 				setv va01 post
 
+*move to a known safe location so we can safely change perm
 				mvto 626 8827
 
 				perm 51
@@ -1162,6 +1175,7 @@ scrp 2 15 50215 9
 
 						setv va02 post
 
+*move to a known safe location so we can safely change perm
 						mvto 553 9092
 
 						perm va00
@@ -2358,6 +2372,4 @@ loop
 untl va00 eq 2000
 
 setv va00 0
-
-
 

@@ -435,6 +435,30 @@ endm
 
 
 
+*Splicer Cage Got Carried Agent - called whenever something is dropped in the cage
+
+scrp 1 28 50201 124
+
+	setv va00 0
+
+*automatically drop anything that isn't a creature
+	epas 0 0 0
+		doif crea targ <> 1
+			rpas ownr targ
+		else
+*if a creature is dropped in you but you already have a creature, drop that too
+			doif va00 > 0
+				rpas ownr targ
+			endi
+			addv va00 1
+		endi
+	next
+
+endm
+
+
+
+
 *Splicer Cage Open/Close Script - called by clicking either Cage
 
 scrp 1 28 50201 1001
@@ -490,7 +514,7 @@ scrp 1 28 50201 1001
 						wait 1
 						dirn 1
 
-*stick 'em in the pod. NOTE: this seems to not count towards cabw so you can have multiple creatures in one pod.
+*stick 'em in the pod.
 						wait 1
 						spas ownr targ
 						zomb 0

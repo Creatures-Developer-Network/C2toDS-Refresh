@@ -143,7 +143,7 @@ endm
 scrp 2 17 50205 10
 
 	lock
-	
+
 	attr 16
 
 	doif pose lt 3
@@ -155,7 +155,7 @@ scrp 2 17 50205 10
 		over
 
 	endi
-	
+
 	bhvr 11
 
 	attr 197
@@ -190,9 +190,13 @@ scrp 2 17 50205 9
 
 	enum 2 14 50205
 
-		doif targ ne null and ov08 eq ownr
+		doif targ ne null
+		
+		doif ov08 eq ownr
 
 			addv va00 1
+			
+			endi
 
 		endi
 
@@ -285,9 +289,9 @@ scrp 2 17 50205 2
 	doif crea from eq 1
 		stim writ from 86 1
 	endi
-	
+
 	mesg writ ownr 0
-	
+
 endm
 
 scrp 2 17 50205 3
@@ -295,9 +299,9 @@ scrp 2 17 50205 3
 	doif crea from eq 1
 		stim writ from 87 1
 	endi
-	
+
 	mesg writ ownr 0
-	
+
 endm
 
 
@@ -373,7 +377,7 @@ scrp 2 14 50205 3
 	doif crea from eq 1
 		stim writ from 87 1
 	endi
-	
+
 	setv va00 rand -10 10
 	setv velx va00
 	setv va00 rand -10 -1

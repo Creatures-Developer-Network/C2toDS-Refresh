@@ -3,6 +3,7 @@
 
 * Initial Conversion By Moe
 * Instinct friendliness and survivability edits by the one who screams i guess
+* tomatoes can decay in vehicles now + FRAT fixes by NeoDement
 * (if you worked on this file, feel free to add your name!)
 
 * Some guesses about what these OVs are (on the plant):
@@ -15,6 +16,11 @@
 * Tomato Fruit ov00 (int) is either state 1 (on the plant) or 0 (off the plant)
 * Tomato Fruit ov01 (agent) is the plant that it came from.
 * Tomato Fruit ov02 (int) is the number of tomato that they were (1 Left 2 Middle 3 Right)
+
+
+
+
+*Install
 
 reps rand 5 7
 
@@ -54,6 +60,9 @@ reps rand 2 4
 
 repe
 
+
+*Tomato Plant Constructor Script
+
 scrp 2 4 50200 10
 
 	inst
@@ -68,6 +77,9 @@ scrp 2 4 50200 10
 
 	accg 4
 
+*very low framerate for the grow anim
+	frat 200
+
 	tick rand 150 250
 
 	seta ov01 null
@@ -81,6 +93,7 @@ scrp 2 4 50200 10
 endm
 
 
+*Tomato Plant Timer Script
 
 scrp 2 4 50200 9
 
@@ -255,7 +268,7 @@ scrp 2 4 50200 9
 	endi
 
 	doif ov10 ge 50
-	
+
 		inst
 
 		doif ov01 ne null and ov02 ne null and ov03 ne null
@@ -280,9 +293,9 @@ scrp 2 4 50200 9
 
 			targ ownr
 
-			frat 200
-
 			pose 6
+
+*play (VERY slow) grow anim
 
 			anim [8 9 10 11 12 13 14]
 
@@ -431,6 +444,7 @@ scrp 2 4 50200 9
 endm
 
 
+*Tomato Constructor Script
 
 scrp 2 8 50200 10
 
@@ -474,9 +488,13 @@ scrp 2 8 50200 10
 
 	emit 6 0.15
 
+*low framerate for decay anim
+	frat 75
+
 endm
 
 
+*Tomato Pickup Script
 
 scrp 2 8 50200 4
 
@@ -487,12 +505,12 @@ scrp 2 8 50200 4
 endm
 
 
-* tomato being picked (or old plant dropping it)
+* Tomato being picked (or old plant dropping it)
 scrp 2 8 50200 1001
 
 	inst
-	
-	*ov00 1 = still growing on the plant
+
+*ov00 1 = still growing on the plant
 
 	doif ov00 eq 1
 
@@ -511,31 +529,31 @@ scrp 2 8 50200 1001
 		tick rand 1000 2500
 
 		setv ov00 0
-		
-		* tell the mother plant you are being picked by blanking their OV for you
-		
-		* the fact that I am having to write in targ eq null checks here makes me wonder 
-		* what situation this script is being triggered wherein a tomato is being 'picked' but there is no longer
-		* a mother plant... there might actually be a deeper issue here, or maybe not.
+
+* tell the mother plant you are being picked by blanking their OV for you
+
+* the fact that I am having to write in targ eq null checks here makes me wonder 
+* what situation this script is being triggered wherein a tomato is being 'picked' but there is no longer
+* a mother plant... there might actually be a deeper issue here, or maybe not.
 		targ ov01
-		
+
 		doif targ ne null
-	
+
 			doif mv02 eq 1
 
-					seta ov01 null
-	
+				seta ov01 null
+
 			elif mv02 eq 2
-	
-					seta ov02 null
-	
+
+				seta ov02 null
+
 			elif mv02 eq 3
-	
-					seta ov03 null
+
+				seta ov03 null
 			endi
-			
+
 		endi
-		
+
 		targ ownr
 
 		doif carr eq null
@@ -557,7 +575,7 @@ scrp 2 8 50200 1001
 endm
 
 
-* fruit timer
+* Tomato Timer Script
 
 scrp 2 8 50200 9
 
@@ -584,8 +602,8 @@ scrp 2 8 50200 9
 			stop
 
 		else
-		
-		* If you are on the plant and fully grown, become visible.
+
+* If you are on the plant and fully grown, become visible.
 
 			bhvr 48
 
@@ -593,24 +611,24 @@ scrp 2 8 50200 9
 
 		endi
 
-* If you are off the plant, and not falling or being carried
+* If you are off the plant, and not falling or being carried by a creature or the hand
 	elif ov00 eq 0
 
-		doif carr ne null or fall eq 1
+		doif carr eq pntr or crea carr eq 1 or fall eq 1
 
 			stop
 
 		endi
-		
+
 * And it is not night or dawn
 		doif time ne 4 and time ne 0
 
-			* become invisible and break down
+* become invisible and break down
 			lock
 
-			frat 75
-
 			attr 211
+
+*play (very slow) decay anim
 
 			anim [0 1 2 3 4]
 
@@ -672,7 +690,7 @@ scrp 2 8 50200 9
 		doif va25 lt 4
 
 			doif va21 gt .302157 and va22 ge .254510 and va23 ge .254510 and va24 ge .254510
-			
+
 				inst
 
 				gsub grow
@@ -714,6 +732,7 @@ scrp 2 8 50200 9
 endm
 
 
+*Tomato Eat Script
 
 scrp 2 8 50200 12
 
@@ -724,21 +743,21 @@ scrp 2 8 50200 12
 
 	stim writ from 78 1
 
-	wait 1
-
-	targ from
-
-*chem 3 0.5
-
-*chem 5 0.5
-
-*chem 12 0.5
-
-*	chem 149 -.25
-
-	wait 1
-
-	targ ownr
+*	wait 1
+*
+*	targ from
+*
+**chem 3 0.5
+*
+**chem 5 0.5
+*
+**chem 12 0.5
+*
+**	chem 149 -.25
+*
+*	wait 1
+*
+*	targ ownr
 
 * to ensure creatures don't eat these to extinction, make them invisible after
 * taking a bite and tell them to go directly to seed.
@@ -756,19 +775,24 @@ endm
 
 
 
-scrp 2 8 50200 1
+*scrp 2 8 50200 1
+*
+**mesg writ targ 12
+*
+*endm
 
-*mesg writ targ 12
 
-endm
-
-
+*Tomato Collision Script
 
 scrp 2 8 50200 6
 
 	sndc "dr12"
 
 endm
+
+
+
+*Remove
 
 rscr
 
