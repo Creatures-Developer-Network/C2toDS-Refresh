@@ -14,20 +14,10 @@
 
 inst
 
-new: comp 1 1 23423 "moe_C2toDS_Clock" 12 0 1
-
-mvto 3319 49256
-
-
-
-*shee statue 
-
 *part 0 is a big invisible box for Agent Help
 new: comp 1 15 50202 "moe_C2toDS_Shee" 1 4 1
 
 tran 0 0
-
-mvto 3185 49579
 
 pat: dull 1 "moe_C2toDS_Shee" 0 105 70 1
 *part 1
@@ -43,9 +33,11 @@ pat: dull 3 "moe_C2toDS_Shee" 0 210 153 1
 
 rnge 325
 
-tick 20
+tick 40
 
-setv ov00 4
+setv ov00 0
+
+mvto 3185 49579
 
 
 
@@ -68,14 +60,12 @@ scrp 1 15 50202 9
 *music threat system doesn't exist in DS
 *		setv thrt 255
 
-		doif ov00 < 4
-			addv ov00 1
+		doif ov00 = 0
+			snde "c2sh"
+			setv ov00 1
 		else
 			setv ov00 0
-			sndc "c2sh"
 		endi
-
-
 
 		part 1
 		pose 1
@@ -89,7 +79,7 @@ scrp 1 15 50202 9
 
 	else
 
-		setv ov00 4
+		setv ov00 0
 
 *music threat system doesn't exist in DS
 *		setv thrt 20
