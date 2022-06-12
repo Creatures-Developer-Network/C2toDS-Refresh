@@ -1940,11 +1940,11 @@ endm
 
 scrp 2 12 50200 2
 
+inst
+
 	doif name "on" eq 0
 *stimulate with 'pushed a button' stimulus
 		stim writ from 89 2
-
-		inst
 
 		targ ov00
 
@@ -2004,11 +2004,11 @@ endm
 
 scrp 2 12 50200 1
 
+		inst
+
 	doif name "on" eq 0
 *stimulate with 'pushed a button' stimulus
 		stim writ from 89 2
-
-		inst
 
 		targ ov00
 
