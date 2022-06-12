@@ -1,0 +1,116 @@
+*1 15 50202 - Shee Statue
+
+*Converted by NeoDement
+*the original did a bunch of stuff with the music system and made creatures scared and lonely but this one does not
+
+
+***************
+**SOUNDS USED**
+***************
+* GON3 - C2SH *
+***************
+
+
+
+inst
+
+new: comp 1 1 23423 "moe_C2toDS_Clock" 12 0 1
+
+mvto 3319 49256
+
+
+
+*shee statue 
+
+*part 0 is a big invisible box for Agent Help
+new: comp 1 15 50202 "moe_C2toDS_Shee" 1 4 1
+
+tran 0 0
+
+mvto 3185 49579
+
+pat: dull 1 "moe_C2toDS_Shee" 0 105 70 1
+*part 1
+*pose 1
+
+pat: dull 2 "moe_C2toDS_Shee" 0 -3 151 1
+*part 2
+*pose 2
+
+pat: dull 3 "moe_C2toDS_Shee" 0 210 153 1
+*part 3
+*pose 3
+
+rnge 325
+
+tick 20
+
+setv ov00 4
+
+
+
+*Timer Script
+
+scrp 1 15 50202 9
+
+*disabled Fear Increase and Loneliness Increase
+*	stim shou 100 255 0 0 27 100 25 50 0 0 0 0
+
+	setv va00 0
+
+	esee 4 0 0
+		setv va00 1
+	next
+
+	targ ownr
+	doif va00 eq 1
+
+*music threat system doesn't exist in DS
+*		setv thrt 255
+
+		doif ov00 < 4
+			addv ov00 1
+		else
+			setv ov00 0
+			sndc "c2sh"
+		endi
+
+
+
+		part 1
+		pose 1
+		part 2
+		pose 2
+		part 3
+		pose 3
+
+*disabled Fear Increase and Loneliness Increase
+*		stim shou 100 255 0 0 27 200 25 100 0 0 0 0
+
+	else
+
+		setv ov00 4
+
+*music threat system doesn't exist in DS
+*		setv thrt 20
+
+		part 1
+		pose 0
+		part 2
+		pose 0
+		part 3
+		pose 0
+
+	endi
+
+endm
+
+
+
+
+
+rscr
+
+enum 1 15 50202
+	kill targ
+next

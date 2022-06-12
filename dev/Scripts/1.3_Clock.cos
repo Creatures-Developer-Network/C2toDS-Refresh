@@ -6,19 +6,20 @@
 
 *(I was going to just put it in the file with the other overlays but figured if it had it's own classifier you could click it to turn off the annoying ticking sound)
 
-inst
-
-new: comp 1 1 23423 "moe_C2toDS_Clock" 12 0 1
-
-mvto 3319 49256
-
-
 
 ***************
 **SOUNDS USED**
 ***************
 * TICK - C2TK *
 ***************
+
+
+
+inst
+
+new: comp 1 1 23423 "moe_C2toDS_Clock" 12 0 1
+
+mvto 3319 49256
 
 
 
