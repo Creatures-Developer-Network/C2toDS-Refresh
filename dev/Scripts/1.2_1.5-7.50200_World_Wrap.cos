@@ -2,7 +2,7 @@
 *1 5 50200 - World Wrap Camera
 *1 6 50200 - World Wrap Grabber
 *1 7 50200 - Mouse Pointer Tracker
-*1 7 20201 - Window Resize Camera Builder
+*1 7 50201 - Window Resize Camera Builder
 *1 7 50202 - World Wrap Mirror Object
 
 
@@ -133,7 +133,7 @@ imsk 25
 
 * Window resize watcher/ camera builder
 
-new: simp 1 7 20201 "blnk" 1 0 0
+new: simp 1 7 50201 "blnk" 1 0 0
 
 attr 16
 
@@ -147,12 +147,16 @@ tick 40
 
 *-Inject the Cameras and Wrap Pieces-*
 
-scrp 1 7 20201 123
+*Window Resize Camera Builder - Window Resized Script
+
+scrp 1 7 50201 123
 	tick 80
 endm
 
 
-scrp 1 7 20201 9
+*Window Resize Camera Builder - Timer Script (called after a delay by Window Resized script)
+
+scrp 1 7 50201 9
 
 	inst
 
@@ -1226,7 +1230,7 @@ enum 1 5 50200
 
 next
 
-*Delete Wrap Pieces*
+*Delete Grabbers*
 
 enum 1 6 50200
 
@@ -1242,10 +1246,17 @@ enum 1 7 50200
 
 next
 
+*Delete Window Resize Camera Builder*
 
-*Delete Pointer Hand Hold Watcher
+enum 1 7 50201
 
-enum 1 7 20202
+	kill targ
+
+next
+
+*Delete Mirror Object*
+
+enum 1 7 50202
 
 	kill targ
 
@@ -1253,19 +1264,22 @@ next
 
 
 
-scrx 1 5 50200 9
 
+
+scrx 1 7 50201 123
+scrx 1 7 50201 9
+
+scrx 1 5 50200 9
 scrx 1 5 50200 128
 
+scrx 1 6 50200 255
 scrx 1 6 50200 9
 
 scrx 1 7 50200 9
 
-scrx 1 7 50201 9
-
-scrx 1 7 50201 123
-
-scrx 1 7 50202 9
+scrx 1 7 50200 76
+scrx 1 7 50200 77
+scrx 1 7 50200 73
 
 
 
