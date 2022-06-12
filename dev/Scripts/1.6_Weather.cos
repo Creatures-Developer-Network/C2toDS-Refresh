@@ -610,7 +610,7 @@ scrp 2 19 50200 9
 
 *DustDevil
 
-	doif sean eq 1 and va02 ge .7 and pose ge 3
+	doif sean eq 1 and va02 ge .7 and pose ge 3 and rand 1 10 eq 1
 
 		setv va10 0
 
