@@ -572,8 +572,8 @@ scrp 1 6 50200 9
 				stop
 			endi
 
-*make sure they Suffer Physics
-			doif attr le 64
+*make sure they Suffer Collisions
+			doif attr lt 64
 				stop
 			endi
 
@@ -712,8 +712,8 @@ scrp 1 6 50200 9
 				stop
 			endi
 
-*make sure they Suffer Physics
-			doif attr le 64
+*make sure they Suffer Collisions
+			doif attr lt 64
 				stop
 			endi
 
