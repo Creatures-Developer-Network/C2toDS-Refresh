@@ -1,4 +1,4 @@
-* Some fixes by NeoDement - The Terrarium door now remembers the correct pose when changing to/from the night gallery, the trolly cable overlays now have previously missing night galleries.
+* Some fixes by NeoDement - The Terrarium door now remembers the correct pose when changing to/from the night gallery, the trolly cable overlays now have previously missing night galleries. Fixed some overlays disappearing at night.
 
 ******************
 * Night switcher *
@@ -123,15 +123,20 @@ scrp 1 1 50200 9
 ************************** Overlays **************************
 			doif gall eq "moe_c2tods_overlays"
 				doif abba lt 17 or abba gt 25 or abba eq 23
-					setv va00 abba
-					gall "moe_c2tods_overlays_night" va00
+*fix for some overlays going invisible at night
+					doif abba ne 35 and abba lt 38
+						setv va00 abba
+						gall "moe_c2tods_overlays_night" va00
+					endi
 				endi
 			endi
 
 ************************** Overlays2 **************************
 			doif gall eq "moe_c2tods_overlays2"
-				doif abba eq 9 or abba eq 10 or abba eq 11 or abba eq 12 or abba eq 15 or abba eq 16 or abba eq 17 or abba eq 18 or abba eq 19 or abba eq 20 or abba eq 21 or abba eq 22 or abba eq 23 or abba eq 24 or abba eq 29 or abba eq 30 or abba eq 31 or abba eq 32 or abba eq 33 or abba eq 34
-					setv va00 abba
+				doif abba lt 9 or abba eq 13 or abba eq 14 or abba eq 25 or abba eq 26 or abba eq 27 or abba eq 28
+				*(don't change the overlays specified above into night overlays)
+				else
+									setv va00 abba
 					gall "moe_c2tods_overlays2_night" va00
 				endi
 			endi
@@ -221,14 +226,19 @@ scrp 1 1 50200 9
 ************************** Overlays **************************
 			doif gall eq "moe_c2tods_overlays_night"
 				doif abba lt 17 or abba gt 25 or abba eq 23
-					setv va00 abba
-					gall "moe_c2tods_overlays" va00
+*fix for some overlays going invisible at night
+					doif abba ne 35 and abba lt 38
+						setv va00 abba
+						gall "moe_c2tods_overlays" va00
+					endi
 				endi
 			endi
 
 ************************** Overlays2 **************************
 			doif gall eq "moe_c2tods_overlays2_night"
-				doif abba eq 9 or abba eq 10 or abba eq 11 or abba eq 12 or abba eq 15 or abba eq 16 or abba eq 17 or abba eq 18 or abba eq 19 or abba eq 20 or abba eq 21 or abba eq 22 or abba eq 23 or abba eq 24 or abba eq 29 or abba eq 30 or abba eq 31 or abba eq 32 or abba eq 33 or abba eq 34
+				doif abba lt 9 or abba eq 13 or abba eq 14 or abba eq 25 or abba eq 26 or abba eq 27 or abba eq 28
+				*(don't change the overlays specified above into night overlays)
+				else
 					setv va00 abba
 					gall "moe_c2tods_overlays2" va00
 				endi
