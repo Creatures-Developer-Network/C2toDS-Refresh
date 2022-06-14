@@ -1,3 +1,6 @@
+*NeoDement added a script that allows the pointer to click on objects behind dithered overlays.
+
+
 
 *Files Needed*
 
@@ -187,7 +190,7 @@ mvto 5653 49529
 
 new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 7 8001
 
-attr 0
+attr 4
 
 mvto 5579 48990
 
@@ -197,7 +200,7 @@ mvto 5579 48990
 
 new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 8 8001
 
-attr 0
+attr 4
 
 mvto 4344 49148
 
@@ -207,7 +210,7 @@ mvto 4344 49148
 
 new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 9 8001
 
-attr 0
+attr 4
 
 mvto 4735 49171
 
@@ -217,7 +220,7 @@ mvto 4735 49171
 
 new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 10 8001
 
-attr 0
+attr 4
 
 mvto 5109 49191
 
@@ -227,7 +230,7 @@ mvto 5109 49191
 
 new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 11 8001
 
-attr 0
+attr 4
 
 mvto 5443 49189
 
@@ -503,23 +506,19 @@ mvto 3277 48214
 
 
 
+
+
 *Ocean Tube*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 13 8001
+new: comp 1 8 50200 "blnk" 1 0 8001
 
-attr 0
+pat: dull 1 "moe_C2toDS_Overlays2" 13 0 0 0
+pat: dull 2 "moe_C2toDS_Overlays2" 14 396 0 0
+
+attr 4
 
 mvto 2807 48552
 
-
-
-*Ocean Tube*
-
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 14 8001
-
-attr 0
-
-mvto 3203 48552
 
 
 
@@ -801,7 +800,7 @@ anim [0 1 2 3 4 255]
 
 new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 0 8000
 
-attr 0
+attr 4
 
 mvto 4151 49930
 
@@ -1011,7 +1010,7 @@ anim [0 1 2 3 4 255]
 
 
 
-*WaterWheel Dirt Overlway*
+*WaterWheel Dirt Overlay*
 
 new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 12 8000
 
@@ -1021,7 +1020,7 @@ mvto 4642 49743
 
 
 
-*WaterWheel Leafy Rock Overlway*
+*WaterWheel Leafy Rock Overlay*
 
 new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 13 8000
 
@@ -1057,7 +1056,6 @@ mvto 8395 48240
 
 
 
-*!!!Add Sounds to this one!!!*
 
 *Incubator Room Waterfall*
 
@@ -1079,7 +1077,7 @@ sndl "pool"
 
 new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 3 17 8000
 
-attr 0
+attr 4
 
 mvto 6440 48460
 
@@ -1089,11 +1087,11 @@ anim [0 1 2 255]
 
 
 
-*Incubator Room Waterfall Overlay*
+*Incubator Room Waterfall Pond Overlay*
 
 new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 39 8000
 
-attr 0
+attr 4
 
 mvto 6431 48488
 
@@ -1340,8 +1338,12 @@ sndl "waf2"
 *Pipe*
 
 new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 28 1000
+*new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 28 8001
 
-attr 0
+*todo: plane of this pipe is weird. some of it's meant to be in foreground, some of it's meant to be in the background.
+*this will eventually be fixed when the room is re-mapped, the pipe needs to not be walkable like in C2 for it to make sense.
+
+attr 4
 
 mvto 6782 49007
 
@@ -1891,6 +1893,88 @@ endm
 *endm
 
 
+
+*clicking on scenery which is set to be activateable calls a special script on the pointer to temporarily offset its position by 1 pixel to the left and fake a mouse click.
+*the purpose of this is to stop the frustration of a click seeming to not register when clicking a dithered transparent object (such as any of the glass tubes)
+
+scrp 1 8 50200 1
+
+	inst
+
+*set the OWNR in _P1_ so we can check against it in the pointer script
+	mesg wrt+ pntr 50200 ownr 0 0
+
+endm
+
+
+*special pointer script so we can fake the pointer clicking things!
+*(only handles clicks directly on objects, no pat: butts)
+
+scrp 2 1 1 50200
+
+*_P1_ should be the OWNR of the script this was called from. if it isn't an agent, just set it to NULL.
+	doif type _p1_ < 3
+		seta _p1_ null
+	endi
+
+	inst
+
+	mvby -1 0
+
+	targ hots
+
+*make sure targ exists and isn't the thing we just clicked on (_P1_)
+	doif targ <> null and targ <> _p1_
+
+*make sure it's a Simple, Compound or Vehicle Agent
+		doif type targ = 3 or type targ = 5 or type targ = 6
+
+*make sure it's Activateable
+
+			setv va04 attr
+			andv va04 4
+			doif va04 = 4
+
+*check CLAC state.
+
+*do nothing
+				doif clac = -1
+
+*handle CLIK events
+				elif clac = -2
+
+*set VA01 to which CLIK action number is going to be performed next
+					setv va01 clik 0
+
+*clik 0 should only return 1 2 or 3
+					doif va01 > 0 and va01 < 4
+						mesg writ targ clik va01
+					endi
+
+*send the correct Message Number according to CLAC
+				else
+					mesg writ targ clac
+				endi
+
+*if any of the above checks failed, don't animate the pointer click.
+			else
+
+				targ pntr
+
+*and don't animate it if it's in the middle of some other anim
+				doif pose < 2
+					pose 0
+				endi
+
+			endi
+		endi
+	endi
+
+	targ pntr
+	
+	mvby 1 0
+
+endm
 
 
 
