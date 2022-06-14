@@ -28,6 +28,8 @@ mvsf 6917 48390
 
 scrp 3 8 50205 10
 
+inst
+
 *create main visible laptop (clickable part)
 	pat: butt 1 "moe_C2toDS_Laptop" 0 15 0 -37 1 [] 1001 1
 
