@@ -99,8 +99,11 @@ door grap 1691 47820 grap 1691 47977 100
 
 
 
-*incubator pond - stop creatures hitting balls and etc into the pond where they can't get them
+*incubator pond perm change - stop creatures hitting balls and etc into the pond where they can't get them
 door grap 6719 48371 grap 6759 48371 50
+
+*
+door grap 5075 49807 grap 5138 49807 50
 
 
 
@@ -110,3 +113,23 @@ door grap 10079 49299 grap 10114 49299 0
 
 *far right volcano platform (world wrap copy)
 door grap 1724 49299 grap 1764 49299 0
+
+
+
+
+*disable walking off platform edge next to the cable car (right side) - objects can't pass through this in C2 either.
+door grap 5865 48360 grap 5769 48360 0
+
+*cliff edge below the cable car (right side) - objects can't pass through this in C2 either.
+door grap 5868 48666 grap 5969 48666 0
+
+
+
+
+
+*disable walkable background rock next to cable car
+door grap 5476 48374 grap 5476 48457 100
+door grap 5566 48342 grap 5566 48392 100
+door grap 5641 48347 grap 5641 48401 100
+door grap 5708 48363 grap 5708 48405 100
+door grap 5775 48368 grap 5775 48428 100
