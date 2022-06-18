@@ -7,15 +7,15 @@
 
 
 
-*todo: possibly improve speech bubble grabbing? might be able to check if Aiko's Speech Bubbles Upgrade 1.2 is installed which stores which agent created the bubble as an enhancement.
-
 
 *NeoDement:
 *-General cleanup
-*-We are now ENUMing over all objects (0 0 0) instead of just objects in family 2 (2 0 0). This means creatures now transport properly through the wrap.
+*-We are now ETCHing all objects (0 0 0) instead of just objects in family 2 (2 0 0). This means creatures now transport properly through the wrap.
 *-The world wrap now handles hand holding properly.
-*-Creatures can hear Hand and Agent Help speech over wrap.
+*-Creatures can hear Hand and Agent Help speech over the wrap.
 *-Objects and the pointer will no longer transport if they have a creatures attention on them. Left or right click immediately overrides this for the pointer.
+*-DS object of attention and norn indicators are now set to be visible to the camera while in the C2toDS metaroom. This means they don't disappear when the pointer goes over the wrap.
+*-Creatures can now hear each other talking over the wrap.
 
 *Neo's Notes:
 
@@ -24,8 +24,20 @@
 *caveat: you can't pick up an object that has passed through the wrap if a norn hasn't stopped looking at it yet. hopefully this is rare enough to be okay.
 *we also can't hand hold or shift right click creatures on the other side of the wrap if a norn is looking at them.
 *fortunately creatures tend to shift their focus often.
+*Creatures teleport over the wrap and back again during a single tick using INST. This doesn't seem to make them lose focus on their IITT though.
+
 *todo?: we could detect right clicks and do an offset trick to see if anything is TOUCing the PNTR and if it is then teleport them back where they're meant to be?
 
+*todo?: possibly improve speech bubble grabbing? might be able to check if Aiko's Speech Bubbles Upgrade 1.2 is installed which stores which agent created the bubble as an enhancement.
+
+*todo: indicators should only be visible if the pointer is near the wrap point, to stop them appearing in photos all the time in the C2toDS room. they will still always appear in photos near the wrap, but that's a pretty minor issue.
+
+*todo: maybe every X ticks the game could make a note of which objects are within 500 units of the wrap and create blnk objects with the same catalogue number on the other side of the wrap.
+*that way norns would be able to try and walk towards them and their brains would hopefully find the next available object in the same category when they teleport over and lose track of the fake one.
+*they'd have to auto-delete if no norn is looking at them every now and then too.
+*there's a possibility this might even be good enough for creatures ie hand says "push norn", norn walks towards the wrap because it thinks a norn is behind it, norn is teleported to the other side of the wrap and their brain finds the real norn the fake object was mirroring.
+
+*todo: tracking norns as they walk through the wrap is dodgy, the camera freaks out if they're too far away from the centre of the screen. I don't think this can be fixed (due to limited access to TRCK info) but hopefully a workaround can be found.
 
 
 
@@ -79,7 +91,8 @@ setv game "C2toDS_WrapRight" 10399
 
 *A value between WrapLeft and WrapRight
 
-setv game "C2toDS_WrapMiddle" 6223
+*unused
+*setv game "C2toDS_WrapMiddle" 6223
 
 * Wrap padding determines how many panels are pushed back onto the actual non-wrapped part of the world
 setv game "C2toDS_WrapPadding" 1
@@ -127,6 +140,8 @@ aero 0
 
 *listen for Raw Key Down (1) + Raw Mouse Down (8) + Raw Mouse Up (16). We use them to intercept speech, agent help clicks and mouse clicks over the wrap.
 imsk 25
+
+
 
 
 *----------------------------------*
@@ -653,6 +668,15 @@ scrp 1 6 50200 9
 
 					subv va00 game "C2toDS_WrapOffset"
 
+
+
+*sometimes this script fires twice in quick succession and tries to move things out of bounds, this should fix that
+					doif game "C2toDS_RoomID" <> gmap va00 va01
+						stop
+					endi
+
+
+
 *move the object to the other side of the wrap
 
 *do an unsafe move if possible
@@ -671,6 +695,14 @@ scrp 1 6 50200 9
 					addv va01 1
 
 					subv va00 game "C2toDS_WrapOffset"
+
+
+
+*sometimes this script fires twice in quick succession and tries to move things out of bounds, this should fix that
+					doif game "C2toDS_RoomID" <> gmap va00 va01
+						stop
+					endi
+
 
 
 *move the creature to the other side of the wrap
@@ -799,6 +831,15 @@ scrp 1 6 50200 9
 
 					addv va00 game "C2toDS_WrapOffset"
 
+
+
+*sometimes this script fires twice in quick succession and tries to move things out of bounds, this should fix that
+					doif game "C2toDS_RoomID" <> gmap va00 va01
+						stop
+					endi
+
+
+
 *move the object to the other side of the wrap
 
 *do an unsafe move if possible
@@ -818,6 +859,12 @@ scrp 1 6 50200 9
 
 					addv va00 game "C2toDS_WrapOffset"
 
+
+
+*sometimes this script fires twice in quick succession and tries to move things out of bounds, this should fix that
+					doif game "C2toDS_RoomID" <> gmap va00 va01
+						stop
+					endi
 
 
 
@@ -1034,16 +1081,26 @@ scrp 1 7 50200 76
 						attr 0
 					endi
 
-*check which side of the wrap the object is on and add or remove the appropriate offset
-					doif va00 <= game "C2toDS_WrapRight" and va00 > game "C2toDS_WrapMiddle"
+*check which side of the wrap the object is on and add or remove the appropriate offset:
+
+
+*only do this for objects that are within 500 units of the wrap point (on either side)
+					setv va60 game "C2toDS_WrapRight"
+					subv va60 500
+
+					setv va61 game "C2toDS_WrapLeft"
+					addv va61 500
+
+					doif va00 <= game "C2toDS_WrapRight" and va00 > va60
 
 						subv va00 game "C2toDS_WrapOffset"
 
-					elif va00 >= game "C2toDS_WrapLeft" and va00 < game "C2toDS_WrapMiddle"
+					elif va00 >= game "C2toDS_WrapLeft" and va00 < va61
 
 						addv va00 game "C2toDS_WrapOffset"
 
 					else
+						kill targ
 						stop
 					endi
 
@@ -1166,20 +1223,32 @@ scrp 1 7 50200 73
 
 							inst
 
+*va20 will be the offset copy of the X coordinate, separate from va00 so we can go back afterwards.
 							setv va20 va00
 
-*check which side of the wrap the pointer is on and add or remove the appropriate offset
-							doif va00 <= game "C2toDS_WrapRight" and va00 > game "C2toDS_WrapMiddle"
+
+*check which side of the wrap the pointer is on and add or remove the appropriate offset:
+
+
+*only do this if the pointer is within 500 units of the wrap point (on either side)
+							setv va60 game "C2toDS_WrapRight"
+							subv va60 500
+
+							setv va61 game "C2toDS_WrapLeft"
+							addv va61 500
+
+							doif va00 <= game "C2toDS_WrapRight" and va00 > va60
 
 								subv va20 game "C2toDS_WrapOffset"
 
-							elif va00 >= game "C2toDS_WrapLeft" and va00 < game "C2toDS_WrapMiddle"
+							elif va00 >= game "C2toDS_WrapLeft" and va00 < va61
 
 								addv va20 game "C2toDS_WrapOffset"
 
 							else
 								stop
 							endi
+
 
 
 *target the pointer and move it across the wrap
@@ -1212,6 +1281,145 @@ scrp 1 7 50200 73
 	endi
 
 endm
+
+
+
+
+
+*TODO: it should really only fire when the creature is NEAR THE WRAP (same with pointer).
+
+
+*126 Make Speech Bubble
+*Called when a creature speaks, so scripts can display a speech bubble. Every agent which has this script is called. _P1_ is the text being spoken, _P2_ is the creature who is speaking.
+scrp 1 7 50200 126
+
+	inst
+
+*wait half a tick so the regular speech bubble script can fire off
+	wait 0
+*target the creature that just spoke
+	targ _p2_
+	inst
+
+*creature must not be in a vehicle or etc
+	doif movs <> 0
+		stop
+	endi
+
+*remember the creature coords
+	setv va00 dftx
+	setv va01 dfty
+
+
+	doif game "C2toDS_RoomID" = gmap va00 va01
+
+
+*remember what they're looking at so we can put their attention back on it after the warp
+*(doesn't seem to be needed)
+*		seta va03 iitt
+
+
+*va20 will be the offset copy of the X coordinate, separate from va00 so we can go back afterwards.
+		setv va20 va00
+
+*check which side of the wrap the creature is on and add or remove the appropriate offset:
+
+
+*only do this for creatures that are within 500 units of the wrap point (on either side)
+		setv va60 game "C2toDS_WrapRight"
+		subv va60 500
+
+		setv va61 game "C2toDS_WrapLeft"
+		addv va61 500
+
+		doif va00 <= game "C2toDS_WrapRight" and va00 > va60
+
+			subv va20 game "C2toDS_WrapOffset"
+
+		elif va00 >= game "C2toDS_WrapLeft" and va00 < va61
+
+			addv va20 game "C2toDS_WrapOffset"
+
+		else
+			stop
+		endi
+
+
+
+*sometimes this script fires twice in quick succession and tries to move norns out of bounds, this should fix that
+		doif game "C2toDS_RoomID" <> gmap va20 va01
+			stop
+		endi
+
+
+*move the creature to the other side of the wrap
+*(do an unsafe move if possible)
+		doif tmvf va20 va01 = 1
+			mvft va20 va01
+		else
+			mvsf va20 va01
+		endi
+
+*repeat the last thing the creature said so that other creatures can hear it through the wrap
+		ordr shou _p1_
+
+*move it back where it came from
+*(do an unsafe move if possible)
+		doif tmvf va00 va01 = 1
+			mvft va00 va01
+		else
+			mvsf va00 va01
+		endi
+
+*norns forget what they were looking at before the teleport, so urge them to look at it again when they come back.
+*commented out because in further testing, norns were not forgetting what they were looking at.
+*		doif va03 ne null
+*			targ va03
+*			urge writ _p2_ 0 0.5 -1 -1.0
+*		endi
+
+
+	endi
+
+endm
+
+
+
+
+
+
+
+
+*switch room event
+*This script is not natively executed by the engine, but is triggered by a script in DS Favorite Places.cos. Called when the main camera is switched to a different metaroom.
+
+scrp 1 7 50200 900
+
+	inst
+
+*WE ARE IN THE C2TODS METAROOM
+	doif game "C2toDS_RoomID" = gmap mopx mopy
+
+*set both DS Indicators to be Invisible to norns, but no longer Camera Shy
+		rtar 1 2 1
+		attr 16
+
+		rtar 1 2 2
+		attr 16
+
+	else
+
+*set both DS Indicators back to default attributes. Invisible to norns and Camera Shy
+		rtar 1 2 1
+		attr 272
+
+		rtar 1 2 2
+		attr 272
+
+	endi
+
+endm
+
 
 
 
@@ -1280,6 +1488,18 @@ scrx 1 7 50200 9
 scrx 1 7 50200 76
 scrx 1 7 50200 77
 scrx 1 7 50200 73
+
+scrx 1 7 50200 900
+scrx 1 7 50200 126
+
+
+
+*set both DS Indicators back to default attributes. Invisible to norns and Camera Shy
+rtar 1 2 1
+attr 272
+
+rtar 1 2 2
+attr 272
 
 
 
