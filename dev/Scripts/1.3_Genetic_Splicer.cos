@@ -191,14 +191,14 @@ scrp 1 28 50200 1
 
 	targ va51
 	seta va89 ov01
-	
-	
+
+
 *set va03 to 1 if we're going to create an egg
-setv va03 0
+	setv va03 0
 
 
 *mutation chance - set to 40 in c3, but gonna set it to 0 to make it more appealing than the c3 splicer.
-setv va04 0
+	setv va04 0
 *setv va04 40
 
 *if you change it back to 40 or any non-zero number, please update the catalogue:
@@ -206,19 +206,19 @@ setv va04 0
 
 
 *let's make a baby
-		doif va88 <> null and va89 <> null
-			gene cros ownr 1 va88 0 va89 0 va04 va04 va04 va04
-			setv va03 1
+	doif va88 <> null and va89 <> null
+		gene cros ownr 1 va88 0 va89 0 va04 va04 va04 va04
+		setv va03 1
 *using GENE CROS instead of GENE CLON allows for random mutations and prevents the creature history saying "Cloned - Not in world"
-		elif va88 <> null
-			gene cros ownr 1 va88 0 va88 0 va04 va04 va04 va04
+	elif va88 <> null
+		gene cros ownr 1 va88 0 va88 0 va04 va04 va04 va04
 *		gene clon ownr 1 va88 0
-			setv va03 1
-		elif va89 <> null
-			gene cros ownr 1 va89 0 va89 0 va04 va04 va04 va04
+		setv va03 1
+	elif va89 <> null
+		gene cros ownr 1 va89 0 va89 0 va04 va04 va04 va04
 *		gene clon ownr 1 va89 0
-			setv va03 1
-		endi
+		setv va03 1
+	endi
 
 
 *79 instead of 80 because we will have waited at least one tick for the valid genomes
@@ -641,16 +641,6 @@ endm
 
 rscr
 
-scrx 1 28 50200 1
-scrx 1 28 50200 1001
-scrx 1 28 50203 1001
-scrx 1 28 50202 1001
-scrx 1 28 50204 1001
-scrx 1 28 50204 1002
-scrx 1 28 50204 1003
-scrx 1 28 50201 1001
-scrx 1 28 50201 1002
-
 enum 1 28 50200
 	kill targ
 next
@@ -674,3 +664,14 @@ next
 enum 1 28 50205
 	kill targ
 next
+
+
+scrx 1 28 50200 1
+scrx 1 28 50200 1001
+scrx 1 28 50203 1001
+scrx 1 28 50202 1001
+scrx 1 28 50204 1001
+scrx 1 28 50204 1002
+scrx 1 28 50204 1003
+scrx 1 28 50201 1001
+scrx 1 28 50201 1002
