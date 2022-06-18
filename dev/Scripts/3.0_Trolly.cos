@@ -42,6 +42,9 @@ cato 35
 attr 16
 setv ov00 5
 
+*is the trolly playing a sound?
+setv ov99 0
+
 *Left
 
 pat: butt 1 "moe_C2toDS_trolly" 1 2 18 58 0 [] 1001 0
@@ -351,6 +354,13 @@ scrp 3 1 50205 9
 			stim writ from 94 0
 			stim writ from 75 1
 		next
+
+*play lift sound if you're not already playig it
+		doif ov99 = 0
+			sndl "m_a3"
+			setv ov99 1
+		endi
+
 		slow
 		doif posl gt 4505
 
@@ -360,6 +370,11 @@ scrp 3 1 50205 9
 
 		else
 			inst
+
+*stop playing lift sound
+			stpc
+			setv ov99 0
+
 			setv velx 0
 
 			setv vely 0
@@ -391,6 +406,13 @@ scrp 3 1 50205 9
 			stim writ from 94 0
 			stim writ from 75 1
 		next
+
+*play lift sound if you're not already playig it
+		doif ov99 = 0
+			sndl "m_a3"
+			setv ov99 1
+		endi
+
 		slow
 		doif posl lt 5795
 
@@ -400,6 +422,11 @@ scrp 3 1 50205 9
 
 		else
 			inst
+
+*stop playing lift sound
+			stpc
+			setv ov99 0
+
 			setv velx 0
 
 			setv vely 0
