@@ -34,10 +34,9 @@ mvto 4483 48265
 
 new: vhcl 3 1 50205 "moe_C2toDS_trolly" 1 0 2000
 
+mvsf 5800 48260
 
-mvto 5800 48257
-*mvto 4582 48915
-
+*mvsf 4582 48915
 cato 35
 attr 16
 setv ov00 5
@@ -239,29 +238,27 @@ scrp 3 1 50205 1001
 		inst
 * Get the queued creatures
 		enum 3 13 50205
-			doif targ ne null
-				doif ov00 eq -5
-					doif ooww ov01 eq 3
-						tick 0
+			doif ov00 eq -5
+				doif ooww ov01 eq 3
+tick 0
 * spas takes some time to work, so loop
 * and keep checking if you got a creature
 * before continuing
-						loop
-							spas ownr mtoc ov01
-							wait 1
-							addv va46 1
-							seta va45 targ
-							targ ownr
-							epas 4 0 0
-								addv va44 1
-							next
-							targ va45
-						untl va44 gt 0 or ooww ov01 ne 3
+					loop
+						spas ownr mtoc ov01
+						wait 1
+						addv va46 1
+						seta va45 targ
+						targ ownr
+						epas 4 0 0
+							addv va44 1
+						next
+						targ va45
+					untl va44 gt 0 or ooww ov01 ne 3
 
-						kill targ
-					else
-						kill targ
-					endi
+					kill targ
+				else
+					kill targ
 				endi
 			endi
 		next
@@ -283,7 +280,7 @@ scrp 3 1 50205 1002
 
 
 
-*	setv ov01 -1.9
+*setv ov01 -1.9
 
 	setv ov01 -1.8
 
@@ -310,29 +307,27 @@ scrp 3 1 50205 1002
 		inst
 * Get the queued creatures
 		enum 3 13 50205
-			doif targ ne null
-				doif ov00 eq 5
-					doif ooww ov01 eq 3
-						tick 0
+			doif ov00 eq 5
+				doif ooww ov01 eq 3
+tick 0
 * spas takes some time to work, so loop
 * and keep checking if you got a creature
 * before continuing
-						loop
-							spas ownr mtoc ov01
-							wait 1
-							addv va46 1
-							seta va45 targ
-							targ ownr
-							epas 4 0 0
-								addv va44 1
-							next
-							targ va45
-						untl va44 gt 0 or ooww ov01 ne 3
+					loop
+						spas ownr mtoc ov01
+						wait 1
+						addv va46 1
+						seta va45 targ
+						targ ownr
+						epas 4 0 0
+							addv va44 1
+						next
+						targ va45
+					untl va44 gt 0 or ooww ov01 ne 3
 
-						kill targ
-					else
-						kill targ
-					endi
+					kill targ
+				else
+					kill targ
 				endi
 			endi
 		next
@@ -352,7 +347,7 @@ scrp 3 1 50205 9
 			stim writ from 75 1
 		next
 		slow
-		doif posl gt 4505
+		doif posl gt 4500
 
 			setv velx ov00
 
@@ -376,7 +371,7 @@ scrp 3 1 50205 9
 			next
 			dpas 4 0 0
 			unlk
-			mvto 4498 48725
+			mvsf 4498 48725
 			enum 3 12 50205
 				pose 0
 			next
@@ -392,7 +387,7 @@ scrp 3 1 50205 9
 			stim writ from 75 1
 		next
 		slow
-		doif posl lt 5795
+		doif posl lt 5800
 
 			setv velx ov00
 
@@ -416,7 +411,7 @@ scrp 3 1 50205 9
 			next
 			dpas 4 0 0
 			unlk
-			mvto 5800 48257
+			mvsf 5800 48260
 			enum 3 12 50205
 				pose 0
 			next
