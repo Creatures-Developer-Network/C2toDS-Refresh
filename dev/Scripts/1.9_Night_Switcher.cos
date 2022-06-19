@@ -1,4 +1,4 @@
-* Some fixes by NeoDement - The Terrarium door now remembers the correct pose when changing to/from the night gallery, the trolly cable overlays now have previously missing night galleries. Fixed some overlays disappearing at night.
+* Some fixes by NeoDement - The Terrarium door now remembers the correct pose when changing to/from the night gallery, the trolly cable overlays now have previously missing night galleries. Fixed some overlays disappearing at night. Fixed main bg changing before overlays and world wrap camera bgs can load.
 
 ******************
 * Night switcher *
@@ -30,29 +30,38 @@ scrp 1 1 50200 9
 	doif ov00 eq 0
 		doif time eq 3 or time eq 4
 			inst
-			scam null -1
-			bkgd ov01 "c2tods_night" 2
 
+*change world wrap camera background
 			enum 1 5 50200
 				scam targ 1
 				bkgd mv01 "c2tods_night" 2
 			next
+
 			targ ownr
 			setv ov00 1
 			gsub night
+
+*change main metaroom background (do this last because it forces the screen to update mid-inst otherwise)
+			scam null -1
+			bkgd ov01 "c2tods_night" 2
 		endi
 	elif ov00 eq 1
 		doif time eq 0 or time eq 1 or time eq 2
 			inst
-			scam null -1
-			bkgd ov01 "c2tods" 2
+
+*change world wrap camera background
 			enum 1 5 50200
 				scam targ 1
 				bkgd mv01 "c2tods" 2
 			next
+
 			targ ownr
 			setv ov00 0
 			gsub day
+
+*change main metaroom background (do this last because it forces the screen to update mid-inst otherwise)
+			scam null -1
+			bkgd ov01 "c2tods" 2
 		endi
 	endi
 
@@ -134,9 +143,9 @@ scrp 1 1 50200 9
 ************************** Overlays2 **************************
 			doif gall eq "moe_c2tods_overlays2"
 				doif abba lt 9 or abba eq 13 or abba eq 14 or abba eq 25 or abba eq 26 or abba eq 27 or abba eq 28
-				*(don't change the overlays specified above into night overlays)
+*(don't change the overlays specified above into night overlays)
 				else
-									setv va00 abba
+					setv va00 abba
 					gall "moe_c2tods_overlays2_night" va00
 				endi
 			endi
@@ -237,7 +246,7 @@ scrp 1 1 50200 9
 ************************** Overlays2 **************************
 			doif gall eq "moe_c2tods_overlays2_night"
 				doif abba lt 9 or abba eq 13 or abba eq 14 or abba eq 25 or abba eq 26 or abba eq 27 or abba eq 28
-				*(don't change the overlays specified above into night overlays)
+*(don't change the overlays specified above into night overlays)
 				else
 					setv va00 abba
 					gall "moe_c2tods_overlays2" va00
