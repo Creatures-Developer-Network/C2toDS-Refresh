@@ -8,10 +8,13 @@
 inst
 new: simp 2 21 50215 "moe_C2toDS_PopRocket" 19 0 5000
 
+*this is where it appears in C2:
 *random X coord, but to the general left of the incubator
-setv va00 rand 6852 7020
+*setv va00 rand 6852 7020
+*mvto va00 48338
 
-mvto va00 48338
+*but I think it would be nicer in the volcano by default, the incubator room is already pretty crowded in C2toDS. Plus the ettin and grendel could always use more toys!
+mvto 9967 49705
 
 
 *creation script
