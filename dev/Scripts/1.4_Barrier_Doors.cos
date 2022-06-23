@@ -7,6 +7,7 @@
 *2	2	50203	Right Sub Door (New: line is in Left Sub Doors Creation Script)
 
 * Some fixes by NeoDement - Fixed some issues with the volcano door sprite, fixed backwards logic in Terrarium Door open/close script, moved FRAT commands into the creation scripts instead of just before animating.
+* Added a script that allows the pointer to click on objects behind dithered overlays for the flooded sub bay (currently defined in "0.1_World_Overlays.cos")
 
 
 * Sets the airlock rooms to Wooden Walkway (the airlock is empty to start)
@@ -88,7 +89,8 @@ pose 8
 
 frat 2
 
-attr 0
+*Activateable so we can redirect clicks on the water 1 pixel to the left to click objects partially obscured by the dither
+attr 4
 
 mvto 8450 48809
 
@@ -108,7 +110,7 @@ pose 10
 
 frat 2
 
-attr 20
+attr 0
 
 mvto 8685 48990
 
@@ -126,7 +128,7 @@ pose 10
 
 frat 2
 
-attr 20
+attr 0
 
 mvto 8532 48990
 
@@ -168,6 +170,32 @@ scrp 1 11 50200 1001
 	endi
 
 endm
+
+
+
+
+
+
+*clicking on scenery which is set to be activateable calls a special script on the pointer to temporarily offset its position by 1 pixel to the left and fake a mouse click.
+*the purpose of this is to stop the frustration of a click seeming to not register when clicking a dithered transparent object (such as any of the glass tubes)
+
+*scrp 2 1 1 50200 (pointer redirect) is currently defined in "0.1_World_Overlays.cos"
+
+scrp 1 11 50200 1
+
+	inst
+
+*set the OWNR in _P1_ so we can check against it in the pointer script
+	mesg wrt+ pntr 50200 ownr 0 0
+
+endm
+
+
+
+
+
+
+
 
 *Volcano Door
 

@@ -1,0 +1,114 @@
+*1 15 50201 - Clock
+
+*Converted by NeoDement
+*the original did a bunch of stuff involving TMOD/TIME, but this one doesn't
+*this one just moves the big hand round and when it reaches the top it moves the little hand
+
+*(I was going to just put it in the file with the other overlays but figured if it had it's own classifier you could click it to turn off the annoying ticking sound)
+
+
+***************
+**SOUNDS USED**
+***************
+* TICK - C2TK *
+***************
+
+
+
+inst
+
+new: comp 1 1 23423 "moe_C2toDS_Clock" 12 0 1
+
+mvto 3319 49256
+
+
+
+*Constructor Script
+
+scrp 1 1 23423 10
+
+	inst
+
+	pat: dull 1 "moe_C2toDS_Clock" 12 0 0 1
+
+*the tick rate of this clock C2 is about 60 and DS is twice as fast
+	setv ov00 120
+
+	tick ov00
+*	tick 1
+
+*tick tick tick tick
+	sndl "c2tk"
+
+*Activateable (4) + Invisible (16)
+	attr 20
+
+endm
+
+
+
+*Activate 1 Script
+
+scrp 1 1 23423 1
+	clac 1
+	tick 0
+	stpc
+endm
+
+
+
+*Activate 2 Script
+
+scrp 1 1 23423 2
+	clac 0
+	tick ov00
+	sndl "c2tk"
+endm
+
+
+
+*Timer Script
+
+scrp 1 1 23423 9
+
+	inst
+
+*the big hand goes round...
+	part 0
+	doif pose < 11
+		setv va00 pose
+		addv va00 1
+		pose va00
+*...until it reaches the top...
+	else
+		pose 0
+
+		part 1
+
+*...and then the little hand starts going round
+		doif pose < 11
+			setv va00 pose
+			addv va00 1
+			pose va00
+		else
+			pose 0
+		endi
+
+	endi
+
+
+endm
+
+
+
+*time waits for no one
+
+rscr
+
+enum 1 1 23423
+	kill targ
+next
+
+scrx 1 1 23423 1
+scrx 1 1 23423 9
+scrx 1 1 23423 10

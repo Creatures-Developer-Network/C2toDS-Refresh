@@ -55,14 +55,14 @@ endm
 
 
 *switch room event
-*This script is not natively excucted by the engine, but is triggered by a script in DS Favorite Places.cos. Called when the main camera is switched to a different metaroom.
+*This script is not natively executed by the engine, but is triggered by a script in DS Favorite Places.cos. Called when the main camera is switched to a different metaroom.
 
 scrp 1 1 50201 900
 
-	targ pntr
+inst
 
 *WE ARE IN THE C2TODS METAROOM
-	doif game "C2toDS_RoomID" = gmap posl post
+	doif game "C2toDS_RoomID" = gmap mopx mopy
 
 *store a copy of what this track was before you entered the room. don't bother overwriting this with the c2tods music.
 		doif game "engine_near_death_track_name" <> "c2tods.mng\\NearDeath"

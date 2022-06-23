@@ -182,7 +182,7 @@ scrp 2 3 50220 9
 
 
 
-	doif game "TMOD" eq 4
+	doif time eq 4
 
 *stop
 

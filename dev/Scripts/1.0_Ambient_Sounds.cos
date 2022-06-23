@@ -472,7 +472,7 @@ scrp 1 12 50200 9
 
 		tick 0
 
-		doif game "TMOD" ne 4
+		doif time ne 4
 
 			setv va00 rand 0 3
 

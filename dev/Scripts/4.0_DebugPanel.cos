@@ -1,14 +1,14 @@
 *crappy lil debug panel so we can configure a handful of things in the world
 
-*feel free to add more and assign a proper classifier, graphics etc
+*feel free to add more
 
 *tooltips are in C2toDS_debug_tooltips.catalogue
 
-enum 1 99 9999
+enum 1 99 50200
 	kill targ
 next
 
-new: comp 1 99 9999 "blnk" 0 0 8000
+new: comp 1 99 50200 "blnk" 0 0 8000
 pat: butt 1 "ds gui" 56 0 0 0 2 [] 1001 0
 pat: butt 2 "ds gui" 56 0 0 25 2 [] 1002 0
 pat: butt 3 "ds gui" 56 0 0 50 2 [] 1003 0
@@ -28,7 +28,7 @@ mvto 8017 48551
 *ENABLE/DISABLE GUARD RAILS
 *changed these wall permeabilities to stop norns walking off and drowning/hurting themselves :(
 
-scrp 1 99 9999 1001
+scrp 1 99 50200 1001
 
 	lock
 
@@ -81,15 +81,14 @@ scrp 1 99 9999 1001
 		door grap 11218 48841 grap 11261 48841 99
 
 
-		
+
 *top volcano ledge (right of sub bay)
 		door grap 1352 48430 grap 1467 48430 99
 
 *top volcano ledge (world wrap copy)
-		door grap 1724 49299 grap 1764 49299 99
-		
-		
-				
+		door grap 9729 48430 grap 9824 48430 99
+
+
 
 		wait 10
 
@@ -140,19 +139,18 @@ scrp 1 99 9999 1001
 		door grap 2860 48841 grap 2923 48841 100
 
 *frog pond (world wrap copy)
-		door grap 11218 48841 grap 11261 48841 100		
-		
-		
+		door grap 11218 48841 grap 11261 48841 100
+
+
+
 *top volcano ledge (right of sub bay)
-		door grap 1352 48430 grap 1467 48430 99
+		door grap 1352 48430 grap 1467 48430 100
 
 *top volcano ledge (world wrap copy)
-		door grap 1724 49299 grap 1764 49299 99
-	
-	
-	
-	
-	
+		door grap 9729 48430 grap 9824 48430 100
+
+
+
 		wait 10
 
 		dmap 0
@@ -162,9 +160,9 @@ scrp 1 99 9999 1001
 endm
 
 *ENABLE/DISABLE DUST DEVILS
-*(they spawn far too often and made it very frustrating to test the pop rocket)
+*(they used to spawn far too often, but might be ok now)
 
-scrp 1 99 9999 1002
+scrp 1 99 50200 1002
 
 	lock
 
@@ -188,7 +186,7 @@ endm
 *DELETE DUST DEVILS EVERY 20 TICKS!
 *(button 2 enables/disables the timer)
 
-scrp 1 99 9999 9
+scrp 1 99 50200 9
 
 	enum 2 19 50207
 		kill targ
@@ -200,7 +198,7 @@ endm
 *ENABLE/DISABLE DAY/NIGHT CYCLE
 *(todo: edit the night script so we can externally force an override to whichever time of day we want)
 
-scrp 1 99 9999 1003
+scrp 1 99 50200 1003
 
 	lock
 
@@ -224,3 +222,16 @@ scrp 1 99 9999 1003
 
 	endi
 endm
+
+
+
+rscr
+
+enum 1 99 50200
+	kill targ
+next
+
+scrx 1 99 50200 1001
+scrx 1 99 50200 1002
+scrx 1 99 50200 1003
+scrx 1 99 50200 9

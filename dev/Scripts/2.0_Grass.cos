@@ -319,7 +319,7 @@ endm
 
 scrp 2 4 50222 9
 
-	doif game "TMOD" eq 4 or sean eq 3
+	doif time eq 4 or sean eq 3
 
 		stop
 

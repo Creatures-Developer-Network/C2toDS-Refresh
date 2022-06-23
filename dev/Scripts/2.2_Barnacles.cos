@@ -534,7 +534,7 @@ scrp 2 15 50205 9
 
 
 
-	doif game "TMOD" lt 3
+	doif time lt 3
 
 		doif pose lt 10
 
@@ -546,7 +546,7 @@ scrp 2 15 50205 9
 
 		endi
 
-	elif game "TMOD" ge 3
+	elif time ge 3
 
 		doif pose gt 0
 
