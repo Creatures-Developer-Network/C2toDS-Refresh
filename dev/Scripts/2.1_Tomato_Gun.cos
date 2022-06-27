@@ -5,19 +5,29 @@
 * Some Modifications By the one who screams i guess
 * (if you worked on this file, feel free to add your name!)
 
-new: comp 2 21 50214 "moe_C2toDS_tgun" 7 0 rand 1000 3000
+*NeoDement removed the ability for tomato splats to become tomatoes!
+*Toys making food that can grow into plants is bad! (we have a tomato vendor for that now :) )
+*also removed IO ports, this object is too small and they were causing frustration by making it difficult to click the launcher. Vendor has IO ports instead.
+*also spam click protection (no lock)
+
+
+
+*new: comp 2 21 50214 "moe_C2toDS_tgun" 7 0 rand 1000 3000
+new: simp 2 21 50214 "moe_C2toDS_tgun" 7 0 rand 1000 3000
 
 mvto 7900 47965
 
 
 
-new: comp 2 21 50214 "moe_C2toDS_tgun" 7 0 rand 1000 3000
+*new: comp 2 21 50214 "moe_C2toDS_tgun" 7 0 rand 1000 3000
+new: simp 2 21 50214 "moe_C2toDS_tgun" 7 0 rand 1000 3000
 
 mvto 4479 49697
 
 
 
-new: comp 2 21 50214 "moe_C2toDS_tgun" 7 0 rand 1000 3000
+*new: comp 2 21 50214 "moe_C2toDS_tgun" 7 0 rand 1000 3000
+new: simp 2 21 50214 "moe_C2toDS_tgun" 7 0 rand 1000 3000
 
 mvto 4258 48169
 
@@ -38,21 +48,21 @@ scrp 2 21 50214 10
 
 	mira rand 0 1
 
-*pat: dull 1 "moe_C2toDS_tgun" 40 10 18 0
-
-	doif mira eq 0
-
-		prt: inew 0 "Input" "Recieves signal inputs for the tomato launcher." 26 21 0
-
-		pat: dull 1 "moe_C2toDS_tgun" 40 26 21 0
-
-	else
-
-		prt: inew 0 "Input" "Recieves signal inputs for the tomato launcher." 2 21 0
-
-		pat: dull 1 "moe_C2toDS_tgun" 40 2 21 0
-
-	endi
+**pat: dull 1 "moe_C2toDS_tgun" 40 10 18 0
+*
+*	doif mira eq 0
+*
+*		prt: inew 0 "Input" "Recieves signal inputs for the tomato launcher." 26 21 0
+*
+*		pat: dull 1 "moe_C2toDS_tgun" 40 26 21 0
+*
+*	else
+*
+*		prt: inew 0 "Input" "Recieves signal inputs for the tomato launcher." 2 21 0
+*
+*		pat: dull 1 "moe_C2toDS_tgun" 40 2 21 0
+*
+*	endi
 
 endm
 
@@ -92,87 +102,87 @@ scrp 2 21 50214 9
 
 		mira 1
 
-		inst
-
-		pat: kill 1
-
-		pat: dull 1 "moe_C2toDS_tgun" 40 2 21 0
-
-
-
-		gsub checklinks
-
-
-
-		prt: izap 0
-
-		prt: inew 0 "Input" "Recieves signal inputs for the tomato launcher." 2 21 0
-
-
-
-		doif va01 ge 0 and va00 ne null
-
-			prt: join va00 va01 ownr 0
-
-		endi
-
-
-
-		slow
+*		inst
+*
+*		pat: kill 1
+*
+*		pat: dull 1 "moe_C2toDS_tgun" 40 2 21 0
+*
+*
+*
+*		gsub checklinks
+*
+*
+*
+*		prt: izap 0
+*
+*		prt: inew 0 "Input" "Recieves signal inputs for the tomato launcher." 2 21 0
+*
+*
+*
+*		doif va01 ge 0 and va00 ne null
+*
+*			prt: join va00 va01 ownr 0
+*
+*		endi
+*
+*
+*
+*		slow
 
 	elif velx lt 0
 
 		mira 0
 
-		inst
-
-		pat: kill 1
-
-		pat: dull 1 "moe_C2toDS_tgun" 40 26 21 0
-
-
-
-		gsub checklinks
-
-
-
-		prt: izap 0
-
-		prt: inew 0 "Input" "Recieves signal inputs for the tomato launcher." 26 21 0
-
-
-
-		doif va01 ge 0 and va00 ne null
-
-			prt: join va00 va01 ownr 0
-
-		endi
-
-
-
-		slow
-
+*		inst
+*
+*		pat: kill 1
+*
+*		pat: dull 1 "moe_C2toDS_tgun" 40 26 21 0
+*
+*
+*
+*		gsub checklinks
+*
+*
+*
+*		prt: izap 0
+*
+*		prt: inew 0 "Input" "Recieves signal inputs for the tomato launcher." 26 21 0
+*
+*
+*
+*		doif va01 ge 0 and va00 ne null
+*
+*			prt: join va00 va01 ownr 0
+*
+*		endi
+*
+*
+*
+*		slow
+*
 	endi
-
-
-
-	subr checklinks
-
-		seta va00 prt: frma 0
-
-		doif va00 ne null
-
-			doif prt: from 0 gt 0
-
-				setv va01 prt: from 0
-
-			endi
-
-		endi
-
-
-
-	retn
+*
+*
+*
+*	subr checklinks
+*
+*		seta va00 prt: frma 0
+*
+*		doif va00 ne null
+*
+*			doif prt: from 0 gt 0
+*
+*				setv va01 prt: from 0
+*
+*			endi
+*
+*		endi
+*
+*
+*
+*	retn
 
 endm
 
@@ -182,7 +192,7 @@ scrp 2 21 50214 2
 	doif crea from eq 1
 		stim writ from 97 3
 	endi
-	
+
 	mesg writ ownr 0
 endm
 
@@ -191,7 +201,7 @@ scrp 2 21 50214 3
 	doif crea from eq 1
 		stim writ from 97 3
 	endi
-	
+
 	mesg writ ownr 0
 endm
 
@@ -199,7 +209,10 @@ endm
 scrp 2 21 50214 1
 
 	inst
-	
+
+*hand can't click it while it's in use!
+	clac -1
+
 	doif crea from eq 1
 		stim writ from 97 3
 	endi
@@ -239,46 +252,28 @@ scrp 2 21 50214 1
 		setv va01 post
 
 	endi
-	
+
 	inst
 
 	new: simp 2 6 50214 "moe_C2toDS_tgun" 17 14 rand 1000 3000
+
+*actually this looks correct at full framerate.
+*it seems the one in c2 looks correct and not super slow because it doesn't use a bunch of the frames.
+*	frat 2
 
 	mvsf va00 va01
 
 	velo va02 -20
 
-	unlk
+*hand can click it now it's done animating.
+	targ ownr
+	clac 0
 
 endm
 
-*pull
 
-scrp 2 21 50214 2
 
-	lock
-	
-	doif crea from eq 1
-		stim writ from 97 3
-	endi
-	
-	mesg writ ownr 0
-	
-endm
-
-*hit
-scrp 2 21 50214 3
-
-	lock
-	
-	doif crea from eq 1
-		stim writ from 97 3
-	endi
-	
-	mesg writ ownr 0
-	
-endm
-
+*rotten tomato constructor
 
 scrp 2 6 50214 10
 
@@ -286,7 +281,7 @@ scrp 2 6 50214 10
 
 	anim [0 1 2 3 4 5 6 7 255]
 
-	elas 25
+	elas 5
 
 	accg 3
 
@@ -301,6 +296,7 @@ endm
 
 
 
+*tomato splat collision script
 
 scrp 2 6 50214 6
 
@@ -308,56 +304,65 @@ scrp 2 6 50214 6
 
 
 
-	setv va00 rand 0 5
-
-	doif va00 eq 5
-
-		inst
-
-		setv va00 posl
-
-		setv va01 post
-
-		setv va02 _p1_
-
-		setv va03 _p2_
-
-		new: simp 2 8 50200 "moe_C2toDS_toms" 23 15 rand 1000 2000
-
-		mira rand 0 1
-
-		setv ov00 0
-
-		setv ov02 1
-
-		attr 198
-
-		pose 4
-
-		bhvr 48
-		tick rand 1000 2500
-
-		base 12
-
-		pose 0
-
-		accg 3
-
-		mvsf va00 va01
-
-		velo va02 va03
-
-		kill ownr
-
-		stop
-
-	endi
+*	setv va00 rand 0 5
+*
+*	doif va00 eq 5
+*
+*		inst
+*
+*		setv va00 posl
+*
+*		setv va01 post
+*
+*		setv va02 _p1_
+*
+*		setv va03 _p2_
+*
+*		new: simp 2 8 50200 "moe_C2toDS_toms" 23 15 rand 1000 2000
+*
+*		mira rand 0 1
+*
+*		setv ov00 0
+*
+*		setv ov02 1
+*
+*		attr 198
+*
+*		pose 4
+*
+*		bhvr 48
+*		tick rand 1000 2500
+*
+*		base 12
+*
+*		pose 0
+*
+*		accg 3
+*
+*		mvsf va00 va01
+*
+*		velo va02 va03
+*
+*		kill ownr
+*
+*		stop
+*
+*	endi
 
 	inst
 
 	pose 8
 
 	mvsf posl post
+
+*	velo 0 0
+*
+*	setv va00 velx
+*	setv va01 vely
+*	divv va00 2
+*	divv va02 2
+*
+*	velo va00 va01
 
 	sndc "smsh"
 
