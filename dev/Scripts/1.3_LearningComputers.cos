@@ -1,0 +1,734 @@
+* 3 3 50200 - Learning Computer
+
+
+
+* Converted by NeoDement. Some changes from the C2 version: You can pick it up, Auto-teach mode has been made a little more intuitive, a few extra icons for new words in C3/DS.
+
+* Some script based off Clucky's C12DS Learning Computer from https://eemfoo.org/archive/downloads/de80
+
+
+
+***************
+**SOUNDS USED**
+***************
+* C2C1 - COM_ *
+* C2C2 - CMP1 *
+***************
+
+
+
+* Install Script
+
+inst
+
+
+***VERB COMPUTER (UPSTAIRS)***
+
+*plane 308 means it draws just in front of the DS elevators but just behind the DS elevator buttons. so pretty much behind everything.
+*(except the pesky one at the bottom of the workshop that's mistakenly set to plane 0...)
+new: comp 3 3 50200 "moe_C2toDS_Computer" 1 0 308
+
+mvto 7224 48305
+
+
+*DECORATIVE:
+
+* image on screen
+pat: dull 1 "moe_C2toDS_Computer" 0 27 50 2
+
+*C2 framerate
+part 1
+frat 2
+*fixes the screen part showing as a separate computer for 1 tick
+pose 123
+
+*White dancing lights
+pat: dull 2 "moe_C2toDS_Computer" 3 12 117 1
+
+*C2 framerate + initial pose
+part 2
+frat 2
+pose 3
+
+*5 multicoloured LEDs
+pat: dull 3 "moe_C2toDS_Computer" 8 91 104 1
+
+*C2 framerate + initial pose
+part 3
+frat 2
+pose 2
+
+*main screen + text
+pat: fixd 4 "moe_C2toDS_Computer" 1 12 40 1 "moe_C2toDS_Font_ComputerGreen"
+
+*slight padding so the font doesn't touch the very edges of the screen
+part 4
+frmt 4 1 4 1 0 0 0
+
+
+*BUTTONS:
+
+*Repeat Current Word (HIT)
+pat: butt 5 "moe_C2toDS_Computer" 14 2 9 22 1 [] 3 0
+
+*Next Word (PUSH)
+pat: butt 6 "moe_C2toDS_Computer" 16 2 35 22 1 [] 0 0
+
+*Previous Word (PULL)
+pat: butt 7 "moe_C2toDS_Computer" 18 2 63 22 1 [] 1 0
+
+*Autoplay (screen is a button)
+pat: butt 8 "moe_C2toDS_Computer" 1 1 12 40 3 [] 1001 0
+
+
+*word bank
+sets ov01 "C2toDS verb computer "
+
+
+
+***ADJECTIVE COMPUTER (DOWNSTAIRS)***
+
+*plane 308 means it draws just in front of the DS elevators but just behind the DS elevator buttons. so pretty much behind everything.
+*(except the pesky one at the bottom of the workshop that's mistakenly set to plane 0...)
+new: comp 3 3 50200 "moe_C2toDS_Computer" 1 0 308
+
+mvto 6619 48615
+
+
+*DECORATIVE:
+
+* image on screen
+pat: dull 1 "moe_C2toDS_Computer" 0 27 50 2
+
+*C2 framerate
+part 1
+frat 2
+*fixes the screen part showing as a separate computer for 1 tick
+pose 123
+
+*White dancing lights
+pat: dull 2 "moe_C2toDS_Computer" 3 12 117 1
+
+*C2 framerate + initial pose
+part 2
+frat 2
+pose 4
+
+*5 multicoloured LEDs
+pat: dull 3 "moe_C2toDS_Computer" 8 91 104 1
+
+*C2 framerate + initial pose
+part 3
+frat 2
+pose 4
+
+*main screen + text
+pat: fixd 4 "moe_C2toDS_Computer" 2 12 40 1 "moe_C2toDS_Font_ComputerBlue"
+
+*slight padding so the font doesn't touch the very edges of the screen
+part 4
+frmt 4 1 4 1 0 0 0
+
+
+*BUTTONS:
+
+*Repeat Current Word (HIT)
+pat: butt 5 "moe_C2toDS_Computer" 14 2 9 22 1 [] 3 0
+
+*Next Word (PUSH)
+pat: butt 6 "moe_C2toDS_Computer" 16 2 35 22 1 [] 0 0
+
+*Previous Word (PULL)
+pat: butt 7 "moe_C2toDS_Computer" 18 2 63 22 1 [] 1 0
+
+*Autoplay (screen is a button)
+pat: butt 8 "moe_C2toDS_Computer" 1 1 12 40 3 [] 1001 0
+
+
+*word bank
+sets ov01 "C2toDS adjective computer "
+
+
+
+
+
+*Constructor Script
+
+scrp 3 3 50200 10
+
+	inst
+
+*Carryable + Mouseable + Suffer Collisions + Suffer Physics
+	attr 195
+
+*Activate 1 + Activate 2 + Hit
+	bhvr 11
+
+*physics
+	elas 0
+	accg 10
+	fric 100
+	perm 60
+
+*range is a bit lower than default (500)
+	rnge 400
+
+*smells like a machine
+	emit 10 .15
+
+
+*initial selected word number
+	setv ov00 0
+
+*tick - used for the auto-teach mode
+	setv ov02 30
+
+
+*gotta wait a tick for the word bank to load or it won't know which type of screensaver to use
+	wait 1
+
+**load screensaver anim from catalogue**
+
+	part 1
+
+*set VA00 to word bank name and append SCREENSAVER
+	sets va00 ov01
+	adds va00 "SCREENSAVER"
+
+*read and set base pose
+	sets va01 read va00 0
+	base stoi va01
+
+*read and set anim string
+	sets va08 read va00 1
+	anms va08
+
+endm
+
+
+
+*1000 - Say current word (with optional loading screen controlled by _P1_)
+*(called by Push, Pull and Eat scripts)
+
+scrp 3 3 50200 1000
+
+*	lock
+	inst
+
+*reset the timer to make it a bit less confusing... don't want it jumping to a new word while we click buttons
+	doif tick <> 0
+		tick 0
+		tick ov02
+	endi
+
+*animate 5 LEDs
+	part 3
+	anim [0 1 2 3 4 5 255]
+
+
+*if _P1_ is set to 1 we skip the loading screen
+	doif _p1_ = 0
+
+
+*animate white lights
+		part 2
+		anim [0 0 1 1 2 2 3 3 4 4 255]
+
+*blank out text while next word loads
+		part 4
+		ptxt ""
+
+**load loading anim from catalogue**
+
+		part 1
+
+*set VA00 to word bank name and append LOADING
+		sets va00 ov01
+		adds va00 "LOADING"
+
+*read and set base pose
+		sets va01 read va00 0
+		base stoi va01
+
+*read and set anim string
+		sets va08 read va00 1
+		anms va08
+
+*wait for loading screen anim to finish
+		over
+
+	else
+
+*animate white lights faster and in a different sequence when in autoplay mode.
+		part 2
+		anim [4 1 3 2 0 255]
+	endi
+
+
+
+*load current word and graphic from ov00...
+
+	inst
+
+*get word bank count value and store it in VA10
+	sets va09 ov01
+	adds va09 "count"
+	setv va10 stoi read va09 0
+
+*loop word back to an inbounds value if it's too high or too low
+	doif ov00 < 0
+		setv ov00 va10
+	elif ov00 > va10
+		setv ov00 0
+	endi
+
+	part 1
+
+*set VA06 to word bank name
+	sets va06 ov01
+
+*add word number to VA06 - for example "C2toDS verb computer 1"
+	adds va06 vtos ov00
+
+*read and set pose (2)
+	sets va07 read va06 2
+	base stoi va07
+	pose 0
+
+*if it's an animated icon, start the animation (3)
+	sets va08 read va06 3
+	doif va08 = "1"
+		anim [0 1 2 3 255]
+	else
+	endi
+
+*get the word bank name and the currently selected word index and construct a string to search the catalogue for: "C2toDS verb computer N"
+	sets va00 ov01
+	adds va00 vtos ov00
+
+*read word type: noun/verb etc (0) and word index (1)
+	setv va01 stoi read va00 0
+	setv va02 stoi read va00 1
+
+*what type of word is this? for constructing a functional ORDER SHOU string.
+*"perfect " means learn straight away, "learn " means learn gradually.
+
+	doif va01 = 1
+		sets va03 "perfect verb "
+		sets va04 "Creature Actions"
+	elif va01 = 2
+		sets va03 "perfect special "
+		sets va04 "Learnt Specials"
+	elif va01 = 3
+		sets va03 "perfect drive "
+		sets va04 "Creature Drives"
+	elif va01 = 4
+		sets va03 "perfect qualifier "
+		sets va04 "Learnt Qualifiers"
+	elif va01 = 5
+		sets va03 "perfect nice_drive "
+		sets va04 "Learnt Nice Drives"
+	elif va01 = 6
+		sets va03 "perfect noun "
+		sets va04 "Agent Categories"
+	endi
+
+
+
+*start to construct string, starting with the chosen noun/verb etc
+
+
+*special cases to teach multiple words at once (setting up the text on screen)
+
+*-1 teach Look (verb) and Look (special)
+	doif va02 = -1
+
+*read "look (verb)" string. both look strings are similar in all languages so this should be fine.
+		sets va50 read va04 0
+
+*-2 teach all Hungry drives
+	elif va02 = -2
+
+*read "hungry for fat" string.
+		sets va50 read va04 1
+
+*find the space. start searching from char index 3 so you don't get tripped up by french "a envie"
+		setv va99 sins va50 3 " "
+
+		doif va99 <> -1
+*set VA50 to the first N characters. for example "hungry for fat" becomes "hungry"
+			sets va50 subs va50 1 va99
+		else
+*if something goes wrong, just set it to "hungry"...
+			sets va50 "hungry"
+		endi
+
+*-3 teach all Full drives.
+	elif va02 = -3
+
+*read "full of fat" string. all full strings are identical in all languages so this is fine.
+		sets va50 read va04 3
+
+*otherwise just read string number VA02 from catalog tag VA04.
+	else
+
+		sets va50 read va04 va02
+
+	endi
+
+
+*set text on screen to the current word, and then wait a moment before actually teaching it
+	part 4
+	ptxt va50
+
+	wait 5
+
+
+*construct string - "perfect noun/verb N whatever"
+
+*special cases to teach multiple words at once (actually teaching the words)
+
+	doif va02 = -1
+
+*perfect nice_drive 1 full (of protein)
+		sets va60 "perfect verb 0 "
+		adds va60 read "Creature Actions" 0
+		ordr sign va60
+
+*perfect nice_drive 2 full (of starch)
+		sets va60 "perfect special  "
+		adds va60 read "Learnt Specials" 2
+		ordr sign va60
+
+	elif va02 = -2
+
+*perfect drive 1 hungry for protein
+		sets va60 "perfect nice_drive 1 "
+		adds va60 read "Creature Drives" 1
+		ordr sign va60
+
+*perfect drive 2 hungry for starch
+		sets va60 "perfect nice_drive 2 "
+		adds va60 read "Creature Drives" 2
+		ordr sign va60
+
+*perfect drive 3 hungry for fat
+		sets va60 "perfect nice_drive 3 "
+		adds va60 read "Creature Drives" 3
+		ordr sign va60
+
+	elif va02 = -3
+
+*perfect nice_drive 1 full (of protein)
+		sets va60 "perfect nice_drive 1 "
+		adds va60 read "Learnt Nice Drives" 1
+		ordr sign va60
+
+*perfect nice_drive 2 full (of starch)
+		sets va60 "perfect nice_drive 2 "
+		adds va60 read "Learnt Nice Drives" 2
+		ordr sign va60
+
+*perfect nice_drive 3 full (of fat)
+		sets va60 "perfect nice_drive 3 "
+		adds va60 read "Learnt Nice Drives" 3
+		ordr sign va60
+
+*otherwise construct and send the appropriate string - "perfect noun/verb N whatever"
+	else
+
+		sets va40 va03
+		adds va40 vtos va02
+		adds va40 " "
+		adds va40 va50
+
+*now actually say the hidden command so that norns can hear it, repeat it, learn from it
+*	ordr shou va40
+
+*doing it based on norns that can see it so that RNGE is respected and they dont hear through walls.
+		ordr sign va40
+
+	endi
+
+
+*make sound and freeze anim
+	snde "c2c1"
+
+	wait 40
+
+	part 1
+	pose 0
+
+*	wait 100
+	wait 50
+
+
+*if _P1_ is set to 1, no need to load the screensaver
+*also don't load the screensaver if you (or a norn) try and use it manually while it's in auto mode.
+	doif _p1_ = 0 and tick = 0
+
+		part 4
+		ptxt ""
+
+
+**load screensaver anim from catalogue**
+
+		part 1
+
+*set VA00 to word bank name and append SCREENSAVER
+		sets va00 ov01
+		adds va00 "SCREENSAVER"
+
+*read and set base pose
+		sets va01 read va00 0
+		base stoi va01
+
+*read and set anim string
+		sets va08 read va00 1
+		anms va08
+
+
+*set lights to random poses
+		part 2
+		pose rand 0 4
+		part 3
+		pose rand 0 5
+	endi
+
+*	unlk
+
+endm
+
+
+
+*Activate 1 (Next Word)
+scrp 3 3 50200 1
+
+	inst
+
+	doif from eq pntr
+		targ from
+*animate pointer
+		anim [1 0]
+		targ ownr
+	elif crea from eq 1
+*stim norn with 90 - Activate machine
+		stim writ from 90 1
+	endi
+
+	inst
+
+*next word
+	addv ov00 1
+
+*Say current word
+	mesg writ ownr 1000
+
+endm
+
+
+
+*Activate 2 (Previous Word)
+scrp 3 3 50200 2
+
+	inst
+
+	doif from eq pntr
+		targ from
+*animate pointer
+		anim [1 0]
+		targ ownr
+	elif crea from eq 1
+*stim norn with 90 - Activate machine
+		stim writ from 90 1
+	endi
+
+	inst
+
+*previous word
+	subv ov00 1
+
+*Say current word
+	mesg writ ownr 1000
+
+endm
+
+
+
+*Hit (Repeat Current Word)
+
+scrp 3 3 50200 3
+
+	inst
+
+	doif from eq pntr
+		targ from
+*animate pointer
+		anim [1 0]
+		targ ownr
+	elif crea from eq 1
+*stim norn with 92 - Hit machine
+		stim writ from 92 1
+	endi
+
+	inst
+
+*Say current word
+	mesg writ ownr 1000
+
+endm
+
+
+
+*Click Screen (pointer only)
+scrp 3 3 50200 1001
+
+*	lock
+
+	inst
+
+	snde "c2c2"
+
+*slooow press
+	doif from = pntr
+		targ from
+		anim [1 1 1 0]
+		targ ownr
+	endi
+
+*start or stop timer
+	doif tick = 0
+
+		tick ov02
+
+*animate white lights
+		part 2
+		anim [4 1 3 2 0 255]
+
+*blank out current word
+		part 4
+		ptxt ""
+
+**load loading anim from catalogue**
+
+		part 1
+
+*set VA00 to word bank name and append LOADING
+		sets va00 ov01
+		adds va00 "LOADING"
+
+*read and set base pose
+		sets va01 read va00 0
+		base stoi va01
+
+*read and set anim string (make it loop)
+		sets va08 read va00 1
+		adds va08 " 255"
+		anms va08
+
+	else
+		tick 0
+
+*original C2 behaviour is to play the next word when clicked, but that felt unintuitive...
+*next word
+*		addv ov00 1
+*
+*Say current word
+*		mesg writ ownr 1000
+
+
+
+*new behaviour is to play the loading anim and then return to screensaver.
+
+*animate white lights
+		part 2
+		anim [4 1 3 2 0 255]
+
+*blank out current word
+		part 4
+		ptxt ""
+
+**load loading anim from catalogue**
+
+		part 1
+
+*set VA00 to word bank name and append LOADING
+		sets va00 ov01
+		adds va00 "LOADING"
+
+*read and set base pose
+		sets va01 read va00 0
+		base stoi va01
+
+*read and set anim string (play it thrice)
+		sets va08 read va00 1
+		adds va08 " "
+		adds va08 va08
+		adds va08 " "
+		adds va08 va08
+		anms va08
+
+
+*wait for it to finish
+		over
+
+
+**load screensaver anim from catalogue**
+
+		part 1
+
+*set VA00 to word bank name and append SCREENSAVER
+		sets va00 ov01
+		adds va00 "SCREENSAVER"
+
+*read and set base pose
+		sets va01 read va00 0
+		base stoi va01
+
+*read and set anim string
+		sets va08 read va00 1
+		anms va08
+
+
+*set lights to random poses
+		part 2
+		pose rand 0 4
+		part 3
+		pose rand 0 5
+
+
+	endi
+
+endm
+
+
+
+*Timer Script
+
+scrp 3 3 50200 9
+
+*next word
+	addv ov00 1
+
+*Say current word (skip loading screen)
+	mesg wrt+ ownr 1000 1 0 0
+
+endm
+
+
+
+*Remove Script
+
+rscr
+
+enum 3 3 50200
+	kill targ
+next
+
+scrx 3 3 50200 10
+scrx 3 3 50200 1000
+scrx 3 3 50200 1
+scrx 3 3 50200 2
+scrx 3 3 50200 3
+scrx 3 3 50200 1001
+scrx 3 3 50200 9
