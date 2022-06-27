@@ -2,6 +2,7 @@
 
 * Initial Conversion By Moe
 * Some Modifications By the one who screams i guess
+* Some More Modifications by NeoDement
 * (if you worked on this file, feel free to add your name!)
 
 * Robot dog woo
@@ -14,7 +15,11 @@ mvsf 7187 48708
 
 
 
+* Constructor
+
 scrp 2 21 50201 10
+
+	inst
 
 	attr 199
 
@@ -30,9 +35,17 @@ scrp 2 21 50201 10
 
 	perm 51
 
-	frat 3
+	frat 2
 
 	base 0
+
+	puhl -1 35 52
+
+*ov00 controls what state the dog is in, so it can be spam-clicked without too many problems
+	setv ov00 0
+
+*ov01 controls what direction the dog wants to move in
+	setv ov01 0
 
 endm
 
@@ -42,9 +55,15 @@ endm
 
 scrp 2 21 50201 1
 
-	lock
 
-	attr 215
+*	lock
+
+*	attr 215
+
+
+*hand can't click it while it's in use!
+	clac -1
+
 
 	stim writ from 97 1
 
@@ -54,83 +73,132 @@ scrp 2 21 50201 1
 
 	targ ownr
 
-	doif posx gt va00
 
-		setv va00 1
-
-	else
-
-		setv va00 0
-
-	endi
+*ov00 controls what state the dog is in, so it can be spam-clicked without too many problems
+	doif ov00 = 0
 
 
+*ov01 controls what direction the dog wants to move in
+		doif posx gt va00
 
-	sndl "dog1"
+			setv ov01 1
 
+		else
 
+			setv ov01 0
 
-	doif va00 eq 0
+		endi
 
-		reps rand 3 6
-
-			velo -2 -4
-
-			anim [0 1 2 3 4]
-
-			wait 20
-
-		repe
-
-		reps 2
-
-			anim [6 7 8 9 10 11 12 13 14 15 16]
-
-			wait 25
-
-			snde "yap1"
-
-			wait 5
-
-		repe
-
-		anim [17 18 19 20 21 22 23 24 25 26 27 28 0]
-
-	else
-
-		reps rand 3 6
-
-			velo 2 -4
-
-			anim [29 30 31 32 33 34]
-
-			wait 20
-
-		repe
-
-		reps 2
-
-			anim [35 36 37 38 39 40 41 42 43 44 45]
-
-			wait 25
-
-			snde "yap1"
-
-			wait 5
-
-		repe
-
-		anim [46 47 48 49 50 51 52 53 54 55 56 57 29]
+		sndl "dog1"
+		setv ov00 1
 
 	endi
 
 
-	attr 215
+	doif ov01 = 0
+
+		doif ov00 = 1
+			reps rand 3 6
+
+				velo -2 -4
+
+				anim [0 1 2 3 4]
+
+*				wait 20
+				wait 14
+
+			repe
+
+			setv ov00 2
+
+		endi
+
+		doif ov00 = 2
+			reps 2
+
+				anim [6 7 8 9 10 11 12 13 14 15 16]
+
+*				wait 25
+				wait 16
+
+				setv ov00 3
+
+				snde "yap1"
+
+*				wait 5
+				wait 3
+
+			repe
+
+		endi
+
+		doif ov00 = 3
+			anim [17 18 19 20 21 22 23 24 25 26]
+			over
+			anim [27 28 0]
+		endi
+
+	else
+
+		doif ov00 = 1
+			reps rand 3 6
+
+				velo 2 -4
+
+				anim [29 30 31 32 33 34]
+
+*				wait 20
+				wait 14
+
+			repe
+
+			setv ov00 2
+
+		endi
+
+		doif ov00 = 2
+			reps 2
+
+				anim [35 36 37 38 39 40 41 42 43 44 45]
+
+*				wait 25
+				wait 16
+
+				setv ov00 3
+
+				snde "yap1"
+
+*				wait 5
+				wait 3
+
+			repe
+
+		endi
+
+		doif ov00 = 3
+			anim [46 47 48 49 50 51 52 53 54 55]
+			over
+			anim [56 57 29]
+		endi
+
+	endi
+
+
+*	attr 215
 
 
 	stpc
 
-	unlk
+*reset state variable
+	setv ov00 0
+
+*	unlk
+
+
+*hand can click it now it's done animating.
+	targ ownr
+	clac 0
+
 
 endm
 
@@ -155,6 +223,26 @@ endm
 
 
 
+*it's not really possible to have a collision sound without completely breaking the main activate script
+** Collision
+*
+*scrp 2 21 50201 6
+*
+**make a drop sound if you're in default state.
+*	doif ov00 = 0
+*		snde "drp6"
+**if you were halfway through doing something, try to continue it.
+*	else
+**		call 1 0 0
+*		mesg writ ownr 0
+*	endi
+*
+*endm
+
+
+
+
+
 rscr
 
 enum 2 21 50201
@@ -164,6 +252,7 @@ enum 2 21 50201
 next
 
 scrx 2 21 50201 1
-
+scrx 2 21 50201 2
+scrx 2 21 50201 3
+scrx 2 21 50201 6
 scrx 2 21 50201 10
-
