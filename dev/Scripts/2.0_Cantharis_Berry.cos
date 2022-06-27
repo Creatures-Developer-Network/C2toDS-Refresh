@@ -5,6 +5,7 @@
 
 *Matthew, "Moe", '10*
 *The one who screams removed empty hunger decrease, made berries invisible until picked, and shortened lifespan.
+*NeoDement fixed berries appearing on the beach above the plant instead of on the plant.
 
 new: simp 2 6 50207 "moe_C2toDS_berries" 0 0 5000
 
@@ -24,23 +25,21 @@ scrp 2 6 50207 9
 
 	doif totl 2 8 50207 lt 15
 
-		setv va01 rand 10223 10450
-
-		setv va02 rand 48340 48470
-
-		gsub makearnicaberries
-
-	endi
-
-
-
-	subr makearnicaberries
-
+*make a new berry
+		inst
 		new: simp 2 8 50207 "moe_C2toDS_berries" 0 8 8001
 
-		mvsf va01 va02
+*sometimes mvsf puts berries on the beach, so keep randomizing the coords until a safe position ON THE PLANT is found
+		loop
+			setv va00 rand 10223 10450
 
-	retn
+			setv va01 rand 48340 48470
+
+		untl tmvt va00 va01 = 1
+
+		mvto va00 va01
+
+	endi
 
 endm
 
