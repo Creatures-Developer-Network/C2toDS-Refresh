@@ -1,10 +1,10 @@
 *Bat 2 16 50203 
-*Bat Nest 2 17 50204 <----4*****
+*Bat Nest 2 17 50204
 
-* todo: for now, these are all invisible to creatures. If at some point we feel like 
+* for now, these are all invisible to creatures. If at some point we feel like 
 * adding push/pull/hit/eat scripts we can change that. - Aiko
 
-*NeoDement fixed an invalid agent error when the bat attempts to eat food that doesn't exist anymore.
+*NeoDement fixed some errors with the bat eating fruit script (and fixed them not dropping what they're holding when they head to bed)
 
 
 *Install
@@ -171,6 +171,13 @@ scrp 2 16 50203 9
 			endi
 
 		elif seee ownr ov09 eq 1
+		
+*bats drop what they're holding and forget about it as they head back to bed
+			doif ov08 <> null
+				drop
+				seta ov08 null
+			endi
+
 
 			loop
 
@@ -493,8 +500,42 @@ scrp 2 16 50203 9
 
 *the "eat" subroutine puts us in slow mode, which gives the food a few ticks to disappear. so check if it still exists before you run the eat script (12).
 					doif ov08 <> null
-						mesg writ ov08 12
+
+						targ ov08
+
+*temporary? fix for a runtime error caused by the default C3/DS Lemon.			
+*(it's caused by the lemon not checking if FROM is a creature before checking CHEM)
+
+*if it's a lemon, run this copy of the lemon script with the weird chem stuff commented out!
+						doif fmly = 2 and gnus = 8 and spcs = 7
+
+*							lock
+** Lemon Eat sound
+							snde "leat"
+*							seta ov90 null
+*							seta ov90 from
+** check to see whether it's been eaten yet
+							doif name "eaten" = "no"
+*								gsub benechems
+*								targ ownr
+** Change to eaten pose
+								pose 1
+** record that it's been eaten
+								sets name "eaten" "yes"
+							elif name "eaten" = "yes"
+*								gsub benechems
+*								kill ownr (killing targ instead or dead bat)
+								kill targ
+							endi
+
+*if it's anything except a lemon send the eat script
+						else
+							mesg writ targ 12
+						endi
+
 					endi
+
+					targ ownr
 
 					gsub wakeup
 
