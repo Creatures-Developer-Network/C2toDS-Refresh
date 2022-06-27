@@ -184,7 +184,7 @@ endm
 **For later
 scrp 3 1 50205 1
 *
-*	stim writ from 94 1
+*	stim writ from 96 1
 
 *	stim writ from 75 1
 	doif velx eq 0
@@ -349,7 +349,7 @@ scrp 3 1 50205 9
 	doif ov00 lt 0
 		inst
 		epas 4 0 0
-			stim writ from 94 0
+			stim writ from 96 0
 			stim writ from 75 1
 		next
 
@@ -401,7 +401,7 @@ scrp 3 1 50205 9
 	elif ov00 gt 0
 		inst
 		epas 4 0 0
-			stim writ from 94 0
+			stim writ from 96 0
 			stim writ from 75 1
 		next
 

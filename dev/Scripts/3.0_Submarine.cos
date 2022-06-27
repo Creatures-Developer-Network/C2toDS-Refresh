@@ -2,6 +2,13 @@
 
 *NeoDement gave it a higher plane to stop it intersecting the Ball, disabled the button hover anim because it didn't work very well and moved all FRAT commands to install script to fix a possible crash
 
+*tweaked resting position of right stop of submarine so that the middle Y pos is above the floor. creatures are then manually MVSF'd to the middle Y pos of the sub. this will save grendels lives.
+
+*todo:
+*add a check when RPAS from sub - did they appear too high up!?
+*then do a little loop where you keep trying to position them a little further to the left (right for right stop) until you succeed.
+
+
 new: vhcl 3 1 50202 "moe_C2toDS_sub" 1 1 5213
 
 cabw 10
@@ -34,6 +41,7 @@ pat: dull 6 "moe_C2toDS_sub" 14 -95 40 2
 
 pat: dull 8 "moe_C2toDS_sub" 23 200 40 2
 
+*dcor 1
 
 *C2 framerate
 frat 2
@@ -50,7 +58,7 @@ part 8
 frat 2
 
 
-mvto 9186 48430
+mvto 9186 48422
 
 cato 35
 **Also to note, only the pointer can make the sub go down - Verm
@@ -392,12 +400,29 @@ scrp 3 1 50202 1001
 
 		targ ownr
 
+**DROP PASSENGERS**
+
+*store middle coordinate of sub
+		setv va00 posy
+
+*now loop through all passengers
+
 		epas 4 0 0
+
 			stim writ targ 96 0
 			driv 19 -1.0
+
+*remove them from the sub
+			rpas ownr targ
+
+*try and position them safely next to the sub. dpas was causing creatures (particularly grendels) to frequently exit the vehicle underwater instead of in the appropriate place
+			mvsf dftx va00
+
 		next
 
-		dpas 4 0 0
+*instead of using regular DPAS, we have to RPAS each creature one at a time (above), so we can manually position them next to the sub instead of relying on the engine to do it and dumping creatures out underwater
+
+*		dpas 4 0 0
 
 		setv ov00 1
 
@@ -563,12 +588,29 @@ scrp 3 1 50202 1001
 
 		pose 0
 
+**DROP PASSENGERS**
+
+*store middle coordinate of sub
+		setv va00 posy
+
+*now loop through all passengers
+
 		epas 4 0 0
+
 			stim writ targ 96 0
 			driv 19 -1.0
+
+*remove them from the sub
+			rpas ownr targ
+
+*try and position them safely next to the sub. dpas was causing creatures (particularly grendels) to frequently exit the vehicle underwater instead of in the appropriate place
+			mvsf dftx va00
+
 		next
 
-		dpas 4 0 0
+*instead of using regular DPAS, we have to RPAS each creature one at a time (above), so we can manually position them next to the sub instead of relying on the engine to do it and dumping creatures out underwater
+
+*		dpas 4 0 0
 
 		attr 28
 
@@ -718,7 +760,9 @@ scrp 3 1 50202 1001
 
 			gsub breathe
 
-		untl posb le 48598
+*		untl posb le 48598
+*drop creatures off at the right stop slightly higher up so the middle Y coord of the sub isn't under the ground
+		untl posb le 48590
 
 		setv vely 0
 
@@ -736,12 +780,29 @@ scrp 3 1 50202 1001
 
 		targ ownr
 
+**DROP PASSENGERS**
+
+*store middle coordinate of sub
+		setv va00 posy
+
+*now loop through all passengers
+
 		epas 4 0 0
+
 			stim writ targ 96 0
 			driv 19 -1.0
+
+*remove them from the sub
+			rpas ownr targ
+
+*try and position them safely next to the sub. dpas was causing creatures (particularly grendels) to frequently exit the vehicle underwater instead of in the appropriate place
+			mvsf dftx va00
+
 		next
 
-		dpas 4 0 0
+*instead of using regular DPAS, we have to RPAS each creature one at a time (above), so we can manually position them next to the sub instead of relying on the engine to do it and dumping creatures out underwater
+
+*		dpas 4 0 0
 
 		attr 28
 
@@ -1019,11 +1080,30 @@ scrp 3 1 50202 1002
 			mvby 0 4
 
 		repe
+
+**DROP PASSENGERS**
+
+*store middle coordinate of sub
+		setv va00 posy
+
+*now loop through all passengers
+
 		epas 4 0 0
+
 			stim writ targ 96 0
 			driv 19 -1.0
+
+*remove them from the sub
+			rpas ownr targ
+
+*try and position them safely next to the sub. dpas was causing creatures (particularly grendels) to frequently exit the vehicle underwater instead of in the appropriate place
+			mvsf dftx va00
+
 		next
-		dpas 4 0 0
+
+*instead of using regular DPAS, we have to RPAS each creature one at a time (above), so we can manually position them next to the sub instead of relying on the engine to do it and dumping creatures out underwater
+
+*		dpas 4 0 0
 
 		attr 28
 
@@ -1149,7 +1229,10 @@ scrp 3 1 50202 1002
 
 			gsub breathe
 
-		untl posb le 48598
+*		untl posb le 48598
+*drop creatures off at the right stop slightly higher up so the middle Y coord of the sub isn't under the ground
+		untl posb le 48590
+
 
 		setv vely 0
 
@@ -1165,12 +1248,29 @@ scrp 3 1 50202 1002
 
 		targ ownr
 
+**DROP PASSENGERS**
+
+*store middle coordinate of sub
+		setv va00 posy
+
+*now loop through all passengers
+
 		epas 4 0 0
+
 			stim writ targ 96 0
 			driv 19 -1.0
+
+*remove them from the sub
+			rpas ownr targ
+
+*try and position them safely next to the sub. dpas was causing creatures (particularly grendels) to frequently exit the vehicle underwater instead of in the appropriate place
+			mvsf dftx va00
+
 		next
 
-		dpas 4 0 0
+*instead of using regular DPAS, we have to RPAS each creature one at a time (above), so we can manually position them next to the sub instead of relying on the engine to do it and dumping creatures out underwater
+
+*		dpas 4 0 0
 
 		setv ov00 0
 
@@ -1298,12 +1398,29 @@ scrp 3 1 50202 1002
 
 		targ ownr
 
+**DROP PASSENGERS**
+
+*store middle coordinate of sub
+		setv va00 posy
+
+*now loop through all passengers
+
 		epas 4 0 0
+
 			stim writ targ 96 0
 			driv 19 -1.0
+
+*remove them from the sub
+			rpas ownr targ
+
+*try and position them safely next to the sub. dpas was causing creatures (particularly grendels) to frequently exit the vehicle underwater instead of in the appropriate place
+			mvsf dftx va00
+
 		next
 
-		dpas 4 0 0
+*instead of using regular DPAS, we have to RPAS each creature one at a time (above), so we can manually position them next to the sub instead of relying on the engine to do it and dumping creatures out underwater
+
+*		dpas 4 0 0
 
 		setv vely 0
 

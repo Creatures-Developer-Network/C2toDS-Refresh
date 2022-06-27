@@ -8,6 +8,7 @@
 * (if you worked on this file, feel free to add your name!)
 
 
+*TODO: center all lifts and adjust their stop Y position. especially important for incubator lift and volcano lifts.
 
 inst
 
@@ -20,13 +21,13 @@ inst
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 1 1000
 
-mvto 7806 48300
+mvto 7818 48300
 
 sets name "Lift" "NornBurrow"
 
-setv name "total" 2
+setv name "total" 3
 
-setv name "current level" 1
+setv name "current level" 2
 
 setv ov04 0
 
@@ -272,7 +273,7 @@ setv ov04 2
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 19 1000
 
-mvto 3368 49133
+mvto 3368 49132
 
 sets name "Lift" "Labs"
 
@@ -396,6 +397,27 @@ scrp 3 1 50200 10
 		targ ownr
 
 
+*NEW! Button between mid and top floors to make it not so difficult for creatures to find their way back downstairs!
+*Norn Burrow Call Button TopMid*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
+
+		mvto 7750 48070
+*		mvto 7933 48092
+*		mvto 7923 48100
+
+		seta mame "1" targ
+
+		seta ov00 ownr
+
+		sets ov01 "1"
+
+		setv ov03 25
+
+
+		targ ownr
+
+
 
 *Norn Burrow Call Button Mid*
 
@@ -403,11 +425,11 @@ scrp 3 1 50200 10
 
 		mvto 7752 48365
 
-		seta mame "1" targ
+		seta mame "2" targ
 
 		seta ov00 ownr
 
-		sets ov01 "1"
+		sets ov01 "2"
 
 
 
@@ -421,11 +443,11 @@ scrp 3 1 50200 10
 
 		mvto 7752 48677
 
-		seta mame "2" targ
+		seta mame "3" targ
 
 		seta ov00 ownr
 
-		sets ov01 "2"
+		sets ov01 "3"
 
 
 
@@ -1600,7 +1622,8 @@ scrp 3 1 50200 9
 
 *metal platform lift has a Y offset so that the gears are underground
 			doif ov04 eq 3
-				addv va01 56
+*				addv va01 56
+				addv va01 55
 			endi
 
 
@@ -1811,21 +1834,37 @@ scrp 3 1 50200 9
 
 
 
+**DROP PASSENGERS**
 
+*store coordinate of bottom of lift
+		setv va00 posb
 
-
-
+*now loop through all passengers
 		epas 4 0 0
 
+*give them the appropriate stims
 			stim writ targ 94 1
-
 			stim writ targ 0 .25
+
+*remove them from the lift
+			rpas ownr targ
+
+*is the creatures downward foot position more than 50px higher up than we expected?
+			setv va01 dfty
+			addv va01 50
+			doif va01 < va00
+
+*if it is, try and position them safely next to the elevator
+				mvsf dftx va00
+*				sezz "i appeared on the wrong floor!"
+			endi
 
 		next
 
-		targ ownr
 
-		dpas 4 0 0
+*instead of using regular DPAS, we have to RPAS each creature one at a time (above), so we can detect if they appear in the wrong place and move them where they should be
+
+*		dpas 4 0 0
 
 
 
@@ -1940,7 +1979,7 @@ endm
 
 scrp 2 12 50200 2
 
-inst
+	inst
 
 	doif name "on" eq 0
 *stimulate with 'pushed a button' stimulus
@@ -2004,7 +2043,7 @@ endm
 
 scrp 2 12 50200 1
 
-		inst
+	inst
 
 	doif name "on" eq 0
 *stimulate with 'pushed a button' stimulus

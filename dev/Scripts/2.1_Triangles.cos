@@ -1,33 +1,53 @@
 * 2 21 50207 - Triangle Toy 1
-* 2 21 50218 - Triangle Toy 2
+* 2 21 50218 - Triangle Toy 2 (disabled for now)
+
+*NeoDement made these much taller so that creatures of any height can use them and made them easier for the hand to click on.
+
+
+
+*Install Script
+
+inst
 
 * Under norn burrow
 
-new: simp 2 21 50207 "moe_C2toDS_triangle" 10 0 800
+new: comp 2 21 50207 "moe_C2toDS_triangle" 10 0 10
 
-mvsf 7185 48644
-
+mvto 7185 48644
 
 
 * Deep under tree of life, above library
 
-new: simp 2 21 50207 "moe_C2toDS_triangle" 10 0 800
+new: comp 2 21 50207 "moe_C2toDS_triangle" 10 0 10
 
 mvto 3377 49043
 
 
-* Creation script
+** Silver pickupable triangle (disabled for now)
+*
+*new: simp 2 21 50218 "moe_C2toDS_guitar" 8 7 rand 1000 5000
+*
+*mvsf 3463 49129
 
-new: simp 2 21 50218 "moe_C2toDS_guitar" 8 7 rand 1000 5000
 
-mvsf 3463 49129
 
+
+*** Regular Triangle Scripts ***
+
+* Constructor
 
 scrp 2 21 50207 10
+
+	inst
 
 	attr 4
 
 	bhvr 11
+
+*this button lets the hand click it more easily
+	pat: butt 1 "moe_C2toDS_triangle" 14 1 8 23 0 [] 0 0
+
+*	dcor 1
 
 endm
 
@@ -37,15 +57,31 @@ endm
 
 scrp 2 21 50207 1
 
-	lock
+*	lock
 
-	stim writ from 97 1
+*animate the pointer
+	doif from = pntr
+		targ from
+		anim [0 1 0]
+*stim the creature and put them in a reaching upwards pose
+	elif crea from = 1
+		targ from
+
+		pose 7
+
+		stim writ from 97 1
+
+		wait 5
+
+	endi
+
+	targ ownr
 
 	anim [0 1 2 3 4 5 6 7 8 9 0]
 
 	snde "tri_"
 
-	unlk
+*	unlk
 
 endm
 
@@ -55,15 +91,27 @@ endm
 
 scrp 2 21 50207 2
 
-	lock
+*	lock
 
-	stim writ from 97 1
+*stim the creature and put them in a reaching upwards pose
+	doif crea from = 1
+		targ from
+
+		pose 7
+
+		stim writ from 97 1
+
+		wait 5
+
+		targ ownr
+
+	endi
 
 	anim [0 1 2 3 4 5 6 7 8 9 0]
 
 	snde "tri_"
 
-	unlk
+*	unlk
 
 endm
 
@@ -73,91 +121,116 @@ endm
 
 scrp 2 21 50207 3
 
-	lock
+*	lock
 
-	stim writ from 97 1
+*stim the creature and put them in a reaching upwards pose
+	doif crea from = 1
+		targ from
+
+		pose 7
+
+		stim writ from 97 1
+
+		wait 5
+
+		targ ownr
+
+	endi
 
 	anim [0 1 2 3 4 5 6 7 8 9 0]
 
 	snde "tri_"
 
-	unlk
+*	unlk
 
 endm
 
 
+**** Silver Triangle Scripts (disabled for now) ***
+*
+** Constructor
+*
+*scrp 2 21 50218 10
+*
+*	inst
+*
+*	attr 199
+*
+*	bhvr 43
+*
+*	elas 50
+*
+*	accg 2
+*
+*	aero 5
+*
+*	fric 50
+*
+*	perm 51
+*
+*	frat 2
+*
+*endm
+*
+*
+*
+** Activate 1
+*
+*scrp 2 21 50218 1
+*
+**	lock
+*
+*	stim writ from 97 1
+*
+*	snde "tri_"
+*
+*	anim [1 2 3 4 5 6 7 0]
+*
+**	unlk
+*
+*endm
+*
+*
+*
+** Activate 2
+*
+*scrp 2 21 50218 2
+*
+**	lock
+*
+*	stim writ from 97 1
+*
+*	snde "tri_"
+*
+*	anim [1 2 3 4 5 6 7 0]
+*
+**	unlk
+*
+*endm
+*
+*
+*
+** Hit
+*
+*scrp 2 21 50218 3
+*
+**	lock
+*
+*	stim writ from 97 1
+*
+*	snde "tri_"
+*
+*	anim [1 2 3 4 5 6 7 0]
+*
+**	unlk
+*
+*endm
 
-scrp 2 21 50218 10
-
-	attr 199
-
-	bhvr 43
-
-	elas 50
-
-	accg 2
-
-	aero 5
-
-	fric 50
-
-	perm 51
-
-	frat 2
-
-endm
 
 
+* Remove
 
-* Activate 1
-
-scrp 2 21 50218 1
-
-	lock
-
-	snde "tri_"
-
-	anim [1 2 3 4 5 6 7 0]
-
-	unlk
-
-endm
-
-
-
-* Activate 2
-
-scrp 2 21 50218 2
-
-	lock
-
-	snde "tri_"
-
-	anim [1 2 3 4 5 6 7 0]
-
-	unlk
-
-endm
-
-
-
-* Hit
-
-scrp 2 21 50218 3
-
-	lock
-
-	snde "tri_"
-
-	anim [1 2 3 4 5 6 7 0]
-
-	unlk
-
-endm
 rscr
-
-
-
 
 enum 2 21 50207
 
@@ -175,9 +248,6 @@ scrx 2 21 50207 10
 
 
 
-
-
-
 enum 2 21 50218
 
 	kill targ
@@ -187,4 +257,3 @@ next
 scrx 2 21 50218 10
 
 scrx 2 21 50218 1
-

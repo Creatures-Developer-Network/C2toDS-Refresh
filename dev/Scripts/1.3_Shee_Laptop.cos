@@ -28,7 +28,7 @@ mvsf 6917 48390
 
 scrp 3 8 50205 10
 
-inst
+	inst
 
 *create main visible laptop (clickable part)
 	pat: butt 1 "moe_C2toDS_Laptop" 0 15 0 -37 1 [] 1001 1
@@ -192,7 +192,7 @@ scrp 3 8 50205 1001
 
 			inst
 
-*teaching words. a doozer teaches nouns like "food" or "grendel"
+*teaching words. the laptop teaches 3 verbs and 2 nouns.
 
 
 *what type of word is this? for constructing a functional ORDER SHOU string.

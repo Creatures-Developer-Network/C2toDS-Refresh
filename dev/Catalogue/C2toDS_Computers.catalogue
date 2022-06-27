@@ -1,0 +1,524 @@
+## EXAMPLE TAG "C2toDS verb computer 0" # look
+## "1"  # word category: 1 = verb, 2 = special, 3 = drive, 4 = qualifier, 5 = nice drive, 6 = nouns (hand, home smells...etc)
+## "0" # category index number. Special cases: -1 teach Look (verb) and Look (special), -2 teach all Hungry drives, -3 teach all Full drives.
+## "40" # pose number
+## "1" # animation: 1 animates, 0 does not
+
+## SPECIAL TAGS:
+## the SCREENSAVER and LOADING tags use the following format:
+## "32" # pose number
+## "0 1 2 3" # animation string
+
+
+
+TAG "C2toDS verb computer count" #word library 1
+"21"
+
+TAG "C2toDS adjective computer count" #word library 2
+"42"
+
+
+
+TAG "C2toDS verb computer LOADING" # loading screen
+"32"
+"0 1 2 3"
+
+TAG "C2toDS verb computer SCREENSAVER" # screensaver
+"28"
+"0 1 2 3 255"
+
+TAG "C2toDS verb computer 0" # look (both the Verb and the Special)
+"1"
+"-1"
+"40"
+"1"
+
+TAG "C2toDS verb computer 1" # rest
+"1"
+"9"
+"76"
+"1"
+
+TAG "C2toDS verb computer 2" # express
+"1"
+"8"
+"173"
+"1"
+
+TAG "C2toDS verb computer 3" # hit
+"1"
+"13"
+"92"
+"1"
+
+TAG "C2toDS verb computer 4" # eat
+"1"
+"12"
+"88"
+"1"
+
+TAG "C2toDS verb computer 5" # east
+"1"
+"11"
+"84"
+"1"
+
+TAG "C2toDS verb computer 6" # west
+"1"
+"10"
+"80"
+"1"
+
+TAG "C2toDS verb computer 7" # what
+"2"
+"3"
+"72"
+"1"
+
+TAG "C2toDS verb computer 8" # get
+"1"
+"6"
+"64"
+"1"
+
+TAG "C2toDS verb computer 9" # drop
+"1"
+"7"
+"68"
+"1"
+
+
+TAG "C2toDS verb computer 10" # approach
+"1"
+"4"
+"56"
+"1"
+
+TAG "C2toDS verb computer 11" # retreat
+"1"
+"5"
+"60"
+"1"
+
+TAG "C2toDS verb computer 12" # good / yes
+"2"
+"0"
+"96"
+"1"
+
+TAG "C2toDS verb computer 13" # bad / no
+"2"
+"1"
+"100"
+"1"
+
+TAG "C2toDS verb computer 14" # maybe
+"2"
+"9"
+"72"
+"1"
+
+TAG "C2toDS verb computer 15" # deactivate
+"1"
+"3"
+"52"
+"1"
+
+TAG "C2toDS verb computer 16" # push
+"1"  
+"1"
+"44"
+"1"
+
+TAG "C2toDS verb computer 17" # pull
+"1"
+"2"
+"48"
+"1"
+
+TAG "C2toDS verb computer 18" #like 
+"2"
+"5"
+"165"
+"1"
+
+TAG "C2toDS verb computer 19" # dislike
+"2"
+"6"
+"169"
+"1"
+
+TAG "C2toDS verb computer 20" # love
+"2"
+"7"
+"153"
+"1"
+
+TAG "C2toDS verb computer 21" # hate
+"2"
+"8"
+"119"
+"1"
+
+
+
+
+TAG "C2toDS adjective computer LOADING" # loading screen
+"20"
+"3 2 1 0"
+
+TAG "C2toDS adjective computer SCREENSAVER" # screensaver
+"20"
+"0 0 1 1 2 2 3 3 255"
+
+TAG "C2toDS adjective computer 0" # cold
+"3"
+"4"
+"106"
+"0"
+
+TAG "C2toDS adjective computer 1" # hot
+"3"
+"5"
+"107"
+"0"
+
+TAG "C2toDS adjective computer 2" # not hot
+"5"
+"5"
+"130"
+"0"
+
+TAG "C2toDS adjective computer 3" # tired
+"3"
+"6"
+"108"
+"0"
+
+TAG "C2toDS adjective computer 4" # sleepy
+"3"
+"7"
+"108"
+"0"
+
+TAG "C2toDS adjective computer 5" # lonely
+"3"
+"8"
+"109"
+"0"
+
+TAG "C2toDS adjective computer 6" # crowded
+"3"
+"9"
+"110"
+"0"
+
+TAG "C2toDS adjective computer 7" # hungry (all types of hungry)
+"3"
+"-2"
+"148"
+"0"
+
+TAG "C2toDS adjective computer 8" # not bored (excited)
+"5"
+"11"
+"140"
+"0"
+
+TAG "C2toDS adjective computer 9" # hurt
+"3"
+"0"
+"104"
+"0"
+
+TAG "C2toDS adjective computer 10" # HIGH UP (DRIVE)
+"3"
+"16"
+"142"
+"0"
+
+TAG "C2toDS adjective computer 11" # LOW DOWN (DRIVE)
+"3"
+"15"
+"143"
+"0"
+
+TAG "C2toDS adjective computer 12" # not high up
+"5"
+"16"
+"130"
+"0"
+
+TAG "C2toDS adjective computer 13" # not low down
+"5"
+"15"
+"130"
+"0"
+
+TAG "C2toDS adjective computer 14" # Alert
+"5"
+"6"
+"131"
+"1"
+
+TAG "C2toDS adjective computer 15" # Awake
+"5"
+"7"
+"136"
+"1"
+
+TAG "C2toDS adjective computer 16" # not lonely
+"5"
+"8"
+"130"
+"0"
+
+TAG "C2toDS adjective computer 17" # not crowded
+"5"
+"9"
+"130"
+"0"
+
+TAG "C2toDS adjective computer 18" # scared
+"3"
+"10"
+"111"
+"0"
+
+TAG "C2toDS adjective computer 19" # not scared (safe)
+"5"
+"10"
+"130"
+"0"
+
+TAG "C2toDS adjective computer 20" # happy
+"2"
+"4"
+"124"
+"0"
+
+TAG "C2toDS adjective computer 21" # bored
+"3"
+"11"
+"112"
+"0"
+
+TAG "C2toDS adjective computer 22" # homesick (DRIVE)
+"3"
+"14"
+"141"
+"0"
+
+TAG "C2toDS adjective computer 23" # not home sick
+"5"
+"14"
+"130"
+"0"
+
+TAG "C2toDS adjective computer 24" # TRAPPED (DRIVE)
+"3"
+"17"
+"144"
+"0"
+
+TAG "C2toDS adjective computer 25" # not trapped
+"5"
+"18"
+"130"
+"0"
+
+TAG "C2toDS adjective computer 26" # not trapped
+"5"
+"17"
+"130"
+"0"
+
+TAG "C2toDS adjective computer 27" # full (all types of full)
+"5"
+"-3"
+"163"
+"0"
+
+TAG "C2toDS adjective computer 28" # angry
+"3"
+"12"
+"113"
+"0"
+
+TAG "C2toDS adjective computer 29" # not cold
+"5"
+"4"
+"130"
+"0"
+
+TAG "C2toDS adjective computer 30" # well 
+"5"
+"0"
+"130"
+"0"
+
+TAG "C2toDS adjective computer 31" # ILL
+"2"
+"11"
+"146"
+"0"
+
+TAG "C2toDS adjective computer 32" # not patient
+"5"
+"19"
+"130"
+"0"
+
+TAG "C2toDS adjective computer 33" # not angry
+"5"
+"12"
+"130"
+"0"
+
+
+TAG "C2toDS adjective computer 34" # PATIENT (DRIVE)
+"3"
+"19"
+"151"
+"0"
+
+
+TAG "C2toDS adjective computer 35" # friendly / aroused
+"3"
+"13"
+"114"
+"0"
+
+TAG "C2toDS adjective computer 36" # not friendly
+"5"
+"13"
+"130"
+"0"
+
+TAG "C2toDS adjective computer 37" # definitely
+"2"
+"10"
+"129"
+"0"
+
+TAG "C2toDS adjective computer 38" # quite
+"4"
+"0"
+"115"
+"0"
+
+TAG "C2toDS adjective computer 39" # very
+"4"
+"2"
+"115"
+"0"
+
+TAG "C2toDS adjective computer 40" # really
+"4"
+"1"
+"115"
+"0"
+
+TAG "C2toDS adjective computer 41" # intensely
+"4"
+"4"
+"115"
+"0"
+
+TAG "C2toDS adjective computer 42" # extremely
+"4"
+"3"
+"115"
+"0"
+
+
+
+
+#UNUSED LEARNING COMPUTER WORDS (the doozer teaches all of these nouns!!)
+#
+#TAG "C2toDS verb computer 12" # GRENDEL HOME
+#"6"
+#"31"
+#"122"
+#"0"
+#
+#TAG "C2toDS verb computer 15" # SOMETHING
+#"6"
+#"34"
+#"145"
+#"0"
+#
+#TAG "C2toDS verb computer 19" # HAND
+#"6"
+#"1"
+#"119"
+#"0"
+#
+#TAG "C2toDS verb computer 22" # NORN HOME
+#"6"
+#"30"
+#"121"
+#"0"
+#
+#TAG "C2toDS verb computer 24" # SOMETHING
+#"6"
+#"39"
+#"145"
+#"0"
+#
+#TAG "C2toDS verb computer 30" # ETTIN HOME
+#"6"
+#"32"
+#"123"
+#"0"
+
+
+**MORE UNUSED LEARNING COMPUTER WORDS (these words are replaced with special cases which teaches multiple of the same word at the same time)
+#
+#TAG "C2toDS verb computer 0" # look (verb)
+#"1"
+#"0"
+#"40"
+#"1"
+#
+#TAG "C2toDS verb computer 23" # look (special)
+#"2"
+#"2"
+#"40"
+#"0"
+#
+#TAG "C2toDS adjective computer 1" # hungry (protein)
+#"3"
+#"1"
+#"149"
+#"0"
+#
+#TAG "C2toDS adjective computer 2" # hungry (carbohydrate)
+#"3"
+#"2"
+#"147"
+#"0"
+#
+#TAG "C2toDS adjective computer 3" # hungry (fat)
+#"3"
+#"3"
+#"148"
+#"0"
+#
+#TAG "C2toDS adjective computer 23" # full of protein
+#"5"
+#"1"
+#"116"
+#"0"
+#
+#TAG "C2toDS adjective computer 24" # full of carb
+#"5"
+#"2"
+#"117"
+#"0"
+#
+#TAG "C2toDS adjective computer 25" # full of fat
+#"5"
+#"3"
+#"118"
+#"0"
