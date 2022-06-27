@@ -36,8 +36,20 @@
 *that way norns would be able to try and walk towards them and their brains would hopefully find the next available object in the same category when they teleport over and lose track of the fake one.
 *they'd have to auto-delete if no norn is looking at them every now and then too.
 *there's a possibility this might even be good enough for creatures ie hand says "push norn", norn walks towards the wrap because it thinks a norn is behind it, norn is teleported to the other side of the wrap and their brain finds the real norn the fake object was mirroring.
+*cloned objects would need a minimum distance applied so that norns can't actually reach them. they only exist for norns to walk toward.
 
 *todo: tracking norns as they walk through the wrap is dodgy, the camera freaks out if they're too far away from the centre of the screen. I don't think this can be fixed (due to limited access to TRCK info) but hopefully a workaround can be found.
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -297,7 +309,8 @@ scrp 1 7 50201 9
 			doif va12 >= 0
 
 *create world wrap camera
-				new: comp 1 5 50200 "moe_C2toDS_camera" 1 1 1
+*(plane 0 so they draw behind literally everything except the room background)
+				new: comp 1 5 50200 "moe_C2toDS_camera" 1 1 0
 
 				pat: cmra 1 "moe_C2toDS_camera" 1 0 0 0 va14 game "C2toDS_CamHeight" va14 game "C2toDS_CamHeight"
 

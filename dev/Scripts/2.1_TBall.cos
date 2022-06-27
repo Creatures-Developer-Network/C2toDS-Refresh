@@ -81,6 +81,11 @@ scrp 2 21 50209 1
 
 	setv vely -20
 
+*todo: finish this/does it need to be wrt+??
+
+	rtar 2 15 50210
+	mesg wrt+ targ 1000 0 0 0
+
 endm
 
 

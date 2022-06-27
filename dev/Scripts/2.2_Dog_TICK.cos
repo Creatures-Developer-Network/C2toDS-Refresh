@@ -1,0 +1,861 @@
+*dog sounds
+*whis.wav
+*pant.wav
+*grow.wav
+*step.wav 
+
+
+
+*todo: program green tennis ball to act as purple tennis ball. make it spawn a purple tennis ball too.
+
+*todo: tickle anim on dog!
+
+
+
+
+
+
+*reclassify as TOY!
+
+
+*SILENT CRITTER PUSH STIM!
+*Push*
+*scrp 2 15 5647 1
+*    stim writ from 86 0
+*    stim writ from 97 0.5
+
+
+
+*PURPLE BALL SCRIPT
+
+** Script  1 Activate(1)
+*scrp 2 13 12 1
+*	loop
+*		rndv var0 -1 1
+*	untl var0 ne 0
+*	rndv var1 20 40
+*	mulv var0 var1
+*	setv velx var0
+*	setv vely -20
+*	setv actv 0
+*endm
+*
+** Script  4 Picked up
+*scrp 2 13 12 4
+*	rtar 2 15 50210
+*	mesg wrt+ targ 110 0 0 0
+*endm
+*
+** Script  5 Dropped
+*scrp 2 13 12 5
+*	wait 1
+*	slim
+*	setv grav 1
+*endm
+
+*some other sounds that i think might be misisng in c2tods...
+*tend.wav??
+*tbou?
+*pb1_ pb2_?
+
+
+*new: simp 2 15 50210 "moe_C2toDS_Pitz" 0 0 1000
+*
+*frat 2
+*
+*accg 3
+*
+*aero 2
+*
+*elas 25
+*
+*fric 50
+*
+*attr 199
+*
+**todo: this will be wrong
+*bhvr 1
+*
+*tick 20
+*
+*mvsf 6987 48657
+
+
+
+
+new: comp 1 29 50200 "moe_C2toDS_Pitz" 0 200 2001
+
+*bg piece
+pat: dull 1 "moe_C2toDS_Pitz" 201 0 0 -1
+
+*Mouseable + Activateable + Invisible + Suffer Collisions + Suffer Physics
+attr 214
+
+perm 51
+
+accg 4
+aero 5
+elas 0
+fric 100
+
+*mvto 7968 49762
+mvto 7968 49742
+
+
+* Script  1 Activate(1)
+scrp 1 29 50200 1
+
+	inst
+
+	snde "whis"
+	setv va00 posl
+	setv va01 post
+
+*make sure there's no dogs already in the world
+	rtar 2 15 50210
+
+	doif targ = null
+
+*don't make dogs underwater
+		doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+			stop
+		endi
+
+*todo: making a purple tennis ball
+		new: simp 2 21 50209 "moe_C2toDS_Pitz" 8 202 5000
+*
+*	*todo: idk what classifier
+*	bhvr 1
+*	accg 5
+*	aero 3
+*	elas 80
+		mvto va00 va01
+*		slim
+*		setv grav 1
+		seta va09 targ
+		setv velx -15
+		setv vely -20
+
+		new: simp 2 15 50210 "moe_C2toDS_Pitz" 0 0 2000
+		attr 199
+
+*specify the core so we don't get bounding box errors
+		core 0 72 0 100
+
+		perm 51
+
+		frat 2
+
+*		bhvr 1 1
+		accg 4
+		aero 5
+		elas 30
+		mvsf va00 va01
+*		slim
+*		setv grav 1
+		tick 12
+		setv ov00 5
+		setv ov01 -1
+		setv ov03 0
+		seta ov10 va09
+		puhl -1 50 40
+		pupt 0 19 40
+		pupt 1 18 36
+		pupt 2 18 32
+		pupt 3 18 30
+		pupt 4 19 31
+		pupt 5 18 33
+		pupt 6 18 36
+		pupt 7 18 38
+		pupt 8 78 40
+		pupt 9 78 36
+		pupt 10 79 32
+		pupt 11 78 31
+		pupt 12 78 31
+		pupt 13 79 33
+		pupt 14 77 36
+		pupt 15 78 39
+		pupt 40 15 36
+		pupt 41 14 34
+		pupt 42 14 37
+		pupt 43 14 37
+		pupt 44 15 34
+		pupt 45 16 37
+		pupt 46 14 39
+		pupt 47 14 39
+		pupt 48 92 36
+		pupt 49 93 34
+		pupt 50 94 37
+		pupt 51 92 37
+		pupt 52 92 35
+		pupt 53 92 37
+		pupt 54 94 39
+		pupt 55 94 39
+		pupt 56 18 35
+		pupt 57 18 35
+		pupt 58 18 35
+		pupt 59 78 35
+		pupt 60 78 35
+		pupt 61 78 35
+		pupt 62 18 44
+		pupt 63 19 53
+		pupt 64 22 61
+		pupt 65 28 67
+		pupt 66 27 66
+		pupt 67 25 65
+		pupt 68 28 65
+		pupt 69 32 66
+		pupt 70 30 66
+		pupt 71 77 44
+		pupt 72 75 52
+		pupt 73 71 59
+		pupt 74 67 64
+		pupt 75 69 63
+		pupt 76 71 63
+		pupt 77 68 64
+		pupt 78 63 62
+		pupt 79 65 63
+		pupt 80 19 34
+		pupt 81 18 31
+		pupt 82 19 29
+		pupt 83 20 28
+		pupt 84 20 27
+		pupt 85 21 27
+		pupt 86 21 27
+		pupt 87 22 28
+		pupt 88 23 29
+		pupt 89 24 31
+		pupt 90 77 33
+		pupt 91 77 31
+		pupt 92 75 29
+		pupt 93 74 28
+		pupt 94 74 27
+		pupt 95 73 27
+		pupt 96 72 27
+		pupt 97 71 28
+		pupt 98 70 30
+		pupt 99 69 32
+		pupt 162 26 32
+		pupt 163 26 32
+		pupt 164 26 32
+		pupt 165 26 32
+		pupt 166 26 32
+		pupt 167 71 32
+		pupt 168 71 32
+		pupt 169 71 32
+		pupt 170 71 32
+		pupt 171 71 32
+		pupt 172 18 39
+		pupt 173 17 42
+		pupt 174 16 45
+		pupt 175 16 47
+		pupt 176 16 49
+		pupt 177 15 49
+		pupt 178 14 49
+		pupt 179 16 49
+		pupt 180 17 48
+		pupt 181 15 45
+		pupt 182 78 39
+		pupt 183 78 42
+		pupt 184 78 45
+		pupt 185 79 47
+		pupt 186 79 48
+		pupt 187 80 49
+		pupt 188 81 48
+		pupt 189 79 48
+		pupt 190 79 48
+		pupt 191 81 46
+	else
+		doif from eq pntr
+			setv va00 posx
+			setv va01 posy
+			cmrp va00 va01 1
+		endi
+	endi
+
+
+
+
+endm
+
+
+
+
+
+
+
+
+* Script  1 Activate(1)
+scrp 2 15 50210 1
+	inst
+	doif ov02 eq 0
+		setv ov00 3
+	endi
+	doif ov02 eq 1
+		setv ov00 14
+	endi
+	doif ov03 eq 2
+		setv ov00 11
+	endi
+	tick 10
+
+*todo: check if this is the DS tickle anim!
+	doif from eq pntr
+		targ from
+		anim [2 3 2 3 2 3 2 3 0]
+		snde "tckl"
+	endi
+endm
+
+* Script  4 Picked up
+scrp 2 15 50210 4
+	tick 0
+	doif ov01 lt 0
+		base 172
+		anim [0 1 2 3 4 5 6 7 8 9]
+		over
+		anim [6 6 7 7 8 8 9 9]
+	else
+		base 182
+		anim [0 1 2 3 4 5 6 7 8 9]
+		over
+		anim [6 6 7 7 8 8 9 9]
+	endi
+endm
+
+* Script  5 Dropped
+scrp 2 15 50210 5
+	tick 10
+	doif ov01 lt 0
+		base 172
+		anim [3 2 1 0]
+		over
+		base 0
+		pose 0
+	else
+		base 182
+		anim [3 2 1 0]
+		over
+		base 8
+		pose 0
+	endi
+*	setv grav 1
+endm
+
+* Script  9 TIMER
+scrp 2 15 50210 9
+	tick 40
+*if the dog is underwater
+*	doif rtyp eq 2
+	doif rtyp room targ eq 8 or rtyp room targ eq 9
+		doif ov01 lt 0
+			base 172
+			anim [0 1 2 3 4 5 6 7 8 9]
+			over
+			base 126
+			anim [0 1 2 3 4 5 6 7]
+			over
+			anim [4 5 6 7 255]
+			wait 40
+			targ ov10
+			kill targ
+			targ ownr
+			kill targ
+		else
+			base 182
+			anim [0 1 2 3 4 5 6 7 8 9]
+			over
+			base 134
+			anim [0 1 2 3 4 5 6 7]
+			over
+			anim [4 5 6 7 255]
+			wait 40
+			targ ov10
+			kill targ
+			targ ownr
+			kill targ
+		endi
+	endi
+	doif ov02 eq 0
+		doif ov00 eq 0
+			reps 3
+				gsub walk
+			repe
+		endi
+		doif ov00 eq 1
+			gsub pant
+		endi
+		doif ov00 eq 2
+			gsub look
+		endi
+		doif ov00 eq 3
+			gsub wag_
+		endi
+		doif ov00 eq 4
+			gsub snif
+		endi
+		doif ov00 eq 5
+			reps 3
+				gsub run_
+			repe
+		endi
+		doif ov00 eq 6
+			gsub sit_
+		endi
+		doif ov00 eq 15
+			gsub pick
+		endi
+		doif ov00 eq 16
+			gsub cock
+		endi
+	endi
+	doif ov02 eq 1
+		doif ov00 eq 7
+			gsub up
+		endi
+		doif ov00 eq 8
+			gsub spnt
+		endi
+		doif ov00 eq 9
+			gsub lay_
+		endi
+		doif ov00 eq 13
+			gsub beg_
+		endi
+		doif ov00 eq 14
+			gsub swag
+		endi
+	endi
+	doif ov02 eq 2
+		doif ov00 eq 10
+			gsub l_up
+		endi
+		doif ov00 eq 11
+			gsub roll
+		endi
+		doif ov00 eq 12
+			gsub r_up
+		endi
+	endi
+	doif ov03 eq 0
+		doif ov02 eq 0
+			setv ov00 rand 0 6
+		endi
+		doif ov02 eq 1
+			setv va00 rand 0 3
+			doif va00 lt 3
+				addv va00 7
+				setv ov00 va00
+			else
+				addv va00 11
+				setv ov00 va00
+			endi
+		endi
+		doif ov02 eq 2
+			setv va00 rand 0 4
+			doif va00 le 1
+				addv va00 10
+				setv ov00 va00
+			endi
+		endi
+		setv va00 rand 0 5
+		doif va00 eq 0
+			negv ov01
+		endi
+	endi
+	doif ov03 eq 1
+		setv ov04 0
+		targ ov10
+		setv va00 posx
+		targ ownr
+		snde "bark"
+		loop
+			setv va03 posx
+			subv va03 va00
+			doif va03 lt 0
+				negv va03
+			endi
+			doif va03 gt 100
+				gsub run_
+			else
+				gsub walk
+			endi
+			setv va01 0
+			setv va02 0
+			doif va00 lt posl
+				setv ov01 -1
+			else
+				setv va01 1
+			endi
+			doif va00 gt posr
+				setv ov01 1
+			else
+				setv va02 1
+			endi
+			andv va01 va02
+		untl va01 eq 1
+		setv ov03 2
+	endi
+	doif ov03 eq 2
+		doif touc ownr ov10 gt 0
+			gsub pick
+			setv ov03 0
+		else
+			targ ov10
+			setv va00 posx
+			targ ownr
+			doif va00 ge posl
+				doif va00 le posr
+					addv ov04 1
+					setv va09 rand 0 3
+					doif va09 eq 0
+						gsub roll
+					else
+						doif va09 eq 1
+							gsub beg_
+						else
+							doif va09 eq 2
+								gsub lay_
+							else
+								doif va09 eq 3
+									gsub swag
+								endi
+							endi
+						endi
+					endi
+				else
+					setv ov03 1
+				endi
+			else
+				setv ov03 1
+			endi
+			doif ov04 gt 20
+				setv ov03 0
+			endi
+		endi
+	endi
+	targ ownr
+	tick 10
+	subr walk
+		setv va08 obst 3
+		doif va08 gt 10
+			loop
+				setv va08 obst 3
+				wait 1
+			untl va08 lt 10
+		else
+			snde "step"
+			doif ov01 lt 0
+				base 0
+				anim [0 1 2 3 4 5 6 7]
+				setv velx -20
+				setv vely -8
+			else
+				base 8
+				anim [0 1 2 3 4 5 6 7]
+				setv velx 20
+				setv vely -8
+			endi
+		endi
+	retn
+	subr pant
+		snde "pant"
+		doif touc ownr ov10 gt 0
+			mesg writ ov10 5
+		endi
+		doif ov01 lt 0
+			base 16
+			anim [0 1 2 3 4 255]
+		else
+			base 21
+			anim [0 1 2 3 4 255]
+		endi
+	retn
+	subr look
+		doif touc ownr ov10 gt 0
+			mesg writ ov10 5
+		endi
+		doif ov01 lt 0
+			base 26
+			anim [0 1 2 2 2 2 2 3 4 5 6 6 6 6 6 5 4]
+			over
+		else
+			base 33
+			anim [0 1 2 2 2 2 2 3 4 5 6 6 6 6 6 5 4]
+			over
+		endi
+		setv ov00 1
+	retn
+	subr wag_
+		snde "wine"
+		doif ov01 lt 0
+			base 56
+			anim [0 1 2 255]
+		else
+			base 59
+			anim [0 1 2 255]
+		endi
+	retn
+	subr snif
+		doif ov01 lt 0
+			base 62
+			anim [0 1 2 3 4 5 6 7 8 255]
+			over
+			anim [8 7 6 5 4 4 5 6 7 8 255]
+		else
+			base 71
+			anim [0 1 2 3 4 5 6 7 8]
+			over
+			anim [8 7 6 5 4 4 5 6 7 8 255]
+		endi
+		wait 20
+		setv ov00 1
+	retn
+	subr run_
+		setv va08 obst 3
+		doif va08 gt 10
+			loop
+				setv va08 obst 3
+				wait 1
+			untl va08 lt 10
+		else
+			snde "step"
+			doif ov01 lt 0
+				base 40
+				anim [0 1 2 3 4 5 6 7]
+				setv velx -30
+				setv vely -10
+			else
+				base 48
+				anim [0 1 2 3 4 5 6 7]
+				setv velx 30
+				setv vely -10
+			endi
+		endi
+	retn
+	subr sit_
+		doif ov01 lt 0
+			base 80
+			anim [0 1 2 3 4 5 6 7 8 9]
+			over
+		else
+			base 90
+			anim [0 1 2 3 4 5 6 7 8 9]
+			over
+		endi
+		setv ov02 1
+	retn
+	subr up
+		doif ov01 lt 0
+			base 80
+			anim [9 8 7 6 5 4 3 2 1 0]
+			over
+		else
+			base 90
+			anim [9 8 7 6 5 4 3 2 1 0]
+			over
+		endi
+		setv ov02 0
+	retn
+	subr spnt
+		snde "pant"
+		doif touc ownr ov10 gt 0
+			mesg writ ov10 5
+		endi
+		doif ov01 lt 0
+			base 100
+			anim [0 1 2 3 4 255]
+		else
+			base 105
+			anim [0 1 2 3 4 255]
+		endi
+	retn
+	subr lay_
+		doif touc ownr ov10 gt 0
+			mesg writ ov10 5
+		endi
+		doif ov01 lt 0
+			base 110
+			anim [0 1 2 3 4 5 6 7]
+			over
+		else
+			base 118
+			anim [0 1 2 3 4 5 6 7]
+			over
+		endi
+		setv ov02 2
+	retn
+	subr l_up
+		doif touc ownr ov10 gt 0
+			mesg writ ov10 5
+		endi
+		doif ov01 lt 0
+			base 110
+			anim [7 6 5 4 3 2 1 0]
+			over
+		else
+			base 118
+			anim [7 6 5 4 3 2 1 0]
+			over
+		endi
+		setv ov02 1
+	retn
+	subr roll
+		doif touc ownr ov10 gt 0
+			mesg writ ov10 5
+		endi
+		doif ov01 lt 0
+			base 126
+			anim [0 1 2 3 4 5 6 7]
+			over
+			anim [4 5 6 7 255]
+		else
+			base 134
+			anim [0 1 2 3 4 5 6 7]
+			over
+			anim [4 5 6 7 255]
+		endi
+		wait 20
+		setv ov00 12
+	retn
+	subr r_up
+		doif touc ownr ov10 gt 0
+			mesg writ ov10 5
+		endi
+		doif ov01 lt 0
+			base 126
+			anim [7 6 5 4 3 2 1 0]
+			over
+			base 117
+			pose 0
+		else
+			base 134
+			anim [7 6 5 4 3 2 1 0]
+			over
+			base 125
+			pose 0
+		endi
+		wait 20
+		setv ov00 10
+	retn
+	subr beg_
+		snde "wine"
+		doif ov01 lt 0
+			base 142
+			anim [0 1 2 3 4 5 6 7 8 9]
+			over
+			wait 20
+			anim [9 8 7 6 5 4 3 2 1 0]
+			over
+			base 89
+			pose 0
+		else
+			base 152
+			anim [0 1 2 3 4 5 6 7 8 9]
+			over
+			wait 20
+			anim [9 8 7 6 5 4 3 2 1 0]
+			over
+			base 99
+			pose 0
+		endi
+		setv ov00 8
+	retn
+	subr swag
+		doif ov01 lt 0
+			base 162
+			anim [0 1 2 3 4 255]
+		else
+			base 167
+			anim [0 1 2 3 4 255]
+		endi
+	retn
+	subr pick
+		snde "grow"
+		doif ov01 lt 0
+			base 62
+			anim [0 1 2 3 4 5 6 7 8]
+			mesg writ ov10 4
+			targ ownr
+			over
+		else
+			base 71
+			anim [0 1 2 3 4 5 6 7 8]
+			mesg writ ov10 4
+			targ ownr
+			over
+		endi
+		wait 20
+		setv ov00 3
+	retn
+	subr cock
+		doif touc ownr ov10 gt 0
+*			mesg writ ov10 5
+
+*drop ball and move it to the correct coords
+			targ ov10
+			setv va10 posl
+			setv va11 post
+			targ ownr
+			drop
+			targ ov10
+			mvsf va10 va11
+		endi
+		doif ov01 lt 0
+			base 192
+			anim [0 1 2 3]
+			over
+			wait 20
+			anim [3 2 1 0]
+			over
+		else
+			base 196
+			anim [0 1 2 3]
+			over
+			wait 20
+			anim [3 2 1 0]
+			over
+		endi
+		setv ov00 3
+	retn
+	subr stnd
+		doif ov01 lt 0
+			base 0
+			pose 2
+		else
+			base 8
+			pose 2
+		endi
+	retn
+endm
+
+scrp 2 15 50210 1000
+	setv ov03 1
+	tick 10
+endm
+
+
+
+*NO MORE DOG
+
+*todo: scrx
+
+rscr
+
+enum 1 29 50200
+	kill targ
+next
+
+
+enum 2 15 50210
+	kill targ
+next
+
+*kill purple tennis balls specifically
+enum 2 21 50209
+
+	doif gall = "moe_C2toDS_Pitz"
+		kill targ
+	endi
+
+next
