@@ -1,12 +1,18 @@
 * These are all 1 27 50200 
 
+
+*NeoDement toned down the home smells, they were way stronger than any in C3 or DS!
+
+
+
 *Norn
 
 new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
 
 mvto 7135 48350
 
-setv ov00 1
+*todo: make the incubator emit this instead now it's movable?
+emit 15 0.25
 
 
 
@@ -16,8 +22,7 @@ new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
 
 mvto 9060 48870
 
-setv ov00 2
-
+emit 16 0.25
 
 
 *Ettin
@@ -26,7 +31,7 @@ new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
 
 mvto 6340 49670
 
-setv ov00 3
+emit 17 0.25
 
 
 *Fresh Water don't lose it's nutrients, AND now gains it and holds it!
@@ -338,26 +343,6 @@ mvto 8970 48900
 emit 4 .2
 
 
-scrp 1 27 50200 10
-
-	wait 5
-
-	doif ov00 eq 1
-
-		emit 15 1.0
-
-	elif ov00 eq 2
-
-		emit 16 1.0
-
-	elif ov00 eq 3
-
-		emit 17 1.0
-
-	endi
-
-endm
-
 
 rscr
 
@@ -367,6 +352,3 @@ enum 1 27 50200
 	kill targ
 
 next
-
-
-
