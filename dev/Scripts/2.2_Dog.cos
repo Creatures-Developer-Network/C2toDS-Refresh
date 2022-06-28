@@ -1,0 +1,1330 @@
+* 1 29 50200 - Dog Kennel
+* 2 21 50209 - Purple Tennis Ball (scripts defined in "2.1_TBall.cos")
+* 2 15 50210 - Pitz the dog
+
+* Converted by NeoDement. Can chase any Tennis Ball instead of just his purple one.
+
+
+
+
+***************
+**SOUNDS USED**
+***************
+* C2D1 - WHIS *
+* C2D2 - PANT *
+* C2D3 - GROW *
+* C2D4 - STEP *
+***************
+
+
+*todo: woudn't it be neat if Pitz could respond to "sit" "stay" "fetch" commands from the hand, magic words style
+
+
+*OV00 - what the dog doin?
+*
+*0 - WALK
+*
+*1 - c2d2
+*has just done Look or Sniff subr
+*
+*2 - LOOK
+*
+*3 - WAG_
+*has just c2d3led or Dropped Ball. Activated during timer script is norn IS NOT sitting or laying down (OV02)
+*
+*4 - SNIF
+*
+*5 - RUN
+*default state when the dog is created
+*
+*6 - SIT
+*
+*7 - UP
+*
+*8 - SPNT
+*has just whined
+*
+*9 - LAY
+*
+*10 - L_UP (get up from LAY anim)
+*has just done R_UP subr
+*
+*11 - ROLL
+*Activated during timer script if OV03 = 2
+*
+*12 - R_UP (get up from ROLL anim)
+*has just ROLLed
+*
+*13 - BEG
+*
+*14 - SWAG (sitting wag)
+*Activated during timer script if dog IS sitting or laying down (OV02)
+*
+*15 - PICK
+*probably used for picking up the ball
+*
+*16 - COCK
+*drop ball
+*
+*OV01 - direction
+*
+*-1 - left
+*1 - right
+*
+*
+*OV02 - is dog sitting or laying down?
+*
+*0 - no
+*1 - yes
+*
+*OV03 - is the dog looking for a ball?
+*
+*0 - not looking for the ball
+*1 - looking for the ball
+*2 - horizontally lined up with the ball
+*
+*
+*OV04 - how long has the dog been looking for the ball? once this reaches a certain number OV03 is automatically reset to 0
+*
+*OV10 - ball agent that Pitz is currently focusing on
+*
+*OV11 - pitz purple ball. so we can remove it when pitz dies to stop the world becoming flooded with balls
+
+
+
+*Dog Kennel Install Script
+new: comp 1 29 50200 "moe_C2toDS_Pitz" 0 200 1042
+
+mvto 7968 49742
+
+
+
+
+*Dog Kennel - Creation Script
+scrp 1 29 50200 10
+
+*bg piece
+	pat: dull 1 "moe_C2toDS_Pitz" 201 0 0 -2
+
+*Mouseable + Activateable + Invisible + Suffer Collisions + Suffer Physics
+	attr 214
+
+*physics
+	perm 51
+	accg 4
+	aero 5
+	elas 0
+	fric 100
+
+*create a dog and ball!
+	call 1 0 0
+
+endm
+
+
+
+
+
+
+
+*Dog Kennel -  Script  1 Activate(1)
+*(this is where Pitz is created)
+scrp 1 29 50200 1
+
+	inst
+
+	snde "c2d1"
+	setv va00 posl
+	setv va01 post
+
+*make sure there's no dogs already in the world
+*todo: could add support for multipe kennels that each track their own pitz eventually (why? idk)
+	rtar 2 15 50210
+
+	doif targ = null
+
+*don't make dogs underwater
+		doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+			stop
+		endi
+
+*make a PURPLE tennis ball (wow woah)
+		new: simp 2 21 50209 "moe_C2toDS_Pitz" 8 202 1040
+
+		setv va02 va00
+		setv va03 va01
+
+		addv va02 20
+		addv va03 90
+
+*put ball in kennel
+		mvsf va02 va03
+
+*throw ball out of kennel
+		seta va09 targ
+		setv velx -10
+		setv vely -15
+
+*make a new dog if you lost your old one (usually from drowning)
+		new: simp 2 15 50210 "moe_C2toDS_Pitz" 0 0 1041
+
+*Mouseable + Activateable + Suffer Collisions + Suffer Physics
+		attr 198
+
+*specify the core so we don't get bounding box errors
+		core 0 72 0 100
+
+*C2 framerate
+		frat 2
+
+*dog can see quite far
+		rnge 1999.9
+
+*reclassified as a Toy for now... apparently this is better for instincts because you can't eat Toys!
+		cato 21
+
+*Activate 1 + Activate 2 + Hit
+		bhvr 11
+
+*physics
+		accg 2
+		aero 5
+		elas 30
+		perm 51
+
+*put dog in kennel
+		mvsf va00 va01
+
+*first tick is shortly after creation so dog can run for a bit
+		tick 12
+
+*default to run state
+		setv ov00 5
+
+*default direction is left (runs out left)
+		setv ov01 -1
+
+*default dog to not be looking for his ball
+		setv ov03 0
+
+*pitz isn't seeking out any toys by default
+		seta ov10 null
+
+*pitz purple ball. so we can remove it when pitz dies to stop the world becoming flooded with balls
+		seta ov11 va09
+
+*how long have you been looking for your ball?
+		setv ov05 0
+
+*a frankly ridiculous but necessary list of hold positions for objects in the dogs mouth
+		puhl -1 50 40
+		pupt 0 19 40
+		pupt 1 18 36
+		pupt 2 18 32
+		pupt 3 18 30
+		pupt 4 19 31
+		pupt 5 18 33
+		pupt 6 18 36
+		pupt 7 18 38
+		pupt 8 78 40
+		pupt 9 78 36
+		pupt 10 79 32
+		pupt 11 78 31
+		pupt 12 78 31
+		pupt 13 79 33
+		pupt 14 77 36
+		pupt 15 78 39
+
+*some new pupts to fix a problem when jumping to the c2d2 anim with ball in mouth
+		pupt 16 18 35
+		pupt 17 18 35
+		pupt 18 18 35
+		pupt 19 18 35
+		pupt 20 18 35
+		pupt 21 78 35
+		pupt 22 78 35
+		pupt 23 78 35
+		pupt 24 78 35
+		pupt 25 78 35
+
+		pupt 40 15 36
+		pupt 41 14 34
+		pupt 42 14 37
+		pupt 43 14 37
+		pupt 44 15 34
+		pupt 45 16 37
+		pupt 46 14 39
+		pupt 47 14 39
+		pupt 48 92 36
+		pupt 49 93 34
+		pupt 50 94 37
+		pupt 51 92 37
+		pupt 52 92 35
+		pupt 53 92 37
+		pupt 54 94 39
+		pupt 55 94 39
+		pupt 56 18 35
+		pupt 57 18 35
+		pupt 58 18 35
+		pupt 59 78 35
+		pupt 60 78 35
+		pupt 61 78 35
+		pupt 62 18 44
+		pupt 63 19 53
+		pupt 64 22 61
+		pupt 65 28 67
+		pupt 66 27 66
+		pupt 67 25 65
+		pupt 68 28 65
+		pupt 69 32 66
+		pupt 70 30 66
+		pupt 71 77 44
+		pupt 72 75 52
+		pupt 73 71 59
+		pupt 74 67 64
+		pupt 75 69 63
+		pupt 76 71 63
+		pupt 77 68 64
+		pupt 78 63 62
+		pupt 79 65 63
+		pupt 80 19 34
+		pupt 81 18 31
+		pupt 82 19 29
+		pupt 83 20 28
+		pupt 84 20 27
+		pupt 85 21 27
+		pupt 86 21 27
+		pupt 87 22 28
+		pupt 88 23 29
+		pupt 89 24 31
+		pupt 90 77 33
+		pupt 91 77 31
+		pupt 92 75 29
+		pupt 93 74 28
+		pupt 94 74 27
+		pupt 95 73 27
+		pupt 96 72 27
+		pupt 97 71 28
+		pupt 98 70 30
+		pupt 99 69 32
+		pupt 162 26 32
+		pupt 163 26 32
+		pupt 164 26 32
+		pupt 165 26 32
+		pupt 166 26 32
+		pupt 167 71 32
+		pupt 168 71 32
+		pupt 169 71 32
+		pupt 170 71 32
+		pupt 171 71 32
+		pupt 172 18 39
+		pupt 173 17 42
+		pupt 174 16 45
+		pupt 175 16 47
+		pupt 176 16 49
+		pupt 177 15 49
+		pupt 178 14 49
+		pupt 179 16 49
+		pupt 180 17 48
+		pupt 181 15 45
+		pupt 182 78 39
+		pupt 183 78 42
+		pupt 184 78 45
+		pupt 185 79 47
+		pupt 186 79 48
+		pupt 187 80 49
+		pupt 188 81 48
+		pupt 189 79 48
+		pupt 190 79 48
+		pupt 191 81 46
+
+	else
+
+*dog is alive! pan/jump camera to dog depending on the metaroom	
+		setv va00 posx
+		setv va01 posy
+		cmrp va00 va01 1
+
+	endi
+
+
+
+
+endm
+
+
+
+*Script 1 - Push
+
+scrp 2 15 50210 1
+
+	inst
+
+*stim the creature so they played with a toy
+*but also give them the chemicals of playing with a critter
+	stim writ from 86 0
+	stim writ from 97 0.5
+
+*tickle anim
+	doif from eq pntr
+		slow
+		targ from
+		anim [2 3 2 3 2 3 2 3 0]
+	endi
+
+*pet the dog
+	mesg writ ownr 1001
+
+endm
+
+
+
+*Script 2 - Pull
+
+scrp 2 15 50210 2
+
+	inst
+
+*stim the creature so they played with a toy
+*but also give them the chemicals of playing with a critter
+	stim writ from 86 0
+	stim writ from 97 0.5
+
+*pet the dog
+	mesg writ ownr 1001
+
+endm
+
+
+
+
+*Script 3 - Hit
+
+scrp 2 15 50210 3
+
+	inst
+
+*stim the creature so they played with a toy
+*but also give them the chemicals of playing with a critter
+	stim writ from 86 0
+	stim writ from 97 0.5
+
+*pet the dog
+	mesg writ ownr 1001
+
+endm
+
+
+
+
+* Script 1001 - pet the dog
+scrp 2 15 50210 1001
+
+	inst
+
+	snde "tckl"
+
+*dog was pet!
+*check if it's Standing (0), Sitting (1) or Lying (2)
+
+*set state to 3 - Wag_ if pet while Standing (OV02 = 0)
+	doif ov02 eq 0
+		setv ov00 3
+	endi
+
+*set state to 14 - Swag if pet while Sitting (OV02 = 1)
+	doif ov02 eq 1
+		setv ov00 14
+	endi
+
+*set state to 11 - Roll if pet WHILE HORIZONTALLY LINED UP WITH BALL BUT HAVEN'T PICKED IT UP YET (OV03 = 2)
+*(original C2 behavior but seemed wrong)
+*	doif ov03 eq 2
+
+*set state to 11 - Roll if pet while lying down (OV02 = 2)
+	doif ov02 eq 2
+		setv ov00 11
+	endi
+
+*set tick to 10 so dog can quickly check what state to be next
+	tick 10
+
+endm
+
+
+
+
+* Script  4 Picked up (hand only!)
+scrp 2 15 50210 4
+
+*disable timer
+	tick 0
+
+*dog goes into "held by collar" anim based on direction
+	doif ov01 lt 0
+		base 172
+		anim [0 1 2 3 4 5 6 7 8 9]
+		over
+		anim [6 6 7 7 8 8 9 9]
+	else
+		base 182
+		anim [0 1 2 3 4 5 6 7 8 9]
+		over
+		anim [6 6 7 7 8 8 9 9]
+	endi
+
+endm
+
+
+
+
+* Script  5 Dropped
+scrp 2 15 50210 5
+
+*reset timer
+	tick 10
+
+*dog plays "put feet back on ground" anim based on direction
+	doif ov01 lt 0
+		base 172
+		anim [3 2 1 0]
+		over
+		base 0
+		pose 0
+	else
+		base 182
+		anim [3 2 1 0]
+		over
+		base 8
+		pose 0
+	endi
+
+*	setv grav 1
+
+endm
+
+
+
+* Script  9 TIMER
+scrp 2 15 50210 9
+
+*after timer is jump started, reset it back to the regular rate of 40
+*	tick 40
+*changed this to 20 so he doesn't keep jumping past the ball, seems to still feel good
+	tick 20
+
+
+*if the dog is underwater
+	doif rtyp room targ eq 8 or rtyp room targ eq 9
+
+*play drowning anim based on direction
+
+*replaced crappy pickup anim with the regular lying down anim
+		doif ov01 lt 0
+*			base 172
+*			anim [0 1 2 3 4 5 6 7 8 9]
+			base 110
+			anim [0 1 2 3 4 5 6 7]
+			over
+			base 126
+			anim [0 1 2 3 4 5 6 7]
+			over
+			anim [4 5 6 7 255]
+		else
+*			base 182
+*			anim [0 1 2 3 4 5 6 7 8 9]
+			base 118
+			anim [0 1 2 3 4 5 6 7]
+			over
+			base 134
+			anim [0 1 2 3 4 5 6 7]
+			over
+			anim [4 5 6 7 255]
+		endi
+
+		wait 40
+
+*fade out and kill the dog and his purple ball
+		setv va00 0
+
+*make the dog intangible so we don't end up with half visible dogs
+		attr 0
+		bhvr 0
+
+		loop
+			inst
+			addv va00 16
+			targ ownr
+
+*apply to dog and ball
+			alph va00 1
+
+			doif ov11 <> null
+				targ ov11
+				alph va00 1
+			endi
+
+			slow
+
+		untl va00 >= 256
+
+		kill ownr
+
+		doif ov11 <> null
+			kill ov11
+		endi
+
+
+	endi
+
+*states only accessible from Standing State (OV02 = 0)
+	doif ov02 eq 0
+		doif ov00 eq 0
+			reps 3
+				gsub walk
+			repe
+
+			over
+*do c2d2 anim instead of walking on the spot
+			doif ov01 lt 0
+				base 16
+				anim [0 1 2 3 4 255]
+			else
+				base 21
+				anim [0 1 2 3 4 255]
+			endi
+
+		endi
+		doif ov00 eq 1
+			gsub c2d2
+		endi
+		doif ov00 eq 2
+			gsub look
+		endi
+		doif ov00 eq 3
+			gsub wag_
+		endi
+		doif ov00 eq 4
+			gsub snif
+		endi
+		doif ov00 eq 5
+			reps 3
+				gsub run_
+			repe
+		endi
+		doif ov00 eq 6
+			gsub sit_
+		endi
+		doif ov00 eq 15
+			gsub pick
+		endi
+		doif ov00 eq 16
+			gsub cock
+		endi
+	endi
+
+*states only accessible from Sitting Down State (OV02 = 1)
+
+	doif ov02 eq 1
+		doif ov00 eq 7
+			gsub up
+		endi
+		doif ov00 eq 8
+			gsub spnt
+		endi
+		doif ov00 eq 9
+			gsub lay_
+		endi
+		doif ov00 eq 13
+			gsub beg_
+		endi
+		doif ov00 eq 14
+			gsub swag
+		endi
+	endi
+
+*states only accessible from Lying Down State (OV02 = 1)
+
+	doif ov02 eq 2
+		doif ov00 eq 10
+			gsub l_up
+		endi
+		doif ov00 eq 11
+			gsub roll
+		endi
+		doif ov00 eq 12
+			gsub r_up
+		endi
+	endi
+
+*(OV03 = 0)	
+	doif ov03 eq 0
+
+*if dog is Standing Up (OV02 = 0)
+		doif ov02 eq 0
+*set dog state (OV00) to one of the standing states: Walk, c2d2, Look, Wag_, Snif, Run_ and Sit_.
+			setv ov00 rand 0 6
+		endi
+
+*if dog is Sitting Down (OV02 = 1)
+		doif ov02 eq 1
+
+			setv va00 rand 0 3
+*3/4 chance to pick from 7 8 or 9: Up, Spnt or Lay_.
+			doif va00 lt 3
+				addv va00 7
+				setv ov00 va00
+*1/4 chance to pick 14 - Swag (sitting wag)
+			else
+				addv va00 11
+				setv ov00 va00
+			endi
+
+		endi
+
+*if dog is Lying Down (OV02 = 2)
+		doif ov02 eq 2
+
+*2/5 chance to pick from 10 or 11: L_Up (Lay up) or Roll
+			setv va00 rand 0 4
+			doif va00 le 1
+				addv va00 10
+				setv ov00 va00
+			endi
+		endi
+
+*1/6 chance for dog to invert direction
+		setv va00 rand 0 5
+		doif va00 eq 0
+			negv ov01
+		endi
+
+	endi
+
+*(OV03 = 1)
+	doif ov03 eq 1
+
+*set OV04 to 0. It tracks how long the dog has been begging for the ball.
+		setv ov04 0
+
+*target ball agent this dog is chasing
+		targ ov10
+
+*if the ball you were chasing stopped existing, give up
+		doif targ = null
+			setv ov03 0
+			tick 10
+			stop
+		endi
+
+*store ball X position in VA00
+		setv va00 posx
+
+		targ ownr
+		snde "bark"
+
+		loop
+*subtract current X position from ball X position to get distance between the 2 points.
+			setv va03 posx
+			subv va03 va00
+
+*if distance is a negative number, flip it
+			doif va03 lt 0
+				negv va03
+			endi
+
+
+			doif ov10 <> null
+				doif ov05 > 10
+					doif seee ownr ov10 = 0
+
+*					enum 4 0 0
+*						sezz "i lost my ball"
+*					next
+
+						inst
+*reset timer
+						setv ov05 0
+*set OV03 to 0 - give up on your ball
+						setv ov03 0
+*set OV10 to NULL - done looking for balls...
+						seta ov10 null
+
+*reset dog timer
+						tick 10
+
+						stop
+					endi
+				endi
+			endi
+
+*if dog has been looking for the ball for a while with no luck, make sure he can still see it
+			addv ov05 1
+
+*if you've been looking for the ball for a REALLY long time, just give up
+			doif ov05 > 50
+
+*			enum 4 0 0
+*				sezz "dude i give up"
+*			next
+
+				inst
+
+*reset timer
+				setv ov05 0
+*set OV03 to 0 - give up on your ball
+				setv ov03 0
+*set OV10 to NULL - done looking for balls...
+				seta ov10 null
+
+*reset dog timer
+				tick 10
+
+				stop
+
+			endi
+
+
+*is there 100 pixels or more units of distance between Dog and Ball?
+*then Run!
+			doif va03 gt 100
+				gsub run_
+*less than 100 pixels between Dog and Ball. Walk.
+			else
+				gsub walk
+			endi
+
+*set some vars to 0
+			setv va01 0
+			setv va02 0
+
+*if ball X/Y coord is to our left, set our direction to LEFT
+			doif va00 lt posl
+				setv ov01 -1
+
+*if ball X/Y coord is to our right
+			else
+				setv va01 1
+			endi
+
+*if ball X/Y coord is to our right, set our direction to RIGHT		
+			doif va00 gt posr
+				setv ov01 1
+
+*if ball X/Y coord is to our left
+			else
+				setv va02 1
+			endi
+
+			andv va01 va02
+
+		untl va01 eq 1
+
+*set OV03 to 2 (we are lined up horizontally with the ball!)
+		setv ov03 2
+
+	endi
+
+*we are lined up horizontally with the ball.
+	doif ov03 eq 2
+
+		inst
+
+*if the ball you were chasing stopped existing, give up
+		doif ov10 = null
+			setv ov03 0
+			tick 10
+			stop
+		endi
+
+*if we're touching the ball, go to PICK subroutine and set OV03 to 0 (no longer looking for a ball!)
+		doif touc ownr ov10 gt 0
+			slow
+			gsub pick
+			setv ov03 0
+
+*if we're lined up but can't reach it... play random anims (this is the only place where Beg_ is called)
+		else
+			targ ov10
+			setv va00 posx
+			slow
+			targ ownr
+			doif va00 ge posl
+				doif va00 le posr
+
+*OV04 tracks how long we've been begging for a ball
+					addv ov04 1
+
+					setv va09 rand 0 3
+					doif va09 eq 0
+						gsub roll
+					else
+						doif va09 eq 1
+							gsub beg_
+						else
+							doif va09 eq 2
+								gsub lay_
+							else
+								doif va09 eq 3
+									gsub swag
+								endi
+							endi
+						endi
+					endi
+				else
+					setv ov03 1
+				endi
+			else
+
+*if we somehow stopped being lined up with the ball, set OV03 to 1 - we are looking for the ball again.
+				setv ov03 1
+			endi
+
+*stop looking for a ball if OV04 > 10 (originally 20 but it felt too long)
+			doif ov04 gt 10
+				inst
+				setv ov03 0
+				seta ov10 null
+*added reset to "how long have we been looking for a ball?" timer
+				setv ov04 0
+				slow
+			endi
+
+		endi
+	endi
+
+*dog will tick again soon to check what state to go to
+	targ ownr
+
+	tick 10
+
+	subr walk
+		setv va08 obst 3
+		doif va08 gt 10
+			loop
+				setv va08 obst 3
+				wait 1
+			untl va08 lt 10
+		else
+			snde "c2d4"
+			doif ov01 lt 0
+				base 0
+				anim [0 1 2 3 4 5 6 7]
+				setv vely -8
+				setv velx -20
+			else
+				base 8
+				anim [0 1 2 3 4 5 6 7]
+				setv vely -8
+				setv velx 20
+			endi
+		endi
+
+	retn
+
+	subr c2d2
+		snde "c2d2"
+
+*drop the ball if you're holding it!
+		gsub drop_ball
+
+		doif ov01 lt 0
+			base 16
+			anim [0 1 2 3 4 255]
+		else
+			base 21
+			anim [0 1 2 3 4 255]
+		endi
+	retn
+
+	subr look
+
+*drop the ball if you're holding it!
+		gsub drop_ball
+
+		doif ov01 lt 0
+			base 26
+			anim [0 1 2 2 2 2 2 3 4 5 6 6 6 6 6 5 4]
+			over
+		else
+			base 33
+			anim [0 1 2 2 2 2 2 3 4 5 6 6 6 6 6 5 4]
+			over
+		endi
+		setv ov00 1
+	retn
+
+	subr wag_
+		snde "wine"
+		doif ov01 lt 0
+			base 56
+			anim [0 1 2 255]
+		else
+			base 59
+			anim [0 1 2 255]
+		endi
+	retn
+
+	subr snif
+		doif ov01 lt 0
+			base 62
+			anim [0 1 2 3 4 5 6 7 8]
+			over
+			anim [8 7 6 5 4 4 5 6 7 8 255]
+		else
+			base 71
+			anim [0 1 2 3 4 5 6 7 8]
+			over
+			anim [8 7 6 5 4 4 5 6 7 8 255]
+		endi
+*sniff loop for 10-20 ticks
+		wait rand 10 20
+		setv ov00 1
+	retn
+
+	subr run_
+		setv va08 obst 3
+		doif va08 gt 10
+			loop
+				setv va08 obst 3
+				wait 1
+			untl va08 lt 10
+		else
+			snde "c2d4"
+			doif ov01 lt 0
+				base 40
+				anim [0 1 2 3 4 5 6 7]
+				setv vely -8
+				setv velx -30
+			else
+				base 48
+				anim [0 1 2 3 4 5 6 7]
+				setv vely -8
+				setv velx 30
+			endi
+		endi
+	retn
+
+	subr sit_
+		doif ov01 lt 0
+			base 80
+			anim [0 1 2 3 4 5 6 7 8 9]
+			over
+		else
+			base 90
+			anim [0 1 2 3 4 5 6 7 8 9]
+			over
+		endi
+		setv ov02 1
+	retn
+
+	subr up
+		doif ov01 lt 0
+			base 80
+			anim [9 8 7 6 5 4 3 2 1 0]
+			over
+		else
+			base 90
+			anim [9 8 7 6 5 4 3 2 1 0]
+			over
+		endi
+		setv ov02 0
+	retn
+
+	subr spnt
+		snde "c2d2"
+
+*drop the ball if you're holding it!
+		gsub drop_ball
+
+		doif ov01 lt 0
+			base 100
+			anim [0 1 2 3 4 255]
+		else
+			base 105
+			anim [0 1 2 3 4 255]
+		endi
+	retn
+
+	subr lay_
+
+*drop the ball if you're holding it!
+		gsub drop_ball
+
+		doif ov01 lt 0
+			base 110
+			anim [0 1 2 3 4 5 6 7]
+			over
+		else
+			base 118
+			anim [0 1 2 3 4 5 6 7]
+			over
+		endi
+		setv ov02 2
+	retn
+
+	subr l_up
+
+*drop the ball if you're holding it!
+		gsub drop_ball
+
+		doif ov01 lt 0
+			base 110
+			anim [7 6 5 4 3 2 1 0]
+			over
+		else
+			base 118
+			anim [7 6 5 4 3 2 1 0]
+			over
+		endi
+		setv ov02 1
+	retn
+
+	subr roll
+
+*drop the ball if you're holding it!
+		gsub drop_ball
+
+		doif ov01 lt 0
+			base 126
+			anim [0 1 2 3 4 5 6 7]
+			over
+			anim [4 5 6 7 255]
+		else
+			base 134
+			anim [0 1 2 3 4 5 6 7]
+			over
+			anim [4 5 6 7 255]
+		endi
+		wait 20
+		setv ov00 12
+	retn
+
+	subr r_up
+
+*drop the ball if you're holding it!
+		gsub drop_ball
+
+		doif ov01 lt 0
+			base 126
+			anim [7 6 5 4 3 2 1 0]
+			over
+			base 117
+			pose 0
+		else
+			base 134
+			anim [7 6 5 4 3 2 1 0]
+			over
+			base 125
+			pose 0
+		endi
+		wait 20
+		setv ov00 10
+	retn
+
+	subr beg_
+		snde "wine"
+		doif ov01 lt 0
+			base 142
+			anim [0 1 2 3 4 5 6 7 8 9]
+			over
+			wait 20
+			anim [9 8 7 6 5 4 3 2 1 0]
+			over
+			base 89
+			pose 0
+		else
+			base 152
+			anim [0 1 2 3 4 5 6 7 8 9]
+			over
+			wait 20
+			anim [9 8 7 6 5 4 3 2 1 0]
+			over
+			base 99
+			pose 0
+		endi
+		setv ov00 8
+	retn
+
+	subr swag
+		doif ov01 lt 0
+			base 162
+			anim [0 1 2 3 4 255]
+		else
+			base 167
+			anim [0 1 2 3 4 255]
+		endi
+	retn
+
+	subr pick
+
+		inst
+
+*you are done looking for your ball
+		setv ov05 0
+
+		slow
+
+		snde "c2d3"
+		doif ov01 lt 0
+			base 62
+			anim [0 1 2 3 4 5 6 7 8]
+
+		else
+			base 71
+			anim [0 1 2 3 4 5 6 7 8]
+		endi
+
+*pick up the ball (if it still exists)
+
+		doif ov10 <> null
+			mesg writ ov10 4
+		endi
+
+		targ ownr
+		over
+
+		wait 20
+
+*go to Wag_ state
+		setv ov00 3
+	retn
+
+	subr cock
+
+*drop the ball if you're holding it!
+		gsub drop_ball
+
+		doif ov01 lt 0
+			base 192
+			anim [0 1 2 3]
+			over
+			wait 20
+			anim [3 2 1 0]
+			over
+		else
+			base 196
+			anim [0 1 2 3]
+			over
+			wait 20
+			anim [3 2 1 0]
+			over
+		endi
+
+*go to Wag_ state
+		setv ov00 3
+	retn
+
+	subr stnd
+		doif ov01 lt 0
+			base 0
+			pose 2
+		else
+			base 8
+			pose 2
+		endi
+	retn
+
+	subr drop_ball
+
+		inst
+*make sure the ball exists before you try and drop it
+		doif ov10 <> null
+*are you holding the ball?		
+			doif held = ov10
+*drop ball and move it to the correct coords
+				targ ov10
+				setv va10 posl
+				setv va11 post
+				targ ownr
+				drop
+				targ ov10
+				mvsf va10 va11
+
+				targ ownr
+*forget what object you were chasing
+				seta ov10 null
+			endi
+		endi
+		slow
+
+		targ ownr
+
+	retn
+
+endm
+
+
+*script called by Tennis Ball being picked up
+*_P1_ is agent that sent this command (currently only Tennis Balls but eventually maybe other toys/bones)
+
+scrp 2 15 50210 1000
+
+	inst
+*ignore new balls until you've concluded your business with the old ball
+	doif ov10 = null
+
+*toy we are currently looking at is the one we're looking for (AKA its in range!)
+		doif seee ownr _p1_ = 1
+			targ ownr
+
+*set OV03 to 1 - Dog is looking for ball!
+			setv ov03 1
+*set OV10 to TARG - this is the ball Dog is looking for!
+			seta ov10 _p1_
+
+		endi
+
+*reset dog timer
+		tick 10
+
+*if you never found the ball last time, you better keep looking for it
+	else
+
+		doif ov03 = 0
+			setv ov03 1
+		endi
+
+	endi
+	slow
+
+endm
+
+
+
+
+*NO MORE DOG
+
+rscr
+
+enum 1 29 50200
+	kill targ
+next
+
+
+enum 2 15 50210
+	kill targ
+next
+
+*kill purple tennis balls specifically
+enum 2 21 50209
+
+*gall is always stored as lower case
+	doif gall = "moe_c2tods_pitz"
+		kill targ
+	endi
+
+next
+
+*note: we don't remove the tennis ball scripts, the tennis ball rscr can take care of that.
+scrx 1 29 50200 10
+scrx 1 29 50200 1
+
+scrx 2 15 50210 1
+scrx 2 15 50210 2
+scrx 2 15 50210 3
+scrx 2 15 50210 1001
+scrx 2 15 50210 4
+scrx 2 15 50210 5
+scrx 2 15 50210 9
+scrx 2 15 50210 1000
