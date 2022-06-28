@@ -14,23 +14,25 @@
 * C2D2 - PANT *
 * C2D3 - GROW *
 * C2D4 - STEP *
+* C2D5 - BARK *
+* C2D6 - WINE *
 ***************
 
 
-*todo: woudn't it be neat if Pitz could respond to "sit" "stay" "fetch" commands from the hand, magic words style
+*todo: woudn't it be neat if Pitz could respond to "sit" "stay" "fetch" commands from the hand, magic words style?
 
 
 *OV00 - what the dog doin?
 *
 *0 - WALK
 *
-*1 - c2d2
+*1 - PANT
 *has just done Look or Sniff subr
 *
 *2 - LOOK
 *
 *3 - WAG_
-*has just c2d3led or Dropped Ball. Activated during timer script is norn IS NOT sitting or laying down (OV02)
+*has just Growled or Dropped Ball. Activated during timer script is norn IS NOT sitting or laying down (OV02)
 *
 *4 - SNIF
 *
@@ -41,7 +43,7 @@
 *
 *7 - UP
 *
-*8 - SPNT
+*8 - SPNT (Sitting Pant)
 *has just whined
 *
 *9 - LAY
@@ -57,11 +59,11 @@
 *
 *13 - BEG
 *
-*14 - SWAG (sitting wag)
-*Activated during timer script if dog IS sitting or laying down (OV02)
+*14 - SWAG (Sitting Wag)
+*Activated during timer script if dog is sitting or laying down (OV02)
 *
 *15 - PICK
-*probably used for picking up the ball
+*used for picking up the ball
 *
 *16 - COCK
 *drop ball
@@ -72,10 +74,11 @@
 *1 - right
 *
 *
-*OV02 - is dog sitting or laying down?
+*OV02 - dog sit state
 *
-*0 - no
-*1 - yes
+*0 - standing up
+*1 - sitting down
+*2 - lying down
 *
 *OV03 - is the dog looking for a ball?
 *
@@ -84,11 +87,22 @@
 *2 - horizontally lined up with the ball
 *
 *
-*OV04 - how long has the dog been looking for the ball? once this reaches a certain number OV03 is automatically reset to 0
+*OV04 - how long has the dog been BEGGING for the ball? once this reaches a certain number OV03 is automatically reset to 0 and OV10 is set to null
+*
+*OV05 - how long has the dog been LOOKING for the ball? once this reaches a certain number OV03 is automatically reset to 0 and OV10 is set to null
 *
 *OV10 - ball agent that Pitz is currently focusing on
 *
 *OV11 - pitz purple ball. so we can remove it when pitz dies to stop the world becoming flooded with balls
+
+
+
+
+
+*Dog Kennel also has some variables
+*
+*OV00 - which Pitz the Dog is linked to this kennel?
+*OV01 - which Purple Ball is linked to this kennel?
 
 
 
@@ -116,6 +130,10 @@ scrp 1 29 50200 10
 	elas 0
 	fric 100
 
+*initialize dog and ball variables
+	seta ov00 null
+	seta ov01 null
+
 *create a dog and ball!
 	call 1 0 0
 
@@ -137,16 +155,22 @@ scrp 1 29 50200 1
 	setv va00 posl
 	setv va01 post
 
-*make sure there's no dogs already in the world
-*todo: could add support for multipe kennels that each track their own pitz eventually (why? idk)
-	rtar 2 15 50210
 
-	doif targ = null
 
-*don't make dogs underwater
-		doif rtyp room ownr eq 8 or rtyp room ownr eq 9
-			stop
-		endi
+	doif mv00 <> null and mv01 <> null
+
+*dog and ball exist! pan/jump camera to dog depending on the metaroom	
+		targ mv00
+		setv va00 posx
+		setv va01 posy
+		cmrp va00 va01 1
+
+	endi
+
+
+*make sure your ball still exists
+
+	doif mv01 = null
 
 *make a PURPLE tennis ball (wow woah)
 		new: simp 2 21 50209 "moe_C2toDS_Pitz" 8 202 1040
@@ -161,9 +185,22 @@ scrp 1 29 50200 1
 		mvsf va02 va03
 
 *throw ball out of kennel
-		seta va09 targ
 		setv velx -10
 		setv vely -15
+
+*store ball in kennels ov01 var
+		seta mv01 targ
+
+	endi
+
+
+*make sure your dog still exists
+	doif mv00 = null
+
+*don't make dogs underwater
+		doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+			stop
+		endi
 
 *make a new dog if you lost your old one (usually from drowning)
 		new: simp 2 15 50210 "moe_C2toDS_Pitz" 0 0 1041
@@ -211,7 +248,7 @@ scrp 1 29 50200 1
 		seta ov10 null
 
 *pitz purple ball. so we can remove it when pitz dies to stop the world becoming flooded with balls
-		seta ov11 va09
+		seta ov11 null
 
 *how long have you been looking for your ball?
 		setv ov05 0
@@ -235,7 +272,7 @@ scrp 1 29 50200 1
 		pupt 14 77 36
 		pupt 15 78 39
 
-*some new pupts to fix a problem when jumping to the c2d2 anim with ball in mouth
+*some new pupts to fix a problem when jumping to the Pant anim with ball in mouth
 		pupt 16 18 35
 		pupt 17 18 35
 		pupt 18 18 35
@@ -338,16 +375,17 @@ scrp 1 29 50200 1
 		pupt 190 79 48
 		pupt 191 81 46
 
-	else
-
-*dog is alive! pan/jump camera to dog depending on the metaroom	
-		setv va00 posx
-		setv va01 posy
-		cmrp va00 va01 1
-
+*store dog in kennels ov00 var
+		seta mv00 targ
 	endi
 
+*target pitz and assign the ball
+	targ mv00
+	doif ov11 = null
+		seta ov11 mv01
+	endi
 
+*targ mv01
 
 
 endm
@@ -559,8 +597,8 @@ scrp 2 15 50210 9
 *apply to dog and ball
 			alph va00 1
 
-			doif ov11 <> null
-				targ ov11
+			doif mv11 <> null
+				targ mv11
 				alph va00 1
 			endi
 
@@ -568,12 +606,11 @@ scrp 2 15 50210 9
 
 		untl va00 >= 256
 
-		kill ownr
-
-		doif ov11 <> null
-			kill ov11
+		doif mv11 <> null
+			kill mv11
 		endi
 
+		kill ownr
 
 	endi
 
@@ -585,7 +622,7 @@ scrp 2 15 50210 9
 			repe
 
 			over
-*do c2d2 anim instead of walking on the spot
+*do Pant anim instead of walking on the spot
 			doif ov01 lt 0
 				base 16
 				anim [0 1 2 3 4 255]
@@ -596,7 +633,7 @@ scrp 2 15 50210 9
 
 		endi
 		doif ov00 eq 1
-			gsub c2d2
+			gsub pant
 		endi
 		doif ov00 eq 2
 			gsub look
@@ -623,7 +660,7 @@ scrp 2 15 50210 9
 		endi
 	endi
 
-*states only accessible from Sitting Down State (OV02 = 1)
+*states only accessible from Sitting Down State (OV02 = 2)
 
 	doif ov02 eq 1
 		doif ov00 eq 7
@@ -662,7 +699,7 @@ scrp 2 15 50210 9
 
 *if dog is Standing Up (OV02 = 0)
 		doif ov02 eq 0
-*set dog state (OV00) to one of the standing states: Walk, c2d2, Look, Wag_, Snif, Run_ and Sit_.
+*set dog state (OV00) to one of the standing states: Walk, Pant, Look, Wag_, Snif, Run_ and Sit_.
 			setv ov00 rand 0 6
 		endi
 
@@ -721,7 +758,7 @@ scrp 2 15 50210 9
 		setv va00 posx
 
 		targ ownr
-		snde "bark"
+		snde "c2d5"
 
 		loop
 *subtract current X position from ball X position to get distance between the 2 points.
@@ -922,7 +959,7 @@ scrp 2 15 50210 9
 
 	retn
 
-	subr c2d2
+	subr pant
 		snde "c2d2"
 
 *drop the ball if you're holding it!
@@ -955,7 +992,7 @@ scrp 2 15 50210 9
 	retn
 
 	subr wag_
-		snde "wine"
+		snde "c2d6"
 		doif ov01 lt 0
 			base 56
 			anim [0 1 2 255]
@@ -1123,7 +1160,7 @@ scrp 2 15 50210 9
 	retn
 
 	subr beg_
-		snde "wine"
+		snde "c2d6"
 		doif ov01 lt 0
 			base 142
 			anim [0 1 2 3 4 5 6 7 8 9]
