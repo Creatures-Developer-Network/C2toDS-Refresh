@@ -426,6 +426,14 @@ mvto 4472 48057
 
 
 
+*Left Leafy Overhang
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 34 8001
+
+attr 0
+mvto 4702 48265
+
+
 *Left Rope
 
 new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 33 8002
@@ -508,16 +516,24 @@ mvto 3277 48214
 
 
 
-*Ocean Tube*
 
-new: comp 1 8 50200 "blnk" 1 0 8001
+*Ocean Tube Left*
 
-pat: dull 1 "moe_C2toDS_Overlays2" 13 0 0 0
-pat: dull 2 "moe_C2toDS_Overlays2" 14 396 0 0
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 13 8001
 
 attr 4
 
 mvto 2807 48552
+
+
+
+*Ocean Tube Right*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 14 8001
+
+attr 4
+
+mvto 3203 48552
 
 
 
@@ -1971,7 +1987,7 @@ scrp 2 1 1 50200
 	endi
 
 	targ pntr
-	
+
 	mvby 1 0
 
 endm
