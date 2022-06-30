@@ -1,7 +1,5 @@
 * 2 22 50200 - Incubator
 
-* Core done, just some graphical adjustments needed
-
 *Incubator is now properly placed - Moe
 * Aiko fixed invalid targ errors by inst'ing the enuming of creatures
 * NeoDement fixed a bunch of things!
@@ -124,19 +122,54 @@ endm
 
 scrp 2 22 50200 124
 
-	doif ov00 eq 0
+	inst
 
-		epas 3 4 0
+	epas 0 0 0
 
+*is it 3 4 0 (egg) and also *is door open?
+		doif fmly = 3 and gnus = 4 and mv00 eq 0
+
+*try hatch an egg
 			doif targ ne null
-
 				mesg wrt+ ownr 1001 255 0 0
 
 			endi
 
-		next
+		else
 
-	endi
+*it wasn't an egg or the incu is closed? dump it
+
+*NOT A CREATURE
+			doif crea targ = 0
+				setv va00 posl
+				setv va01 post
+
+				rpas ownr targ
+
+*do an unsafe move if possible
+				doif tmvt va00 va01 = 1
+					mvto va00 va01
+				else
+					mvsf va00 va01
+				endi
+
+*A CREATURE
+			else
+				setv va00 dftx
+				setv va01 dfty
+
+				rpas ownr targ
+
+*do an unsafe move if possible
+				doif tmvf va00 va01 = 1
+					mvft va00 va01
+				else
+					mvsf va00 va01
+				endi
+			endi
+		endi
+
+	next
 
 endm
 
@@ -463,7 +496,7 @@ scrp 2 22 50200 1001
 
 *Greedy Cabin + Invisible + Mouseable + Suffer Collisions + Suffer Physics + Open Air Cabin
 *(reset attributes to default now the egg has hatched)
-	attr 730
+			attr 730
 
 		endi
 
