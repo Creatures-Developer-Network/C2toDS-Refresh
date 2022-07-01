@@ -6,6 +6,8 @@
 *Matthew, "Moe", '10*
 *The one who screams removed empty hunger decreases, made berries invisible until picked,
 *and stopped berries from dying on the vine.
+*NeoDement fixed plane issues
+* (if you worked on this file, feel free to add your name!)
 
 new: simp 2 6 50208 "moe_C2toDS_berries" 0 0 5000
 
@@ -47,7 +49,7 @@ scrp 2 6 50208 9
 
 	subr makearnicaberries
 
-		new: simp 2 8 50208 "moe_C2toDS_berries" 0 6 5000
+		new: simp 2 8 50208 "moe_C2toDS_berries" 0 6 rand 3500 5000
 
 		mvsf va01 va02
 
@@ -128,19 +130,20 @@ endm
 
 
 
-scrp 2 8 50208 1
+*scrp 2 8 50208 1
+*
+*	mesg writ targ 12
+*
+*endm
 
-	mesg writ targ 12
-
-endm
 
 
-
-scrp 2 8 50208 4
-
-	plne rand 250 500
-
-endm
+*scrp 2 8 50208 4
+*
+** just gonna set the plane when we create it instead
+**	plne rand 250 500
+*
+*endm
 
 
 

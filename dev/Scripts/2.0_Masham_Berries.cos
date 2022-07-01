@@ -1,10 +1,13 @@
 *//*Masham Berry*//*
-* 2 6 50212 - Masham Berry Leaf
-* 2 8 50212 - Masham Berry
+* 2 6 50212 - Masham Berry Leaf (invisible timer object that makes the berries)
+* 2 8 50212 - Masham Berry (they look like coconuts are on the right side of the island)
 
 
 *Matthew, "Moe", '10*
 *The one who screams removed empty hunger decrease and made berries invisible until picked.
+*NeoDement fixed plane issues
+* (if you worked on this file, feel free to add your name!)
+
 
 new: simp 2 6 50212 "moe_C2toDS_berries" 0 0 5000
 
@@ -13,7 +16,6 @@ attr 16
 mvto 2190 48000
 
 tick 1
-
 
 
 scrp 2 6 50212 9
@@ -30,15 +32,15 @@ scrp 2 6 50212 9
 
 		setv va02 rand 48080 48130
 
-		gsub makearnicaberries
+		gsub make_masham_berries
 
 	endi
 
 
 
-	subr makearnicaberries
+	subr make_masham_berries
 
-		new: simp 2 8 50212 "moe_C2toDS_berries" 0 1 8001
+		new: simp 2 8 50212 "moe_C2toDS_berries" 0 1 rand 3500 5000
 
 		perm 55
 
@@ -62,11 +64,11 @@ endm
 
 
 
-scrp 2 8 50212 10
-
-*emit 6 .15
-
-endm
+*scrp 2 8 50212 10
+*
+**emit 6 .15
+*
+*endm
 
 
 
@@ -78,11 +80,11 @@ scrp 2 8 50212 9
 
 		doif ov00 ge rand 20 40 and accg ne 6
 
-				accg 6
+			accg 6
 
-	attr 195
+			attr 195
 
-	emit 6 .15
+			emit 6 .15
 
 			velo rand -5 5 0
 
@@ -112,18 +114,21 @@ endm
 
 
 
-scrp 2 8 50212 4
+*scrp 2 8 50212 4
+*
+** just gonna set the plane when we create it instead
+*	plne rand 4000 6000
+*
+*endm
 
-	plne rand 4000 6000
 
-endm
 
 scrp 2 8 50212 5
 
 	doif accg ne 6
 		setv ov00 0
 	endi
-		accg 6
+	accg 6
 
 	attr 195
 
@@ -139,15 +144,13 @@ endm
 
 
 
-
-
 scrp 2 8 50212 12
 
 	sndc "chwp"
 
 	stim writ from 78 1
 
-	targ from
+*	targ from
 
 *Hunger for Fat *
 
@@ -173,7 +176,7 @@ scrp 2 8 50212 12
 
 *	chem 12 .27
 
-	targ ownr
+*	targ ownr
 
 	wait 1
 

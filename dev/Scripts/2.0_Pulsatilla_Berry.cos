@@ -7,6 +7,8 @@
 
 *Matthew, "Moe", '10*
 *The one who screams removed empty hunger decrease and shortened lifespan. (Doesn't need invisibility.)
+*NeoDement fixed plane issues
+* (if you worked on this file, feel free to add your name!)
 
 new: simp 2 6 50202 "moe_C2toDS_berries" 0 0 5000
 
@@ -44,15 +46,16 @@ scrp 2 6 50202 9
 
 		endi
 
-		gsub makearnicaberries
+		gsub make_pulsatilla_berries
 
 	endi
 
 
 
-	subr makearnicaberries
+	subr make_pulsatilla_berries
 
-		new: simp 2 8 50202 "moe_C2toDS_berries" 0 9 8001
+*		new: simp 2 8 50202 "moe_C2toDS_berries" 0 9 rand 3500 5000
+		new: simp 2 8 50202 "moe_C2toDS_berries" 0 9 8000
 
 		mvsf va01 va02
 
@@ -115,23 +118,26 @@ endm
 
 
 
-scrp 2 8 50202 1
+*scrp 2 8 50202 1
+*
+*	mesg writ targ 12
+*
+*endm
 
-	mesg writ targ 12
-
-endm
 
 
-
-scrp 2 8 50202 4
-
-	plne rand 4000 6000
-
-endm
+*scrp 2 8 50202 4
+*
+**(moved to drop script!)
+**	plne rand 4000 6000
+*
+*endm
 
 
 
 scrp 2 8 50202 5
+
+	inst
 
 	doif accg ne 4
 
@@ -140,6 +146,14 @@ scrp 2 8 50202 5
 	endi
 
 	accg 4
+
+*(instead of messing with the plane here I'm messing with the plane of the bush overlay itself)
+*todo: maybe the overlay can be modified at some point as a better solution
+*	wait 1
+*
+*	doif plne = 8001
+*		plne rand 4000 6000
+*	endi
 
 endm
 
