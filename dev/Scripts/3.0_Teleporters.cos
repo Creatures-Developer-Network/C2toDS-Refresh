@@ -1,12 +1,14 @@
-* 3 2 50200 - DS Teleporter
+* 3 2 50200 - Big Teleporters (one in DS Workshop and one in C2 incubator room)
 * 3 2 50202 - All other Teleporters
 * 1 17 50201 - Teleporter Beam Animation
 
 
-*NeoDement made the main teleporter in the Incubator Room pickupable, to match it's counterpart in the Workshop
-
-*todo: sometimes big creatures like boney grendels get stuck in the ceiling when using the main teleporter
-*or sometimes even just regular norns fall through the floor in the DS Workshop :(
+*NeoDement:
+*-made the main teleporter in the Incubator Room pickupable, to match it's counterpart in the Workshop
+*-disabled ability for teleporters to teleport non-creatures and simplified coord logic (hopefully creatures will get stuck in ceilings less)
+*-the camera now jumps to the other side of the teleporter when clicking it with both types of teleporter (previously only worked with big ones)
+*-made IO ports more obvious (only small teleporters have IO ports)
+*-added stims to regular teleporters. previously only big teleporters actually let norns know they'd used a teleporter.
 
 
 *Teleporter - Norn Burrow (MAIN)
@@ -15,8 +17,8 @@ new: simp 3 2 50200 "moe_C2toDS_tele" 8 0 200
 
 mvto 7554 48288
 
-
 *mvto 4733 9005
+
 
 
 *Teleporter - Norn Burrow
@@ -65,6 +67,9 @@ new: comp 3 2 50202 "moe_C2toDS_tele" 1 9 200
 mvto 8195 49315
 
 
+
+*BIG TELEPORTER CONSTRUCTOR SCRIPT
+
 scrp 3 2 50200 10
 
 	doif totl 3 2 50200 lt 2
@@ -93,6 +98,8 @@ scrp 3 2 50200 10
 
 		bhvr 3
 
+		perm 51
+
 		frat 2
 
 		anim [0 1 2 3 255]
@@ -119,6 +126,7 @@ scrp 3 2 50200 10
 
 		bhvr 3
 
+		perm 51
 
 		frat 2
 
@@ -130,7 +138,7 @@ scrp 3 2 50200 10
 
 
 
-	perm 51
+
 
 
 
@@ -140,185 +148,59 @@ endm
 
 
 
-*Creatures Can Activate This Machine, it brings them to DS.
+*BIG TELEPORTER ACTIVATE 1 SCRIPT
 
 scrp 3 2 50200 1
 
 	inst
 	stim writ from 27 1
 
+*call script which does the actual teleporting (_P1_ is FROM)
+	mesg wrt+ ownr 1001 from 0 0
 
-	anim [ 4 5 6 7]
-
-	over
-
-	inst
-
-	setv va00 posl
-
-	setv va01 post
-
-	doif ov00 eq 0
-
-		subv va00 -10
-
-		subv va01 -50
-
-	else
-
-		subv va00 20
-
-		subv va01 -50
-
-	endi
-
-
-
-	new: simp 1 17 50201 "moe_C2toDS_tele" 9 22 6998
-
-	mvto va00 va01
-
-	snde "tel2"
-
-*wait 10
-
-
-	targ ownr
-
-	slow
-
-	anim [ 6 5 4 3 2 1 0]
-
-
-
-
-
-	over
-
-	anim [0 1 2 3 255]
-
-*TRANSPORT HERE*
-
-	targ ov01
-
-	mesg writ targ 200
-
-	setv va00 posl
-
-	setv va01 post
-
-*addv va01 200
-
-	targ ownr
-
-	doif from eq pntr
-
-		cmrp va00 va01 0
-
-	endi
-
-
-
-	doif crea from eq 1 or from eq pntr
-
-		inst
-
-		etch 0 0 0
-
-			doif targ ne ownr and targ ne null
-
-				seta va50 targ
-
-				targ mv01
-
-				setv va00 posx
-
-				setv va01 posb
-
-				targ va50
-
-
-
-*doif attr eq 194 or attr eq 195 or attr eq 199 or attr eq 198 and accg gt 0 and carr eq null
-
-*Must be Pickupable
-
-				setv va02 attr
-
-				andv va02 2
-
-
-
-*And suffer physics
-
-				setv va03 attr
-
-				andv va03 128
-
-
-
-				setv va04 attr
-
-				andv va04 32
-
-
-
-
-
-
-
-				doif va04 ne 32 and va02 eq 2 and va03 eq 128 and accg gt 0.0 and carr eq null
-
-					setv va06 relx ownr targ
-
-					setv va07 rely ownr targ
-
-					addv va00 va06
-
-					addv va01 va07
-
-					setv va08 wdth
-
-					divv va08 2
-
-					setv va09 hght
-
-					divv va09 2
-
-
-
-					subv va00 va08
-
-*subv va01 va09
-
-
-
-
-
-					mvsf va00 va01
-
-					addv vely 1
-
-				endi
-
-			endi
-
-		next
-
-	endi
 endm
+
+
+
+
+
+
+
+
+*BIG TELEPORTER ACTIVATE 2 SCRIPT (creatures only!)
 
 scrp 3 2 50200 2
 
 	inst
-	doif crea from eq 1
-		stim writ from 27 1
-	endi
+	stim writ from 27 1
 
+*call script which does the actual teleporting (_P1_ is FROM)
+	mesg wrt+ ownr 1001 from 0 0
+
+endm
+
+
+
+
+
+*BIG TELEPORTER SCRIPT 1001 (called by ACTIVATE 1 and 2)
+*(_P1_ is FROM)
+
+scrp 3 2 50200 1001
+
+	lock
 
 	anim [ 4 5 6 7]
 
 	over
+
+*animate other end of teleporter
+	targ ov01
+
+	mesg writ targ 1000
+
+	targ ownr
+
 
 	inst
 
@@ -364,9 +246,9 @@ scrp 3 2 50200 2
 
 	targ ov01
 
-	mesg writ targ 200
+*	mesg writ targ 1000
 
-	setv va00 posl
+	setv va00 posx
 
 	setv va01 posb
 
@@ -374,7 +256,8 @@ scrp 3 2 50200 2
 
 	targ ownr
 
-	doif from eq pntr
+*_P1_ is FROM
+	doif _p1_ eq pntr
 
 		cmrp va00 va01 0
 
@@ -382,97 +265,150 @@ scrp 3 2 50200 2
 
 
 
-	doif crea from eq 1 or from eq pntr
+	inst
 
-		inst
+*OLD TRANSPORT CODE:
+*(transport any touching object instead of just creatures)
 
-		etch 0 0 0
+*		etch 0 0 0
+*
+*			doif targ ne ownr and targ ne null
+*
+*				seta va50 targ
+*
+*				targ mv01
+*
+*				setv va00 posx
+*
+*				setv va01 posb
+*
+*				targ va50
+*
+*
+*
+**doif attr eq 194 or attr eq 195 or attr eq 199 or attr eq 198 and accg gt 0 and carr eq null
+*
+**Must be Pickupable
+*
+*				setv va02 attr
+*
+*				andv va02 2
+*
+*
+*
+**And suffer physics
+*
+*				setv va03 attr
+*
+*				andv va03 128
+*
+*
+*
+*				setv va04 attr
+*
+*				andv va04 32
+*
+*
+*
+*
+*
+*
+*
+*				doif va04 ne 32 and va02 eq 2 and va03 eq 128 and accg gt 0.0 and carr eq null
+*
+*					setv va06 relx ownr targ
+*
+*					setv va07 rely ownr targ
+*
+*					addv va00 va06
+*
+*					addv va01 va07
+*
+*					setv va08 wdth
+*
+*					divv va08 2
+*
+*					setv va09 hght
+*
+*					divv va09 2
+*
+*
+*
+*					subv va00 va08
+*
+**subv va01 va09
+*
+*
+*
+*
+*
+*					mvsf va00 va01
+*
+*					addv vely 1
+*
+*				endi
+*
+*			endi
+*
+*		next
 
-			doif targ ne ownr and targ ne null
+*NEW TRANSPORT CODE:
+*(teleport just creatures!)
 
-				seta va50 targ
+	etch 4 0 0
 
-				targ mv01
+		seta va50 targ
 
-				setv va00 posx
+		targ mv01
 
-				setv va01 posb
+		setv va00 posx
 
-				targ va50
+		setv va01 posb
 
-
-
-*doif attr eq 194 or attr eq 195 or attr eq 199 or attr eq 198 and accg gt 0 and carr eq null
-
-*Must be Pickupable
-
-				setv va02 attr
-
-				andv va02 2
+		targ va50
 
 
 
-*And suffer physics
-
-				setv va03 attr
-
-				andv va03 128
-
-
-
-				setv va04 attr
-
-				andv va04 32
-
-
-
-
-
-
-
-				doif va04 ne 32 and va02 eq 2 and va03 eq 128 and accg gt 0.0 and carr eq null
-
-					setv va06 relx ownr targ
-
-					setv va07 rely ownr targ
-
-					addv va00 va06
-
-					addv va01 va07
-
-					setv va08 wdth
-
-					divv va08 2
-
-					setv va09 hght
-
-					divv va09 2
-
-
-
-					subv va00 va08
-
-*subv va01 va09
+*					setv va06 relx ownr targ
+*
+*					setv va07 rely ownr targ
+*
+*					addv va00 va06
+*
+*					addv va01 va07
+*
+*					setv va08 wdth
+*
+*					divv va08 2
+*
+*					setv va09 hght
+*
+*					divv va09 2
+*
+*
+*
+*					subv va00 va08
+*
+**subv va01 va09
 
 
 
 
+		subv va01 1
 
-					mvsf va00 va01
+		mvsf va00 va01
 
-					addv vely 1
+*					addv vely 1
 
-				endi
 
-			endi
+	next
 
-		next
-
-	endi
 endm
 
 
-scrp 3 2 50200 200
+*BIG TELEPORTER SCRIPT 1000 - TELEPORTER ON OTHER SIDE OF TRANSACTION (not the one that was clicked), VISUAL ONLY!
+
+scrp 3 2 50200 1000
 
 	anim [ 4 5 6 7]
 
@@ -518,15 +454,13 @@ scrp 3 2 50200 200
 
 	anim [0 1 2 3 255]
 
-*TRANSPORT HERE*
-
-
 
 endm
 
 
 
 
+*NORMAL TELEPORTER CONSTRUCTOR SCRIPT
 
 scrp 3 2 50202 10
 
@@ -535,54 +469,86 @@ scrp 3 2 50202 10
 	bhvr 3
 
 
-
-	prt: inew 0 "Input" "Recieves signal inputs for the Teleporter." 11 68 1002
-
-	prt: onew 0 "Output" "Outputs signals from the Teleporter." 65 68
-
+*old port positions:
+*	prt: inew 0 "Input" "Recieves signal inputs for the Teleporter." 11 68 1
+*	prt: onew 0 "Output" "Outputs signals from the Teleporter." 65 68
 
 
+*new port positions:
+*(sends activate 1)
+	prt: inew 0 "Input" "Recieves signal inputs for the Teleporter." 15 51 0
+	prt: onew 0 "Output" "Outputs signals from the Teleporter." 15 43
+
+
+*teleporter bottom piece
 	pat: dull 1 "moe_C2toDS_tele" 14 10 80 0
 
+*C2 framerate
+	part 1
+	frat 2
 
+*(button part numbers are stored in _P1_ so both buttons can call same script and figure out what to do)
 
+*pink button (teleport to the incubator room teleporter)
 	pat: butt 2 "moe_C2toDS_tele" 10 2 72 0 0 [] 1001 0
 
-	pat: butt 3 "moe_C2toDS_tele" 12 2 72 34 0 [] 1002 0
-
+*star button (teleport to a random teleporter)
+	pat: butt 3 "moe_C2toDS_tele" 12 2 72 34 0 [] 1001 0
 
 
 endm
 
 
+
+*NORMAL TELEPORTER ACTIVATE 1 SCRIPT
 
 scrp 3 2 50202 1
 
-	mesg writ ownr 1002
+	inst
+	stim writ from 27 1
+
+*call script which does the actual teleporting (_P2_ is FROM)
+*_P1_ is 3: teleport to a random teleporter
+	mesg wrt+ ownr 1001 3 from 0
 
 endm
 
 
+
+*NORMAL TELEPORTER ACTIVATE 2 SCRIPT (creatures only!)
 
 scrp 3 2 50202 2
 
-	mesg writ ownr 1001
+	inst
+	stim writ from 27 1
+
+*call script which does the actual teleporting (_P2_ is FROM)
+*_P1_ is 2: teleport to the Home teleporter
+	mesg wrt+ ownr 1001 2 from 0
 
 endm
 
 
+
+*NORMAL TELEPORTER SCRIPT 1001 (called by ACTIVATE 1 and 2)
+*(_P2_ is from, _P1_ is button part number/teleport destination: Random (3) or Home (2) (incubator room))
 
 scrp 3 2 50202 1001
 
 	lock
 
-	part 2
+	inst
 
+*if _P2_ wasn't initialized, that means the hand clicked a button to get here. so set _P2_ to from (the hand)
+	doif type _p2_ = 0
+		seta _p2_ from
+	endi
+
+*highlight the appropriate button
+	part _p1_
 	pose 1
 
 	part 1
-
-	frat 2
 
 	anim [0 1 2 3 4 5 6 7 0]
 
@@ -602,20 +568,29 @@ scrp 3 2 50202 1001
 
 	snde "tel2"
 
-	wait 10
 
 
 
-*	doif from eq pntr
 
-*	cmrp va00 va01 0
+* _P1_ is teleport destination: Random (3) or Home (2) (incubator room))
+*so target the appropriate teleporter
+	inst
+	doif _p1_ = 3
 
-*endi
+		wait 5
 
+		inst
 
+*find a random teleporter
+		loop
 
-	loop
+			rtar 3 2 50202
 
+		untl targ ne ownr
+
+	else
+
+*find the big teleporter that starts in the incubator room
 		rtar 3 2 50200
 
 		doif ov00 eq 1
@@ -624,189 +599,8 @@ scrp 3 2 50202 1001
 
 		endi
 
-	untl targ ne ownr
-
-	doif targ eq null
-
-		stop
-
 	endi
 
-	setv va00 posl
-
-	setv va01 posb
-
-	seta va51 targ
-
-	mesg writ targ 200
-
-	targ ownr
-
-
-
-
-
-*doif crea from eq 1 or from eq pntr
-
-	etch 0 0 0
-
-		inst
-
-		doif targ ne ownr and targ ne null
-
-
-
-			seta va50 targ
-
-			targ va51
-
-			setv va00 posx
-
-			setv va01 posb
-
-			targ va50
-
-
-
-
-
-*doif attr eq 194 or attr eq 195 or attr eq 199 or attr eq 198 and accg gt 0 and carr eq null
-
-*Must be Pickupable
-
-			setv va02 attr
-
-			andv va02 2
-
-
-
-*And suffer physics
-
-			setv va03 attr
-
-			andv va03 128
-
-
-
-			setv va04 attr
-
-			andv va04 32
-
-
-
-
-
-			doif va04 ne 32 and va02 eq 2 and va03 eq 128 and accg gt 0 and carr eq null
-
-				doif fmly ne 1 and gnus ne 17 and spcs ne 50201
-
-					setv va06 relx ownr targ
-
-					setv va07 rely ownr targ
-
-					addv va00 va06
-
-					addv va01 va07
-
-					setv va08 wdth
-
-					divv va08 2
-
-					setv va09 hght
-
-					divv va09 2
-
-
-
-					subv va00 va08
-
-*subv va01 va09
-
-
-
-
-
-					mvsf va00 va01
-
-					addv vely 1
-
-
-
-				endi
-
-			endi
-
-		endi
-
-		slow
-
-	next
-
-*endi
-
-
-
-	targ ownr
-
-	part 2
-
-	pose 0
-
-
-
-*Output Signal
-
-	prt: send 0 255
-
-
-
-endm
-
-
-
-scrp 3 2 50202 1002
-
-	lock
-
-	part 3
-
-	pose 1
-
-	part 1
-
-	frat 2
-
-	anim [0 1 2 3 4 5 6 7 0]
-
-
-
-	setv va00 posl
-
-	subv va00 35
-
-	setv va01 post
-
-	subv va01 30
-
-	new: simp 1 17 50201 "moe_C2toDS_tele" 9 22 6998
-
-	mvto va00 va01
-
-	snde "tel2"
-
-	wait 10
-
-
-
-
-
-
-
-	loop
-
-		rtar 3 2 50202
-
-	untl targ ne ownr
 
 	doif targ eq null
 
@@ -815,125 +609,180 @@ scrp 3 2 50202 1002
 	endi
 
 
-	setv va00 posl
+	setv va00 posx
 
 	setv va01 posb
 
 	seta va51 targ
 
-	mesg writ targ 200
+	mesg writ targ 1000
 
 	targ ownr
 
+*delay a bit to sync up the camera move with both teleporter tyles
+	doif _p1_ = 3
+		wait 10
+	else
+		wait 15
+	endi
 
+	inst
 
-*	doif from eq pntr
+*_P2_ is FROM
+	doif _p2_ eq pntr
 
+		cmrp va00 va01 0
 
-
-*//////////FOR TESTING ONLY////////////*
-
-*cmrp va00 va01 0
-
-*endi
-
-
-
-*doif crea from eq 1 or from eq pntr
-
-	etch 0 0 0
-
-		inst
-
-		doif targ ne ownr and targ ne null
-
-
-
-			seta va50 targ
-
-			targ va51
-
-			setv va00 posx
-
-			setv va01 posb
-
-			targ va50
-
-
-
-*doif attr eq 194 or attr eq 195 or attr eq 199 or attr eq 198 and accg gt 0 and carr eq null
-
-*Must be Pickupable
-
-			setv va02 attr
-
-			andv va02 2
-
-
-
-*And suffer physics
-
-			setv va03 attr
-
-			andv va03 128
+	endi
 
 
 
 
 
-			doif va02 eq 2 and va03 eq 128 and accg gt 0 and carr eq null
+*OLD TRANSPORT CODE:
+*(transport any touching object instead of just creatures)
 
-				doif fmly ne 1 and gnus ne 17 and spcs ne 50201
+*		etch 0 0 0
+*
+*			doif targ ne ownr and targ ne null
+*
+*				seta va50 targ
+*
+*				targ mv01
+*
+*				setv va00 posx
+*
+*				setv va01 posb
+*
+*				targ va50
+*
+*
+*
+**doif attr eq 194 or attr eq 195 or attr eq 199 or attr eq 198 and accg gt 0 and carr eq null
+*
+**Must be Pickupable
+*
+*				setv va02 attr
+*
+*				andv va02 2
+*
+*
+*
+**And suffer physics
+*
+*				setv va03 attr
+*
+*				andv va03 128
+*
+*
+*
+*				setv va04 attr
+*
+*				andv va04 32
+*
+*
+*
+*
+*
+*
+*
+*				doif va04 ne 32 and va02 eq 2 and va03 eq 128 and accg gt 0.0 and carr eq null
+*
+*					setv va06 relx ownr targ
+*
+*					setv va07 rely ownr targ
+*
+*					addv va00 va06
+*
+*					addv va01 va07
+*
+*					setv va08 wdth
+*
+*					divv va08 2
+*
+*					setv va09 hght
+*
+*					divv va09 2
+*
+*
+*
+*					subv va00 va08
+*
+**subv va01 va09
+*
+*
+*
+*
+*
+*					mvsf va00 va01
+*
+*					addv vely 1
+*
+*				endi
+*
+*			endi
+*
+*		next
 
-					setv va06 relx ownr targ
+*NEW TRANSPORT CODE:
+*(teleport just creatures!)
 
-					setv va07 rely ownr targ
+	etch 4 0 0
 
-					addv va00 va06
+*		seta va50 targ
 
-					addv va01 va07
+*		targ mv01
 
-					setv va08 wdth
+*		setv va00 posx
 
-					divv va08 2
+*		setv va01 posb
 
-					setv va09 hght
-
-					divv va09 2
-
-
-
-					subv va00 va08
-
-*subv va01 va09
+*		targ va50
 
 
 
+*					setv va06 relx ownr targ
+*
+*					setv va07 rely ownr targ
+*
+*					addv va00 va06
+*
+*					addv va01 va07
+*
+*					setv va08 wdth
+*
+*					divv va08 2
+*
+*					setv va09 hght
+*
+*					divv va09 2
+*
+*
+*
+*					subv va00 va08
+*
+**subv va01 va09
 
 
-					mvsf va00 va01
 
-					addv vely 1
 
-				endi
+		subv va01 1
 
-			endi
+		mvsf va00 va01
 
-		endi
+*					addv vely 1
 
-		slow
 
 	next
 
-*endi
-
 
 
 	targ ownr
 
-	part 3
-
+*reset button
+	part _p1_
 	pose 0
+
 
 
 
@@ -948,8 +797,9 @@ endm
 
 
 
+*NORMAL TELEPORTER SCRIPT 1000 - TELEPORTER ON OTHER SIDE OF TRANSACTION (not the one that was clicked), VISUAL ONLY!
 
-scrp 3 2 50202 200
+scrp 3 2 50202 1000
 
 	lock
 
@@ -958,8 +808,6 @@ scrp 3 2 50202 200
 	pose 1
 
 	part 1
-
-	frat 2
 
 	anim [0 1 2 3 4 5 6 7 0]
 
@@ -1000,6 +848,8 @@ scrp 3 2 50202 200
 endm
 
 
+
+*TELEPORTER SPECIAL FX CONSTRUCTOR SCRIPT
 
 scrp 1 17 50201 10
 
@@ -1028,11 +878,28 @@ enum 3 2 50200
 
 next
 
-
 enum 3 2 50202
 
 	kill targ
 
 next
 
+enum 1 17 50201
+
+	kill targ
+
+next
+
+
+scrx 3 2 50200 10
+scrx 3 2 50200 1
+scrx 3 2 50200 2
+scrx 3 2 50200 1000
+
 scrx 3 2 50202 10
+scrx 3 2 50202 1
+scrx 3 2 50202 2
+scrx 3 2 50202 1001
+scrx 3 2 50202 1000
+
+scrx 1 17 50201 10
