@@ -4,9 +4,10 @@
 *Creation!
 scrp 2 82 5611 10
 	inst
+	doif ov99 ne 1
 	seta ov00 null
+	endi
 	tick 4
-	wait 0
 endm
 
 *Timer!
