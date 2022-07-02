@@ -147,7 +147,7 @@ endm
 
 scrp 1 9 50200 77
 
-	lock
+	inst
 
 *if left mouse button is unpressed
 	doif _p1_ = 1
@@ -205,6 +205,8 @@ endm
 
 scrp 1 9 50200 5
 
+	inst
+
 *reset dock vars
 	setv name "docked_right" 0
 	setv name "docked_bottom" 0
@@ -259,7 +261,7 @@ endm
 
 scrp 1 9 50200 123
 
-
+	inst
 
 *put it back in bounds if it slipped out of bounds
 
