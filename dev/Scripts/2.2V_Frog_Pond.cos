@@ -2,13 +2,15 @@
 ***Spooky!
 
 *Creation!
-scrp 2 5649 5611 10
+scrp 2 82 5611 10
 	inst
+	seta ov00 null
 	tick 4
+	wait 0
 endm
 
 *Timer!
-scrp 2 5649 5611 9
+scrp 2 82 5611 9
 	inst
 	doif ov00 ne null
 **We're attached to a norn!
@@ -132,8 +134,8 @@ endm
 
 rscr
 inst
-enum 2 5649 5611
+enum 2 82 5611
 	kill targ
 next
-scrx 2 5649 5611 10
-scrx 2 5649 5611 9
+scrx 2 82 5611 10
+scrx 2 82 5611 9
