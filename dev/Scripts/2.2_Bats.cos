@@ -171,7 +171,7 @@ scrp 2 16 50203 9
 			endi
 
 		elif seee ownr ov09 eq 1
-		
+
 *bats drop what they're holding and forget about it as they head back to bed
 			doif ov08 <> null
 				drop
@@ -500,7 +500,7 @@ scrp 2 16 50203 9
 
 *the "eat" subroutine puts us in slow mode, which gives the food a few ticks to disappear. so check if it still exists before you run the eat script (12).
 					doif ov08 <> null
-
+						inst
 						targ ov08
 
 *temporary? fix for a runtime error caused by the default C3/DS Lemon.			
