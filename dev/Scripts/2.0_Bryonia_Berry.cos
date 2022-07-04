@@ -48,7 +48,7 @@ scrp 2 6 50213 9
 
 
 
-	subr make_byronia_berries
+	subr make_bryonia_berries
 
 		new: simp 2 8 50213 "moe_C2toDS_berries" 0 11 rand 1000 3000
 
