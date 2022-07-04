@@ -7,10 +7,11 @@
 *Likes warm, desert conditions, grows all year round (except winter) in the mornings, produces flowers at night. 
 *The one who screams stopped dormant seeds emitting a smell.
 
-new: comp 2 23 50206 "moe_C2toDS_cacti" 8 72 rand 1000 2500
+new: comp 2 23 50206 "moe_C2toDS_cacti" 8 72 1101
 
 mvsf 7770 47950
-
+*dcor 1
+*cmrt 0
 *prt: inew 0 "Input" "Recieves signal inputs for the Spinnomosa launcher." 3 24 0
 
 *pat: dull 1 "moe_C2toDS_cacti" 88 0 0 0
@@ -21,17 +22,17 @@ mvsf 7770 47950
 
 reps rand 7 9
 
-	new: simp 2 5 50206 "moe_C2toDS_cacti" 20 0 rand 1000 2500
+	new: simp 2 5 50206 "moe_C2toDS_cacti" 20 0 rand 1000 1100
 
 	bhvr 11
 
 	pose 9
 
-	setv va00 rand 7556 7750
+	setv va00 rand 7506 7700
 
 	mvsf va00 48084
 
-	tick rand 1000 2500
+	tick rand 1000 1100
 
 	setv name "lifestage" 1
 
@@ -41,7 +42,7 @@ repe
 
 reps rand 5 7
 
-	new: simp 2 5 50206 "moe_C2toDS_cacti" 20 0 rand 1000 2500
+	new: simp 2 5 50206 "moe_C2toDS_cacti" 20 0 rand 1000 1100
 
 	bhvr 11
 
@@ -92,7 +93,9 @@ endm
 
 scrp 2 5 50206 10
 
-	mira rand 0 1
+	inst
+
+	core 0 wdth 0 wdth
 
 	attr 196
 
@@ -101,6 +104,8 @@ scrp 2 5 50206 10
 	fric 100
 
 	elas 0
+
+	mira rand 0 1
 
 endm
 
@@ -143,15 +148,15 @@ scrp 2 23 50206 1
 		setv va01 posy
 
 		subv va01 30
-		
+
 		inst
 
-		new: simp 2 3 50206 "moe_C2toDS_cacti" 8 20 rand 1000 2500
+		new: simp 2 3 50206 "moe_C2toDS_cacti" 8 20 rand 1000 1100
 
 		velo 0 rand -10 -30
 
 		mvsf va00 va01
-		
+
 		slow
 
 		targ ownr
@@ -178,9 +183,9 @@ scrp 2 23 50206 3
 	doif crea from eq 1
 		stim writ from 92 1
 	endi
-	
+
 	snde "hit_"
-	velo rand -2 2 rand -10 -
+	velo rand -2 2 rand -10 -5
 endm
 
 
@@ -197,8 +202,8 @@ scrp 2 3 50206 9
 	doif ov00 lt rand 10 60 and name "lifestage" eq 0
 
 		addv ov00 1
-		
-		*dbg: outs "drifting"
+
+*dbg: outs "drifting"
 
 		gsub drift
 
@@ -282,7 +287,7 @@ scrp 2 3 50206 9
 
 *Create Spinnomosa
 
-			new: simp 2 5 50206 "moe_C2toDS_cacti" 20 0 rand 1000 2500
+			new: simp 2 5 50206 "moe_C2toDS_cacti" 20 0 rand 1000 1100
 
 			bhvr 11
 
@@ -348,11 +353,22 @@ scrp 2 3 50206 9
 
 *Stop emitting carb smell so you don't confuse creatures. -T1WS
 			emit 7 0
-* Sometimes we get errors when setting ATTR here-- why?
-* Seeds suffer collisions from the moment they are created so this is a weird
-* time to freak out about it...
-			attr 209
 
+* fix for error when setting ATTR causing it to re-check map position and realising it's invalid
+*delete it if it somehow isn't autonomous (probably in a creatures hand?)
+			inst
+			doif movs = 0
+				setv va00 posl
+				setv va01 post
+				mvsf 0 0
+				attr 209
+
+				mvsf va00 va01
+
+			else
+
+				kill targ
+			endi
 			tick 1200
 
 		endi
@@ -364,23 +380,23 @@ scrp 2 3 50206 9
 
 
 	subr drift
-	
-		* an alternate wind mechanic ... feel free to tweak
-		
+
+* an alternate wind mechanic ... feel free to tweak
+
 		setv vely rand -5 -3
 		setv va00 wtik
 		subv va00 game "c2ds wind timer"
-		
+
 		doif va00 gt 300
 			setv game "c2ds wind dirn" rand -1.0 1.0
 			setv game "c2ds wind timer" wtik
 		endi
 
-		setv va01 game "c2ds wind dirn" 
+		setv va01 game "c2ds wind dirn"
 		mulv va01 5
-		
+
 		setv velx va01
-		
+
 	retn
 
 
@@ -493,7 +509,7 @@ scrp 2 5 50206 9
 
 		subv va01 20
 
-		new: simp 2 3 50206 "moe_C2toDS_cacti" 8 20 rand 1000 2500
+		new: simp 2 3 50206 "moe_C2toDS_cacti" 8 20 rand 1000 1100
 
 		mvsf va00 va01
 
