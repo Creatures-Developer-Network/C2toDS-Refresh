@@ -1,8 +1,8 @@
 * 2 15 5610 - Frog
 * 2 15 5611 - Tadpole
 * 2 18 5610 - Frog Egg
-* 2 5649 5611 - Norn-Frog Tracker
-* 2 5649 5612 - Frog Birth/Death Photographer/Life Event Hacker
+* 2 82 5611 - Norn-Frog Tracker
+* 2 82 5612 - Frog Birth/Death Photographer/Life Event Hacker
 
 reps rand 2 4
 	new: simp 2 15 5611 "moe_C2toDS_tadp" 16 0 rand 1000 3000
@@ -111,14 +111,14 @@ scrp 2 18 5610 9
 *			wait 1
 			setv va49 pray expo "FROG"
 *Tadpole/Frog Photographer!
-			new: simp 2 5649 5612 "blnk" 1 0 0
+			new: simp 2 82 5612 "blnk" 1 0 0
 			tick rand 90 120
 			sets name "Moniker" va99
 			seta ov00 va40
 *0 For birth, 1 for death
 *			setv ov01 0
 *Tadpole/Frog History Cheater
-			new: simp 2 5649 5612 "blnk" 1 0 0
+			new: simp 2 82 5612 "blnk" 1 0 0
 			tick 1
 			sets name "Moniker" va99
 			seta ov00 va40
@@ -133,7 +133,7 @@ scrp 2 18 5610 9
 
 endm
 ***Quick Photographer things
-scrp 2 5649 5612 9
+scrp 2 82 5612 9
 	inst
 	doif ov00 ne null
 *We have a target!
@@ -356,7 +356,7 @@ scrp 2 15 5611 444
 	lock
 	doif name "Stored Moniker" ne ""
 *Tadpole/Frog Photographer!
-		new: simp 2 5649 5612 "blnk" 1 0 0
+		new: simp 2 82 5612 "blnk" 1 0 0
 		tick 1
 		sets name "Moniker" mame "Stored Moniker"
 		seta ov00 ownr
@@ -367,7 +367,7 @@ scrp 2 15 5611 444
 		adds va49 ".FROG"
 		setv va00 pray kill va49
 *Tadpole/Frog History Cheater
-		new: simp 2 5649 5612 "blnk" 1 0 0
+		new: simp 2 82 5612 "blnk" 1 0 0
 		tick 1
 		sets name "Moniker" mame "Stored Moniker"
 		seta ov00 ownr
@@ -459,6 +459,7 @@ scrp 2 15 5611 4242
 	retn
 
 	subr move
+		inst
 		targ ownr
 		setv va00 posx
 		setv va01 posb
@@ -466,7 +467,7 @@ scrp 2 15 5611 4242
 		subv va30 32
 		setv va40 posy
 		subv va40 32
-		new: simp 2 5649 5612 "moe_C2toDS_frogs" 8 105 rand 1000 3000
+		new: simp 2 82 5612 "moe_C2toDS_frogs" 8 105 rand 1000 3000
 		attr 16
 		mvto va30 va40
 		snde "zapp"
@@ -476,8 +477,9 @@ scrp 2 15 5611 4242
 		targ va10
 		mvsf va00 va01
 *Froggy Tracker
-		new: simp 2 5649 5611 "blnk" 1 0 0
+		new: simp 2 82 5611 "blnk" 1 0 0
 		seta ov00 va10
+		setv ov99 1
 		kill ownr
 	retn
 endm
@@ -892,7 +894,7 @@ scrp 2 15 5610 9
 				hist evnt name "Stored Moniker" 11 mame "Stored Moniker" ""
 				seta va09 targ
 *Tadpole/Frog History Cheater - Here the mother's moniker is passed instead ;)
-				new: simp 2 5649 5612 "blnk" 1 0 0
+				new: simp 2 82 5612 "blnk" 1 0 0
 				tick 1
 				sets name "Moniker" mame "Stored Moniker"
 				seta ov00 va09
@@ -971,7 +973,7 @@ scrp 2 15 5610 444
 	lock
 	doif name "Stored Moniker" ne ""
 *Tadpole/Frog Photographer!
-		new: simp 2 5649 5612 "blnk" 1 0 0
+		new: simp 2 82 5612 "blnk" 1 0 0
 		tick 1
 		sets name "Moniker" mame "Stored Moniker"
 		seta ov00 ownr
@@ -982,7 +984,7 @@ scrp 2 15 5610 444
 		adds va49 ".FROG"
 		setv va00 pray kill va49
 *Tadpole/Frog History Cheater
-		new: simp 2 5649 5612 "blnk" 1 0 0
+		new: simp 2 82 5612 "blnk" 1 0 0
 		tick 1
 		sets name "Moniker" mame "Stored Moniker"
 		seta ov00 ownr
@@ -1149,6 +1151,7 @@ scrp 2 15 5610 4242
 	retn
 
 	subr move
+		inst
 		targ ownr
 		setv va00 posx
 		setv va01 posb
@@ -1156,7 +1159,7 @@ scrp 2 15 5610 4242
 		subv va30 32
 		setv va40 posy
 		subv va40 32
-		new: simp 2 5649 5612 "moe_C2toDS_frogs" 8 105 rand 1000 3000
+		new: simp 2 82 5612 "moe_C2toDS_frogs" 8 105 rand 1000 3000
 		attr 16
 		mvto va30 va40
 		snde "zapp"
@@ -1166,8 +1169,9 @@ scrp 2 15 5610 4242
 		targ va10
 		mvsf va00 va01
 *Froggy Tracker
-		new: simp 2 5649 5611 "blnk" 1 0 0
+		new: simp 2 82 5611 "blnk" 1 0 0
 		seta ov00 va10
+		setv ov99 1
 		kill ownr
 	retn
 
