@@ -15,7 +15,7 @@
 
 *make the laptop
 
-new: comp 3 8 50205 "moe_C2toDS_Laptop" 1 17 2500
+new: comp 3 8 50205 "moe_C2toDS_Laptop" 1 17 1500
 
 *to the left of the incubator room
 mvsf 6917 48390
