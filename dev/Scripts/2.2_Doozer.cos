@@ -82,8 +82,11 @@ scrp 2 15 50219 10
 *Carryable + Mouseable + Activateable + Suffer Collisions + Suffer Physics
 	attr 199
 
-*Activate 1 + Activate 2 + Hit + Eat + Pick Up
-	bhvr 59
+**Activate 1 + Activate 2 + Hit + Eat + Pick Up
+*	bhvr 59
+
+*No longer edible!
+	bhvr 43
 
 *X velocity per step
 	setv ov06 3
@@ -122,6 +125,9 @@ scrp 2 15 50219 10
 *how long have you been stuck in this same spot?
 	setv ov04 0
 
+*reclassified as a Toy for now... apparently this is better for instincts because you can't eat Toys!
+	cato 21
+
 endm
 
 
@@ -152,9 +158,14 @@ scrp 2 15 50219 1
 
 	inst
 
-*let the norn know they played with a critter
-	stim writ from 86 1
+**let the norn know they played with a critter
+*	stim writ from 86 1
 
+*stim the creature so they played with a toy
+*but also give them the chemicals of playing with a critter
+	stim writ from 86 0
+	stim writ from 97 0.5
+	
 	call 1001 0 0
 
 endm
@@ -168,8 +179,13 @@ scrp 2 15 50219 2
 
 	inst
 
-*let the norn know they played with a critter
-	stim writ from 86 1
+**let the norn know they played with a critter
+*	stim writ from 86 1
+
+*stim the creature so they played with a toy
+*but also give them the chemicals of playing with a critter
+	stim writ from 86 0
+	stim writ from 97 0.5
 
 	call 1001 0 0
 
@@ -277,50 +293,50 @@ endm
 
 
 
-
-*Eat Script - Creatures "take a bite" of the Doozer which makes them panic and jump away, stimming the creature with some "Ate a critter/animal"
-
-scrp 2 15 50219 12
-
-	lock
-
-*tell the norn they ate a critter... but only a little bit
-	stim writ from 80 .25
-
-*make a bite sound	
-	snde "reat"
-
-*force it to be dropped if a creature is holding it
-	doif crea carr = 1
-		targ carr
-		drop
-		targ ownr
-	endi
-
-	wait 7
-
-
-*AAAAA DONT EAT ME!!!!
-	snde "doz3"
-	setv vely -35
-
-*apply random X velocity
-	loop
-		setv va00 rand -1 1
-	untl va00 <> 0
-	mulv va00 20
-	setv velx va00
-
-*set direction of travel to match new random velocity
-	doif va00 < 0
-		setv ov02 0
-	elif va00 > 0
-		setv ov02 1
-	endi
-
-
-
-endm
+*(disabled because reclassed as a Toy)
+**Eat Script - Creatures "take a bite" of the Doozer which makes them panic and jump away, stimming the creature with some "Ate a critter/animal"
+*
+*scrp 2 15 50219 12
+*
+*	lock
+*
+**tell the norn they ate a critter... but only a little bit
+*	stim writ from 80 .25
+*
+**make a bite sound	
+*	snde "reat"
+*
+**force it to be dropped if a creature is holding it
+*	doif crea carr = 1
+*		targ carr
+*		drop
+*		targ ownr
+*	endi
+*
+*	wait 7
+*
+*
+**AAAAA DONT EAT ME!!!!
+*	snde "doz3"
+*	setv vely -35
+*
+**apply random X velocity
+*	loop
+*		setv va00 rand -1 1
+*	untl va00 <> 0
+*	mulv va00 20
+*	setv velx va00
+*
+**set direction of travel to match new random velocity
+*	doif va00 < 0
+*		setv ov02 0
+*	elif va00 > 0
+*		setv ov02 1
+*	endi
+*
+*
+*
+*endm
 
 
 
@@ -330,9 +346,14 @@ scrp 2 15 50219 3
 
 	lock
 
-*let the norn know they hit a critter
-	stim writ from 87 1
+**let the norn know they hit a critter
+*	stim writ from 87 1
 
+*stim the creature so they played with a toy
+*but also give them the chemicals of playing with a critter
+	stim writ from 86 0
+	stim writ from 97 0.5
+	
 *make a smack sound
 	snde "spnk"
 
@@ -459,12 +480,12 @@ scrp 2 15 50219 9
 
 
 
-		doif perm = 50
+	doif perm = 50
 *try and set perm to 51 if it's not inside a wall
-			call 1000 51 0
-		endi
-		
-		
+		call 1000 51 0
+	endi
+
+
 
 *flip direction if you touched a wall recently
 	doif wall eq left
@@ -505,7 +526,7 @@ scrp 2 15 50219 9
 *ov03 = 0
 *va10 = 5
 *va11 = -5
-*0 < 5 and 0 > 5 is true
+*0 < 5 and 0 > -5 is true
 
 	doif ov03 < va10 and ov03 > va11 and movs = 0
 *add 1 to how long we've been stuck counter

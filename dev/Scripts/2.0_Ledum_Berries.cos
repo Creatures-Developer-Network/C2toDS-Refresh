@@ -6,8 +6,10 @@
 
 *The one who screams stopped the berries emitting protein smell.
 *Aiko added creature-interactive scripts
+*NeoDement fixed berries growing in the sky + fixed plane issues
+* (if you worked on this file, feel free to add your name!)
 
-new: simp 2 6 50203 "moe_C2toDS_berries" 0 0 rand 1000 3000
+new: simp 2 6 50203 "moe_C2toDS_berries" 0 0 5000
 
 attr 16
 
@@ -16,66 +18,11 @@ mvto 5546 48093
 tick 1
 
 scrp 2 6 50203 9
+	inst
 
 	tick rand 100 200
 
-
-
 	doif totl 2 20 50203 lt 25
-
-*	setv va00 2
-
-		setv va00 rand 0 7
-
-		doif va00 eq 0
-
-			setv va01 rand 5423 5625
-
-			setv va02 rand 48100 48122
-
-		elif va00 eq 1
-
-			setv va01 rand 5563 5672
-
-			setv va02 rand 48220 48249
-
-		elif va00 eq 2
-
-			setv va01 rand 5555 5610
-
-			setv va02 rand 48113 48233
-
-		elif va00 eq 3
-
-			setv va01 rand 4800 4860
-
-			setv va02 rand 48090 48141
-
-		elif va00 eq 4
-
-			setv va01 rand 4845 4890
-
-			setv va02 rand 48141 48287
-
-		elif va00 eq 5
-
-			setv va01 rand 4920 4954
-
-			setv va02 rand 48130 48198
-
-		elif va00 eq 6
-
-			setv va01 rand 5909 5972
-
-			setv va02 rand 48618 48712
-
-		elif va00 eq 7
-
-			setv va01 rand 5910 5930
-
-			setv va02 rand 48700 48770
-
-		endi
 
 		gsub makeledumberries
 
@@ -85,11 +32,103 @@ scrp 2 6 50203 9
 
 	subr makeledumberries
 
-		new: simp 2 20 50203 "moe_C2toDS_berries" 0 10 rand 1000 3000
+*default plane is 1 above the rope bridge
+		new: simp 2 20 50203 "moe_C2toDS_berries" 0 10 8001
 
-		mvsf va01 va02
 
 
+		setv va00 rand 0 7
+
+*		setv va00 6
+
+		loop
+
+*berries growing on bridge (RIGHT)
+			doif va00 eq 0
+
+				setv va01 rand 5423 5620
+
+				setv va02 rand 48050 48122
+
+			elif va00 eq 1
+
+				setv va01 rand 5563 5672
+
+				setv va02 rand 48220 48249
+
+			elif va00 eq 2
+
+				setv va01 rand 5555 5610
+
+				setv va02 rand 48113 48233
+
+*berries growing on bridge (LEFT)
+			elif va00 eq 3
+
+				setv va01 rand 4800 4860
+
+				setv va02 rand 48090 48141
+
+			elif va00 eq 4
+
+				setv va01 rand 4835 4890
+
+				setv va02 rand 48141 48287
+
+			elif va00 eq 5
+
+				setv va01 rand 4910 4954
+
+				setv va02 rand 48130 48198
+
+*berries growing to left of teleporter
+			elif va00 eq 6
+
+				setv va01 rand 5909 5972
+
+				setv va02 rand 48618 48712
+
+			elif va00 eq 7
+
+				setv va01 rand 5910 5930
+
+				setv va02 rand 48700 48770
+
+			endi
+
+*re-center coords (berry sprite is 8x8)
+			subv va01 4
+			subv va02 4
+
+			setv va98 0
+
+*if it's on the bridge don't spawn it unless it's touching an overlay
+			doif va00 < 6
+				seta va99 targ
+				enum 1 8 50200
+					doif tran va01 va02 = 0
+						setv va98 1
+					endi
+				next
+
+				targ va99
+*otherwise just spawn it wherever
+			else
+				setv va98 1
+			endi
+
+*if you can't find a safe spot after 100 tries, just give up
+			addv va97 1
+			doif va97 > 100
+				kill targ
+				stop
+			endi
+
+
+*don't spawn it inside a wall and make sure it passes the above checks
+		untl tmvt va01 va02 = 1 and va98 = 1
+
+		mvto va01 va02
 
 	retn
 
@@ -149,17 +188,23 @@ endm
 
 
 
-scrp 2 20 50203 4
-
-	plne rand 4000 6000
-
-endm
+*scrp 2 20 50203 4
+*
+** just gonna set the plane when we create it instead
+**	plne rand 4000 6000
+*
+*endm
 
 
 
 scrp 2 20 50203 5
 
 	accg 4
+
+*override plane when dropped to a random one (so it draws BEHIND the bridge again)
+	doif plne = 8001
+		plne rand 3500 5000
+	endi
 
 endm
 

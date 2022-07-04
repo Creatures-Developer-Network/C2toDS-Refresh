@@ -7,6 +7,7 @@
 
 *Matthew, "Moe", '10*
 * Some Modifications By the one who screams i guess (instinct friendliness, removed empty hunger decrease)
+*NeoDement fixed plane issues
 * (if you worked on this file, feel free to add your name!)
 
 
@@ -34,7 +35,7 @@ scrp 2 6 50205 9
 
 	subr makecoconuts
 
-		new: simp 2 3 50214 "moe_C2toDS_berries" 0 23 8001
+		new: simp 2 3 50214 "moe_C2toDS_berries" 0 23 rand 3500 5000
 
 		mira rand 0 1
 
@@ -346,7 +347,8 @@ endm
 
 scrp 2 3 50214 4
 
-	plne rand 4000 6000
+* just gonna set the plane when we create it instead
+*	plne rand 4000 6000
 
 	doif pose eq 0
 

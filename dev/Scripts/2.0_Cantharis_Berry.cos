@@ -5,7 +5,7 @@
 
 *Matthew, "Moe", '10*
 *The one who screams removed empty hunger decrease, made berries invisible until picked, and shortened lifespan.
-*NeoDement fixed berries appearing on the beach above the plant instead of on the plant.
+*NeoDement fixed berries appearing on the beach above the plant instead of on the plant + fixed plane issues
 
 new: simp 2 6 50207 "moe_C2toDS_berries" 0 0 5000
 
@@ -27,7 +27,7 @@ scrp 2 6 50207 9
 
 *make a new berry
 		inst
-		new: simp 2 8 50207 "moe_C2toDS_berries" 0 8 8001
+		new: simp 2 8 50207 "moe_C2toDS_berries" 0 8  rand 3500 5000
 
 *sometimes mvsf puts berries on the beach, so keep randomizing the coords until a safe position ON THE PLANT is found
 		loop
@@ -103,19 +103,20 @@ endm
 
 
 
-scrp 2 8 50207 1
-
-	mesg writ targ 12
-
-endm
-
-
-
-scrp 2 8 50207 4
-
-	plne rand 4000 6000
-
-endm
+*scrp 2 8 50207 1
+*
+*	mesg writ targ 12
+*
+*endm
+*
+*
+*
+*scrp 2 8 50207 4
+*
+* just gonna set the plane when we create it instead
+*	plne rand 4000 6000
+*
+*endm
 
 
 
