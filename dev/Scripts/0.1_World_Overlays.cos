@@ -324,7 +324,9 @@ mvto 3997 48002
 
 *World Tree Roots*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 17 8001
+*slightly lower plane than other overlays for the sake of the Pulsatilla Berries (little red ones, plane 8000)
+*that must grow in front of the bush but still go behind other overlays
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 17 7999
 
 attr 0
 
@@ -399,6 +401,7 @@ mvto 4165 48005
 
 
 *--///Hanging Bridge-*
+*(these are all plane 8000 instead of 8001, so we can draw little purple Ledum berries in front of it)
 
 
 
@@ -408,7 +411,7 @@ mvto 4165 48005
 
 *Hanging Bridge Piece Right*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 22 8001
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 22 8000
 
 attr 0
 
@@ -418,7 +421,7 @@ mvto 5698 48029
 
 *Left
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 29 8001
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 29 8000
 
 attr 0
 
@@ -426,9 +429,17 @@ mvto 4472 48057
 
 
 
+*Left Leafy Overhang
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 34 8000
+
+attr 0
+mvto 4702 48265
+
+
 *Left Rope
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 33 8002
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 33 8000
 
 attr 0
 
@@ -438,7 +449,7 @@ mvto 4180 47953
 
 *Left Middle
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 30 8001
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 30 8000
 
 attr 0
 
@@ -448,7 +459,7 @@ mvto 4808 48091
 
 *Right Middle
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 31 8001
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 31 8000
 
 attr 0
 
@@ -458,7 +469,7 @@ mvto 5144 48101
 
 *Right
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 32 8001
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 32 8000
 
 attr 0
 
@@ -508,16 +519,24 @@ mvto 3277 48214
 
 
 
-*Ocean Tube*
 
-new: comp 1 8 50200 "blnk" 1 0 8001
+*Ocean Tube Left*
 
-pat: dull 1 "moe_C2toDS_Overlays2" 13 0 0 0
-pat: dull 2 "moe_C2toDS_Overlays2" 14 396 0 0
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 13 8001
 
 attr 4
 
 mvto 2807 48552
+
+
+
+*Ocean Tube Right*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 14 8001
+
+attr 4
+
+mvto 3203 48552
 
 
 
@@ -1971,7 +1990,7 @@ scrp 2 1 1 50200
 	endi
 
 	targ pntr
-	
+
 	mvby 1 0
 
 endm

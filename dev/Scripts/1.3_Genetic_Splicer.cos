@@ -349,6 +349,9 @@ scrp 1 28 50200 1001
 **part 2 (BUTTON) - left creature pod button
 	pat: butt 2 "moe_C2toDS_GeneticSplicer" 52 2 40 37 100 [] 1001 0
 
+*what creature was in this pod first? used to drop the correct creature when trying to drop multiple creatures in one pod
+	seta ov02 null
+
 	mvto 8620 49154
 
 
@@ -371,6 +374,9 @@ scrp 1 28 50200 1001
 
 *part 2 (BUTTON) - right creature pod button
 	pat: butt 2 "moe_C2toDS_GeneticSplicer" 52 2 12 21 6001 [] 1001 0
+
+*what creature was in this pod first? used to drop the correct creature when trying to drop multiple creatures in one pod
+	seta ov02 null
 
 *set framerate to match C2 better
 	frat 2
@@ -451,23 +457,85 @@ scrp 1 28 50201 124
 
 	inst
 
-	setv va00 0
+*OV02 is used to keep track of which creature was put in the pod first.
 
 *automatically drop anything that isn't a creature
 	epas 0 0 0
+
 		doif crea targ <> 1
-			rpas ownr targ
+			gsub drop_stuff
 		else
-*if a creature is dropped in you but you already have a creature, drop that too
-			doif va00 > 0
-				rpas ownr targ
+*if a creature is dropped in you 
+*if there is no "first creature" stored, store the one we just put in there
+			doif mv02 = null
+				seta mv02 targ
+*if the object you put in is NOT the stored one
+			elif mv02 <> targ
+*get rid of it	
+				gsub drop_stuff
+*moved to 125 lost carried agent
+*				seta mv02 null
 			endi
-			addv va00 1
 		endi
 	next
 
+
+*subr for dropping stuff nearer to OG xy coords than rpas usually does
+	subr drop_stuff
+
+*NOT A CREATURE
+		doif crea targ = 0
+			setv va00 posl
+			setv va01 post
+
+			rpas ownr targ
+
+*do an unsafe move if possible
+			doif tmvt va00 va01 = 1
+				mvto va00 va01
+			else
+				mvsf va00 va01
+			endi
+
+*A CREATURE
+		else
+			setv va00 dftx
+			setv va01 dfty
+
+			rpas ownr targ
+
+*do an unsafe move if possible
+			doif tmvf va00 va01 = 1
+				mvft va00 va01
+			else
+				mvsf va00 va01
+			endi
+		endi
+
+	retn
+
 endm
 
+
+*do an epas 0 0 0 and if you find that mv02 isn't in there anymore, set it to null
+scrp 1 28 50201 125
+
+*check if the original creature is still in there
+	setv va00 0
+
+	epas 0 0 0
+		doif targ = mv02
+			setv va00 1
+		endi
+
+	next
+
+*if it isn't still in there, forget about it
+	doif va00 = 0
+		seta mv02 null
+	endi
+
+endm
 
 
 

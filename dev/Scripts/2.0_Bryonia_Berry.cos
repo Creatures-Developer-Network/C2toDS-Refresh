@@ -5,6 +5,8 @@
 
 *Matthew, "Moe", '10*
 *The one who screams removed empty hunger decrease and made berries invisible until picked.
+*NeoDement fixed plane issues
+* (if you worked on this file, feel free to add your name!)
 
 new: simp 2 6 50213 "moe_C2toDS_berries" 0 11 5000
 
@@ -40,13 +42,13 @@ scrp 2 6 50213 9
 
 		endi
 
-		gsub makearnicaberries
+		gsub make_bryonia_berries
 
 	endi
 
 
 
-	subr makearnicaberries
+	subr make_bryonia_berries
 
 		new: simp 2 8 50213 "moe_C2toDS_berries" 0 11 rand 1000 3000
 
@@ -116,11 +118,12 @@ endm
 
 
 
-scrp 2 8 50213 4
-
-	plne rand 4000 6000
-
-endm
+*scrp 2 8 50213 4
+*
+** just gonna set the plane when we create it instead
+**	plne rand 4000 6000
+*
+*endm
 
 
 

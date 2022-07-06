@@ -251,13 +251,17 @@ scrp 2 1 50200 76
 *target the held object (if it exists) and remember the ATTR
 	doif held ne null
 		targ held
+
+*get VA03 ready to check if object has ATTR 64 (Suffer Collisions)
 		setv va03 attr
+		andv va03 64
+
 	else
 		setv va03 -1
 	endi
 
-*if the right mouse button was pressed, and the room under the pointer was out of bounds, and the held object had an ATTR greater than 64 (Suffer Collisions)
-	doif _p1_ eq 2 and grap posx posy eq -1 and va03 > 64
+*if the right mouse button was pressed, and the room under the pointer was out of bounds, and the held object has ATTR 64 (Suffer Collisions)
+	doif _p1_ eq 2 and grap posx posy eq -1 and va03 = 64
 
 		sndc "excl"
 

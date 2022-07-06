@@ -1,6 +1,7 @@
 * 2 21 50209 - Tennis Ball
 
 *NeoDement fixed the hand being able to activate balls that weren't ready, causing the hand slap anim to play but applying no velocity to the balls. 
+*also added support for Pitz the dog. Picking up or playing with a tennis ball will alert Pitz to chase it if he can see it.
 
 new: simp 2 21 50209 "moe_C2toDS_toys" 128 62 5000
 
@@ -32,6 +33,42 @@ scrp 2 21 50209 10
 endm
 
 
+
+
+*(disabled, makes more sense that Pitz would get excited when the ball is dropped)
+*(also esee can't find objects that the hand is holding)
+** Script 4 - Pickup
+*scrp 2 21 50209 4
+*
+**send a message to pitz to chase the ball if he can see it
+*
+**(make sure it was a creature or pntr that picked it up)
+*	doif crea from = 1 or from = pntr
+*		enum 2 15 50210
+*			mesg wrt+ targ 1000 ownr 0 0
+*		next
+*
+*		enum 4 0 0
+*			sezz "picked up a ball"
+*		next
+*	endi
+*	
+*endm
+
+
+* Script 5 - Drop
+scrp 2 21 50209 5
+
+*send a message to pitz to chase the ball if he can see it
+
+**(make sure it was a creature or pntr that dropped it)
+	doif crea from = 1 or from = pntr
+		enum 2 15 50210
+			mesg wrt+ targ 1000 ownr 0 0
+		next
+	endi
+
+endm
 
 
 
@@ -81,6 +118,12 @@ scrp 2 21 50209 1
 
 	setv vely -20
 
+*send a message to pitz to chase the ball if he can see it
+
+	enum 2 15 50210
+		mesg wrt+ targ 1000 ownr 0 0
+	next
+
 endm
 
 
@@ -123,7 +166,11 @@ scrp 2 21 50209 2
 
 	setv vely -10
 
+*send a message to pitz to chase the ball if he can see it
 
+	enum 2 15 50210
+		mesg wrt+ targ 1000 ownr 0 0
+	next
 
 endm
 
@@ -166,6 +213,12 @@ scrp 2 21 50209 3
 	setv velx va02
 
 	setv vely -10
+
+*send a message to pitz to chase the ball if he can see it
+
+	enum 2 15 50210
+		mesg wrt+ targ 1000 ownr 0 0
+	next
 
 endm
 

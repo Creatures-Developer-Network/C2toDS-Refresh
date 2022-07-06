@@ -54,8 +54,8 @@ scrp 3 2 50206 10
 	cabn 125 75 270 200
 
 
-*Carryable + Mouseable + Activateable + Invisible + Suffer Collisions + Suffer Physics
-	attr 215
+*Mouseable + Activateable + Invisible + Suffer Collisions + Suffer Physics
+	attr 214
 
 	elas 0
 
