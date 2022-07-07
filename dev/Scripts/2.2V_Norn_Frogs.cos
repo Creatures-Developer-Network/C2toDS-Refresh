@@ -459,8 +459,10 @@ scrp 2 15 5611 4242
 	retn
 
 	subr move
+		lock
 		inst
 		targ ownr
+		attr 16
 		setv va00 posx
 		setv va01 posb
 		setv va30 posx
@@ -479,7 +481,7 @@ scrp 2 15 5611 4242
 *Froggy Tracker
 		new: simp 2 82 5611 "blnk" 1 0 0
 		seta ov00 va10
-		setv ov99 1
+		tick 4
 		kill ownr
 	retn
 endm
@@ -1151,8 +1153,10 @@ scrp 2 15 5610 4242
 	retn
 
 	subr move
+		lock
 		inst
 		targ ownr
+		attr 16
 		setv va00 posx
 		setv va01 posb
 		setv va30 posx
@@ -1171,7 +1175,7 @@ scrp 2 15 5610 4242
 *Froggy Tracker
 		new: simp 2 82 5611 "blnk" 1 0 0
 		seta ov00 va10
-		setv ov99 1
+		tick 4
 		kill ownr
 	retn
 

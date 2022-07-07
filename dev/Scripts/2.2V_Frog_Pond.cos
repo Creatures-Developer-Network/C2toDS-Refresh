@@ -2,13 +2,13 @@
 ***Spooky!
 
 *Creation!
-scrp 2 82 5611 10
-	inst
-	doif ov99 ne 1
-	seta ov00 null
-	endi
-	tick 4
-endm
+*scrp 2 82 5611 10
+*	inst
+*	doif ov99 ne 1
+*	seta ov00 null
+*	endi
+*	tick 4
+*endm
 
 *Timer!
 scrp 2 82 5611 9
@@ -111,7 +111,9 @@ scrp 2 82 5611 9
 	retn
 
 	subr move
+		lock
 		targ mv00
+		attr 16
 		setv va00 posx
 		setv va01 posy
 		setv va99 pray expo "FROG"
