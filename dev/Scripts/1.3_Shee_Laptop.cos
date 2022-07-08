@@ -289,6 +289,16 @@ scrp 3 8 50205 1001
 *doing it based on norns that can see it so that RNGE is respected and they dont hear through walls.
 			ordr sign va40
 
+
+*SPECIAL FUNCTION TO LET NORNS HEAR THIS OVER THE WORLD WRAP
+*(_P1_ is object to shout from, _P2_ is string to shout)
+			rtar 1 7 50205
+			doif targ <> null
+				mesg wrt+ targ 1000 ownr va40 0
+			endi
+			targ ownr
+
+
 			wait 30
 
 *increase loop iteration count

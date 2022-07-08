@@ -3,45 +3,90 @@
 *1 6 50200 - World Wrap Grabber
 *1 7 50200 - Mouse Pointer Tracker
 *1 7 50201 - Window Resize Camera Builder
-*1 7 50202 - World Wrap Mirror Object
+*1 7 50202 - World Wrap Shout Object (used so objects can shout their CATO across the wrap for norns to hear + as a temporary object that emits creature babble (audio) over the wrap). ALSO used for mirrored clones of the Norn/Attention indicators.
+*1 7 50203 - World Wrap Mirror Object
+*1 7 50204 - Are creatures near the wrap? check every 100 ticks
+*1 7 50205 - An object other object scripts can target to let norns hear them over the wrap
+
+* This file also adds a new creature script to redirect actions on mirror objects onto their real world counterparts:
+*scrp 4 0 0 50200
+
 
 
 
 
 *NeoDement:
-*-General cleanup
 *-We are now ETCHing all objects (0 0 0) instead of just objects in family 2 (2 0 0). This means creatures now transport properly through the wrap.
 *-The world wrap now handles hand holding properly.
 *-Creatures can hear Hand and Agent Help speech over the wrap.
-*-Objects and the pointer will no longer transport if they have a creatures attention on them. Left or right click immediately overrides this for the pointer.
-*-DS object of attention and norn indicators are now set to be visible to the camera while in the C2toDS metaroom. This means they don't disappear when the pointer goes over the wrap.
-*-Creatures can now hear each other talking over the wrap.
+*-Creatures can now hear each other talking over the wrap. (update: now their voice carries over so the hand can hear the creature babble too)
+*-Creatures can now see objects over the wrap. This works by creating a small invisible object with the same Category as the original, offset to the other side of the world. It even works for the pointer and creatures!
+*-Interactions with these mirror objects will redirect to the same interactions on the original object. This is to account for objects that are near the wrap but can still be reached without the creature walking through.
+*-Duplicates of the DS object of attention and norn indicators copy the position and frame of the real ones every tick (while in the C2toDS room). This means they don't disappear when the pointer goes over the wrap.
 
-*Neo's Notes:
+*(you can visualize a bunch of stuff by searching for "debug:")
 
-*Objects with attention on them not transporting could probably be optimized instead of looping over all creatures once per grabber.
-*There may also need to be some sort of fail safe if objects move too far past the wrap... but this seems fine in tests so far
-*caveat: you can't pick up an object that has passed through the wrap if a norn hasn't stopped looking at it yet. hopefully this is rare enough to be okay.
-*we also can't hand hold or shift right click creatures on the other side of the wrap if a norn is looking at them.
-*fortunately creatures tend to shift their focus often.
-*Creatures teleport over the wrap and back again during a single tick using INST. This doesn't seem to make them lose focus on their IITT though.
 
-*todo?: we could detect right clicks and do an offset trick to see if anything is TOUCing the PNTR and if it is then teleport them back where they're meant to be?
+*Possible future optimizations:
 
-*todo?: possibly improve speech bubble grabbing? might be able to check if Aiko's Speech Bubbles Upgrade 1.2 is installed which stores which agent created the bubble as an enhancement.
-
-*todo: indicators should only be visible if the pointer is near the wrap point, to stop them appearing in photos all the time in the C2toDS room. they will still always appear in photos near the wrap, but that's a pretty minor issue.
-
-*todo: maybe every X ticks the game could make a note of which objects are within 500 units of the wrap and create blnk objects with the same catalogue number on the other side of the wrap.
-*that way norns would be able to try and walk towards them and their brains would hopefully find the next available object in the same category when they teleport over and lose track of the fake one.
-*they'd have to auto-delete if no norn is looking at them every now and then too.
-*there's a possibility this might even be good enough for creatures ie hand says "push norn", norn walks towards the wrap because it thinks a norn is behind it, norn is teleported to the other side of the wrap and their brain finds the real norn the fake object was mirroring.
-*cloned objects would need a minimum distance applied so that norns can't actually reach them. they only exist for norns to walk toward.
-
-*todo: tracking norns as they walk through the wrap is dodgy, the camera freaks out if they're too far away from the centre of the screen. I don't think this can be fixed (due to limited access to TRCK info) but hopefully a workaround can be found.
+*can we replace global "AreNornsNearWrap?" variable with an OV on all relevant objects?
+*move all game variables into OVs when initializing objects so we're not doing tons of string comparisons every frame
+*move as much stuff as possible to subroutines for readability and perf (a jump is more efficient than a doif!)
+*would a few doifs be more efficient than the division performed everytime a wrap object is refreshed?
+*some of the checks check for +/- 500 from the wrap point when they probably really don't need to. if it's touching the Grabber, that's probably enough.
 
 
 
+
+
+
+*some benchmarks
+
+
+*world of 16 norns (no wrap): 206.4
+*
+*200-250-166-250-166
+
+*
+*wrap installed (camera in room): 156.4
+*142-142-166-166-166
+*
+*wrap installed (camera not in room): 193.2
+*200-200-200-166-200
+*
+*wrap installed (norns near wrap): 140.6
+*111-142-142-166-142
+*
+*average of all wrap data: 163.4
+
+*so an average perf decrease of ~43fps... not too shabby!
+
+
+
+
+
+
+
+*OVs currently in use:
+
+*MIRROR OBJECTS*
+*
+*OV00 (agent) - ORIGINAL AGENT (real world counterpart)
+*OV01 (variable) - OFFSET (reapplied during timer script if a creature is focusing on it)
+
+
+
+*POINTER TRACKER*
+*
+*OV01 - NORN INDICATOR CLONE
+*OV02 - ATTENTION INDICATOR CLONE
+
+
+
+*CAMERA*
+*
+*OV00 - WHERE IS THE CAMERA POINTED? (x)
+*OV04 - WHERE IS THE CAMERA POINTED? (y)
 
 
 
@@ -87,13 +132,13 @@ link grap 12950 47678 grap 4890 48110 100
 
 setv game "C2toDS_Top" 47600
 
-*unused
-*setv game "C2toDS_Bottom" 49999
+setv game "C2toDS_Right" 12448
 
 *unused
 *setv game "C2toDS_Left" 0
 
-setv game "C2toDS_Right" 12448
+*unused
+*setv game "C2toDS_Bottom" 49999
 
 setv game "C2toDS_RoomID" gmap 6753 48383
 
@@ -101,10 +146,13 @@ setv game "C2toDS_WrapLeft" 2047
 
 setv game "C2toDS_WrapRight" 10399
 
-*A value between WrapLeft and WrapRight
 
-*unused
-*setv game "C2toDS_WrapMiddle" 6223
+*how often will pieces of the wrap check for objects that have passed through them?
+*turn this number down to improve how quickly the wrap moves objects to the other side
+*this will cause a performance hit on low numbers!
+setv game "C2toDS_WrapTickRate" 16
+
+
 
 * Wrap padding determines how many panels are pushed back onto the actual non-wrapped part of the world
 setv game "C2toDS_WrapPadding" 1
@@ -136,11 +184,70 @@ setv game "C2toDS_CamHeight" 300
 *----------------------------------------------------------------------------------*
 
 
+inst
+
+
+*Are creatures near the wrap? check every 100 ticks
+
+new: simp 1 7 50204 "blank" 1 0 1
+
+*reaaally make sure norns cant see it
+attr 16
+
+accg 0
+
+tick 100
+
+fric 100
+
+aero 0
+
+
+
+*----------------------------------------------------------------------------------*
+
+
+*An object other object scripts can target to let norns hear them over the wrap
+
+new: simp 1 7 50205 "blank" 1 0 1
+
+*reaaally make sure norns cant see it
+attr 16
+
+accg 0
+
+fric 100
+
+aero 0
+
+
+
+
+
+*----------------------------------*
+
+*make clones of Norn/Attention Indicators
+
+
+new: simp 1 7 50202 "indicator" 11 10 8300
+attr 272
+seta va54 targ
+
+new: simp 1 7 50202 "attention" 11 0 8300
+attr 272
+seta va55 targ
+
+
+*----------------------------------*
+
+
+
 *mouse pointer tracker
 
 new: simp 1 7 50200 "blank" 1 0 1
 
-attr 0
+*reaaally make sure norns cant see it
+attr 16
 
 accg 0
 
@@ -150,8 +257,13 @@ fric 100
 
 aero 0
 
-*listen for Raw Key Down (1) + Raw Mouse Down (8) + Raw Mouse Up (16). We use them to intercept speech, agent help clicks and mouse clicks over the wrap.
-imsk 25
+*listen for Raw Key Down (1) + Raw Mouse Down (8). We use them to intercept speech and agent help clicks.
+imsk 9
+
+
+*store reference to the indicators for easy switching
+seta ov01 va54
+seta ov02 va55
 
 
 
@@ -160,8 +272,12 @@ imsk 25
 
 * Window resize watcher/ camera builder
 
+*todo:
+*NOTE: THIS DOESNT WORK IN FULL SCREEN MODE!
+
 new: simp 1 7 50201 "blnk" 1 0 0
 
+*reaaally make sure norns cant see it
 attr 16
 
 * Delay init or right side panels will not be created properly
@@ -314,7 +430,8 @@ scrp 1 7 50201 9
 
 				pat: cmra 1 "moe_C2toDS_camera" 1 0 0 0 va14 game "C2toDS_CamHeight" va14 game "C2toDS_CamHeight"
 
-				attr 0
+*reaaally make sure norns cant see it
+				attr 16
 
 				accg 0
 
@@ -336,27 +453,38 @@ scrp 1 7 50201 9
 
 			endi
 
+*			wait 1
+*			inst
 
 *Left Side Grabber
 
 			new: simp 1 6 50200 "moe_C2toDS_Camera" 1 1 1
-*			new: simp 1 6 50200 "moe_C2toDS_Camera" 2 0 1
+*			new: simp 1 6 50200 "moe_C2toDS_Camera" 2 0 99
 *			pose 1
+*			dcor 1
 
-			attr 0
+*reaaally make sure norns cant see it
+			attr 16
 
 			accg 0
 
-			tick 1
+*			tick 16
+*			tick 1
+*			tick 10
 
-*what if there was always at least 1 grabber ticking every tick instead of all of them every 10 ticks?
-			doif va16 < 10
+*there should always be at least 1 grabber ticking at a time, but they should all be offset from each other by 1 tick.
+			doif va16 < game "C2toDS_WrapTickRate"
 				addv va16 1
 			else
 				setv va16 0
 			endi
 
-			setv name "WhenDoesThisPieceTick?" va16
+			tick va16
+
+
+
+*
+*			setv name "WhenDoesThisPieceTick?" va16
 
 			fric 100
 
@@ -365,10 +493,10 @@ scrp 1 7 50201 9
 *			rnge 1000
 
 			mvto va12 va04
-
-*I Am on the right of the world, in the 10000 range*
-
-			setv name "WhichWrapPieceAmI?" left
+*
+**I Am on the right of the world, in the 10000 range*
+*
+*			setv name "WhichWrapPieceAmI?" left
 
 
 
@@ -441,26 +569,28 @@ scrp 1 7 50201 9
 
 *----------*
 
+*			wait 1
+*			inst
+
 *Right Side Grabber
 
 			new: simp 1 6 50200 "moe_C2toDS_Camera" 1 1 1
-*			new: simp 1 6 50200 "moe_C2toDS_Camera" 2 0 1
-*			pose 1
+
+*			dcor 1
 
 			attr 0
 
 			accg 0
 
-			tick 1
 
-*what if there was always at least 1 grabber ticking every tick instead of all of them every 10 ticks?
-			doif va16 < 10
+*there should always be at least 1 grabber ticking at a time, but they should all be offset from each other by 1 tick.
+			doif va16 < game "C2toDS_WrapTickRate"
 				addv va16 1
 			else
 				setv va16 0
 			endi
 
-			setv name "WhenDoesThisPieceTick?" va16
+			tick va16
 
 			fric 100
 
@@ -470,7 +600,6 @@ scrp 1 7 50201 9
 
 			mvto va12 va04
 
-			setv name "WhichWrapPieceAmI?" rght
 
 *Increment X-wide
 
@@ -484,6 +613,16 @@ scrp 1 7 50201 9
 *	enum 1 5 50200
 *		kill targ
 *	next
+
+*
+**debug: visible wrap point (for some reason only whichever line was defined last actually draws)
+*	setv game "C2toDS_Bottom" 49999
+*	line 0 0 0 0 0 0 0 0 0
+*
+**	line game "C2toDS_WrapLeft" game "C2toDS_Top" game "C2toDS_WrapLeft" game "C2toDS_Bottom" 255 255 255 0 0
+*	line 1 2 3 4 255 255 255 0 0
+*	line game "C2toDS_WrapRight" game "C2toDS_Top" game "C2toDS_WrapRight" game "C2toDS_Bottom" 255 255 255 0 0
+
 
 	unlk
 
@@ -525,437 +664,444 @@ endm
 
 
 
-** World Wrap Grabber - Exception Script
-*(this ended up causing more problems than it solved)
-*
-*scrp 1 6 50200 255
-*	stop
-*endm
 
 
 
 
-* World Wrap Grabber - Timer script (runs once every tick, but only 10% of them will be ticking at once)
+* World Wrap Grabber - Timer script (runs once every tick, but only a certain % of them will be ticking at once)
 
 scrp 1 6 50200 9
 
-*stop
+*	stop
 
-*	lock
+	lock
+
+*debug: visualize ticking
+*	dcor 1
+*	wait 1
+
+
+	tick game "C2toDS_WrapTickRate"
 
 	inst
 
-*what if there was always at least 1 grabber ticking every tick instead of all of them every 10 ticks?
-	doif name "WhenDoesThisPieceTick?" <> 10
-		addv name "WhenDoesThisPieceTick?" 1
-*		pose 0
-		stop
-	else
-		setv name "WhenDoesThisPieceTick?" 0
-*		pose 1
-	endi
+*loop over all touching agents. this is more efficient than an enum from a single Grabber.
 
+	etch 0 0 0
 
-*todo: it would be nicer if we only did this once per 10 ticks instead of once for every grabber
+*huge block of conditions because caos wants to check everything in a doif statement at the same time instead of stopping flow when the least likely thing happens
+*todo: could probably clean this up with GSUB/SUBR
 
-*we are using IITT instead of _IT_
-*IITT - Returns the target creature's current agent of attention. 
-*_IT_ - Returns the agent OWNR's attention was on when the current script was entered. 
+*just in case
+		doif targ <> null
+*no need to do anything if they're a "system" object
+			doif fmly > 1
+*make sure they aren't Floatable 
+				setv va83 attr
+				andv va83 32
+				doif va83 <> 32
 
-*start variable numbering at "0"
-	setv va30 0
+					doif posx gt game "C2toDS_WrapRight"
 
-*loop through all creatures
-*	esee 4 0 0
-	enum 4 0 0
+*make sure they're Autonomous
+						doif movs eq 0
 
-*highest possible OV number is 99. this means if you have over 100 creatures in a world, high numbered ones won't track objects properly over the wrap.
-		doif va30 < 100
-*set variable on OWNR: OV00, OV01, OV02 etc to current creatures agent of attention
-			seta avar ownr va30 iitt
+*make sure they're not holding the cursors hand!
+*norn and hand cant interact with anything but each other so it doesn't matter that neither of them can interact with anything in this state.
+							doif targ <> hhld
+
+*set to SUBTRACT the wrap offset later
+								setv va50 game "C2toDS_WrapOffset"
+								negv va50
+
+*pixel offset used when tracked objects (usually norns) go through the wrap. set to 1 pixel to temporarily break tracking.
+								setv va70 1
+
+								gsub Move_Object_Over_Wrap
+
+							endi
+						endi
+
+					elif posx lt game "C2toDS_WrapLeft"
+
+*make sure they're Autonomous
+						doif movs eq 0
+
+*make sure they're not holding the cursors hand!
+*norn and hand cant interact with anything but each other so it doesn't matter that neither of them can interact with anything in this state.
+							doif targ <> hhld
+
+*set to ADD the wrap offset later
+								setv va50 game "C2toDS_WrapOffset"
+
+*pixel offset used when tracked objects (usually norns) go through the wrap. set to 1 pixel to temporarily break tracking.
+								setv va70 -1
+
+								gsub Move_Object_Over_Wrap
+
+							endi
+						endi
+
+****OBJECT WASN'T ON EITHER SIDE OF THE WRAP (BUT WAS STILL TOUCHING A GRABBER), SO MAKE A MIRROR THAT NORNS CAN SEE!****
+
+					else
+						gsub Make_Mirror_Object
+
+					endi
+				endi
+			endi
 		endi
-
-*add 1 to variable name
-		addv va30 1
 	next
 
-*VA30 is now amount of IITTs stored this tick
+
+
+
+*debug: visualize ticking
+*	targ ownr
+*	dcor 0
 
 
 
 
-	doif name "WhichWrapPieceAmI?" eq rght
-
-*loop over all agents touching this grabber
-		etch 0 0 0
-
-
-*just in case
-			doif targ eq null
-				stop
-			endi
-
-*no need to do anything if they're a "system" object
-			doif fmly < 2
-				stop
-			endi
-
-*make sure they Suffer Collisions
-			doif attr lt 64
-				stop
-			endi
-
-*make sure they're Autonomous
-			doif movs ne 0
-				stop
-			endi
-
-
-*if the target is over the Right hand side of the wrap
-			doif posx gt game "C2toDS_WrapRight"
-
-
-
-*CHECK IF THE TARGET AGENT IS ANY CREATURES AGENT OF ATTENTION:
 
 
 
 
-*go through all the IITTS stored this tick (in reverse ordre):
+**********if the target is over either side of the wrap**********
+	subr Move_Object_Over_Wrap
 
-				doif va30 > 0
-					reps va30
 
-						subv va30 1
+*make a mirror object as soon as an object goes over the wrap so norns attention never flickers
 
-*fix for IITT sometimes being set to 0 (possibly if creature has no agent of attention?)
-						doif type avar ownr va30 = 0
-							seta avar ownr va30 null
-*							dbg: outv va30
-						endi
-
-*if any of the IITTs you stored are the same agent as the agent that is touching the world wrap
-						doif avar ownr va30 eq targ
-
-*set a note to stop the script when done cleaning up the temp variables
-							setv va31 1
-*forget stored agent
-							setv avar ownr va30 0
-						endi
-
-					repe
-				endi
-
-*you are a creatures agent of attention, stop!
-				doif va31 eq 1
-					stop
-				endi
+*set this variable to 1 so the subroutine knows to set a lower tick
+		setv va89 1
+		gsub Make_Mirror_Object
 
 
 
-*check if the target agent is being tracked for camera reasons
-				doif targ eq trck or targ eq hhld
+
+
+*********************HANDLE TRACKED OBJECTS*********************
+
+*Notes:
+
+*hand unhold trck numbers
+*trck norn 70 70 1 0
+
+*hand hold trck numbers
+*trck targ 70 70 2 0
+
+		setv va02 0
+		setv va03 0
+
+*check if the object is being tracked by the camera
+		doif targ = trck
 
 *remember current camera coordinates before we jump
-					setv va02 cmrx
-					setv va03 cmry
-*offset them to the other side of the world
-					subv va02 game "C2toDS_WrapOffset"
+			setv va02 wndl
+			setv va03 wndt
 
-				endi
+*we are breaking tracking by offsetting the camera by 1 pixel.
+*tracking will resume if the pointer manually moves over the wrap. this seems preferable to disabling tracking entirely.
+			addv va02 va70
 
-
-
-*if the target is an object
-				doif crea targ ne 1
-
-**debug: what just went through the wrap?
-*					dbg: outv fmly
-*					dbg: outv gnus
-*					dbg: outv spcs
-
-					setv va00 posl
-					setv va01 post
-
-					addv va01 1
-
-					subv va00 game "C2toDS_WrapOffset"
+		endi
 
 
-
-*sometimes this script fires twice in quick succession and tries to move things out of bounds, this should fix that
-					doif game "C2toDS_RoomID" <> gmap va00 va01
-						stop
-					endi
-
-
-
-*move the object to the other side of the wrap
-
-*do an unsafe move if possible
-					doif tmvt va00 va01 = 1
-						mvto va00 va01
-					else
-						mvsf va00 va01
-					endi
-
-*if the target is a creature
-				else
-
-					setv va00 dftx
-					setv va01 dfty
-
-					addv va01 1
-
-					subv va00 game "C2toDS_WrapOffset"
-
-
-
-*sometimes this script fires twice in quick succession and tries to move things out of bounds, this should fix that
-					doif game "C2toDS_RoomID" <> gmap va00 va01
-						stop
-					endi
-
-
-
-*move the creature to the other side of the wrap
-*(do an unsafe move if possible)
-					doif tmvf va00 va01 = 1
-						mvft va00 va01
-					else
-						mvsf va00 va01
-					endi
-
-*if we have stored some camera coordinates to jump to (and they're not out of bounds)
-					doif va02 > 0 and va03 > 0 and game "C2toDS_RoomID" = gmap va02 va03
-
-						wait 0
-
-*move camera to equivalent coordinate on other side of world
-*(the automatic camera reposition is offset as if you dragged the creature to the far edge of the window)
-						cmrp va02 va03 0
-
-					endi
-
-				endi
-
-			endi
-		next
-
-	elif name "WhichWrapPieceAmI?" eq left
-
-*loop over all agents touching this grabber
-		etch 0 0 0
-
-*just in case
-			doif targ eq null
-				stop
-			endi
-
-*no need to do anything if they're a "system" object
-			doif fmly < 2
-				stop
-			endi
-
-*make sure they Suffer Collisions
-			doif attr lt 64
-				stop
-			endi
-
-*make sure they're Autonomous
-			doif movs ne 0
-				stop
-			endi
-
-
-*if the target is over the Left hand side of the wrap
-			doif posx lt game "C2toDS_WrapLeft"
-
-
-
-
-*CHECK IF THE TARGET AGENT IS ANY CREATURES AGENT OF ATTENTION:
-
-
-
-
-*go through all the IITTS stored this tick (in reverse ordre):
-
-				doif va30 > 0
-					reps va30
-
-						subv va30 1
-
-*fix for IITT sometimes being set to 0 (possibly if creature has no agent of attention?)
-						doif type avar ownr va30 = 0
-							seta avar ownr va30 null
-*							dbg: outv va30
-						endi
-
-*if any of the IITTs you stored are the same agent as the agent that is touching the world wrap
-						doif avar ownr va30 eq targ
-
-*set a note to stop the script when done cleaning up the temp variables
-							setv va31 1
-*forget stored agent
-							setv avar ownr va30 0
-						endi
-
-					repe
-				endi
-
-*you are a creatures agent of attention, stop!
-				doif va31 eq 1
-					stop
-				endi
-
-
-
-
-
-
-*check if the target agent is being tracked for camera reasons
-				doif targ eq trck or targ eq hhld
-
-*remember current camera coordinates before we jump
-					setv va02 cmrx
-					setv va03 cmry
-*offset them to the other side of the world
-					addv va02 game "C2toDS_WrapOffset"
-
-				endi
-
+****************************************************************
 
 
 
 
 *if the target is an object
-				doif crea targ ne 1
+		doif crea targ ne 1
 
 **debug: what just went through the wrap?
-*					dbg: outv fmly
-*					dbg: outv gnus
-*					dbg: outv spcs
+*			dbg: outv fmly
+*			dbg: outv gnus
+*			dbg: outv spcs
 
-					setv va00 posl
-					setv va01 post
+			setv va00 posl
+			setv va01 post
 
-					addv va01 1
-
-					addv va00 game "C2toDS_WrapOffset"
-
+*			addv va01 1
+			addv va00 va50
 
 
 *sometimes this script fires twice in quick succession and tries to move things out of bounds, this should fix that
-					doif game "C2toDS_RoomID" <> gmap va00 va01
-						stop
-					endi
-
-
+			doif game "C2toDS_RoomID" = gmap va00 va01
 
 *move the object to the other side of the wrap
 
 *do an unsafe move if possible
-					doif tmvt va00 va01 = 1
-						mvto va00 va01
-					else
-						mvsf va00 va01
-					endi
+				doif tmvt va00 va01 = 1
+					mvto va00 va01
+				else
+					mvsf va00 va01
+				endi
+
+*				dcor 1
+			endi
 
 *if the target is a creature
-				else
+		else
 
-					setv va00 dftx
-					setv va01 dfty
+			setv va00 dftx
+			setv va01 dfty
 
-					addv va01 1
+			addv va00 va50
 
-					addv va00 game "C2toDS_WrapOffset"
-
-
+*this helps out norns that might otherwise get stuck trying to cross through the wrap by moving them forward and up by 1 pixel
+			subv va01 1
+			subv va00 va70
 
 *sometimes this script fires twice in quick succession and tries to move things out of bounds, this should fix that
-					doif game "C2toDS_RoomID" <> gmap va00 va01
-						stop
-					endi
-
-
+			doif game "C2toDS_RoomID" = gmap va00 va01
 
 *move the creature to the other side of the wrap
 *(do an unsafe move if possible)
-					doif tmvf va00 va01 = 1
-						mvft va00 va01
-					else
-						mvsf va00 va01
-					endi
+				dbg: outs "old:"
+				dbg: outv posx
+				doif tmvf va00 va01 = 1
+					mvft va00 va01
+				else
+					mvsf va00 va01
+				endi
+				dbg: outs "new:"
+				dbg: outv posx
+
+			endi
+
+		endi
 
 *if we have stored some camera coordinates to jump to (and they're not out of bounds)
-					doif va02 > 0 and va03 > 0 and game "C2toDS_RoomID" = gmap va02 va03
-
-						wait 0
+		doif va02 > 0 and game "C2toDS_RoomID" = gmap va02 va03
 
 *move camera to equivalent coordinate on other side of world
 *(the automatic camera reposition is offset as if you dragged the creature to the far edge of the window)
-						cmrp va02 va03 0
+			cmra va02 va03 0
 
+		endi
+
+	retn
+
+
+
+
+
+
+
+
+
+
+
+
+	subr Make_Mirror_Object
+
+*debug: highlight object that you just cloned
+*		dcor 1
+
+		inst
+
+
+
+**** ONLY CONTINUE IF THERE ARE NORNS NEAR THE WRAP **** 
+****************************************************************************************************************
+*(this results in a roughly 15-20 fps increase when norns aren't near the wrap)
+
+		doif game "C2toDS_NornsNearWrap?" = 1
+
+****************************************************************************************************************
+
+
+*make sure the object is NOT invisible to creatures 
+			setv va83 attr
+			andv va83 16
+			doif va83 <> 16
+
+*MAKE MIRROR OBJECT
+
+*remember XY coords of original object
+				setv va11 post
+				setv va12 posx
+
+*if this was called by an object going over the wrap, adjust the x coord so the rest of the script can treat it as a mirrored object
+				doif va89 = 1
+
+					doif va12 >= game "C2toDS_WrapRight"
+						subv va12 game "C2toDS_WrapOffset"
+					elif va12 <= game "C2toDS_WrapLeft"
+						addv va12 game "C2toDS_WrapOffset"
 					endi
+
+				endi
+
+
+*check which side of the wrap the object is on and add or remove the appropriate offset:
+
+
+*only do this for objects that are within 500 units of the wrap point (on either side)
+				setv va60 game "C2toDS_WrapRight"
+				setv va62 va60
+				subv va60 500
+
+				setv va61 game "C2toDS_WrapLeft"
+				setv va63 va61
+				addv va61 500
+
+				doif va12 <= va62 and va12 > va60
+
+					setv va73 game "C2toDS_WrapOffset"
+					negv va73
+
+					gsub Make_Mirror_Object_2
+
+				elif va12 >= va63 and va12 < va61
+
+					setv va73 game "C2toDS_WrapOffset"
+
+					gsub Make_Mirror_Object_2
 
 				endi
 
 			endi
 
-		next
+		endi
 
-	endi
+	retn
+
+
+
+*this subr is in 2 parts because it's easier
+	subr Make_Mirror_Object_2
+
+*		doif targ = pntr
+*			dbg: outs "cloned pointer"
+*		endi
+
+		seta va19 targ
+
+*fake temp object needs to have the same category as the real one
+		setv va17 cata
+*and also the same visibility setting according to attr
+		setv va18 attr
+
+*and also let creatures do whatever they could do to the original - scripts will redirect to the original ones
+		setv va20 bhvr
+
+
+*do some quick maths to work out how high the copy should be (width doesnt matter, the closer they walk toward the real one the better)
+*(it's a spritesheet with different frames representing how high the object is because CORE doesn't change where norns can interact with it)
+
+		setv va21 hght
+
+*(if it's extremely small you can use the 1x1)
+		doif va21 > 16
+			divv va21 32
+			setv va21 ftoi va21
+
+*we don't want frame 0...
+			doif va21 = 0
+				setv va21 1
+			endi
+*unless we're smaller than 16 pixels
+		else
+			setv va21 0
+		endi
+
+
+*create a temporary Mirror Object to copy the Category and pos of our real object
+*it is a 1 x va21 (above) sprite is positioned using the middle X coordinate of the real object
+		new: simp 1 7 50203 "moe_c2tods_collisiontester" 0 va21 0
+
+*fake temp object needs to have the same category as the real one
+		cato va17
+
+*norns can see it and do any interactions they could do on the original object (will be redirected TO the original object)
+		attr 0
+		bhvr va20
+
+*		dbg: outv bhvr
+
+
+*store link to original object in ov00
+		seta ov00 va19
+
+*store offset in ov01 (so we can reapply it during the timer script)
+		setv ov01 va73
+
+
+
+*apply offset and move into position
+		addv va12 va73
+
+		mvto va12 va11
+
+
+
+**debug: put all cloned objects in a specific spot so norns can test interacting with them		
+*		mvto 2121 48580
+
+*debug: highlight objects that are clones
+		dcor 1
+
+
+
+*if you were called from an object going over the wrap instead of one you found already over the wrap, tick faster. a norn is probably looking at you.
+		doif va89 = 1
+
+			tick 1
+
+*target original object so move object over wrap script can continue
+			targ va19
+
+		else
+
+*otherwise delete yourself as often as the wrappers tick (+1) so there are no ticks where a mirror object isn't present
+			setv va95 game "C2toDS_WrapTickRate"
+			addv va95 1
+			tick va95
+
+		endi
+
+*		tick 1000
+
+
+
+
+	retn
+
+
 
 endm
+
+
+
 
 *Pointer Tracker - Timer Script, runs once per tick*
 
 scrp 1 7 50200 9
 
+
+
 *stop
 
 	inst
-
-**grab the pointer so we can check where it is
-*	targ pntr
-*
-**remember the pointer coords
-*	setv va00 posl
-*	setv va01 post
-
 
 *remember the pointer coords
 	setv va00 mopx
 	setv va01 mopy
 
-*todo: could correct offset to get top left instead of centre coords but doesn't seem very important.
-
-
-
 	doif game "C2toDS_RoomID" = gmap va00 va01
 
-*if it's too far off the left side, we need to wrap the camera round to the right
-		doif va00 <= game "C2toDS_WrapLeft"
-
-
-
-*don't transport the pointer if a creature is paying attention to it. if OV01/MV01 is set to 1 then we transport it anyway.
-			enum 4 0 0
-				doif pntr = iitt and mv01 = 0
-*						sezz "had attention on it"
-					stop
-*					else
-*						sezz "no attention"
-				endi
-			next
-
+***************************************************************************************************************************************
+*if it's too far off the LEFT side, we need to wrap the camera round to the right
+***************************************************************************************************************************************
+		doif va00 < game "C2toDS_WrapLeft"
 
 
 *don't automatically move the camera if we're holding a creatures hand, let the World Wrap Grabber timer script handle it
-			targ hhld
-			doif crea targ ne 1
+			doif crea hhld ne 1
 
 				scam null 0
 
@@ -965,7 +1111,60 @@ scrp 1 7 50200 9
 
 				setv va05 wndt
 
-				doif gmap va04 va05 <> -1
+
+*FIX FOR CAMERA JUMPING ON VERY HIGH SCREEN RESOLUTIONS (WIDER THAN THE WIDTH OF THE EXTRA WORLD PARTS OFF THE SIDE OF THE MAP! (2048))
+***************************************************************************************************************************************
+*(as far as I can tell, this problem only needs to be corrected for pointer going off the LEFT side of the map)
+
+*get window width
+				setv va06 wndw
+*				dbg: outv va06
+
+*init va09 as 0 so it will be false by default (aka move the camera as normal)
+				setv va09 0
+
+
+*don't bother with any of these checks if window width is < 2047!
+				doif va06 >= game "C2toDS_WrapLeft"
+
+*todo: maybe implement this code in the click section somewhere
+**add a 33% area of forgiveness so it doesnt feel like you cant touch your norns so often
+*					setv va16 va06
+*					divv va16 3
+*					addv va06 va16
+
+*2047 is max window size. subtract it from va06 to find out how much wider our window is than the max.
+*(WrapLeft happens to be equivalent to how many extra pixels of world exist on either side of the wrap.)
+*this = 512 if window is 2560 wide. or possibly 511.
+					subv va06 game "C2toDS_WrapLeft"
+
+*				dbg: outv va06
+
+*get window left X coord
+					setv va07 wndl
+
+*get left wrap X coord
+					setv va08 game "C2toDS_WrapLeft"
+
+
+*subtract left wrap X coord from window left X coord to see how close to the edge of the screen the camera is
+					subv va08 va07
+*					dbg: outv va08
+
+*if camera is too close to edge of screen when moving mouse, don't move camera
+					doif va08 < va06
+
+*set a reminder not to move the camera
+						setv va09 1
+
+					endi
+
+				endi
+
+***************************************************************************************************************************************
+
+*move the camera if the coords are in bounds
+				doif gmap va04 va05 <> -1 and va09 = 0
 
 					cmra va04 va05 0
 
@@ -973,29 +1172,15 @@ scrp 1 7 50200 9
 
 			endi
 
-		endi
+***************************************************************************************************************************************
+*if it's too far off the RIGHT side, we need to wrap the camera round to the left
+***************************************************************************************************************************************
 
-
-*if it's too far off the right side, we need to wrap the camera round to the left
-		doif va00 >= game "C2toDS_WrapRight"
-
-
-
-*don't transport the pointer if a creature is paying attention to it. if OV01/MV01 is set to 1 then we transport it anyway.
-			enum 4 0 0
-				doif pntr = iitt and mv01 = 0
-*						sezz "had attention on it"
-					stop
-*					else
-*						sezz "no attention"
-				endi
-			next
-
+		elif va00 > game "C2toDS_WrapRight"
 
 
 *don't automatically move the camera if we're holding a creatures hand, let the World Wrap Grabber timer script handle it
-			targ hhld
-			doif crea targ ne 1
+			doif crea hhld ne 1
 
 				scam null 0
 
@@ -1015,6 +1200,102 @@ scrp 1 7 50200 9
 
 		endi
 
+***************************************************************************************************************************************
+
+	endi
+
+
+
+	inst
+
+*CLONE NORN INDICATOR FRAME AND POSITION (but moved across offset)
+	rtar 1 2 1
+
+*if selected norn is holding the creatures hand, hide the duplicate indicator
+*(this was occasionally causing double indicators)
+	doif norn <> hhld
+
+*stop the script if we're not in the C2toDS metaroom (only checking the norn indicator because the attention indicator will surely be in the same room 99.9% of the time)
+		doif game "C2toDS_RoomID" <> gmap posl post
+			stop
+		endi
+
+*check what side of the world the indicator is on
+		setv va60 game "C2toDS_WrapRight"
+		subv va60 6223
+
+		setv va61 game "C2toDS_WrapLeft"
+		addv va61 6223
+
+		doif va00 <= game "C2toDS_WrapRight" and va00 > va60
+
+*set to SUBTRACT the wrap offset later
+			setv va50 game "C2toDS_WrapOffset"
+			negv va50
+
+		elif va00 >= game "C2toDS_WrapLeft" and va00 < va61
+
+*set to ADD the wrap offset later
+			setv va50 game "C2toDS_WrapOffset"
+
+		endi
+
+		setv va10 posl
+		setv va11 post
+		subv va10 va50
+		setv va12 pose
+
+		targ mv01
+		pose va12
+		mvto va10 va11
+
+	else
+
+		mvto -100 -100
+
+	endi
+
+
+*CLONE ATTENTION INDICATOR FRAME AND POSITION (but moved across offset)
+	rtar 1 2 2
+
+*if selected norn is holding the creatures hand, hide the duplicate indicator
+*(this was occasionally causing double indicators)
+	doif norn <> hhld
+
+*check what side of the world the indicator is on
+		setv va60 game "C2toDS_WrapRight"
+		subv va60 6223
+
+		setv va61 game "C2toDS_WrapLeft"
+		addv va61 6223
+
+		doif va00 <= game "C2toDS_WrapRight" and va00 > va60
+
+*set to SUBTRACT the wrap offset later
+			setv va50 game "C2toDS_WrapOffset"
+			negv va50
+
+		elif va00 >= game "C2toDS_WrapLeft" and va00 < va61
+
+*set to ADD the wrap offset later
+			setv va50 game "C2toDS_WrapOffset"
+
+		endi
+
+		setv va10 posl
+		setv va11 post
+		subv va10 va50
+		setv va12 pose
+
+		targ mv02
+		pose va12
+		mvto va10 va11
+
+	else
+
+		mvto -100 -100
+
 	endi
 
 endm
@@ -1030,126 +1311,109 @@ scrp 1 7 50200 76
 
 	inst
 
-
-*any sort of click immediately sends the pointer over the wrap if a creatures attention is currently preventing it from moving
-	setv mv01 1
+*only run this script if there are creatures near the wrap to hear you
+	doif game "C2toDS_NornsNearWrap?" = 1
 
 
 * left mouse - shout your name
-	doif _p1_ = 1
+		doif _p1_ = 1
 
 *check if "agent help watcher" IMSK is set to 9. If it is, that means agent help mode is active.
-		rtar 1 2 4
-		doif imsk <> 9
-			stop
-		endi
-
-		seta va05 hots
-		doif va05 <> null
-
-
-			targ va05
-
-
-*store XY coords for later
-			setv va00 posl
-			setv va01 post
-
-*fake temp object needs to have the same category as the real one
-			setv va50 cata
-*and also the same visibility setting according to attr
-			setv va51 attr
-
-
-*stop the script if we're not in the C2toDS metaroom
-			doif game "C2toDS_RoomID" <> gmap va00 va01
+			rtar 1 2 4
+			doif imsk <> 9
 				stop
 			endi
 
-*		set up string with name of object
-			setv va98 cata
-			sets va99 catx va98
+			seta va05 hots
+			doif va05 <> null
 
-* icons gui
-			doif fmly eq 1 and gnus eq 2 and spcs eq 14
-				stop
-* agent help box
-			elif fmly eq 1 and gnus eq 2 and spcs eq 5
-				stop
-			else
-* unclassified (39) things don't say their name
-				doif va98 <> -1
 
-					targ va05
+				targ va05
 
-*create a temporary Mirror Object to shout the Category of our real object
-					new: simp 1 7 50202 "blnk" 1 0 0
+
+*store XY coords for later
+				setv va00 posl
+				setv va01 post
 
 *fake temp object needs to have the same category as the real one
-					cato va50
+				setv va50 cata
 *and also the same visibility setting according to attr
-					doif va51 >= 16
-						attr 16
-					else
+				setv va51 attr
+
+
+*stop the script if we're not in the C2toDS metaroom
+				doif game "C2toDS_RoomID" <> gmap va00 va01
+					stop
+				endi
+
+*		set up string with name of object
+				setv va98 cata
+				sets va99 catx va98
+
+* icons gui
+				doif fmly eq 1 and gnus eq 2 and spcs eq 14
+					stop
+* agent help box
+				elif fmly eq 1 and gnus eq 2 and spcs eq 5
+					stop
+				else
+* unclassified (39) things don't say their name
+					doif va98 <> -1
+
+						targ va05
+
+*create a temporary Mirror Object to shout the Category of our real object
+						new: simp 1 7 50202 "blnk" 1 0 0
+
+*fake temp object needs to have the same category as the real one
+						cato va50
+
 						attr 0
-					endi
 
 *check which side of the wrap the object is on and add or remove the appropriate offset:
 
 
 *only do this for objects that are within 500 units of the wrap point (on either side)
-					setv va60 game "C2toDS_WrapRight"
-					subv va60 500
+						setv va60 game "C2toDS_WrapRight"
+						subv va60 500
 
-					setv va61 game "C2toDS_WrapLeft"
-					addv va61 500
+						setv va61 game "C2toDS_WrapLeft"
+						addv va61 500
 
-					doif va00 <= game "C2toDS_WrapRight" and va00 > va60
+						doif va00 <= game "C2toDS_WrapRight" and va00 > va60
 
-						subv va00 game "C2toDS_WrapOffset"
+							subv va00 game "C2toDS_WrapOffset"
 
-					elif va00 >= game "C2toDS_WrapLeft" and va00 < va61
+						elif va00 >= game "C2toDS_WrapLeft" and va00 < va61
 
-						addv va00 game "C2toDS_WrapOffset"
+							addv va00 game "C2toDS_WrapOffset"
 
-					else
-						kill targ
-						stop
-					endi
+						else
+							kill targ
+							stop
+						endi
 
-					mvto va00 va01
+						mvto va00 va01
 
-*					seta va06 targ
+*						seta va06 targ
 *
 ** send message to bubble factory to do visuals
-*					rtar 1 2 10
-*					mesg wrt+ targ 126 va99 va06 0
-** target agent again, and send shout from it
-*					targ va06
+*						rtar 1 2 10
+*						mesg wrt+ targ 126 va99 va06 0
+*** target agent again, and send shout from it
+**					targ va06
 
-					ordr shou va99
+						ordr shou va99
 
-					kill targ
+						kill targ
 
+					endi
 				endi
 			endi
+
 		endi
 
 	endi
-
-
-endm
-
-
-
-
-*Pointer Tracker - Raw Mouse Up script
-scrp 1 7 50200 77
-
-*	wait 1
-
-*reset "mouse just clicked" variable
-	setv mv01 0
 
 endm
 
@@ -1161,37 +1425,42 @@ endm
 scrp 1 7 50200 73
 
 	lock
+
+*only run this script if there are creatures near the wrap to hear you
+	doif game "C2toDS_NornsNearWrap?" = 1
+
 *if the user pressed enter (or control S)
-	doif _p1_ eq 'S' or _p1_ eq 13
+		doif _p1_ eq 'S' or _p1_ eq 13
 
 *WHY IS THIS NEEDED. IT MAKES NO SENSE.
 *(I believe it's waiting until the start of the next tick because the Key Down event takes place before the speech bubble exists)
-		wait 0
-		targ ownr
-		inst
+*todo: this can probably be wait 1
+			wait 0
+			targ ownr
+			inst
 
-		sets va02 ""
+			sets va02 ""
 
 *grab the pointer so we can check where it is
-		targ pntr
+			targ pntr
 
 *remember the pointer coords
-		setv va00 posl
-		setv va01 post
+			setv va00 posl
+			setv va01 post
 
-		doif game "C2toDS_RoomID" = gmap va00 va01
+			doif game "C2toDS_RoomID" = gmap va00 va01
 
-			setv va10 va00
-			setv va11 va01
-			setv va12 va00
+				setv va10 va00
+				setv va11 va01
+				setv va12 va00
 
-			addv va10 10
-			addv va11 10
-			subv va12 10
+				addv va10 10
+				addv va11 10
+				subv va12 10
 
 
 *scan speech bubbles
-			enum 1 2 9
+				enum 1 2 9
 
 *				dbg: outs "va00:"
 *				dbg: outs vtos va00
@@ -1208,69 +1477,69 @@ scrp 1 7 50200 73
 *				dbg: outs vtos posl
 
 *check if the speech bubble is within 10px of the pointer top left coord.
-				setv va99 0
+					setv va99 0
 
 *first check Y pos
-				doif posb > va01 and posb < va11
+					doif posb > va01 and posb < va11
 
 *then check X pos, taking into account that the speech bubble can appear on either side of the pointer
-					doif posr >= va00 and posr < va10
-						setv va99 1
-					elif posl <= va00 and posl > va12
-						setv va99 1
+						doif posr >= va00 and posr < va10
+							setv va99 1
+						elif posl <= va00 and posl > va12
+							setv va99 1
+						endi
+
 					endi
 
-				endi
-
 *if the above checks were true, carry on with the script
-				doif va99 = 1
+					doif va99 = 1
 
 *set the ptxt in va02 for now
-					part 1
-					doif targ ne null
-						sets va02 ptxt
+						part 1
+						doif targ ne null
+							sets va02 ptxt
 
 *make sure the hand said something and didn't just press enter by mistake
 
-						doif va02 <> ""
+							doif va02 <> ""
 
-							inst
+								inst
 
 *va20 will be the offset copy of the X coordinate, separate from va00 so we can go back afterwards.
-							setv va20 va00
+								setv va20 va00
 
 
 *check which side of the wrap the pointer is on and add or remove the appropriate offset:
 
 
 *only do this if the pointer is within 500 units of the wrap point (on either side)
-							setv va60 game "C2toDS_WrapRight"
-							subv va60 500
+								setv va60 game "C2toDS_WrapRight"
+								subv va60 500
 
-							setv va61 game "C2toDS_WrapLeft"
-							addv va61 500
+								setv va61 game "C2toDS_WrapLeft"
+								addv va61 500
 
-							doif va00 <= game "C2toDS_WrapRight" and va00 > va60
+								doif va00 <= game "C2toDS_WrapRight" and va00 > va60
 
-								subv va20 game "C2toDS_WrapOffset"
+									subv va20 game "C2toDS_WrapOffset"
 
-							elif va00 >= game "C2toDS_WrapLeft" and va00 < va61
+								elif va00 >= game "C2toDS_WrapLeft" and va00 < va61
 
-								addv va20 game "C2toDS_WrapOffset"
+									addv va20 game "C2toDS_WrapOffset"
 
-							else
-								stop
-							endi
+								else
+									stop
+								endi
 
 
 
 *target the pointer and move it across the wrap
-							targ pntr
+								targ pntr
 
-							mvto va20 va01
+								mvto va20 va01
 
 *repeat the last thing the pntr said so that creatures can hear it through the wrap
-							ordr shou va02
+								ordr shou va02
 
 *test string to show that indeed, creatures can hear it
 *							ordr shou "perfect noun 2 hand"
@@ -1279,15 +1548,17 @@ scrp 1 7 50200 73
 *							dbg: outs va02
 
 *move it back where it came from
-							mvto va00 va01
+								mvto va00 va01
+
+							endi
 
 						endi
 
 					endi
 
-				endi
+				next
 
-			next
+			endi
 
 		endi
 
@@ -1299,32 +1570,38 @@ endm
 
 
 
-*TODO: it should really only fire when the creature is NEAR THE WRAP (same with pointer).
-
-
 *126 Make Speech Bubble
 *Called when a creature speaks, so scripts can display a speech bubble. Every agent which has this script is called. _P1_ is the text being spoken, _P2_ is the creature who is speaking.
 scrp 1 7 50200 126
 
 	inst
 
-*wait half a tick so the regular speech bubble script can fire off
-	wait 0
-*target the creature that just spoke
-	targ _p2_
-	inst
-
-*creature must not be in a vehicle or etc
-	doif movs <> 0
+*if the target somehow became null, don't do anything
+	doif crea _p2_ = 0
 		stop
 	endi
 
+*only run this script if there are creatures near the wrap to hear you
+	doif game "C2toDS_NornsNearWrap?" = 1
+
+
+*wait half a tick so the regular speech bubble script can fire off
+		wait 0
+*target the creature that just spoke
+		targ _p2_
+		inst
+
+*creature must not be in a vehicle or etc
+		doif movs <> 0
+			stop
+		endi
+
 *remember the creature coords
-	setv va00 dftx
-	setv va01 dfty
+		setv va00 dftx
+		setv va01 dfty
 
 
-	doif game "C2toDS_RoomID" = gmap va00 va01
+		doif game "C2toDS_RoomID" = gmap va00 va01
 
 
 *remember what they're looking at so we can put their attention back on it after the warp
@@ -1333,56 +1610,79 @@ scrp 1 7 50200 126
 
 
 *va20 will be the offset copy of the X coordinate, separate from va00 so we can go back afterwards.
-		setv va20 va00
+			setv va20 va00
 
 *check which side of the wrap the creature is on and add or remove the appropriate offset:
 
 
 *only do this for creatures that are within 500 units of the wrap point (on either side)
-		setv va60 game "C2toDS_WrapRight"
-		subv va60 500
+			setv va60 game "C2toDS_WrapRight"
+			subv va60 500
 
-		setv va61 game "C2toDS_WrapLeft"
-		addv va61 500
+			setv va61 game "C2toDS_WrapLeft"
+			addv va61 500
 
-		doif va00 <= game "C2toDS_WrapRight" and va00 > va60
+			doif va00 <= game "C2toDS_WrapRight" and va00 > va60
 
-			subv va20 game "C2toDS_WrapOffset"
+				subv va20 game "C2toDS_WrapOffset"
 
-		elif va00 >= game "C2toDS_WrapLeft" and va00 < va61
+			elif va00 >= game "C2toDS_WrapLeft" and va00 < va61
 
-			addv va20 game "C2toDS_WrapOffset"
+				addv va20 game "C2toDS_WrapOffset"
 
-		else
-			stop
-		endi
+			else
+				stop
+			endi
 
 
 
 *sometimes this script fires twice in quick succession and tries to move norns out of bounds, this should fix that
-		doif game "C2toDS_RoomID" <> gmap va20 va01
-			stop
-		endi
+			doif game "C2toDS_RoomID" <> gmap va20 va01
+				stop
+			endi
 
 
 *move the creature to the other side of the wrap
 *(do an unsafe move if possible)
-		doif tmvf va20 va01 = 1
-			mvft va20 va01
-		else
-			mvsf va20 va01
-		endi
+			doif tmvf va20 va01 = 1
+				mvft va20 va01
+			else
+				mvsf va20 va01
+			endi
 
 *repeat the last thing the creature said so that other creatures can hear it through the wrap
-		ordr shou _p1_
+			ordr shou _p1_
 
 *move it back where it came from
 *(do an unsafe move if possible)
-		doif tmvf va00 va01 = 1
-			mvft va00 va01
-		else
-			mvsf va00 va01
-		endi
+			doif tmvf va00 va01 = 1
+				mvft va00 va01
+			else
+				mvsf va00 va01
+			endi
+
+*genus
+			setv va80 gnus
+*gender
+			setv va81 spcs
+*age
+			setv va82 cage
+
+
+*create a temporary Shout Object to emit audio the player can hear of what the creature just said!
+			new: simp 1 7 50202 "blnk" 1 0 0
+
+
+			attr 16
+
+			voic va80 va81 va82
+
+			mvto va20 va01
+
+			tick 50
+
+			sezz _p1_
+
 
 *norns forget what they were looking at before the teleport, so urge them to look at it again when they come back.
 *commented out because in further testing, norns were not forgetting what they were looking at.
@@ -1392,11 +1692,11 @@ scrp 1 7 50200 126
 *		endi
 
 
+		endi
+
 	endi
 
 endm
-
-
 
 
 
@@ -1410,28 +1710,339 @@ scrp 1 7 50200 900
 
 	inst
 
+*enable or disable the pointer tracker ticking whenever we enter or exit the C2toDS room	
+
 *WE ARE IN THE C2TODS METAROOM
 	doif game "C2toDS_RoomID" = gmap mopx mopy
 
-*set both DS Indicators to be Invisible to norns, but no longer Camera Shy
-		rtar 1 2 1
-		attr 16
-
-		rtar 1 2 2
-		attr 16
+		tick 1
 
 	else
 
-*set both DS Indicators back to default attributes. Invisible to norns and Camera Shy
-		rtar 1 2 1
-		attr 272
-
-		rtar 1 2 2
-		attr 272
+		tick 0
 
 	endi
 
 endm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*every N ticks, check if creatures are near the wrap
+
+scrp 1 7 50204 9
+
+	inst
+
+	setv va75 0
+
+	enum 4 0 0
+
+*don't bother if they're dead or asleep, they won't be able to see the objects anyway!
+		doif dead = 0 and aslp = 0
+			setv va12 posx
+
+*only do this for objects that are within 500 units of the wrap point (on either side)
+			setv va60 game "C2toDS_WrapRight"
+			subv va60 500
+
+			setv va61 game "C2toDS_WrapLeft"
+			addv va61 500
+
+			doif va12 <= game "C2toDS_WrapRight" and va12 > va60
+
+				setv va75 1
+
+			elif va12 >= game "C2toDS_WrapLeft" and va12 < va61
+
+				setv va75 1
+
+			endi
+		endi
+
+	next
+
+	setv game "C2toDS_NornsNearWrap?" va75
+
+*	dbg: outv va75
+
+
+endm
+
+
+
+
+
+
+*delete mirror objects after N ticks
+
+scrp 1 7 50203 9
+
+*	kill ownr
+
+	inst
+
+	setv va00 0
+
+*don't delete if a creature is paying attention to it.
+*(this fixes the attention indicator flickering)
+
+	esee 4 0 0
+		doif ownr = iitt
+			setv va00 1
+*			dbg: outs "a norn is looking at a mirror object so im not deleting it"
+		endi
+	next
+
+* if OV00 (real world counterpart) is null, delete it anyway
+	doif va00 = 0 or mv00 = null
+		kill ownr
+*if we're not deleting it, update its position
+	else
+		targ mv00
+		setv va01 posx
+		setv va02 post
+
+*add appropriate offset!
+		addv va01 mv01
+
+		targ ownr
+		mvto va01 va02
+*and set it to update its position/check for deletion way more frequently
+		tick 1
+*		dbg: outs "changed tickrate"
+	endi
+
+endm
+
+
+
+
+********************************************************************************************************
+
+***MIRROR OBJECT ACTION REDIRECTS**
+
+********************************************************************************************************
+
+
+*Activate 1 (0)
+scrp 1 7 50203 1
+
+	doif ov00 <> null
+		mesg wrt+ from 50200 ov00 0 0
+	else
+		kill ownr
+	endi
+
+endm
+
+
+*Activate 2 (1)
+scrp 1 7 50203 2
+
+	doif ov00 <> null
+		mesg wrt+ from 50200 ov00 1 0
+	else
+		kill ownr
+	endi
+
+endm
+
+
+*Deactivate (2)
+scrp 1 7 50203 0
+
+	doif ov00 <> null
+		mesg wrt+ from 50200 ov00 2 0
+	else
+		kill ownr
+	endi
+
+endm
+
+
+*Hit (3)
+scrp 1 7 50203 3
+
+	doif ov00 <> null
+		mesg wrt+ from 50200 ov00 3 0
+	else
+		kill ownr
+	endi
+
+endm
+
+
+*Pickup (4)
+scrp 1 7 50203 4
+
+	inst
+	doif ov00 <> null
+
+*force creature to drop the object they just picked up (the mirror copy)
+		targ from
+		drop
+		wait 1
+
+*force creature to pick up the real object
+		inst
+		doif mv00 <> null
+			mesg wrt+ from 50200 mv00 4 0
+		endi
+
+	endi
+
+	wait 1
+	kill ownr
+
+endm
+
+
+*Eat (12)
+scrp 1 7 50203 12
+
+	doif ov00 <> null
+		mesg wrt+ from 50200 ov00 12 0
+	else
+		kill ownr
+	endi
+
+endm
+
+
+*creature interacts with mirror object, which is redirected to the appropriate action on the real object 
+
+*_P1_ is object to target
+*_P2_ is script number to run
+
+scrp 4 0 0 50200
+
+*	dbg: outs "running script num: "
+*	dbg: outv _p2_
+
+	doif _p1_ <> null
+		mesg writ _p1_ _p2_
+	endi
+
+endm
+
+
+********************************************************************************************************
+
+
+
+
+
+
+*WORLD WRAP MIRROR TIMER SCRIPT
+*(used to delete a mirror speech object after its done talking!)
+
+scrp 1 7 50202 9
+
+	kill ownr
+
+endm
+
+
+
+
+
+
+
+
+
+
+
+
+
+*This script is designed to be called by other objects that say messages out loud for norns to hear, it repeats the message offset over the wrap
+*_P1_ is agent to take coords from
+*_P2_ is text to repeat over the wrap
+
+scrp 1 7 50205 1000
+
+	inst
+
+*only run this script if there are creatures near the wrap to hear you
+	doif game "C2toDS_NornsNearWrap?" = 1
+
+		doif _p1_ <> null
+
+			targ _p1_
+
+
+*store XY coords for later
+			setv va00 posl
+			setv va01 post
+
+
+*stop the script if we're not in the C2toDS metaroom
+			doif game "C2toDS_RoomID" <> gmap va00 va01
+				stop
+			endi
+
+*create a temporary Mirror Object to shout the text
+			new: simp 1 7 50202 "blnk" 1 0 0
+
+			attr 0
+
+*check which side of the wrap the object is on and add or remove the appropriate offset:
+
+
+*only do this for objects that are within 500 units of the wrap point (on either side)
+			setv va60 game "C2toDS_WrapRight"
+			subv va60 500
+
+			setv va61 game "C2toDS_WrapLeft"
+			addv va61 500
+
+			doif va00 <= game "C2toDS_WrapRight" and va00 > va60
+
+				subv va00 game "C2toDS_WrapOffset"
+
+			elif va00 >= game "C2toDS_WrapLeft" and va00 < va61
+
+				addv va00 game "C2toDS_WrapOffset"
+
+			else
+				kill targ
+				stop
+			endi
+
+			mvto va00 va01
+
+** send message to bubble factory to do visuals
+*						rtar 1 2 10
+*						mesg wrt+ targ 126 va99 va06 0
+*** target agent again, and send shout from it
+**					targ va06
+
+			ordr shou _p2_
+
+			kill targ
+
+		endi
+	endi
+
+endm
+
+
+
 
 
 
@@ -1475,7 +2086,7 @@ enum 1 7 50201
 
 next
 
-*Delete Mirror Object*
+*Delete Speech Mirror Objects*
 
 enum 1 7 50202
 
@@ -1483,8 +2094,30 @@ enum 1 7 50202
 
 next
 
+*Delete Mirror Objects*
+
+enum 1 7 50203
+
+	kill targ
+
+next
 
 
+*Delete are Norns Near Wrap? tracker
+
+enum 1 7 50204
+
+	kill targ
+
+next
+
+*Delete speech mirror object
+
+enum 1 7 50205
+
+	kill targ
+
+next
 
 
 scrx 1 7 50201 123
@@ -1492,28 +2125,34 @@ scrx 1 7 50201 9
 
 scrx 1 5 50200 9
 scrx 1 5 50200 128
-
-scrx 1 6 50200 255
 scrx 1 6 50200 9
-
 scrx 1 7 50200 9
-
 scrx 1 7 50200 76
-scrx 1 7 50200 77
 scrx 1 7 50200 73
-
-scrx 1 7 50200 900
 scrx 1 7 50200 126
+scrx 1 7 50200 900
+
+scrx 1 7 50204 9
+
+scrx 1 7 50203 9
+scrx 1 7 50203 1
+scrx 1 7 50203 2
+scrx 1 7 50203 0
+scrx 1 7 50203 3
+scrx 1 7 50203 4
+scrx 1 7 50203 12
+
+scrx 4 0 0 50200
+
+scrx 1 7 50202 9
+
+scrx 1 7 50205 1000
 
 
-
-*set both DS Indicators back to default attributes. Invisible to norns and Camera Shy
-rtar 1 2 1
-attr 272
-
-rtar 1 2 2
-attr 272
-
+*temp code to turn off object highlighting
+enum 0 0 0
+	dcor 0
+next
 
 
 

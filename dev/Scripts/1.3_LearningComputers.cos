@@ -391,48 +391,48 @@ scrp 3 3 50200 1000
 	doif va02 = -1
 
 *perfect nice_drive 1 full (of protein)
-		sets va60 "perfect verb 0 "
-		adds va60 read "Creature Actions" 0
-		ordr sign va60
+		sets va40 "perfect verb 0 "
+		adds va40 read "Creature Actions" 0
+		gsub say_va40
 
 *perfect nice_drive 2 full (of starch)
-		sets va60 "perfect special  "
-		adds va60 read "Learnt Specials" 2
-		ordr sign va60
+		sets va40 "perfect special  "
+		adds va40 read "Learnt Specials" 2
+		gsub say_va40
 
 	elif va02 = -2
 
 *perfect drive 1 hungry for protein
-		sets va60 "perfect nice_drive 1 "
-		adds va60 read "Creature Drives" 1
-		ordr sign va60
+		sets va40 "perfect nice_drive 1 "
+		adds va40 read "Creature Drives" 1
+		gsub say_va40
 
 *perfect drive 2 hungry for starch
-		sets va60 "perfect nice_drive 2 "
-		adds va60 read "Creature Drives" 2
-		ordr sign va60
+		sets va40 "perfect nice_drive 2 "
+		adds va40 read "Creature Drives" 2
+		gsub say_va40
 
 *perfect drive 3 hungry for fat
-		sets va60 "perfect nice_drive 3 "
-		adds va60 read "Creature Drives" 3
-		ordr sign va60
+		sets va40 "perfect nice_drive 3 "
+		adds va40 read "Creature Drives" 3
+		gsub say_va40
 
 	elif va02 = -3
 
 *perfect nice_drive 1 full (of protein)
-		sets va60 "perfect nice_drive 1 "
-		adds va60 read "Learnt Nice Drives" 1
-		ordr sign va60
+		sets va40 "perfect nice_drive 1 "
+		adds va40 read "Learnt Nice Drives" 1
+		gsub say_va40
 
 *perfect nice_drive 2 full (of starch)
-		sets va60 "perfect nice_drive 2 "
-		adds va60 read "Learnt Nice Drives" 2
-		ordr sign va60
+		sets va40 "perfect nice_drive 2 "
+		adds va40 read "Learnt Nice Drives" 2
+		gsub say_va40
 
 *perfect nice_drive 3 full (of fat)
-		sets va60 "perfect nice_drive 3 "
-		adds va60 read "Learnt Nice Drives" 3
-		ordr sign va60
+		sets va40 "perfect nice_drive 3 "
+		adds va40 read "Learnt Nice Drives" 3
+		gsub say_va40
 
 *otherwise construct and send the appropriate string - "perfect noun/verb N whatever"
 	else
@@ -443,10 +443,7 @@ scrp 3 3 50200 1000
 		adds va40 va50
 
 *now actually say the hidden command so that norns can hear it, repeat it, learn from it
-*	ordr shou va40
-
-*doing it based on norns that can see it so that RNGE is respected and they dont hear through walls.
-		ordr sign va40
+		gsub say_va40
 
 	endi
 
@@ -496,6 +493,27 @@ scrp 3 3 50200 1000
 	endi
 
 *	unlk
+
+
+*subroutine for say, so we can easily send all messages over the wrap without convoluting the code
+	subr say_va40
+
+*now actually say the hidden command so that norns can hear it, repeat it, learn from it
+*		ordr shou va40
+
+*doing it based on norns that can see it so that RNGE is respected and they dont hear through walls.
+		ordr sign va40
+
+*SPECIAL FUNCTION TO LET NORNS HEAR THIS OVER THE WORLD WRAP
+*(_P1_ is object to shout from, _P2_ is string to shout)
+		rtar 1 7 50205
+		doif targ <> null
+			mesg wrt+ targ 1000 ownr va40 0
+		endi
+		targ ownr
+
+	retn
+
 
 endm
 

@@ -165,7 +165,7 @@ scrp 2 15 50219 1
 *but also give them the chemicals of playing with a critter
 	stim writ from 86 0
 	stim writ from 97 0.5
-	
+
 	call 1001 0 0
 
 endm
@@ -284,6 +284,16 @@ scrp 2 15 50219 1001
 *doing it based on norns that can see it so that RNGE is respected and they dont hear through walls.
 	ordr sign va40
 
+
+*SPECIAL FUNCTION TO LET NORNS HEAR THIS OVER THE WORLD WRAP
+*(_P1_ is object to shout from, _P2_ is string to shout)
+	rtar 1 7 50205
+	doif targ <> null
+		mesg wrt+ targ 1000 ownr va40 0
+	endi
+	targ ownr
+
+
 *reset timer for consistency
 	tick 0
 	wait 1
@@ -353,7 +363,7 @@ scrp 2 15 50219 3
 *but also give them the chemicals of playing with a critter
 	stim writ from 86 0
 	stim writ from 97 0.5
-	
+
 *make a smack sound
 	snde "spnk"
 
