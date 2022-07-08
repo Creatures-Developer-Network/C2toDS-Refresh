@@ -1,12 +1,12 @@
 * This file has scripts for:
 *1 5 50200 - World Wrap Camera
 *1 6 50200 - World Wrap Grabber
-*1 7 50200 - Mouse Pointer Tracker
+*5 7 50200 - Mouse Pointer Tracker (moved to family 5 so that DS can't pause it by default)
 *1 7 50201 - Window Resize Camera Builder
 *1 7 50202 - World Wrap Shout Object (used so objects can shout their CATO across the wrap for norns to hear + as a temporary object that emits creature babble (audio) over the wrap). ALSO used for mirrored clones of the Norn/Attention indicators.
 *1 7 50203 - World Wrap Mirror Object
 *1 7 50204 - Are creatures near the wrap? check every 100 ticks
-*1 7 50205 - An object other object scripts can target to let norns hear them over the wrap
+*1 7 50205 - An object other object scripts can target to let norns hear them over the wrap (if you change this classifier number, you will break several objects!!)
 
 * This file also adds a new creature script to redirect actions on mirror objects onto their real world counterparts:
 *scrp 4 0 0 50200
@@ -40,7 +40,7 @@
 
 
 
-*some benchmarks
+*some benchmarks (a bit outdated)
 
 
 *world of 16 norns (no wrap): 206.4
@@ -71,8 +71,8 @@
 
 *MIRROR OBJECTS*
 *
-*OV00 (agent) - ORIGINAL AGENT (real world counterpart)
-*OV01 (variable) - OFFSET (reapplied during timer script if a creature is focusing on it)
+*OV00 - ORIGINAL AGENT (real world counterpart)
+*OV01 - OFFSET (reapplied during timer script if a creature is focusing on it)
 
 
 
@@ -244,7 +244,7 @@ seta va55 targ
 
 *mouse pointer tracker
 
-new: simp 1 7 50200 "blank" 1 0 1
+new: simp 5 7 50200 "blank" 1 0 1
 
 *reaaally make sure norns cant see it
 attr 16
@@ -770,6 +770,21 @@ scrp 1 6 50200 9
 **********if the target is over either side of the wrap**********
 	subr Move_Object_Over_Wrap
 
+***IF A CREATURE WENT OVER THE WRAP, REMOVE ANY MIRROR COPIES OF IT SO IT DOESN'T SEE ITSELF BRIEFLY AS IT CROSSES THE WRAP PONT!****
+
+		doif crea targ = 1
+			seta va34 targ
+			enum 1 7 50203
+				doif ov00 = va34
+					kill targ
+				endi
+			next
+			targ va34
+		endi
+
+**************************************************************************************************************************************		
+
+
 
 *make a mirror object as soon as an object goes over the wrap so norns attention never flickers
 
@@ -860,15 +875,11 @@ scrp 1 6 50200 9
 
 *move the creature to the other side of the wrap
 *(do an unsafe move if possible)
-				dbg: outs "old:"
-				dbg: outv posx
 				doif tmvf va00 va01 = 1
 					mvft va00 va01
 				else
 					mvsf va00 va01
 				endi
-				dbg: outs "new:"
-				dbg: outv posx
 
 			endi
 
@@ -898,7 +909,7 @@ scrp 1 6 50200 9
 
 	subr Make_Mirror_Object
 
-*debug: highlight object that you just cloned
+**debug: highlight object that you just cloned
 *		dcor 1
 
 		inst
@@ -917,6 +928,7 @@ scrp 1 6 50200 9
 *make sure the object is NOT invisible to creatures 
 			setv va83 attr
 			andv va83 16
+
 			doif va83 <> 16
 
 *MAKE MIRROR OBJECT
@@ -1009,6 +1021,9 @@ scrp 1 6 50200 9
 			setv va21 0
 		endi
 
+*store if it's a creature or not
+		setv va22 crea targ
+
 
 *create a temporary Mirror Object to copy the Category and pos of our real object
 *it is a 1 x va21 (above) sprite is positioned using the middle X coordinate of the real object
@@ -1017,9 +1032,16 @@ scrp 1 6 50200 9
 *fake temp object needs to have the same category as the real one
 		cato va17
 
-*norns can see it and do any interactions they could do on the original object (will be redirected TO the original object)
 		attr 0
-		bhvr va20
+
+*if it's a Creature, give it no bhvr. problems arise if creatures try to interact with something pretending to be a creature. 
+		doif va22 = 1
+			bhvr 0
+
+*otherwise norns can see it and do any interactions they could do on the original object (will be redirected TO the original object)
+		else
+			bhvr va20
+		endi
 
 *		dbg: outv bhvr
 
@@ -1040,10 +1062,19 @@ scrp 1 6 50200 9
 
 
 **debug: put all cloned objects in a specific spot so norns can test interacting with them		
-*		mvto 2121 48580
+*		mvto 2121 48512
 
-*debug: highlight objects that are clones
-		dcor 1
+**debug: put all cloned CREATURES in a specific spot so norns can test interacting with them
+*		doif va22 = 1
+*			mvto 2121 48512
+*		endi
+
+
+
+
+**debug: highlight objects that are clones
+*		dcor 1
+
 
 
 
@@ -1080,7 +1111,7 @@ endm
 
 *Pointer Tracker - Timer Script, runs once per tick*
 
-scrp 1 7 50200 9
+scrp 5 7 50200 9
 
 
 
@@ -1213,12 +1244,9 @@ scrp 1 7 50200 9
 
 *if selected norn is holding the creatures hand, hide the duplicate indicator
 *(this was occasionally causing double indicators)
-	doif norn <> hhld
 
-*stop the script if we're not in the C2toDS metaroom (only checking the norn indicator because the attention indicator will surely be in the same room 99.9% of the time)
-		doif game "C2toDS_RoomID" <> gmap posl post
-			stop
-		endi
+*also don't do anything if we're not in the C2toDS room
+	doif norn <> hhld and game "C2toDS_RoomID" = gmap posl post
 
 *check what side of the world the indicator is on
 		setv va60 game "C2toDS_WrapRight"
@@ -1251,6 +1279,7 @@ scrp 1 7 50200 9
 
 	else
 
+		targ mv01
 		mvto -100 -100
 
 	endi
@@ -1261,7 +1290,10 @@ scrp 1 7 50200 9
 
 *if selected norn is holding the creatures hand, hide the duplicate indicator
 *(this was occasionally causing double indicators)
-	doif norn <> hhld
+
+*also don't do anything if we're not in the C2toDS room
+	doif norn <> hhld and game "C2toDS_RoomID" = gmap posl post
+
 
 *check what side of the world the indicator is on
 		setv va60 game "C2toDS_WrapRight"
@@ -1294,6 +1326,7 @@ scrp 1 7 50200 9
 
 	else
 
+		targ mv02
 		mvto -100 -100
 
 	endi
@@ -1307,7 +1340,7 @@ endm
 *Pointer Tracker - Raw Mouse Down script
 *This copies the effect of agent help bubbles over the world wrap.
 
-scrp 1 7 50200 76
+scrp 5 7 50200 76
 
 	inst
 
@@ -1422,7 +1455,7 @@ endm
 
 
 *A keypress
-scrp 1 7 50200 73
+scrp 5 7 50200 73
 
 	lock
 
@@ -1572,7 +1605,7 @@ endm
 
 *126 Make Speech Bubble
 *Called when a creature speaks, so scripts can display a speech bubble. Every agent which has this script is called. _P1_ is the text being spoken, _P2_ is the creature who is speaking.
-scrp 1 7 50200 126
+scrp 5 7 50200 126
 
 	inst
 
@@ -1706,7 +1739,7 @@ endm
 *switch room event
 *This script is not natively executed by the engine, but is triggered by a script in DS Favorite Places.cos. Called when the main camera is switched to a different metaroom.
 
-scrp 1 7 50200 900
+scrp 5 7 50200 900
 
 	inst
 
@@ -1803,17 +1836,45 @@ scrp 1 7 50203 9
 *(this fixes the attention indicator flickering)
 
 	esee 4 0 0
+
 		doif ownr = iitt
 			setv va00 1
 *			dbg: outs "a norn is looking at a mirror object so im not deleting it"
+
+*if it's pretending to be a creature, move the object out of reach so the norn continues walking towards it
+			doif crea mv00 = 1
+
+				setv va90 relx targ ownr
+				absv va90
+
+				doif va90 < 100
+*				doif touc ownr targ = 1
+*					dbg: outv relx ownr targ
+
+
+*move in the same direction as your offset
+					targ ownr
+					doif ov01 > 0
+						mvby 1 0
+					else
+						mvby -1 0
+					endi
+
+*special case where we set tickrate to 1 without overriding movement
+					setv va00 2
+
+				endi
+			endi
+
 		endi
+
 	next
 
 * if OV00 (real world counterpart) is null, delete it anyway
 	doif va00 = 0 or mv00 = null
 		kill ownr
 *if we're not deleting it, update its position
-	else
+	elif va00 = 1
 		targ mv00
 		setv va01 posx
 		setv va02 post
@@ -1826,6 +1887,15 @@ scrp 1 7 50203 9
 *and set it to update its position/check for deletion way more frequently
 		tick 1
 *		dbg: outs "changed tickrate"
+
+*if we're not deleting it and it's a creature that a norn nearly interacted with
+	elif va00 = 2
+
+*tick as often as the wrappers tick
+*		tick game "C2toDS_WrapTickRate"
+		tick 1
+
+
 	endi
 
 endm
@@ -2072,7 +2142,7 @@ next
 
 *Delete Pointer Tracker*
 
-enum 1 7 50200
+enum 5 7 50200
 
 	kill targ
 
@@ -2126,11 +2196,11 @@ scrx 1 7 50201 9
 scrx 1 5 50200 9
 scrx 1 5 50200 128
 scrx 1 6 50200 9
-scrx 1 7 50200 9
-scrx 1 7 50200 76
-scrx 1 7 50200 73
-scrx 1 7 50200 126
-scrx 1 7 50200 900
+scrx 5 7 50200 9
+scrx 5 7 50200 76
+scrx 5 7 50200 73
+scrx 5 7 50200 126
+scrx 5 7 50200 900
 
 scrx 1 7 50204 9
 
@@ -2149,10 +2219,10 @@ scrx 1 7 50202 9
 scrx 1 7 50205 1000
 
 
-*temp code to turn off object highlighting
-enum 0 0 0
-	dcor 0
-next
+**debug: turn off object highlighting
+*enum 0 0 0
+*	dcor 0
+*next
 
 
 
