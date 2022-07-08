@@ -745,6 +745,7 @@ scrp 1 6 50200 9
 ****OBJECT WASN'T ON EITHER SIDE OF THE WRAP (BUT WAS STILL TOUCHING A GRABBER), SO MAKE A MIRROR THAT NORNS CAN SEE!****
 
 					else
+
 						gsub Make_Mirror_Object
 
 					endi
@@ -788,7 +789,7 @@ scrp 1 6 50200 9
 
 *make a mirror object as soon as an object goes over the wrap so norns attention never flickers
 
-*set this variable to 1 so the subroutine knows to set a lower tick
+*set this variable to 1 so the subroutine knows to handle it differently
 		setv va89 1
 		gsub Make_Mirror_Object
 
@@ -1068,7 +1069,6 @@ scrp 1 6 50200 9
 *		doif va22 = 1
 *			mvto 2121 48512
 *		endi
-
 
 
 
@@ -1913,6 +1913,7 @@ endm
 *Activate 1 (0)
 scrp 1 7 50203 1
 
+	inst
 	doif ov00 <> null
 		mesg wrt+ from 50200 ov00 0 0
 	else
@@ -1925,6 +1926,7 @@ endm
 *Activate 2 (1)
 scrp 1 7 50203 2
 
+	inst
 	doif ov00 <> null
 		mesg wrt+ from 50200 ov00 1 0
 	else
@@ -1937,6 +1939,7 @@ endm
 *Deactivate (2)
 scrp 1 7 50203 0
 
+	inst
 	doif ov00 <> null
 		mesg wrt+ from 50200 ov00 2 0
 	else
@@ -1949,6 +1952,7 @@ endm
 *Hit (3)
 scrp 1 7 50203 3
 
+	inst
 	doif ov00 <> null
 		mesg wrt+ from 50200 ov00 3 0
 	else
@@ -1986,6 +1990,7 @@ endm
 *Eat (12)
 scrp 1 7 50203 12
 
+	inst
 	doif ov00 <> null
 		mesg wrt+ from 50200 ov00 12 0
 	else
@@ -2005,6 +2010,7 @@ scrp 4 0 0 50200
 *	dbg: outs "running script num: "
 *	dbg: outv _p2_
 
+	inst
 	doif _p1_ <> null
 		mesg writ _p1_ _p2_
 	endi
