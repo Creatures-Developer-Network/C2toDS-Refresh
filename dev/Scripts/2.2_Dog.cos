@@ -20,6 +20,7 @@
 
 
 *todo: woudn't it be neat if Pitz could respond to "sit" "stay" "fetch" commands from the hand, magic words style?
+*he could also have a dog bowl which you can click to name him. it would use the c2tods speech font to write it on the bowl itself.
 
 
 *OV00 - what the dog doin?
@@ -744,14 +745,15 @@ scrp 2 15 50210 9
 *set OV04 to 0. It tracks how long the dog has been begging for the ball.
 		setv ov04 0
 
-*target ball agent this dog is chasing
-		targ ov10
 
 *if the ball you were chasing stopped existing, give up
-		doif targ = null
+		doif ov10 = null
 			setv ov03 0
 			tick 10
 			stop
+		else
+*target ball agent this dog is chasing
+			targ ov10
 		endi
 
 *store ball X position in VA00

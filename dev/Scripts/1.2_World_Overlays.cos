@@ -1,6 +1,8 @@
 *NeoDement added a script that allows the pointer to click on objects behind dithered overlays.
 
 
+*TODO: ADD OVERLAYS TO VOLCANO PLATFORMS ON RIGHT SIDE OF VOLCANO!!! WORLD WRAP COPIES WILL NEED TO EXIST TOO!!!
+
 
 *Files Needed*
 
@@ -494,6 +496,17 @@ new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 27 8001
 attr 0
 
 mvto 2242 48261
+*Dark Ocean Rocks (this copy needs to exist because of the world wrap)*
+
+setv va00 posl
+addv va00 game "C2toDS_WrapOffset"
+setv va01 post
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 27 8001
+
+attr 0
+dcor 1
+mvto va00 va01
 
 
 
@@ -844,13 +857,26 @@ attr 0
 mvto 9410 48354
 
 
+*todo: (much like the one below, this needs to taller/have a separate overlay above (its a volcano piece))
 *Submarine overlay*
 
 new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 26 8000
 
 attr 0
 
-mvto 9106 48192
+mvto 754 48192
+
+*Volcano Walkway overlay (this copy needs to exist because of the world wrap)*
+
+setv va00 posl
+addv va00 game "C2toDS_WrapOffset"
+setv va01 post
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 26 8000
+
+attr 0
+
+mvto va00 va01
 
 
 
@@ -863,7 +889,20 @@ new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 23 8000
 
 attr 0
 
-mvto 10032 48056
+mvto 1680 48056
+
+*Volcano Walkway overlay (this copy needs to exist because of the world wrap)*
+
+setv va00 posl
+addv va00 game "C2toDS_WrapOffset"
+setv va01 post
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 23 8000
+
+attr 0
+
+mvto va00 va01
+
 
 
 

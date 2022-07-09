@@ -19,7 +19,7 @@
 *Clouds have new limits for how high or low they can be in the C2toDS metaroom. This fixes clouds finding their way through the wooden bridge into the area below the incubator room.
 *Toolbar can now be clicked and dragged to move it and supports docking to the bottom and right sides of the screen.
 
-
+*TODO: RUN A WORLD FOR A LONG TIME AND SEE IF CLOUD PLANE IS EVER NOT 8002!!!
 *plane is 2 below Wolfling Control so we don't draw anything on top of it
 new: comp 1 9 50200 "moe_C2toDS_Weather" 1 32 8998
 
@@ -29,18 +29,15 @@ new: comp 1 9 50200 "moe_C2toDS_Weather" 1 32 8998
 attr 310
 
 
-setv va00 wndh
-
-subv va00 hght
-
-flto 0 va00
-
 *ticks once straight away but generally will only tick every 20 ticks
 tick 1
 
-*docked status is bottom left by default
-setv name "docked_right" 0
+*docked status is bottom right by default (out of the way of the CAOS command line)
+setv name "docked_right" 1
 setv name "docked_bottom" 1
+
+*automatically position toolbar
+mesg writ targ 123
 
 *year PART 1
 

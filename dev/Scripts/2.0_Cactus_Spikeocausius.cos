@@ -12,8 +12,12 @@
 *Likes warm, desert conditions, produces flowers in springtime nights. 
 
 
-new: comp 2 23 50207 "moe_C2toDS_cacti" 8 80 rand 1000 2500
+*todo: something is absolutely crazy with the way seeds act when they fail to find land. may be a typo in the "wind" system?
 
+
+new: comp 2 23 50207 "moe_C2toDS_cacti" 8 80 1101
+*dcor 1
+*cmrt 0
 mvsf 7290 48092
 
 
@@ -26,16 +30,16 @@ mvsf 7290 48092
 *Create Spikeocausius
 
 
-
 reps rand 7 9
 
-	new: simp 2 5 50207 "moe_C2toDS_cacti" 13 32 rand 1000 2500
+	new: simp 2 5 50207 "moe_C2toDS_cacti" 13 32 rand 1000 1100
 
 	pose 6
 
 	bhvr 11
 
-	setv va00 rand 7556 7750
+	setv va00 rand 7456 7650
+*	setv va00 rand 7506 7700
 
 	mvsf va00 48084
 
@@ -49,7 +53,7 @@ repe
 
 reps rand 5 7
 
-	new: simp 2 5 50207 "moe_C2toDS_cacti" 13 32 rand 1000 2500
+	new: simp 2 5 50207 "moe_C2toDS_cacti" 13 32 rand 1000 1100
 
 	pose 6
 
@@ -161,10 +165,10 @@ scrp 2 23 50207 1
 
 		subv va01 30
 
-		new: simp 2 3 50207 "moe_C2toDS_cacti" 27 45 rand 1000 2500
+		new: simp 2 3 50207 "moe_C2toDS_cacti" 27 45 rand 1000 1100
 
 
-
+*initial velocity
 		setv va02 -1000
 
 		setv va03 1000
@@ -177,9 +181,9 @@ scrp 2 23 50207 1
 
 		setv va07 rand va04 va05
 
-		divv va06 100.01
+		divv va06 100
 
-		divv va07 100.01
+		divv va07 100
 
 		velo va06 va07
 
@@ -225,7 +229,7 @@ scrp 2 23 50207 3
 	doif crea from eq 1
 		stim writ from 92 1
 	endi
-	
+
 	snde "hit_"
 	velo rand -2 2 rand -10 -5
 endm
@@ -326,7 +330,7 @@ scrp 2 3 50207 9
 
 *Create Spikeocausius
 
-			new: simp 2 5 50207 "moe_C2toDS_cacti" 13 32 rand 1000 2500
+			new: simp 2 5 50207 "moe_C2toDS_cacti" 13 32 rand 1000 1100
 
 			bhvr 11
 
@@ -397,8 +401,21 @@ scrp 2 3 50207 9
 *Stop emitting carb smell so you don't confuse creatures. -T1WS
 			emit 7 0
 
-			attr 209
+* fix for error when setting ATTR causing it to re-check map position and realising it's invalid
+*delete it if it somehow isn't autonomous (probably in a creatures hand?)
+			inst
+			doif movs = 0
+				setv va00 posl
+				setv va01 post
+				mvsf 0 0
+				attr 209
 
+				mvsf va00 va01
+
+			else
+
+				kill targ
+			endi
 			tick 1200
 
 		endi
@@ -537,7 +554,7 @@ scrp 2 5 50207 9
 
 		sndc "laun"
 
-		new: simp 2 3 50207 "moe_C2toDS_cacti" 27 45 rand 1000 2500
+		new: simp 2 3 50207 "moe_C2toDS_cacti" 27 45 rand 1000 1100
 
 		mvsf va00 va01
 
