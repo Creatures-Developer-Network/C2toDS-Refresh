@@ -68,7 +68,7 @@ scrp 2 15 50202 10
 
 	inst
 
-	frat 4
+	frat 2
 
 	anim [0 1 2 3 4 5 6 7 255]
 
@@ -1120,7 +1120,7 @@ scrp 2 15 50202 3
 	doif crea from eq 1
 		stim writ from 87 1
 	endi
-	
+
 	setv va00 rand -10 10
 	setv velx va00
 
@@ -1381,7 +1381,7 @@ scrp 2 18 50202 12
 	snde "chwp"
 
 
-		stim writ from 80 .4
+	stim writ from 80 .4
 
 
 	kill ownr
@@ -1493,16 +1493,10 @@ scrp 2 10 50211 12
 	snde "chwp"
 
 
-		stim writ from 81 .4
+	stim writ from 81 .4
 
 
 	kill ownr
-
-endm
-
-*deactivate
-
-scrp 2 10 50211 0
 
 endm
 
@@ -1541,6 +1535,8 @@ endm
 
 scrp 2 24 50202 10
 
+	inst
+
 	attr 214
 
 	elas 20
@@ -1548,6 +1544,8 @@ scrp 2 24 50202 10
 	accg 3
 
 	perm 51
+
+	frat 2
 
 endm
 
@@ -1559,8 +1557,6 @@ scrp 2 24 50202 1
 
 	sndc "lott"
 
-	frat 1
-
 	anim [1 2 3 4 5 6 7 8 9 10 255]
 
 
@@ -1571,15 +1567,13 @@ scrp 2 24 50202 1
 
 	gsub releaseeggs
 
-
-
-	wait 10
-
-
-
-	anim [0]
-
-
+*reset anim relatively smoothly
+	wait 5
+	loop
+		wait 1
+	untl pose = 4
+	wait 1
+	pose 0
 
 	unlk
 
@@ -1589,7 +1583,7 @@ scrp 2 24 50202 1
 
 
 
-		reps rand 10 20
+		reps 10
 
 			setv va00 posx
 

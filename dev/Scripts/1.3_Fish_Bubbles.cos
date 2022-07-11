@@ -4,16 +4,22 @@
 
 
 
-new: comp 2 19 50205 "moe_c2tods_bubf" 12 0 rand 1000 3000
+*test code
 
-mvsf mopx mopy
+*new: simp 2 19 50205 "moe_c2tods_bubf" 12 0 rand 1000 3000
+
+*mvsf mopx mopy
 
 
 
 
 scrp 2 19 50205 10
 
+	inst
+
 	lock
+
+	frat 2
 
 	snde "bubf"
 
@@ -29,51 +35,7 @@ endm
 
 
 
-*activate 1
-
-scrp 2 19 50205 1
-
-	doif crea from eq 1
-
-		stim writ from 72 .5
-
-	endi
-
-	kill ownr
-
-endm
-
-*activate 2
-
-scrp 2 19 50205 2
-
-	doif crea from eq 1
-
-		stim writ from 72 .5
-
-	endi
-
-	kill ownr
-
-endm
-
-*hit
-
-scrp 2 19 50205 3
-
-	doif crea from eq 1
-
-		stim writ from 72 .5
-
-	endi
-
-	kill ownr
-
-endm
-
 rscr
-
-
 
 enum 2 19 50205
 
@@ -82,10 +44,3 @@ enum 2 19 50205
 next
 
 scrx 2 19 50205 10
-
-scrx 2 19 50205 1
-
-scrx 2 19 50205 2
-
-scrx 2 19 50205 3
-
