@@ -505,7 +505,7 @@ setv va01 post
 new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 27 8001
 
 attr 0
-dcor 1
+
 mvto va00 va01
 
 
