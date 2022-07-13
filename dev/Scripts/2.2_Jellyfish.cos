@@ -18,7 +18,7 @@
 
 reps rand 8 16
 
-	new: simp 2 15 50214 "moe_C2toDS_fish" 1 12 3000
+	new: simp 2 15 50214 "moe_C2toDS_jellyfish" 1 48 3000
 
 	mvsf rand 8611 9100 rand 48324 48542
 
@@ -78,7 +78,7 @@ scrp 2 15 50209 10
 
 	rnge 100
 
-	frat 2
+	frat 4
 
 	tick 80
 
@@ -102,7 +102,7 @@ scrp 2 15 50213 10
 
 	attr 211
 
-	frat 2
+	frat 4
 
 	tick 27
 
@@ -360,7 +360,7 @@ scrp 2 15 50209 9
 
 				repe
 
-				frat 5
+*				frat 5
 
 				anim [49 50 51]
 
@@ -536,7 +536,7 @@ scrp 2 15 50213 9
 
 * any changes
 
-			frat 3
+*			frat 3
 
 		endi
 
@@ -702,7 +702,7 @@ scrp 2 15 50213 9
 
 			setv va01 post
 
-			new: simp 2 15 50214 "moe_C2toDS_fish" 1 12 3000
+			new: simp 2 15 50214 "moe_C2toDS_jellyfish" 1 48 3000
 
 			mvsf va00 va01
 
@@ -758,5 +758,3 @@ scrx 2 15 50213 9
 scrx 2 15 50209 10
 
 scrx 2 15 50209 9
-
-
