@@ -27,11 +27,11 @@ scrp 2 6 50207 9
 
 *make a new berry
 		inst
-		new: simp 2 8 50207 "moe_C2toDS_berries" 0 8  rand 3500 5000
+		new: simp 2 8 50207 "moe_C2toDS_berries" 0 8 rand 3500 5000
 
 *sometimes mvsf puts berries on the beach, so keep randomizing the coords until a safe position ON THE PLANT is found
 		loop
-			setv va00 rand 10223 10450
+			setv va00 rand 10233 10450
 
 			setv va01 rand 48340 48470
 
