@@ -199,7 +199,7 @@ endm
 *Install
 scrp 2 15 5611 10
 	inst
-	frat 4
+	frat 2
 	anim [0 1 2 3 4 5 6 7 255]
 	attr 195
 	elas 0
@@ -212,7 +212,23 @@ scrp 2 15 5611 10
 	rnge 500
 	setv ov06 1
 	setv ov07 1
+
+	puhl -1 28 30
+
+	setv ov10 rand 250 300
+
 	sets name "Stored Moniker" ""
+
+*tadpole OVs:
+
+*ov01 - age
+*ov04 - left/right
+*ov05 - up/down
+*ov06 - left/right speed
+*ov07 - up/down speed
+*ov10 - when will you grow up to be a frog?
+*ov99 - how long have you been out of water?
+
 endm
 
 *Interact
@@ -256,10 +272,10 @@ endm
 *I hope Moe was ok after this - Verm
 scrp 2 15 5611 9
 	addv ov01 1
-	doif ov01 gt rand 250 300
+	doif ov01 gt ov10
 		setv va00 posl
 		setv va01 post
-		subv va00 0
+*		subv va00 0
 		subv va01 15
 		sets va99 name "Stored Moniker"
 		new: simp 2 15 5610 "moe_C2toDS_frogs" 105 0 rand 1000 3000
@@ -272,30 +288,37 @@ scrp 2 15 5611 9
 		kill ownr
 	endi
 
-	gsub checksurface
+*	gsub checksurface
 
-	doif rand 0 500 gt 250
+*only go in random directions if there are no walls nearby
+	gsub obst
+
+	doif va50 = 0
+		doif rand 0 500 gt 250
 *           Left Right
-		setv ov04 rand 0 1
+			setv ov04 rand 0 1
 *           Up Down
-		setv ov05 rand 0 1
+			setv ov05 rand 0 1
+		endi
+
+		doif ov05 eq 0
+			gsub up
+		else
+			gsub down
+		endi
+
+		doif ov04 eq 0
+			gsub left
+		else
+			gsub right
+		endi
 	endi
 
-	doif ov05 eq 0
-		gsub up
-	else
-		gsub down
-	endi
-
-	doif ov04 eq 0
-		gsub left
-	else
-		gsub right
-	endi
+	gsub checksurface
 
 
 	subr up
-		gsub checksurface
+*		gsub checksurface
 		subv vely ov07
 	retn
 
@@ -304,18 +327,18 @@ scrp 2 15 5611 9
 	retn
 
 	subr left
-		mira 0
 		subv velx ov06
+		mira 0
 	retn
 
 	subr right
-		mira 1
 		addv velx ov06
+		mira 1
 	retn
 
 	subr checksurface
 		setv va00 post
-		subv va00 5
+		subv va00 20
 		doif rtyp grap posx va00 ne 8 and rtyp grap posx va00 ne 9
 			doif vely lt 0.0
 				setv vely 0
@@ -334,6 +357,70 @@ scrp 2 15 5611 9
 			accg 0
 		endi
 	retn
+
+
+*obstacle checking subroutine stolen from zander fish (with tweaks)
+	subr obst
+
+		inst
+
+		setv va50 0
+
+		doif obst _up_ lt 10
+
+			setv va00 ov07
+			mulv va00 0.5
+			addv vely va00
+
+			setv va50 1
+
+		endi
+
+
+
+		doif obst down lt 20
+
+			setv va00 ov07
+			mulv va00 0.5
+			subv vely va00
+
+			setv va50 1
+
+		endi
+
+
+
+		doif obst left lt 10
+
+			setv va00 ov06
+*			mulv va00 0.5
+			addv velx va00
+
+			doif velx > 0
+				mira 1
+			endi
+
+			setv va50 1
+
+		endi
+
+		doif obst rght lt 10
+
+			setv va00 ov06
+*			mulv va00 0.5
+			subv velx va00
+
+			doif velx < 0
+				mira 0
+			endi
+
+			setv va50 1
+
+		endi
+
+	retn
+
+
 endm
 
 *Collision
@@ -514,6 +601,7 @@ scrp 2 15 5610 10
 	perm 51
 	puhl -1 30 40
 	bhvr 59
+	frat 2
 	sets name "Stored Moniker" ""
 
 endm
@@ -679,8 +767,9 @@ scrp 2 15 5610 9
 			gsub right
 		endi
 
-	endi
+		gsub obst
 
+	endi
 
 
 
@@ -694,7 +783,7 @@ scrp 2 15 5610 9
 			inst
 			accg 0
 			perm 50
-			frat 2
+
 			anim [28 29 30 31 32 33 34 35 255]
 *Swimming
 			setv ov12 1
@@ -853,7 +942,7 @@ scrp 2 15 5610 9
 
 	subr croak
 		snde "bull"
-		frat 2
+
 		anim [16 17 18 19 18 17 16]
 	retn
 
@@ -960,6 +1049,57 @@ scrp 2 15 5610 9
 		accg 3
 		setv ov12 0
 	retn
+
+
+
+*obstacle checking subroutine stolen from zander fish (with tweaks)
+	subr obst
+
+		inst
+
+		doif obst _up_ lt 10
+
+			setv va00 ov07
+			mulv va00 0.5
+			addv vely va00
+
+		endi
+
+
+
+		doif obst down lt 20
+
+			setv va00 ov07
+			mulv va00 0.5
+			subv vely va00
+			
+		endi
+
+
+
+		doif obst left lt 10
+
+			loop
+				addv velx ov06
+
+			untl velx > 0
+			mira 1
+
+		endi
+
+		doif obst rght lt 10
+
+			loop
+				subv velx ov06
+
+			untl velx < 0
+			mira 0
+
+		endi
+
+	retn
+
+
 
 
 endm
