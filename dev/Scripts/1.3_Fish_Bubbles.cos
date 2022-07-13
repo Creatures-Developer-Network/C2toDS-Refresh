@@ -19,15 +19,26 @@ scrp 2 19 50205 10
 
 	lock
 
-	frat 2
+	setv va00 rtyp grap posx post
 
-	snde "bubf"
+*auto-kill bubbles that were created out of water
+	doif va00 <> 8 and va00 <> 9
 
-	anim [0 1 2 3 4 5 6 7 8 9 10 11]
+		frat 2
 
-	over
+		snde "bubf"
 
-	kill ownr
+		anim [0 1 2 3 4 5 6 7 8 9 10 11]
+
+		over
+
+		kill ownr
+
+	else
+
+		kill ownr
+
+	endi
 
 	unlk
 
