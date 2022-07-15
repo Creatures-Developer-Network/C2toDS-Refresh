@@ -1,13 +1,15 @@
-
 * 2 10 50218 - Angelfish Detritus
 * 2 15 50218 - Angelfish
 * 2 18 50218 - Angelfish Egg
 * 2 24 50218 - Angelfish Maker
 
 
-new: simp 2 24 50218 "moe_C2toDS_Afish" 11 0 rand 1000 3000
+*make vendor
 
-mvsf 4150 49070
+new: simp 2 24 50218 "moe_C2toDS_Afish" 11 0 2000
+
+mvto 4150 49070
+
 
 scrp 2 24 50218 10
 
@@ -19,6 +21,8 @@ scrp 2 24 50218 10
 
 	perm 51
 
+	frat 2
+
 endm
 
 
@@ -29,31 +33,26 @@ scrp 2 24 50218 1
 
 	sndc "lott"
 
-	frat 2
-
 	anim [1 2 3 4 5 6 7]
 
 	over
 
 *wait 5
 
-	frat 2
-
-	anim [ 8 9 10 6 7 255]
+	anim [8 9 10 6 7 255]
 
 
 
 	gsub releaseeggs
 
 
-
-	wait 10
-
-
-
-	anim [0]
-
-
+*reset anim relatively smoothly
+	wait 5
+	loop
+		wait 1
+	untl pose = 7
+	wait 1
+	pose 0
 
 	unlk
 
@@ -63,7 +62,7 @@ scrp 2 24 50218 1
 
 
 
-		reps rand 10 20
+		reps 10
 
 			setv va00 posx
 
@@ -71,7 +70,8 @@ scrp 2 24 50218 1
 
 			wait 5
 
-			new: simp 2 18 50218 "moe_C2toDS_Afish" 1 11 RAND 1000 3000
+*make egg
+			new: simp 2 18 50218 "moe_C2toDS_Afish" 1 11 rand 1000 3000
 
 			mvsf va00 va01
 
@@ -119,7 +119,7 @@ scrp 2 15 50218 10
 
 	inst
 
-	frat 4
+	frat 2
 
 	anim [0 1 2 3 4 5 6 7 255]
 
@@ -324,10 +324,12 @@ scrp 2 15 50218 9
 			subv va01 10
 
 
+			setv va99 plne
+			addv va99 1
 
-			new: comp 2 19 50205 "moe_c2tods_bubf" 12 0 rand 1000 3000
+			new: simp 2 19 50205 "moe_c2tods_bubf" 12 0 plne
 
-			mvsf va00 va01
+			mvto va00 va01
 
 			targ ownr
 
@@ -617,6 +619,7 @@ scrp 2 15 50218 9
 
 			endi
 
+*make egg
 			new: simp 2 18 50218 "moe_C2toDS_Afish" 1 11 rand 1000 3000
 
 			mvsf va00 va01
@@ -899,33 +902,74 @@ scrp 2 15 50218 9
 
 		doif carr eq null
 
+*old checksurface logic...
+*			setv va00 post
+*
+*			doif rtyp room ownr eq 9
+*
+*				subv va00 40
+*
+*			elif rtyp room ownr eq 8
+*
+*				subv va00 20
+*
+*			endi
+*
+*			setv va01 rtyp grap posx va00
+*
+*			doif va01 ne 9 and va01 ne 8
+*
+*				setv va06 vely
+*
+*				doif vely lt 0
+*
+*					absv va06
+*
+*				endi
+*
+*				addv vely va06
+*
+*				setv va10 1
+
+
+*new logic to make fish stop dropping like stones when they swim up out of water
 			setv va00 post
+			setv va01 va00
+			setv va02 hght
 
-			doif rtyp room ownr eq 9
+*set up va01 and va02 with distance from non-water room
+			subv va01 va02
 
-				subv va00 40
+			reps 2
+				subv va00 va02
+			repe
 
-			elif rtyp room ownr eq 8
+*va10 - what type of room is 1 fish above us
+*va20 - what type of room is 2 fishes above us
+			setv va10 rtyp grap posx va01
+			setv va20 rtyp grap posx va02
 
-				subv va00 20
+*very close to surface! (non-water room is 1 fish above us)
+			doif va10 <> 8 and va10 <> 9
 
-			endi
+*swim down at 30% of usual speed...
+				setv va35 ov06
+				mulv va35 0.33
+				setv vely va35
 
-			setv va01 rtyp grap posx va00
+*...and pick a new room target
+				gsub pickroom
 
-			doif va01 ne 9 and va01 ne 8
+*not quite so close to surface (non-water room is 2 fishes above us)
+			elif va20 <> 8 and va20 <> 9
 
-				setv va06 vely
+*reduce vertical velocity by 33% (will eventually reduce to 0 if they stay around this height)
+				setv va50 vely
+				mulv va50 0.66
+				setv vely va50
 
-				doif vely lt 0
-
-					absv va06
-
-				endi
-
-				addv vely va06
-
-				setv va10 1
+*...and pick a new room target
+				gsub pickroom
 
 			endi
 
@@ -1024,14 +1068,14 @@ endm
 *eat
 
 scrp 2 15 50218 12
-inst
+	inst
 	doif from ne ownr
 
 		sndc "chwp"
 
 	endi
 
-		stim writ targ 80 1
+	stim writ targ 80 1
 
 
 	doif ov11 ge 2
@@ -1050,7 +1094,10 @@ inst
 
 		setv va10 mira
 
-		new: simp 2 10 50218 "moe_C2toDS_Afish" 1 44 rand 1000 3000
+		setv va11 plne
+
+*make skeleton
+		new: simp 2 10 50218 "moe_C2toDS_Afish" 1 44 va11
 
 		mvsf va00 va01
 
@@ -1072,35 +1119,30 @@ endm
 
 
 
-*deactivate
 
-scrp 2 15 50218 0
-
-endm
-
-*activate 1
-
-scrp 2 15 50218 1
-
-endm
-
-*activate 2
-
-scrp 2 15 50218 2
-
-endm
-
-*hit
-
-scrp 2 15 50218 3
-
-endm
-
-*pickup
-
-scrp 2 15 50218 4
-
-endm
+**activate 1
+*
+*scrp 2 15 50218 1
+*
+*endm
+*
+**activate 2
+*
+*scrp 2 15 50218 2
+*
+*endm
+*
+**hit
+*
+*scrp 2 15 50218 3
+*
+*endm
+*
+**pickup
+*
+*scrp 2 15 50218 4
+*
+*endm
 
 *drop
 
@@ -1289,7 +1331,7 @@ scrp 2 18 50218 9
 		endi
 
 
-
+*make baby fish
 		new: simp 2 15 50218 "moe_c2tods_Afish" 33 12 rand 1000 3000
 
 		mvsf va00 va01
@@ -1332,27 +1374,27 @@ scrp 2 18 50218 9
 
 endm
 
-*activate 1
-
-scrp 2 18 50218 1
-
-endm
-
-*collision
-
-scrp 2 18 50218 6
-
-*snde "drop"
-
-endm
+**activate 1
+*
+*scrp 2 18 50218 1
+*
+*endm
+*
+**collision
+*
+*scrp 2 18 50218 6
+*
+**snde "drop"
+*
+*endm
 
 *eat
 
 scrp 2 18 50218 12
-inst
+	inst
 	snde "chwp"
 
-		stim writ from 80 .4
+	stim writ from 80 .4
 
 
 	kill ownr
@@ -1365,41 +1407,37 @@ endm
 
 
 
-*deactivate
 
-scrp 2 18 50218 0
 
-endm
-
-*activate 2
-
-scrp 2 18 50218 2
-
-endm
-
-*hit
-
-scrp 2 18 50218 3
-
-	doif crea from eq 1
-
-*stim writ from 0 0
-
-	endi
-
-endm
-
-*pickup
-
-scrp 2 18 50218 4
-
-endm
-
-*drop
-
-scrp 2 18 50218 5
-
-endm
+**activate 2
+*
+*scrp 2 18 50218 2
+*
+*endm
+*
+**hit
+*
+*scrp 2 18 50218 3
+*
+*	doif crea from eq 1
+*
+**stim writ from 0 0
+*
+*	endi
+*
+*endm
+*
+**pickup
+*
+*scrp 2 18 50218 4
+*
+*endm
+*
+**drop
+*
+*scrp 2 18 50218 5
+*
+*endm
 
 *catchall
 
@@ -1438,32 +1476,32 @@ endm
 *timer
 
 scrp 2 10 50218 9
-inst
+	inst
 	kill ownr
 
 endm
 
-*activate 1
-
-scrp 2 10 50218 1
-
-endm
-
-*collision
-
-scrp 2 10 50218 6
-
-*snde "drop"
-
-endm
+**activate 1
+*
+*scrp 2 10 50218 1
+*
+*endm
+*
+**collision
+*
+*scrp 2 10 50218 6
+*
+**snde "drop"
+*
+*endm
 
 *eat
 
 scrp 2 10 50218 12
-inst
+	inst
 	snde "chwp"
 ** This is low no? So I'm bumping both a bit - Verm
-		stim writ from 81 .4
+	stim writ from 81 .4
 
 	kill ownr
 
@@ -1475,35 +1513,30 @@ endm
 
 
 
-*deactivate
 
-scrp 2 10 50218 0
-
-endm
-
-*activate 2
-
-scrp 2 10 50218 2
-
-endm
-
-*hit
-
-scrp 2 10 50218 3
-
-endm
-
-*pickup
-
-scrp 2 10 50218 4
-
-endm
-
-*drop
-
-scrp 2 10 50218 5
-
-endm
+**activate 2
+*
+*scrp 2 10 50218 2
+*
+*endm
+*
+**hit
+*
+*scrp 2 10 50218 3
+*
+*endm
+*
+**pickup
+*
+*scrp 2 10 50218 4
+*
+*endm
+*
+**drop
+*
+*scrp 2 10 50218 5
+*
+*endm
 
 *catchall
 

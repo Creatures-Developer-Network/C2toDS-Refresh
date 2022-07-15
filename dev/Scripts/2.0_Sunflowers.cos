@@ -70,13 +70,13 @@ repe
 
 
 
-new: comp 2 23 24206 "moe_C2toDS_sunflowervend" 2 0 rand 1000 3000
+new: comp 2 23 24206 "moe_C2toDS_sunflowervend" 2 0 2000
+mvto 3880 48290
 
-pat: dull 1 "moe_C2toDS_sunflowervend" 2 0 0 -1
-
-mvsf 3773 48290
 
 scrp 2 23 24206 10
+
+	pat: dull 1 "moe_C2toDS_sunflowervend" 2 0 0 -1
 
 	attr 199
 
@@ -91,6 +91,13 @@ scrp 2 23 24206 10
 	bhvr 47
 
 	emit 10 .15
+
+*C2 framerate
+	frat 2
+
+	part 1
+
+	frat 2
 
 endm
 
@@ -123,8 +130,6 @@ scrp 2 23 24206 1
 	endi
 
 	part 1
-
-	frat 2
 
 	sndc "lott"
 
@@ -968,5 +973,3 @@ loop
 untl va00 eq 2000
 
 setv va00 0
-
-

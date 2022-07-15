@@ -6,31 +6,43 @@
 door grap 3439 48836 grap 3470 48950 25
 door grap 5060 49830 grap 5347 49698 75
 
-new: comp 2 24 50216 "moe_C2toDS_froglayer" 23 0 rand 1000 3000
-pat: dull 1 "moe_C2toDS_froglayer" 21 0 0 1
-pat: dull 2 "moe_C2toDS_froglayer" 22 0 0 -2
+*make vendor
+new: comp 2 24 50216 "moe_C2toDS_froglayer" 23 0 2000
 mvsf 2920 48835
 targ ownr
 
+*tadpoles in frog pond
 reps rand 2 3
 	new: simp 2 15 50217 "moe_C2toDS_tadp" 16 0 rand 1000 3000
 	mvsf rand 2844 3060 rand 48970 48975
 repe
 
+*tadpoles in lower pond near water wheel
 reps rand 2 3
 	new: simp 2 15 50217 "moe_C2toDS_tadp" 16 0 rand 1000 3000
 	mvsf rand 4400 4778 rand 49935 49930
 repe
 
-*install
+
+*install (vendor)
 
 scrp 2 24 50216 10
+
+*parts
+	pat: dull 1 "moe_C2toDS_froglayer" 21 0 0 1
+	pat: dull 2 "moe_C2toDS_froglayer" 22 0 0 -2
+
+*physics etc
 	perm 51
 	bhvr 43
 	attr 199
 	accg 5
 	elas 0
+	frat 2
+
 endm
+
+
 *timer - why is this here? Pop control? Though it doesn't have tick normally... - Verm
 *scrp 2 24 50216 9
 *endm
@@ -161,7 +173,7 @@ endm
 *install
 scrp 2 15 50217 10
 	inst
-	frat 4
+	frat 2
 	anim [0 1 2 3 4 5 6 7 255]
 	attr 195
 	elas 0
@@ -175,6 +187,21 @@ scrp 2 15 50217 10
 
 	setv ov06 1
 	setv ov07 1
+
+	puhl -1 28 30
+
+	setv ov10 rand 250 300
+
+*tadpole OVs:
+
+*ov01 - age
+*ov04 - left/right
+*ov05 - up/down
+*ov06 - left/right speed
+*ov07 - up/down speed
+*ov10 - when will you grow up to be a frog?
+*ov99 - how long have you been out of water?
+
 endm
 
 scrp 2 15 50217 1
@@ -199,40 +226,50 @@ endm
 *VERY simple.
 scrp 2 15 50217 9
 	addv ov01 1
-	doif ov01 gt rand 250 300
+
+*become a frog!
+	doif ov01 gt ov10
 		setv va00 posl
 		setv va01 post
-		subv va00 0
+*		subv va00 0
 		subv va01 15
-		new: simp 2 15 50216 "moe_C2toDS_frogs" 105 0 rand 1000 3000
+
+		setv va10 plne
+
+		new: simp 2 15 50216 "moe_C2toDS_frogs" 105 0 va10
 		mvsf va00 va01
 		kill ownr
 	endi
 
-	gsub checksurface
+*only go in random directions if there are no walls nearby
+	gsub obst
 
-	doif rand 0 500 gt 250
+	doif va50 = 0
+		doif rand 0 500 gt 250
 *           Left Right
-		setv ov04 rand 0 1
+			setv ov04 rand 0 1
 *           Up Down
-		setv ov05 rand 0 1
+			setv ov05 rand 0 1
+		endi
+
+		doif ov05 eq 0
+			gsub up
+		else
+			gsub down
+		endi
+
+		doif ov04 eq 0
+			gsub left
+		else
+			gsub right
+		endi
 	endi
 
-	doif ov05 eq 0
-		gsub up
-	else
-		gsub down
-	endi
-
-	doif ov04 eq 0
-		gsub left
-	else
-		gsub right
-	endi
+	gsub checksurface
 
 
 	subr up
-		gsub checksurface
+*		gsub checksurface
 		subv vely ov07
 	retn
 
@@ -252,7 +289,7 @@ scrp 2 15 50217 9
 
 	subr checksurface
 		setv va00 post
-		subv va00 5
+		subv va00 20
 		doif rtyp grap posx va00 ne 8 and rtyp grap posx va00 ne 9
 			doif vely lt 0.0
 				setv vely 0
@@ -271,6 +308,70 @@ scrp 2 15 50217 9
 			accg 0
 		endi
 	retn
+
+
+*obstacle checking subroutine stolen from zander fish (with tweaks)
+	subr obst
+
+		inst
+
+		setv va50 0
+
+		doif obst _up_ lt 10
+
+			setv va00 ov07
+			mulv va00 0.5
+			addv vely va00
+
+			setv va50 1
+
+		endi
+
+
+
+		doif obst down lt 20
+
+			setv va00 ov07
+			mulv va00 0.5
+			subv vely va00
+
+			setv va50 1
+
+		endi
+
+
+
+		doif obst left lt 10
+
+			setv va00 ov06
+*			mulv va00 0.5
+			addv velx va00
+
+			doif velx > 0
+				mira 1
+			endi
+
+			setv va50 1
+
+		endi
+
+		doif obst rght lt 10
+
+			setv va00 ov06
+*			mulv va00 0.5
+			subv velx va00
+
+			doif velx < 0
+				mira 0
+			endi
+
+			setv va50 1
+
+		endi
+
+	retn
+
+
 endm
 
 *Collision
@@ -307,6 +408,7 @@ scrp 2 15 50216 10
 	perm 51
 	puhl -1 30 40
 	bhvr 59
+	frat 2
 
 *ov01 = Timer
 *> 10 Adult
@@ -435,6 +537,8 @@ scrp 2 15 50216 9
 			gsub right
 		endi
 
+		gsub obst
+
 	endi
 
 
@@ -450,7 +554,7 @@ scrp 2 15 50216 9
 			inst
 			accg 0
 			perm 50
-			frat 2
+
 			anim [28 29 30 31 32 33 34 35 255]
 *Swimming
 			setv ov12 1
@@ -607,7 +711,7 @@ scrp 2 15 50216 9
 
 	subr croak
 		snde "bull"
-		frat 2
+
 		anim [16 17 18 19 18 17 16]
 	retn
 
@@ -672,7 +776,59 @@ scrp 2 15 50216 9
 	retn
 
 
+
+*obstacle checking subroutine stolen from zander fish (with tweaks)
+	subr obst
+
+		inst
+
+		doif obst _up_ lt 10
+
+			setv va00 ov07
+			mulv va00 0.5
+			addv vely va00
+
+		endi
+
+
+
+		doif obst down lt 20
+
+			setv va00 ov07
+			mulv va00 0.5
+			subv vely va00
+			
+		endi
+
+
+
+		doif obst left lt 10
+
+			loop
+				addv velx ov06
+
+			untl velx > 0
+			mira 1
+
+		endi
+
+		doif obst rght lt 10
+
+			loop
+				subv velx ov06
+
+			untl velx < 0
+			mira 0
+
+		endi
+
+	retn
+
+
+
+
 endm
+
 *activate 1
 scrp 2 15 50216 1
 	stim writ from 86 1
