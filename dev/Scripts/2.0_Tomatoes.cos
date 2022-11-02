@@ -885,7 +885,7 @@ scrp 2 23 50210 1
 *Send a signal from the specified output port to all connected inputs. 
 	prt: send 0 _p1_
 
-	snde "vend"
+	snde "c2v1"
 	setv va00 posl
 	setv va01 posy
 
