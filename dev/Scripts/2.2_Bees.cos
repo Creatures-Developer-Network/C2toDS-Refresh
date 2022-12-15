@@ -22,6 +22,10 @@ mvsf va00 49675
 
 setv name "type" 1
 
+*Make it interactable and change its category
+bhvr 1
+cato 23
+
 cabn 10 0 60 50
 
 mira rand 0 1
@@ -355,9 +359,9 @@ scrp 2 17 50200 10
 		accg 4
 
 		rnge 500
-		
+
 		bhvr 11
-		
+
 		cato 23
 
 	endi
@@ -375,29 +379,27 @@ scrp 2 17 50200 9
 		esee 2 11 50204
 
 			addv va00 1
-
 		next
 
 		doif va00 ge 10
 
 			attr 732
-
 		else
 
 			attr 716
-
 		endi
 
 	else
 
-		doif time eq 3 or time eq 4 and 0 eq 1
+
+		doif time eq 3 or time eq 4
 
 			stop
 
 		endi
 
 
-
+*Never triggers, couldn't we just remove this part hen?
 		doif sean eq 3 and 0 eq 1
 
 			stop
@@ -483,10 +485,8 @@ endm
 scrp 2 17 50200 1
 
 	inst
-	
-	doif crea from eq 1
-		stim writ from 86 1
-	endi
+
+	stim writ from 86 1
 
 	doif name "type" ne 1
 
@@ -589,30 +589,22 @@ scrp 2 17 50200 1
 endm
 
 *push
-
 scrp 2 17 50200 2
-
 	inst
-	
-	doif crea from eq 1
-		stim writ from 86 1
-	endi
-	
+
+	stim writ from 86 1
+
 	mesg writ ownr 0
-	
+
 endm
-
 *hit
-
 scrp 2 17 50200 3
 	inst
-	
-	doif crea from eq 1
-		stim writ from 87 1
-	endi
-	
+
+	stim writ from 87 1
+
 	mesg writ ownr 0
-	
+
 endm
 
 *Honey Jar Make
@@ -672,8 +664,8 @@ scrp 2 14 50200 10
 	setv ov13 0
 
 	bhvr 59
-
-*	rnge 500
+*default, but just to be safe
+	rnge 500
 
 endm
 
@@ -683,11 +675,9 @@ scrp 2 14 50200 12
 
 	snde "reat"
 
-* This doesn't seem to be used much, so I guess I'm keeping it, but making it silent in case - Verm
 	stim writ from 76 0
 
 	stim writ from 80 .15
-
 
 	kill ownr
 
@@ -700,47 +690,35 @@ endm
 scrp 2 14 50200 1
 
 	inst
+
 	seta ov11 from
+
 	seta ov07 ov11
+
 	setv ov09 1
-	
-	doif crea from eq 1
-		stim writ from 88 1
-	endi
-	
+
+	stim writ from 88 1
 
 endm
 
 scrp 2 14 50200 2
-
 	inst
 	seta ov11 from
 	seta ov07 ov11
 	setv ov09 1
-	
-	doif crea from eq 1
-		stim writ from 88 1
-	endi
-	
+
+	stim writ from 88 1
+
 endm
-
 scrp 2 14 50205 3
-
-	doif crea from eq 1
-		stim writ from 87 1
-	endi
+	stim writ from 87 1
 
 * sends them flying a little.... might need to be tweaked since they're already flying
 	setv va00 rand -10 10
 	setv velx va00
 	setv va00 rand -10 -1
 	setv vely va00
-
-
 endm
-
-
-
 
 *Pick up bee*
 
@@ -967,7 +945,7 @@ scrp 2 14 50200 9
 *pollinate*
 
 				inst
-				gsub flowermarker
+
 				targ ov07
 
 				doif targ ne null
@@ -1062,131 +1040,48 @@ scrp 2 14 50200 9
 
 	subr findflowers
 
-		doif totl 2 80 50202 gt 0
-			setv va03 grap posx posy
-
-			seta va00 null
-			enum 2 80 50202
-				doif targ ne null
-					doif va00 eq null
-						seta va00 targ
-						setv va01 relx ownr targ
-						setv va02 rely ownr targ
-						absv va01
-						absv va02
-						addv va01 va02
-						setv va04 va01
-					else
-						setv va01 relx ownr targ
-						setv va02 rely ownr targ
-						absv va01
-						absv va02
-						addv va01 va02
-						doif va01 lt va04
-							seta va00 targ
-							setv va04 va01
-						endi
-					endi
-				endi
-			next
-			doif va00 ne null
-				targ va00
-				setv va01 relx ownr va00
-
-				setv va02 rely ownr va00
-				targ ownr
+		setv va03 grap posx posy
 
 
-				doif va01 gt 0
+*change to nutrient
+		setv va00 hirp va03 4 1
 
-					addv velx ov06
+		setv va01 torx va00
 
-				elif va01 lt 0
+		setv va02 tory va00
 
-					subv velx ov06
 
-				endi
 
-				doif va02 lt 0
+		doif va01 gt 0
 
-					subv vely ov06
+			addv velx ov06
 
-				elif va02 gt 0
+		elif va01 lt 0
 
-					addv vely ov06
+			subv velx ov06
 
-				endi
-
-				gsub flowermarker
-
-				gsub track
-			else
-				gsub wander
-			endi
-		else
-*Wander around
-			gsub wander
 		endi
+
+		doif va02 lt 0
+
+			subv vely ov06
+
+		elif va02 gt 0
+
+			addv vely ov06
+
+		endi
+
+
+
+		gsub track
+
 
 
 	retn
 
-	subr wander
-* Go somewhere
-		doif rand 0 1 eq 1
-			reps rand 5 15
-				addv velx ov06
-				doif rand 0 1 eq 1 and rtyp room ownr ne 8 and rtyp room ownr ne 9
-					addv vely ov06
-				elif rand 0 1 eq 1 or rtyp room ownr eq 8 or rtyp room ownr eq 9
-					subv vely ov06
-				endi
-				gsub flowermarker
-				wait rand 10 20
-			repe
-		else
-			reps rand 5 15
-				subv velx ov06
-				doif rand 0 1 eq 1 and rtyp room ownr ne 8 and rtyp room ownr ne 9
-					addv vely ov06
-				elif rand 0 1 eq 1 or rtyp room ownr eq 8 or rtyp room ownr eq 9
-					subv vely ov06
-				endi
-				gsub flowermarker
-				wait rand 10 20
-			repe
-		endi
 
-		gsub flowermarker
-	retn
-	subr flowermarker
-		targ ownr
-		doif rtyp room ownr ne 8 and rtyp room ownr ne 9
-			star 2 7 0
-			doif targ ne null
-*Make Flower Marker
-*			dbg: outs "Can See Flower"
-				setv va04 1
-			endi
-			targ ownr
-			doif va04 eq 1
-				setv va01 posx
-				setv va02 posy
-				star 2 80 50202
-				doif targ ne null
-*				dbg: outs "Can See Marker"
-					setv va04 2
-				endi
-				targ ownr
-				doif va04 eq 1
-*				dbg: outs "Making Marker"
-					new: simp 2 80 50202 "blnk" 1 0 1000
-					mvsf va01 va02
-				endi
-			endi
-		endi
-		targ ownr
-	retn
+
 	subr followhome
 
 		doif room ownr eq ov14 and ov13 gt 1
@@ -1315,11 +1210,6 @@ scrp 2 14 50200 9
 
 endm
 
-* you lost your target !!
-scrp 2 14 50200 255
- stop
-endm
-
 
 
 scrp 2 10 50202 10
@@ -1349,27 +1239,18 @@ scrp 2 10 50202 9
 	endi
 endm
 
-*Flower Marker creation
-scrp 2 80 50202 10
-	inst
-	attr 16
-*	rnge 100
-	tick 6000
+
+
+scrp 2 10 50202 9
+
+	kill ownr
+
 endm
 
 
-scrp 2 80 50202 9
-	inst
-	esee 2 7 0
-		doif targ ne null
-			setv va00 1
-		endi
-	next
-	doif va00 ne 1
-*No flowers, die
-		kill ownr
-	endi
-endm
+
+
+
 *Honey Jar Scripts
 
 
@@ -1530,7 +1411,7 @@ endm
 
 scrp 2 11 50203 1
 
-*	mesg writ ownr 12
+*mesg writ ownr 12
 
 endm
 
@@ -1538,7 +1419,7 @@ endm
 
 scrp 2 11 50203 2
 
-*	mesg writ ownr 12
+*mesg writ ownr 12
 
 endm
 
@@ -1558,20 +1439,13 @@ scrp 2 11 50203 12
 
 		subv ov00 1
 
-*Ate FooD
+*Ate Food
 
-		targ from
-		doif fmly = 4
-
-			stim writ from 79 1
-		
-		endi
-
-
+		stim writ from 79 1
 
 	endi
 
-	targ ownr
+
 
 	doif ov00 le 0
 
@@ -1970,13 +1844,6 @@ enum 2 11 50207
 
 next
 
-enum 2 80 50202
-
-	kill targ
-
-next
 
 
 scrx 2 12 50203 1
-
-scrx 2 10 50200 9
