@@ -1,31 +1,22 @@
 *Bat 2 16 50203 
-*Bat Nest 2 17 50204
+*Bat Nest 2 17 50204 <----4*****
 
-* for now, these are all invisible to creatures. If at some point we feel like 
-* adding push/pull/hit/eat scripts we can change that. - Aiko
-
-*NeoDement fixed some errors with the bat eating fruit script (and fixed them not dropping what they're holding when they head to bed)
-
-
-*Install
+*Some edits made by Verm! Refining pupt and hopefully reducing some targ missing errors
 
 new: simp 2 17 50204 "moe_C2toDS_bats" 1 60 0
 
-mvto 7572 48910
+mvsf 7572 48910
 
 
 
 new: simp 2 17 50204 "moe_C2toDS_bats" 1 60 0
 
-mvto 3890 48950
+mvsf 3890 48950
 
 
 
-*Bat Nest Constructor Script
 
 scrp 2 17 50204 10
-
-	attr 16
 
 	show 0
 
@@ -43,16 +34,15 @@ scrp 2 17 50204 10
 
 	seta ov09 ownr
 
-
-
 endm
 
 
-*Bat Constructor Script
 
 scrp 2 16 50203 10
 
-	attr 215
+	inst
+
+	attr 199
 
 	aero 5
 
@@ -61,9 +51,6 @@ scrp 2 16 50203 10
 	elas 0
 
 	fric 50
-
-*C2 framerate
-	frat 2
 
 
 
@@ -101,7 +88,7 @@ scrp 2 16 50203 10
 
 
 
-	tick rand 20 25
+	tick rand 19.5 25
 
 
 
@@ -110,7 +97,6 @@ scrp 2 16 50203 10
 endm
 
 
-*Bat Timer Script
 
 scrp 2 16 50203 9
 
@@ -172,13 +158,6 @@ scrp 2 16 50203 9
 
 		elif seee ownr ov09 eq 1
 
-*bats drop what they're holding and forget about it as they head back to bed
-			doif ov08 <> null
-				drop
-				seta ov08 null
-			endi
-
-
 			loop
 
 				setv va07 ov07
@@ -207,9 +186,13 @@ scrp 2 16 50203 9
 
 		setv ov13 3
 
+		frat 2
+
 		anim [16 17 18 19 20]
 
 		over
+
+		frat 2
 
 		anim [26 27 28 29]
 
@@ -227,9 +210,13 @@ scrp 2 16 50203 9
 
 			setv ov13 1
 
+			frat 2
+
 			anim [16 17 18 19 20]
 
 			over
+
+			frat 2
 
 			anim [26 27 28 29]
 
@@ -247,9 +234,13 @@ scrp 2 16 50203 9
 
 	subr wakeup
 
+		frat 2
+
 		anim [29 28 27 26]
 
 		over
+
+		frat 2
 
 		anim [8 9 10 11]
 
@@ -282,8 +273,9 @@ scrp 2 16 50203 9
 			else
 
 				base 30
-
 			endi
+
+			frat 2
 
 			anim [0 1 2 3 2 1 255]
 
@@ -311,13 +303,13 @@ scrp 2 16 50203 9
 
 		gsub fly
 
+		inst
+
 *This subroutine checks to see if ov08 eq null, and finds food.
 
 		doif ov08 eq null
 
 			star 2 8 0
-
-			inst
 
 			doif targ ne null and targ ne ownr
 
@@ -364,7 +356,7 @@ scrp 2 16 50203 9
 *So you have a target, go get it.
 
 		elif ov08 ne null
-			inst
+
 
 
 *doif relx ownr ov08 gt 250 or rely ownr ov08 gt 250
@@ -414,7 +406,6 @@ scrp 2 16 50203 9
 				gsub follow
 
 
-				inst
 
 				doif touc ownr ov08 eq 1
 
@@ -422,25 +413,25 @@ scrp 2 16 50203 9
 
 *If you've touched it, grab it.
 
-					targ ov08
+*targ ov08
 
-					setv va00 wdth
+*setv va00 wdth
 
-					setv va01 hght
+*setv va01 hght
 
-					setv va02 hght
+*setv va02 hght
 
-					divv va02 4
+*divv va02 4
 
-					targ ownr
+*targ ownr
 
-					subv va00 wdth
+*subv va00 wdth
 
-					absv va00
+*absv va00
 
-					addv va01 va02
+*addv va01 va02
 
-					pupt -1 va00 va01
+*					pupt -1 va00 va01
 
 					mesg writ ov08 4
 
@@ -498,44 +489,13 @@ scrp 2 16 50203 9
 
 					drop
 
-*the "eat" subroutine puts us in slow mode, which gives the food a few ticks to disappear. so check if it still exists before you run the eat script (12).
-					doif ov08 <> null
-						inst
-						targ ov08
+					inst
 
-*temporary? fix for a runtime error caused by the default C3/DS Lemon.			
-*(it's caused by the lemon not checking if FROM is a creature before checking CHEM)
+					doif ov08 ne null
 
-*if it's a lemon, run this copy of the lemon script with the weird chem stuff commented out!
-						doif fmly = 2 and gnus = 8 and spcs = 7
-
-*							lock
-** Lemon Eat sound
-							snde "leat"
-*							seta ov90 null
-*							seta ov90 from
-** check to see whether it's been eaten yet
-							doif name "eaten" = "no"
-*								gsub benechems
-*								targ ownr
-** Change to eaten pose
-								pose 1
-** record that it's been eaten
-								sets name "eaten" "yes"
-							elif name "eaten" = "yes"
-*								gsub benechems
-*								kill ownr (killing targ instead or dead bat)
-								kill targ
-							endi
-
-*if it's anything except a lemon send the eat script
-						else
-							mesg writ targ 12
-						endi
+						mesg writ ov08 12
 
 					endi
-
-					targ ownr
 
 					gsub wakeup
 
@@ -556,8 +516,6 @@ scrp 2 16 50203 9
 
 
 	subr warpback
-
-		inst
 
 		targ ov09
 
@@ -767,7 +725,6 @@ scrp 2 16 50203 9
 
 *va00 eq the room
 
-		slow
 
 
 		setv va01 torx va00
@@ -948,7 +905,7 @@ scrp 2 16 50203 9
 
 		doif obst down lt hght
 
-			subv vely 2
+			subv vely 1
 
 		endi
 
@@ -960,6 +917,28 @@ scrp 2 16 50203 9
 
 		mira 0
 
+*some pupt values for left
+		pupt 0 30 26
+		pupt 1 30 26
+		pupt 2 30 26
+		pupt 3 30 26
+
+		pupt 8 23 13
+		pupt 9 26 11
+		pupt 10 30 11
+		pupt 11 32 23
+
+		pupt 16 26 27
+		pupt 17 18 25
+		pupt 18 16 16
+		pupt 19 19 8
+		pupt 20 24 13
+
+		pupt 26 25 7
+		pupt 27 25 7
+		pupt 28 25 7
+		pupt 29 25 7
+
 		subv velx va06
 
 	retn
@@ -969,6 +948,28 @@ scrp 2 16 50203 9
 	subr right
 
 		mira 1
+
+*some pupt values for right
+		pupt 0 17 26
+		pupt 1 17 26
+		pupt 2 17 26
+		pupt 3 17 26
+
+		pupt 8 24 13
+		pupt 9 21 11
+		pupt 10 17 11
+		pupt 11 15 23
+
+		pupt 16 21 27
+		pupt 17 29 25
+		pupt 18 31 16
+		pupt 19 28 8
+		pupt 20 23 13
+
+		pupt 26 25 7
+		pupt 27 25 7
+		pupt 28 25 7
+		pupt 29 25 7
 
 		addv velx va06
 
@@ -980,6 +981,7 @@ scrp 2 16 50203 9
 
 	subr follow
 
+		inst
 *If VA02 eq 0, you follow the va04 target,
 
 *else, you use whatever coordinates are provided
@@ -988,9 +990,7 @@ scrp 2 16 50203 9
 
 *va02 posy
 
-		inst
-
-		doif va02 eq 0 and va04 ne null
+		doif va02 eq 0
 
 			targ va04
 
@@ -1061,7 +1061,6 @@ scrp 2 16 50203 9
 		endi
 
 
-		slow
 
 		doif va01 gt 0
 
@@ -1100,17 +1099,12 @@ scrp 2 16 50203 9
 endm
 
 
-*Bat Drop Script
 
 scrp 2 16 50203 5
 
 	setv ov14 1
 
 endm
-
-
-
-*no bats? :(
 
 rscr
 
