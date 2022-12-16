@@ -1,7 +1,7 @@
 *Bat 2 16 50203 
 *Bat Nest 2 17 50204 <----4*****
 
-*Some edits made by Verm! Refining pupt and hopefully reducing some targ missing errors
+
 
 new: simp 2 17 50204 "moe_C2toDS_bats" 1 60 0
 
@@ -34,13 +34,13 @@ scrp 2 17 50204 10
 
 	seta ov09 ownr
 
+
+
 endm
 
 
 
 scrp 2 16 50203 10
-
-	inst
 
 	attr 199
 
@@ -273,6 +273,7 @@ scrp 2 16 50203 9
 			else
 
 				base 30
+
 			endi
 
 			frat 2
@@ -302,8 +303,6 @@ scrp 2 16 50203 9
 	subr findfood
 
 		gsub fly
-
-		inst
 
 *This subroutine checks to see if ov08 eq null, and finds food.
 
@@ -413,25 +412,25 @@ scrp 2 16 50203 9
 
 *If you've touched it, grab it.
 
-*targ ov08
+					targ ov08
 
-*setv va00 wdth
+					setv va00 wdth
 
-*setv va01 hght
+					setv va01 hght
 
-*setv va02 hght
+					setv va02 hght
 
-*divv va02 4
+					divv va02 4
 
-*targ ownr
+					targ ownr
 
-*subv va00 wdth
+					subv va00 wdth
 
-*absv va00
+					absv va00
 
-*addv va01 va02
+					addv va01 va02
 
-*					pupt -1 va00 va01
+					pupt -1 va00 va01
 
 					mesg writ ov08 4
 
@@ -489,13 +488,7 @@ scrp 2 16 50203 9
 
 					drop
 
-					inst
-
-					doif ov08 ne null
-
-						mesg writ ov08 12
-
-					endi
+					mesg writ ov08 12
 
 					gsub wakeup
 
@@ -905,7 +898,7 @@ scrp 2 16 50203 9
 
 		doif obst down lt hght
 
-			subv vely 1
+			subv vely 2
 
 		endi
 
@@ -917,28 +910,6 @@ scrp 2 16 50203 9
 
 		mira 0
 
-*some pupt values for left
-		pupt 0 30 26
-		pupt 1 30 26
-		pupt 2 30 26
-		pupt 3 30 26
-
-		pupt 8 23 13
-		pupt 9 26 11
-		pupt 10 30 11
-		pupt 11 32 23
-
-		pupt 16 26 27
-		pupt 17 18 25
-		pupt 18 16 16
-		pupt 19 19 8
-		pupt 20 24 13
-
-		pupt 26 25 7
-		pupt 27 25 7
-		pupt 28 25 7
-		pupt 29 25 7
-
 		subv velx va06
 
 	retn
@@ -948,28 +919,6 @@ scrp 2 16 50203 9
 	subr right
 
 		mira 1
-
-*some pupt values for right
-		pupt 0 17 26
-		pupt 1 17 26
-		pupt 2 17 26
-		pupt 3 17 26
-
-		pupt 8 24 13
-		pupt 9 21 11
-		pupt 10 17 11
-		pupt 11 15 23
-
-		pupt 16 21 27
-		pupt 17 29 25
-		pupt 18 31 16
-		pupt 19 28 8
-		pupt 20 23 13
-
-		pupt 26 25 7
-		pupt 27 25 7
-		pupt 28 25 7
-		pupt 29 25 7
 
 		addv velx va06
 
@@ -981,7 +930,6 @@ scrp 2 16 50203 9
 
 	subr follow
 
-		inst
 *If VA02 eq 0, you follow the va04 target,
 
 *else, you use whatever coordinates are provided
