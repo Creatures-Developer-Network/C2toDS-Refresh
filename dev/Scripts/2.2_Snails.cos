@@ -54,7 +54,7 @@ repe
 
 scrp 2 15 50201 10
 
-	attr 194
+	attr 210
 
 	accg .5
 
@@ -226,6 +226,8 @@ scrp 2 15 50201 9
 
 		doif ov20 ne null
 
+			inst
+			
 			targ ov20
 
 			doif targ ne null
@@ -233,6 +235,8 @@ scrp 2 15 50201 9
 				setv mv90 posx
 
 			endi
+			
+			slow
 
 		else
 
