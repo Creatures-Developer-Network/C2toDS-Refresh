@@ -727,7 +727,7 @@ scrp 2 11 50201 12
 
 		inst
 
-		new: simp 2 3 50201 "moe_C2toDS_potato" 0 0 1001
+		new: simp 2 3 50201 "moe_C2toDS_potato" 9 0 1001
 
 		mvsf va00 va01
 
