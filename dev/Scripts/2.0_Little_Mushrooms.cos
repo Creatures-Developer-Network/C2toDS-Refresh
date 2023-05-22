@@ -698,7 +698,7 @@ scrp 2 24 50208 1
 
 		subv va00 46
 
-		setv va01 posb
+		setv va01 post
 
 		new: simp 2 4 50201 "moe_C2toDS_mush" 0 16 rand 1000 5000
 
