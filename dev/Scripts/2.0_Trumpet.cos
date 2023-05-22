@@ -822,7 +822,7 @@ scrp 2 7 50203 9
 
 		new: simp 2 8 50203 "moe_C2toDS_trumpet" 7 44 va05
 
-		attr 231
+		attr 240
 
 		seta ov01 ownr
 
@@ -878,7 +878,7 @@ scrp 2 7 50203 9
 
 		new: simp 2 8 50203 "moe_C2toDS_trumpet" 7 51 va05
 
-		attr 231
+		attr 240
 
 		seta ov01 ownr
 
@@ -932,7 +932,7 @@ scrp 2 7 50203 9
 
 		new: simp 2 8 50203 "moe_C2toDS_trumpet" 7 58 va05
 
-		attr 231
+		attr 240
 
 		seta ov01 ownr
 
@@ -1122,13 +1122,11 @@ scrp 2 8 50203 10
 
 	perm 51
 
-	emit 6 .015
-
 	accg 0
 
 	elas 25
 
-	attr 231
+	attr 240
 
 	wait 1
 
@@ -1150,13 +1148,21 @@ scrp 2 8 50203 10
 
 			pose va00
 
-			bhvr 48
-
 		untl va00 eq 4
+
+		bhvr 48
+
+		attr 231
+
+		emit 6 .015
 
 	else
 
 		bhvr 48
+
+		attr 231
+
+		emit 6 .015
 
 	endi
 
