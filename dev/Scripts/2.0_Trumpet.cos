@@ -6,6 +6,7 @@
 
 * Verm here, making detritus edible/toxic friendly!
 * The one who screams made dormant seeds invisible to creatures and made them stop emitting smell
+* Made the fruits invisible/unpickable and scentless until fully grown. Bats might still be able to pluck them idk -Rhodan (AquaShee)
 
 reps rand 5 7
 
@@ -822,7 +823,7 @@ scrp 2 7 50203 9
 
 		new: simp 2 8 50203 "moe_C2toDS_trumpet" 7 44 va05
 
-		attr 231
+		attr 240
 
 		seta ov01 ownr
 
@@ -878,7 +879,7 @@ scrp 2 7 50203 9
 
 		new: simp 2 8 50203 "moe_C2toDS_trumpet" 7 51 va05
 
-		attr 231
+		attr 240
 
 		seta ov01 ownr
 
@@ -932,7 +933,7 @@ scrp 2 7 50203 9
 
 		new: simp 2 8 50203 "moe_C2toDS_trumpet" 7 58 va05
 
-		attr 231
+		attr 240
 
 		seta ov01 ownr
 
@@ -1153,10 +1154,20 @@ scrp 2 8 50203 10
 			bhvr 48
 
 		untl va00 eq 4
+		
+		bhvr 48
+
+		attr 231
+
+		emit 6 .015
 
 	else
 
 		bhvr 48
+
+		attr 231
+
+		emit 6 .015
 
 	endi
 
