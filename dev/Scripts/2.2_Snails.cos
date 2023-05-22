@@ -2,6 +2,8 @@
 
 * for now, these are invisible to creatures. If at some point we feel like 
 * adding push/pull/hit/eat scripts (and population management) we can change that. - Aiko
+* fixed snails not really moving around, also wall collision is hopefully better
+* also might need further tweaking if wall byitself isn't good enough - Verm
 
 
 * Creation - garden
@@ -49,11 +51,6 @@ reps rand 1 2
 	mvsf rand 3840 4050 49320
 
 repe
-
-
-
-
-
 
 scrp 2 15 50201 10
 
@@ -229,9 +226,9 @@ scrp 2 15 50201 9
 
 		doif ov20 ne null
 
-			targ ov20
-			
 			inst
+			
+			targ ov20
 
 			doif targ ne null
 
@@ -317,7 +314,11 @@ scrp 2 15 50201 9
 
 		doif name "numberofwalks" < name "currentwalk"
 
-			setv va01 rand 50 -50
+			setv va01 rand 100 500
+
+			doif rand 0 1 eq 1
+				negv va01
+			endi
 
 			setv ov90 posx
 
@@ -347,9 +348,9 @@ scrp 2 15 50201 9
 
 	subr wallcheck
 
-		doif obst left lt 20
+		doif wall eq left
 
-			setv va01 rand 20 50
+			setv va01 rand 100 500
 
 			setv ov90 posx
 
@@ -359,9 +360,9 @@ scrp 2 15 50201 9
 
 			setv name "currentwalk" 0
 
-		elif obst rght lt 20
+		elif wall eq rght
 
-			setv va01 rand -20 -50
+			setv va01 rand -200 -500
 
 			setv ov90 posx
 
@@ -550,19 +551,11 @@ scrp 2 15 50201 9
 endm
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+scrp 2 15 50201 4
+	inst
+*reset some stuff
+	setv name "numberofwalks" 0
+endm
 
 rscr
 enum 2 15 50201
@@ -574,5 +567,3 @@ next
 scrx 2 15 50201 10
 
 scrx 2 15 50201 9
-
-
