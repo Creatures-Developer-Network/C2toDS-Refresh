@@ -90,7 +90,8 @@ sets ov01 "C2toDS verb computer "
 
 *plane 308 means it draws just in front of the DS elevators but just behind the DS elevator buttons. so pretty much behind everything.
 *(except the pesky one at the bottom of the workshop that's mistakenly set to plane 0...)
-new: comp 3 3 50200 "moe_C2toDS_Computer" 1 0 308
+*changed to plane 305 to differentiate it from the verb computers upstairs, fixing part overlaps. -Rhodan (AquaShee)
+new: comp 3 3 50200 "moe_C2toDS_Computer" 1 0 305
 
 mvto 6619 48615
 

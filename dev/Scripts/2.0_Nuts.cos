@@ -7,6 +7,7 @@
 *Also tweaked lifespan a little to be more in line with C2 nuts (more prolific than tomatoes)...
 * Aiko added pull and hit scripts to the nut vendor
 *NeoDement attempted to fix an invalid targ error, moved the FRAT commands to the Constructor Script and fixed an anim that was 1 frame too long.
+* Set nut plant attr from 195 to 192 to stop the hand from picking it up. -Rhodan (AquaShee)
 * (if you worked on this file, feel free to add your name!)
 
 
@@ -374,7 +375,7 @@ scrp 2 4 50202 10
 
 	inst
 
-	attr 195
+	attr 192
 
 	elas 0
 
