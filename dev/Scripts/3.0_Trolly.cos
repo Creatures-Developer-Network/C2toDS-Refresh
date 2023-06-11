@@ -5,6 +5,30 @@
 * But I'm tired and it's a very minor issue that can be fixed on a more detailed pass x.x
 
 
+
+
+*TODO?:
+
+*only stim a norn every X ticks while in trolly so their brains freeze up less?
+
+*THE CALL BUTTONS...
+
+*finalize call button light ups somehow. right now they briefly light up when pressed, then the trolly automatically lights whichever one it's heading towards.
+
+*ideally the hand would be able to queue up trolley movements in the same way norns can (much like lifts), then they could also use the same logic as lifts to light up.
+
+*there is some messy commented code on the buttons relating to lighting up for now... I am sorry.
+
+*and finally, it would probably be better to control the button pose with a script (or some OV check) instead of simply using the pose command,
+*as LOCK/UNLK in the button script are currently doing nothing to prevent the occasional awkward flicker.
+
+*and FINALLY FINALLY, when these buttons are good enough, they should be used as a template for the other c2tods vehicles.
+
+* -NeoDement
+
+
+
+
 *left pulley
 new: simp 1 8 50202 "moe_C2toDS_trolly" 1 5 3
 attr 16
@@ -34,11 +58,12 @@ mvto 4483 48265
 
 new: vhcl 3 1 50205 "moe_C2toDS_trolly" 1 0 2000
 
-mvto 5800 48257
-*mvto 4582 48915
+mvto 5810 48257
 
 cato 35
 attr 16
+
+*initial direction
 setv ov00 5
 
 *is the trolly playing a sound?
@@ -56,7 +81,7 @@ pat: butt 2 "moe_C2toDS_trolly" 3 2 81 58 0 [] 1002 0
 
 pat: dull 3 "moe_C2toDS_trolly" 8 36 125 -1
 
-
+*cabin
 
 cabn 0 0 wdth hght
 
@@ -64,42 +89,88 @@ cabp -10
 
 cabw 10
 
-new: simp 3 12 50205 "moe_C2toDS_lifts" 2 7 1999
+
+
+
+* LEFT CALL BUTTON
+
+new: simp 3 12 50205 "moe_C2toDS_lifts" 2 5 1999
 
 attr 4
 
 bhvr 3
-* Left Butt
+
+
 setv ov00 5
 
 cato 2
 
-mvto 4523 48825
+mvto 4614 48835
 
-new: simp 3 12 50205 "moe_C2toDS_lifts" 2 7 1999
+
+* RIGHT CALL BUTTON
+
+new: simp 3 12 50205 "moe_C2toDS_lifts" 2 5 1999
 
 attr 4
 
 bhvr 3
-* Right Butt
+
 setv ov00 -5
 
 cato 2
 
-mvto 5879 48340
+mvto 5920 48348
+
+
+
 
 **Call Button scripts
 scrp 3 12 50205 1
+
 	inst
-* light up, light up
-	rtar 3 1 50205
-	doif ov00 eq mv00
-		targ ownr
+
+	stim writ from 96 1
+
+*	enum 3 12 50205
+*		doif pose = 1
+**			stop
+*		endi
+*	next
+
+	doif pose = 0
+		lock
+		sndc "ding"
 		pose 1
+		wait 2
+		unlk
 	endi
-*Queue Object!
-	targ from
-	doif crea targ eq 1
+
+	inst
+
+** light up, light up
+*	rtar 3 1 50205
+*	doif ov00 eq mv00
+*		targ ownr
+*		pose 1
+*	endi
+
+*don't do any of this unless a creature clicked you
+*(maybe let hand queue up stops too, like they can for elevators?)
+	doif crea from eq 1
+
+*		pose 1
+
+*ov02 on the other button? you've been pressed by a creature!
+*
+*		enum 3 12 50205
+*			doif targ <> ownr
+*				setv ov02 1
+*			endi
+*		next
+
+		targ from
+
 		sets va48 gtos 0
 * check for any existing queue object
 		enum 3 13 50205
@@ -110,31 +181,68 @@ scrp 3 12 50205 1
 * make a queue object if there's not one already
 		doif va49 eq 0
 			new: simp 3 13 50205 "blnk" 1 0 0
-*dbg: outs "making quere"
+*dbg: outs "making queue"
 			setv ov00 mv00
 			sets ov01 va48
 			tick 20
 		endi
 
 		stim writ from 75 1
-		stim writ from 96 1
+
 		urge writ from 0 0.5 0 0.5
 	endi
+
+*call script on trolly
 	rtar 3 1 50205
-	mesg writ targ 0
+	mesg wrt+ targ 0 ownr 0 0
+
 endm
 **Call Button scripts
+*base off script 1
 scrp 3 12 50205 2
 	inst
-* light up, light up
-	rtar 3 1 50205
-	doif ov00 eq mv00
-		targ ownr
+
+	stim writ from 96 1
+
+*	enum 3 12 50205
+*		doif pose = 1
+**			stop
+*		endi
+*	next
+
+	doif pose = 0
+		lock
+		sndc "ding"
 		pose 1
+		wait 2
+		unlk
 	endi
-*Queue Object!
-	targ from
-	doif crea targ eq 1
+
+	inst
+
+** light up, light up
+*	rtar 3 1 50205
+*	doif ov00 eq mv00
+*		targ ownr
+*		pose 1
+*	endi
+
+*don't do any of this unless a creature clicked you
+*(maybe let hand queue up stops too, like they can for elevators?)
+	doif crea from eq 1
+
+*		pose 1
+
+*ov02 on the other button? you've been pressed by a creature!
+*
+*		enum 3 12 50205
+*			doif targ <> ownr
+*				setv ov02 1
+*			endi
+*		next
+
+		targ from
+
 		sets va48 gtos 0
 * check for any existing queue object
 		enum 3 13 50205
@@ -145,19 +253,22 @@ scrp 3 12 50205 2
 * make a queue object if there's not one already
 		doif va49 eq 0
 			new: simp 3 13 50205 "blnk" 1 0 0
-*dbg: outs "making quere"
+*dbg: outs "making queue"
 			setv ov00 mv00
 			sets ov01 va48
 			tick 20
 		endi
 
 		stim writ from 75 1
-		stim writ from 96 1
+
 		urge writ from 0 0.5 0 0.5
 	endi
+
+*call script on trolly
 	rtar 3 1 50205
-	mesg writ targ 0
+	mesg wrt+ targ 0 ownr 0 0
 endm
+
 
 scrp 3 13 50205 9
 	inst
@@ -181,6 +292,9 @@ scrp 3 13 50205 9
 	endi
 endm
 
+
+***trolley has been called!!!****
+
 **For later
 scrp 3 1 50205 1
 *
@@ -191,12 +305,12 @@ scrp 3 1 50205 1
 		doif posl gt 4530
 * go left - will setv ov00 -5
 
-			mesg writ ownr 1001
+			mesg wrt+ ownr 1001 _p1_ 0 0
 
 		else
 * go right - will setv ov00 5
 
-			mesg writ ownr 1002
+			mesg wrt+ ownr 1002 _p1_ 0 0
 
 		endi
 	endi
@@ -206,7 +320,7 @@ endm
 
 scrp 3 1 50205 1001
 	lock
-	tick 2
+	tick 1
 
 
 
@@ -216,7 +330,7 @@ scrp 3 1 50205 1001
 
 *setv ov01 1.9
 
-	setv ov01 1.8
+	setv ov01 1.77
 
 
 
@@ -231,10 +345,10 @@ scrp 3 1 50205 1001
 	pose 0
 
 
+*only set gearstick pose when it's actually moving
+*	part 3
 
-	part 3
-
-	pose 1
+*	pose 1
 
 
 	doif velx eq 0
@@ -248,7 +362,21 @@ scrp 3 1 50205 1001
 * spas takes some time to work, so loop
 * and keep checking if you got a creature
 * before continuing
+						setv va00 0
 						loop
+
+*if you can't pick up the creature, make them face forward so they have a narrow hitbox
+							addv va00 1
+							doif va00 > 5
+								seta va01 targ
+								targ mtoc ov01
+*								zomb 1
+								dirn 1
+*								wait 1
+*								zomb 0
+								targ va01
+							endi
+
 							spas ownr mtoc ov01
 							wait 1
 							addv va46 1
@@ -258,7 +386,7 @@ scrp 3 1 50205 1001
 								addv va44 1
 							next
 							targ va45
-						untl va44 gt 0 or ooww ov01 ne 3
+						untl va44 gt 0 or ooww ov01 ne 3 or va00 > 15
 						kill targ
 					else
 						kill targ
@@ -267,6 +395,14 @@ scrp 3 1 50205 1001
 			endi
 		next
 		slow
+
+
+**light up appropriate button
+*		doif type _p1_ = 3
+*			targ _p1_
+*			pose 1
+*		endi
+
 	endi
 
 	unlk
@@ -276,7 +412,7 @@ endm
 
 scrp 3 1 50205 1002
 	lock
-	tick 2
+	tick 1
 
 
 
@@ -286,7 +422,7 @@ scrp 3 1 50205 1002
 
 *setv ov01 -1.9
 
-	setv ov01 -1.8
+	setv ov01 -1.77
 
 
 
@@ -301,10 +437,10 @@ scrp 3 1 50205 1002
 	pose 0
 
 
+*only set gearstick pose when it's actually moving
+*	part 3
 
-	part 3
-
-	pose 2
+*	pose 2
 
 
 	doif velx eq 0
@@ -318,7 +454,21 @@ scrp 3 1 50205 1002
 * spas takes some time to work, so loop
 * and keep checking if you got a creature
 * before continuing
+						setv va00 0
 						loop
+
+*if you can't pick up the creature, make them face forward so they have a narrow hitbox
+							addv va00 1
+							doif va00 > 5
+								seta va01 targ
+								targ mtoc ov01
+*								zomb 1
+								dirn 1
+*								wait 1
+*								zomb 0
+								targ va01
+							endi
+
 							spas ownr mtoc ov01
 							wait 1
 							addv va46 1
@@ -328,8 +478,7 @@ scrp 3 1 50205 1002
 								addv va44 1
 							next
 							targ va45
-						untl va44 gt 0 or ooww ov01 ne 3
-
+						untl va44 gt 0 or ooww ov01 ne 3 or va00 > 15
 						kill targ
 					else
 						kill targ
@@ -338,7 +487,15 @@ scrp 3 1 50205 1002
 			endi
 		next
 		slow
+
+**light up appropriate button
+*		doif type _p1_ = 3
+*			targ _p1_
+*			pose 1
+*		endi
+
 	endi
+
 	unlk
 endm
 
@@ -353,18 +510,34 @@ scrp 3 1 50205 9
 			stim writ from 75 1
 		next
 
-*play lift sound if you're not already playig it
-		doif ov99 = 0
-			sndl "m_a3"
-			setv ov99 1
-		endi
-
 		slow
-		doif posl gt 4505
 
-			setv velx ov00
 
-			setv vely ov01
+		doif posl gt 4520
+
+*play lift sound if you're not already playing it
+			doif ov99 = 0
+				sndl "m_a3"
+				setv ov99 1
+			endi
+
+*set gearstick pose
+			part 3
+			pose 1
+
+**light up whichever button you're heading towards
+			enum 3 12 50205
+				doif ov00 <> mv00
+					pose 1
+				else
+**if a creature pressed it, it stays lit up because of the queue
+*					doif ov02 <> 1
+					pose 0
+*					endi
+				endi
+			next
+
+			velo ov00 ov01
 
 		else
 			inst
@@ -373,9 +546,11 @@ scrp 3 1 50205 9
 			stpc
 			setv ov99 0
 
-			setv velx 0
+			velo 0 0
 
-			setv vely 0
+*			setv ov00 0
+
+			tick 0
 
 			part 1
 
@@ -388,15 +563,45 @@ scrp 3 1 50205 9
 				driv 19 -1.0
 			next
 			dpas 4 0 0
+
+*because we can't be exactly sure where the trolly will stop, manually move it 1px at a time until it's meant to end up
+			loop
+				doif posl > 4498
+					mvby -1.0 0
+				endi
+
+				doif posl < 4498
+					mvby 1.0 0
+				endi
+
+				doif post > 48725
+					mvby 0 -0.5
+				endi
+
+				doif post < 48725
+					mvby 0 0.5
+				endi
+				wait 1
+			untl posl > 4497 and posl < 4499 and post > 48724 and post < 48726
 			unlk
+
 			mvto 4498 48725
+
+*unlight all buttons now we're done moving
 			enum 3 12 50205
+*				doif ov00 <> mv00
 				pose 0
+*				endi
 			next
+
+*reset direction var now we're done
+			setv ov00 0
+
 			doif totl 3 13 50205 gt 0
 				mesg writ ownr 0
 			endi
 		endi
+		unlk
 
 	elif ov00 gt 0
 		inst
@@ -405,18 +610,36 @@ scrp 3 1 50205 9
 			stim writ from 75 1
 		next
 
-*play lift sound if you're not already playig it
-		doif ov99 = 0
-			sndl "m_a3"
-			setv ov99 1
-		endi
 
 		slow
-		doif posl lt 5795
 
-			setv velx ov00
+**slow movement as we get close to our destination
 
-			setv vely ov01
+		doif posl lt 5784
+
+*play lift sound if you're not already playing it
+			doif ov99 = 0
+				sndl "m_a3"
+				setv ov99 1
+			endi
+
+*set gearstick pose
+			part 3
+			pose 2
+
+**light up whichever button you're heading towards
+			enum 3 12 50205
+				doif ov00 <> mv00
+					pose 1
+				else
+**if a creature pressed it, it stays lit up because of the queue
+*					doif ov02 <> 1
+					pose 0
+*					endi
+				endi
+			next
+
+			velo ov00 ov01
 
 		else
 			inst
@@ -425,9 +648,11 @@ scrp 3 1 50205 9
 			stpc
 			setv ov99 0
 
-			setv velx 0
+			velo 0 0
 
-			setv vely 0
+*			setv ov00 0
+
+			tick 0
 
 			part 2
 
@@ -440,11 +665,40 @@ scrp 3 1 50205 9
 				driv 19 -1.0
 			next
 			dpas 4 0 0
+
+*because we can't be exactly sure where the trolly will stop, manually move it 1px at a time until it's meant to end up
+			loop
+				doif posl > 5810
+					mvby -1.0 0
+				endi
+
+				doif posl < 5810
+					mvby 1.0 0
+				endi
+
+				doif post > 48257
+					mvby 0 -0.5
+				endi
+
+				doif post < 48257
+					mvby 0 0.5
+				endi
+				wait 1
+			untl posl > 5809 and posl < 5811 and post > 48256 and post < 48258
 			unlk
-			mvto 5800 48257
+
+			mvto 5810 48257
+
+*turn off whichever stop you just arrived at
 			enum 3 12 50205
+*				doif ov00 <> mv00
 				pose 0
+*				endi
 			next
+
+*reset direction var now we're done
+			setv ov00 0
+
 			doif totl 3 13 50205 gt 0
 				mesg writ ownr 0
 			endi
