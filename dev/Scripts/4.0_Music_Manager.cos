@@ -15,10 +15,10 @@ attr 16
 
 
 *creature history event
-*runs just before (or after?) the one included with DS and usually manages to hijack the event and play C2 music before the usual script tries to play its own uninterruptible music
+*runs just after the one included with DS, runs 1 tick after the original script triggers to play C2 Birth/Death music instead
 scrp 1 1 50201 127
 
-	lock
+	wait 1
 
 	inst
 
@@ -59,7 +59,7 @@ endm
 
 scrp 1 1 50201 900
 
-inst
+	inst
 
 *WE ARE IN THE C2TODS METAROOM
 	doif game "C2toDS_RoomID" = gmap mopx mopy
