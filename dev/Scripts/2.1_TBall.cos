@@ -3,6 +3,8 @@
 *NeoDement fixed the hand being able to activate balls that weren't ready, causing the hand slap anim to play but applying no velocity to the balls. 
 *also added support for Pitz the dog. Picking up or playing with a tennis ball will alert Pitz to chase it if he can see it.
 
+
+
 new: simp 2 21 50209 "moe_C2toDS_toys" 128 62 5000
 
 mvsf 7899 48740
@@ -15,6 +17,7 @@ mvsf 7589 48740
 
 
 
+* Creation Script
 
 scrp 2 21 50209 10
 
@@ -30,34 +33,20 @@ scrp 2 21 50209 10
 
 	perm 51
 
+	frat 2
+
 endm
 
 
 
-
-*(disabled, makes more sense that Pitz would get excited when the ball is dropped)
-*(also esee can't find objects that the hand is holding)
-** Script 4 - Pickup
-*scrp 2 21 50209 4
-*
-**send a message to pitz to chase the ball if he can see it
-*
-**(make sure it was a creature or pntr that picked it up)
-*	doif crea from = 1 or from = pntr
-*		enum 2 15 50210
-*			mesg wrt+ targ 1000 ownr 0 0
-*		next
-*
-*		enum 4 0 0
-*			sezz "picked up a ball"
-*		next
-*	endi
-*	
-*endm
-
-
 * Script 5 - Drop
 scrp 2 21 50209 5
+
+	doif ov97 <> 0
+		velo ov97 -30
+	endi
+
+	setv ov97 0
 
 *send a message to pitz to chase the ball if he can see it
 
@@ -81,7 +70,6 @@ scrp 2 21 50209 1
 		targ from
 		anim [4 4 5 5 0]
 		targ ownr
-		lock
 	endi
 
 	stim writ from 97 1
@@ -108,15 +96,22 @@ scrp 2 21 50209 1
 
 	else
 
-		setv va02 rand -25 -15
+		setv va02 rand -20 -15
 
 		anim [0 7 6 5 4 3 2 1]
 
 	endi
 
-	setv velx va02
+*force it to be dropped if a creature is holding it
+	doif crea carr = 1
+*set a reminder that a creature just dropped you. if this variable is anything but 0 when the drop script runs, then it applies it as velocity.
+		setv ov97 va02
+		targ carr
+		drop
+		targ ownr
+	endi
 
-	setv vely -20
+	velo va02 -30
 
 *send a message to pitz to chase the ball if he can see it
 
@@ -132,6 +127,13 @@ endm
 
 scrp 2 21 50209 2
 
+*animate hand slap anim
+	doif from eq pntr
+		targ from
+		anim [4 4 5 5 0]
+		targ ownr
+	endi
+
 	stim writ from 97 1
 
 	setv va00 posl
@@ -156,15 +158,22 @@ scrp 2 21 50209 2
 
 	else
 
-		setv va02 rand -25 -15
+		setv va02 rand -20 -15
 
 		anim [0 7 6 5 4 3 2 1]
 
 	endi
 
-	setv velx va02
+*force it to be dropped if a creature is holding it
+	doif crea carr = 1
+*set a reminder that a creature just dropped you. if this variable is anything but 0 when the drop script runs, then it applies it as velocity.
+		setv ov97 va02
+		targ carr
+		drop
+		targ ownr
+	endi
 
-	setv vely -10
+	velo va02 -30
 
 *send a message to pitz to chase the ball if he can see it
 
@@ -180,6 +189,13 @@ endm
 
 scrp 2 21 50209 3
 
+*animate hand slap anim
+	doif from eq pntr
+		targ from
+		anim [4 4 5 5 0]
+		targ ownr
+	endi
+
 	stim writ from 97 1
 
 	setv va00 posl
@@ -204,15 +220,22 @@ scrp 2 21 50209 3
 
 	else
 
-		setv va02 rand -25 -15
+		setv va02 rand -20 -15
 
 		anim [0 7 6 5 4 3 2 1]
 
 	endi
 
-	setv velx va02
+*force it to be dropped if a creature is holding it
+	doif crea carr = 1
+*set a reminder that a creature just dropped you. if this variable is anything but 0 when the drop script runs, then it applies it as velocity.
+		setv ov97 va02
+		targ carr
+		drop
+		targ ownr
+	endi
 
-	setv vely -10
+	velo va02 -30
 
 *send a message to pitz to chase the ball if he can see it
 
