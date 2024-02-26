@@ -115,7 +115,7 @@ if __name__ == '__main__':
 				raise Exception("Unknown dependency category for %r" % dep_filename)
 
 			tags['Dependency %s' % str(i)] = os.path.basename(dep_filename)
-			tags['Dependency %s Category' % str(i)] = dep_category
+			tags['Dependency Category %s' % str(i)] = dep_category
 
 			with open(dep_filename, 'rb') as dep_file:
 				dep_data = dep_file.read()
