@@ -10,6 +10,8 @@
 *also removed IO ports, this object is too small and they were causing frustration by making it difficult to click the launcher. Vendor has IO ports instead.
 *also spam click protection (no lock)
 
+*aLoveSupreme fixed the bug where the tomato launcher would become stuck mid-animation and unclickable if picked up during the push script.
+
 
 
 *new: comp 2 21 50214 "moe_C2toDS_tgun" 7 0 rand 1000 3000
@@ -71,6 +73,8 @@ endm
 scrp 2 21 50214 4
 
 	tick 15
+	clac 0
+	pose 0
 
 endm
 
