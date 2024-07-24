@@ -1,13 +1,10 @@
-
 ***ROOMIE_START***
 
 *ROOMIE Expand map size
 mapd 200000 200000
 
-*ROOMIE Create new metaroom"
-mapd 100000 100000
+*ROOMIE Create new metaroom
 setv va01 addm 0 47600 12448 2400 "C2toDS"
-mmsc 6224 48800 ""
   setv va00 addr va01 10086 10169 48909 48909 49244 49244
     rtyp va00 0
     setv game "map_tmp_0" va00
