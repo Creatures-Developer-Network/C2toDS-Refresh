@@ -110,7 +110,7 @@ setv va01 addm 0 47600 12448 2400 "C2toDS"
   setv va00 addr va01 9578 9730 48301 48301 48506 48506
     rtyp va00 2
     setv game "map_tmp_34" va00
-  setv va00 addr va01 9578 9730 48506 48506 48710 48710
+  setv va00 addr va01 9578 9730 48585 48506 48710 48710
     rtyp va00 0
     setv game "map_tmp_35" va00
   setv va00 addr va01 9578 9697 48710 48710 48926 48926
@@ -554,7 +554,7 @@ setv va01 addm 0 47600 12448 2400 "C2toDS"
   setv va00 addr va01 1376 1629 48301 48254 48506 48506
     rtyp va00 0
     setv game "map_tmp_182" va00
-  setv va00 addr va01 1409 1629 48506 48506 48710 48710
+  setv va00 addr va01 1376 1629 48506 48506 48710 48710
     rtyp va00 0
     setv game "map_tmp_183" va00
   setv va00 addr va01 1095 1224 49244 49244 49442 49441
@@ -572,7 +572,7 @@ setv va01 addm 0 47600 12448 2400 "C2toDS"
   setv va00 addr va01 1224 1376 48301 48301 48506 48506
     rtyp va00 2
     setv game "map_tmp_188" va00
-  setv va00 addr va01 1224 1409 48506 48506 48710 48710
+  setv va00 addr va01 1224 1376 48595 48506 48710 48710
     rtyp va00 0
     setv game "map_tmp_189" va00
   setv va00 addr va01 1224 1343 48710 48710 48926 48926
@@ -2163,7 +2163,7 @@ door game "map_tmp_31" game "map_tmp_32" 80
 door game "map_tmp_31" game "map_tmp_35" 100
 door game "map_tmp_31" game "map_tmp_36" 100
 door game "map_tmp_33" game "map_tmp_34" 100
-door game "map_tmp_34" game "map_tmp_35" 50
+*door game "map_tmp_34" game "map_tmp_35" 50
 door game "map_tmp_35" game "map_tmp_36" 100
 door game "map_tmp_37" game "map_tmp_38" 50
 door game "map_tmp_38" game "map_tmp_40" 100
@@ -2391,14 +2391,14 @@ door game "map_tmp_180" game "map_tmp_181" 100
 door game "map_tmp_181" game "map_tmp_182" 100
 door game "map_tmp_182" game "map_tmp_183" 100
 door game "map_tmp_182" game "map_tmp_188" 99
-door game "map_tmp_182" game "map_tmp_189" 100
+*door game "map_tmp_182" game "map_tmp_189" 100
 door game "map_tmp_183" game "map_tmp_185" 100
 door game "map_tmp_183" game "map_tmp_189" 100
 door game "map_tmp_184" game "map_tmp_187" 100
 door game "map_tmp_185" game "map_tmp_186" 80
 door game "map_tmp_186" game "map_tmp_189" 100
 door game "map_tmp_186" game "map_tmp_190" 100
-door game "map_tmp_188" game "map_tmp_189" 40
+*door game "map_tmp_188" game "map_tmp_189" 40
 door game "map_tmp_189" game "map_tmp_190" 100
 door game "map_tmp_192" game "map_tmp_234" 100
 door game "map_tmp_192" game "map_tmp_235" 15
@@ -3178,6 +3178,9 @@ door game "map_tmp_146" game "map_tmp_150" 85
 * Volcano Ledges - Right Wrap
 * Upper Right
 door game "map_tmp_25" game "map_tmp_32" 80
+door game "map_tmp_120" game "map_tmp_126" 100
+door game "map_tmp_240" game "map_tmp_695" 100
+door game "map_tmp_183" game "map_tmp_186" 100
 
 *ROOMIE Delete temporary variables
 delg "map_tmp_0"
