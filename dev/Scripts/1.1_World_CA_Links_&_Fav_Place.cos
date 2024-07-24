@@ -89,11 +89,7 @@ setv va19 grap 7204 49347
 
 setv va20 grap 7204 49188
 
-setv va21 grap 7204 49122
-
 link va19 va20 100
-
-link va20 va21 100
 
 
 
@@ -123,8 +119,6 @@ link va24 va25 100
 
 link va25 va26 100
 
-link va26 va27 100
-
 link va27 va28 100
 
 
@@ -133,13 +127,9 @@ link va27 va28 100
 
 setv va29 grap 10190 49311
 
-setv va30 grap 10165 48855
-
-setv va31 grap 10164 48785
+setv va30 grap 10175 48855
 
 link va29 va30 100
-
-link va30 va31 100
 
 
 
@@ -197,15 +187,11 @@ setv va43 grap 3630 48071
 
 setv va44 grap 3630 47911
 
-setv va45 grap 3630 47803
-
 link va41 va42 100
 
 link va42 va43 100
 
 link va43 va44 100
-
-link va44 va45 100
 
 
 
@@ -363,11 +349,7 @@ setv va19 grap 7204 49347
 
 setv va20 grap 7204 49188
 
-setv va21 grap 7204 49122
-
 link va19 va20 0
-
-link va20 va21 0
 
 
 
@@ -397,8 +379,6 @@ link va24 va25 0
 
 link va25 va26 0
 
-link va26 va27 0
-
 link va27 va28 0
 
 
@@ -409,11 +389,7 @@ setv va29 grap 10190 49311
 
 setv va30 grap 10165 48855
 
-setv va31 grap 10164 48785
-
 link va29 va30 0
-
-link va30 va31 0
 
 
 
@@ -471,15 +447,11 @@ setv va43 grap 3630 48071
 
 setv va44 grap 3630 47911
 
-setv va45 grap 3630 47803
-
 link va41 va42 0
 
 link va42 va43 0
 
 link va43 va44 0
-
-link va44 va45 0
 
 
 
