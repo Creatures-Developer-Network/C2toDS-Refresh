@@ -4,7 +4,7 @@
 * 2 18 50216 - Frog Egg
 
 door grap 3439 48836 grap 3470 48950 25
-door grap 5060 49830 grap 5347 49698 75
+door grap 5060 49830 grap 5120 49777 75
 
 *make vendor
 new: comp 2 24 50216 "moe_C2toDS_froglayer" 23 0 2000
