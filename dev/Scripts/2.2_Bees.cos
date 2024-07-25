@@ -1241,13 +1241,6 @@ endm
 
 
 
-scrp 2 10 50202 9
-
-	kill ownr
-
-endm
-
-
 
 
 
