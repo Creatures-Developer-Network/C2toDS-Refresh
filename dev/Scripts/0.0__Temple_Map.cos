@@ -4,72 +4,73 @@
 * Addon file: deletes existing metarooms at the same place, same background name
 * 2 metarooms, 823 rooms, 1489 doors
 
-doif mapw lt 200000
-  mapd 200000 200000
+*Expand map size, if needed
+doif mapw lt 50000 or maph lt 50000
+	mapd 50000 50000
 endi
 
 
 setv va00 gmap 12942 47900
 doif va00 <> -1
 * check it is made from the same background
-  doif bkds va00 <> "C2toDSTemple"
-    outs "background"
-    stop
-  endi
+	doif bkds va00 <> "C2toDSTemple"
+		outs "background"
+		stop
+	endi
 * Delete any map editor alerters still left over
-  enum 1 1 229
-    kill targ
-  next
+	enum 1 1 229
+		kill targ
+	next
 * Check for any agents in the metaroom
-  enum 0 0 0
-    setv va32 attr
-    andv va32 32
-    doif va32 ne 32
-      doif targ ne pntr
-        doif gmap posx posy = va00 and carr = null
-          cmrt 0
-          seta va33 targ
-          new: comp 1 1 229 "blank" 1 0 9000
-          attr 32
-          frel va33
-          pat: fixd 1 "blank" 0 0 0 0 "whiteontransparentchars"
-          flto 0 30
-          part 1
-          ptxt "Map editor can't change this meta room; I'm still in it"
-          outs "agent"
-          stop
-        endi
-      endi
-    endi
-  next
+	enum 0 0 0
+		setv va32 attr
+		andv va32 32
+		doif va32 ne 32
+			doif targ ne pntr
+				doif gmap posx posy = va00 and carr = null
+					cmrt 0
+					seta va33 targ
+					new: comp 1 1 229 "blank" 1 0 9000
+					attr 32
+					frel va33
+					pat: fixd 1 "blank" 0 0 0 0 "whiteontransparentchars"
+					flto 0 30
+					part 1
+					ptxt "Map editor can't change this meta room; I'm still in it"
+					outs "agent"
+					stop
+				endi
+			endi
+		endi
+	next
 * delete all the rooms in the meta room
-  sets va01 erid va00
+	sets va01 erid va00
 
-  doif strl va01 > 0
-    setv va03 1
-    sets va98 ""
-    loop
-      setv va99 char va01 va03
-      doif va99 = ' '
-        doif va98 <> ""
-          delr stoi va98
-          sets va98 ""
-        endi
-      else
-        sets va50 " "
-        char va50 1 va99
-        adds va98 va50
-      endi
-      addv va03 1
-    untl va03 > strl va01
-    doif va98 <> ""
-      delr stoi va98
-      sets va98 ""
-    endi
-  endi
+	doif strl va01 > 0
+		setv va03 1
+		sets va98 ""
+		loop
+			setv va99 char va01 va03
+			doif va99 = ' '
+				doif va98 <> ""
+					delr stoi va98
+					sets va98 ""
+				endi
+			else
+				sets va50 " "
+				char va50 1 va99
+				adds va98 va50
+			endi
+			addv va03 1
+		untl va03 > strl va01
+		doif va98 <> ""
+			delr stoi va98
+			sets va98 ""
+		endi
+	endi
 
 * delete the metaroom itself
-  delm va00
+	delm va00
 
 endi
 
@@ -167,63 +168,63 @@ setv game "mapeditortmp_21" va00
 setv va00 gmap 6224 48800
 doif va00 <> -1
 * check it is made from the same background
-  doif bkds va00 <> "C2toDS,c2tods_night"
-    outs "background"
-    stop
-  endi
+	doif bkds va00 <> "C2toDS,c2tods_night"
+		outs "background"
+		stop
+	endi
 * Delete any map editor alerters still left over
-  enum 1 1 229
-    kill targ
-  next
+	enum 1 1 229
+		kill targ
+	next
 * Check for any agents in the metaroom
-  enum 0 0 0
-    setv va32 attr
-    andv va32 32
-    doif va32 ne 32
-      doif targ ne pntr
-        doif gmap posx posy = va00 and carr = null
-          cmrt 0
-          seta va33 targ
-          new: comp 1 1 229 "blank" 1 0 9000
-          attr 32
-          frel va33
-          pat: fixd 1 "blank" 0 0 0 0 "whiteontransparentchars"
-          flto 0 30
-          part 1
-          ptxt "Map editor can't change this meta room; I'm still in it"
-          outs "agent"
-          stop
-        endi
-      endi
-    endi
-  next
+	enum 0 0 0
+		setv va32 attr
+		andv va32 32
+		doif va32 ne 32
+			doif targ ne pntr
+				doif gmap posx posy = va00 and carr = null
+					cmrt 0
+					seta va33 targ
+					new: comp 1 1 229 "blank" 1 0 9000
+					attr 32
+					frel va33
+					pat: fixd 1 "blank" 0 0 0 0 "whiteontransparentchars"
+					flto 0 30
+					part 1
+					ptxt "Map editor can't change this meta room; I'm still in it"
+					outs "agent"
+					stop
+				endi
+			endi
+		endi
+	next
 * delete all the rooms in the meta room
-  sets va01 erid va00
+	sets va01 erid va00
 
-  doif strl va01 > 0
-    setv va03 1
-    sets va98 ""
-    loop
-      setv va99 char va01 va03
-      doif va99 = ' '
-        doif va98 <> ""
-          delr stoi va98
-          sets va98 ""
-        endi
-      else
-        sets va50 " "
-        char va50 1 va99
-        adds va98 va50
-      endi
-      addv va03 1
-    untl va03 > strl va01
-    doif va98 <> ""
-      delr stoi va98
-      sets va98 ""
-    endi
-  endi
+	doif strl va01 > 0
+		setv va03 1
+		sets va98 ""
+		loop
+			setv va99 char va01 va03
+			doif va99 = ' '
+				doif va98 <> ""
+					delr stoi va98
+					sets va98 ""
+				endi
+			else
+				sets va50 " "
+				char va50 1 va99
+				adds va98 va50
+			endi
+			addv va03 1
+		untl va03 > strl va01
+		doif va98 <> ""
+			delr stoi va98
+			sets va98 ""
+		endi
+	endi
 
 * delete the metaroom itself
-  delm va00
+	delm va00
 
 endi

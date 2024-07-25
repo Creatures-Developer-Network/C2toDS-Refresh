@@ -96,6 +96,7 @@
 
 
 
+*todo: fix these up
 
 
 *CA links for the "wrap" rooms.*
@@ -130,7 +131,12 @@ link grap 2100 49600 grap 10455 49600 100
 
 *Yggdrasil to Desert
 
-link grap 12950 47678 grap 4890 48110 100
+*link grap 12950 47678 grap 4890 48110 100
+
+
+
+
+
 
 
 
@@ -2237,6 +2243,8 @@ scrx 1 7 50205 1000
 *next
 
 
+
+*todo: fix these too
 
 *Remove "wrap" room links*
 
