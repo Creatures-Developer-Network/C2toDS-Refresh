@@ -185,6 +185,17 @@ scrp 1 11 50200 1
 
 	inst
 
+*todo: see notes in world overlays cos of this same script.
+
+*cancel original click anim if the click won't be redirecting to a valid object.
+	targ pntr
+	mvby -1 0
+	doif hots = null or hots = ownr
+
+		pose 0
+	endi
+	mvby 1 0
+
 *set the OWNR in _P1_ so we can check against it in the pointer script
 	mesg wrt+ pntr 50200 ownr 0 0
 
