@@ -589,7 +589,7 @@ scrp 2 2 50202 1
 
 		over
 
-		door grap 8425 48945 grap 8340 48945 100
+		door grap 8388 48918 grap 8440 48938 100
 
 		setv name "open" 1
 
@@ -601,7 +601,7 @@ scrp 2 2 50202 1
 
 		over
 
-		door grap 8425 48945 grap 8340 48945 0
+		door grap 8388 48918 grap 8440 48938 0
 
 		setv name "open" 0
 
