@@ -13,8 +13,6 @@
 
 new: simp 2 23 50215 "moe_C2toDS_crab" 6 0 rand 1000 3000
 
-*mvsf 8580 48951
-
 mvsf 8585 48920
 
 
@@ -317,7 +315,7 @@ endm
 scrp 2 13 50211 1
 
 	doif crea from eq 1
-		stim writ from 86 1 
+		stim writ from 86 1
 	endi
 
 	doif relx ownr from gt 0
@@ -335,7 +333,7 @@ endm
 scrp 2 13 50211 2
 
 	doif crea from eq 1
-		stim writ from 86 1 
+		stim writ from 86 1
 	endi
 
 	doif relx ownr from gt 0
@@ -350,9 +348,9 @@ scrp 2 13 50211 3
 
 	inst
 	doif crea from eq 1
-		stim writ from 87 1 
+		stim writ from 87 1
 	endi
-	
+
 	velo rand -5 5 rand -5 0
 
 
@@ -466,6 +464,8 @@ scrp 2 13 50211 9
 	gsub walk
 
 
+*todo: should more of this timer script be in INST mode??
+	inst
 
 *eat ever 3 mins
 
@@ -517,9 +517,18 @@ scrp 2 13 50211 9
 
 			esee 2 15 0
 
-				doif targ ne null and ov11 eq 6
+				doif targ ne null
 
-					seta mv07 targ
+*check if ov11 is 6, which it will be on our dead fish. todo: maybe we can do something more robust. some critters might use this ov for something else.
+					doif type ov11 = 0
+
+						doif ov11 eq 6
+
+							seta mv07 targ
+
+						endi
+
+					endi
 
 				endi
 
@@ -1086,7 +1095,7 @@ scrp 2 10 50215 12
 
 	sndc "chwp"
 
-		stim writ from 81 1
+	stim writ from 81 1
 
 	kill ownr
 
@@ -1095,7 +1104,7 @@ endm
 
 
 scrp 2 10 50215 9
-inst
+	inst
 	kill ownr
 
 endm
@@ -1109,7 +1118,7 @@ scrp 2 13 50211 12
 	sndc "chwp"
 
 
-		stim writ from 80 1
+	stim writ from 80 1
 
 
 

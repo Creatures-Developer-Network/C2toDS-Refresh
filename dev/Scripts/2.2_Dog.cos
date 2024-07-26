@@ -20,7 +20,6 @@
 
 
 *todo: woudn't it be neat if Pitz could respond to "sit" "stay" "fetch" commands from the hand, magic words style?
-*he could also have a dog bowl which you can click to name him. it would use the c2tods speech font to write it on the bowl itself.
 
 
 *OV00 - what the dog doin?
@@ -33,7 +32,7 @@
 *2 - LOOK
 *
 *3 - WAG_
-*has just Growled or Dropped Ball. Activated during timer script is norn IS NOT sitting or laying down (OV02)
+*has just Growled or Dropped Ball. Activated during timer script if dog is NOT sitting or laying down (OV02)
 *
 *4 - SNIF
 *
@@ -93,8 +92,7 @@
 *OV05 - how long has the dog been LOOKING for the ball? once this reaches a certain number OV03 is automatically reset to 0 and OV10 is set to null
 *
 *OV10 - ball agent that Pitz is currently focusing on
-*
-*OV11 - pitz purple ball. so we can remove it when pitz dies to stop the world becoming flooded with balls
+
 
 
 
@@ -118,6 +116,8 @@ mvto 7968 49742
 *Dog Kennel - Creation Script
 scrp 1 29 50200 10
 
+	inst
+
 *bg piece
 	pat: dull 1 "moe_C2toDS_Pitz" 201 0 0 -2
 
@@ -134,6 +134,9 @@ scrp 1 29 50200 10
 *initialize dog and ball variables
 	seta ov00 null
 	seta ov01 null
+
+*wait a tick so Activate script has all variables filled in (most notably, position!)
+	wait 1
 
 *create a dog and ball!
 	call 1 0 0
@@ -247,9 +250,6 @@ scrp 1 29 50200 1
 
 *pitz isn't seeking out any toys by default
 		seta ov10 null
-
-*pitz purple ball. so we can remove it when pitz dies to stop the world becoming flooded with balls
-		seta ov11 null
 
 *how long have you been looking for your ball?
 		setv ov05 0
@@ -379,14 +379,6 @@ scrp 1 29 50200 1
 *store dog in kennels ov00 var
 		seta mv00 targ
 	endi
-
-*target pitz and assign the ball
-	targ mv00
-	doif ov11 = null
-		seta ov11 mv01
-	endi
-
-*targ mv01
 
 
 endm
@@ -556,6 +548,13 @@ scrp 2 15 50210 9
 *if the dog is underwater
 	doif rtyp room targ eq 8 or rtyp room targ eq 9
 
+		lock
+
+
+*drop the ball if you're holding it!
+		gsub drop_ball
+
+
 *play drowning anim based on direction
 
 *replaced crappy pickup anim with the regular lying down anim
@@ -583,7 +582,7 @@ scrp 2 15 50210 9
 
 		wait 40
 
-*fade out and kill the dog and his purple ball
+*fade out and kill the dog
 		setv va00 0
 
 *make the dog intangible so we don't end up with half visible dogs
@@ -595,23 +594,15 @@ scrp 2 15 50210 9
 			addv va00 16
 			targ ownr
 
-*apply to dog and ball
+*apply fade to dog
 			alph va00 1
-
-			doif mv11 <> null
-				targ mv11
-				alph va00 1
-			endi
-
 			slow
 
 		untl va00 >= 256
 
-		doif mv11 <> null
-			kill mv11
-		endi
-
 		kill ownr
+
+		unlk
 
 	endi
 
