@@ -2569,7 +2569,7 @@ door game "mapeditortmp_156" game "mapeditortmp_171" 50
 door game "mapeditortmp_156" game "mapeditortmp_200" 100
 door game "mapeditortmp_156" game "mapeditortmp_299" 100
 
-door game "mapeditortmp_156" game "mapeditortmp_304" 100
+door game "mapeditortmp_156" game "mapeditortmp_304" 50
 door game "mapeditortmp_157" game "mapeditortmp_167" 100
 door game "mapeditortmp_158" game "mapeditortmp_163" 100
 door game "mapeditortmp_159" game "mapeditortmp_160" 100
