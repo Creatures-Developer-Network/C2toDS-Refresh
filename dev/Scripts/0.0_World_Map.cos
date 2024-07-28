@@ -2010,15 +2010,15 @@ addb game "mapeditortmp" "c2tods_night"
     rtyp va00 2
     rmsc 6747 48351 "c2tods.mng\\Incubator"
     setv game "mapeditortmp_466" va00
-  setv va00 addr game "mapeditortmp" 4144 4222 48909 48905 49053 49050
+  setv va00 addr game "mapeditortmp" 4144 4222 48909 48905 49053 49053
     rtyp va00 1
-    rmsc 4183 48979 "c2tods.mng\\Waterfall"
+    rmsc 4183 48981 "c2tods.mng\\Waterfall"
     setv game "mapeditortmp_467" va00
-  setv va00 addr game "mapeditortmp" 4222 4298 49050 49083 49111 49111
+  setv va00 addr game "mapeditortmp" 4222 4298 49053 49083 49111 49111
     rtyp va00 0
-    rmsc 4260 49080 "c2tods.mng\\Waterfall"
+    rmsc 4260 49082 "c2tods.mng\\Waterfall"
     setv game "mapeditortmp_468" va00
-  setv va00 addr game "mapeditortmp" 4144 4222 49053 49050 49111 49111
+  setv va00 addr game "mapeditortmp" 4144 4222 49053 49053 49111 49111
     rtyp va00 0
     rmsc 4183 49082 "c2tods.mng\\Waterfall"
     setv game "mapeditortmp_469" va00
@@ -2102,7 +2102,7 @@ addb game "mapeditortmp" "c2tods_night"
     rtyp va00 1
     rmsc 4341 48977 "c2tods.mng\\Waterfall"
     setv game "mapeditortmp_489" va00
-  setv va00 addr game "mapeditortmp" 4222 4298 48905 48900 49050 49083
+  setv va00 addr game "mapeditortmp" 4222 4298 48905 48900 49053 49083
     rtyp va00 1
     rmsc 4260 48994 "c2tods.mng\\Waterfall"
     setv game "mapeditortmp_490" va00
@@ -2255,26 +2255,26 @@ door game "mapeditortmp_30" game "mapeditortmp_47" 100
 door game "mapeditortmp_30" game "mapeditortmp_226" 100
 door game "mapeditortmp_31" game "mapeditortmp_71" 100
 door game "mapeditortmp_31" game "mapeditortmp_76" 100
-door game "mapeditortmp_31" game "mapeditortmp_333" 100
+door game "mapeditortmp_31" game "mapeditortmp_333" 50
 door game "mapeditortmp_31" game "mapeditortmp_408" 100
 door game "mapeditortmp_32" game "mapeditortmp_37" 100
 door game "mapeditortmp_32" game "mapeditortmp_39" 50
 door game "mapeditortmp_32" game "mapeditortmp_40" 100
 
 door game "mapeditortmp_33" game "mapeditortmp_34" 100
-door game "mapeditortmp_33" game "mapeditortmp_35" 100
+door game "mapeditortmp_33" game "mapeditortmp_35" 50
 door game "mapeditortmp_33" game "mapeditortmp_41" 100
-door game "mapeditortmp_33" game "mapeditortmp_71" 100
+door game "mapeditortmp_33" game "mapeditortmp_71" 50
 door game "mapeditortmp_33" game "mapeditortmp_316" 100
 door game "mapeditortmp_34" game "mapeditortmp_72" 100
 door game "mapeditortmp_34" game "mapeditortmp_320" 100
-door game "mapeditortmp_34" game "mapeditortmp_499" 100
+door game "mapeditortmp_34" game "mapeditortmp_499" 50
 door game "mapeditortmp_35" game "mapeditortmp_71" 100
 door game "mapeditortmp_35" game "mapeditortmp_499" 50
 
 door game "mapeditortmp_35" game "mapeditortmp_504" 100
 door game "mapeditortmp_36" game "mapeditortmp_68" 100
-door game "mapeditortmp_36" game "mapeditortmp_76" 100
+door game "mapeditortmp_36" game "mapeditortmp_76" 50
 door game "mapeditortmp_36" game "mapeditortmp_235" 100
 door game "mapeditortmp_36" game "mapeditortmp_333" 100
 door game "mapeditortmp_36" game "mapeditortmp_425" 50
@@ -2356,7 +2356,7 @@ door game "mapeditortmp_69" game "mapeditortmp_130" 100
 door game "mapeditortmp_69" game "mapeditortmp_229" 100
 door game "mapeditortmp_69" game "mapeditortmp_230" 100
 door game "mapeditortmp_69" game "mapeditortmp_249" 100
-door game "mapeditortmp_71" game "mapeditortmp_316" 100
+door game "mapeditortmp_71" game "mapeditortmp_316" 50
 door game "mapeditortmp_71" game "mapeditortmp_408" 100
 door game "mapeditortmp_72" game "mapeditortmp_232" 100
 
@@ -2769,7 +2769,7 @@ door game "mapeditortmp_257" game "mapeditortmp_258" 100
 
 door game "mapeditortmp_258" game "mapeditortmp_260" 100
 door game "mapeditortmp_259" game "mapeditortmp_272" 100
-door game "mapeditortmp_259" game "mapeditortmp_277" 100
+door game "mapeditortmp_259" game "mapeditortmp_277" 50
 door game "mapeditortmp_259" game "mapeditortmp_293" 50
 door game "mapeditortmp_260" game "mapeditortmp_263" 100
 door game "mapeditortmp_261" game "mapeditortmp_262" 100
