@@ -58,7 +58,7 @@ reps rand 2 4
 
 	new: simp 2 4 50200 "moe_C2toDS_toms" 15 0 rand 1000 3000
 
-	mvto rand 7785 7907 48712
+	mvto rand 7800 7890 48712
 
 	pose rand 0 6
 
