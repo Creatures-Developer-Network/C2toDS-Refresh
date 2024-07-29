@@ -182,6 +182,8 @@ tick 100
 
 sndl "moev"
 
+setv name "whatamI?" 12
+
 
 
 
@@ -200,6 +202,8 @@ tick 100
 
 sndl "moev"
 
+setv name "whatamI?" 12
+
 
 
 new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
@@ -214,7 +218,10 @@ tick 100
 
 *volm 0 -900
 
+setv name "whatamI?" 11
+
 sndl "m_wn"
+
 
 
 
@@ -230,7 +237,10 @@ tick 100
 
 *volm 0 -800
 
+setv name "whatamI?" 11
+
 sndl "m_wn"
+
 
 
 
@@ -403,7 +413,6 @@ setv name "whatamI?" 8
 scrp 1 12 50200 9
 
 	doif name "whatamI?" eq 1
-
 		doif game "VolcanoFlooded" eq 0
 
 			rnge 100
@@ -419,9 +428,14 @@ scrp 1 12 50200 9
 			over
 
 			pose 10
+		else
+			new: simp 2 19 50212 "moe_C2toDS_bubbles" 11 0 rand 1000 5000
+			mvsf 9140 49730
+
+			targ ownr
+			tick rand 10 200
 
 		endi
-
 	endi
 
 *stim shou 10 9 100 0 22 100 0 0 0 0 0 0
@@ -748,7 +762,7 @@ scrp 1 12 50200 9
 
 *Left Lava
 
-	doif name "whatamI?" eq 8
+	doif name "whatamI?" eq 8 and game "VolcanoFlooded" eq 0
 
 		setv va00 rand 0 4
 
@@ -794,7 +808,7 @@ scrp 1 12 50200 9
 
 *Right Lava
 
-	doif name "whatamI?" eq 9
+	doif name "whatamI?" eq 9 and game "VolcanoFlooded" eq 0
 
 		setv va00 rand 0 4
 
@@ -838,14 +852,149 @@ scrp 1 12 50200 9
 
 	endi
 
+	doif name "whatamI?" eq 11
+		doif game "VolcanoFlooded" eq 0
+			sndl "m_wn"
+		elif game "VolcanoFlooded" eq 1
+			stpc
+		endi
+	endi
+	doif name "whatamI?" eq 12
+		doif game "VolcanoFlooded" eq 0
+			sndl "moev"
+		elif game "VolcanoFlooded" eq 1
+			stpc
+		endi
+	endi
+
+endm
+
+
+* Bubbles
+
+scrp 2 19 50212 10
+	inst
+	attr 199
+	elas 0
+	aero 5
+	accg 0
+	frat 2
+	anim [0 1 2 3 4 5 6 7 8 9 10 255]
+	mira rand 0 1
+*sndl "m_uw"
+	tick 1
+endm
+
+scrp 2 19 50212 9
+	inst
+	doif rand 0 3 eq 1
+		snde "bubf"
+	endi
+	doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+		doif vely gt -15
+			subv vely rand 2 3.0
+		endi
+		inst
+		reps 2
+			inst
+
+			setv va04 rand -75 75
+			divv va04 100.00
+			addv velx va04
+
+			setv va00 posl
+			setv va01 posr
+			subv va01 10
+			setv va02 posy
+			setv va03 posb
+			new: simp 2 19 50213 "moe_C2toDS_bubbles" 1 rand 11 12 rand 1000 5000
+			mvsf rand va00 va01 rand va02 va03
+			targ ownr
+			wait 1
+		repe
+	endi
+	setv va00 post
+	subv va00 10
+	setv va00 rtyp grap posx va00
+	doif va00 ne 8 and va00 ne 9
+		kill ownr
+	endi
+endm
+
+scrp 2 19 50212 6
+	kill ownr
+endm
+
+
+*SMALL BUBBLES
+scrp 2 19 50213 10
+	attr 199
+	elas 0
+	aero 3
+	accg 0
+	frat 2
+	tick 1
+endm
+
+
+scrp 2 19 50213 9
+	doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+
+		setv va04 rand -65 65
+		divv va04 100.00
+		addv velx va04
+
+		doif vely gt -10
+			subv vely rand 2 2.5
+		endi
+	endi
+	setv va00 post
+	subv va00 10
+	setv va00 rtyp grap posx va00
+	doif va00 ne 8 and va00 ne 9
+		kill ownr
+	endi
+endm
+
+scrp 2 19 50213 6
+	kill ownr
 endm
 
 rscr
 
 enum 1 12 50200
-
 	kill targ
-
 next
 
 scrx 1 12 50200 9
+
+
+*Large Bubble removal
+inst
+enum 2 19 50212
+	kill targ
+next
+*Removes all scripts for the specified agent 2 19 50212 if it exists.
+*No need to micromanage. :)
+loop
+	doif sorq 2 19 50212 va00 eq 1
+		scrx 2 19 50212 va00
+	endi
+	addv va00 1
+untl va00 eq 2000
+setv va00 0
+
+*Small Bubble removal
+inst
+enum 2 19 50213
+	kill targ
+next
+*Removes all scripts for the specified agent 2 19 50212 if it exists.
+*No need to micromanage. :)
+loop
+	doif sorq 2 19 50213 va00 eq 1
+		scrx 2 19 50213 va00
+	endi
+	addv va00 1
+untl va00 eq 2000
+setv va00 0
