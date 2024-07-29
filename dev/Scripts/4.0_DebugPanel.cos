@@ -89,6 +89,10 @@ scrp 1 99 50200 1001
 		door grap 9729 48430 grap 9824 48430 99
 
 
+*pond between garden and shee statue
+		door grap 4333 49862 grap 4393 49862 99
+
+
 
 		wait 10
 
@@ -149,6 +153,9 @@ scrp 1 99 50200 1001
 *top volcano ledge (world wrap copy)
 		door grap 9729 48430 grap 9824 48430 100
 
+
+*pond between garden and shee statue
+		door grap 4333 49862 grap 4393 49862 100
 
 
 		wait 10
