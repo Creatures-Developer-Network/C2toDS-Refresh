@@ -1,0 +1,54 @@
+**Changing all the links from 1 to 100 since they need an int, I think that's correct - Verm
+
+*Create Signpost*
+
+new: simp 1 3 50200 "moe_C2toDS_Fav" 1 0 1
+
+attr 272
+
+mvto 6753 48383
+
+tick 10
+
+
+rscr
+
+enum 1 3 50200
+
+	kill targ
+
+next
+
+*Delete Signpost*
+
+doif totl 1 4 50200 gt 0
+
+	subv game "ds_favourites" 1
+
+	enum 1 4 50200
+
+		setv va50 ov50
+
+		kill targ
+
+	next
+
+	enum 1 4 0
+
+		doif ov50 gt va50
+
+			subv ov50 1
+
+			setv va02 ov50
+
+			mulv va02 50
+
+			addv va02 145
+
+			flto va02 0
+
+		endi
+
+	next
+
+endi
