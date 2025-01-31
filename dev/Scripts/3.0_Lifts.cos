@@ -73,7 +73,7 @@ mvto 3595 48925
 
 sets name "Lift" "TreeTrunkLift"
 
-setv name "total" 2
+setv name "total" 1
 
 setv name "current level" 0
 
@@ -262,7 +262,6 @@ setv name "total" 1
 setv name "current level" 0
 
 setv ov04 2
-
 
 
 
@@ -1594,9 +1593,6 @@ endm
 scrp 3 1 50200 9
 
 	lock
-
-
-
 
 
 	setv va00 stoi name "call list"
