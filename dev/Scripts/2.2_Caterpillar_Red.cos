@@ -36,20 +36,16 @@ reps rand 5 10
 	mvsf rand 5110 6525 49720
 repe
 
-*OOOOK!  You see purple butterflies in Summer and Fall, but not spring.
 
-*You see red butterfies in Spring and Summer, but not fall.
-
-*Both butterflies are seen in summer, but neither in winter.
 
 scrp 2 13 50207 1
 
 	inst
 	doif crea from eq 1
-		stim writ from 85 1 
+		stim writ from 85 1
 	endi
-	
-	* should the insect react to being pushed?
+
+* should the insect react to being pushed?
 
 endm
 
@@ -57,10 +53,10 @@ scrp 2 13 50207 2
 
 	inst
 	doif crea from eq 1
-		stim writ from 85 1 
+		stim writ from 85 1
 	endi
-	
-	* should the insect react to being pulled?
+
+* should the insect react to being pulled?
 
 endm
 
@@ -68,10 +64,10 @@ scrp 2 13 50207 3
 
 	inst
 	doif crea from eq 1
-		stim writ from 87 1 
+		stim writ from 87 1
 	endi
-	
-	* should the insect react to being hit?
+
+* should the insect react to being hit?
 	velo rand -5 5 rand -5 0
 
 endm
@@ -81,9 +77,9 @@ scrp 2 13 50207 12
 
 	inst
 	doif crea from eq 1
-		stim writ from 80 1 
+		stim writ from 80 1
 	endi
-	
+
 	kill ownr
 
 endm
@@ -324,10 +320,10 @@ scrp 2 13 50205 1
 
 	inst
 	doif crea from eq 1
-		stim writ from 85 1 
+		stim writ from 85 1
 	endi
-	
-	* should the insect react to being pushed?
+
+* should the insect react to being pushed?
 
 endm
 
@@ -335,10 +331,10 @@ scrp 2 13 50205 2
 
 	inst
 	doif crea from eq 1
-		stim writ from 85 1 
+		stim writ from 85 1
 	endi
-	
-	* should the insect react to being pulled?
+
+* should the insect react to being pulled?
 
 endm
 
@@ -346,10 +342,10 @@ scrp 2 13 50205 3
 
 	inst
 	doif crea from eq 1
-		stim writ from 87 1 
+		stim writ from 87 1
 	endi
-	
-	* should the insect react to being hit?
+
+* should the insect react to being hit?
 	velo rand -5 5 rand -5 0
 
 endm
@@ -359,9 +355,9 @@ scrp 2 13 50205 12
 
 	inst
 	doif crea from eq 1
-		stim writ from 80 1 
+		stim writ from 80 1
 	endi
-	
+
 	kill ownr
 
 endm
@@ -369,7 +365,11 @@ endm
 
 scrp 2 13 50205 9
 
+	doif carr ne null
 
+		stop
+
+	endi
 
 	doif carr ne null
 
@@ -477,11 +477,24 @@ scrp 2 13 50205 9
 
 	subr cacoon
 
-		pose 24
+*don't cacoon until we've been dropped (MVSF only works on autonomous agents)
 
-		setv name "cacoon" 1
+		inst
 
-		mvsf posl post
+		doif carr eq null
+
+			pose 24
+
+			setv name "cacoon" 1
+
+
+			mvsf posl post
+
+			stop
+
+		endi
+
+		slow
 
 	retn
 
@@ -715,41 +728,17 @@ scrp 2 13 50205 9
 
 		inst
 
-		pose 12
+*don't climb until we've been dropped (MVSF only works on autonomous agents)
 
-		mvsf posl post
+		doif carr eq null
 
 
+			pose 12
 
-		inst
-
-		targ ov07
-
-		doif targ eq null
-
-			stop
-
-		endi
-
-		setv va02 post
-
-		slow
-
-		addv va02 25
-
-		targ ownr
+			mvsf posl post
 
 
 
-		lock
-
-		loop
-
-			inst
-
-			setv va00 posx
-
-			setv va01 posy
 
 			targ ov07
 
@@ -759,69 +748,100 @@ scrp 2 13 50205 9
 
 			endi
 
-			setv va03 tran va00 va01
+			setv va02 post
+
+			slow
+
+			addv va02 25
 
 			targ ownr
 
 
 
-			doif va04 eq 0
+			lock
 
-				anim [12 13 14 15]
+			loop
 
-				over
+				inst
 
-				setv va00 post
+				setv va00 posx
 
-				subv va00 4
+				setv va01 posy
 
-				doif movs eq 0
+				targ ov07
 
-					mvsf posl va00
-				else
-				* stop if you've been picked up
+				doif targ eq null
+
 					stop
-				
+
 				endi
 
-				anim [16 17]
+				setv va03 tran va00 va01
 
-				over
+				targ ownr
 
-			else
 
-				anim [18 19 20 21]
 
-				over
+				doif va04 eq 0
 
-				setv va00 post
+					anim [12 13 14 15]
 
-				subv va00 4
+					over
 
-				doif movs eq 0
+					setv va00 post
 
-					mvsf posl va00
+					subv va00 4
+
+					doif movs eq 0
+
+						mvsf posl va00
+					else
+* stop if you've been picked up
+						stop
+
+					endi
+
+					anim [16 17]
+
+					over
+
 				else
-				* stop if you've been picked up
-					stop
-				
+
+					anim [18 19 20 21]
+
+					over
+
+					setv va00 post
+
+					subv va00 4
+
+					doif movs eq 0
+
+						mvsf posl va00
+					else
+* stop if you've been picked up
+						stop
+
+					endi
+
+					anim [22 23]
+
+					over
+
 				endi
 
-				anim [22 23]
-
 				over
 
-			endi
+				wait tick
 
-			over
+				slow
 
-			wait tick
+			untl post le va02 or va03 eq 1
 
-			slow
+			unlk
 
-		untl post le va02 or va03 eq 1
+		endi
 
-		unlk
 
 	retn
 
