@@ -1,4 +1,4 @@
-* 3 2 50200 - Big Teleporters (one in DS Workshop and one in C2 incubator room)
+* 3 2 50200 - Big Teleporters (one in DS Corridor and one in C2 incubator room)
 * 3 2 50202 - All other Teleporters
 * 1 17 50201 - Teleporter Beam Animation
 
@@ -9,6 +9,11 @@
 *-the camera now jumps to the other side of the teleporter when clicking it with both types of teleporter (previously only worked with big ones)
 *-made IO ports more obvious (only small teleporters have IO ports)
 *-added stims to regular teleporters. previously only big teleporters actually let norns know they'd used a teleporter.
+*-moved DS-side Big Teleporter to the corridor on the left (opposite side of the C12DS tele). This looks cool if you inject both at the same time.
+
+
+*NOTE: also defined in "1.2_!World_Wrap.cos"
+setv game "C2toDS_RoomID" gmap 6753 48383
 
 
 *Teleporter - Norn Burrow (MAIN)
@@ -88,7 +93,7 @@ scrp 3 2 50200 10
 
 		seta ov01 ownr
 
-		mvto 4463 9013
+		mvto 2350 9010
 
 		attr 199
 
@@ -252,6 +257,10 @@ scrp 3 2 50200 1001
 
 	setv va01 posb
 
+*for nicer centered camera after teleports
+	setv va11 posy
+
+
 *addv va01 200
 
 	targ ownr
@@ -259,7 +268,27 @@ scrp 3 2 50200 1001
 *_P1_ is FROM
 	doif _p1_ eq pntr
 
-		cmrp va00 va01 0
+
+*neodement: move camera twice to account for bug when switching metaroom
+		cmrp va00 va11 0
+		cmrp va00 va11 0
+
+
+
+*neodement: nasty little trick to force the C2toDS signpost to register	first time we tele into c2tods metaroom (it's not on screen for small resolutions)
+		doif meta = game "C2toDS_RoomID"
+			enum 1 3 50200
+				doif ov00 = 0
+					setv va60 posl
+					setv va61 post
+					mvto va00 va01
+					mesg writ targ 9
+					wait 1
+					mvto va60 va61
+					inst
+				endi
+			next
+		endi
 
 	endi
 
@@ -613,6 +642,9 @@ scrp 3 2 50202 1001
 
 	setv va01 posb
 
+*for nicer centered camera after teleports
+	setv va11 posy
+
 	seta va51 targ
 
 	mesg writ targ 1000
@@ -631,7 +663,9 @@ scrp 3 2 50202 1001
 *_P2_ is FROM
 	doif _p2_ eq pntr
 
-		cmrp va00 va01 0
+*neodement: move camera twice to account for bug when switching metaroom
+		cmrp va00 va11 0
+		cmrp va00 va11 0
 
 	endi
 
