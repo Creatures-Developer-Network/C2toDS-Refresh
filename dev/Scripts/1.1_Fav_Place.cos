@@ -1,14 +1,74 @@
-**Changing all the links from 1 to 100 since they need an int, I think that's correct - Verm
-
 *Create Signpost*
 
 new: simp 1 3 50200 "moe_C2toDS_Fav" 1 0 1
 
 attr 272
 
-mvto 6753 48383
+mvto 7154 48406
 
 tick 10
+
+
+
+
+
+
+*NeoDement: added an override for the default DS fav places script to move camera twice to account for bug when switching metaroom
+
+**********************ICON EVENTS
+******Icon clicked on
+scrp 1 4 50200 1
+
+*	dbg: asrt "signpost" = "fixed"
+
+	inst
+*	get your species number
+	setv va00 spcs
+*	find your counterpart signpost
+	rtar 1 3 va00
+	doif targ eq null
+*	no targ, stop
+		stop
+	endi
+*	move camera to them
+	cmrt 0
+	cmrt 0
+*	give all agents a 'metaroom has changed' message
+	enum 0 0 0
+		mesg writ targ 900
+	next
+
+endm
+
+
+*NeoDement: delete our override script if the global signpost Activate behaviour has been modified in any way
+
+scrp 1 4 50200 10
+	inst
+
+*ONLY RUN OUR MODIFIED SCRIPT IF THE DEFAULT SIGNPOST BEHAVIOUR IS PRESENT!
+*this should hopefully allow custom signpost systems to not break.
+	sets va99 sorc 1 4 0 1
+
+*erase whitespace from end of string
+	doif subs va99 strl va99 1 = " "
+		loop
+			setv va80 strl va99
+			subv va80 1
+			sets va99 subs va99 1 va80
+		untl subs va99 strl va99 1 <> " "
+	endi
+
+*look for an exact match of the default script
+	doif va99 <> "inst setv va00 spcs rtar 1 3 va00 doif targ eq null stop endi cmrt 0 enum 0 0 0 mesg writ targ 900 next"
+		scrx 1 4 50200 1
+*		dbg: asrt "script" = "wrong"
+	endi
+
+endm
+
+
+
 
 
 rscr
