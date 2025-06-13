@@ -1,1366 +1,1370 @@
-* 2 15 5610 - Frog
-* 2 15 5611 - Tadpole
-* 2 18 5610 - Frog Egg
-* 2 5649 5611 - Norn-Frog Tracker
-* 2 5649 5612 - Frog Birth/Death Photographer/Life Event Hacker
-
-reps rand 2 4
-	new: simp 2 15 5611 "moe_C2toDS_tadp" 16 0 rand 1000 3000
-	mvsf rand 2844 3060 rand 48970 48975
-repe
-
-**Frog Eggs
-
-scrp 2 18 5610 10
-	inst
-	aero 10
-	attr 194
-	elas 0
-	accg .5
-	fric 100
-	tick 500
-*Eat & Pick-up
-	bhvr 48
-	rnge 500
-	sets name "Stored Moniker" ""
-endm
-
-* Interact Scripts
-
-*Drop
-scrp 2 18 5610 5
-	loop
-		doif rtyp room ownr eq 8 or rtyp room ownr eq 9
-			aero 10
-			accg .5
-		else
-			accg 1
-			aero 0
-		endi
-	untl fall eq 0
-endm
-
-*Eat
-scrp 2 18 5610 12
-	sndc "chwp"
-	stim writ from 80 .5
-	kill ownr
-endm
-
-*Timer
-scrp 2 18 5610 9
-
-*Don't try to hatch during winter
-	doif sean gt 2
-		stop
-	endi
-*Or being carried by something other than a vehicle
-	doif carr ne null and type carr ne 6
-		stop
-	endi
-
-	addv ov01 1
-*Took too long to get good conditions, die
-	doif ov01 gt 250
-		kill ownr
-	endi
-
-
-	esee 2 15 5611
-		doif targ ne null and targ ne ownr
-			addv va04 1
-		endi
-	next
-	targ ownr
-
-	esee 2 15 5610
-		doif targ ne null and targ ne ownr
-			addv va04 1
-		endi
-	next
-	targ ownr
-
-
-	doif rtyp room ownr eq 8 and va04 lt 2
-		setv va00 posx
-		setv va01 posy
-		subv va00 25
-		subv va01 25
-		doif type carr eq 6
-			seta va02 carr
-		endi
-		sets va99 name "Stored Moniker"
-		inst
-		new: simp 2 15 5611 "moe_C2toDS_tadp" 16 0 rand 1000 3000
-		seta va40 targ
-		mvsf va00 va01
-*Transfer Egg Moniker Over
-		sets name "Stored Moniker" va99
-**Do we have a moniker associated?
-		doif va99 ne ""
-			new: crea 4 ownr 1 0 0
-			accg game "c3_creature_accg"
-			bhvr game "c3_creature_bhvr"
-			attr game "c3_creature_attr"
-			perm game "c3_creature_perm"
-			setv va91 11
-			addv va91 gnus
-			emit va91 0.5
-			born
-			mvsf va00 va01
-*			wait 1
-			setv va49 pray expo "FROG"
-*Tadpole/Frog Photographer!
-			new: simp 2 5649 5612 "blnk" 1 0 0
-			tick rand 90 120
-			sets name "Moniker" va99
-			seta ov00 va40
-*0 For birth, 1 for death
-*			setv ov01 0
-*Tadpole/Frog History Cheater
-			new: simp 2 5649 5612 "blnk" 1 0 0
-			tick 1
-			sets name "Moniker" va99
-			seta ov00 va40
-*3 for born, 7 for died, 12 for laid egg
-			setv ov01 3
-		endi
-		doif type va02 eq 6
-			spas va02 targ
-		endi
-		kill ownr
-	endi
-
-endm
-***Quick Photographer things
-scrp 2 5649 5612 9
-	inst
-	doif ov00 ne null
-*We have a target!
-*Born or Died
-		doif ov01 eq 0
-			sets va00 name "Moniker"
-			adds va00 "-"
-			adds va00 vtos hist coun name "Moniker"
-			targ ov00
-			snap va00 posx posy 119 139 100
-			targ ownr
-			hist evnt name "Moniker" 13 "" ""
-			setv va01 hist coun name "Moniker"
-			subv va01 1
-			dbg: asrt 13 = hist type name "Moniker" va01
-			hist foto name "Moniker" va01 va00
-		else
-***Cheating!
-*So we find an event with coords 0 0, that matches our event
-			enum 1 2 25
-				doif ov01 eq 0 and ov02 eq 0 and ov00 eq null and ov03 eq mv01
-*Well this matches so...
-					seta va10 targ
-					targ mv00
-*Set some stuff...
-					setv va01 posx
-					setv va02 posy
-					setv va11 spcs
-					targ va10
-					seta ov00 mv00
-					setv ov01 va01
-					setv ov02 va02
-*Tooltip >:)
-* 	tooltip
-					sets va75 hist name mame "Moniker"
-					doif va75 = ""
-						sets va75 read "Life Event ToolTip Genus" hist gnus mame "Moniker"
-					endi
-					doif ov03 eq 3
-						adds va75 " has been born as a tadpole"
-					elif ov03 eq 7
-						doif va11 eq 5611
-							adds va75 " has died as a tadpole"
-						else
-							adds va75 " has died as a frog"
-						endi
-					elif ov03 eq 11
-						adds va75 " has laid a frog egg"
-					endi
-*set it
-					sets name "tooltip" va75
-					kill ownr
-					stpt
-				endi
-			next
-		endi
-	endi
-	kill ownr
-endm
-
-**Tadpoles
-
-*Install
-scrp 2 15 5611 10
-	inst
-	frat 2
-	anim [0 1 2 3 4 5 6 7 255]
-	attr 195
-	elas 0
-	fric 50
-	aero 1
-	accg 0
-	perm 51
-	bhvr 59
-	tick rand 25 35
-	rnge 500
-	setv ov06 1
-	setv ov07 1
-
-	puhl -1 28 30
-
-	setv ov10 rand 250 300
-
-	sets name "Stored Moniker" ""
-
-*tadpole OVs:
-
-*ov01 - age
-*ov04 - left/right
-*ov05 - up/down
-*ov06 - left/right speed
-*ov07 - up/down speed
-*ov10 - when will you grow up to be a frog?
-*ov99 - how long have you been out of water?
-
-endm
-
-*Interact
-scrp 2 15 5611 1
-	inst
-	stim writ from 86 1
-	doif crea from eq 1
-		snde "kis1"
-		targ from
-		setv va10 hist gend gtos 0
-*Make opposite gender if possible
-		doif va10 lt 3
-			doif va10 eq 1
-				setv va10 2
-			else
-				setv va10 1
-			endi
-		endi
-		targ ownr
-		call 4242 va10 0
-	endi
-endm
-
-scrp 2 15 5611 2
-	inst
-	stim writ from 86 1
-endm
-
-scrp 2 15 5611 3
-	inst
-	stim writ from 87 1
-endm
-
-scrp 2 15 5611 12
-	sndc "chwp"
-	stim writ from 80 .5
-	call 444 0 0
-endm
-
-*VERY simple.
-*I hope Moe was ok after this - Verm
-scrp 2 15 5611 9
-	addv ov01 1
-	doif ov01 gt ov10
-		setv va00 posl
-		setv va01 post
-*		subv va00 0
-		subv va01 15
-		sets va99 name "Stored Moniker"
-		new: simp 2 15 5610 "moe_C2toDS_frogs" 105 0 rand 1000 3000
-		mvsf va00 va01
-*Transfer Tadpole Moniker Over
-		sets name "Stored Moniker" va99
-		doif "Stored Moniker" ne ""
-			hist evnt "Stored Moniker" 4 "" ""
-		endi
-		kill ownr
-	endi
-
-*	gsub checksurface
-
-*only go in random directions if there are no walls nearby
-	gsub obst
-
-	doif va50 = 0
-		doif rand 0 500 gt 250
-*           Left Right
-			setv ov04 rand 0 1
-*           Up Down
-			setv ov05 rand 0 1
-		endi
-
-		doif ov05 eq 0
-			gsub up
-		else
-			gsub down
-		endi
-
-		doif ov04 eq 0
-			gsub left
-		else
-			gsub right
-		endi
-	endi
-
-	gsub checksurface
-
-
-	subr up
-*		gsub checksurface
-		subv vely ov07
-	retn
-
-	subr down
-		addv vely ov07
-	retn
-
-	subr left
-		subv velx ov06
-		mira 0
-	retn
-
-	subr right
-		addv velx ov06
-		mira 1
-	retn
-
-	subr checksurface
-		setv va00 post
-		subv va00 20
-		doif rtyp grap posx va00 ne 8 and rtyp grap posx va00 ne 9
-			doif vely lt 0.0
-				setv vely 0
-			endi
-			setv ov05 1
-		endi
-
-		doif rtyp grap posx posb ne 8 and rtyp grap posx posb ne 9 and grap posx posb ne -1
-			accg 1
-			addv ov99 1
-			doif ov99 eq 8
-				call 444 0 0
-			endi
-		else
-			setv ov99 0
-			accg 0
-		endi
-	retn
-
-
-*obstacle checking subroutine stolen from zander fish (with tweaks)
-	subr obst
-
-		inst
-
-		setv va50 0
-
-		doif obst _up_ lt 10
-
-			setv va00 ov07
-			mulv va00 0.5
-			addv vely va00
-
-			setv va50 1
-
-		endi
-
-
-
-		doif obst down lt 20
-
-			setv va00 ov07
-			mulv va00 0.5
-			subv vely va00
-
-			setv va50 1
-
-		endi
-
-
-
-		doif obst left lt 10
-
-			setv va00 ov06
-*			mulv va00 0.5
-			addv velx va00
-
-			doif velx > 0
-				mira 1
-			endi
-
-			setv va50 1
-
-		endi
-
-		doif obst rght lt 10
-
-			setv va00 ov06
-*			mulv va00 0.5
-			subv velx va00
-
-			doif velx < 0
-				mira 0
-			endi
-
-			setv va50 1
-
-		endi
-
-	retn
-
-
-endm
-
-*Collision
-scrp 2 15 5611 6
-	doif wall eq rght
-		setv ov04 0
-	elif wall eq left
-		setv ov04 1
-	elif wall eq down
-		setv ov05 0
-	elif wall eq _up_
-		setv ov05 1
-	endi
-endm
-
-*Death Script
-**Seperate from the others to check stuff like if this guy had a moniker and stuff, to take a picture
-scrp 2 15 5611 444
-	inst
-	lock
-	doif name "Stored Moniker" ne ""
-*Tadpole/Frog Photographer!
-		new: simp 2 5649 5612 "blnk" 1 0 0
-		tick 1
-		sets name "Moniker" mame "Stored Moniker"
-		seta ov00 ownr
-*0 For birth, 1 for death
-*		setv ov01 1
-		hist evnt mame "Stored Moniker" 7 "" ""
-		sets va49 mame "Stored Moniker"
-		adds va49 ".FROG"
-		setv va00 pray kill va49
-*Tadpole/Frog History Cheater
-		new: simp 2 5649 5612 "blnk" 1 0 0
-		tick 1
-		sets name "Moniker" mame "Stored Moniker"
-		seta ov00 ownr
-*3 for born, 7 for died, 12 for laid egg
-		setv ov01 7
-		wait 2
-	endi
-	kill ownr
-	stpt
-endm
-
-*Transformation Script
-**Just for organization
-***Note: If you change the breed used, check if you need to update the life percentages to be more accurate! Frogs have their own
-***Check them out if needed
-scrp 2 15 5611 4242
-	inst
-* Check the Pop limit!
-	setv va98 0
-	enum 4 0 0
-		doif dead = 0
-			addv va98 1
-		endi
-	next
-	setv va99 game "total_population"
-	doif va98 lt va99
-*Child Life Percent
-		setv va70 0.898
-*va10 = the creature!
-		doif name "Stored Moniker" ne ""
-*We've been a norn before! Just turn back into one
-			sets va49 mame "Stored Moniker"
-			adds va49 ".FROG"
-			doif pray impo va49 0 1 lt 2
-				setv va99 pray impo va49 1 0
-				seta va10 targ
-				gsub frogginess
-				gsub move
-			else
-*It's not going to work out, make me a new boy!
-				gsub new
-				gsub move
-			endi
-		else
-*Becoming a norn for the first time! Weee
-			gsub new
-			gsub move
-		endi
-	endi
-
-	subr new
-		gene load ownr 1 "norn.bondi.48"
-		new: crea 4 ownr 1 _p1_ 0
-		accg game "c3_creature_accg"
-		bhvr game "c3_creature_bhvr"
-		attr game "c3_creature_attr"
-		perm game "c3_creature_perm"
-		setv va91 11
-		addv va91 gnus
-		emit va91 0.5
-		born
-		seta va10 targ
-		gsub frogginess
-	retn
-
-	subr frogginess
-*Check age of tadpole, has to either be bab or child
-		targ ownr
-		setv va80 ov01
-		targ va10
-		doif va80 gt 150 and cage lt 1
-			setv va88 1
-			subv va88 cage
-			ages va88
-			doif chem 125 gt va70
-				setv va85 chem 125
-				subv va85 va70
-				negv va85
-				chem 125 va85
-			endi
-		endi
-		setv name "FrogTrackerC2toDS-Age" va80
+*NeoDement: disabled for now! until we get frog norn sprites+genome!!
+*todo: fix up strings to be in catalogue file for localization (lol)
+*todo: new classifier numbers in c2tods range (50200-50299)
+
+** 2 15 5610 - Frog
+** 2 15 5611 - Tadpole
+** 2 18 5610 - Frog Egg
+** 2 5649 5611 - Norn-Frog Tracker
+** 2 5649 5612 - Frog Birth/Death Photographer/Life Event Hacker
+*
+*reps rand 2 4
+*	new: simp 2 15 5611 "moe_C2toDS_tadp" 16 0 rand 1000 3000
+*	mvsf rand 2844 3060 rand 48970 48975
+*repe
+*
+***Frog Eggs
+*
+*scrp 2 18 5610 10
+*	inst
+*	aero 10
+*	attr 194
+*	elas 0
+*	accg .5
+*	fric 100
+*	tick 500
+**Eat & Pick-up
+*	bhvr 48
+*	rnge 500
+*	sets name "Stored Moniker" ""
+*endm
+*
+** Interact Scripts
+*
+**Drop
+*scrp 2 18 5610 5
+*	loop
+*		doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+*			aero 10
+*			accg .5
+*		else
+*			accg 1
+*			aero 0
+*		endi
+*	untl fall eq 0
+*endm
+*
+**Eat
+*scrp 2 18 5610 12
+*	sndc "chwp"
+*	stim writ from 80 .5
+*	kill ownr
+*endm
+*
+**Timer
+*scrp 2 18 5610 9
+*
+**Don't try to hatch during winter
+*	doif sean gt 2
+*		stop
+*	endi
+**Or being carried by something other than a vehicle
+*	doif carr ne null and type carr ne 6
+*		stop
+*	endi
+*
+*	addv ov01 1
+**Took too long to get good conditions, die
+*	doif ov01 gt 250
+*		kill ownr
+*	endi
+*
+*
+*	esee 2 15 5611
+*		doif targ ne null and targ ne ownr
+*			addv va04 1
+*		endi
+*	next
+*	targ ownr
+*
+*	esee 2 15 5610
+*		doif targ ne null and targ ne ownr
+*			addv va04 1
+*		endi
+*	next
+*	targ ownr
+*
+*
+*	doif rtyp room ownr eq 8 and va04 lt 2
+*		setv va00 posx
+*		setv va01 posy
+*		subv va00 25
+*		subv va01 25
+*		doif type carr eq 6
+*			seta va02 carr
+*		endi
+*		sets va99 name "Stored Moniker"
+*		inst
+*		new: simp 2 15 5611 "moe_C2toDS_tadp" 16 0 rand 1000 3000
+*		seta va40 targ
+*		mvsf va00 va01
+**Transfer Egg Moniker Over
+*		sets name "Stored Moniker" va99
+***Do we have a moniker associated?
+*		doif va99 ne ""
+*			new: crea 4 ownr 1 0 0
+*			accg game "c3_creature_accg"
+*			bhvr game "c3_creature_bhvr"
+*			attr game "c3_creature_attr"
+*			perm game "c3_creature_perm"
+*			setv va91 11
+*			addv va91 gnus
+*			emit va91 0.5
+*			born
+*			mvsf va00 va01
+**			wait 1
+*			setv va49 pray expo "FROG"
+**Tadpole/Frog Photographer!
+*			new: simp 2 5649 5612 "blnk" 1 0 0
+*			tick rand 90 120
+*			sets name "Moniker" va99
+*			seta ov00 va40
+**0 For birth, 1 for death
+**			setv ov01 0
+**Tadpole/Frog History Cheater
+*			new: simp 2 5649 5612 "blnk" 1 0 0
+*			tick 1
+*			sets name "Moniker" va99
+*			seta ov00 va40
+**3 for born, 7 for died, 12 for laid egg
+*			setv ov01 3
+*		endi
+*		doif type va02 eq 6
+*			spas va02 targ
+*		endi
+*		kill ownr
+*	endi
+*
+*endm
+****Quick Photographer things
+*scrp 2 5649 5612 9
+*	inst
+*	doif ov00 ne null
+**We have a target!
+**Born or Died
+*		doif ov01 eq 0
+*			sets va00 name "Moniker"
+*			adds va00 "-"
+*			adds va00 vtos hist coun name "Moniker"
+*			targ ov00
+*			snap va00 posx posy 119 139 100
+*			targ ownr
+*			hist evnt name "Moniker" 13 "" ""
+*			setv va01 hist coun name "Moniker"
+*			subv va01 1
+*			dbg: asrt 13 = hist type name "Moniker" va01
+*			hist foto name "Moniker" va01 va00
+*		else
+****Cheating!
+**So we find an event with coords 0 0, that matches our event
+*			enum 1 2 25
+*				doif ov01 eq 0 and ov02 eq 0 and ov00 eq null and ov03 eq mv01
+**Well this matches so...
+*					seta va10 targ
+*					targ mv00
+**Set some stuff...
+*					setv va01 posx
+*					setv va02 posy
+*					setv va11 spcs
+*					targ va10
+*					seta ov00 mv00
+*					setv ov01 va01
+*					setv ov02 va02
+**Tooltip >:)
+** 	tooltip
+*					sets va75 hist name mame "Moniker"
+*					doif va75 = ""
+*						sets va75 read "Life Event ToolTip Genus" hist gnus mame "Moniker"
+*					endi
+*					doif ov03 eq 3
+*						adds va75 " has been born as a tadpole"
+*					elif ov03 eq 7
+*						doif va11 eq 5611
+*							adds va75 " has died as a tadpole"
+*						else
+*							adds va75 " has died as a frog"
+*						endi
+*					elif ov03 eq 11
+*						adds va75 " has laid a frog egg"
+*					endi
+**set it
+*					sets name "tooltip" va75
+*					kill ownr
+*					stpt
+*				endi
+*			next
+*		endi
+*	endi
+*	kill ownr
+*endm
+*
+***Tadpoles
+*
+**Install
+*scrp 2 15 5611 10
+*	inst
+*	frat 2
+*	anim [0 1 2 3 4 5 6 7 255]
+*	attr 195
+*	elas 0
+*	fric 50
+*	aero 1
+*	accg 0
+*	perm 51
+*	bhvr 59
+*	tick rand 25 35
+*	rnge 500
+*	setv ov06 1
+*	setv ov07 1
+*
+*	puhl -1 28 30
+*
+*	setv ov10 rand 250 300
+*
+*	sets name "Stored Moniker" ""
+*
+**tadpole OVs:
+*
+**ov01 - age
+**ov04 - left/right
+**ov05 - up/down
+**ov06 - left/right speed
+**ov07 - up/down speed
+**ov10 - when will you grow up to be a frog?
+**ov99 - how long have you been out of water?
+*
+*endm
+*
+**Interact
+*scrp 2 15 5611 1
+*	inst
+*	stim writ from 86 1
+*	doif crea from eq 1
+*		snde "kis1"
+*		targ from
+*		setv va10 hist gend gtos 0
+**Make opposite gender if possible
+*		doif va10 lt 3
+*			doif va10 eq 1
+*				setv va10 2
+*			else
+*				setv va10 1
+*			endi
+*		endi
 *		targ ownr
-*No frog overpop, it's zero otherwise
+*		call 4242 va10 0
+*	endi
+*endm
+*
+*scrp 2 15 5611 2
+*	inst
+*	stim writ from 86 1
+*endm
+*
+*scrp 2 15 5611 3
+*	inst
+*	stim writ from 87 1
+*endm
+*
+*scrp 2 15 5611 12
+*	sndc "chwp"
+*	stim writ from 80 .5
+*	call 444 0 0
+*endm
+*
+**VERY simple.
+**I hope Moe was ok after this - Verm
+*scrp 2 15 5611 9
+*	addv ov01 1
+*	doif ov01 gt ov10
+*		setv va00 posl
+*		setv va01 post
+**		subv va00 0
+*		subv va01 15
+*		sets va99 name "Stored Moniker"
+*		new: simp 2 15 5610 "moe_C2toDS_frogs" 105 0 rand 1000 3000
+*		mvsf va00 va01
+**Transfer Tadpole Moniker Over
+*		sets name "Stored Moniker" va99
+*		doif "Stored Moniker" ne ""
+*			hist evnt "Stored Moniker" 4 "" ""
+*		endi
+*		kill ownr
+*	endi
+*
+**	gsub checksurface
+*
+**only go in random directions if there are no walls nearby
+*	gsub obst
+*
+*	doif va50 = 0
+*		doif rand 0 500 gt 250
+**           Left Right
+*			setv ov04 rand 0 1
+**           Up Down
+*			setv ov05 rand 0 1
+*		endi
+*
+*		doif ov05 eq 0
+*			gsub up
+*		else
+*			gsub down
+*		endi
+*
+*		doif ov04 eq 0
+*			gsub left
+*		else
+*			gsub right
+*		endi
+*	endi
+*
+*	gsub checksurface
+*
+*
+*	subr up
+**		gsub checksurface
+*		subv vely ov07
+*	retn
+*
+*	subr down
+*		addv vely ov07
+*	retn
+*
+*	subr left
+*		subv velx ov06
+*		mira 0
+*	retn
+*
+*	subr right
+*		addv velx ov06
+*		mira 1
+*	retn
+*
+*	subr checksurface
+*		setv va00 post
+*		subv va00 20
+*		doif rtyp grap posx va00 ne 8 and rtyp grap posx va00 ne 9
+*			doif vely lt 0.0
+*				setv vely 0
+*			endi
+*			setv ov05 1
+*		endi
+*
+*		doif rtyp grap posx posb ne 8 and rtyp grap posx posb ne 9 and grap posx posb ne -1
+*			accg 1
+*			addv ov99 1
+*			doif ov99 eq 8
+*				call 444 0 0
+*			endi
+*		else
+*			setv ov99 0
+*			accg 0
+*		endi
+*	retn
+*
+*
+**obstacle checking subroutine stolen from zander fish (with tweaks)
+*	subr obst
+*
+*		inst
+*
+*		setv va50 0
+*
+*		doif obst _up_ lt 10
+*
+*			setv va00 ov07
+*			mulv va00 0.5
+*			addv vely va00
+*
+*			setv va50 1
+*
+*		endi
+*
+*
+*
+*		doif obst down lt 20
+*
+*			setv va00 ov07
+*			mulv va00 0.5
+*			subv vely va00
+*
+*			setv va50 1
+*
+*		endi
+*
+*
+*
+*		doif obst left lt 10
+*
+*			setv va00 ov06
+**			mulv va00 0.5
+*			addv velx va00
+*
+*			doif velx > 0
+*				mira 1
+*			endi
+*
+*			setv va50 1
+*
+*		endi
+*
+*		doif obst rght lt 10
+*
+*			setv va00 ov06
+**			mulv va00 0.5
+*			subv velx va00
+*
+*			doif velx < 0
+*				mira 0
+*			endi
+*
+*			setv va50 1
+*
+*		endi
+*
+*	retn
+*
+*
+*endm
+*
+**Collision
+*scrp 2 15 5611 6
+*	doif wall eq rght
+*		setv ov04 0
+*	elif wall eq left
+*		setv ov04 1
+*	elif wall eq down
+*		setv ov05 0
+*	elif wall eq _up_
+*		setv ov05 1
+*	endi
+*endm
+*
+**Death Script
+***Seperate from the others to check stuff like if this guy had a moniker and stuff, to take a picture
+*scrp 2 15 5611 444
+*	inst
+*	lock
+*	doif name "Stored Moniker" ne ""
+**Tadpole/Frog Photographer!
+*		new: simp 2 5649 5612 "blnk" 1 0 0
+*		tick 1
+*		sets name "Moniker" mame "Stored Moniker"
+*		seta ov00 ownr
+**0 For birth, 1 for death
+**		setv ov01 1
+*		hist evnt mame "Stored Moniker" 7 "" ""
+*		sets va49 mame "Stored Moniker"
+*		adds va49 ".FROG"
+*		setv va00 pray kill va49
+**Tadpole/Frog History Cheater
+*		new: simp 2 5649 5612 "blnk" 1 0 0
+*		tick 1
+*		sets name "Moniker" mame "Stored Moniker"
+*		seta ov00 ownr
+**3 for born, 7 for died, 12 for laid egg
+*		setv ov01 7
+*		wait 2
+*	endi
+*	kill ownr
+*	stpt
+*endm
+*
+**Transformation Script
+***Just for organization
+****Note: If you change the breed used, check if you need to update the life percentages to be more accurate! Frogs have their own
+****Check them out if needed
+*scrp 2 15 5611 4242
+*	inst
+** Check the Pop limit!
+*	setv va98 0
+*	enum 4 0 0
+*		doif dead = 0
+*			addv va98 1
+*		endi
+*	next
+*	setv va99 game "total_population"
+*	doif va98 lt va99
+**Child Life Percent
+*		setv va70 0.898
+**va10 = the creature!
+*		doif name "Stored Moniker" ne ""
+**We've been a norn before! Just turn back into one
+*			sets va49 mame "Stored Moniker"
+*			adds va49 ".FROG"
+*			doif pray impo va49 0 1 lt 2
+*				setv va99 pray impo va49 1 0
+*				seta va10 targ
+*				gsub frogginess
+*				gsub move
+*			else
+**It's not going to work out, make me a new boy!
+*				gsub new
+*				gsub move
+*			endi
+*		else
+**Becoming a norn for the first time! Weee
+*			gsub new
+*			gsub move
+*		endi
+*	endi
+*
+*	subr new
+*		gene load ownr 1 "norn.bondi.48"
+*		new: crea 4 ownr 1 _p1_ 0
+*		accg game "c3_creature_accg"
+*		bhvr game "c3_creature_bhvr"
+*		attr game "c3_creature_attr"
+*		perm game "c3_creature_perm"
+*		setv va91 11
+*		addv va91 gnus
+*		emit va91 0.5
+*		born
+*		seta va10 targ
+*		gsub frogginess
+*	retn
+*
+*	subr frogginess
+**Check age of tadpole, has to either be bab or child
+*		targ ownr
+*		setv va80 ov01
+*		targ va10
+*		doif va80 gt 150 and cage lt 1
+*			setv va88 1
+*			subv va88 cage
+*			ages va88
+*			doif chem 125 gt va70
+*				setv va85 chem 125
+*				subv va85 va70
+*				negv va85
+*				chem 125 va85
+*			endi
+*		endi
+*		setv name "FrogTrackerC2toDS-Age" va80
+**		targ ownr
+**No frog overpop, it's zero otherwise
+**		doif ov11 eq 3
+**			targ va10
+**			setv name "FrogTrackerC2toDS-HasBred" 1
+**		endi
+*	retn
+*
+*	subr move
+*		targ ownr
+*		setv va00 posx
+*		setv va01 posb
+*		setv va30 posx
+*		subv va30 32
+*		setv va40 posy
+*		subv va40 32
+*		new: simp 2 5649 5612 "moe_C2toDS_frogs" 8 105 rand 1000 3000
+*		attr 16
+*		mvto va30 va40
+*		snde "zapp"
+*		anim [0 1 2 3 4 5 6 7]
+*		over
+*		kill targ
+*		targ va10
+*		mvsf va00 va01
+**Froggy Tracker
+*		new: simp 2 5649 5611 "blnk" 1 0 0
+*		seta ov00 va10
+*		kill ownr
+*	retn
+*endm
+*
+***Frogs
+*
+**ov01 = Timer
+**> 300 Adult
+**> 600 Breed
+**> 900 Die
+*
+**ov11 = Life Stage - Make sure to track if they bred for transformed ones!
+**0 Baby
+**1 Adult
+**2 Finding Pond to Breed
+**3 Adult - Has Bred
+**4 Dead
+*
+**ov12 = Activity
+**0 Hopping
+**1 Swimming
+**3 Laying Eggs
+*
+**Install
+*scrp 2 15 5610 10
+*	inst
+*	attr 195
+*	elas 0
+*	accg 3
+*	aero 5
+*	tick rand 20 25
+*	setv ov06 2
+*	setv ov07 2
+*	perm 51
+*	puhl -1 30 40
+*	bhvr 59
+*	frat 2
+*	sets name "Stored Moniker" ""
+*
+*endm
+*
+**Push
+*scrp 2 15 5610 1
+*	inst
+*	stim writ from 86 1
+*	doif crea from eq 1
+*		snde "kis1"
+*		targ from
+*		setv va10 hist gend gtos 0
+**Make opposite gender if possible
+*		doif va10 lt 3
+*			doif va10 eq 1
+*				setv va10 2
+*			else
+*				setv va10 1
+*			endi
+*		endi
+*		targ ownr
+*		call 4242 va10 0
+*	endi
+*endm
+*
+**Pull
+*scrp 2 15 5610 2
+*	inst
+*	stim writ from 86 1
+*endm
+*
+**Hit
+*scrp 2 15 5610 3
+*	inst
+*	stim writ from 87 1
+*endm
+*
+**Collision
+**scrp 2 15 5610 6
+***snde "drop"
+**endm
+*
+**Eat
+*scrp 2 15 5610 12
+*	lock
+*	snde "chwp"
+*	stim writ from 80 1
+*	call 444 0 0
+*	unlk
+*endm
+*
+**Timer
+*scrp 2 15 5610 9
+*	addv ov01 1
+**If you're a baby, grow up.
+*	doif ov11 eq 0 and ov01 gt 300
+*		setv ov11 1
+*		base 53
+*		doif "Stored Moniker" ne ""
+*			hist evnt "Stored Moniker" 4 "" ""
+*		endi
+*	endi
+*
+*	doif ov11 eq 1 and ov01 gt 600
+*		setv ov11 2
+*	endi
+*
+*	doif ov11 ge 1 and ov01 gt 900
+**GSUB DIE
+*		lock
+*		attr 211
+*		accg 3
+*		call 444 1 0
+*		frat tick
+*		anim [49 50 51]
+*		over
+*		kill ownr
+*		unlk
+*	endi
+*
+*	doif ov11 eq 2
+*		doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+*			gsub layeggs
+*			setv ov11 3
+*		endi
+*	endi
+*
+**This lets you know where you are. Water or land?
+*	gsub checkroom
+*
+*
+**------*
+**Hopping
+*	doif ov12 eq 0
+*		doif ov01 lt 2600
+*			gsub hoprandom
+*
+*		else
+*
+**Only mating adults try to return to water
+*			doif ov11 eq 2
+*				setv va00 posx
+*				setv va01 posb
+*				addv va01 10
+*				setv va02 posb
+*				subv va02 1
+*				doif grap va00 va01 ne -1 and grap posx va02 ne -1
+*					doif grap va00 va01 ne grap posx va02
+*						doif door grap posx va02 grap va00 va01 le 51
+*							perm 50
+*						endi
+*					endi
+*				endi
+*			endi
+*
+*			setv va00 hirp room ownr 5 0
+*
+*			doif va00 ne -1 and fall ne 1
+*				doif prop room ownr 5 lt prop va00 5
+*					slow
+*					setv va01 torx va00
+*					setv va02 tory va00
+*
+*					doif va01 lt 0
+*						setv ov04 1
+*					else
+*						setv ov04 0
+*					endi
+*
+*					doif ov04 eq 0
+*						gsub jumpright
+*					else
+*						gsub jumpleft
+*					endi
+*				else
+*					gsub hoprandom
+*				endi
+*			endi
+*
+*
+*		endi
+**-------*
+**Swimming
+*	elif ov12 eq 1
+*
+*		doif rand 0 500 gt 250
+**           Left Right
+*			setv ov04 rand 0 1
+**           Up Down
+*			setv ov05 rand 0 1
+*		endi
+*
+*		doif ov05 eq 0
+*			gsub up
+*			gsub checksurface
+*		else
+*			gsub down
+*		endi
+*
+*		doif ov04 eq 0
+*			gsub left
+*		else
+*			gsub right
+*		endi
+*
+*		gsub obst
+*
+*	endi
+*
+*
+*
+**If you're an adult, over 600 ticks, look for pond to breed.
+*
+*
+*	subr checkroom
+*		setv va04 posb
+*		subv va04 10
+*		doif rtyp grap posx va04 eq 8 or rtyp grap posx va04 eq 9 and ov12 ne 1
+*			inst
+*			accg 0
+*			perm 50
+*
+*			anim [28 29 30 31 32 33 34 35 255]
+**Swimming
+*			setv ov12 1
+*			slow
+*		elif rtyp grap posx va04 ne 8 and rtyp grap posx va04 ne 9
+*			accg 3
+**Hopping
+*			setv ov12 0
+*			inst
+*			doif perm ne 51
+*				setv va04 posb
+*				subv va04 1
+*				doif grap posl posy eq room ownr and grap posr posy eq room ownr
+*					doif grap posx post eq room ownr and grap posx va04 eq room ownr
+*						perm 51
+*					endi
+*				endi
+*			endi
+*			slow
+*
+*		endi
+*
+*	retn
+*
+*	subr checksurface
+*		setv va10 post
+*		subv va10 -10
+*		doif rtyp grap posx va10 ne 8 and rtyp grap posx va10 ne 9 and grap posx va10 ne -1
+*			inst
+*			setv vely .5
+**Go Down
+*			setv ov05 1
+*
+*
+*
+*
+**So long as you're not in these waters to breed, you will try to hop out.
+*			doif ov11 ne 2
+**See if you can jump up here... And make sure it's not a wall...*
+*				setv va00 post
+*				subv va00 50
+*				setv va01 posl
+*				subv va01 50
+*				setv va02 posr
+*				addv va02 50
+*				doif obst _up_ gt 50
+*					doif rtyp grap va02 va00 ne 8 and rtyp grap va02 va00 ne 9 and grap va02 va00 ne -1
+*						doif obst rght lt 20
+*							reps 1
+*								setv ov12 1
+*								subv vely 15
+*								wait 1
+*								gsub jumpright
+*								wait tick
+*								setv ov04 1
+*							repe
+*						endi
+*					endi
+*
+*					doif rtyp grap va01 va00 ne 8 and rtyp grap va01 va00 ne 9 and grap va01 va00 ne -1
+*						doif obst left lt 20
+*							reps 1
+*								setv ov12 1
+*								subv vely 15
+*								wait 1
+*								gsub jumpleft
+*								wait tick
+*								setv ov04 0
+*							repe
+*						endi
+*					endi
+*				endi
+*
+*
+*
+**Check to see if you can leap up onto a ledge...
+*				setv va00 posx
+*				setv va01 posy
+*
+*				subv va01 50
+*				inst
+*				lock
+*				doif grap va00 va01 ne grap posx va10 and grap posx va10 ne -1 and grap va00 va01 ne -1
+*					doif door grap va00 va01 grap posx va10 lt 51
+*						setv ov12 0
+*						accg 3
+*						gsub jump
+*						wait 6
+*						inst
+*						setv va04 posb
+*						subv va04 1
+*						doif grap posl posy eq room ownr and grap posr posy eq room ownr
+*							doif grap posx post eq room ownr and grap posx va04 eq room ownr
+*								perm 51
+*							endi
+*						endi
+*						slow
+*					endi
+*				endi
+*
+*			endi
+*
+*		endi
+*	retn
+*
+*
+*	subr up
+*		gsub checksurface
+*		doif vely gt -3
+*			subv vely ov07
+*		endi
+*	retn
+*
+*	subr down
+*		doif obst down gt 5
+*			addv vely ov07
+*		else
+*			subv vely 1
+*		endi
+*	retn
+*
+*	subr left
+*		mira 0
+*		subv velx ov06
+*	retn
+*
+*	subr right
+*		mira 1
+*		addv velx ov06
+*	retn
+*
+*	subr jump
+*		anim [ 0 1 2 3 4 5 6 7 0]
+*		subv vely 35
+*	retn
+*
+*	subr hoprandom
+*
+*		doif rand 1 10 lt 3
+*			gsub croak
+*			stop
+*		endi
+*
+*		doif rand 0 500 gt 250
+**           Left Right
+*			setv ov04 rand 0 1
+*		endi
+*
+*		doif ov04 eq 1
+*			gsub jumpright
+*		else
+*			gsub jumpleft
+*		endi
+*
+*	retn
+*
+*	subr croak
+*		snde "bull"
+*
+*		anim [16 17 18 19 18 17 16]
+*	retn
+*
+***Frogs are frogs, they can be whatever sex they want, so I'm not tracking if a transformed froggie is male or female :D
+*	subr layeggs
+*		setv va04 0
+*		doif gtos 1 ne ""
+****!!! We have norn babies
+**Don't check the population just get these eggs out there!
+*			setv va48 1
+*			loop
+*				setv va12 va48
+*				addv va12 1
+*				doif gtos va12 ne ""
+*					addv va48 1
+*				else
+*					setv va11 1
+*				endi
+*			untl va11 eq 1
+*
+*			doif type carr eq 6
+*				seta va02 carr
+*			endi
+*			setv va12 va48
+*			reps va48
+*				setv va00 posx
+*				setv va01 posb
+*				new: simp 2 18 5610 "moe_C2toDS_tadp" 1 17 5000
+*				gene move targ 1 ownr va12
+*				sets name "Stored Moniker" gtos 1
+*				mvsf va00 va01
+*				doif type va02 eq 6
+*					spas va02 targ
+*				endi
+*				hist evnt mame "Stored Moniker" 12 name "Stored Moniker" ""
+*				hist evnt name "Stored Moniker" 11 mame "Stored Moniker" ""
+*				seta va09 targ
+**Tadpole/Frog History Cheater - Here the mother's moniker is passed instead ;)
+*				new: simp 2 5649 5612 "blnk" 1 0 0
+*				tick 1
+*				sets name "Moniker" mame "Stored Moniker"
+*				seta ov00 va09
+**3 for born, 7 for died, 11 for laid egg
+*				setv ov01 12
+*				subv va12 1
+*			repe
+*
+*		else
+*			esee 2 15 5610
+*				doif targ ne null and targ ne ownr
+*					doif ov11 lt 2
+*						addv va04 1
+*					endi
+*				endi
+*			next
+*			targ ownr
+*
+*			doif type carr eq 6
+*				seta va02 carr
+*			endi
+*
+*			doif va04 lt 3
+*				setv va00 posx
+*				setv va01 posb
+*				new: simp 2 18 5610 "moe_C2toDS_tadp" 1 17 5000
+*				mvsf va00 va01
+*				doif type va02 eq 6
+*					spas va02 targ
+*				endi
+*				targ ownr
+*				doif va04 lt 1
+*					new: simp 2 18 5610 "moe_C2toDS_tadp" 1 17 5000
+*					mvsf va00 va01
+*					doif type va02 eq 6
+*						spas va02 targ
+*					endi
+*					targ ownr
+*				endi
+*			endi
+*		endi
+*	retn
+*
+*
+*	subr jumpright
+*		mira 1
+*		anim [ 0 1 2 3 4 5 6 7 0]
+*		subv vely 12
+*		doif ov12 eq 2
+*			wait 3
+*		endi
+*		addv velx 15
+*		accg 3
+*		setv ov12 0
+*	retn
+*
+*	subr jumpleft
+*		mira 0
+*		anim [ 0 1 2 3 4 5 6 7 0]
+*		subv vely 12
+*		doif ov12 eq 2
+*			wait 3
+*		endi
+*		subv velx 15
+*		accg 3
+*		setv ov12 0
+*	retn
+*
+*
+*
+**obstacle checking subroutine stolen from zander fish (with tweaks)
+*	subr obst
+*
+*		inst
+*
+*		doif obst _up_ lt 10
+*
+*			setv va00 ov07
+*			mulv va00 0.5
+*			addv vely va00
+*
+*		endi
+*
+*
+*
+*		doif obst down lt 20
+*
+*			setv va00 ov07
+*			mulv va00 0.5
+*			subv vely va00
+*
+*		endi
+*
+*
+*
+*		doif obst left lt 10
+*
+*			loop
+*				addv velx ov06
+*
+*			untl velx > 0
+*			mira 1
+*
+*		endi
+*
+*		doif obst rght lt 10
+*
+*			loop
+*				subv velx ov06
+*
+*			untl velx < 0
+*			mira 0
+*
+*		endi
+*
+*	retn
+*
+*
+*
+*
+*endm
+*
+**Death Script
+***Seperate from the others to check stuff like if this guy had a moniker and stuff, to take a picture
+*scrp 2 15 5610 444
+*	inst
+*	lock
+*	doif name "Stored Moniker" ne ""
+**Tadpole/Frog Photographer!
+*		new: simp 2 5649 5612 "blnk" 1 0 0
+*		tick 1
+*		sets name "Moniker" mame "Stored Moniker"
+*		seta ov00 ownr
+**0 For birth, 1 for death
+**		setv ov01 1
+*		hist evnt mame "Stored Moniker" 7 "" ""
+*		sets va49 mame "Stored Moniker"
+*		adds va49 ".FROG"
+*		setv va00 pray kill va49
+**Tadpole/Frog History Cheater
+*		new: simp 2 5649 5612 "blnk" 1 0 0
+*		tick 1
+*		sets name "Moniker" mame "Stored Moniker"
+*		seta ov00 ownr
+**3 for born, 7 for died, 11 for laid egg
+*		setv ov01 7
+*		wait 2
+*	endi
+*	doif _p1_ ne 1
+*		kill ownr
+*		stpt
+*	endi
+*endm
+*
+**Transformation Script
+***Just for organization
+****Note: When you change the genome out, make sure to adjust the "life" variables to the breed in the end!
+*scrp 2 15 5610 4242
+*	inst
+** Check the Pop limit!
+*	setv va98 0
+*	enum 4 0 0
+*		doif dead = 0
+*			addv va98 1
+*		endi
+*	next
+*	setv va99 game "total_population"
+*	doif va98 lt va99
+**Adolecent Life Percent
+*		setv va70 0.761
+**Youth Life Percent
+*		setv va71 0.647
+**Adult Life Percent
+*		setv va72 0.533
+**Old Life Percent
+*		setv va73 0.075
+**Ancient Life Percent
+*		setv va74 0.039
+**va10 = the creature!
+*		doif name "Stored Moniker" ne ""
+**We've been a norn before! Just turn back into one
+*			sets va49 mame "Stored Moniker"
+*			adds va49 ".FROG"
+*			doif pray impo va49 0 1 eq 0
+*				setv va99 pray impo va49 1 0
+*				seta va10 targ
+*				gsub frogginess
+*				gsub move
+*			else
+**It's not going to work out, make me a new boy!
+*				gsub new
+*				gsub move
+*			endi
+*		else
+**Becoming a norn for the first time! Weee
+*			gsub new
+*			gsub move
+*		endi
+*	endi
+*
+*	subr new
+*		gene load ownr 1 "norn.bondi.48"
+*		new: crea 4 ownr 1 _p1_ 0
+*		accg game "c3_creature_accg"
+*		bhvr game "c3_creature_bhvr"
+*		attr game "c3_creature_attr"
+*		perm game "c3_creature_perm"
+*		setv va91 11
+*		addv va91 gnus
+*		emit va91 0.5
+*		born
+*		seta va10 targ
+*		gsub frogginess
+*	retn
+*
+*	subr frogginess
+**Check age of frog, since your not a tadpole, you're going to at least be Ado-Youth
+*		targ ownr
+*		setv va80 ov01
+*		targ va10
+**Ado
+*		doif cage lt 2
+*			setv va88 2
+*			subv va88 cage
+*			ages va88
+*			doif chem 125 gt va70
+*				setv va85 chem 125
+*				subv va85 va70
+*				negv va85
+*				chem 125 va85
+*			endi
+**Youth
+*		elif va80 gt 150 and cage lt 3
+*			setv va88 3
+*			subv va88 cage
+*			ages va88
+*			doif chem 125 gt va71
+*				setv va85 chem 125
+*				subv va85 va71
+*				negv va85
+*				chem 125 va85
+*			endi
+**Adult
+*		elif va80 gt 300 and cage lt 4
+*			setv va88 4
+*			subv va88 cage
+*			ages va88
+*			doif chem 125 gt va72
+*				setv va85 chem 125
+*				subv va85 va72
+*				negv va85
+*				chem 125 va85
+*			endi
+**Old
+*		elif va80 gt 800 and cage lt 5
+*			setv va88 5
+*			subv va88 cage
+*			ages va88
+*			doif chem 125 gt va73
+*				setv va85 chem 125
+*				subv va85 va73
+*				negv va85
+*				chem 125 va85
+*			endi
+**Ancient
+*		elif va80 gt 850 and cage lt 6
+*			setv va88 6
+*			subv va88 cage
+*			ages va88
+*			doif chem 125 gt va74
+*				setv va85 chem 125
+*				subv va85 va74
+*				negv va85
+*				chem 125 va85
+*			endi
+*		endi
+*		setv name "FrogTrackerC2toDS-Age" va80
+**To make up for tadpole stage
+*		addv name "FrogTrackerC2toDS-Age" 300
+*		targ ownr
+**No frog overpop, it's zero otherwise
 *		doif ov11 eq 3
 *			targ va10
 *			setv name "FrogTrackerC2toDS-HasBred" 1
 *		endi
-	retn
-
-	subr move
-		targ ownr
-		setv va00 posx
-		setv va01 posb
-		setv va30 posx
-		subv va30 32
-		setv va40 posy
-		subv va40 32
-		new: simp 2 5649 5612 "moe_C2toDS_frogs" 8 105 rand 1000 3000
-		attr 16
-		mvto va30 va40
-		snde "zapp"
-		anim [0 1 2 3 4 5 6 7]
-		over
-		kill targ
-		targ va10
-		mvsf va00 va01
-*Froggy Tracker
-		new: simp 2 5649 5611 "blnk" 1 0 0
-		seta ov00 va10
-		kill ownr
-	retn
-endm
-
-**Frogs
-
-*ov01 = Timer
-*> 300 Adult
-*> 600 Breed
-*> 900 Die
-
-*ov11 = Life Stage - Make sure to track if they bred for transformed ones!
-*0 Baby
-*1 Adult
-*2 Finding Pond to Breed
-*3 Adult - Has Bred
-*4 Dead
-
-*ov12 = Activity
-*0 Hopping
-*1 Swimming
-*3 Laying Eggs
-
-*Install
-scrp 2 15 5610 10
-	inst
-	attr 195
-	elas 0
-	accg 3
-	aero 5
-	tick rand 20 25
-	setv ov06 2
-	setv ov07 2
-	perm 51
-	puhl -1 30 40
-	bhvr 59
-	frat 2
-	sets name "Stored Moniker" ""
-
-endm
-
-*Push
-scrp 2 15 5610 1
-	inst
-	stim writ from 86 1
-	doif crea from eq 1
-		snde "kis1"
-		targ from
-		setv va10 hist gend gtos 0
-*Make opposite gender if possible
-		doif va10 lt 3
-			doif va10 eq 1
-				setv va10 2
-			else
-				setv va10 1
-			endi
-		endi
-		targ ownr
-		call 4242 va10 0
-	endi
-endm
-
-*Pull
-scrp 2 15 5610 2
-	inst
-	stim writ from 86 1
-endm
-
-*Hit
-scrp 2 15 5610 3
-	inst
-	stim writ from 87 1
-endm
-
-*Collision
-*scrp 2 15 5610 6
-**snde "drop"
+***!!! we have babies somehow
+*		doif gtos 1 ne ""
+*			setv va48 1
+*			loop
+*				setv va12 va48
+*				addv va12 1
+*				doif gtos va12 ne ""
+*					addv va48 1
+*				else
+*					setv va11 1
+*				endi
+*			untl va11 eq 1
+**Got all babies, time to put them in the norn
+*			setv va12 va48
+*			reps va48
+*				gene move va10 va12 ownr va12
+*				subv va12 1
+*			repe
+*		endi
+*	retn
+*
+*	subr move
+*		targ ownr
+*		setv va00 posx
+*		setv va01 posb
+*		setv va30 posx
+*		subv va30 32
+*		setv va40 posy
+*		subv va40 32
+*		new: simp 2 5649 5612 "moe_C2toDS_frogs" 8 105 rand 1000 3000
+*		attr 16
+*		mvto va30 va40
+*		snde "zapp"
+*		anim [0 1 2 3 4 5 6 7]
+*		over
+*		kill targ
+*		targ va10
+*		mvsf va00 va01
+**Froggy Tracker
+*		new: simp 2 5649 5611 "blnk" 1 0 0
+*		seta ov00 va10
+*		kill ownr
+*	retn
+*
 *endm
-
-*Eat
-scrp 2 15 5610 12
-	lock
-	snde "chwp"
-	stim writ from 80 1
-	call 444 0 0
-	unlk
-endm
-
-*Timer
-scrp 2 15 5610 9
-	addv ov01 1
-*If you're a baby, grow up.
-	doif ov11 eq 0 and ov01 gt 300
-		setv ov11 1
-		base 53
-		doif "Stored Moniker" ne ""
-			hist evnt "Stored Moniker" 4 "" ""
-		endi
-	endi
-
-	doif ov11 eq 1 and ov01 gt 600
-		setv ov11 2
-	endi
-
-	doif ov11 ge 1 and ov01 gt 900
-*GSUB DIE
-		lock
-		attr 211
-		accg 3
-		call 444 1 0
-		frat tick
-		anim [49 50 51]
-		over
-		kill ownr
-		unlk
-	endi
-
-	doif ov11 eq 2
-		doif rtyp room ownr eq 8 or rtyp room ownr eq 9
-			gsub layeggs
-			setv ov11 3
-		endi
-	endi
-
-*This lets you know where you are. Water or land?
-	gsub checkroom
-
-
-*------*
-*Hopping
-	doif ov12 eq 0
-		doif ov01 lt 2600
-			gsub hoprandom
-
-		else
-
-*Only mating adults try to return to water
-			doif ov11 eq 2
-				setv va00 posx
-				setv va01 posb
-				addv va01 10
-				setv va02 posb
-				subv va02 1
-				doif grap va00 va01 ne -1 and grap posx va02 ne -1
-					doif grap va00 va01 ne grap posx va02
-						doif door grap posx va02 grap va00 va01 le 51
-							perm 50
-						endi
-					endi
-				endi
-			endi
-
-			setv va00 hirp room ownr 5 0
-
-			doif va00 ne -1 and fall ne 1
-				doif prop room ownr 5 lt prop va00 5
-					slow
-					setv va01 torx va00
-					setv va02 tory va00
-
-					doif va01 lt 0
-						setv ov04 1
-					else
-						setv ov04 0
-					endi
-
-					doif ov04 eq 0
-						gsub jumpright
-					else
-						gsub jumpleft
-					endi
-				else
-					gsub hoprandom
-				endi
-			endi
-
-
-		endi
-*-------*
-*Swimming
-	elif ov12 eq 1
-
-		doif rand 0 500 gt 250
-*           Left Right
-			setv ov04 rand 0 1
-*           Up Down
-			setv ov05 rand 0 1
-		endi
-
-		doif ov05 eq 0
-			gsub up
-			gsub checksurface
-		else
-			gsub down
-		endi
-
-		doif ov04 eq 0
-			gsub left
-		else
-			gsub right
-		endi
-
-		gsub obst
-
-	endi
-
-
-
-*If you're an adult, over 600 ticks, look for pond to breed.
-
-
-	subr checkroom
-		setv va04 posb
-		subv va04 10
-		doif rtyp grap posx va04 eq 8 or rtyp grap posx va04 eq 9 and ov12 ne 1
-			inst
-			accg 0
-			perm 50
-
-			anim [28 29 30 31 32 33 34 35 255]
-*Swimming
-			setv ov12 1
-			slow
-		elif rtyp grap posx va04 ne 8 and rtyp grap posx va04 ne 9
-			accg 3
-*Hopping
-			setv ov12 0
-			inst
-			doif perm ne 51
-				setv va04 posb
-				subv va04 1
-				doif grap posl posy eq room ownr and grap posr posy eq room ownr
-					doif grap posx post eq room ownr and grap posx va04 eq room ownr
-						perm 51
-					endi
-				endi
-			endi
-			slow
-
-		endi
-
-	retn
-
-	subr checksurface
-		setv va10 post
-		subv va10 -10
-		doif rtyp grap posx va10 ne 8 and rtyp grap posx va10 ne 9 and grap posx va10 ne -1
-			inst
-			setv vely .5
-*Go Down
-			setv ov05 1
-
-
-
-
-*So long as you're not in these waters to breed, you will try to hop out.
-			doif ov11 ne 2
-*See if you can jump up here... And make sure it's not a wall...*
-				setv va00 post
-				subv va00 50
-				setv va01 posl
-				subv va01 50
-				setv va02 posr
-				addv va02 50
-				doif obst _up_ gt 50
-					doif rtyp grap va02 va00 ne 8 and rtyp grap va02 va00 ne 9 and grap va02 va00 ne -1
-						doif obst rght lt 20
-							reps 1
-								setv ov12 1
-								subv vely 15
-								wait 1
-								gsub jumpright
-								wait tick
-								setv ov04 1
-							repe
-						endi
-					endi
-
-					doif rtyp grap va01 va00 ne 8 and rtyp grap va01 va00 ne 9 and grap va01 va00 ne -1
-						doif obst left lt 20
-							reps 1
-								setv ov12 1
-								subv vely 15
-								wait 1
-								gsub jumpleft
-								wait tick
-								setv ov04 0
-							repe
-						endi
-					endi
-				endi
-
-
-
-*Check to see if you can leap up onto a ledge...
-				setv va00 posx
-				setv va01 posy
-
-				subv va01 50
-				inst
-				lock
-				doif grap va00 va01 ne grap posx va10 and grap posx va10 ne -1 and grap va00 va01 ne -1
-					doif door grap va00 va01 grap posx va10 lt 51
-						setv ov12 0
-						accg 3
-						gsub jump
-						wait 6
-						inst
-						setv va04 posb
-						subv va04 1
-						doif grap posl posy eq room ownr and grap posr posy eq room ownr
-							doif grap posx post eq room ownr and grap posx va04 eq room ownr
-								perm 51
-							endi
-						endi
-						slow
-					endi
-				endi
-
-			endi
-
-		endi
-	retn
-
-
-	subr up
-		gsub checksurface
-		doif vely gt -3
-			subv vely ov07
-		endi
-	retn
-
-	subr down
-		doif obst down gt 5
-			addv vely ov07
-		else
-			subv vely 1
-		endi
-	retn
-
-	subr left
-		mira 0
-		subv velx ov06
-	retn
-
-	subr right
-		mira 1
-		addv velx ov06
-	retn
-
-	subr jump
-		anim [ 0 1 2 3 4 5 6 7 0]
-		subv vely 35
-	retn
-
-	subr hoprandom
-
-		doif rand 1 10 lt 3
-			gsub croak
-			stop
-		endi
-
-		doif rand 0 500 gt 250
-*           Left Right
-			setv ov04 rand 0 1
-		endi
-
-		doif ov04 eq 1
-			gsub jumpright
-		else
-			gsub jumpleft
-		endi
-
-	retn
-
-	subr croak
-		snde "bull"
-
-		anim [16 17 18 19 18 17 16]
-	retn
-
-**Frogs are frogs, they can be whatever sex they want, so I'm not tracking if a transformed froggie is male or female :D
-	subr layeggs
-		setv va04 0
-		doif gtos 1 ne ""
-***!!! We have norn babies
-*Don't check the population just get these eggs out there!
-			setv va48 1
-			loop
-				setv va12 va48
-				addv va12 1
-				doif gtos va12 ne ""
-					addv va48 1
-				else
-					setv va11 1
-				endi
-			untl va11 eq 1
-
-			doif type carr eq 6
-				seta va02 carr
-			endi
-			setv va12 va48
-			reps va48
-				setv va00 posx
-				setv va01 posb
-				new: simp 2 18 5610 "moe_C2toDS_tadp" 1 17 5000
-				gene move targ 1 ownr va12
-				sets name "Stored Moniker" gtos 1
-				mvsf va00 va01
-				doif type va02 eq 6
-					spas va02 targ
-				endi
-				hist evnt mame "Stored Moniker" 12 name "Stored Moniker" ""
-				hist evnt name "Stored Moniker" 11 mame "Stored Moniker" ""
-				seta va09 targ
-*Tadpole/Frog History Cheater - Here the mother's moniker is passed instead ;)
-				new: simp 2 5649 5612 "blnk" 1 0 0
-				tick 1
-				sets name "Moniker" mame "Stored Moniker"
-				seta ov00 va09
-*3 for born, 7 for died, 11 for laid egg
-				setv ov01 12
-				subv va12 1
-			repe
-
-		else
-			esee 2 15 5610
-				doif targ ne null and targ ne ownr
-					doif ov11 lt 2
-						addv va04 1
-					endi
-				endi
-			next
-			targ ownr
-
-			doif type carr eq 6
-				seta va02 carr
-			endi
-
-			doif va04 lt 3
-				setv va00 posx
-				setv va01 posb
-				new: simp 2 18 5610 "moe_C2toDS_tadp" 1 17 5000
-				mvsf va00 va01
-				doif type va02 eq 6
-					spas va02 targ
-				endi
-				targ ownr
-				doif va04 lt 1
-					new: simp 2 18 5610 "moe_C2toDS_tadp" 1 17 5000
-					mvsf va00 va01
-					doif type va02 eq 6
-						spas va02 targ
-					endi
-					targ ownr
-				endi
-			endi
-		endi
-	retn
-
-
-	subr jumpright
-		mira 1
-		anim [ 0 1 2 3 4 5 6 7 0]
-		subv vely 12
-		doif ov12 eq 2
-			wait 3
-		endi
-		addv velx 15
-		accg 3
-		setv ov12 0
-	retn
-
-	subr jumpleft
-		mira 0
-		anim [ 0 1 2 3 4 5 6 7 0]
-		subv vely 12
-		doif ov12 eq 2
-			wait 3
-		endi
-		subv velx 15
-		accg 3
-		setv ov12 0
-	retn
-
-
-
-*obstacle checking subroutine stolen from zander fish (with tweaks)
-	subr obst
-
-		inst
-
-		doif obst _up_ lt 10
-
-			setv va00 ov07
-			mulv va00 0.5
-			addv vely va00
-
-		endi
-
-
-
-		doif obst down lt 20
-
-			setv va00 ov07
-			mulv va00 0.5
-			subv vely va00
-			
-		endi
-
-
-
-		doif obst left lt 10
-
-			loop
-				addv velx ov06
-
-			untl velx > 0
-			mira 1
-
-		endi
-
-		doif obst rght lt 10
-
-			loop
-				subv velx ov06
-
-			untl velx < 0
-			mira 0
-
-		endi
-
-	retn
-
-
-
-
-endm
-
-*Death Script
-**Seperate from the others to check stuff like if this guy had a moniker and stuff, to take a picture
-scrp 2 15 5610 444
-	inst
-	lock
-	doif name "Stored Moniker" ne ""
-*Tadpole/Frog Photographer!
-		new: simp 2 5649 5612 "blnk" 1 0 0
-		tick 1
-		sets name "Moniker" mame "Stored Moniker"
-		seta ov00 ownr
-*0 For birth, 1 for death
-*		setv ov01 1
-		hist evnt mame "Stored Moniker" 7 "" ""
-		sets va49 mame "Stored Moniker"
-		adds va49 ".FROG"
-		setv va00 pray kill va49
-*Tadpole/Frog History Cheater
-		new: simp 2 5649 5612 "blnk" 1 0 0
-		tick 1
-		sets name "Moniker" mame "Stored Moniker"
-		seta ov00 ownr
-*3 for born, 7 for died, 11 for laid egg
-		setv ov01 7
-		wait 2
-	endi
-	doif _p1_ ne 1
-		kill ownr
-		stpt
-	endi
-endm
-
-*Transformation Script
-**Just for organization
-***Note: When you change the genome out, make sure to adjust the "life" variables to the breed in the end!
-scrp 2 15 5610 4242
-	inst
-* Check the Pop limit!
-	setv va98 0
-	enum 4 0 0
-		doif dead = 0
-			addv va98 1
-		endi
-	next
-	setv va99 game "total_population"
-	doif va98 lt va99
-*Adolecent Life Percent
-		setv va70 0.761
-*Youth Life Percent
-		setv va71 0.647
-*Adult Life Percent
-		setv va72 0.533
-*Old Life Percent
-		setv va73 0.075
-*Ancient Life Percent
-		setv va74 0.039
-*va10 = the creature!
-		doif name "Stored Moniker" ne ""
-*We've been a norn before! Just turn back into one
-			sets va49 mame "Stored Moniker"
-			adds va49 ".FROG"
-			doif pray impo va49 0 1 eq 0
-				setv va99 pray impo va49 1 0
-				seta va10 targ
-				gsub frogginess
-				gsub move
-			else
-*It's not going to work out, make me a new boy!
-				gsub new
-				gsub move
-			endi
-		else
-*Becoming a norn for the first time! Weee
-			gsub new
-			gsub move
-		endi
-	endi
-
-	subr new
-		gene load ownr 1 "norn.bondi.48"
-		new: crea 4 ownr 1 _p1_ 0
-		accg game "c3_creature_accg"
-		bhvr game "c3_creature_bhvr"
-		attr game "c3_creature_attr"
-		perm game "c3_creature_perm"
-		setv va91 11
-		addv va91 gnus
-		emit va91 0.5
-		born
-		seta va10 targ
-		gsub frogginess
-	retn
-
-	subr frogginess
-*Check age of frog, since your not a tadpole, you're going to at least be Ado-Youth
-		targ ownr
-		setv va80 ov01
-		targ va10
-*Ado
-		doif cage lt 2
-			setv va88 2
-			subv va88 cage
-			ages va88
-			doif chem 125 gt va70
-				setv va85 chem 125
-				subv va85 va70
-				negv va85
-				chem 125 va85
-			endi
-*Youth
-		elif va80 gt 150 and cage lt 3
-			setv va88 3
-			subv va88 cage
-			ages va88
-			doif chem 125 gt va71
-				setv va85 chem 125
-				subv va85 va71
-				negv va85
-				chem 125 va85
-			endi
-*Adult
-		elif va80 gt 300 and cage lt 4
-			setv va88 4
-			subv va88 cage
-			ages va88
-			doif chem 125 gt va72
-				setv va85 chem 125
-				subv va85 va72
-				negv va85
-				chem 125 va85
-			endi
-*Old
-		elif va80 gt 800 and cage lt 5
-			setv va88 5
-			subv va88 cage
-			ages va88
-			doif chem 125 gt va73
-				setv va85 chem 125
-				subv va85 va73
-				negv va85
-				chem 125 va85
-			endi
-*Ancient
-		elif va80 gt 850 and cage lt 6
-			setv va88 6
-			subv va88 cage
-			ages va88
-			doif chem 125 gt va74
-				setv va85 chem 125
-				subv va85 va74
-				negv va85
-				chem 125 va85
-			endi
-		endi
-		setv name "FrogTrackerC2toDS-Age" va80
-*To make up for tadpole stage
-		addv name "FrogTrackerC2toDS-Age" 300
-		targ ownr
-*No frog overpop, it's zero otherwise
-		doif ov11 eq 3
-			targ va10
-			setv name "FrogTrackerC2toDS-HasBred" 1
-		endi
-**!!! we have babies somehow
-		doif gtos 1 ne ""
-			setv va48 1
-			loop
-				setv va12 va48
-				addv va12 1
-				doif gtos va12 ne ""
-					addv va48 1
-				else
-					setv va11 1
-				endi
-			untl va11 eq 1
-*Got all babies, time to put them in the norn
-			setv va12 va48
-			reps va48
-				gene move va10 va12 ownr va12
-				subv va12 1
-			repe
-		endi
-	retn
-
-	subr move
-		targ ownr
-		setv va00 posx
-		setv va01 posb
-		setv va30 posx
-		subv va30 32
-		setv va40 posy
-		subv va40 32
-		new: simp 2 5649 5612 "moe_C2toDS_frogs" 8 105 rand 1000 3000
-		attr 16
-		mvto va30 va40
-		snde "zapp"
-		anim [0 1 2 3 4 5 6 7]
-		over
-		kill targ
-		targ va10
-		mvsf va00 va01
-*Froggy Tracker
-		new: simp 2 5649 5611 "blnk" 1 0 0
-		seta ov00 va10
-		kill ownr
-	retn
-
-endm
-
-*Catchall
-*scrp 2 15 5610 255
-*endm
-
-*Removal
-rscr
-inst
-
-*Eggs
-enum 2 18 5610
-	kill targ
-next
-*Removes all scripts for the specified agent 2 18 5610 if it exists.
-*No need to micromanage. :)
-loop
-	doif sorq 2 18 5610 va00 eq 1
-		scrx 2 18 5610 va00
-	endi
-	addv va00 1
-untl va00 eq 2000
-setv va00 0
-
-*Tadpoles
-enum 2 15 5611
-	mesg writ targ 444
-next
-
-
-*Frogs
-enum 2 15 5610
-	mesg writ targ 444
-next
-*wait 10
-*Removes all scripts for the specified agent 2 24 50216 if it exists.
-*No need to micromanage. :)
+*
+**Catchall
+**scrp 2 15 5610 255
+**endm
+*
+**Removal
+*rscr
+*inst
+*
+**Eggs
+*enum 2 18 5610
+*	kill targ
+*next
+**Removes all scripts for the specified agent 2 18 5610 if it exists.
+**No need to micromanage. :)
 *loop
-*	doif sorq 2 15 5611 va00 eq 1
-*		scrx 2 15 5611 va00
+*	doif sorq 2 18 5610 va00 eq 1
+*		scrx 2 18 5610 va00
 *	endi
 *	addv va00 1
-*untl va00 eq 4500
+*untl va00 eq 2000
 *setv va00 0
-
-*Removes all scripts for the specified agent 2 15 5610 if it exists.
-*No need to micromanage. :)
-*loop
-*	doif sorq 2 15 5610 va00 eq 1
-*		scrx 2 15 5610 va00
-*	endi
-*	addv va00 1
-*untl va00 eq 4500
+*
+**Tadpoles
+*enum 2 15 5611
+*	mesg writ targ 444
+*next
+*
+*
+**Frogs
+*enum 2 15 5610
+*	mesg writ targ 444
+*next
+**wait 10
+**Removes all scripts for the specified agent 2 24 50216 if it exists.
+**No need to micromanage. :)
+**loop
+**	doif sorq 2 15 5611 va00 eq 1
+**		scrx 2 15 5611 va00
+**	endi
+**	addv va00 1
+**untl va00 eq 4500
+**setv va00 0
+*
+**Removes all scripts for the specified agent 2 15 5610 if it exists.
+**No need to micromanage. :)
+**loop
+**	doif sorq 2 15 5610 va00 eq 1
+**		scrx 2 15 5610 va00
+**	endi
+**	addv va00 1
+**untl va00 eq 4500

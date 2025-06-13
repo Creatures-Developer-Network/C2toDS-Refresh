@@ -1,6 +1,6 @@
-* 2 3 24206 - Sunflower Seeds
-* 2 7 24206 _ Sunflower
-* 2 23 24206 - Sunflower Seed Vendor
+* 2 3 50228 - Sunflower Seeds
+* 2 7 50228 _ Sunflower
+* 2 23 50228 - Sunflower Seed Vendor
 
 *C2toDS Sunflowers
 
@@ -8,7 +8,7 @@
 
 reps rand 5 7
 
-	new: simp 2 3 24206 "moe_C2toDS_sunflower" 1 rand 232 235 rand 500 3000
+	new: simp 2 3 50228 "moe_C2toDS_sunflower" 1 rand 232 235 rand 500 3000
 
 	mvsf rand 5120 6512 49700
 
@@ -24,7 +24,7 @@ repe
 
 reps rand 2 3
 
-	new: simp 2 3 24206 "moe_C2toDS_sunflower" 1 rand 232 235 rand 500 3000
+	new: simp 2 3 50228 "moe_C2toDS_sunflower" 1 rand 232 235 rand 500 3000
 
 	mvsf rand 3862 4075 49290
 
@@ -40,7 +40,7 @@ repe
 
 reps rand 5 7
 
-	new: simp 2 3 24206 "moe_C2toDS_sunflower" 1 rand 232 235 rand 500 3000
+	new: simp 2 3 50228 "moe_C2toDS_sunflower" 1 rand 232 235 rand 500 3000
 
 	mvsf rand 3385 4110 48098
 
@@ -56,7 +56,7 @@ repe
 
 reps rand 5 7
 
-	new: simp 2 3 24206 "moe_C2toDS_sunflower" 1 rand 232 235 rand 500 3000
+	new: simp 2 3 50228 "moe_C2toDS_sunflower" 1 rand 232 235 rand 500 3000
 
 	mvsf rand 3596 4255 48736
 
@@ -70,11 +70,11 @@ repe
 
 
 
-new: comp 2 23 24206 "moe_C2toDS_sunflowervend" 2 0 2000
+new: comp 2 23 50228 "moe_C2toDS_sunflowervend" 2 0 2000
 mvto 3880 48290
 
 
-scrp 2 23 24206 10
+scrp 2 23 50228 10
 
 	pat: dull 1 "moe_C2toDS_sunflowervend" 2 0 0 -1
 
@@ -103,13 +103,13 @@ endm
 
 *timer
 
-*scrp 2 23 24206 9
+*scrp 2 23 50228 9
 
 *endm
 
 *activate 1
 
-scrp 2 23 24206 1
+scrp 2 23 50228 1
 
 	doif crea from eq 1
 
@@ -169,7 +169,7 @@ scrp 2 23 24206 1
 
 	snde "pop1"
 
-	new: simp 2 3 24206 "moe_C2toDS_sunflower" 1 rand 232 235 rand 500 3000
+	new: simp 2 3 50228 "moe_C2toDS_sunflower" 1 rand 232 235 rand 500 3000
 
 	mvsf va00 va01
 
@@ -181,7 +181,7 @@ endm
 
 *collision
 
-scrp 2 23 24206 6
+scrp 2 23 50228 6
 
 	lock
 
@@ -197,7 +197,7 @@ endm
 
 *eat
 
-*scrp 2 23 24206 12
+*scrp 2 23 50228 12
 
 *
 
@@ -207,7 +207,7 @@ endm
 
 *deactivate
 
-scrp 2 23 24206 0
+scrp 2 23 50228 0
 
 	doif crea from eq 1
 
@@ -219,7 +219,7 @@ endm
 
 *activate 2
 
-scrp 2 23 24206 2
+scrp 2 23 50228 2
 
 	doif crea from eq 1
 
@@ -231,7 +231,7 @@ endm
 
 *hit
 
-scrp 2 23 24206 3
+scrp 2 23 50228 3
 
 	doif crea from eq 1
 
@@ -245,7 +245,7 @@ endm
 
 *pickup
 
-scrp 2 23 24206 4
+scrp 2 23 50228 4
 
 	stim writ from 91 1
 
@@ -269,13 +269,13 @@ endm
 
 *drop
 
-scrp 2 23 24206 5
+scrp 2 23 50228 5
 
 endm
 
 *catchall
 
-scrp 2 23 24206 255
+scrp 2 23 50228 255
 
 endm
 
@@ -285,7 +285,7 @@ endm
 
 *install
 
-scrp 2 3 24206 10
+scrp 2 3 50228 10
 
 	inst
 
@@ -319,7 +319,7 @@ endm
 
 *collision
 
-scrp 2 3 24206 6
+scrp 2 3 50228 6
 
 	snde "dr64"
 
@@ -327,7 +327,7 @@ endm
 
 *eat
 
-scrp 2 3 24206 12
+scrp 2 3 50228 12
 
 	snde "reat"
 
@@ -345,7 +345,7 @@ endm
 
 *catchall
 
-scrp 2 3 24206 255
+scrp 2 3 50228 255
 
 	stop
 
@@ -355,7 +355,7 @@ endm
 
 *timer
 
-scrp 2 3 24206 9
+scrp 2 3 50228 9
 
 	tick rand 150 250
 
@@ -371,7 +371,7 @@ scrp 2 3 24206 9
 
 	doif prop room ownr 1 gt .5 and prop room ownr 2 gt .15 and prop room ownr 3 gt .2 and prop room ownr 4 gt .3 and rtyp room ownr ne 8 and rtyp room ownr ne 9
 
-		esee 2 7 24206
+		esee 2 7 50228
 
 			doif ov11 ne 3
 
@@ -417,7 +417,7 @@ scrp 2 3 24206 9
 
 *This is where you check to seee if there are others nearby
 
-			esee 2 3 24206
+			esee 2 3 50228
 
 				doif targ ne null
 
@@ -531,7 +531,7 @@ scrp 2 3 24206 9
 
 
 
-		new: simp 2 7 24206 "moe_C2toDS_sunflower" 29 va01 va04
+		new: simp 2 7 50228 "moe_C2toDS_sunflower" 29 va01 va04
 
 		mvsf va02 va03
 
@@ -549,7 +549,7 @@ endm
 
 *install
 
-scrp 2 7 24206 10
+scrp 2 7 50228 10
 
 	inst
 
@@ -575,7 +575,7 @@ endm
 
 *timer
 
-scrp 2 7 24206 9
+scrp 2 7 50228 9
 
 
 
@@ -799,7 +799,7 @@ scrp 2 7 24206 9
 
 			addv va01 rand -10 10
 
-			new: simp 2 3 24206 "moe_C2toDS_sunflower" 1 rand 232 235 rand 500 3000
+			new: simp 2 3 50228 "moe_C2toDS_sunflower" 1 rand 232 235 rand 500 3000
 
 			mvsf va00 va01
 
@@ -841,7 +841,7 @@ endm
 
 *activate 1
 
-scrp 2 7 24206 1
+scrp 2 7 50228 1
 
 	doif crea from eq 1
 
@@ -853,7 +853,7 @@ endm
 
 *collision
 
-scrp 2 7 24206 6
+scrp 2 7 50228 6
 
 *snde "drop"
 
@@ -861,7 +861,7 @@ endm
 
 *eat
 
-scrp 2 7 24206 12
+scrp 2 7 50228 12
 
 
 	doif crea from eq 1
@@ -874,7 +874,7 @@ endm
 
 *activate 2
 
-scrp 2 7 24206 2
+scrp 2 7 50228 2
 
 	doif crea from eq 1
 
@@ -886,7 +886,7 @@ endm
 
 *catchall
 
-scrp 2 7 24206 255
+scrp 2 7 50228 255
 
 	stop
 
@@ -894,21 +894,21 @@ endm
 
 rscr
 
-enum 2 7 24206
+enum 2 7 50228
 
 	kill targ
 
 next
 
-*Removes all scripts for the specified agent 2 7 24206 if it exists.
+*Removes all scripts for the specified agent 2 7 50228 if it exists.
 
 *No need to micromanage. :)
 
 loop
 
-	doif sorq 2 7 24206 va00 eq 1
+	doif sorq 2 7 50228 va00 eq 1
 
-		scrx 2 7 24206 va00
+		scrx 2 7 50228 va00
 
 	endi
 
@@ -922,21 +922,21 @@ setv va00 0
 
 inst
 
-enum 2 3 24206
+enum 2 3 50228
 
 	kill targ
 
 next
 
-*Removes all scripts for the specified agent 2 3 24206 if it exists.
+*Removes all scripts for the specified agent 2 3 50228 if it exists.
 
 *No need to micromanage. :)
 
 loop
 
-	doif sorq 2 3 24206 va00 eq 1
+	doif sorq 2 3 50228 va00 eq 1
 
-		scrx 2 3 24206 va00
+		scrx 2 3 50228 va00
 
 	endi
 
@@ -950,21 +950,21 @@ setv va00 0
 
 inst
 
-enum 2 23 24206
+enum 2 23 50228
 
 	kill targ
 
 next
 
-*Removes all scripts for the specified agent 2 23 24206 if it exists.
+*Removes all scripts for the specified agent 2 23 50228 if it exists.
 
 *No need to micromanage. :)
 
 loop
 
-	doif sorq 2 23 24206 va00 eq 1
+	doif sorq 2 23 50228 va00 eq 1
 
-		scrx 2 23 24206 va00
+		scrx 2 23 50228 va00
 
 	endi
 

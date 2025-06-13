@@ -1479,8 +1479,7 @@ scrp 5 7 50200 73
 
 *WHY IS THIS NEEDED. IT MAKES NO SENSE.
 *(I believe it's waiting until the start of the next tick because the Key Down event takes place before the speech bubble exists)
-*todo: this can probably be wait 1
-			wait 0
+			wait 1
 			targ ownr
 			inst
 

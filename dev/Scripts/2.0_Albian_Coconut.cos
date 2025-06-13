@@ -466,22 +466,6 @@ endm
 
 
 
-scrp 2 3 50217 1000
-
-	setv va00 posx
-
-	setv va01 posb
-
-	new: simp 2 10 50214 "moe_C2toDS_berries" 0 rand 26 27 5000
-
-	mira rand 0 1
-
-	attr 195
-
-	mvsf va00 va01
-
-endm
-
 
 
 scrp 2 10 50214 12
