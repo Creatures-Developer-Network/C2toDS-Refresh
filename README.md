@@ -4,13 +4,14 @@ An attempt to bugfix and polish Moe's C2toDS, with an emphasis on instinct-frien
 # Development Goals
 
 * Priority One is to bring the metaroom up to current [development standards](https://docs.google.com/spreadsheets/d/1CHKnTzjdAJap-tcMcpKPR5NMYvmmpRYZZUxLJo453-c/edit#gid=1354565364) and ensure that it isn't overwhelmingly unfair to creatures. This includes ensuring that all agents have proper scripts/stims and that CA links and transportation methods allow creatures full access to the world's many splendors.
-* Ecology fixes and adding missing content are also on the radar, but will recieve more attention once the room is more instinct-friendly.
+* Ecology fixes and adding missing content are also on the radar, but will receive more attention once the room is more instinct-friendly.
 
 # How To Help Out
 
 * Submit issues! Submit bugs, concerns, ideas, feature requests, and anything else related to the project. You can also browse the existing issues and contribute to the discussions therein.
 * Help fill out the Agent Help Descriptions for the catalogue files! Many of them are currently very short or consist only of the agent names. You can find the url to the editable spreadsheet in C2toDS Classifiers.csv.
-* Contribute fixes! If you're new to github and don't want to dig deeply into the mess that is git, there's a brief video walkthrough of how to contribute [here](https://youtu.be/O7GV_Fdk8pY).
+* Contribute fixes! If you're new to Github and don't want to dig deeply into the mess that is git, there's a brief video walkthrough of how to contribute [here](https://youtu.be/O7GV_Fdk8pY).
+* Please make sure any new agents use the C2toDS classifier range (50200 - 50299).
 
 # How To Set Up
 
