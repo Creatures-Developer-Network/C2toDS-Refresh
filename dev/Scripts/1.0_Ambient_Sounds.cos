@@ -96,6 +96,9 @@
 
 *Underwater Sounds
 
+
+*LIGHT BLUE SEA (main)
+
 new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
 
 attr 0
@@ -109,6 +112,24 @@ sndl "m_uw"
 *volm 2 -4000
 
 
+*WORLD WRAP COPY
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 537 48455
+
+pose 10
+
+sndl "m_uw"
+
+*volm 2 -4000
+
+
+
+
+*LIGHT BLUE SEA (near airlock)
 
 new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
 
@@ -124,6 +145,44 @@ sndl "m_uw"
 
 
 
+
+*LIGHT BLUE SEA (waves)
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 8882 48255
+
+pose 10
+
+tick rand 40 80
+
+setv name "whatamI?" 5
+dcor 1
+
+*WORLD WRAP COPY
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 530 48255
+
+pose 10
+
+tick rand 40 80
+
+setv name "whatamI?" 5
+dcor 1
+cmrt 0
+
+
+
+
+
+*DEEP BLUE SEA (main)
+
 new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
 
 attr 0
@@ -137,6 +196,50 @@ sndl "m_uw"
 *volm 2 -4000
 
 
+*WORLD WRAP COPY
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 11040 48573
+
+pose 10
+
+sndl "m_uw"
+
+*volm 2 -4000
+
+
+
+
+*DEEP BLUE SEA (waves)
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 2733 48238
+
+pose 10
+
+tick rand 40 80
+
+setv name "whatamI?" 5
+
+
+*WORLD WRAP COPY
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 11085 48238
+
+pose 10
+
+tick rand 40 80
+
+setv name "whatamI?" 5
 
 
 
@@ -149,8 +252,9 @@ sndl "m_uw"
 
 
 
+*Volcano Sounds (and anims) todo: maybe change the catalogue description to mention these, as these are all we can click on ingame.
 
-
+*VOLCANO LEFT FLAME PLUME
 
 new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
 
@@ -167,6 +271,9 @@ tick 100
 setv name "whatamI?" 1
 
 
+
+
+*LAVA BUBBLE SOUNDS (right)
 
 new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
 
@@ -185,8 +292,29 @@ sndl "moev"
 setv name "whatamI?" 12
 
 
+*WORLD WRAP COPY
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 1552 49843
+
+pose 10
+
+tick 100
+
+*volm 0 -900
+
+sndl "moev"
+
+setv name "whatamI?" 12
 
 
+
+
+
+*LAVA BUBBLE SOUNDS (left)
 
 new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
 
@@ -205,6 +333,28 @@ sndl "moev"
 setv name "whatamI?" 12
 
 
+*WORLD WRAP COPY
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 938 49843
+
+pose 10
+
+tick 100
+
+*volm 0 -900
+
+sndl "moev"
+
+setv name "whatamI?" 12
+
+
+
+
+*VOLCANO MIDDLE
 
 new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
 
@@ -224,6 +374,29 @@ sndl "m_wn"
 
 
 
+*WORLD WRAP COPY
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 1513 49039
+
+pose 10
+
+tick 100
+
+*volm 0 -900
+
+setv name "whatamI?" 11
+
+sndl "m_wn"
+
+
+
+
+
+*VOLCANO UPPER
 
 new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
 
@@ -240,6 +413,27 @@ tick 100
 setv name "whatamI?" 11
 
 sndl "m_wn"
+
+
+*WORLD WRAP COPY
+
+new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+
+attr 0
+
+mvto 1511 48363
+
+pose 10
+
+tick 100
+
+*volm 0 -800
+
+setv name "whatamI?" 11
+
+sndl "m_wn"
+
+
 
 
 
@@ -312,40 +506,8 @@ setv name "whatamI?" 4
 
 
 
-*Ocean Sounds
-
-new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
-
-attr 0
-
-mvto 8882 48255
-
-pose 10
-
-tick rand 40 80
-
-setv name "whatamI?" 5
-
-
-
-new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
-
-attr 0
-
-mvto 2733 48238
-
-pose 10
-
-tick rand 40 80
-
-setv name "whatamI?" 5
-
-
-
-
 
 *Hatchery Sounds*
-
 
 
 new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
@@ -365,7 +527,6 @@ setv name "whatamI?" 6
 *Steam Vent*
 
 
-
 new: simp 1 12 50200 "moe_C2toDS_vflm" 11 11 1
 
 frat 2
@@ -377,6 +538,8 @@ mvto 9700 48345
 tick rand 40 80
 
 setv name "whatamI?" 7
+
+
 
 
 
@@ -409,6 +572,13 @@ mvto 9340 49776
 tick rand 40 80
 
 setv name "whatamI?" 8
+
+
+
+
+
+
+*TIMER SCRIPT
 
 scrp 1 12 50200 9
 
