@@ -17,7 +17,7 @@
 
 inst
 
-new: comp 1 1 23423 "moe_C2toDS_Clock" 12 0 1
+new: comp 1 15 50201 "moe_C2toDS_Clock" 12 0 1
 
 mvto 3319 49256
 
@@ -25,7 +25,7 @@ mvto 3319 49256
 
 *Constructor Script
 
-scrp 1 1 23423 10
+scrp 1 15 50201 10
 
 	inst
 
@@ -49,7 +49,7 @@ endm
 
 *Activate 1 Script
 
-scrp 1 1 23423 1
+scrp 1 15 50201 1
 	clac 1
 	tick 0
 	stpc
@@ -59,7 +59,7 @@ endm
 
 *Activate 2 Script
 
-scrp 1 1 23423 2
+scrp 1 15 50201 2
 	clac 0
 	tick ov00
 	sndl "c2tk"
@@ -69,7 +69,7 @@ endm
 
 *Timer Script
 
-scrp 1 1 23423 9
+scrp 1 15 50201 9
 
 	inst
 
@@ -105,10 +105,10 @@ endm
 
 rscr
 
-enum 1 1 23423
+enum 1 15 50201
 	kill targ
 next
 
-scrx 1 1 23423 1
-scrx 1 1 23423 9
-scrx 1 1 23423 10
+scrx 1 15 50201 1
+scrx 1 15 50201 9
+scrx 1 15 50201 10
