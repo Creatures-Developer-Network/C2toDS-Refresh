@@ -152,6 +152,8 @@ setv game "C2toDS_Right" 12448
 *unused
 *setv game "C2toDS_Bottom" 49999
 
+setv game "C2toDS_RoomID" gmap 6753 48383
+
 setv game "C2toDS_WrapLeft" 2047
 
 setv game "C2toDS_WrapRight" 10399
