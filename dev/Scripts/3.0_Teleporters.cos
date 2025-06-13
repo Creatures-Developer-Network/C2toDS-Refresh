@@ -12,9 +12,6 @@
 *-moved DS-side Big Teleporter to the corridor on the left (opposite side of the C12DS tele). This looks cool if you inject both at the same time.
 
 
-*NOTE: also defined in "1.2_!World_Wrap.cos"
-setv game "C2toDS_RoomID" gmap 6753 48383
-
 
 *Teleporter - Norn Burrow (MAIN)
 
