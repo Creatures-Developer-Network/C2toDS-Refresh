@@ -152,6 +152,7 @@ setv game "C2toDS_Right" 12448
 *unused
 *setv game "C2toDS_Bottom" 49999
 
+*todo: move this to world map script
 setv game "C2toDS_RoomID" gmap 6753 48383
 
 setv game "C2toDS_WrapLeft" 2047
@@ -1020,8 +1021,8 @@ scrp 1 6 50200 9
 
 		setv va21 hght
 
-*(if it's extremely small you can use the 1x1)
-		doif va21 > 16
+*(if it's extremely small you can use the 1x16)
+		doif va21 >= 16
 			divv va21 32
 			setv va21 ftoi va21
 
@@ -1040,7 +1041,7 @@ scrp 1 6 50200 9
 
 *create a temporary Mirror Object to copy the Category and pos of our real object
 *it is a 1 x va21 (above) sprite is positioned using the middle X coordinate of the real object
-		new: simp 1 7 50203 "moe_c2tods_collisiontester" 0 va21 0
+		new: simp 1 7 50203 "moe_c2tods_worldwrap_mirror_object" 0 va21 0
 
 *fake temp object needs to have the same category as the real one
 		cato va17
