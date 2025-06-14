@@ -325,7 +325,7 @@ scrp 1 20 50200 9
 
 		doif va02 eq 0
 
-			new: comp 2 19 50200 "moe_C2toDs_weather" 10 0 5001
+			new: comp 2 19 50200 "moe_C2toDs_weather" 10 0 rand 8001 8050
 
 			setv va00 rand 8400 8800
 
@@ -335,7 +335,7 @@ scrp 1 20 50200 9
 
 		else
 
-			new: comp 2 19 50200 "moe_C2toDs_weather" 10 0 5001
+			new: comp 2 19 50200 "moe_C2toDs_weather" 10 0 rand 8001 8050
 
 			setv va00 rand 2300 2820
 
@@ -361,7 +361,7 @@ scrp 1 20 50200 9
 
 
 
-***This no longer needed. You don't keep your own calendar. Use the engine's.
+***This no longer needed. You don't keep your own calendar. Use the engines.
 
 
 
