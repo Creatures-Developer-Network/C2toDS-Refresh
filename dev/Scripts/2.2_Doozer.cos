@@ -1,5 +1,4 @@
 * 1 15 50219 - Doozer
-* 1 23 50215 - 1 pixel big collision tester object (this classifier is also used for the Pop Rocket Pop)
 
 
 
@@ -491,10 +490,20 @@ scrp 2 15 50219 9
 
 
 	doif perm = 50
-*try and set perm to 51 if it's not inside a wall
-		call 1000 51 0
-	endi
 
+		setv va50 perm
+		setv va00 posl
+		setv va01 post
+
+*try and set perm to 51 if it's not inside a wall
+*temporarily move to a safe out of bounds spot to test movement
+		mvto 100 100
+		perm 51
+		doif tmvt va00 va01 = 0
+			perm va50
+		endi
+		mvto va00 va01
+	endi
 
 
 *flip direction if you touched a wall recently
@@ -634,200 +643,9 @@ endm
 
 
 
-*CHECK IF ANY OF THE OBJECTS SPRITE BOUNDS INTERSECT WITH AN IMPERMEABLE WALL (according to _P1_)
 
-*if none of them do, set our perm to _P1_!
 
 
-* NOTE: this currently doesn't respect CORE and just uses the bounds of the image.
-* NOTE: this currently only checks the rooms immediately next to the object.
-* this means even if there are no impermeable walls between an object, if it has to search more than one room over to find, it will simply fail and not set the perm.
-
-scrp 2 15 50219 1000
-
-	inst
-
-*starts at 0, gets set to 1 if we find a nonpermeable wall.
-*if it's ever not 0 we don't set the perm.
-	setv va80 0
-
-*Loop Iteration Number
-	setv va00 0
-
-
-*because of a caos limitation, we create a 1x1 object and use it to test what room is Above, Below, to the Right and to the Left
-*of our object by positioning it in each corner of the real object in sequence
-	new: simp 1 23 50215 "moe_C2toDS_CollisionTester" 1 0 9999
-
-*after 10 ticks, automatically delete yourself (in case something later in the perm check script fails)
-	tick 10
-	seta va99 targ
-
-
-*we need to check the topleft, topright, bottom right and bottomleft coords.
-	reps 4
-
-		inst
-
-		targ ownr
-
-*check loop iteration to see which pair of coords we're checking
-
-		doif va00 = 0
-
-*	(TOP LEFT X, Y)
-			setv va03 posl
-			setv va04 post
-
-*	(TOP RIGHT X, Y)
-			setv va13 posr
-			setv va14 post
-
-			setv va06 rght
-			setv va16 left
-
-		elif va00 = 1
-
-*	(TOP RIGHT X, Y)
-			setv va03 posr
-			setv va04 post
-
-*	(BOTTOM RIGHT X, Y)
-			setv va13 posr
-			setv va14 posb
-
-			setv va06 down
-			setv va16 _up_
-
-		elif va00 = 2
-
-*	(BOTTOM RIGHT X, Y)
-			setv va03 posr
-			setv va04 posb
-
-*	(BOTTOM LEFT X, Y)
-			setv va13 posl
-			setv va14 posb
-
-			setv va06 left
-			setv va16 rght
-
-		elif va00 = 3
-
-*	(BOTTOM LEFT X, Y)
-			setv va03 posl
-			setv va04 posb
-
-*	(TOP LEFT X, Y)
-			setv va13 posl
-			setv va14 post
-
-			setv va06 _up_
-			setv va16 down
-
-		endi
-
-
-*	get room ID of FIRST coord
-		setv va01 grap va03 va04
-*	get room ID of SECOND coord
-		setv va02 grap va13 va14
-
-*	target collision tester
-		targ va99
-
-*	get room ID of room across from FIRST coord. va06 is the direction to search.
-		mvto va03 va04
-		setv va05 grid targ va06
-
-*	get room ID of room across from SECOND coord. va16 is the direction to search.
-		mvto va13 va14
-		setv va15 grid targ va16
-
-
-
-*increment loop counter
-		addv va00 1
-
-
-
-**VARIABLES IN USE (using first coordinate pair as an example)
-
-*va01 - TOP LEFT COORDINATE OF OBJECT
-*va02 - TOP RIGHT COORDINATE OF OBJECT
-
-*va05 - room to the RIGHT of the topleft coord.
-*va15 - room to the LEFT of the topright coord.
-
-*va79 - IS IT UNSAFE TO RUN A DOOR CHECK?
-*va80 - IS IT UNSAFE TO CHANGE THE PERM?
-
-
-		setv va79 0
-
-*		first, check the 2 coords are actually in different rooms. if they're not, don't check anything else and return a pass.
-		doif va01 <> va02
-
-
-
-*			make sure all 4 coords are inside the room system
-			doif va01 <> -1 and va02 <> -1 and va05 <> -1 and va15 <> -1
-*				make sure both coords are in the rooms that are actually next to the object/connected to each other.
-*				(if you don't do this, the DOOR command will throw script errors when checking unconnected rooms.
-				doif va01 = va15 and va02 = va05
-*					setv va79 0			
-*				(there was a mismatch between room ID and expected room ID)
-				else
-					setv va79 1
-					setv va80 1
-				endi
-*			(at least one of the 4 coordinates was outside the room system)
-			else
-				setv va79 1
-				setv va80 1
-			endi
-
-
-*			if nothing ever set va79 to 1, then we can do a valid DOOR check!
-			doif va79 = 0
-*				if the PERM between the two rooms is less than or equal to _P1_, that means it's ok to change to the new perm (_P1_)
-				doif door va01 va02 <= _P1_
-					setv va80 1
-				endi
-			endi
-
-*		(the 2 coords were in the same room, everything above is skipped and we return a pass!)
-		else
-			setv va79 1
-		endi
-
-	repe
-
-
-
-*hooray, we can now safely change the perm
-	doif va80 = 0
-		targ ownr
-		perm _p1_
-	endi
-
-*kill the collision tester before it even gets a chance to render!
-	targ va99
-	kill targ
-	targ ownr
-
-
-endm
-
-
-
-
-*collision tester timer script
-*(automatically kills itself after a few ticks incase something goes wrong in the perm check script)
-
-scrp 1 23 50215 9
-	kill ownr
-endm
 
 
 
