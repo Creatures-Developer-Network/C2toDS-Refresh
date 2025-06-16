@@ -19,8 +19,6 @@ new: simp 3 2 50200 "moe_C2toDS_tele" 8 0 200
 
 mvto 7554 48288
 
-*mvto 4733 9005
-
 
 
 *Teleporter - Norn Burrow
@@ -90,7 +88,7 @@ scrp 3 2 50200 10
 
 		seta ov01 ownr
 
-		mvto 2350 9010
+		mvto 2358 9010
 
 		attr 199
 
