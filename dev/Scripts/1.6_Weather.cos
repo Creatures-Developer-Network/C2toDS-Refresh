@@ -19,7 +19,7 @@
 *Clouds have new limits for how high or low they can be in the C2toDS metaroom. This fixes clouds finding their way through the wooden bridge into the area below the incubator room.
 *Toolbar can now be clicked and dragged to move it and supports docking to the bottom and right sides of the screen.
 
-*TODO: RUN A WORLD FOR A LONG TIME AND SEE IF CLOUD PLANE IS EVER NOT 8002!!!
+
 *plane is 2 below Wolfling Control so we don't draw anything on top of it
 new: comp 1 9 50200 "moe_C2toDS_Weather" 1 32 8998
 
@@ -70,9 +70,11 @@ pat: butt 5 "moe_C2toDS_Weather" 43 4 95 2 -1 [0] 1001 0
 
 *random clouds in the sky at start, plus random size! :D
 
+*NOTE: all other clouds are created in 1.0_Calendar_Scroll
+
 reps rand 6 15
 
-	new: comp 2 19 50200 "moe_C2toDs_weather" 10 0 8002
+	new: comp 2 19 50200 "moe_C2toDs_weather" 10 0 rand 8001 8050
 
 	setv va00 rand 2300 2820
 

@@ -108,54 +108,60 @@ scrp 1 1 50200 9
 			gall "moe_c2tods_overlays3_night" va00
 		next
 
-		enum 1 8 50200
+*		enum 1 8 50200
+		enum 1 0 50200
+
+*slight adjustment to compensate for World Wrap Overlay Copies (see 1.2_World_Overlays)
+			doif gnus = 8 or gnus = 30
 
 ************************** small sphere door screw **************************
-			doif gall eq "moe_c2tods_doors" and abba eq 11
-				setv va00 abba
-				gall "moe_c2tods_doors_night" va00
-			endi
+				doif gall eq "moe_c2tods_doors" and abba eq 11
+					setv va00 abba
+					gall "moe_c2tods_doors_night" va00
+				endi
 
 ************************** Waterfalls **************************
-			doif gall eq "moe_c2tods_waterfalls"
-				setv va00 abba
-				gall "moe_c2tods_waterfalls_night" va00
-			endi
+				doif gall eq "moe_c2tods_waterfalls"
+					setv va00 abba
+					gall "moe_c2tods_waterfalls_night" va00
+				endi
 
 
 ************************** Waves **************************
-			doif gall eq "moe_c2tods_waves"
-				setv va00 abba
-				gall "moe_c2tods_waves_night" va00
-			endi
+				doif gall eq "moe_c2tods_waves"
+					setv va00 abba
+					gall "moe_c2tods_waves_night" va00
+				endi
 
 ************************** Overlays **************************
-			doif gall eq "moe_c2tods_overlays"
-				doif abba lt 17 or abba gt 25 or abba eq 23
+				doif gall eq "moe_c2tods_overlays"
+					doif abba lt 17 or abba gt 25 or abba eq 23
 *fix for some overlays going invisible at night
-					doif abba ne 35 and abba lt 38
-						setv va00 abba
-						gall "moe_c2tods_overlays_night" va00
+						doif abba ne 35 and abba lt 38
+							setv va00 abba
+							gall "moe_c2tods_overlays_night" va00
+						endi
 					endi
 				endi
-			endi
 
 ************************** Overlays2 **************************
-			doif gall eq "moe_c2tods_overlays2"
-				doif abba lt 9 or abba eq 13 or abba eq 14 or abba eq 25 or abba eq 26 or abba eq 27 or abba eq 28
+				doif gall eq "moe_c2tods_overlays2"
+					doif abba lt 9 or abba eq 13 or abba eq 14 or abba eq 25 or abba eq 26 or abba eq 27 or abba eq 28
 *(don't change the overlays specified above into night overlays)
-				else
-					setv va00 abba
-					gall "moe_c2tods_overlays2_night" va00
+					else
+						setv va00 abba
+						gall "moe_c2tods_overlays2_night" va00
+					endi
 				endi
-			endi
 
 ************************** Jungle Overlays **************************
-			doif gall eq "moe_c2tods_overlaysjungle"
-				doif abba gt 2 and abba lt 17
-					setv va00 abba
-					gall "moe_c2tods_overlaysjungle_night" va00
+				doif gall eq "moe_c2tods_overlaysjungle"
+					doif abba gt 2 and abba lt 17
+						setv va00 abba
+						gall "moe_c2tods_overlaysjungle_night" va00
+					endi
 				endi
+
 			endi
 
 		next
@@ -211,54 +217,60 @@ scrp 1 1 50200 9
 		next
 
 
-		enum 1 8 50200
+*		enum 1 8 50200
+		enum 1 0 50200
+
+*slight adjustment to compensate for World Wrap Overlay Copies (see 1.2_World_Overlays)
+			doif gnus = 8 or gnus = 30
 
 ************************** small sphere door screw **************************
-			doif gall eq "moe_c2tods_doors_night" and abba eq 11
-				setv va00 abba
-				gall "moe_c2tods_doors" va00
-			endi
+				doif gall eq "moe_c2tods_doors_night" and abba eq 11
+					setv va00 abba
+					gall "moe_c2tods_doors" va00
+				endi
 
 ************************** Waterfalls **************************
-			doif gall eq "moe_c2tods_waterfalls_night"
-				setv va00 abba
-				gall "moe_c2tods_waterfalls" va00
-			endi
+				doif gall eq "moe_c2tods_waterfalls_night"
+					setv va00 abba
+					gall "moe_c2tods_waterfalls" va00
+				endi
 
 
 ************************** Waves **************************
-			doif gall eq "moe_c2tods_waves_night"
-				setv va00 abba
-				gall "moe_c2tods_waves" va00
-			endi
+				doif gall eq "moe_c2tods_waves_night"
+					setv va00 abba
+					gall "moe_c2tods_waves" va00
+				endi
 
 ************************** Overlays **************************
-			doif gall eq "moe_c2tods_overlays_night"
-				doif abba lt 17 or abba gt 25 or abba eq 23
+				doif gall eq "moe_c2tods_overlays_night"
+					doif abba lt 17 or abba gt 25 or abba eq 23
 *fix for some overlays going invisible at night
-					doif abba ne 35 and abba lt 38
-						setv va00 abba
-						gall "moe_c2tods_overlays" va00
+						doif abba ne 35 and abba lt 38
+							setv va00 abba
+							gall "moe_c2tods_overlays" va00
+						endi
 					endi
 				endi
-			endi
 
 ************************** Overlays2 **************************
-			doif gall eq "moe_c2tods_overlays2_night"
-				doif abba lt 9 or abba eq 13 or abba eq 14 or abba eq 25 or abba eq 26 or abba eq 27 or abba eq 28
+				doif gall eq "moe_c2tods_overlays2_night"
+					doif abba lt 9 or abba eq 13 or abba eq 14 or abba eq 25 or abba eq 26 or abba eq 27 or abba eq 28
 *(don't change the overlays specified above into night overlays)
-				else
-					setv va00 abba
-					gall "moe_c2tods_overlays2" va00
+					else
+						setv va00 abba
+						gall "moe_c2tods_overlays2" va00
+					endi
 				endi
-			endi
 
 ************************** Jungle Overlays **************************
-			doif gall eq "moe_c2tods_overlaysjungle_night"
-				doif abba gt 2 and abba lt 17
-					setv va00 abba
-					gall "moe_c2tods_overlaysjungle" va00
+				doif gall eq "moe_c2tods_overlaysjungle_night"
+					doif abba gt 2 and abba lt 17
+						setv va00 abba
+						gall "moe_c2tods_overlaysjungle" va00
+					endi
 				endi
+
 			endi
 
 		next

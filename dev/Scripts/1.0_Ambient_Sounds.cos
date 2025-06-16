@@ -159,7 +159,7 @@ pose 10
 tick rand 40 80
 
 setv name "whatamI?" 5
-dcor 1
+
 
 *WORLD WRAP COPY
 
@@ -174,8 +174,7 @@ pose 10
 tick rand 40 80
 
 setv name "whatamI?" 5
-dcor 1
-cmrt 0
+
 
 
 
