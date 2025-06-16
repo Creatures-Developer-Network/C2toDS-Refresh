@@ -1,4 +1,14 @@
-*NeoDement added a script that allows the pointer to click on objects behind dithered overlays.
+*1 8 50200 - World Overlays
+*1 30 50200 - World Wrap Overlay Copies†
+
+* † These are duplicates of specific overlays accessible via a contiguous walk while holding a creature’s hand.
+*   Creatures aren’t actually moved across the world wrap when hand-holding, due to camera tracking limitations.
+*   Since the world only renders what’s on camera, the creature may appear in front of all overlays, including high PLNE ones.
+*   These overlays should only be shown during a hand-held world wrap transition, as handled in 1.2_!World_Wrap.cos.
+*   Otherwise, they may incorrectly draw over elements like clouds, depending on cursor position.
+
+
+*This also has a script that allows the pointer to click on objects behind dithered overlays.
 
 
 *TODO: ADD OVERLAYS TO VOLCANO PLATFORMS ON RIGHT SIDE OF VOLCANO!!! WORLD WRAP COPIES WILL NEED TO EXIST TOO!!!
@@ -496,13 +506,17 @@ new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 27 8001
 attr 0
 
 mvto 2242 48261
-*Dark Ocean Rocks (this copy needs to exist because of the world wrap)*
+
+*Dark Ocean Rocks (WORLD WRAP COPY)*
 
 setv va00 posl
+*this is on the Right side of the wrap so we have to ADD the offset
 addv va00 game "C2toDS_WrapOffset"
 setv va01 post
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 27 8001
+new: simp 1 30 50200 "moe_C2toDS_Overlays" 1 27 8001
+
+show 0
 
 attr 0
 
@@ -857,22 +871,28 @@ attr 0
 mvto 9410 48354
 
 
-*todo: (much like the one below, this needs to taller/have a separate overlay above (its a volcano piece))
+
+*todo: (much like the one below, this needs to taller/have a separate overlay above (its a volcano piece)
+
 *Submarine overlay*
 
 new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 26 8000
 
 attr 0
 
-mvto 754 48192
+*mvto 754 48192
+mvto 9106 48192
 
-*Volcano Walkway overlay (this copy needs to exist because of the world wrap)*
+*Submarine overlay (WORLD WRAP COPY)*
 
 setv va00 posl
-addv va00 game "C2toDS_WrapOffset"
+*this is on the Left side of the wrap so we have to SUBTRACT the offset
+subv va00 game "C2toDS_WrapOffset"
 setv va01 post
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 26 8000
+new: simp 1 30 50200 "moe_C2toDS_Overlays" 1 26 8000
+
+show 0
 
 attr 0
 
@@ -880,8 +900,8 @@ mvto va00 va01
 
 
 
-*!!! I don't undersatnd this one...  Look into it... :S!!!*
-* ^? todo: maybe make this overlay larger though so it doesn't cut in when tall creatures walk through it
+
+*todo: make this overlay larger though so it doesn't cut in when tall creatures walk through it
 
 *Volcano Walkway overlay*
 
@@ -889,15 +909,19 @@ new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 23 8000
 
 attr 0
 
-mvto 1680 48056
+*mvto 1680 48056
+mvto 10032 48056
 
-*Volcano Walkway overlay (this copy needs to exist because of the world wrap)*
+*Volcano Walkway overlay (WORLD WRAP COPY)*
 
 setv va00 posl
-addv va00 game "C2toDS_WrapOffset"
+*this is on the Left side of the wrap so we have to SUBTRACT the offset
+subv va00 game "C2toDS_WrapOffset"
 setv va01 post
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 23 8000
+new: simp 1 30 50200 "moe_C2toDS_Overlays" 1 23 8000
+
+show 0
 
 attr 0
 
