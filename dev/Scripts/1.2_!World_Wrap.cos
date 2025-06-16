@@ -1,7 +1,7 @@
 * This file has scripts for:
 *1 5 50200 - World Wrap Camera
 *1 6 50200 - World Wrap Grabber
-*5 7 50200 - Mouse Pointer Tracker (moved to family 5 so that DS can't pause it by default)
+*5 7 50200 - Mouse Pointer And Keypress Tracker (lives in family 5 so that DS can't pause it by default)
 *1 7 50201 - Window Resize Camera Builder
 *1 7 50202 - World Wrap Shout Object (used so objects can shout their CATO across the wrap for norns to hear + as a temporary object that emits creature babble (audio) over the wrap). ALSO used for mirrored clones of the Norn/Attention indicators.
 *1 7 50203 - World Wrap Mirror Object
@@ -32,7 +32,6 @@
 *can we replace global "AreNornsNearWrap?" variable with an OV on all relevant objects?
 *move all game variables into OVs when initializing objects so we're not doing tons of string comparisons every frame
 *move as much stuff as possible to subroutines for readability and perf (a jump is more efficient than a doif!)
-*would a few doifs be more efficient than the division performed everytime a wrap object is refreshed?
 *some of the checks check for +/- 500 from the wrap point when they probably really don't need to. if it's touching the Grabber, that's probably enough.
 
 
@@ -40,7 +39,7 @@
 
 
 
-*some benchmarks (a bit outdated)
+*some benchmarks (super old)
 
 
 *world of 16 norns (no wrap): 206.4
@@ -255,7 +254,7 @@ seta va55 targ
 
 
 
-*mouse pointer tracker
+*mouse pointer and keypress tracker
 
 new: simp 5 7 50200 "blank" 1 0 1
 
@@ -708,6 +707,8 @@ scrp 1 6 50200 9
 *just in case
 		doif targ <> null
 *no need to do anything if they're a "system" object
+*todo: some system objects should in fact go through the wrap. Electronic Butler is one example.
+*todo: modify bees and bats so you can hear them over the wrap too.
 			doif fmly > 1
 *make sure they aren't Floatable 
 				setv va83 attr
@@ -732,6 +733,15 @@ scrp 1 6 50200 9
 
 								gsub Move_Object_Over_Wrap
 
+*trigger WORLD WRAP OVERLAY COPIES (see 1.2_world_overlays.cos) visibility off (every time an object goes through)
+								enum 1 30 50200
+									show 0
+								next
+							else
+*trigger WORLD WRAP OVERLAY COPIES visibility on (when we are holding a creatures hand as we go through the wrap.
+								enum 1 30 50200
+									show 1
+								next
 							endi
 						endi
 
@@ -752,10 +762,19 @@ scrp 1 6 50200 9
 
 								gsub Move_Object_Over_Wrap
 
+*trigger WORLD WRAP OVERLAY COPIES (see 1.2_world_overlays.cos) visibility off (every time an object goes through)
+								enum 1 30 50200
+									show 0
+								next
+							else
+*trigger WORLD WRAP OVERLAY COPIES visibility on (when we are holding a creatures hand as we go through the wrap.
+								enum 1 30 50200
+									show 1
+								next
 							endi
 						endi
 
-****OBJECT WASN'T ON EITHER SIDE OF THE WRAP (BUT WAS STILL TOUCHING A GRABBER), SO MAKE A MIRROR THAT NORNS CAN SEE!****
+****OBJECT WASN'T ON EITHER SIDE OF THE WRAP (BUT WAS STILL TOUCHING A GRABBER), SO MAKE A MIRROR OBJECT THAT NORNS CAN SEE!****
 
 					else
 
@@ -1016,23 +1035,24 @@ scrp 1 6 50200 9
 		setv va20 bhvr
 
 
-*do some quick maths to work out how high the copy should be (width doesnt matter, the closer they walk toward the real one the better)
+*work out how high the copy should be (width doesnt matter, the closer they walk toward the real one the better)
 *(it's a spritesheet with different frames representing how high the object is because CORE doesn't change where norns can interact with it)
 
 		setv va21 hght
 
-*(if it's extremely small you can use the 1x16)
-		doif va21 >= 16
-			divv va21 32
-			setv va21 ftoi va21
-
-*we don't want frame 0...
-			doif va21 = 0
-				setv va21 1
-			endi
-*unless we're smaller than 16 pixels
-		else
+		doif va21 <= 16
 			setv va21 0
+		else
+			doif va21 < 64
+				setv va21 1
+			else
+				doif va21 < 96
+					setv va21 2
+				else
+*big boy
+					setv va21 3
+				endi
+			endi
 		endi
 
 *store if it's a creature or not
@@ -1040,7 +1060,7 @@ scrp 1 6 50200 9
 
 
 *create a temporary Mirror Object to copy the Category and pos of our real object
-*it is a 1 x va21 (above) sprite is positioned using the middle X coordinate of the real object
+*it is a 1 x va21 (above) sprite positioned using the middle X coordinate of the real object
 		new: simp 1 7 50203 "moe_c2tods_worldwrap_mirror_object" 0 va21 0
 
 *fake temp object needs to have the same category as the real one
@@ -1352,16 +1372,33 @@ endm
 
 *Pointer Tracker - Raw Mouse Down script
 *This copies the effect of agent help bubbles over the world wrap.
+*This also fixes a bug where releasing a creatures hand after it walked over the wrap caused it to disappear, by forcing a grabber update
 
 scrp 5 7 50200 76
 
 	inst
 
+
+* RIGHT mouse - check if we're not holding any creatures hand and force all grabbers to check for anything that needs teleporting over the wrap
+	doif _p1_ = 2
+		wait 2
+		inst
+		doif hhld = null
+			enum 1 6 50200
+				mesg writ targ 9
+			next
+			stop
+		endi
+	endi
+
+
+
+
 *only run this script if there are creatures near the wrap to hear you
 	doif game "C2toDS_NornsNearWrap?" = 1
 
 
-* left mouse - shout your name
+* LEFT  mouse - shout your name
 		doif _p1_ = 1
 
 *check if "agent help watcher" IMSK is set to 9. If it is, that means agent help mode is active.
