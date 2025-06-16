@@ -108,7 +108,13 @@ scrp 1 1 50200 9
 			gall "moe_c2tods_overlays3_night" va00
 		next
 
-		enum 1 8 50200
+*		enum 1 8 50200
+		enum 1 0 50200
+
+*slight adjustment to compensate for World Wrap Overlay Copies (see 1.2_World_Overlays)
+			doif gnus <> 8 and gnus <> 30
+				stop
+			endi
 
 ************************** small sphere door screw **************************
 			doif gall eq "moe_c2tods_doors" and abba eq 11
@@ -211,7 +217,13 @@ scrp 1 1 50200 9
 		next
 
 
-		enum 1 8 50200
+*		enum 1 8 50200
+		enum 1 0 50200
+
+*slight adjustment to compensate for World Wrap Overlay Copies (see 1.2_World_Overlays)
+			doif gnus <> 8 and gnus <> 30
+				stop
+			endi
 
 ************************** small sphere door screw **************************
 			doif gall eq "moe_c2tods_doors_night" and abba eq 11
