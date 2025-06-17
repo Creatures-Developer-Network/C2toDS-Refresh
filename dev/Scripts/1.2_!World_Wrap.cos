@@ -881,8 +881,12 @@ scrp 1 6 50200 9
 
 *move the object to the other side of the wrap
 
+*force unsafe move if we're not set to Suffer Collisions
+				setv va84 attr
+				andv va84 64
+
 *do an unsafe move if possible
-				doif tmvt va00 va01 = 1
+				doif tmvt va00 va01 = 1 or va84 <> 64
 					mvto va00 va01
 				else
 					mvsf va00 va01
@@ -906,9 +910,14 @@ scrp 1 6 50200 9
 *sometimes this script fires twice in quick succession and tries to move things out of bounds, this should fix that
 			doif game "C2toDS_RoomID" = gmap va00 va01
 
+
+*force unsafe move if we're not set to Suffer Collisions
+				setv va84 attr
+				andv va84 64
+
 *move the creature to the other side of the wrap
 *(do an unsafe move if possible)
-				doif tmvf va00 va01 = 1
+				doif tmvf va00 va01 = 1 or va84 <> 64
 					mvft va00 va01
 				else
 					mvsf va00 va01
@@ -1724,9 +1733,13 @@ scrp 5 7 50200 126
 			endi
 
 
+*force unsafe move if we're not set to Suffer Collisions
+			setv va84 attr
+			andv va84 64
+
 *move the creature to the other side of the wrap
 *(do an unsafe move if possible)
-			doif tmvf va20 va01 = 1
+			doif tmvf va20 va01 = 1 or va84 <> 64
 				mvft va20 va01
 			else
 				mvsf va20 va01
@@ -1737,12 +1750,11 @@ scrp 5 7 50200 126
 
 *move it back where it came from
 *(do an unsafe move if possible)
-			doif tmvf va00 va01 = 1
+			doif tmvf va00 va01 = 1 or va84 <> 64
 				mvft va00 va01
 			else
 				mvsf va00 va01
 			endi
-
 *genus
 			setv va80 gnus
 *gender
