@@ -1,0 +1,54 @@
+# ================================ #
+# C2toDS WorldSwitcher Strings     #
+# ================================ #
+
+TAG "WorldSwitcher_CreationScreen_Text"
+# 0
+"Please choose a name and icon for your new world:"
+"Please decide which content you want to dock with the\nDocking Station Capillata using the checklist below."
+"Room Count:"
+"Icon Set:"
+"Custom Icon"
+# 5
+"Please choose a new name and icon for your world:"
+"Modify\nSelected World"
+
+# ============================================ #
+# C2toDS WorldSwitcher Icon Editor Strings     #
+# ============================================ #
+
+TAG "WorldSwitcher_IconEditor_Text"
+# 0
+"Icon Editor"
+"Brush Size:"
+"Tip: Right-click with the fill tool to erase pixels"
+"Unlit:"
+"Lit:"
+# 5
+"Rotate 90"
+"Rotate -90"
+"Rotate 180"
+"Flip Horizontal"
+"Flip Vertical"
+# 10
+"Copy"
+"Paste"
+"Clear"
+"Edit Colour"
+"Are you sure you want to\nclear the canvas?"
+# 15
+"You already have this\ncolour in your palette."
+
+# ================================================ #
+# C2toDS WorldSwitcher Addon Installer Strings     #
+# ================================================ #
+
+TAG "WorldSwitcher_AddonInstaller_Text"
+# 0
+"Failed to inject '"
+"'."
+"Script not found: Type 'dbg: poll' into CAOS Command Line for details."
+"Script error: Type 'dbg: poll' into CAOS Command Line for details."
+"'Error: Dependency evaluation failed."
+# 5
+"Error: Chunk not found. Make sure the .agent file is in 'My Agents'."
