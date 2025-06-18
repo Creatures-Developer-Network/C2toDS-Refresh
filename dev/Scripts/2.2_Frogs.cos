@@ -3,6 +3,58 @@
 * 2 15 50217 - Tadpole
 * 2 18 50216 - Frog Egg
 
+
+***These aren't quite accurate - Verm
+***OV## Definitions***		***STIMULUS NUMBERS***		***ATTR***			***BHVR***
+*ov00	OWNR				76	Discomfort			1	Carryable		1	Activate 1
+*ov01	Age Counter			77	Eaten plant			2	Mousable		2	Activate 2
+*ov02	Energy Level		78	Eaten fruit			4	Activateable	4	Deactivate
+*ov03	Gender			79	Eaten food			8	Greedy Cabin	8	Hit
+*ov04	Horizonal Direction	80	Eaten animal		16	Invisible		16	Eat
+*ov05	Veritcal Direction	81	Eaten detritus		32	Floatable		32	Pick Up
+*ov06	Horizontal Velocity	82	Consume alchohol		64	Suffer Collisions			
+*ov07	Vertical Velocity		83	Danger plant		128	Suffer Physics			
+*ov08	Target			84	Friendly plant		256	Camera Shy			
+*ov09	Home				85	Play bug			512	Open Air Cabin			
+*ov10	Mate				86	Play critter		1024	Rotatable			
+*ov11	Lifestage			87	Hit critter			2048	Presence			
+*ov12	Sexuality			88	Play danger animal					
+*ov13	Collection			89	Activate button					
+*ov14	Boolean			90	Activate machine					
+*ov15	Stage_1 Child		91	Got machine					
+*ov16	Stage_2 Adol		92	Hit machine					
+*ov17	Stage_3 Adult/Breed	93	Got creature egg					
+*ov18	Stage_4 Elder		94	Travelled in lift					
+*ov19	Stage_5 Senile		95	Travelled through meta door					
+*ov20	Stage_6 Die/Dead		96	Travelled through internal door					
+*					97	Played with toy		
+
+***CA's***				***RTYP's***
+*Ca smell 0 (sound)		0 - Atmosphere
+*CA smell 1 (light)		1 - Wooden Walkway
+*CA smell 2 (heat)		2 - Concrete Walkway
+*Ca smell 3 (water)		3 - Indoor Corridor
+*CA smell 4 (nutrient)		4 - Outdoor Concrete
+*CA smell 5 (water)		5 - Normal Soil
+*CA smell 6 (protein)		6 - Boggy Soil
+*CA smell 7 (carbohydrate)	7 - Drained Soil
+*CA smell 8 (fat)			8 - Fresh Water
+*CA smell 9 (flowers)		9 - Salt Water
+*CA smell 10 (machinery)	10- Ettin Home
+*CA smell 11
+*CA smell 12 (Norn)
+*CA smell 13 (Grendel)
+*CA smell 14 (Ettin)
+*CA smell 15 (Norn home)
+*CA smell 16 (Grendel home)
+*CA smell 17 (Ettin home)
+*CA smell 18
+*CA smell 19
+
+
+
+
+*todo: was this important?
 *door grap 3439 48836 grap 3470 48950 25
 *door grap 5060 49830 grap 5347 49698 75
 
@@ -859,107 +911,59 @@ endm
 *scrp 2 15 50216 255
 *endm
 
+
 rscr
-inst
+
 enum 2 24 50216
 	kill targ
 next
-*Removes all scripts for the specified agent 2 24 50216 if it exists.
-*No need to micromanage. :)
-loop
-	doif sorq 2 24 50216 va00 eq 1
-		scrx 2 24 50216 va00
-	endi
-	addv va00 1
-untl va00 eq 2000
-setv va00 0
+
+scrx 2 24 50216 10
+scrx 2 24 50216 1
+scrx 2 24 50216 6
+scrx 2 24 50216 2
+scrx 2 24 50216 3
+
 
 
 enum 2 18 50216
 	kill targ
 next
-*Removes all scripts for the specified agent 2 24 50216 if it exists.
-*No need to micromanage. :)
-loop
-	doif sorq 2 18 50216 va00 eq 1
-		scrx 2 18 50216 va00
-	endi
-	addv va00 1
-untl va00 eq 2000
-setv va00 0
 
-*Removes all scripts for the specified agent 2 24 50216 if it exists.
-*No need to micromanage. :)
-loop
-	doif sorq 2 18 50216 va00 eq 1
-		scrx 2 18 50216 va00
-	endi
-	addv va00 1
-untl va00 eq 2000
-setv va00 0
+scrx 2 18 50216 10
+scrx 2 18 50216 12
+scrx 2 18 50216 5
+scrx 2 18 50216 9
+
+
+
 
 enum 2 15 50217
 	kill targ
 next
+
+scrx 2 15 50217 10
+scrx 2 15 50217 1
+scrx 2 15 50217 2
+scrx 2 15 50217 3
+scrx 2 15 50217 12
+scrx 2 15 50217 9
+scrx 2 15 50217 6
+
+
 
 
 *Frogs
 enum 2 15 50216
 	kill targ
 next
-*Removes all scripts for the specified agent 2 15 50216 if it exists.
-*No need to micromanage. :)
-loop
-	doif sorq 2 15 50216 va00 eq 1
-		scrx 2 15 50216 va00
-	endi
-	addv va00 1
-untl va00 eq 2000
-setv va00 0
 
-***These aren't quite accurate - Verm
-***OV## Definitions***		***STIMULUS NUMBERS***		***ATTR***			***BHVR***
-*ov00	OWNR				76	Discomfort			1	Carryable		1	Activate 1
-*ov01	Age Counter			77	Eaten plant			2	Mousable		2	Activate 2
-*ov02	Energy Level		78	Eaten fruit			4	Activateable	4	Deactivate
-*ov03	Gender			79	Eaten food			8	Greedy Cabin	8	Hit
-*ov04	Horizonal Direction	80	Eaten animal		16	Invisible		16	Eat
-*ov05	Veritcal Direction	81	Eaten detritus		32	Floatable		32	Pick Up
-*ov06	Horizontal Velocity	82	Consume alchohol		64	Suffer Collisions			
-*ov07	Vertical Velocity		83	Danger plant		128	Suffer Physics			
-*ov08	Target			84	Friendly plant		256	Camera Shy			
-*ov09	Home				85	Play bug			512	Open Air Cabin			
-*ov10	Mate				86	Play critter		1024	Rotatable			
-*ov11	Lifestage			87	Hit critter			2048	Presence			
-*ov12	Sexuality			88	Play danger animal					
-*ov13	Collection			89	Activate button					
-*ov14	Boolean			90	Activate machine					
-*ov15	Stage_1 Child		91	Got machine					
-*ov16	Stage_2 Adol		92	Hit machine					
-*ov17	Stage_3 Adult/Breed	93	Got creature egg					
-*ov18	Stage_4 Elder		94	Travelled in lift					
-*ov19	Stage_5 Senile		95	Travelled through meta door					
-*ov20	Stage_6 Die/Dead		96	Travelled through internal door					
-*					97	Played with toy		
+scrx 2 15 50216 10
+scrx 2 15 50216 9
+scrx 2 15 50216 1
+scrx 2 15 50216 12
+scrx 2 15 50216 2
+scrx 2 15 50216 3
 
-***CA's***				***RTYP's***
-*Ca smell 0 (sound)		0 - Atmosphere
-*CA smell 1 (light)		1 - Wooden Walkway
-*CA smell 2 (heat)		2 - Concrete Walkway
-*Ca smell 3 (water)		3 - Indoor Corridor
-*CA smell 4 (nutrient)		4 - Outdoor Concrete
-*CA smell 5 (water)		5 - Normal Soil
-*CA smell 6 (protein)		6 - Boggy Soil
-*CA smell 7 (carbohydrate)	7 - Drained Soil
-*CA smell 8 (fat)			8 - Fresh Water
-*CA smell 9 (flowers)		9 - Salt Water
-*CA smell 10 (machinery)	10- Ettin Home
-*CA smell 11
-*CA smell 12 (Norn)
-*CA smell 13 (Grendel)
-*CA smell 14 (Ettin)
-*CA smell 15 (Norn home)
-*CA smell 16 (Grendel home)
-*CA smell 17 (Ettin home)
-*CA smell 18
-*CA smell 19
+
+

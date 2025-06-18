@@ -900,27 +900,16 @@ enum 2 7 50228
 
 next
 
-*Removes all scripts for the specified agent 2 7 50228 if it exists.
-
-*No need to micromanage. :)
-
-loop
-
-	doif sorq 2 7 50228 va00 eq 1
-
-		scrx 2 7 50228 va00
-
-	endi
-
-	addv va00 1
-
-untl va00 eq 2000
-
-setv va00 0
+scrx 2 7 50228 10
+scrx 2 7 50228 9
+scrx 2 7 50228 1
+scrx 2 7 50228 6
+scrx 2 7 50228 12
+scrx 2 7 50228 2
+scrx 2 7 50228 255
 
 
 
-inst
 
 enum 2 3 50228
 
@@ -928,27 +917,15 @@ enum 2 3 50228
 
 next
 
-*Removes all scripts for the specified agent 2 3 50228 if it exists.
-
-*No need to micromanage. :)
-
-loop
-
-	doif sorq 2 3 50228 va00 eq 1
-
-		scrx 2 3 50228 va00
-
-	endi
-
-	addv va00 1
-
-untl va00 eq 2000
-
-setv va00 0
+scrx 2 3 50228 10
+scrx 2 3 50228 6
+scrx 2 3 50228 12
+scrx 2 3 50228 255
+scrx 2 3 50228 9
 
 
 
-inst
+
 
 enum 2 23 50228
 
@@ -956,20 +933,12 @@ enum 2 23 50228
 
 next
 
-*Removes all scripts for the specified agent 2 23 50228 if it exists.
-
-*No need to micromanage. :)
-
-loop
-
-	doif sorq 2 23 50228 va00 eq 1
-
-		scrx 2 23 50228 va00
-
-	endi
-
-	addv va00 1
-
-untl va00 eq 2000
-
-setv va00 0
+scrx 2 23 50228 10
+scrx 2 23 50228 1
+scrx 2 23 50228 6
+scrx 2 23 50228 0
+scrx 2 23 50228 2
+scrx 2 23 50228 3
+scrx 2 23 50228 4
+scrx 2 23 50228 5
+scrx 2 23 50228 255

@@ -2088,10 +2088,7 @@ enum 1 8 50200
 
 next
 
-loop
 
-	addv va00 1
-
-	scrx 1 8 50200 va00
-
-untl va00 ge 2000
+scrx 1 8 50200 9
+scrx 1 8 50200 1
+scrx 2 1 1 50200

@@ -499,11 +499,23 @@ enum 2 4 50217
 
 next
 
+scrx 2 4 50217 10
+scrx 2 4 50217 9
+
+
 enum 2 11 50217
 
 	kill targ
 
 next
+
+scrx 2 11 50217 10
+scrx 2 11 50217 9
+scrx 2 11 50217 12
+scrx 2 11 50217 6
+
+
+
 
 enum 2 10 50217
 
@@ -511,30 +523,25 @@ enum 2 10 50217
 
 next
 
+scrx 2 10 50217 10
+scrx 2 10 50217 9
+scrx 2 10 50217 12
+
+
+
 enum 2 23 50217
 
 	kill targ
 
 next
 
-
-
-*loop through all possible scripts up to 2000 and remove them.
-
-loop
-
-	addv va00 1
-
-	scrx 2 4 50217 va00
-
-	scrx 2 11 50217 va00
-
-	scrx 2 10 50217 va00
-
-	scrx 2 23 50217 va00
-
-untl va00 ge 2000
+scrx 2 23 50217 10
+scrx 2 23 50217 1
+scrx 2 23 50217 6
 
 
 
-setv va00 0
+
+
+
+
