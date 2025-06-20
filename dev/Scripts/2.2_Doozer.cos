@@ -32,6 +32,7 @@ new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 4500 5500
 tick 1
 mvsf 8312 48433
 
+
 *at the bottom of the incubator room lift shaft 
 new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 4500 5500
 tick 4
@@ -48,6 +49,7 @@ mvsf 3963 49299
 new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 4500 5500
 tick 6
 mvsf 8584 49787
+
 
 *in the swamp
 new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 4500 5500
@@ -152,6 +154,18 @@ scrp 2 15 50219 10
 	endi
 
 ***********************************************
+
+
+*drowning timer
+	setv ov99 0
+
+	wait 1
+	inst
+
+
+*remember where you spawned. we'll go back there if we drown.
+	setv ov50 posl
+	setv ov51 post
 
 
 endm
@@ -451,6 +465,10 @@ endm
 
 scrp 2 15 50219 9
 
+*	lock
+
+*	inst
+
 *if the tick rate wasn't what we expected when the timer went off, fix it
 *because we are putting a slight variety on each doozer's initial tick so they're not all in sync
 	doif tick <> ov00
@@ -473,8 +491,19 @@ scrp 2 15 50219 9
 *	targ ownr
 
 
-*we are UNDERWATER!!
-	doif rtyp room targ eq 8 or rtyp room targ eq 9
+*we are UNDERWATER!! (and not being carried)
+	doif rtyp room targ eq 8 or rtyp room targ eq 9 and carr = null
+		setv va60 1
+
+	endi
+
+
+	slow
+
+*we're underwater, so:
+	doif va60 = 1
+
+		lock
 
 *temporarily set PERM to 50 so doozer can jump out of water easier by going through the bottom of platforms
 		perm 50
@@ -496,12 +525,126 @@ scrp 2 15 50219 9
 			setv ov02 1
 		endi
 
+
+
+
+
+*keep track of how long we've been underwater
+		addv ov99 1
+
+		doif ov99 > 10
+
+*reset drown timer to stop multiple smoke puffs
+			setv ov99 0
+
+			setv va00 posl
+			setv va01 post
+
+			setv va02 plne
+			addv va02 1
+
+
+
+*teleport FX out
+			new: simp 1 17 50200 "smoke" 5 10 va02
+
+			seta va80 targ
+
+			attr 32
+
+			mvto va00 va01
+
+			frel ownr
+
+			flto -12 0
+
+			snde "wrp2"
+
+
+*play half the teleport anim in the current room...
+			anim [0 1]
+
+			over
+
+			inst
+
+			setv va90 posl
+			setv va91 post
+
+			frel null
+
+			mvto va90 va91
+
+			targ ownr
+
+*reset perm after safe move
+			perm 51
+
+			mvsf ov50 ov51
+
+			targ va80
+
+*...and the other half plays without being attached to the doozer
+			anim [2 3 4]
+
+			over
+
+			inst
+
+			kill targ
+
+			targ ownr
+
+
+
+
+
+
+
+
+			setv va00 posl
+			setv va01 post
+
+
+*teleport FX in
+
+			new: simp 1 17 50200 "smoke" 5 25 va02
+
+			attr 32
+
+			mvto va00 va01
+
+			frel ownr
+
+			flto -12 0
+
+			snde "wrp1"
+
+			anim [0 1 2 3 4]
+
+			over
+
+			inst
+
+			kill targ
+
+			targ ownr
+
+
+			stop
+
+			unlk
+		endi
+
+
+*NOT underwater
 	else
 
+*drowning timer reset
+		setv ov99 0
 
-
-*50% chance to make a sound every time it takes a step while not underwater
-		setv va00 rand 0 1
+*33% chance to make a sound every time it takes a step while not underwater
+		setv va00 rand 0 2
 		doif va00 = 1
 			sndc "dooz"
 		endi
@@ -516,7 +659,14 @@ scrp 2 15 50219 9
 
 
 
+*we have increased perm
 	doif perm = 50
+
+*wait a moment before resetting perm, so that we may jump through a thin wall instead of just a thin floor. good for when the water barriers are turned on.
+*		wait rand 1 5
+		wait 3
+
+		inst
 
 		setv va50 perm
 		setv va00 posl
