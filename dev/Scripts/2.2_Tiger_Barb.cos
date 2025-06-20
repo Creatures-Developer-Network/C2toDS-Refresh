@@ -1495,23 +1495,11 @@ enum 2 16 50210
 
 next
 
-*Removes all scripts for the specified agent classifier if it exists.
-
-*No need to micromanage. :)
-
-loop
-
-	doif sorq 2 16 50210 va00 eq 1
-
-		scrx 2 16 50210 va00
-
-	endi
-
-	addv va00 1
-
-untl va00 eq 2000
-
-setv va00 0
+scrx 2 16 50210 12
+scrx 2 16 50210 5
+scrx 2 16 50210 255
+scrx 2 16 50210 9
+scrx 2 16 50210 10
 
 
 
@@ -1523,7 +1511,14 @@ enum 2 18 50210
 
 next
 
-*Vender
+scrx 2 18 50210 9
+scrx 2 18 50210 12
+scrx 2 18 50210 10
+
+
+
+
+*vendor
 
 enum 2 24 50213
 
@@ -1531,23 +1526,9 @@ enum 2 24 50213
 
 next
 
-*Removes all scripts for the specified agent classifier if it exists.
-
-*No need to micromanage. :)
-
-loop
-
-	doif sorq 2 18 50210 va00 eq 1
-
-		scrx 2 18 50210 va00
-
-	endi
-
-	addv va00 1
-
-untl va00 eq 2000
-
-setv va00 0
+scrx 2 24 50213 10
+scrx 2 24 50213 1
+scrx 2 24 50213 6
 
 
 
@@ -1559,36 +1540,6 @@ enum 2 10 50210
 
 next
 
-*Removes all scripts for the specified agent classifier if it exists.
-
-*No need to micromanage. :)
-
-loop
-
-	doif sorq 2 10 50210 va00 eq 1
-
-		scrx 2 10 50210 va00
-
-	endi
-
-	addv va00 1
-
-untl va00 eq 2000
-
-setv va00 0
-
-
-
-loop
-
-	doif sorq 2 24 50213 va00 eq 1
-
-		scrx 2 24 50213 va00
-
-	endi
-
-	addv va00 1
-
-untl va00 eq 2000
-
-setv va00 0
+scrx 2 10 50210 10
+scrx 2 10 50210 9
+scrx 2 10 50210 12

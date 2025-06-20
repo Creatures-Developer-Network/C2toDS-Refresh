@@ -1574,14 +1574,15 @@ mvto 2618 49823
 
 
 
-*Strange Metal Crate*
-
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 1 4 8000
-
-attr 0
-
-mvto 2138 49394
-
+**there is no reason for this to exist because nothing should ever be drawn behind it
+**Metal Mine Cart (above kegs)*
+*
+*new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 1 4 8000
+*
+*attr 0
+*
+*mvto 2138 49394
+*cmrt 0
 
 
 
@@ -2087,10 +2088,7 @@ enum 1 8 50200
 
 next
 
-loop
 
-	addv va00 1
-
-	scrx 1 8 50200 va00
-
-untl va00 ge 2000
+scrx 1 8 50200 9
+scrx 1 8 50200 1
+scrx 2 1 1 50200
