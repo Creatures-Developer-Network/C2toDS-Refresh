@@ -336,7 +336,7 @@ scrp 2 15 50219 1001
 
 *reset timer for consistency
 	tick 0
-	wait 1
+	wait 8
 	tick ov00
 
 endm
@@ -475,6 +475,15 @@ scrp 2 15 50219 9
 		tick ov00
 	endi
 
+
+*rarely flip direction
+	doif rand 0 20 = 0
+		doif ov01 = 0
+			setv ov02 1
+		else
+			setv ov02 0
+		endi
+	endi
 
 
 **rare chance for a doozer to teach a word without interaction
