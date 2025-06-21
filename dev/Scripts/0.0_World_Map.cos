@@ -4140,14 +4140,11 @@ scrp 3 14 50202 10000
 	inst
 
 
-
 *KILL C2TODS ROOMS AND METAROOM
 
 
-*todo: so should we replace this with a normal room remove script?
 
 *FIXME: if the world is a few ticks old (aka ran from C2toDS main agent RSCR), don't bother! due to the way CA works, it doesn't seem possible to remove rooms safely, as we can't check if CA is passing through it.
-*todo: special variable when ran from injector instead maybe?
 *todo: do we even need this??? it seems to remove fine now. somehow.
 *	doif wtik < 10
 	doif 0 = 0
