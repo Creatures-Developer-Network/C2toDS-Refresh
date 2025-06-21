@@ -69,8 +69,8 @@ repe
 
 inst
 
-* Genus Vendor, Plane 400
-new: comp 2 23 50210 "moe_C2toDS_TomatoMachine" 0 0 400
+* Genus Vendor, Plane 2000
+new: comp 2 23 50210 "moe_C2toDS_TomatoMachine" 0 0 2000
 
 *output (yellow)
 prt: onew 0 "output" "Tomato Machine output" 17 84
