@@ -233,12 +233,12 @@ link va49 va50 100
 
 *link va09 va10 100
 
-*Move the Camera and enlarge and display the Map -  These are for the dev phase.*
 
-cmrp 6753 48383 0
+
+
+
 
 rscr
-
 
 
 
