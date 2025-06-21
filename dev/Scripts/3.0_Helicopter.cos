@@ -60,11 +60,8 @@ scrp 3 2 50206 10
 	elas 0
 
 
-*TODO: perm 51 stops it falling through the bridge and volcano
-*... but it also stops it spawning, so I guess we gotta edit the map...
-*	perm 51
-
-	perm 50
+*perm 51 stops it falling through all the thin platforms
+	perm 51
 
 *accg value (default)
 	setv ov05 2
