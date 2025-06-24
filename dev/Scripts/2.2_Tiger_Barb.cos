@@ -1,6 +1,6 @@
 * 2 24 50213 - Tiger Barb Maker
 * 2 18 50210 - Tiger Barb Eggs
-* 2 16 50210 - Tiger Barb
+* 2 16 50204 - Tiger Barb
 * 2 10 50210 - Tiger Barb Detritus
 
 * Verm here, just improving fish meat on skeletons & in eggs.
@@ -135,7 +135,7 @@ scrp 2 18 50210 9
 
 
 
-	esee 2 16 50210
+	esee 2 16 50204
 
 		doif targ ne null
 
@@ -161,7 +161,7 @@ scrp 2 18 50210 9
 
 
 *make baby fish
-		new: simp 2 16 50210 "moe_c2tods_Tbarb" 33 12 rand 1000 3000
+		new: simp 2 16 50204 "moe_c2tods_Tbarb" 33 12 rand 1000 3000
 
 		mvsf va00 va01
 
@@ -405,7 +405,7 @@ endm
 *endm
 
 
-scrp 2 16 50210 12
+scrp 2 16 50204 12
 
 	doif from ne ownr
 
@@ -463,31 +463,31 @@ endm
 
 **activate 1
 *
-*scrp 2 16 50210 1
+*scrp 2 16 50204 1
 *
 *endm
 *
 **activate 2
 *
-*scrp 2 16 50210 2
+*scrp 2 16 50204 2
 *
 *endm
 *
 **hit
 *
-*scrp 2 16 50210 3
+*scrp 2 16 50204 3
 *
 *endm
 *
 **pickup
 *
-*scrp 2 16 50210 4
+*scrp 2 16 50204 4
 *
 *endm
 
 *drop
 
-scrp 2 16 50210 5
+scrp 2 16 50204 5
 
 
 
@@ -555,7 +555,7 @@ endm
 
 *Catchall
 
-scrp 2 16 50210 255
+scrp 2 16 50204 255
 
 endm
 
@@ -563,7 +563,7 @@ endm
 
 *timer
 
-scrp 2 16 50210 9
+scrp 2 16 50204 9
 
 *Ov14 is the boolean for whether or not you've laid eggs 0-n 1-y
 
@@ -1362,7 +1362,7 @@ endm
 *eat
 
 
-scrp 2 16 50210 10
+scrp 2 16 50204 10
 
 	inst
 
@@ -1489,17 +1489,17 @@ rscr
 
 *Fish
 
-enum 2 16 50210
+enum 2 16 50204
 
 	kill targ
 
 next
 
-scrx 2 16 50210 12
-scrx 2 16 50210 5
-scrx 2 16 50210 255
-scrx 2 16 50210 9
-scrx 2 16 50210 10
+scrx 2 16 50204 12
+scrx 2 16 50204 5
+scrx 2 16 50204 255
+scrx 2 16 50204 9
+scrx 2 16 50204 10
 
 
 
