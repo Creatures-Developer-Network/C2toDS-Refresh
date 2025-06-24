@@ -115,9 +115,9 @@ with PART1_PATH.open("wb") as f:
     tags: dict[str, str | int] = {
         "Agent Type": 0,
         "Agent Description": PART1_DESC,
-        "Agent Animation File": THUMB.name,  # thumbnail
+        "Agent Animation File": THUMB.name,  # thumbnail file (with extension)
         "Agent Sprite First Image": "1",
-        "Agent Animation Gallery": "blnk",
+        "Agent Animation Gallery": THUMB.stem,  # thumbnail gallery name (no .c16)
         "Dependency Count": len(dependencies),
         "Web URL": "https://github.com/Creatures-Developer-Network/C2toDS-Refresh/",
         "Web Label": "C2toDS-Refresh on GitHub",
