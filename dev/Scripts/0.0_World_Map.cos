@@ -4457,7 +4457,7 @@ scrp 3 14 50205 10
 
 *DS Capillata
 		doif grap 2627 9038 <> -1
-			setv mame "safeX" 2627
+			setv mame "safeX" 2615
 			setv mame "safeY" 9038
 *C3 Norn Terrarium
 		elif grap 1650 686 <> -1
@@ -4475,7 +4475,6 @@ scrp 3 14 50205 10
 
 *move camera out of room
 		doif gmap cmrx cmry = VA60
-
 			cmrp mame "safeX" mame "safeY" 0
 
 		endi
@@ -4511,7 +4510,9 @@ scrp 3 14 50205 10
 
 *don't attempt to move objects that aren't autonomous (being carried etc)
 					doif movs eq 0
-						mvsf mame "safeX" mame "safeY"
+						setv va45 mame "safeX"
+						addv va45 rand -150 150
+						mvsf va45 mame "safeY"
 						velo 0 0
 					endi
 
