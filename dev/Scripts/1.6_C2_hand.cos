@@ -3,6 +3,15 @@
 *2 1 50201 - Red NO Circle (temporary object)
 
 *NeoDement fixed this to not show a Red NO Circle when dropping an object with collisions disabled outside the room system.
+*NeoDement added tint copy support from main cursor
+
+
+
+
+*assume cursor is untinted by default
+sets game "C2toDS_CurrentHandColour" "0"
+sets game "C2toDS_PreviousHandColour" "0"
+
 
 
 targ pntr
@@ -27,12 +36,20 @@ mvto 6365 48223
 
 setv ov00 gmap posx posy
 
-*Templer Underground
+*Temple Underground
 
 setv ov05 gmap 12953 47957
 
 tick 1
 
+
+
+
+
+* TODO: DISABLE C2 HAND. THIS ALSO DISABLES THE "NO" SIGN THAT APPEARS WHEN DROPPING OBJECTS OUT OF BOUNDS
+* ENABLE C2 HAND EVERYWHERE OPTION.
+
+*probably best to reconstruct script for this somewhat. it's quite clunky.
 
 
 *Timer Script
@@ -91,6 +108,43 @@ endm
 
 
 
+
+
+
+
+
+*CHECK FOR HAND COLOUR UPDATES IN DS UI
+*********************************************
+
+scrp 2 1 50200 400
+
+	inst
+
+*target ui panel and check hand tint status
+	rtar 1 2 12
+	doif targ = null
+		stop
+	endi
+
+	doif name "hand" = "custom"
+
+		sets game "C2toDS_CurrentHandColour" vtos game "pntr_Red"
+		adds game "C2toDS_CurrentHandColour" vtos game "pntr_Green"
+		adds game "C2toDS_CurrentHandColour" vtos game "pntr_Blue"
+
+	elif name "hand" = "normal"
+
+		sets game "C2toDS_CurrentHandColour" "0"
+
+	endi
+
+endm
+
+*********************************************
+
+
+
+
 *Switch to C2 Pointer Script
 
 scrp 1 18 50200 200
@@ -130,6 +184,26 @@ scrp 1 18 50200 200
 	tick 1
 
 	seta mv03 targ
+
+
+
+
+
+*NEW HANDS NEED TO COPY TINT IMMEDIATELY!
+
+	doif game "C2toDS_CurrentHandColour" <> "0"
+
+** Tint the hand
+		tint game "pntr_Red" game "pntr_Green" game "pntr_Blue" 128 128
+
+	endi
+
+
+
+*	endi
+
+
+
 
 
 
@@ -208,6 +282,7 @@ scrp 1 18 50200 201
 
 
 
+
 endm
 
 
@@ -228,6 +303,43 @@ scrp 2 1 50200 9
 	pose ov00
 
 	mira va00
+
+
+	doif game "C2toDS_CurrentHandColour" <> game "C2toDS_PreviousHandColour"
+
+		doif game "C2toDS_CurrentHandColour" = "0"
+
+** Untint the hand
+			tint 128 128 128 128 128
+			sets game "C2toDS_PreviousHandColour" "0"
+
+		else
+** Tint the hand
+			tint game "pntr_Red" game "pntr_Green" game "pntr_Blue" 128 128
+
+			sets game "C2toDS_PreviousHandColour" vtos game "pntr_Red"
+			adds game "C2toDS_PreviousHandColour" vtos game "pntr_Green"
+			adds game "C2toDS_PreviousHandColour" vtos game "pntr_Blue"
+		endi
+
+
+
+	endi
+
+
+
+*check for hand colour updates in DS UI, every 20 ticks
+	addv ov10 1
+
+	doif ov10 = 20
+
+		call 400 0 0
+
+		setv ov10 0
+
+	endi
+
+
 
 endm
 
@@ -341,3 +453,5 @@ scrx 1 18 50200 201
 scrx 2 1 50200 9
 scrx 2 1 50200 76
 scrx 2 1 50201 10
+
+scrx 2 1 50200 400
