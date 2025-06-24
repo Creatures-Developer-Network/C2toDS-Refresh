@@ -99,6 +99,8 @@ repe
 
 scrp 2 23 50204 10
 
+inst
+
 	attr 199
 
 	accg 4
@@ -623,20 +625,20 @@ scrp 2 7 50204 9
 
 
 					targ mv04
-					
-					doif targ ne null					
+
+					doif targ ne null
 						kill targ
 					endi
 
 					targ mv05
-					
-					doif targ ne null					
+
+					doif targ ne null
 						kill targ
 					endi
 
 					targ mv06
 
-					doif targ ne null					
+					doif targ ne null
 						kill targ
 					endi
 
@@ -1604,6 +1606,8 @@ endm
 *detritus create
 
 scrp 2 10 50204 10
+
+inst
 
 	attr 195
 
