@@ -11,6 +11,7 @@ addb ov01 "c2tods"
 addb ov01 "c2tods_night"
 tick 200
 
+
 * ov00 0 = day
 * ov00 1 = night
 
@@ -27,46 +28,29 @@ endm
 
 scrp 1 1 50200 9
 	inst
+
+	doif game "C2toDS_DisableNightVisuals" = 1
+		gsub day
+		tick 0
+		stop
+	endi
+
+
 	doif ov00 eq 0
 		doif time eq 3 or time eq 4
-			inst
-
-*change world wrap camera background
-			enum 1 5 50200
-				scam targ 1
-				bkgd mv01 "c2tods_night" 2
-			next
-
-			targ ownr
-			setv ov00 1
 			gsub night
-
-*change main metaroom background (do this last because it forces the screen to update mid-inst otherwise)
-			scam null -1
-			bkgd ov01 "c2tods_night" 2
 		endi
 	elif ov00 eq 1
 		doif time eq 0 or time eq 1 or time eq 2
-			inst
-
-*change world wrap camera background
-			enum 1 5 50200
-				scam targ 1
-				bkgd mv01 "c2tods" 2
-			next
-
-			targ ownr
-			setv ov00 0
 			gsub day
-
-*change main metaroom background (do this last because it forces the screen to update mid-inst otherwise)
-			scam null -1
-			bkgd ov01 "c2tods" 2
 		endi
 	endi
 
 
 	subr night
+
+		inst
+
 
 ************************** small sphere door **************************
 		enum 2 2 50201
@@ -173,10 +157,27 @@ scrp 1 1 50200 9
 				gall "moe_c2tods_trolly_night" va00
 			endi
 		next
+
+
+*change world wrap camera background
+		enum 1 5 50200
+			scam targ 1
+			bkgd mv01 "c2tods_night" 2
+		next
+
+		targ ownr
+		setv ov00 1
+
+*change main metaroom background (do this last because it forces the screen to update mid-inst otherwise)
+		scam null -1
+		bkgd ov01 "c2tods_night" 2
+
 	retn
 
 
 	subr day
+
+		inst
 
 ************************** small sphere door **************************
 		enum 2 2 50201
@@ -282,6 +283,20 @@ scrp 1 1 50200 9
 				gall "moe_c2tods_trolly" va00
 			endi
 		next
+
+
+*change world wrap camera background
+		enum 1 5 50200
+			scam targ 1
+			bkgd mv01 "c2tods" 2
+		next
+
+		targ ownr
+		setv ov00 0
+
+*change main metaroom background (do this last because it forces the screen to update mid-inst otherwise)
+		scam null -1
+		bkgd ov01 "c2tods" 2
 
 	retn
 
