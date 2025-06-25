@@ -815,7 +815,7 @@ scrp 1 28 50205 9
 		puhl 5 15 10
 
 *load ANY ettin genome
-*	gene load targ 1 "e*"
+*	gene load targ 1 "ettn.*"
 
 *nah, load the C2toDS specific one!
 *		gene load targ 1 "ettn-wild"

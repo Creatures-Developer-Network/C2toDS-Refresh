@@ -303,7 +303,7 @@ scrp 1 32 50200 9
 	endi
 
 *load ANY grendel genome
-*	gene load targ 1 "g*"
+*	gene load targ 1 "gren.*"
 
 *nah, load the C2toDS specific one!
 *	gene load targ 1 "c2grendel.49"
