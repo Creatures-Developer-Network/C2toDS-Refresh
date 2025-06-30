@@ -1,0 +1,405 @@
+*C2 GRENDEL MOTHER, ported and improved by NeoDement
+
+*1 31 50200 9 - GRENDEL MOTHER
+*1 32 50200 9 - GRENDEL EGGS
+
+
+
+*if debugging, for your sanity, I recommend setting BUZZ 1 to speed up these eggs!
+
+
+
+
+
+
+
+
+new: simp 1 31 50200 "blnk" 0 0 0
+tick 1000
+
+
+
+
+*create initial eggs!
+
+reps 22
+
+	setv va10 9067
+	setv va11 48879
+
+	doif va00 = 0
+		addv va10 61
+		addv va11 22
+		setv va12 0
+	elif va00 = 1
+		addv va10 -58
+		addv va11 40
+		setv va12 0
+	elif va00 = 2
+		addv va10 -79
+		addv va11 43
+		setv va12 0
+	elif va00 = 3
+		addv va10 55
+		addv va11 23
+		setv va12 2
+	elif va00 = 4
+		addv va10 -23
+		addv va11 35
+		setv va12 0
+	elif va00 = 5
+		addv va10 77
+		addv va11 13
+		setv va12 0
+	elif va00 = 6
+		addv va10 -33
+		addv va11 36
+		setv va12 0
+	elif va00 = 7
+		addv va10 -54
+		addv va11 39
+		setv va12 0
+	elif va00 = 8
+		addv va10 44
+		addv va11 25
+		setv va12 1
+	elif va00 = 9
+		addv va10 -63
+		addv va11 40
+		setv va12 0
+	elif va00 = 10
+		addv va10 -52
+		addv va11 39
+		setv va12 2
+	elif va00 = 11
+		addv va10 -41
+		addv va11 37
+		setv va12 1
+	elif va00 = 12
+		addv va10 98
+		addv va11 12
+		setv va12 1
+	elif va00 = 13
+		addv va10 16
+		addv va11 29
+		setv va12 0
+	elif va00 = 14
+		addv va10 -75
+		addv va11 42
+		setv va12 0
+	elif va00 = 15
+		addv va10 -39
+		addv va11 37
+		setv va12 0
+	elif va00 = 16
+		addv va10 -56
+		addv va11 39
+		setv va12 0
+	elif va00 = 17
+		addv va10 26
+		addv va11 27
+		setv va12 1
+	elif va00 = 18
+		addv va10 -87
+		addv va11 44
+		setv va12 1
+	elif va00 = 19
+		addv va10 93
+		addv va11 13
+		setv va12 0
+	elif va00 = 20
+		addv va10 51
+		addv va11 24
+		setv va12 2
+	elif va00 = 21
+		addv va10 85
+		addv va11 15
+		setv va12 1
+	endi
+
+	new: simp 1 32 50200 "Moe_C2toDS_GrendelEggs" 12 0 2
+
+*egg category
+	cato 29
+
+	pose va12
+	mvto va10 va11
+
+	addv va00 1
+
+repe
+
+
+*sets va00 "Moe_C2toDS_GrendelEggs"
+
+*new: simp 1 32 50200 va00 12 0 2
+*mvto 8980 48923
+
+
+scrp 1 31 50200 9
+	inst
+
+
+**do nothing if Grendel Mother isn't enabled
+*	doif game "C2toDS_GrendelMotherEnabled" = 0
+*		stop
+*	endi
+
+
+	tick 1000
+*	tick 10
+
+*do we have less than 1 alive grendel, and no grendel eggs waiting to hatch?
+	setv va00 0
+	enum 4 2 0
+		doif dead = 0
+			addv va00 1
+		endi
+	next
+	addv va00 totl 3 4 2
+
+
+	doif va00 < 1
+*if there's already a grendel egg, target it and start ticking
+		rtar 1 32 50200
+		doif targ <> null
+			tick 200
+		endi
+	else
+
+*not really sure what this original C2 code was supposed to do. I'm just gonna freeze all our fake eggs if we already have a grendel.
+**we have exactly 1 grendel
+*		doif va00 eq 1
+**10% chance to target a grendel egg and stop it ticking
+*			setv va01 rand 0 9
+*			doif va01 eq 0
+*				rtar 1 32 50200
+*				doif targ <> null
+*					tick 0
+*				endi
+*			endi
+*		endi
+
+		enum 1 32 50200
+			tick 0
+		next
+
+	endi
+
+*do we have less than 20 grendel eggs?
+	setv va00 totl 1 32 50200
+	doif va00 < 20
+		inst
+
+*new egg coming
+		new: simp 1 32 50200 "Moe_C2toDS_GrendelEggs" 12 0 2
+
+*suffer collisions + suffer physics
+		attr 192
+
+*physics
+		elas 10
+		fric 100
+		aero 10
+		accg 4
+		perm 60
+
+*creatures can't interact or see
+		bhvr 0
+
+
+*C2 framerate
+		frat 2
+
+*Grendel variable to track our unborn creature
+		seta name "Grendel" null
+
+
+
+*start on random frame between 0 and 2
+		setv va03 rand 0 2
+		pose va03
+
+
+
+*position in one of the two random egg piles, but make sure you're touching another egg too. this keeps the pile looking organic.
+*give up after 500 attempts. no infinite loops on my watch.
+		seta va60 targ
+		setv va70 0
+		setv va80 0
+		loop
+			doif rand 0 1 = 0
+				mvsf rand 9083 9165 48880
+			else
+				mvsf rand 8980 9044 48880
+			endi
+
+			enum 1 32 50200
+				doif touc va60 targ = 1
+					setv va70 1
+				endi
+			next
+
+			addv va80 1
+
+		untl va70 = 1 or va80 = 500
+
+		slow
+	endi
+endm
+
+
+
+*EGG TIMER
+
+scrp 1 32 50200 9
+
+	lock
+
+	tick 0
+*clean muck off egg before you delete it
+	doif pose eq 10
+		pose 11
+		tick 200
+*		tick 2
+		stop
+	endi
+*egg is fully cracked and clean. time to delete.
+	doif pose eq 11
+		kill ownr
+	endi
+
+
+*do we have less than 1 alive grendel, and no grendel eggs waiting to hatch?
+	setv va00 0
+	enum 4 2 0
+		doif dead = 0
+			addv va00 1
+		endi
+	next
+	addv va00 totl 3 4 2
+
+
+*don't hatch if we already have a grendel
+	doif va00 > 0
+		stop
+	endi
+
+*do nothing if Grendel Mother isn't enabled
+	doif game "C2toDS_GrendelMotherEnabled" = 0
+		stop
+	endi
+
+
+
+*egg is not yet fully grown, so continue to grow it
+	doif pose lt 3
+		setv va00 pose
+		addv va00 1
+		pose va00
+		setv va00 rand 30 60
+		tick va00
+		stop
+	endi
+
+*load ANY grendel genome
+*	gene load targ 1 "gren.*"
+
+*nah, load the C2toDS specific one!
+*	gene load targ 1 "c2grendel.49"
+	gene load targ 1 "gren.C2toDS_bulbous"
+
+
+*make our grendel
+	new: crea 4 ownr 1 0 0
+
+	accg game "c3_creature_accg"
+
+	bhvr game "c3_creature_bhvr"
+
+	attr game "c3_creature_attr"
+
+	perm game "c3_creature_perm"
+
+	setv va91 11
+
+	addv va91 gnus
+
+	emit va91 0.5
+
+	drea 1
+
+	seta mame "Grendel" targ
+
+	targ ownr
+
+	reps 3
+		anim [3 4 5 6 4 5 6 4 5 6 4 5 6 4 5 6 4 5 6 4 5 6 3 3 5 5 6 6 4 4 5 6 6 6 3 3 3]
+		sndc "crak"
+		over
+		wait 50
+	repe
+	targ ownr
+	sndl "crak"
+	anim [3 4 5 6 7 7 8 8 9 9]
+	setv va00 posl
+	setv va01 posy
+	fade
+	inst
+
+
+	targ mame "Grendel"
+
+	pose 75
+
+	subv va01 10
+
+	wait 7
+
+	mvsf va00 va01
+
+	aslp 0
+
+	born
+
+	over
+
+
+
+	targ ownr
+	pose 10
+	tick 200
+
+endm
+
+
+
+
+
+
+rscr
+
+enum 1 31 50200
+	kill targ
+next
+
+*kill any unborn grendels before removing
+enum 1 32 50200
+	doif type name "Grendel" = 7
+		targ name "Grendel"
+		doif targ <> null
+			doif tage = 0
+				kill targ
+			endi
+		endi
+	endi
+next
+
+
+enum 1 32 50200
+	kill targ
+next
+
+
+scrx 1 31 50200 9
+scrx 1 32 50200 9

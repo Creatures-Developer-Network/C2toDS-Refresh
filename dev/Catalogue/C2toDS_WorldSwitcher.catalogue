@@ -47,8 +47,23 @@ TAG "WorldSwitcher_AddonInstaller_Text"
 # 0
 "Failed to inject '"
 "'."
-"Script not found: Type 'dbg: poll' into CAOS Command Line for details."
-"Script error: Type 'dbg: poll' into CAOS Command Line for details."
-"'Error: Dependency evaluation failed."
+"\nScript not found: Type 'dbg: poll' into CAOS Command Line for details."
+"\nScript error: Type 'dbg: poll' into\nCAOS Command Line for details."
+"\nError: Dependency evaluation failed."
 # 5
-"Error: Chunk not found. Make sure the .agent file is in 'My Agents'."
+"\nError: Chunk not found. Make sure\nthe .agent file is in 'My Agents'."
+"\nWarning: An unknown error occured."
+
+# ===================================== #
+# C2toDS Metaroom Installer Strings     #
+# ===================================== #
+
+TAG "C2toDS_Installer_Text"
+# 0
+"Failed to inject 'C2toDS Refresh'."
+"Failed to remove 'C2toDS Refresh'."
+"\n'C2toDS_Refresh_Part2.agents' not\nfound in 'My Agents'."
+"\nError: Try injecting into a world\nwith less custom metarooms installed."
+"\nError: The C2toDS metaroom is\nalready present in this world."
+# 5
+"\nError: The C2toDS metaroom is\nnot present in this world."

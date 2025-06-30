@@ -1,7 +1,5 @@
-*todo: these haven't been updated since the map changed. are they still doing what they're supposed to do?
 
-
-*Just to make all the connecting links for the updated stuff. Might need to be changed when the map changes
+*Just to make all the connecting links for the updated stuff.
 
 **Boat
 link grap 8500 48130 grap 9256 48130 100
@@ -233,12 +231,12 @@ link va49 va50 100
 
 *link va09 va10 100
 
-*Move the Camera and enlarge and display the Map -  These are for the dev phase.*
 
-cmrp 6753 48383 0
+
+
+
 
 rscr
-
 
 
 
@@ -466,6 +464,5 @@ link grap 4542 48845 grap 5879 48359 0
 link grap 2400 48161 grap 3078 48133 0
 **Shuttle
 link grap 6674 49082 grap 8232 49243 0
-
 
 

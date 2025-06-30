@@ -1,4 +1,4 @@
-* 1 15 50219 - Doozer
+* 2 15 50219 - Doozer
 
 
 
@@ -32,6 +32,7 @@ new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 4500 5500
 tick 1
 mvsf 8312 48433
 
+
 *at the bottom of the incubator room lift shaft 
 new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 4500 5500
 tick 4
@@ -48,6 +49,7 @@ mvsf 3963 49299
 new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 4500 5500
 tick 6
 mvsf 8584 49787
+
 
 *in the swamp
 new: simp 2 15 50219 "moe_C2toDS_Doozer" 18 0 rand 4500 5500
@@ -154,6 +156,18 @@ scrp 2 15 50219 10
 ***********************************************
 
 
+*drowning timer
+	setv ov99 0
+
+	wait 1
+	inst
+
+
+*remember where you spawned. we'll go back there if we drown.
+	setv ov50 posl
+	setv ov51 post
+
+
 endm
 
 
@@ -162,6 +176,8 @@ endm
 *Collision Script
 
 scrp 2 15 50219 6
+
+	inst
 
 	doif wall eq left
 
@@ -322,7 +338,7 @@ scrp 2 15 50219 1001
 
 *reset timer for consistency
 	tick 0
-	wait 1
+	wait 8
 	tick ov00
 
 endm
@@ -451,32 +467,44 @@ endm
 
 scrp 2 15 50219 9
 
+
+*NOTE: we can't lock this immediately because it's designed in such a way that the collision script should interrupt the timer script for a little as the doozer hits the floor.
+
+*	lock
+
+	inst
+
 *if the tick rate wasn't what we expected when the timer went off, fix it
 *because we are putting a slight variety on each doozer's initial tick so they're not all in sync
 	doif tick <> ov00
 		tick ov00
 	endi
 
+*rarely flip direction
+	doif rand 0 45 = 0
+		doif ov01 = 0
+			setv ov02 1
+		else
+			setv ov02 0
+		endi
+	endi
 
 
-**rare chance for a doozer to teach a word without interaction
-*	setv va02 rand 0 100
-*	doif va02 = 1
-*		call 1 0 0
-*	endi
+*we are UNDERWATER!! (and not being carried)
+	doif rtyp room targ eq 8 or rtyp room targ eq 9 and carr = null
+		setv va60 1
+	endi
 
-**reduce boredom of nearby creatures
-*	esee 4 0 0
-*		chem 156 -0.01
-*	next
-*
-*	targ ownr
+	slow
 
 
-*we are UNDERWATER!!
-	doif rtyp room targ eq 8 or rtyp room targ eq 9
 
-*temporarily set PERM to 50 so doozer can jump out of water easier by going through the bottom of platforms
+*we're underwater, so:
+	doif va60 = 1
+
+		lock
+
+*temporarily set PERM to 50 so doozer can jump out of water easier by going through thin platforms/walls
 		perm 50
 
 		snde "doz3"
@@ -496,27 +524,177 @@ scrp 2 15 50219 9
 			setv ov02 1
 		endi
 
-	else
 
 
 
-*50% chance to make a sound every time it takes a step while not underwater
-		setv va00 rand 0 1
-		doif va00 = 1
-			sndc "dooz"
+
+*keep track of how long we've been underwater
+		addv ov99 1
+
+		doif ov99 > 12
+
+*reset drown timer to stop multiple smoke puffs
+			setv ov99 0
+
+			setv va00 posl
+			setv va01 post
+
+			setv va02 plne
+			addv va02 1
+
+
+
+*teleport FX out
+			new: simp 1 17 50200 "smoke" 5 10 va02
+
+			seta va80 targ
+
+			attr 32
+
+			mvto va00 va01
+
+			frel ownr
+
+			flto -12 0
+
+			snde "wrp2"
+
+
+*play half the teleport anim in the current room...
+			anim [0 1]
+
+			over
+
+			inst
+
+			setv va90 posl
+			setv va91 post
+
+			frel null
+
+			mvto va90 va91
+
+			targ ownr
+
+*reset perm after safe move
+			perm 51
+
+			mvsf ov50 ov51
+
+			targ va80
+
+*...and the other half plays without being attached to the doozer
+			anim [2 3 4]
+
+			over
+
+			inst
+
+			kill targ
+
+			targ ownr
+
+
+
+
+
+
+
+
+			setv va00 posl
+			setv va01 post
+
+
+*teleport FX in
+
+			new: simp 1 17 50200 "smoke" 5 25 va02
+
+			attr 32
+
+			mvto va00 va01
+
+			frel ownr
+
+			flto -12 0
+
+			snde "wrp1"
+
+			anim [0 1 2 3 4]
+
+			over
+
+			inst
+
+			kill targ
+
+			targ ownr
+
+
 		endi
+
+		stop
+
 	endi
 
 
 
+
+*NOT underwater
+
+
+
+
+*drowning timer reset
+	setv ov99 0
+
+	slow
+
+*33% chance to make a sound every time it takes a step while not underwater
+	setv va00 rand 0 2
+	doif va00 = 1
+		sndc "dooz"
+	endi
+
 	inst
 
+	doif carr = null
+*remember where you were last safe on land. we'll go back there if we drown.
+		setv ov50 posl
+		setv ov51 post
+	endi
 
 
 
 
 
+
+
+
+
+**rare chance for a doozer to teach a word without interaction
+*	setv va02 rand 0 100
+*	doif va02 = 1
+*		call 1 0 0
+*	endi
+
+**reduce boredom of nearby creatures
+*	esee 4 0 0
+*		chem 156 -0.01
+*	next
+*
+*	targ ownr
+
+
+
+
+*we have increased perm
 	doif perm = 50
+
+*wait a moment before resetting perm, so that we may jump through a thin wall instead of just a thin floor. good for when the water barriers are turned on.
+*		wait rand 1 5
+		wait 3
+
+		inst
 
 		setv va50 perm
 		setv va00 posl
@@ -598,7 +776,6 @@ scrp 2 15 50219 9
 		setv ov04 0
 
 	endi
-
 
 
 
@@ -693,10 +870,12 @@ enum 2 15 50219
 
 next
 
-scrx 2 21 50223 10
-scrx 2 21 50223 1
-scrx 2 15 50219 10
-scrx 2 15 50219 6
 scrx 2 15 50219 1
+scrx 2 15 50219 2
+scrx 2 15 50219 3
+scrx 2 15 50219 6
 scrx 2 15 50219 9
-scrx 2 21 50222 6
+scrx 2 15 50219 1001
+scrx 2 15 50219 10
+
+*scrx 2 15 50219 12

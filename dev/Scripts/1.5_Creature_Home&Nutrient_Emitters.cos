@@ -11,8 +11,6 @@ new: simp 1 27 50200 "moe_C2toDS_emitters" 0 0 0
 
 mvto 7135 48350
 
-*todo: make the incubator emit this instead now it's movable?
-emit 15 0.25
 
 
 

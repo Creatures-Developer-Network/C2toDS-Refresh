@@ -95,42 +95,63 @@
 
 
 
-*todo: fix these up
-
-
 *CA links for the "wrap" rooms.*
+
+
 
 *Atmosphere
 
 link grap 2070 47640 grap 10375 47640 100
 
+
+
+*Atmosphere 2
+
+link grap 2070 47867 grap 10375 47867 100
+
+
+
 *Desert Beach
 
 link grap 2070 48090 grap 10375 48090 100
 
-*Biome 1
 
-link grap 2070 48340 grap 10375 48340 100
 
-*Bome 2
+*Upper Biome
+
+link grap 2070 48500 grap 10375 48500 100
+
+
+*Lower Biome
 
 link grap 2070 48822 grap 10375 48822 100
+
+
 
 *Machines to Volcano
 
 link grap 2070 49340 grap 10375 49340 100
 
+
+
+*disabled - this is inside a wall.
+
+
 *Laboratory
 
-link grap 2100 49800 grap 10455 49800 100
+*link grap 2100 49800 grap 10455 49800 100
 
-link grap 2100 49600 grap 10455 49600 100
+*link grap 2100 49600 grap 10455 49600 100
 
-*----------------------*
+
+
+*disabled - i have no idea what this was intended for. it's nowhere near the wrap.
+
 
 *Yggdrasil to Desert
 
 *link grap 12950 47678 grap 4890 48110 100
+
 
 
 
@@ -171,6 +192,9 @@ setv game "C2toDS_WrapPadding" 1
 
 * Wrap Offset - how many pixels to add or remove from an X coordinate to get its wrapped equivalent?
 setv game "C2toDS_WrapOffset" 8352
+
+*Some features are only active when a creature is near the wrap, reset it to 0
+setv game "C2toDS_NornsNearWrap?" 0
 
 
 
@@ -627,7 +651,7 @@ scrp 1 7 50201 9
 *	next
 
 *
-**debug: visible wrap point (for some reason only whichever line was defined last actually draws)
+**debug: visible wrap point (NOTE: line command can only draw onto the current screen bounds. any line drawn outside of that won't show up even when we move the camera there. camera has to be there as the line is created.)
 *	setv game "C2toDS_Bottom" 49999
 *	line 0 0 0 0 0 0 0 0 0
 *
@@ -1068,6 +1092,7 @@ scrp 1 6 50200 9
 		setv va22 crea targ
 
 
+
 *create a temporary Mirror Object to copy the Category and pos of our real object
 *it is a 1 x va21 (above) sprite positioned using the middle X coordinate of the real object
 		new: simp 1 7 50203 "moe_c2tods_worldwrap_mirror_object" 0 va21 0
@@ -1116,8 +1141,6 @@ scrp 1 6 50200 9
 
 **debug: highlight objects that are clones
 *		dcor 1
-
-
 
 
 *if you were called from an object going over the wrap instead of one you found already over the wrap, tick faster. a norn is probably looking at you.
@@ -1848,7 +1871,7 @@ scrp 1 7 50204 9
 	enum 4 0 0
 
 *don't bother if they're dead or asleep, they won't be able to see the objects anyway!
-		doif dead = 0 and aslp = 0
+		doif dead = 0 and aslp = 0 and gmap posx posy = game "C2toDS_RoomID"
 			setv va12 posx
 
 *only do this for objects that are within 500 units of the wrap point (on either side)

@@ -21,6 +21,103 @@ endi
 
 
 
+******* ALL C2TODS INSTALLER RELATED STRINGS *******
+
+*might as well reload catalogue files
+reaf
+
+*catalogue tag to read strings from
+sets va20 "WorldSwitcher_AddonInstaller_Text"
+
+*read in strings from specified catalogue file
+doif reaq va20 = 1
+
+	sets game "C2toDS_UI_SCRIPTNOTFOUND" read va20 2
+	sets game "C2toDS_UI_SCRIPTERROR" read va20 3
+	sets game "C2toDS_UI_DEPENDENCYERROR" read va20 4
+	sets game "C2toDS_UI_UNKNOWNERROR" read va20 6
+
+*plain english fallback in case the catalogue file is missing
+else
+
+	sets game "C2toDS_UI_SCRIPTNOTFOUND" "\nScript not found: Type 'dbg: poll' into CAOS Command Line for details."
+	sets game "C2toDS_UI_SCRIPTERROR" "\nScript error: Type 'dbg: poll' into\nCAOS Command Line for details."
+	sets game "C2toDS_UI_DEPENDENCYERROR" "\nError: Dependency evaluation failed."
+	sets game "C2toDS_UI_UNKNOWNERROR" "\nWarning: An unknown error occured."
+
+endi
+
+
+*catalogue tag to read strings from
+sets va20 "C2toDS_Installer_Text"
+
+*read in strings from specified catalogue file
+doif reaq va20 = 1
+
+	sets game "C2toDS_UI_FAILEDTOINJECT_C2TODS" read va20 0
+	sets game "C2toDS_UI_PART2NOTFOUND" read va20 2
+	sets game "C2toDS_UI_TOOMANYMETAROOMS" read va20 3
+	sets game "C2toDS_UI_ALREADYINSTALLED" read va20 4
+
+*plain english fallback in case the catalogue file is missing
+else
+
+	sets game "C2toDS_UI_FAILEDTOINJECT_C2TODS" "Failed to inject 'C2toDS Refresh'."
+	sets game "C2toDS_UI_PART2NOTFOUND" "\n'C2toDS_Refresh_Part2.agents' not\nfound in 'My Agents'."
+	sets game "C2toDS_UI_TOOMANYMETAROOMS" "\nError: Try injecting into a world\nwith less custom metarooms installed."
+	sets game "C2toDS_UI_ALREADYINSTALLED" "\nError: The C2toDS metaroom is\nalready present in this world."
+
+endi
+
+
+
+
+*clean up any old installer objects (including message boxes)
+enum 3 14 50205
+	kill targ
+next
+
+enum 3 14 50202
+	kill targ
+next
+
+
+
+
+
+*don't inject at all if part 2 not found.
+
+sets va99 "C2toDS Refresh HIDDEN AGENTS"
+
+doif pray test va99 = 0
+
+	sets va16 game "C2toDS_UI_PART2NOTFOUND"
+	gsub CREATE_MESSAGE_BOX
+
+*DEBUG TEXT
+	dbg: outs "C2toDS: Error installing 'C2toDS_Refresh_Part2.agents':\n\nChunk not found.\n\nSkipping injection of 'C2toDS_Refresh_Part1.agents'.\n"
+
+	stop
+endi
+
+
+
+*don't inject at all if map already present (and not defined as -1)
+
+doif game "C2toDS_RoomID" <> 0 or game "C2toDS_Temple_RoomID" <> 0
+	doif game "C2toDS_RoomID" <> -1 and game "C2toDS_Temple_RoomID" <> -1
+*"Error: The C2toDS metaroom is already present in this world."
+		sets va16 game "C2toDS_UI_ALREADYINSTALLED"
+		gsub CREATE_MESSAGE_BOX
+
+*DEBUG TEXT
+		dbg: outs "C2toDS: Error installing 'C2toDS_Refresh_Part1.agents':\n\nC2toDS metaroom already present.\n"
+		stop
+	endi
+endi
+
+
+
 
 *ROOM LIMIT IS (probably) 2000!
 setv va00 game "C2toDS_EngineMaxRooms"
@@ -74,62 +171,19 @@ setv va70 va32
 addv va70 va01
 
 
-*if the amount of rooms we would have when C2toDS is installed is more than the limit, throw an error!
 doif va70 >= va00
+*"Error: Try injecting into a world with less custom metarooms installed."
+	sets va16 game "C2toDS_UI_TOOMANYMETAROOMS"
+	gsub CREATE_MESSAGE_BOX
 
-* kill any existing Injection Failed dialogs
-	enum 3 14 50202
-		kill targ
-	next
-
-	new: comp 3 14 50202 "small_useful_screen_1button" 1 0 9076
-
-*Invisible, Floatable, Camera Shy
-	attr 304
-
-*Looking for quit dialog, we delete ours when that apears
-	tick 1
-
-*the OK button
-	pat: butt 2 "small_useful_screen_1button" 1 2 126 107 2 [0 1 255] 1001 0
-	part 2
-	anim [0]
-
-*the text box
-	pat: fixd 3 "small_useful_screen_1button" 3 25 45 1 "WhiteOnTransparentChars"
-
-*center it
-
-	setv va90 wndw
-	divv va90 2
-	setv va91 wndh
-	divv va91 2
-	setv va92 wdth
-	divv va92 2
-	setv va93 hght
-	divv va93 2
-
-	subv va90 va92
-	subv va91 va93
-
-	flto va90 va91
-
-
-	part 3
-	frmt 5 0 5 0 8 0 2
-
-*todo: different error messages
-
-	doif va70 >= va00
-
-*"Injection failed! Try injecting C2toDS: Refresh into a world with less custom metarooms installed."
-		ptxt read "C2toDS_Installer" 0
-
-		stop
-	else
-		kill ownr
-	endi
-
+*DEBUG TEXT
+	sets va17 "C2toDS: Error installing 'C2toDS_Refresh_Part1.agents':\n\nThe final room count after injecting ("
+	adds va17 vtos va70
+	adds va17 ") would be higher than the engine limit ("
+	adds va17 vtos va00
+	adds va17 ").\n"
+	dbg: outs va17
+	stop
 endi
 
 
@@ -3886,9 +3940,18 @@ delg "mapeditortmp_514"
 **********************************************************************************************
 
 
+*part 1 injected successfully(!!!)
+dbg: outs "C2toDS: 'C2toDS_Refresh_Part1.agents' injected successfully.\n"
+
+
+
+
+
 *store metaroom ID of C2toDS. used in several other C2toDS scripts, including this scripts RSCR.
 setv game "C2toDS_RoomID" gmap 6753 48383
 
+*store metaroom ID of C2toDS Temple. used in several other C2toDS scripts, including this scripts RSCR.
+setv game "C2toDS_Temple_RoomID" gmap 12942 47900
 
 *if installing from bootstrap (tick 0 of new world), skip injection of separated objects agent
 *(this is for debugging!)
@@ -3896,66 +3959,185 @@ setv game "C2toDS_RoomID" gmap 6753 48383
 doif wtik > 0
 *inject secondary agent of all objects in c2tods after the map
 	sets va99 "C2toDS Refresh HIDDEN AGENTS"
-	
-	*todo: can report FILE MISSING error specifically instead of generic failed to inject
+
+*appropriate error messages for injection errors
 	doif pray test va99 <> 0
 		setv va00 pray injt va99 1 va50
-	endi
-
-	doif va00 <> 0
-
-
-*todo: fix error message script numbers... ? maybe i meant dont share classifiers with some other c2tods script?
-* create Injection Failed dialog if we don't already have one
-		doif totl 3 14 50202 = 0
-
-			new: comp 3 14 50202 "small_useful_screen_1button" 1 0 9076
-
-*Invisible, Floatable, Camera Shy
-			attr 304
-
-*Looking for quit dialog, we delete ours when that apears
-			tick 1
-
-*the OK button
-			pat: butt 2 "small_useful_screen_1button" 1 2 126 107 2 [0 1 255] 1001 0
-			part 2
-			anim [0]
-
-*the text box
-			pat: fixd 3 "small_useful_screen_1button" 3 25 45 1 "WhiteOnTransparentChars"
-
-			part 3
-			frmt 5 0 5 0 8 0 2
-
-*'C2toDS_Refresh_part2.agents' not found?
-			ptxt read "C2toDS_Installer" 1
-
-*center it
-
-			setv va90 wndw
-			divv va90 2
-			setv va91 wndh
-			divv va91 2
-			setv va92 wdth
-			divv va92 2
-			setv va93 hght
-			divv va93 2
-
-			subv va90 va92
-			subv va91 va93
-
-			flto va90 va91
-
-*delete c2tods metaroom
-			mesg writ targ 10000
-
+		doif va00 <> 0
+			gsub inject_failed
+*run our remove script
+			new: simp 3 14 50205 "blnk" 0 0 0
+			stop
+		else
+			dbg: outs "C2toDS: 'C2toDS_Refresh_Part2.agents' injected successfully.\n"
 		endi
-
+	else
+		setv va00 -4
+		gsub inject_failed
+*run our remove script
+		new: simp 3 14 50205 "blnk" 0 0 0
 		stop
 
 	endi
+
+
+
+
 endi
+
+
+
+
+
+
+
+
+******* UNLOAD ADDON INSTALLER RELATED STRINGS *******
+
+delg "C2toDS_UI_SCRIPTNOTFOUND"
+delg "C2toDS_UI_SCRIPTERROR"
+delg "C2toDS_UI_DEPENDENCYERROR"
+delg "C2toDS_UI_UNKNOWNERROR"
+
+delg "C2toDS_UI_FAILEDTOINJECT_C2TODS"
+delg "C2toDS_UI_PART2NOTFOUND"
+delg "C2toDS_UI_TOOMANYMETAROOMS"
+delg "C2toDS_UI_ALREADYINSTALLED"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*INJECTION FAILED SUBROUTINE
+
+subr inject_failed
+
+	inst
+
+****TEXT****
+
+
+*"Script not found: Type 'dbg: poll' into CAOS Command Line for details."
+	doif va00 = -1
+		sets va16 game "C2toDS_UI_SCRIPTNOTFOUND"
+*"Script error: Type 'dbg: poll' into CAOS Command Line for details."
+	elif va00 = -2
+		sets va16 game "C2toDS_UI_SCRIPTERROR"
+*"Error: Dependency evaluation failed."
+	elif va00 = -3
+		sets va16 game "C2toDS_UI_DEPENDENCYERROR"
+	elif va00 = -4
+*"Error: 'C2toDS_Refresh_Part2.agents' not found. Make sure the file is in 'My Agents'."
+		sets va16 game "C2toDS_UI_PART2NOTFOUND"
+*"Warning: An unknown error occured."
+	else
+		sets va16 game "C2toDS_UI_UNKNOWNERROR"
+	endi
+
+	gsub CREATE_MESSAGE_BOX
+
+
+*DEBUG TEXT (verbose error)
+	sets va17 "C2toDS: Error installing 'C2toDS_Refresh_Part2.agents':\n\n"
+
+	doif va00 = -4
+		adds va17 "Chunk not found."
+	else
+		adds va17 va50
+	endi
+
+	adds va17 "\n"
+
+	dbg: outs va17
+
+
+
+************
+
+retn
+
+
+
+
+
+*CREATE MESSAGE BOX SUBROUTINE
+
+subr CREATE_MESSAGE_BOX
+
+	inst
+
+*create Injection Failed dialog even if we already have one (they can stack)
+
+*plane is decided by adding 1 to initial PLNE value for each existing error message (stops intersections)
+	setv va20 9077
+	addv va20 totl 3 14 50202
+	addv va20 totl 3 14 50203
+
+	new: comp 3 14 50202 "small_useful_screen_1button" 1 0 va20
+
+*Invisible, Floatable, Camera Shy
+	attr 304
+
+*the OK button
+	pat: butt 2 "small_useful_screen_1button" 1 2 126 107 2 [0 1 255] 1001 0
+	part 2
+	anim [0]
+
+*the text box
+	pat: fixd 3 "small_useful_screen_1button" 3 10 38 1 "WhiteOnTransparentChars"
+
+*lower text box
+	pat: fixd 4 "small_useful_screen_1button" 3 10 56 1 "WhiteOnTransparentChars"
+
+
+	part 3
+	frmt 5 0 5 0 8 0 2
+
+
+
+
+****TEXT****
+
+
+*"Failed to inject 'C2toDS Refresh'."
+	sets va15 game "C2toDS_UI_FAILEDTOINJECT_C2TODS"
+
+	ptxt va15
+
+
+	part 4
+	frmt 5 0 5 0 8 0 2
+
+*Error string set before calling subroutine. Display unknown error if this wasn't set.
+	doif type va16 <> 2
+		sets va16 game "C2toDS_UI_UNKNOWNERROR"
+	endi
+
+	ptxt va16
+
+*reset to no error for next time
+	setv va16 0
+
+************
+
+
+*center it
+
+	mesg writ targ 123
+
+*Looking for quit dialog, we delete ours when that appears
+	tick 1
+
+retn
 
 
 
@@ -3968,12 +4150,15 @@ endi
 
 *clicked ok
 scrp 3 14 50202 1001
+	inst
 	sndc "lg_1"
 	kill ownr
 endm
 
 *re-center when window resized
 scrp 3 14 50202 123
+
+	inst
 
 	setv va90 wndw
 	divv va90 2
@@ -3993,6 +4178,7 @@ endm
 
 *constantly check for quit dialog, and delete our dialog if quit dialog exists
 scrp 3 14 50202 9
+	inst
 	doif totl 1 2 8 > 0
 		kill ownr
 	endi
@@ -4007,119 +4193,125 @@ endm
 ******************************************************************************************
 
 
-*run our remove script (on a blank copy of the error message object) and then self destruct
-scrp 3 14 50202 10001
-	inst
-	call 10000 0 0
-	kill ownr
-endm
 
 
-scrp 3 14 50202 10000
+*the biiig remove script (runs as soon as this object is created)
+scrp 3 14 50205 10
 
 	lock
-
+	wait 1
 	inst
 
+******* C2TODS REMOVER RELATED STRINGS *******
 
-* RUN C2TODS HIDDEN AGENTS REMOVE SCRIPT
-*todo: this won't work until rscr is correctly built into the hidden agent.
+*might as well reload catalogue files
+	reaf
 
-	sets va99 "C2toDS Refresh HIDDEN AGENTS"
+*catalogue tag to read strings from
+	sets va20 "WorldSwitcher_AddonInstaller_Text"
 
-	doif pray test va99 <> 0
-		sets va00 pray agts va99 "Remove script" ""
-		sets va01 caos 0 0 0 0 va00 0 0 va01
+*read in strings from specified catalogue file
+	doif reaq va20 = 1
+
+		sets mame "UI_UNKNOWNERROR" read va20 6
+
+*plain english fallback in case the catalogue file is missing
+	else
+
+		sets mame "UI_UNKNOWNERROR" "\nWarning: An unknown error occured."
+
 	endi
-	
-*dbg: outs va01	
 
-	slow
-	inst
+*catalogue tag to read strings from
+	sets va20 "C2toDS_Installer_Text"
+
+*read in strings from specified catalogue file
+	doif reaq va20 = 1
+
+		sets mame "UI_FAILEDTOREMOVE_C2TODS" read va20 1
+		sets mame "UI_PART2NOTFOUND" read va20 2
+		sets mame "UI_NOTINSTALLED" read va20 5
+
+*plain english fallback in case the catalogue file is missing
+	else
+
+		sets mame "UI_FAILEDTOREMOVE_C2TODS" "Failed to remove 'C2toDS Refresh'."
+		sets mame "UI_PART2NOTFOUND" "\n'C2toDS_Refresh_Part2.agents' not\nfound in 'My Agents'."
+		sets mame "UI_NOTINSTALLED" "\nError: The C2toDS metaroom is\nnot present in this world."
+
+	endi
+
+
+
+
+
 
 
 
 
 *set this incase installation failed half-way and it failed to set, or we are running from the rscr
 	setv game "C2toDS_RoomID" gmap 6753 48383
+	setv game "C2toDS_Temple_RoomID" gmap 12942 47900
 
 
-	doif game "C2toDS_RoomID" = -1
+*don't try to run rscr if room doesn't exist!
+
+	doif game "C2toDS_RoomID" = 0 or game "C2toDS_RoomID" = -1 or game "C2toDS_Temple_RoomID" = 0 or game "C2toDS_Temple_RoomID" = -1
+		sets va16 mame "UI_NOTINSTALLED"
+		gsub CREATE_REMOVE_MESSAGE_BOX
+
+*DEBUG TEXT
+		dbg: outs "C2toDS: Error uninstalling 'C2toDS_Refresh_Part2.agents':\n\nC2toDS Metaroom not defined.\n"
+
+		wait 1
+		inst
+		kill ownr
 		stop
 	endi
 
 
-***************************************************************
-**FIND A SAFE SPACE TO MOVE NON-C2TODS OBJECTS AND CAMERA TO **
-***************************************************************
+* RUN C2TODS HIDDEN AGENTS REMOVE SCRIPT
 
-*DS Capillata
-	doif grap 2627 9038 <> -1
-		setv mame "safeX" 2627
-		setv mame "safeY" 9038
-*C3 Norn Terrarium
-	elif grap 1650 686 <> -1
-		setv mame "safeX" 1650
-		setv mame "safeY" 686
-*otherwise set it to the agent injector area
-*TODO: but is this C3 only...?
+	sets va99 "C2toDS Refresh HIDDEN AGENTS"
+
+	doif pray test va99 <> 0
+		sets va00 pray agts va99 "Remove script" ""
+		sets va01 caos 0 0 0 0 va00 0 0 va01
+*		dbg: outs va01	
 	else
-		setv mame "safeX" game "CreatorX"
-		setv mame "safeY" game "CreatorY"
+
+		sets va16 mame "UI_PART2NOTFOUND"
+		gsub CREATE_REMOVE_MESSAGE_BOX
+
+*DEBUG TEXT
+		dbg: outs "C2toDS: Error uninstalling 'C2toDS_Refresh_Part2.agents':\n\nChunk not found.\n"
+
+
+		wait 1
+		inst
+		kill ownr
+		stop
 	endi
 
-***************************************************************
 
+*part 2 removed
+	dbg: outs "C2toDS: 'C2toDS_Refresh_Part2.agents' removed successfully.\n"
 
-*move camera out of room
-	doif gmap cmrx cmry = game "C2toDS_RoomID"
-
-		cmrp mame "safeX" mame "safeY" 0
-
-	endi
 
 	slow
 	inst
 
 
-*move objects out of room (shouldn't be any)
-	enum 0 0 0
-
-*if objects are part of C2toDS, delete them instead of moving them
-		doif gmap posx posy = game "C2toDS_RoomID"
-
-*let's assume any objects inside Moe's range (50200-50299) in the C2toDS metaroom are part of C2toDS (https://creaturescaves.com/dev.php?section=Reservations&game=C3DS&searchFor=&page=5)
-			doif spcs >= 50200 and spcs <= 50299
-*make sure we don't kill clickable fav icon at top of screen (we kill it later ;))
-				doif fmly = 1 and gnus = 4 and spcs = 50200
-*					don't kill targ
-				else
-*dbg: asrt "aye" = "eye"
-					kill targ
-				endi
-*map editor markers
-			elif fmly = 1 and gnus = 1 and spcs = 229
-				kill targ
 
 
-			else
-*				dbg: outs gall
-*				dbg: outv fmly
-*				dbg: outv gnus
-*				dbg: outv spcs
+	setv va60 game "C2toDS_RoomID"
+	setv va61 50200
+	setv va62 50299
+	gsub MOVE_OBJECTS_OUT_OF_METAROOM
 
-*don't attempt to move objects that aren't autonomous (being carried etc)
-				doif movs eq 0
-					mvsf mame "safeX" mame "safeY"
-					velo 0 0
-				endi
+	setv va60 game "C2toDS_Temple_RoomID"
+	gsub MOVE_OBJECTS_OUT_OF_METAROOM
 
-			endi
-
-		endi
-
-
-	next
 
 
 *make sure the DS side teleporter is dead
@@ -4136,57 +4328,250 @@ scrp 3 14 50202 10000
 	scrx 1 7 50201 9
 
 
-	slow
-	inst
+*DELETE C2TODS METAROOM
+	setv va60 game "C2toDS_RoomID"
+	gsub DELETE_METAROOM
 
+*DELETE C2TODS TEMPLE METAROOM
+	setv va60 game "C2toDS_Temple_RoomID"
+	gsub DELETE_METAROOM
+
+*DELETE C2TODS FAV PLACE
+	setv va60 game "C2toDS_RoomID"
+	gsub DELETE_FAV_PLACE
+
+
+	delg "C2toDS_RoomID"
+	delg "C2toDS_Temple_RoomID"
+
+
+
+
+
+*part 1 removed
+	dbg: outs "C2toDS: 'C2toDS_Refresh_Part1.agents' removed successfully.\n"
+
+
+*WE ARE COMPLETELY DONE REMOVING C2TODS!!!!
+	kill ownr
+
+
+
+
+
+
+
+
+
+
+
+*CREATE MESSAGE BOX SUBROUTINE
+
+	subr CREATE_REMOVE_MESSAGE_BOX
+
+		inst
+
+*create Injection Failed dialog even if we already have one (they can stack)
+
+*plane is decided by adding 1 to initial PLNE value for each existing error message (stops intersections)
+		setv va20 9077
+		addv va20 totl 3 14 50202
+		addv va20 totl 3 14 50203
+
+		new: comp 3 14 50202 "small_useful_screen_1button" 1 0 va20
+
+*Invisible, Floatable, Camera Shy
+		attr 304
+
+*the OK button
+		pat: butt 2 "small_useful_screen_1button" 1 2 126 107 2 [0 1 255] 1001 0
+		part 2
+		anim [0]
+
+*the text box
+		pat: fixd 3 "small_useful_screen_1button" 3 10 38 1 "WhiteOnTransparentChars"
+
+*lower text box
+		pat: fixd 4 "small_useful_screen_1button" 3 10 56 1 "WhiteOnTransparentChars"
+
+
+		part 3
+		frmt 5 0 5 0 8 0 2
+
+
+
+
+****TEXT****
+
+
+*"Failed to remove 'C2toDS Refresh'."
+		sets va15 mame "UI_FAILEDTOREMOVE_C2TODS"
+
+		ptxt va15
+
+
+		part 4
+		frmt 5 0 5 0 8 0 2
+
+*Error string set before calling subroutine. Display unknown error if this wasn't set.
+		doif type va16 <> 2
+			sets va16 mame "UI_UNKNOWNERROR"
+		endi
+
+		ptxt va16
+
+*reset to no error for next time
+		setv va16 0
+
+************
+
+
+*center it
+
+		mesg writ targ 123
+
+*Looking for quit dialog, we delete ours when that appears
+		tick 1
+
+	retn
+
+
+
+
+
+
+
+
+
+*va60 - metaroom to target
+*va61-va62 - any objects with SPCS ID between these two numbers (inclusive) will be deleted instead of moved to a safe space. set both to -1 to ignore.
+
+	subr MOVE_OBJECTS_OUT_OF_METAROOM
+
+		slow
+		inst
+
+***************************************************************
+**FIND A SAFE SPACE TO MOVE NON-C2TODS OBJECTS AND CAMERA TO **
+***************************************************************
+
+*DS Capillata
+		doif grap 2627 9038 <> -1
+			setv mame "safeX" 2615
+			setv mame "safeY" 9038
+*C3 Norn Terrarium
+		elif grap 1650 686 <> -1
+			setv mame "safeX" 1650
+			setv mame "safeY" 686
+*otherwise set it to the agent injector area
+*TODO: but is this C3 only...?
+		else
+			setv mame "safeX" game "CreatorX"
+			setv mame "safeY" game "CreatorY"
+		endi
+
+***************************************************************
+
+
+*move camera out of room
+		doif gmap cmrx cmry = VA60
+			cmrp mame "safeX" mame "safeY" 0
+
+		endi
+
+		slow
+		inst
+
+
+*move objects out of room (shouldn't be any)
+		enum 0 0 0
+
+*if objects are part of C2toDS, delete them instead of moving them
+			doif gmap posx posy = VA60
+
+*let's assume any objects inside Moe's range (50200-50299) in the C2toDS metaroom are part of C2toDS (https://creaturescaves.com/dev.php?section=Reservations&game=C3DS&searchFor=&page=5)
+				doif spcs >= 50200 and spcs <= 50299
+*make sure we don't kill clickable fav icon at top of screen (we kill it later ;))
+					doif fmly = 1 and gnus = 4 and spcs = 50200
+*					don't kill targ
+					else
+						kill targ
+					endi
+*map editor markers
+				elif fmly = 1 and gnus = 1 and spcs = 229
+					kill targ
+
+
+				else
+*				dbg: outs gall
+*				dbg: outv fmly
+*				dbg: outv gnus
+*				dbg: outv spcs
+
+*don't attempt to move objects that aren't autonomous (being carried etc)
+					doif movs eq 0
+						setv va45 mame "safeX"
+						addv va45 rand -150 150
+						mvsf va45 mame "safeY"
+						velo 0 0
+					endi
+
+				endi
+
+			endi
+
+
+		next
+
+	retn
+
+
+
+*delete all rooms and metaroom VA60
+	subr DELETE_METAROOM
+		slow
+		inst
 
 
 *KILL C2TODS ROOMS AND METAROOM
 
-
-*todo: so should we replace this with a normal room remove script?
-
-*FIXME: if the world is a few ticks old (aka ran from C2toDS main agent RSCR), don't bother! due to the way CA works, it doesn't seem possible to remove rooms safely, as we can't check if CA is passing through it.
-*todo: special variable when ran from injector instead maybe?
-*todo: do we even need this??? it seems to remove fine now. somehow.
 *	doif wtik < 10
-	doif 0 = 0
 
 *counter, incremented in inner loop
-		setv va16 0
+			setv va16 0
 
 
 *get a string of all the room IDs in the C2toDS METAroom
-		sets va30 erid game "C2toDS_RoomID"
+			sets va30 erid VA60
 
 *delimiter
-		sets va31 " "
+			sets va31 " "
 
 *thanks Amaikokonut/Aiko for this awesome function!
 *(set_va32_to_number_of_substrings_in_string_va30_delimited_by_string_va31)
 
 *in string va30, where the splitting character is va31, va32 is the number of
 *words/items in said string.
-		setv va32 0
-		setv va39 1
-		loop
+			setv va32 0
+			setv va39 1
+			loop
 *if the first character is the delimiter, skip it 
-			doif sins va30 va39 va31 ne -1
-				doif subs va30 1 1 eq va31 and va39 eq 1
-					addv va39 1
+				doif sins va30 va39 va31 ne -1
+					doif subs va30 1 1 eq va31 and va39 eq 1
+						addv va39 1
+					endi
+					setv va38 sins va30 va39 va31
+					subv va38 va39
+					sets va37 subs va30 va39 va38
+				else
+					sets va37 subs va30 va39 -1
+					setv va39 -99
 				endi
-				setv va38 sins va30 va39 va31
-				subv va38 va39
-				sets va37 subs va30 va39 va38
-			else
-				sets va37 subs va30 va39 -1
-				setv va39 -99
-			endi
-			doif va37 ne ""
+				doif va37 ne ""
 *             vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 
-				setv va99 stoi va37
+					setv va99 stoi va37
 
 
 
@@ -4194,31 +4579,31 @@ scrp 3 14 50202 10000
 
 
 *delimiter
-				sets va41 " "
+					sets va41 " "
 
-				setv va42 0
-				setv va49 1
+					setv va42 0
+					setv va49 1
 
-				sets va40 va30
+					sets va40 va30
 
-				loop
+					loop
 *if the first character is the delimiter, skip it 
-					doif sins va40 va49 va41 ne -1
-						doif subs va40 1 1 eq va41 and va49 eq 1
-							addv va49 1
+						doif sins va40 va49 va41 ne -1
+							doif subs va40 1 1 eq va41 and va49 eq 1
+								addv va49 1
+							endi
+							setv va48 sins va40 va49 va41
+							subv va48 va49
+							sets va47 subs va40 va49 va48
+						else
+							sets va47 subs va40 va49 -1
+							setv va49 -99
 						endi
-						setv va48 sins va40 va49 va41
-						subv va48 va49
-						sets va47 subs va40 va49 va48
-					else
-						sets va47 subs va40 va49 -1
-						setv va49 -99
-					endi
-					doif va47 ne ""
+						doif va47 ne ""
 *             vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 
-						setv va88 stoi va47
+							setv va88 stoi va47
 
 
 *             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -4227,89 +4612,96 @@ scrp 3 14 50202 10000
 *dbg: outv va88
 
 *don't check invalid rooms!
-						doif rtyp va99 <> -1 and rtyp va88 <> -1
-							doif link va88 va99 <> 0
-								link va88 va99 0
+							doif rtyp va99 <> -1 and rtyp va88 <> -1
+								doif link va88 va99 <> 0
+									link va88 va99 0
+								endi
 							endi
+
+
 						endi
-
-
-					endi
-					addv va49 va48
-					addv va49 1
+						addv va49 va48
+						addv va49 1
 
 
 
 *protection for running too many instructions in a single tick
-					addv va16 1
+						addv va16 1
 
 *NOTE: you will need to increase this number if you make the loop above more complex
-					doif va16 > 10000
-						slow
-						inst
+						doif va16 > 10000
+							slow
+							inst
 
-						setv va16 0
+							setv va16 0
+						endi
+
+
+
+					untl va49 lt 1
+
+					doif rtyp va99 <> -1
+						delr va99
 					endi
-
-
-
-				untl va49 lt 1
-
-				doif rtyp va99 <> -1
-					delr va99
-				endi
 
 
 
 
 *             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-			endi
-			addv va39 va38
-			addv va39 1
+				endi
+				addv va39 va38
+				addv va39 1
 
 
 
-		untl va39 lt 1
+			untl va39 lt 1
 
-*kill metaroom itself and associated game variable
-		delm game "C2toDS_RoomID"
+*kill metaroom itself
+			delm VA60
 
-	endi
+	retn
 
 
+
+*delete fav place with Species VA60 (and re-order automagically)
+	subr DELETE_FAV_PLACE
+
+		slow
+		inst
 
 *this snippet is taken from Clucky's C12DS rscr from https://eemfoo.org/archive/downloads/de80
 
 * Remove the favorite place icon and reorder the rest
-	rtar 1 4 50200
-	doif targ <> null
-		setv va00 ov50
-	endi
-* renumerate icons
-	setv va50 0
-	setv va10 145
-	setv va03 gmap mopx mopy
-	enum 1 4 0
-		doif spcs = 50200
-			kill targ
-		else
-			setv ov50 va50
-			mesg wrt+ targ 1000 va03 0 0
-			flto va10 flty
-			addv va10 50
-			addv va50 1
+		rtar 1 4 VA60
+		doif targ <> null
+			setv va00 ov50
 		endi
-	next
-	setv game "ds_favourites" va50
+* renumerate icons
+		setv va50 0
+		setv va10 145
+		setv va03 gmap mopx mopy
+		enum 1 4 0
+			doif spcs = VA60
+				kill targ
+			else
+				setv ov50 va50
+				mesg wrt+ targ 1000 va03 0 0
+				flto va10 flty
+				addv va10 50
+				addv va50 1
+			endi
+		next
+		setv game "ds_favourites" va50
 *	rtar 1 3 50200
 *	doif targ <> null
 *		setv ov00 0
 *		setv ov50 0
 *	endi
 
+	retn
 
 
-	delg "C2toDS_RoomID"
+
 
 endm
 
@@ -4324,10 +4716,9 @@ rscr
 
 
 *can't remove if we didn't inject the SCRPs from the map script in the first place
-doif sorq 3 14 50202 10001 = 0
+doif sorq 3 14 50205 10 = 0
 	stop
 endi
 
-*run our remove script (on a blank copy of the error message object) and then self destruct
-new: simp 3 14 50202 "blnk" 0 0 0
-mesg writ targ 10001
+*run our remove script
+new: simp 3 14 50205 "blnk" 0 0 0

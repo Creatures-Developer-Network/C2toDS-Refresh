@@ -80,15 +80,20 @@ mvto 8706 49120
 
 
 
-* Splicer Egg Drop - Simp
+* Splicer Egg Drop - Simp (NOTE: this is also responsible for making sure there is at least 1 Ettin in the C2 world!)
 new: simp 1 28 50205 "moe_C2toDS_GeneticSplicer" 6 6 10
 
 *set framerate to be slower to match C2 better
 frat 2
 
+*ettin egg layer timer script
+tick 1000
+
+*OV00 is set to 1 if we're BUSY (laying an egg)
+setv ov00 0
+
 mvto 8315 49691
 
-*endm
 
 
 
@@ -97,6 +102,7 @@ mvto 8315 49691
 
 scrp 1 28 50200 1
 
+	inst
 	lock
 
 	setv va02 0
@@ -113,10 +119,35 @@ scrp 1 28 50200 1
 			seta va51 targ
 		endi
 
+
+*if there's a creature in a pod, but the pod isn't locked, lock it!
+		seta va80 targ
+		setv va70 0
+*iterate through all passengers
+		epas 4 0 0
+			setv va70 1
+		next
+
+*there's a passenger in this pod...
+		doif va70 > 0
+			targ va80
+
+*...but it's not locked! let's fix that!
+			part 2
+			doif pose = 0
+				mesg writ targ 1001
+				wait 1
+			endi
+		endi
+		targ va80
+
+
 *let the pods know not to respond to clicks while the machine is active.
 		setv ov99 1
 
 	next
+
+	targ ownr
 
 *if either of the pods couldn't be found, panic!
 	doif va50 = null or va51 = null
@@ -127,14 +158,26 @@ scrp 1 28 50200 1
 	endi
 
 
+
+
+
+
+
+
+
 *so you can't keep spamming it and seeing the finger click anim
 	attr 0
 
-*store egg layer agent in va00 to target later
-*	seta va00 ov03
-
+*store egg layer agent in va00 to target later. if the egg layer is busy, freeze up and wait for it to finish laying an ettin egg (probably)
+*if this takes longer than 50 ticks stop waiting and attempt egg laying anyway.
 	enum 1 28 50205
+
+		setv va10 0
+		loop
+			addv va10 1
+		untl ov00 = 0 or va10 = 50
 		seta va00 targ
+
 	next
 
 
@@ -199,7 +242,7 @@ scrp 1 28 50200 1
 
 *mutation chance - set to 40 in c3, but gonna set it to 0 to make it more appealing than the c3 splicer.
 	setv va04 0
-*setv va04 40
+*	setv va04 40
 
 *if you change it back to 40 or any non-zero number, please update the catalogue:
 *"You may also choose to put an old or dying creature in the machine alone to create a clone, but beware! Every time you splice, there is a chance for genetic mutations!"
@@ -227,6 +270,17 @@ scrp 1 28 50200 1
 **let's make the egg (if a valid genome was created earlier)
 	doif va03 = 1
 
+*first half of egg laying anim
+		targ va00
+		setv ov00 1
+		plne 6000
+		anim [0 1 2 3 4]
+		over
+
+
+
+*CREATURE EGG
+
 *select egg sprite
 		setv va60 rand 0 10
 		mulv va60 8
@@ -240,7 +294,8 @@ scrp 1 28 50200 1
 		puhl 4 15 10
 		puhl 5 15 10
 
-		emit 11 0.65
+*norn eggs should smell, but this might not be a norn.
+*		emit 11 0.65
 
 		gene move targ 1 ownr 1
 
@@ -255,32 +310,31 @@ scrp 1 28 50200 1
 *starts fully grown
 		pose 3
 
-		seta va01 targ
-
-		targ va00
-		plne 6000
-		anim [0 1 2 3 4]
-		over
-
-		targ va01
-		mvto 8357 49720
-
-		targ va00
-		anim [5 5 5 5 5 4 3 2 1 0]
-		over
-		plne 10
-
-		targ va01
+*bioenergy
+		setv ov61 100
 
 *try and hatch asap! timer will reset to a sensible value automatically if it fails to hatch straight away.
 		tick 30
 
-*bioenergy
-		setv ov61 100
+		mvto 8357 49720
+
+
+
+*second half of egg laying anim
+		targ va00
+		anim [5 5 5 5 5 4 3 2 1 0]
+		over
+		plne 10
+		setv ov00 0
+
+
 	else
 
+*lay nothing
 		targ va00
+		setv ov00 1
 		anim [0 1 2 3 4 5 5 5 5 5 4 3 2 1 0]
+		setv ov00 0
 	endi
 
 
@@ -681,6 +735,7 @@ scrp 1 28 50201 1002
 	anim [0 1 2 3 4 5 6 7]
 	over
 	doif ov01 <> null
+		inst
 		targ ov01
 		dead
 		wait 1
@@ -703,6 +758,102 @@ endm
 
 
 
+*ETTIN MOTHER
+scrp 1 28 50205 9
+
+	inst
+
+*do nothing if Ettin Mother isn't enabled
+	doif game "C2toDS_EttinMotherEnabled" = 0
+		stop
+	endi
+
+	lock
+
+*do we have less than 1 alive ettin, and no ettin eggs waiting to hatch?
+	setv va00 0
+	enum 4 3 0
+		doif dead = 0
+			addv va00 1
+		endi
+	next
+	addv va00 totl 3 4 3
+
+
+	doif va00 < 1
+
+*wait until you're not busy
+		setv va10 0
+		loop
+			addv va10 1
+		untl ov00 = 0 or va10 = 50
+
+*first half of egg laying anim
+		targ ownr
+		setv ov00 1
+		plne 6000
+		anim [0 1 2 3 4]
+		over
+
+
+
+
+
+
+*CREATE ETTIN EGG
+
+		inst
+
+*ettin egg sprite
+		new: simp 3 4 3 "greneggmask" 7 8 10
+
+		puhl 0 15 45
+		puhl 1 15 35
+		puhl 2 15 25
+		puhl 3 15 10
+		puhl 4 15 10
+		puhl 5 15 10
+
+*load ANY ettin genome
+*	gene load targ 1 "ettn.*"
+
+*nah, load the C2toDS specific one!
+*		gene load targ 1 "ettn-wild"
+		gene load targ 1 "ettn.C2toDS_worker"
+
+		elas 10
+*slightly higher friction than usual so it doesn't slide down the hill
+		fric 50
+		attr 195
+		bhvr 32
+		aero 10
+		accg 4
+		perm 60
+*starts fully grown
+		pose 3
+
+*bioenergy
+		setv ov61 100
+
+*try and hatch asap! timer will reset to a sensible value automatically if it fails to hatch straight away.
+		tick 30
+
+		mvto 8357 49720
+
+
+
+
+*second half of egg laying anim
+		targ ownr
+		anim [5 5 5 5 5 4 3 2 1 0]
+		over
+		plne 10
+		setv ov00 0
+
+
+	endi
+
+endm
 
 
 
@@ -743,3 +894,5 @@ scrx 1 28 50204 1002
 scrx 1 28 50204 1003
 scrx 1 28 50201 1001
 scrx 1 28 50201 1002
+
+scrx 1 28 50205 9

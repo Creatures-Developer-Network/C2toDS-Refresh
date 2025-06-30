@@ -11,6 +11,14 @@ tick 10
 
 
 
+*Move the Camera to the room if we installed from bootstrap*
+
+doif wtik = 0
+	cmrt 0
+endi
+
+
+
 
 
 *NeoDement: added an override for the default DS fav places script to move camera twice to account for bug when switching metaroom

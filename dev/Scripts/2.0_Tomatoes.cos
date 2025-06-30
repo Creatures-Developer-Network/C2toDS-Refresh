@@ -1,6 +1,6 @@
 * 2 4 50200 - Tomato Plant
 * 2 8 50200 - Tomato
-* 2 23 50210 - Tomato Machine
+* 2 23 50213 - Tomato Machine
 
 * Initial Conversion By Moe
 * Instinct friendliness and survivability edits by the one who screams i guess
@@ -69,8 +69,8 @@ repe
 
 inst
 
-* Genus Vendor, Plane 400
-new: comp 2 23 50210 "moe_C2toDS_TomatoMachine" 0 0 400
+* Genus Vendor, Plane 2000
+new: comp 2 23 50213 "moe_C2toDS_TomatoMachine" 0 0 2000
 
 *output (yellow)
 prt: onew 0 "output" "Tomato Machine output" 17 84
@@ -872,7 +872,7 @@ endm
 
 *Tomato Machine Push Script
 
-scrp 2 23 50210 1
+scrp 2 23 50213 1
 
 	inst
 
@@ -941,7 +941,7 @@ endm
 
 *Tomato Machine Pull Script
 
-scrp 2 23 50210 2
+scrp 2 23 50213 2
 
 *let the creature know they activated a machine
 	stim writ from 90 1
@@ -954,7 +954,7 @@ endm
 
 *Tomato Machine Input Port Script
 
-scrp 2 23 50210 1000
+scrp 2 23 50213 1000
 *if the signal strength wasn't 0
 	doif _p1_ <> 0
 *run the activate 1 script, but pass the Parameter the Input object sent on.
@@ -966,7 +966,7 @@ endm
 
 *Tomato Machine Hit Script
 
-scrp 2 23 50210 3
+scrp 2 23 50213 3
 	sndc "hit_"
 	velo 0 rand -10 -20
 
@@ -982,7 +982,7 @@ endm
 **(disabled for now because it interrupts other scripts too frequently)
 **Tomato Machine Collision Script
 *
-*scrp 2 23 50210 6
+*scrp 2 23 50213 6
 *
 *	inst
 *
@@ -1028,7 +1028,7 @@ enum 2 8 50200
 
 next
 
-enum 2 23 50210
+enum 2 23 50213
 	kill targ
 next
 
@@ -1045,8 +1045,8 @@ scrx 2 8 50200 1
 scrx 2 8 50200 6
 
 
-scrx 2 23 50210 1
-scrx 2 23 50210 2
-scrx 2 23 50210 1000
-scrx 2 23 50210 3
-scrx 2 23 50210 6
+scrx 2 23 50213 1
+scrx 2 23 50213 2
+scrx 2 23 50213 1000
+scrx 2 23 50213 3
+scrx 2 23 50213 6
