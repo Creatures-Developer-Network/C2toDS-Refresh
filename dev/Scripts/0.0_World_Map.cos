@@ -89,7 +89,8 @@ next
 
 sets va99 "C2toDS Refresh HIDDEN AGENTS"
 
-doif pray test va99 = 0
+*(unless we're being auto injected from a cos file in bootstrap, on world tick 0)
+doif pray test va99 = 0 and wtik > 0
 
 	sets va16 game "C2toDS_UI_PART2NOTFOUND"
 	gsub CREATE_MESSAGE_BOX
@@ -4538,40 +4539,40 @@ scrp 3 14 50205 10
 *	doif wtik < 10
 
 *counter, incremented in inner loop
-			setv va16 0
+		setv va16 0
 
 
 *get a string of all the room IDs in the C2toDS METAroom
-			sets va30 erid VA60
+		sets va30 erid VA60
 
 *delimiter
-			sets va31 " "
+		sets va31 " "
 
 *thanks Amaikokonut/Aiko for this awesome function!
 *(set_va32_to_number_of_substrings_in_string_va30_delimited_by_string_va31)
 
 *in string va30, where the splitting character is va31, va32 is the number of
 *words/items in said string.
-			setv va32 0
-			setv va39 1
-			loop
+		setv va32 0
+		setv va39 1
+		loop
 *if the first character is the delimiter, skip it 
-				doif sins va30 va39 va31 ne -1
-					doif subs va30 1 1 eq va31 and va39 eq 1
-						addv va39 1
-					endi
-					setv va38 sins va30 va39 va31
-					subv va38 va39
-					sets va37 subs va30 va39 va38
-				else
-					sets va37 subs va30 va39 -1
-					setv va39 -99
+			doif sins va30 va39 va31 ne -1
+				doif subs va30 1 1 eq va31 and va39 eq 1
+					addv va39 1
 				endi
-				doif va37 ne ""
+				setv va38 sins va30 va39 va31
+				subv va38 va39
+				sets va37 subs va30 va39 va38
+			else
+				sets va37 subs va30 va39 -1
+				setv va39 -99
+			endi
+			doif va37 ne ""
 *             vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 
-					setv va99 stoi va37
+				setv va99 stoi va37
 
 
 
@@ -4579,31 +4580,31 @@ scrp 3 14 50205 10
 
 
 *delimiter
-					sets va41 " "
+				sets va41 " "
 
-					setv va42 0
-					setv va49 1
+				setv va42 0
+				setv va49 1
 
-					sets va40 va30
+				sets va40 va30
 
-					loop
+				loop
 *if the first character is the delimiter, skip it 
-						doif sins va40 va49 va41 ne -1
-							doif subs va40 1 1 eq va41 and va49 eq 1
-								addv va49 1
-							endi
-							setv va48 sins va40 va49 va41
-							subv va48 va49
-							sets va47 subs va40 va49 va48
-						else
-							sets va47 subs va40 va49 -1
-							setv va49 -99
+					doif sins va40 va49 va41 ne -1
+						doif subs va40 1 1 eq va41 and va49 eq 1
+							addv va49 1
 						endi
-						doif va47 ne ""
+						setv va48 sins va40 va49 va41
+						subv va48 va49
+						sets va47 subs va40 va49 va48
+					else
+						sets va47 subs va40 va49 -1
+						setv va49 -99
+					endi
+					doif va47 ne ""
 *             vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 
-							setv va88 stoi va47
+						setv va88 stoi va47
 
 
 *             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -4612,52 +4613,52 @@ scrp 3 14 50205 10
 *dbg: outv va88
 
 *don't check invalid rooms!
-							doif rtyp va99 <> -1 and rtyp va88 <> -1
-								doif link va88 va99 <> 0
-									link va88 va99 0
-								endi
+						doif rtyp va99 <> -1 and rtyp va88 <> -1
+							doif link va88 va99 <> 0
+								link va88 va99 0
 							endi
-
-
 						endi
-						addv va49 va48
-						addv va49 1
+
+
+					endi
+					addv va49 va48
+					addv va49 1
 
 
 
 *protection for running too many instructions in a single tick
-						addv va16 1
+					addv va16 1
 
 *NOTE: you will need to increase this number if you make the loop above more complex
-						doif va16 > 10000
-							slow
-							inst
+					doif va16 > 10000
+						slow
+						inst
 
-							setv va16 0
-						endi
-
-
-
-					untl va49 lt 1
-
-					doif rtyp va99 <> -1
-						delr va99
+						setv va16 0
 					endi
+
+
+
+				untl va49 lt 1
+
+				doif rtyp va99 <> -1
+					delr va99
+				endi
 
 
 
 
 *             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-				endi
-				addv va39 va38
-				addv va39 1
+			endi
+			addv va39 va38
+			addv va39 1
 
 
 
-			untl va39 lt 1
+		untl va39 lt 1
 
 *kill metaroom itself
-			delm VA60
+		delm VA60
 
 	retn
 
