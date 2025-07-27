@@ -28,7 +28,7 @@ scrp 3 3 50202 1
 ***
 
 *Create waterfall
-		new: simp 2 19 50214 "moe_C2toDS_VolcanoWaterfallA" 55 2 10
+		new: simp 2 19 50214 "moe_C2toDS_VolcanoWaterfallA" 55 2 11
 		mvto 9682 49079
 		targ ownr
 
