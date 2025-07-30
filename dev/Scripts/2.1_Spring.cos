@@ -1,5 +1,31 @@
 * 2 21 50206 - Spring
 
+
+
+*todo land:
+
+*TODO: attach timer script temp object to creatures after they have been sprung:
+
+
+
+*	doif vely > 30
+*		mulv vely 0.75
+*	endi
+
+
+*every tick, check if creature is being handheld, carried, or has no velocity, or is dead, or null, etc. when that happens, kill the timer object.
+
+
+*spring on right side of right ocean (on glass tube) springs the wrong way, need a new ov02. consolidate all use scripts.
+
+*plane shouldn't be random.
+
+*alternate sprite set for immovable springs?
+
+
+
+
+
 * To left of norn burrow
 
 new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 rand 1000 5000
@@ -54,7 +80,9 @@ setv ov01 1
 
 new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 rand 1000 5000
 
-mvsf 2505 48840
+*moved right a little to stop creatures bouncing up into walls
+*mvsf 2505 48840
+mvsf 2580 48840
 
 attr 196
 
@@ -64,7 +92,7 @@ setv ov01 1
 
 
 
-* Ocean 2
+* Ocean 2 (right, on top of glass tube)
 
 new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 rand 1000 5000
 
@@ -94,6 +122,8 @@ setv ov01 1
 
 scrp 2 21 50206 10
 
+	inst
+
 	elas 50
 
 	accg 2
@@ -122,7 +152,16 @@ scrp 2 21 50206 1
 
 	snde "boin"
 
-	anim [0 1 2 3 4 5 6 7 0 2 3 4 6 7 0]
+	anim [0 3]
+
+	over
+
+	inst
+
+	anim [5 6 7 0 2 3 4 6 7 0]
+
+*todo: instead of this, you should be etch 0 0 0, then check if crea. im not sure what the 2 0 0 check is doing.
+*also fix electronic butler to work with world wrap.
 
 	etch 4 0 0
 
@@ -190,7 +229,13 @@ scrp 2 21 50206 2
 
 	snde "boin"
 
-	anim [0 1 2 3 4 5 6 7 0 2 3 4 6 7 0]
+	anim [0 3]
+
+	over
+
+	inst
+
+	anim [5 6 7 0 2 3 4 6 7 0]
 
 	etch 4 0 0
 
@@ -260,7 +305,13 @@ scrp 2 21 50206 3
 
 	snde "boin"
 
-	anim [0 1 2 3 4 5 6 7 0 2 3 4 6 7 0]
+	anim [0 3]
+
+	over
+
+	inst
+
+	anim [5 6 7 0 2 3 4 6 7 0]
 
 	etch 4 0 0
 
