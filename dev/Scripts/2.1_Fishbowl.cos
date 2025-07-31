@@ -1,7 +1,7 @@
 * 2 21 50225 - Fishbowl
 
 * Aiko made this invisible to creatures.
-* NeoDement moved these out of the incubator room and into their respective seas, and lowered the plane
+* NeoDement moved these out of the incubator room and into their respective seas, and lowered the plane. And added ALPH based transparency instead of dithered.
 
 
 *Saltwater
@@ -22,7 +22,11 @@ cabw 0
 
 tint 1 200 125 125 125
 
-alph 50 1
+alph 90 1
+
+part 1
+
+alph 128 1
 
 
 
@@ -41,7 +45,12 @@ cabp 1
 
 cabw 0
 
+alph 90 1
+
+part 1
+
 alph 128 1
+
 
 scrp 2 21 50225 10
 
