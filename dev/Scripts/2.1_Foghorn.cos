@@ -1,5 +1,5 @@
 * 2 21 50212 - Foghorn
-* 1 23 50212 - Foghorn Fog
+* 1 23 50212 - Musical Notes
 * 1 23 50213 - Foghorn Fog
 
 * Yay, horn!
@@ -16,6 +16,8 @@
 
 
 *NeoDement made this pickupable, added a hit script and fixed some potential FRAT issues.
+*Foghorn Fog sprites are now fully opaque instead of using dithered transparency. ALPH transparency is applied to them randomly when created, to get a similar effect.
+*Tweaked timing and angles of notes and fog and stuff
 
 
 
@@ -103,14 +105,16 @@ scrp 2 21 50212 1
 	doif va02 eq 0
 
 		snde "hrn1"
+		setv va08 11
 
 	else
 
 		snde "hrn2"
+		setv va08 8
 
 	endi
 
-	reps 5
+	reps va08
 
 		setv va03 rand 2 4
 
@@ -122,49 +126,76 @@ scrp 2 21 50212 1
 
 		inst
 
-		new: simp 1 23 50212 "moe_C2toDS_foghorn" 12 13 7000
 
-		attr 16
+		doif va09 = 0
 
-		setv va02 rand 0 2
+*Musical Notes
+			new: simp 1 23 50212 "moe_C2toDS_foghorn" 12 13 7000
 
-		mulv va02 4
+			attr 16
 
-		base va02
+			setv va02 rand 0 2
 
-		pose 0
+			mulv va02 4
 
-		mvto va00 va01
+			base va02
 
-		slow
+			pose 0
 
-		setv vely -1
+			mvto va00 va01
 
-		setv velx rand -2 2
+			slow
 
-		mesg writ targ 8
+			setv vely -1
 
-		setv va04 va00
+*better angle randomization for the notes
+			setv va07 rand -200 200
 
-		setv va06 rand 30 80
+			divv va07 100.0
 
-		addv va04 va06
+			setv velx va07
 
-		setv va05 va01
+			mesg writ targ 8
 
-		inst
 
-		new: simp 1 23 50213 "moe_C2toDS_foghorn" 9 25 9000
+			setv va09 1
 
-		attr 64
+		else
 
-		mvto va04 va05
+			setv va04 va00
 
-		setv va02 rand 0 -1
+			setv va06 rand 30 80
 
-		setv velx 1
+			addv va04 va06
 
-		slow
+			setv va05 va01
+
+			addv va05 rand -4 4
+
+
+
+
+*Fog
+			new: simp 1 23 50213 "moe_C2toDS_foghorn" 9 25 9000
+
+			attr 64
+
+			mvto va04 va05
+
+*		setv va02 rand 0 -1
+
+*better angle randomization for the notes
+			setv va02 rand -20 5
+
+			divv va02 100.0
+
+			velo 1 va02
+
+			slow
+
+			setv va09 0
+
+		endi
 
 		targ ownr
 
@@ -194,9 +225,14 @@ scrp 1 23 50212 10
 
 	repe
 
-	pose 3
+	setv va00 0
 
-	wait 20
+*notes alpha fade out (plays anim one more time)
+	alph 128 1
+
+	anim [ 0 1 2 1 ]
+
+	over
 
 	kill ownr
 
@@ -205,6 +241,9 @@ endm
 
 
 scrp 1 23 50213 10
+
+*random transparency
+	alph rand 50 150 1
 
 	frat rand 2 6
 
@@ -218,7 +257,7 @@ scrp 1 23 50213 10
 
 	repe
 
-	anim [ 5 6 7 8 ]
+	anim [ 3 4 5 6 7 8 ]
 
 	over
 
