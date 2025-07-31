@@ -2,7 +2,7 @@
 *1 5 50200 - World Wrap Camera
 *1 6 50200 - World Wrap Grabber
 *5 7 50200 - Mouse Pointer And Keypress Tracker (lives in family 5 so that DS can't pause it by default)
-*1 7 50201 - Window Resize Camera Builder
+*5 7 50201 - Window Resize Camera Builder (lives in family 5 so that DS can't pause it by default)
 *1 7 50202 - World Wrap Shout Object (used so objects can shout their CATO across the wrap for norns to hear + as a temporary object that emits creature babble (audio) over the wrap). ALSO used for mirrored clones of the Norn/Attention indicators.
 *1 7 50203 - World Wrap Mirror Object
 *1 7 50204 - Are creatures near the wrap? check every 100 ticks
@@ -311,15 +311,16 @@ seta ov02 va55
 *todo:
 *NOTE: THIS DOESNT WORK IN FULL SCREEN MODE!
 
-new: simp 1 7 50201 "blnk" 1 0 0
+new: simp 5 7 50201 "blnk" 1 0 0
 
 *reaaally make sure norns cant see it
 attr 16
 
+*todo: init is no longer delayed. I'm not sure what problem the comment below refers to, so it should be tested.
 * Delay init or right side panels will not be created properly
 
-tick 40
-
+*tick 40
+tick 1
 
 *----------------------------------*
 
@@ -328,14 +329,15 @@ tick 40
 
 *Window Resize Camera Builder - Window Resized Script
 
-scrp 1 7 50201 123
-	tick 80
+scrp 5 7 50201 123
+*	tick 80
+	tick 1
 endm
 
 
 *Window Resize Camera Builder - Timer Script (called after a delay by Window Resized script)
 
-scrp 1 7 50201 9
+scrp 5 7 50201 9
 
 	inst
 
@@ -2240,7 +2242,7 @@ next
 
 *Delete Window Resize Camera Builder*
 
-enum 1 7 50201
+enum 5 7 50201
 
 	kill targ
 
@@ -2280,8 +2282,8 @@ enum 1 7 50205
 next
 
 
-scrx 1 7 50201 123
-scrx 1 7 50201 9
+scrx 5 7 50201 123
+scrx 5 7 50201 9
 
 scrx 1 5 50200 9
 scrx 1 5 50200 128
