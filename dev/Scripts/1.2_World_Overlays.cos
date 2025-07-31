@@ -1,17 +1,17 @@
 *1 8 50200 - World Overlays
-*1 30 50200 - World Wrap Overlay Copies†
+*1 30 50200 - World Wrap Overlay Copies*
 
-* † These are duplicates of specific overlays accessible via a contiguous walk while holding a creature’s hand.
-*   Creatures aren’t actually moved across the world wrap when hand-holding, due to camera tracking limitations.
-*   Since the world only renders what’s on camera, the creature may appear in front of all overlays, including high PLNE ones.
+* * These are duplicates of specific overlays accessible via a contiguous walk while holding a creature's hand.
+*   Creatures aren't actually moved across the world wrap when hand-holding, due to camera tracking limitations.
+*   Since the world only renders what's on camera, the creature may appear in front of all overlays, including high PLNE ones.
 *   These overlays should only be shown during a hand-held world wrap transition, as handled in 1.2_!World_Wrap.cos.
 *   Otherwise, they may incorrectly draw over elements like clouds, depending on cursor position.
 
 
-*This also has a script that allows the pointer to click on objects behind dithered overlays.
+* NOTE: most of these are COMP objects set to plane 0, with a single part defining the actual visual plane. this allows clicking things behind overlays, just like the original game.
 
+*TODO: consolidate multiple groupings of these into comp objects with several parts, if perf is a concern...
 
-*TODO: ADD OVERLAYS TO VOLCANO PLATFORMS ON RIGHT SIDE OF VOLCANO!!! WORLD WRAP COPIES WILL NEED TO EXIST TOO!!!
 
 
 *Files Needed*
@@ -48,7 +48,8 @@ inst
 
 *Terrarium Door Overlay
 
-new: simp 1 8 50200 "moe_C2toDS_doors" 1 11 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_doors" 11 0 0 8000
 
 attr 0
 
@@ -64,7 +65,8 @@ mvto 4068 49215
 
 *Dead trunk Top*
 
-new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 0 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_OverlaysJungle" 0 0 0 8000
 
 attr 0
 
@@ -74,7 +76,8 @@ mvto 3526 48895
 
 *Dead trunk middle*
 
-new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 1 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_OverlaysJungle" 1 0 0 8000
 
 attr 0
 
@@ -84,7 +87,8 @@ mvto 3526 49189
 
 *Dead trunk bottom*
 
-new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 2 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_OverlaysJungle" 2 0 0 8000
 
 attr 0
 
@@ -96,7 +100,8 @@ mvto 3526 49483
 
 *Top Tree Fencing*
 
-new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 3 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_OverlaysJungle" 3 0 0 8000
 
 attr 0
 
@@ -106,7 +111,8 @@ mvto 4923 48814
 
 *Upper Middle Tree Fencing Left*
 
-new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 4 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_OverlaysJungle" 4 0 0 8000
 
 attr 0
 
@@ -116,7 +122,8 @@ mvto 5008 49074
 
 *Upper Middle Tree Fencing Left Beam Middle*
 
-new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 5 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_OverlaysJungle" 5 0 0 8000
 
 attr 0
 
@@ -126,7 +133,8 @@ mvto 5309 48921
 
 *Middle strange struts*
 
-new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 6 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_OverlaysJungle" 6 0 0 8001
 
 attr 0
 
@@ -142,7 +150,8 @@ mvto 5381 49145
 
 *Middle fencing*
 
-new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 12 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_OverlaysJungle" 12 0 0 8001
 
 attr 0
 
@@ -152,7 +161,8 @@ mvto 5621 49277
 
 *Far right fencing*
 
-new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 13 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_OverlaysJungle" 13 0 0 8001
 
 attr 0
 
@@ -162,7 +172,8 @@ mvto 5895 49191
 
 *Left Hut*
 
-new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 14 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_OverlaysJungle" 14 0 0 8001
 
 attr 0
 
@@ -172,7 +183,8 @@ mvto 5077 49385
 
 *Left Hut*
 
-new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 15 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_OverlaysJungle" 15 0 0 8001
 
 attr 0
 
@@ -182,7 +194,8 @@ mvto 5515 49591
 
 *Left Hut*
 
-new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 16 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_OverlaysJungle" 16 0 0 8001
 
 attr 0
 
@@ -200,9 +213,10 @@ mvto 5653 49529
 
 *Far Right Glass*
 
-new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 7 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_OverlaysJungle" 7 0 0 8001
 
-attr 4
+attr 0
 
 mvto 5579 48990
 
@@ -210,9 +224,10 @@ mvto 5579 48990
 
 *Far Left Glass*
 
-new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 8 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_OverlaysJungle" 8 0 0 8001
 
-attr 4
+attr 0
 
 mvto 4344 49148
 
@@ -220,9 +235,10 @@ mvto 4344 49148
 
 *Left Middle Glass*
 
-new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 9 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_OverlaysJungle" 9 0 0 8001
 
-attr 4
+attr 0
 
 mvto 4735 49171
 
@@ -230,9 +246,10 @@ mvto 4735 49171
 
 *Right Bottom Glass*
 
-new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 10 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_OverlaysJungle" 10 0 0 8001
 
-attr 4
+attr 0
 
 mvto 5109 49191
 
@@ -240,9 +257,10 @@ mvto 5109 49191
 
 *Right Final Glass*
 
-new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 1 11 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_OverlaysJungle" 11 0 0 8001
 
-attr 4
+attr 0
 
 mvto 5443 49189
 
@@ -296,7 +314,8 @@ mvto 5443 49189
 
 *Lift Holder Branch*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 9 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 9 0 0 8000
 
 attr 0
 
@@ -306,7 +325,8 @@ mvto 3581 47624
 
 *Lift Holder Branch Pipe*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 10 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 10 0 0 8001
 
 attr 0
 
@@ -316,7 +336,8 @@ mvto 3683 47772
 
 *Wooden Balcony*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 11 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 11 0 0 8001
 
 attr 0
 
@@ -326,7 +347,8 @@ mvto 3537 47870
 
 *Wooden Balcony Frond*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 12 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 12 0 0 8001
 
 attr 0
 
@@ -338,7 +360,8 @@ mvto 3997 48002
 
 *slightly lower plane than other overlays for the sake of the Pulsatilla Berries (little red ones, plane 8000)
 *that must grow in front of the bush but still go behind other overlays
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 17 7999
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 17 0 0 7999
 
 attr 0
 
@@ -348,7 +371,8 @@ mvto 3583 48182
 
 *World Tree Waterfall Roots Overhang *
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 18 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 18 0 0 8001
 
 attr 0
 
@@ -358,7 +382,8 @@ mvto 3943 48216
 
 *World Tree Waterfall Roots Walkway Upper*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 21 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 21 0 0 8001
 
 attr 0
 
@@ -368,7 +393,8 @@ mvto 4149 48214
 
 *World Tree Waterfall Roots Walkway Upper Bushes*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 24 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 24 0 0 8001
 
 attr 0
 
@@ -378,7 +404,8 @@ mvto 4345 48060
 
 *World Tree Waterfall Roots Walkway Upper Holder Beams*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 23 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 23 0 0 8001
 
 attr 0
 
@@ -388,7 +415,8 @@ mvto 4209 48374
 
 *World Tree Waterfall Roots Walkway Lower*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 19 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 19 0 0 8001
 
 attr 0
 
@@ -398,7 +426,8 @@ mvto 4213 48538
 
 *World Tree Waterfall Hanging Bridge Strut *
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 20 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 20 0 0 8001
 
 attr 0
 
@@ -423,7 +452,8 @@ mvto 4165 48005
 
 *Hanging Bridge Piece Right*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 22 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 22 0 0 8000
 
 attr 0
 
@@ -433,7 +463,8 @@ mvto 5698 48029
 
 *Left
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 29 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 29 0 0 8000
 
 attr 0
 
@@ -443,7 +474,8 @@ mvto 4472 48057
 
 *Left Leafy Overhang
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 34 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 34 0 0 8000
 
 attr 0
 mvto 4702 48265
@@ -451,7 +483,8 @@ mvto 4702 48265
 
 *Left Rope
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 33 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 33 0 0 8000
 
 attr 0
 
@@ -461,7 +494,8 @@ mvto 4180 47953
 
 *Left Middle
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 30 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 30 0 0 8000
 
 attr 0
 
@@ -471,7 +505,8 @@ mvto 4808 48091
 
 *Right Middle
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 31 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 31 0 0 8000
 
 attr 0
 
@@ -481,7 +516,8 @@ mvto 5144 48101
 
 *Right
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 32 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 32 0 0 8000
 
 attr 0
 
@@ -501,7 +537,8 @@ mvto 5479 48011
 
 *Dark Ocean Rocks*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 27 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 27 0 0 8001
 
 attr 0
 
@@ -526,7 +563,8 @@ mvto va00 va01
 
 *Rocks Above Tube*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 15 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 15 0 0 8001
 
 attr 0
 
@@ -536,7 +574,8 @@ mvto 2981 48214
 
 *Rocks Above To Right of Tube*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 16 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 16 0 0 8001
 
 attr 0
 
@@ -549,9 +588,10 @@ mvto 3277 48214
 
 *Ocean Tube Left*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 13 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 13 0 0 8001
 
-attr 4
+attr 0
 
 mvto 2807 48552
 
@@ -559,9 +599,10 @@ mvto 2807 48552
 
 *Ocean Tube Right*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 14 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 14 0 0 8001
 
-attr 4
+attr 0
 
 mvto 3203 48552
 
@@ -570,7 +611,8 @@ mvto 3203 48552
 
 *Ocean Ground Overlay*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 25 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 25 0 0 8001
 
 attr 0
 
@@ -580,7 +622,8 @@ mvto 2605 48710
 
 *Subterraniam Ground and Dock Overlay Left*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 26 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 26 0 0 8001
 
 attr 0
 
@@ -590,7 +633,8 @@ mvto 2707 48763
 
 *Subterraniam Ground and Dock Overlay Right*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 27 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 27 0 0 8001
 
 attr 0
 
@@ -600,7 +644,8 @@ mvto 2992 48763
 
 *Subterraniam Ground and Dock Overlay Right Bridge*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 28 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 28 0 0 8001
 
 attr 0
 
@@ -618,7 +663,8 @@ mvto 3277 48763
 
 *Right Desert Shaft*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 1 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays_Dungeon" 1 0 0 8001
 
 attr 0
 
@@ -628,7 +674,8 @@ mvto 6307 48197
 
 *Left Desert Shaft*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 0 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays_Dungeon" 0 0 0 8001
 
 attr 0
 
@@ -640,7 +687,8 @@ mvto 6171 48199
 
 *Right Desert Dirt*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 2 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays_Dungeon" 2 0 0 8001
 
 attr 0
 
@@ -650,7 +698,8 @@ mvto 6428 48201
 
 *Middle Desert Dirt*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 3 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays_Dungeon" 3 0 0 8001
 
 attr 0
 
@@ -660,7 +709,8 @@ mvto 6925 48201
 
 *Middle Right Desert Archway*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 4 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays_Dungeon" 4 0 0 8001
 
 attr 0
 
@@ -672,7 +722,8 @@ mvto 7427 48209
 
 *Right Desert Dirt*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 5 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays_Dungeon" 5 0 0 8001
 
 attr 0
 
@@ -682,7 +733,8 @@ mvto 7535 48201
 
 *Right Desert Dirt Yggdrasi Dirt*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 6 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays_Dungeon" 6 0 0 8001
 
 attr 0
 
@@ -692,7 +744,8 @@ mvto 7924 48207
 
 *Dungeon Archways Left*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 7 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays_Dungeon" 7 0 0 8001
 
 attr 0
 
@@ -702,7 +755,8 @@ mvto 6427 48455
 
 *Dungeon Archways Right*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 8 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays_Dungeon" 8 0 0 8001
 
 attr 0
 
@@ -712,7 +766,8 @@ mvto 6923 48499
 
 *Dungeon Archways Dirt Right*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 9 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays_Dungeon" 9 0 0 8001
 
 attr 0
 
@@ -722,7 +777,8 @@ mvto 7535 48459
 
 *Dungeon Archways Dirt Right*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 10 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays_Dungeon" 10 0 0 8001
 
 attr 0
 
@@ -732,7 +788,8 @@ mvto 7893 48476
 
 *Dungeon Floor Rock Right*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 11 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays_Dungeon" 11 0 0 8001
 
 attr 0
 
@@ -742,7 +799,8 @@ mvto 7768 48770
 
 *Dungeon Column Left*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 12 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays_Dungeon" 12 0 0 8001
 
 attr 0
 
@@ -752,7 +810,8 @@ mvto 6319 48653
 
 *Dungeon Column Left Middle*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 13 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays_Dungeon" 13 0 0 8001
 
 attr 0
 
@@ -762,7 +821,8 @@ mvto 6514 48650
 
 *Dungeon Column Middle*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 14 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays_Dungeon" 14 0 0 8001
 
 attr 0
 
@@ -772,7 +832,8 @@ mvto 6808 48650
 
 *Dungeon Column Middle Right*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 15 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays_Dungeon" 15 0 0 8001
 
 attr 0
 
@@ -782,7 +843,8 @@ mvto 7093 48652
 
 *Dungeon Column Right*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 1 16 8001
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays_Dungeon" 16 0 0 8001
 
 attr 0
 
@@ -844,9 +906,10 @@ anim [0 1 2 3 4 255]
 
 *Water beneath biomes*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 0 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 0 0 0 8000
 
-attr 4
+attr 0
 
 mvto 4151 49930
 
@@ -864,7 +927,8 @@ mvto 4151 49930
 
 *Sub walkable overlay*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 1 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 1 0 0 8000
 
 attr 0
 
@@ -876,7 +940,8 @@ mvto 9410 48354
 
 *Submarine overlay*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 26 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 26 0 0 8000
 
 attr 0
 
@@ -905,12 +970,13 @@ mvto va00 va01
 
 *Volcano Walkway overlay*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 23 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 23 0 0 8000
 
 attr 0
 
 *mvto 1680 48056
-mvto 10032 48056
+mvto 9976 47758
 
 *Volcano Walkway overlay (WORLD WRAP COPY)*
 
@@ -932,7 +998,8 @@ mvto va00 va01
 
 *Volcano Cap Spouts overlay Left*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 24 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 24 0 0 8000
 
 attr 0
 
@@ -942,7 +1009,8 @@ mvto 9213 49753
 
 *Volcano Cap Spouts overlay Right*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 25 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 25 0 0 8000
 
 attr 0
 
@@ -968,25 +1036,67 @@ anim [0 1 2 255]
 
 *Upper walkway fence*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 3 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 3 0 0 8000
 
 attr 0
 
 mvto 9262 48864
 
-frat 2
 
 
 
 *Upper walkway fence right*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 4 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 4 0 0 8000
 
 attr 0
 
 mvto 9576 48864
 
-frat 2
+
+
+
+
+
+*new overlays for C2toDS, not from original game:
+
+
+
+*Mid walkway fence*
+
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 36 0 0 8000
+
+attr 0
+
+mvto 9956 48842
+
+*Lower walkway fence*
+
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 35 0 0 8000
+
+attr 0
+
+mvto 10063 49381
+
+*Lower walkway fence (WORLD WRAP COPY)*
+
+setv va00 posl
+*this is on the Left side of the wrap so we have to SUBTRACT the offset
+subv va00 game "C2toDS_WrapOffset"
+setv va01 post
+
+new: simp 1 30 50200 "moe_C2toDS_Overlays2" 1 35 8000
+
+show 0
+
+attr 0
+
+mvto va00 va01
+
 
 
 
@@ -1002,49 +1112,45 @@ frat 2
 
 *Splicing room overhand pipes left*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 5 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 5 0 0 8000
 
 attr 0
 
 mvto 8043 49078
 
-frat 2
-
 
 
 *Splicing room overhand pipes right*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 7 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 7 0 0 8000
 
 attr 0
 
 mvto 8584 49078
 
-frat 2
-
 
 
 *Splicing room overhand pipes*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 6 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 6 0 0 8000
 
 attr 0
 
 mvto 8484 49079
 
-frat 2
-
 
 
 *Splicing room overhand Left Dirt*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays2" 1 8 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 8 0 0 8000
 
 attr 0
 
 mvto 7971 49070
-
-frat 2
 
 
 
@@ -1062,7 +1168,7 @@ frat 2
 
 *Waterwheel overlay 1*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 5 2 7999
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 5 2 1
 
 attr 0
 
@@ -1078,7 +1184,7 @@ sndl "wwel"
 
 *Waterwheel overlay 2*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 5 7 7999
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 5 7 1
 
 attr 0
 
@@ -1094,7 +1200,8 @@ anim [0 1 2 3 4 255]
 
 *WaterWheel Dirt Overlay*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 12 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 12 0 0 8000
 
 attr 0
 
@@ -1104,7 +1211,8 @@ mvto 4642 49743
 
 *WaterWheel Leafy Rock Overlay*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 13 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 13 0 0 8000
 
 attr 0
 
@@ -1114,7 +1222,8 @@ mvto 4768 49653
 
 *WaterWheel Walkway Overlway*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 14 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 14 0 0 8000
 
 attr 0
 
@@ -1124,7 +1233,8 @@ mvto 4505 49607
 
 *Light Ocean Left Bridge Rocks*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 16 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 16 0 0 8000
 
 attr 0
 
@@ -1157,13 +1267,16 @@ sndl "pool"
 
 *Incubator Room Waterfall Mist*
 
-new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 3 17 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_OverlaysJungle" 17 0 0 8000
 
-attr 4
+attr 0
 
 mvto 6440 48460
 
 frat 2
+
+part 1
 
 anim [0 1 2 255]
 
@@ -1171,9 +1284,10 @@ anim [0 1 2 255]
 
 *Incubator Room Waterfall Pond Overlay*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 39 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 39 0 0 8000
 
-attr 4
+attr 0
 
 mvto 6431 48488
 
@@ -1419,13 +1533,12 @@ sndl "waf2"
 
 *Pipe*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 28 1000
-*new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 28 8001
+*note: plane draws it behind most things, but in front of the shuttle
 
-*todo: plane of this pipe is weird. some of it's meant to be in foreground, some of it's meant to be in the background.
-*this will eventually be fixed when the room is re-mapped, the pipe needs to not be walkable like in C2 for it to make sense.
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 28 0 0 500
 
-attr 4
+attr 0
 
 mvto 6782 49007
 
@@ -1433,7 +1546,8 @@ mvto 6782 49007
 
 *!!! Upper scafolding !!!*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 29 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 29 0 0 8000
 
 attr 0
 
@@ -1443,7 +1557,8 @@ mvto 7089 49066
 
 *!!! Upper scafolding right segment !!!*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 30 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 30 0 0 8000
 
 attr 0
 
@@ -1453,7 +1568,8 @@ mvto 7261 49156
 
 *!!! Left Vent !!!*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 31 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 31 0 0 8000
 
 attr 0
 
@@ -1463,7 +1579,8 @@ mvto 6369 49382
 
 *!!! Left fence !!!*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 32 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 32 0 0 8000
 
 attr 0
 
@@ -1473,7 +1590,8 @@ mvto 6652 49589
 
 *!!! Left Middle fence !!!*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 33 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 33 0 0 8000
 
 attr 0
 
@@ -1483,7 +1601,8 @@ mvto 6911 49403
 
 *!!! Middle fence !!!*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 34 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 34 0 0 8000
 
 attr 0
 
@@ -1493,7 +1612,8 @@ mvto 7240 49400
 
 *!!! Middle fence Tree Piece !!!*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 35 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 35 0 0 8000
 
 attr 0
 
@@ -1503,7 +1623,8 @@ mvto 7435 49430
 
 *!!! Middle fence bottom Piece !!!*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 36 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 36 0 0 8000
 
 attr 0
 
@@ -1513,7 +1634,8 @@ mvto 7072 49612
 
 *!!! Right scaffolding !!!*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 37 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 37 0 0 8000
 
 attr 0
 
@@ -1533,7 +1655,8 @@ mvto 7800 49304
 
 *Column L*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 1 0 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays_Labs" 0 0 0 8000
 
 attr 0
 
@@ -1543,7 +1666,8 @@ mvto 3004 49761
 
 *Column R*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 1 1 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays_Labs" 1 0 0 8000
 
 attr 0
 
@@ -1566,7 +1690,8 @@ mvto 3552 49761
 
 *Gold Pots*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 1 3 8000
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays_Labs" 3 0 0 8000
 
 attr 0
 
@@ -1647,7 +1772,7 @@ anim [0 1 2 3 4 5 6 7 8 9 255]
 
 *Bubbly Tanks*
 
-new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 10 39 2
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Labs" 10 39 1
 
 attr 0
 
@@ -1966,121 +2091,12 @@ endm
 
 
 
-*redundant script that was precluding the creation of the Lights above the Frog Pond
-*scrp 1 8 50200 10
-*
-*	tick 0
-*
-*	stop
-*
-*endm
-
-
-
-*clicking on scenery which is set to be activateable calls a special script on the pointer to temporarily offset its position by 1 pixel to the left and fake a mouse click.
-*the purpose of this is to stop the frustration of a click seeming to not register when clicking a dithered transparent object (such as any of the glass tubes)
-
-scrp 1 8 50200 1
-
-	inst
-
-
-*todo: this should do more checks. checking if an object ATTR is set to clickable would be good.
-
-*cancel original click anim if the click won't be redirecting to a valid object.
-	targ pntr
-	mvby -1 0
-	doif hots = null or hots = ownr
-
-		pose 0
-	endi
-	mvby 1 0
-
-
-*set the OWNR in _P1_ so we can check against it in the pointer script
-	mesg wrt+ pntr 50200 ownr 0 0
-
-
-
-
-endm
-
-
-*special pointer script so we can fake the pointer clicking things!
-*(only handles clicks directly on objects, no pat: butts)
-
-*todo: should this handle buttons? can this handle creatures?
-
-scrp 2 1 1 50200
-
-*_P1_ should be the OWNR of the script this was called from. if it isn't an agent, just set it to NULL.
-	doif type _p1_ < 3
-		seta _p1_ null
-	endi
-
-	inst
-
-	mvby -1 0
-
-	targ hots
-
-*make sure targ exists and isn't the thing we just clicked on (_P1_)
-	doif targ <> null and targ <> _p1_
-
-*make sure it's a Simple, Compound or Vehicle Agent
-		doif type targ = 3 or type targ = 5 or type targ = 6
-
-*make sure it's Activateable
-
-			setv va04 attr
-			andv va04 4
-			doif va04 = 4
-
-*check CLAC state.
-
-*do nothing
-				doif clac = -1
-
-*handle CLIK events
-				elif clac = -2
-
-*set VA01 to which CLIK action number is going to be performed next
-					setv va01 clik 0
-
-*clik 0 should only return 1 2 or 3
-					doif va01 > 0 and va01 < 4
-						mesg writ targ clik va01
-					endi
-
-*send the correct Message Number according to CLAC
-				else
-					mesg writ targ clac
-				endi
-
-*if any of the above checks failed, don't animate the pointer click.
-			else
-
-				targ pntr
-
-*and don't animate it if it's in the middle of some other anim
-				doif pose < 2
-					pose 0
-				endi
-
-			endi
-		endi
-	endi
-
-	targ pntr
-
-	mvby 1 0
-
-endm
-
 
 
 
 rscr
+
+*overlays
 
 enum 1 8 50200
 
@@ -2088,7 +2104,14 @@ enum 1 8 50200
 
 next
 
+*world wrap overlays
+
+enum 1 30 50200
+
+	kill targ
+
+next
+
+
 
 scrx 1 8 50200 9
-scrx 1 8 50200 1
-scrx 2 1 1 50200
