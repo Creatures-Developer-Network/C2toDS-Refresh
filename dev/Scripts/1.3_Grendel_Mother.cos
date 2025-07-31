@@ -306,8 +306,7 @@ scrp 1 32 50200 9
 *	gene load targ 1 "gren.*"
 
 *nah, load the C2toDS specific one!
-*	gene load targ 1 "c2grendel.49"
-	gene load targ 1 "gren.C2toDS_bulbous"
+	gene load targ 1 "gren.C2toDS.Bulbous"
 
 
 *make our grendel
