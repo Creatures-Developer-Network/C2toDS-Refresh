@@ -12,6 +12,7 @@
 * Note: Might be working better due to Aiko's changes - Verm
 * Note: Might want to stop creatures that are bounching up from the spring from automatically getting grabbed by the boat - NeoDement
 
+*todo: night version of rip holes, for easy switching visiblity between in night switcher.
 
 * Rubber dingy
 
@@ -25,9 +26,9 @@ cabp 1
 
 pat: dull 1 "moe_C2toDS_dingy" 1 0 0 4
 
-pat: dull 10 "moe_C2toDS_dingy" 2 15 65 2
+pat: dull 2 "moe_C2toDS_dingy" 2 15 65 2
 
-pat: dull 11 "moe_C2toDS_dingy" 12 230 65 2
+pat: dull 3 "moe_C2toDS_dingy" 12 230 65 2
 * doing the same treatment here as the boat got - Verm
 attr 20
 
@@ -41,29 +42,33 @@ setv ov99 posy
 
 cato 35
 
-new: simp 3 12 50203 "moe_C2toDS_lifts" 2 7 2000
+* Left Butt
+
+new: simp 3 12 50203 "moe_C2toDS_lifts" 2 5 2000
 
 attr 4
 
 bhvr 3
-* Left Butt
+
 setv ov00 0
 
 cato 2
 
-mvto 2395 48128
+mvto 2395 48141
 
-new: simp 3 12 50203 "moe_C2toDS_lifts" 2 7 2000
+* Right Butt
+
+new: simp 3 12 50203 "moe_C2toDS_lifts" 2 5 2000
 
 attr 4
 
 bhvr 3
-* Right Butt
+
 setv ov00 1
 
 cato 2
 
-mvto 3085 48128
+mvto 3085 48141
 
 scrp 3 12 50203 1
 	inst
@@ -174,7 +179,7 @@ scrp 3 1 50203 1001
 			enum 3 13 50203
 				doif ov00 eq 1
 					doif ooww ov01 eq 3
-					tick 0
+						tick 0
 * spas takes some time to work, so loop
 * and keep checking if you got a creature
 * before continuing
@@ -198,7 +203,7 @@ scrp 3 1 50203 1001
 			next
 			slow
 
-			part 11
+			part 3
 
 			anim [0 1 2 3 4 5 6 7 8 9 255 3]
 
@@ -257,7 +262,7 @@ scrp 3 1 50203 1001
 			enum 3 13 50203
 				doif ov00 eq 0
 					doif ooww ov01 eq 3
-tick 0
+						tick 0
 * spas takes some time to work, so loop
 * and keep checking if you got a creature
 * before continuing
@@ -281,7 +286,7 @@ tick 0
 			next
 			slow
 
-			part 10
+			part 2
 
 			anim [0 1 2 3 4 5 6 7 8 9 255 3]
 
