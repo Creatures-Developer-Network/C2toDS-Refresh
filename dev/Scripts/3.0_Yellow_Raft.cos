@@ -28,7 +28,14 @@ pat: dull 1 "moe_C2toDS_dingy" 1 0 0 4
 
 pat: dull 2 "moe_C2toDS_dingy" 2 15 65 2
 
+part 2
+frat 2
+
 pat: dull 3 "moe_C2toDS_dingy" 12 230 65 2
+
+part 3
+frat 2
+
 * doing the same treatment here as the boat got - Verm
 attr 20
 
