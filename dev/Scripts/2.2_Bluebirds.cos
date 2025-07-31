@@ -786,6 +786,7 @@ scrp 2 15 50215 9
 
 		doif ov08 eq null
 
+*look for any nestable tree
 			star 2 6 0
 
 			doif targ ne null and targ ne ownr
@@ -2356,5 +2357,4 @@ next
 
 scrx 2 18 50215 10
 scrx 2 18 50215 9
-
 
