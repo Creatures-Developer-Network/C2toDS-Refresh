@@ -68,10 +68,6 @@ scrp 1 18 50200 9
 
 *Hide Pointer*
 
-*alph 256 1 -- OLD WAY
-
-
-
 		show 0
 
 
@@ -90,7 +86,8 @@ scrp 1 18 50200 9
 
 		pupt 6 15 30
 
-*alph 0 0 -- OLD WAY
+
+*Show Pointer*
 
 		show 1
 
@@ -152,6 +149,8 @@ scrp 1 18 50200 200
 
 
 	inst
+
+lock
 
 	targ pntr
 
@@ -237,6 +236,8 @@ endm
 scrp 1 18 50200 201
 
 	inst
+	
+	lock
 
 	enum 2 1 50200
 
@@ -426,7 +427,6 @@ targ pntr
 
 show 1
 
-alph 0 0
 
 
 
