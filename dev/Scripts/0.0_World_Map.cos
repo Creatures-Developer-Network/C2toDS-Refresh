@@ -225,20 +225,20 @@ endi
 * For more info see http://cdn.creatures.net
 
 * Addon file: deletes existing metarooms at the same place, same background name
-* 2 metarooms, 515 rooms, 893 doors
+* 2 metarooms, 515 rooms, 892 doors
 
 setv va00 gmap 12942 47900
 doif va00 <> -1
-* check it is made from the same background
-	doif bkds va00 <> "C2toDSTemple"
+  * check it is made from the same background
+  doif bkds va00 <> "C2toDSTemple"
 		outs "background"
 		stop
 	endi
-* Delete any map editor alerters still left over
+	* Delete any map editor alerters still left over
 	enum 1 1 229
 		kill targ
 	next
-* Check for any agents in the metaroom
+	* Check for any agents in the metaroom
 	enum 0 0 0
 		setv va32 attr
 		andv va32 32
@@ -260,9 +260,9 @@ doif va00 <> -1
 			endi
 		endi
 	next
-* delete all the rooms in the meta room
+  * delete all the rooms in the meta room
 	sets va01 erid va00
-
+  
 	doif strl va01 > 0
 		setv va03 1
 		sets va98 ""
@@ -285,75 +285,75 @@ doif va00 <> -1
 			sets va98 ""
 		endi
 	endi
-
-* delete the metaroom itself
+  
+  * delete the metaroom itself
 	delm va00
 
 endi
 
 setv game "mapeditortmp" addm 12448 47600 988 600 "C2toDSTemple"
 mmsc 12942 47900 ""
-setv va00 addr game "mapeditortmp" 12500 12624 47728 47728 48059 48078
-rtyp va00 7
-rmsc 12562 47903 ""
-setv game "mapeditortmp_0" va00
-setv va00 addr game "mapeditortmp" 12546 13341 47695 47695 47728 47728
-rtyp va00 0
-rmsc 12943 47711 ""
-setv game "mapeditortmp_1" va00
-setv va00 addr game "mapeditortmp" 12572 13320 47664 47665 47695 47695
-rtyp va00 0
-rmsc 12946 47679 ""
-setv game "mapeditortmp_2" va00
-setv va00 addr game "mapeditortmp" 12608 13277 47635 47635 47664 47665
-rtyp va00 0
-rmsc 12942 47650 ""
-setv game "mapeditortmp_3" va00
-setv va00 addr game "mapeditortmp" 12635 13253 47600 47600 47635 47635
-rtyp va00 0
-rmsc 12944 47617 ""
-setv game "mapeditortmp_4" va00
-setv va00 addr game "mapeditortmp" 13135 13269 47728 47728 48078 48078
-rtyp va00 7
-rmsc 13202 47903 ""
-setv game "mapeditortmp_5" va00
-setv va00 addr game "mapeditortmp" 12879 13026 47728 47728 48009 48009
-rtyp va00 0
-rmsc 12952 47868 ""
-setv game "mapeditortmp_6" va00
-setv va00 addr game "mapeditortmp" 12879 13026 48009 48009 48086 48086
-rtyp va00 7
-rmsc 12952 48047 ""
-setv game "mapeditortmp_7" va00
-setv va00 addr game "mapeditortmp" 13269 13387 47728 47728 48078 48065
-rtyp va00 7
-rmsc 13328 47896 ""
-setv game "mapeditortmp_8" va00
-setv va00 addr game "mapeditortmp" 13026 13135 47728 47728 48086 48078
-rtyp va00 7
-rmsc 13080 47903 ""
-setv game "mapeditortmp_9" va00
-setv va00 addr game "mapeditortmp" 12624 12757 47728 47728 48078 48078
-rtyp va00 7
-rmsc 12690 47903 ""
-setv game "mapeditortmp_10" va00
-setv va00 addr game "mapeditortmp" 12757 12879 47728 47728 48078 48086
-rtyp va00 7
-rmsc 12818 47907 ""
-setv game "mapeditortmp_11" va00
+  setv va00 addr game "mapeditortmp" 12500 12624 47728 47728 48059 48078
+    rtyp va00 7
+    rmsc 12562 47903 ""
+    setv game "mapeditortmp_0" va00
+  setv va00 addr game "mapeditortmp" 12546 13341 47695 47695 47728 47728
+    rtyp va00 0
+    rmsc 12943 47711 ""
+    setv game "mapeditortmp_1" va00
+  setv va00 addr game "mapeditortmp" 12572 13320 47664 47665 47695 47695
+    rtyp va00 0
+    rmsc 12946 47679 ""
+    setv game "mapeditortmp_2" va00
+  setv va00 addr game "mapeditortmp" 12608 13277 47635 47635 47664 47665
+    rtyp va00 0
+    rmsc 12942 47650 ""
+    setv game "mapeditortmp_3" va00
+  setv va00 addr game "mapeditortmp" 12635 13253 47600 47600 47635 47635
+    rtyp va00 0
+    rmsc 12944 47617 ""
+    setv game "mapeditortmp_4" va00
+  setv va00 addr game "mapeditortmp" 13135 13269 47728 47728 48078 48078
+    rtyp va00 7
+    rmsc 13202 47903 ""
+    setv game "mapeditortmp_5" va00
+  setv va00 addr game "mapeditortmp" 12879 13026 47728 47728 48009 48009
+    rtyp va00 0
+    rmsc 12952 47868 ""
+    setv game "mapeditortmp_6" va00
+  setv va00 addr game "mapeditortmp" 12879 13026 48009 48009 48086 48086
+    rtyp va00 7
+    rmsc 12952 48047 ""
+    setv game "mapeditortmp_7" va00
+  setv va00 addr game "mapeditortmp" 13269 13387 47728 47728 48078 48065
+    rtyp va00 7
+    rmsc 13328 47896 ""
+    setv game "mapeditortmp_8" va00
+  setv va00 addr game "mapeditortmp" 13026 13135 47728 47728 48086 48078
+    rtyp va00 7
+    rmsc 13080 47903 ""
+    setv game "mapeditortmp_9" va00
+  setv va00 addr game "mapeditortmp" 12624 12757 47728 47728 48078 48078
+    rtyp va00 7
+    rmsc 12690 47903 ""
+    setv game "mapeditortmp_10" va00
+  setv va00 addr game "mapeditortmp" 12757 12879 47728 47728 48078 48086
+    rtyp va00 7
+    rmsc 12818 47907 ""
+    setv game "mapeditortmp_11" va00
 
 setv va00 gmap 6224 48800
 doif va00 <> -1
-* check it is made from the same background
-	doif bkds va00 <> "C2toDS,c2tods_night"
+  * check it is made from the same background
+  doif bkds va00 <> "C2toDS,c2tods_night"
 		outs "background"
 		stop
 	endi
-* Delete any map editor alerters still left over
+	* Delete any map editor alerters still left over
 	enum 1 1 229
 		kill targ
 	next
-* Check for any agents in the metaroom
+	* Check for any agents in the metaroom
 	enum 0 0 0
 		setv va32 attr
 		andv va32 32
@@ -375,9 +375,9 @@ doif va00 <> -1
 			endi
 		endi
 	next
-* delete all the rooms in the meta room
+  * delete all the rooms in the meta room
 	sets va01 erid va00
-
+  
 	doif strl va01 > 0
 		setv va03 1
 		sets va98 ""
@@ -400,8 +400,8 @@ doif va00 <> -1
 			sets va98 ""
 		endi
 	endi
-
-* delete the metaroom itself
+  
+  * delete the metaroom itself
 	delm va00
 
 endi
@@ -409,2018 +409,2018 @@ endi
 setv game "mapeditortmp" addm 0 47600 12448 2400 "C2toDS"
 mmsc 6224 48800 "c2tods.mng\\\\temple"
 addb game "mapeditortmp" "c2tods_night"
-setv va00 addr game "mapeditortmp" 7769 8238 47800 47800 48059 48059
-rtyp va00 1
-rmsc 8003 47929 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_12" va00
-setv va00 addr game "mapeditortmp" 7769 8238 47600 47600 47800 47800
-rtyp va00 0
-rmsc 8003 47700 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_13" va00
-setv va00 addr game "mapeditortmp" 1108 1308 48504 48504 48725 48725
-rtyp va00 0
-rmsc 1208 48614 ""
-setv game "mapeditortmp_14" va00
-setv va00 addr game "mapeditortmp" 9144 9660 47600 47600 47800 47800
-rtyp va00 0
-rmsc 9402 47700 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_15" va00
-setv va00 addr game "mapeditortmp" 1844 2047 48434 48283 48634 48634
-rtyp va00 5
-rmsc 1945 48534 "c2tods.mng\\BioSpheres"
-setv game "mapeditortmp_16" va00
-setv va00 addr game "mapeditortmp" 2047 2464 47600 47600 47937 47937
-rtyp va00 0
-rmsc 2255 47768 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_17" va00
-setv va00 addr game "mapeditortmp" 10399 10816 47600 47600 47937 47937
-rtyp va00 0
-rmsc 10607 47768 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_18" va00
-setv va00 addr game "mapeditortmp" 2047 2288 47937 47937 48237 48229
-rtyp va00 7
-rmsc 2167 48083 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_19" va00
-setv va00 addr game "mapeditortmp" 10196 10399 48434 48283 48634 48634
-rtyp va00 0
-rmsc 10297 48534 ""
-setv game "mapeditortmp_20" va00
-setv va00 addr game "mapeditortmp" 7769 8038 48059 48059 48167 48213
-rtyp va00 7
-rmsc 7903 48136 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_21" va00
-setv va00 addr game "mapeditortmp" 2349 2469 49616 49625 49928 49928
-rtyp va00 3
-rmsc 2409 49772 "c2tods.mng\\Machinery"
-setv game "mapeditortmp_22" va00
-setv va00 addr game "mapeditortmp" 10399 10568 48283 48329 48634 48632
-rtyp va00 5
-rmsc 10483 48457 "c2tods.mng\\BioSpheres"
-setv game "mapeditortmp_23" va00
-setv va00 addr game "mapeditortmp" 2216 2327 48329 48463 48632 48632
-rtyp va00 5
-rmsc 2271 48480 "c2tods.mng\\BioSpheres"
-setv game "mapeditortmp_24" va00
-setv va00 addr game "mapeditortmp" 7669 7769 47800 47800 48194 48167
-rtyp va00 7
-rmsc 7719 47983 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_25" va00
-setv va00 addr game "mapeditortmp" 3389 3528 48585 48585 48713 48713
-rtyp va00 3
-rmsc 3458 48649 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_26" va00
-setv va00 addr game "mapeditortmp" 7569 7669 47800 47800 48161 48194
-rtyp va00 7
-rmsc 7619 47997 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_27" va00
-setv va00 addr game "mapeditortmp" 7475 7569 47800 47800 48179 48161
-rtyp va00 7
-rmsc 7522 47980 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_28" va00
-setv va00 addr game "mapeditortmp" 9460 9660 48504 48504 48725 48725
-rtyp va00 0
-rmsc 9560 48614 ""
-setv game "mapeditortmp_29" va00
-setv va00 addr game "mapeditortmp" 10399 10640 47937 47937 48237 48229
-rtyp va00 7
-rmsc 10519 48083 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_30" va00
-setv va00 addr game "mapeditortmp" 4953 5200 48254 48257 48440 48440
-rtyp va00 0
-rmsc 5076 48347 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_31" va00
-setv va00 addr game "mapeditortmp" 2107 2202 48633 48632 49096 49104
-rtyp va00 5
-rmsc 2154 48868 "c2tods.mng\\BioSpheres"
-setv game "mapeditortmp_32" va00
-setv va00 addr game "mapeditortmp" 5400 5554 47865 47915 48248 48239
-rtyp va00 1
-rmsc 5477 48052 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_33" va00
-setv va00 addr game "mapeditortmp" 5554 5801 47915 47915 48239 48227
-rtyp va00 1
-rmsc 5677 48071 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_34" va00
-setv va00 addr game "mapeditortmp" 5416 5554 48247 48239 48440 48389
-rtyp va00 0
-rmsc 5485 48318 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_35" va00
-setv va00 addr game "mapeditortmp" 4559 4953 47938 47867 48233 48254
-rtyp va00 1
-rmsc 4756 48096 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_36" va00
-setv va00 addr game "mapeditortmp" 2047 2107 48777 48767 49096 49096
-rtyp va00 5
-rmsc 2077 48936 "c2tods.mng\\BioSpheres"
-setv game "mapeditortmp_37" va00
-setv va00 addr game "mapeditortmp" 1991 2047 48807 48777 48854 49046
-rtyp va00 5
-rmsc 2019 48926 "c2tods.mng\\BioSpheres"
-setv game "mapeditortmp_38" va00
-setv va00 addr game "mapeditortmp" 2047 2216 48283 48329 48634 48632
-rtyp va00 5
-rmsc 2131 48457 "c2tods.mng\\BioSpheres"
-setv game "mapeditortmp_39" va00
-setv va00 addr game "mapeditortmp" 2202 2349 48760 48803 49104 49140
-rtyp va00 5
-rmsc 2275 48950 "c2tods.mng\\BioSpheres"
-setv game "mapeditortmp_40" va00
-setv va00 addr game "mapeditortmp" 5400 5554 47600 47600 47865 47915
-rtyp va00 0
-rmsc 5477 47757 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_41" va00
-setv va00 addr game "mapeditortmp" 10459 10554 48633 48632 49096 49104
-rtyp va00 5
-rmsc 10506 48868 ""
-setv game "mapeditortmp_42" va00
-setv va00 addr game "mapeditortmp" 2349 2469 48803 48897 49140 49140
-rtyp va00 5
-rmsc 2409 48971 "c2tods.mng\\BioSpheres"
-setv game "mapeditortmp_43" va00
-setv va00 addr game "mapeditortmp" 5554 5801 48389 48435 48854 48798
-rtyp va00 0
-rmsc 5677 48593 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_44" va00
-setv va00 addr game "mapeditortmp" 10568 10679 48329 48463 48632 48632
-rtyp va00 5
-rmsc 10623 48480 ""
-setv game "mapeditortmp_45" va00
-setv va00 addr game "mapeditortmp" 2469 2592 48897 49007 49140 49127
-rtyp va00 5
-rmsc 2530 49012 "c2tods.mng\\BioSpheres"
-setv game "mapeditortmp_46" va00
-setv va00 addr game "mapeditortmp" 10640 10816 47937 47937 48229 48229
-rtyp va00 1
-rmsc 10728 48083 ""
-setv game "mapeditortmp_47" va00
-setv va00 addr game "mapeditortmp" 2349 2469 49140 49140 49441 49441
-rtyp va00 3
-rmsc 2409 49290 "c2tods.mng\\Machinery"
-setv game "mapeditortmp_48" va00
-setv va00 addr game "mapeditortmp" 4298 4384 48720 48720 48900 48920
-rtyp va00 5
-rmsc 4341 48820 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_49" va00
-setv va00 addr game "mapeditortmp" 10343 10399 48807 48777 48854 49046
-rtyp va00 0
-rmsc 10371 48926 ""
-setv game "mapeditortmp_50" va00
-setv va00 addr game "mapeditortmp" 10399 10459 48777 48767 49096 49096
-rtyp va00 5
-rmsc 10429 48936 ""
-setv game "mapeditortmp_51" va00
-setv va00 addr game "mapeditortmp" 10554 10701 48760 48803 49104 49140
-rtyp va00 5
-rmsc 10627 48950 ""
-setv game "mapeditortmp_52" va00
-setv va00 addr game "mapeditortmp" 2184 2349 49240 49240 49441 49441
-rtyp va00 3
-rmsc 2266 49340 "c2tods.mng\\Machinery"
-setv game "mapeditortmp_53" va00
-setv va00 addr game "mapeditortmp" 10399 10536 49272 49240 49441 49441
-rtyp va00 3
-rmsc 10467 49356 ""
-setv game "mapeditortmp_54" va00
-setv va00 addr game "mapeditortmp" 2047 2184 49272 49240 49441 49441
-rtyp va00 3
-rmsc 2115 49356 "c2tods.mng\\Machinery"
-setv game "mapeditortmp_55" va00
-setv va00 addr game "mapeditortmp" 6453 6608 48840 48991 49144 49144
-rtyp va00 3
-rmsc 6530 48992 "c2tods.mng\\PowerRoom"
-setv game "mapeditortmp_56" va00
-setv va00 addr game "mapeditortmp" 10536 10701 49240 49240 49441 49441
-rtyp va00 3
-rmsc 10618 49340 ""
-setv game "mapeditortmp_57" va00
-setv va00 addr game "mapeditortmp" 10701 10821 49140 49140 49441 49441
-rtyp va00 3
-rmsc 10761 49290 ""
-setv game "mapeditortmp_58" va00
-setv va00 addr game "mapeditortmp" 4525 4640 48504 48531 48720 48720
-rtyp va00 0
-rmsc 4582 48612 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_59" va00
-setv va00 addr game "mapeditortmp" 6136 6373 47915 47915 48181 48192
-rtyp va00 7
-rmsc 6254 48053 "c2tods.mng\\UpperTemple"
-setv game "mapeditortmp_60" va00
-setv va00 addr game "mapeditortmp" 2469 2648 49237 49144 49441 49441
-rtyp va00 3
-rmsc 2558 49339 "c2tods.mng\\Machinery"
-setv game "mapeditortmp_61" va00
-setv va00 addr game "mapeditortmp" 5064 5264 48885 48885 49145 49145
-rtyp va00 1
-rmsc 5164 49015 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_62" va00
-setv va00 addr game "mapeditortmp" 10701 10821 48803 48897 49140 49140
-rtyp va00 5
-rmsc 10761 48971 ""
-setv game "mapeditortmp_63" va00
-setv va00 addr game "mapeditortmp" 10821 10944 48897 49007 49140 49127
-rtyp va00 5
-rmsc 10882 49012 ""
-setv game "mapeditortmp_64" va00
-setv va00 addr game "mapeditortmp" 10821 11000 49237 49144 49441 49441
-rtyp va00 3
-rmsc 10910 49339 ""
-setv game "mapeditortmp_65" va00
-setv va00 addr game "mapeditortmp" 2648 2815 49144 49080 49272 49272
-rtyp va00 2
-rmsc 2731 49208 "c2tods.mng\\Machinery"
-setv game "mapeditortmp_66" va00
-setv va00 addr game "mapeditortmp" 2648 2975 49272 49272 49441 49441
-rtyp va00 3
-rmsc 2811 49356 "c2tods.mng\\Machinery"
-setv game "mapeditortmp_67" va00
-setv va00 addr game "mapeditortmp" 4559 4953 47600 47600 47938 47867
-rtyp va00 0
-rmsc 4756 47733 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_68" va00
-setv va00 addr game "mapeditortmp" 6898 7475 47600 47600 47915 47800
-rtyp va00 0
-rmsc 7186 47700 ""
-setv game "mapeditortmp_69" va00
-setv va00 addr game "mapeditortmp" 7475 7769 47600 47600 47800 47800
-rtyp va00 0
-rmsc 7622 47700 ""
-setv game "mapeditortmp_70" va00
-setv va00 addr game "mapeditortmp" 5200 5416 48257 48247 48440 48440
-rtyp va00 0
-rmsc 5308 48348 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_71" va00
-setv va00 addr game "mapeditortmp" 5801 6002 47915 47915 48227 48227
-rtyp va00 1
-rmsc 5901 48071 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_72" va00
-setv va00 addr game "mapeditortmp" 2975 3152 49272 49272 49441 49441
-rtyp va00 3
-rmsc 3063 49356 "c2tods.mng\\Machinery"
-setv game "mapeditortmp_73" va00
-setv va00 addr game "mapeditortmp" 4525 4640 48368 48368 48504 48531
-rtyp va00 0
-rmsc 4582 48449 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_74" va00
-setv va00 addr game "mapeditortmp" 10816 11376 47600 47600 47937 47937
-rtyp va00 0
-rmsc 11096 47768 ""
-setv game "mapeditortmp_75" va00
-setv va00 addr game "mapeditortmp" 4640 4953 48237 48254 48531 48440
-rtyp va00 0
-rmsc 4796 48338 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_76" va00
-setv va00 addr game "mapeditortmp" 5416 5554 48846 48854 49145 49145
-rtyp va00 1
-rmsc 5485 48995 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_77" va00
-setv va00 addr game "mapeditortmp" 6783 6983 48225 48225 48465 48470
-rtyp va00 5
-rmsc 6883 48347 "c2tods.mng\\Incubator"
-setv game "mapeditortmp_78" va00
-setv va00 addr game "mapeditortmp" 5554 5801 48854 48798 49145 49144
-rtyp va00 0
-rmsc 5677 48999 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_79" va00
-setv va00 addr game "mapeditortmp" 10816 11376 47937 47937 48229 48229
-rtyp va00 0
-rmsc 11096 48083 ""
-setv game "mapeditortmp_80" va00
-setv va00 addr game "mapeditortmp" 7183 7382 48225 48225 48465 48465
-rtyp va00 5
-rmsc 7282 48345 "c2tods.mng\\Incubator"
-setv game "mapeditortmp_81" va00
-setv va00 addr game "mapeditortmp" 5936 6056 48969 48969 49144 49144
-rtyp va00 3
-rmsc 5996 49056 ""
-setv game "mapeditortmp_82" va00
-setv va00 addr game "mapeditortmp" 7382 7609 48225 48225 48465 48472
-rtyp va00 5
-rmsc 7495 48348 "c2tods.mng\\Incubator"
-setv game "mapeditortmp_83" va00
-setv va00 addr game "mapeditortmp" 3152 3393 49032 48985 49195 49195
-rtyp va00 2
-rmsc 3272 49113 "c2tods.mng\\Machinery"
-setv game "mapeditortmp_84" va00
-setv va00 addr game "mapeditortmp" 10640 11488 48229 48230 48277 48277
-rtyp va00 0
-rmsc 11064 48253 ""
-setv game "mapeditortmp_85" va00
-setv va00 addr game "mapeditortmp" 3393 3529 48730 48730 48896 48895
-rtyp va00 1
-rmsc 3461 48812 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_86" va00
-setv va00 addr game "mapeditortmp" 3272 3393 48730 48730 48920 48896
-rtyp va00 1
-rmsc 3332 48813 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_87" va00
-setv va00 addr game "mapeditortmp" 4800 4953 48720 48720 48905 48846
-rtyp va00 0
-rmsc 4876 48783 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_88" va00
-setv va00 addr game "mapeditortmp" 10697 11199 48277 48277 48539 48539
-rtyp va00 9
-rmsc 10948 48408 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_89" va00
-setv va00 addr game "mapeditortmp" 2895 3272 48730 48730 48920 48920
-rtyp va00 1
-rmsc 3083 48825 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_90" va00
-setv va00 addr game "mapeditortmp" 10621 10697 48729 48618 48750 48776
-rtyp va00 9
-rmsc 10659 48752 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_91" va00
-setv va00 addr game "mapeditortmp" 4640 4953 49055 49121 49302 49321
-rtyp va00 0
-rmsc 4796 49188 ""
-setv game "mapeditortmp_92" va00
-setv va00 addr game "mapeditortmp" 3110 3200 48952 48952 49005 48960
-rtyp va00 8
-rmsc 3155 48956 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_93" va00
-setv va00 addr game "mapeditortmp" 2728 2783 48952 48952 48965 49014
-rtyp va00 8
-rmsc 2755 48983 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_94" va00
-setv va00 addr game "mapeditortmp" 2783 2895 48952 48952 49014 49033
-rtyp va00 8
-rmsc 2839 48992 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_95" va00
-setv va00 addr game "mapeditortmp" 2975 3110 48952 48952 49032 49005
-rtyp va00 8
-rmsc 3042 48978 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_96" va00
-setv va00 addr game "mapeditortmp" 2895 2975 48952 48952 49033 49032
-rtyp va00 8
-rmsc 2935 48992 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_97" va00
-setv va00 addr game "mapeditortmp" 5936 6096 49306 49232 49344 49344
-rtyp va00 0
-rmsc 6016 49325 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_98" va00
-setv va00 addr game "mapeditortmp" 2728 3200 48920 48920 48952 48952
-rtyp va00 0
-rmsc 2964 48936 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_99" va00
-setv va00 addr game "mapeditortmp" 2728 2895 48840 48730 48920 48920
-rtyp va00 0
-rmsc 2811 48880 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_100" va00
-setv va00 addr game "mapeditortmp" 10697 10826 48539 48539 48776 48794
-rtyp va00 9
-rmsc 10761 48666 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_101" va00
-setv va00 addr game "mapeditortmp" 10826 11005 48539 48539 48794 48794
-rtyp va00 9
-rmsc 10915 48666 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_102" va00
-setv va00 addr game "mapeditortmp" 11005 11199 48539 48539 48713 48713
-rtyp va00 9
-rmsc 11102 48626 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_103" va00
-setv va00 addr game "mapeditortmp" 5103 5356 49779 49674 49860 49863
-rtyp va00 5
-rmsc 5229 49821 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_104" va00
-setv va00 addr game "mapeditortmp" 5356 5472 49593 49593 49863 49857
-rtyp va00 5
-rmsc 5414 49725 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_105" va00
-setv va00 addr game "mapeditortmp" 11199 11376 48277 48277 48585 48585
-rtyp va00 9
-rmsc 11287 48431 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_106" va00
-setv va00 addr game "mapeditortmp" 10399 10701 49441 49441 49624 49616
-rtyp va00 3
-rmsc 10550 49528 ""
-setv game "mapeditortmp_107" va00
-setv va00 addr game "mapeditortmp" 10399 10701 49624 49616 49928 49928
-rtyp va00 3
-rmsc 10550 49776 ""
-setv game "mapeditortmp_108" va00
-setv va00 addr game "mapeditortmp" 5103 5356 49593 49593 49779 49674
-rtyp va00 0
-rmsc 5229 49633 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_109" va00
-setv va00 addr game "mapeditortmp" 3529 3710 48730 48603 48895 48888
-rtyp va00 5
-rmsc 3619 48809 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_110" va00
-setv va00 addr game "mapeditortmp" 6983 7400 48576 48576 48776 48776
-rtyp va00 5
-rmsc 7191 48676 "c2tods.mng\\Cellar"
-setv game "mapeditortmp_111" va00
-setv va00 addr game "mapeditortmp" 3240 3389 48560 48563 48713 48713
-rtyp va00 3
-rmsc 3314 48636 ""
-setv game "mapeditortmp_112" va00
-setv va00 addr game "mapeditortmp" 10701 10821 49441 49441 49616 49625
-rtyp va00 3
-rmsc 10761 49533 ""
-setv game "mapeditortmp_113" va00
-setv va00 addr game "mapeditortmp" 2047 2349 49441 49441 49624 49616
-rtyp va00 3
-rmsc 2198 49528 "c2tods.mng\\Machinery"
-setv game "mapeditortmp_114" va00
-setv va00 addr game "mapeditortmp" 8951 9064 49424 49278 49441 49441
-rtyp va00 0
-rmsc 9007 49432 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_115" va00
-setv va00 addr game "mapeditortmp" 7609 7800 48225 48272 48472 48464
-rtyp va00 5
-rmsc 7704 48344 "c2tods.mng\\Incubator"
-setv game "mapeditortmp_116" va00
-setv va00 addr game "mapeditortmp" 10701 10821 49616 49625 49928 49928
-rtyp va00 3
-rmsc 10761 49772 ""
-setv game "mapeditortmp_117" va00
-setv va00 addr game "mapeditortmp" 7951 8089 48281 48288 48484 48491
-rtyp va00 1
-rmsc 8020 48386 "c2tods.mng\\Incubator"
-setv game "mapeditortmp_118" va00
-setv va00 addr game "mapeditortmp" 4192 4400 47600 47600 47894 47938
-rtyp va00 0
-rmsc 4296 47769 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_119" va00
-setv va00 addr game "mapeditortmp" 2815 2975 49080 49114 49272 49272
-rtyp va00 2
-rmsc 2895 49176 "c2tods.mng\\Machinery"
-setv game "mapeditortmp_120" va00
-setv va00 addr game "mapeditortmp" 2975 3082 49114 49201 49272 49272
-rtyp va00 0
-rmsc 3028 49193 "c2tods.mng\\Machinery"
-setv game "mapeditortmp_121" va00
-setv va00 addr game "mapeditortmp" 10821 11000 49441 49441 49625 49623
-rtyp va00 3
-rmsc 10910 49532 ""
-setv game "mapeditortmp_122" va00
-setv va00 addr game "mapeditortmp" 10821 11000 49625 49623 49928 49928
-rtyp va00 3
-rmsc 10910 49776 ""
-setv game "mapeditortmp_123" va00
-setv va00 addr game "mapeditortmp" 1734 1980 49128 49128 49441 49441
-rtyp va00 2
-rmsc 1857 49284 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_124" va00
-setv va00 addr game "mapeditortmp" 1980 2047 49128 49272 49441 49441
-rtyp va00 3
-rmsc 2013 49284 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_125" va00
-setv va00 addr game "mapeditortmp" 1308 1734 49441 49441 49760 49760
-rtyp va00 7
-rmsc 1521 49600 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_126" va00
-setv va00 addr game "mapeditortmp" 8089 8400 48288 48288 48491 48492
-rtyp va00 1
-rmsc 8244 48390 "c2tods.mng\\Incubator"
-setv game "mapeditortmp_127" va00
-setv va00 addr game "mapeditortmp" 8089 8306 48491 48492 48830 48830
-rtyp va00 9
-rmsc 8197 48660 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_128" va00
-setv va00 addr game "mapeditortmp" 8847 8951 49506 49441 49817 49794
-rtyp va00 7
-rmsc 8899 49650 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_129" va00
-setv va00 addr game "mapeditortmp" 1734 1937 49441 49441 49760 49800
-rtyp va00 7
-rmsc 1835 49620 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_130" va00
-setv va00 addr game "mapeditortmp" 1734 1937 49760 49800 49888 49878
-rtyp va00 0
-rmsc 1835 49819 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_131" va00
-setv va00 addr game "mapeditortmp" 7370 7475 47821 47800 48168 48179
-rtyp va00 7
-rmsc 7422 48000 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_132" va00
-setv va00 addr game "mapeditortmp" 1630 1980 48905 48905 49128 49128
-rtyp va00 0
-rmsc 1805 49016 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_133" va00
-setv va00 addr game "mapeditortmp" 8847 9064 49817 49768 49838 49896
-rtyp va00 0
-rmsc 8955 49856 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_134" va00
-setv va00 addr game "mapeditortmp" 1108 1308 49441 49441 49767 49760
-rtyp va00 7
-rmsc 1208 49600 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_135" va00
-setv va00 addr game "mapeditortmp" 8306 8507 48492 48492 48692 48718
-rtyp va00 9
-rmsc 8406 48605 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_136" va00
-setv va00 addr game "mapeditortmp" 712 1108 49441 49441 49768 49767
-rtyp va00 7
-rmsc 910 49604 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_137" va00
-setv va00 addr game "mapeditortmp" 1308 1734 49128 49128 49328 49328
-rtyp va00 0
-rmsc 1521 49228 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_138" va00
-setv va00 addr game "mapeditortmp" 599 712 49441 49441 49794 49768
-rtyp va00 7
-rmsc 655 49604 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_139" va00
-setv va00 addr game "mapeditortmp" 1844 1980 48674 48785 48905 48905
-rtyp va00 2
-rmsc 1912 48789 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_140" va00
-setv va00 addr game "mapeditortmp" 1630 1844 48725 48725 48905 48905
-rtyp va00 2
-rmsc 1737 48815 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_141" va00
-setv va00 addr game "mapeditortmp" 495 599 49506 49441 49817 49794
-rtyp va00 7
-rmsc 547 49650 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_142" va00
-setv va00 addr game "mapeditortmp" 280 495 49672 49506 49832 49817
-rtyp va00 7
-rmsc 387 49744 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_143" va00
-setv va00 addr game "mapeditortmp" 1108 1734 49328 49328 49441 49441
-rtyp va00 0
-rmsc 1421 49384 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_144" va00
-setv va00 addr game "mapeditortmp" 1707 1844 48213 48187 48504 48504
-rtyp va00 0
-rmsc 1775 48358 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_145" va00
-setv va00 addr game "mapeditortmp" 1380 1707 48288 48213 48504 48504
-rtyp va00 0
-rmsc 1543 48396 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_146" va00
-setv va00 addr game "mapeditortmp" 1906 2047 47800 47800 48175 48237
-rtyp va00 7
-rmsc 1976 48018 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_147" va00
-setv va00 addr game "mapeditortmp" 1906 2047 47600 47600 47800 47800
-rtyp va00 0
-rmsc 1976 47700 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_148" va00
-setv va00 addr game "mapeditortmp" 3152 3529 49195 49195 49441 49441
-rtyp va00 3
-rmsc 3340 49318 "c2tods.mng\\Machinery"
-setv game "mapeditortmp_149" va00
-setv va00 addr game "mapeditortmp" 8507 8913 48492 48492 48718 48722
-rtyp va00 9
-rmsc 8710 48607 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_150" va00
-setv va00 addr game "mapeditortmp" 8400 8913 48288 48288 48492 48492
-rtyp va00 9
-rmsc 8656 48390 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_151" va00
-setv va00 addr game "mapeditortmp" 1707 1906 47600 47600 47800 47800
-rtyp va00 0
-rmsc 1806 47700 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_152" va00
-setv va00 addr game "mapeditortmp" 712 1108 49328 49328 49441 49441
-rtyp va00 0
-rmsc 910 49384 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_153" va00
-setv va00 addr game "mapeditortmp" 599 712 49424 49278 49441 49441
-rtyp va00 0
-rmsc 655 49432 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_154" va00
-setv va00 addr game "mapeditortmp" 8913 9116 48288 48288 48492 48504
-rtyp va00 9
-rmsc 9014 48396 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_155" va00
-setv va00 addr game "mapeditortmp" 8913 9116 48492 48504 48722 48690
-rtyp va00 9
-rmsc 9014 48591 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_156" va00
-setv va00 addr game "mapeditortmp" 9228 9460 48392 48305 48504 48504
-rtyp va00 1
-rmsc 9344 48448 ""
-setv game "mapeditortmp_157" va00
-setv va00 addr game "mapeditortmp" 9116 9228 48288 48288 48504 48504
-rtyp va00 9
-rmsc 9172 48396 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_158" va00
-setv va00 addr game "mapeditortmp" 9116 9228 48504 48504 48690 48692
-rtyp va00 9
-rmsc 9172 48598 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_159" va00
-setv va00 addr game "mapeditortmp" 9228 9413 48288 48288 48392 48323
-rtyp va00 9
-rmsc 9320 48305 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_160" va00
-setv va00 addr game "mapeditortmp" 9339 9424 48504 48504 48718 48578
-rtyp va00 9
-rmsc 9381 48541 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_161" va00
-setv va00 addr game "mapeditortmp" 4384 4541 49055 49055 49317 49295
-rtyp va00 5
-rmsc 4462 49175 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_162" va00
-setv va00 addr game "mapeditortmp" 9228 9339 48504 48504 48692 48718
-rtyp va00 9
-rmsc 9283 48611 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_163" va00
-setv va00 addr game "mapeditortmp" 495 712 49817 49768 49838 49896
-rtyp va00 0
-rmsc 603 49856 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_164" va00
-setv va00 addr game "mapeditortmp" 3393 3529 48896 48895 49195 49195
-rtyp va00 2
-rmsc 3461 49045 "c2tods.mng\\Machinery"
-setv game "mapeditortmp_165" va00
-setv va00 addr game "mapeditortmp" 9732 10059 48288 48213 48504 48504
-rtyp va00 0
-rmsc 9895 48396 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_166" va00
-setv va00 addr game "mapeditortmp" 2269 2345 48729 48618 48750 48776
-rtyp va00 9
-rmsc 2307 48752 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_167" va00
-setv va00 addr game "mapeditortmp" 8089 8306 48830 48830 49040 49040
-rtyp va00 9
-rmsc 8197 48935 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_168" va00
-setv va00 addr game "mapeditortmp" 1707 1906 47800 47800 48050 47975
-rtyp va00 0
-rmsc 1806 47887 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_169" va00
-setv va00 addr game "mapeditortmp" 1707 1906 48050 47975 48213 48175
-rtyp va00 7
-rmsc 1806 48112 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_170" va00
-setv va00 addr game "mapeditortmp" 1308 1707 47600 47600 47800 47800
-rtyp va00 0
-rmsc 1507 47700 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_171" va00
-setv va00 addr game "mapeditortmp" 2345 2847 48277 48277 48539 48539
-rtyp va00 9
-rmsc 2596 48408 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_172" va00
-setv va00 addr game "mapeditortmp" 8306 8430 48830 48792 49040 49040
-rtyp va00 9
-rmsc 8368 48935 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_173" va00
-setv va00 addr game "mapeditortmp" 2847 3240 48585 48585 48713 48713
-rtyp va00 3
-rmsc 3043 48649 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_174" va00
-setv va00 addr game "mapeditortmp" 2653 2847 48539 48539 48713 48713
-rtyp va00 9
-rmsc 2750 48626 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_175" va00
-setv va00 addr game "mapeditortmp" 2474 2653 48539 48539 48794 48794
-rtyp va00 9
-rmsc 2563 48666 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_176" va00
-setv va00 addr game "mapeditortmp" 2345 2474 48539 48539 48776 48794
-rtyp va00 9
-rmsc 2409 48666 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_177" va00
-setv va00 addr game "mapeditortmp" 8306 8507 48692 48718 48830 48768
-rtyp va00 9
-rmsc 8406 48730 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_178" va00
-setv va00 addr game "mapeditortmp" 8430 8572 48839 48803 49040 49040
-rtyp va00 3
-rmsc 8501 48939 ""
-setv game "mapeditortmp_179" va00
-setv va00 addr game "mapeditortmp" 2847 3024 48277 48277 48585 48585
-rtyp va00 9
-rmsc 2935 48431 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_180" va00
-setv va00 addr game "mapeditortmp" 9660 9732 48305 48288 48504 48504
-rtyp va00 2
-rmsc 9696 48404 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_181" va00
-setv va00 addr game "mapeditortmp" 9660 10086 49760 49760 49936 49888
-rtyp va00 0
-rmsc 9873 49824 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_182" va00
-setv va00 addr game "mapeditortmp" 9768 9982 48725 48725 48877 48848
-rtyp va00 0
-rmsc 9875 48786 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_183" va00
-setv va00 addr game "mapeditortmp" 8155 8238 48059 48059 48248 48251
-rtyp va00 7
-rmsc 8196 48155 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_184" va00
-setv va00 addr game "mapeditortmp" 7800 7951 48272 48281 48464 48484
-rtyp va00 2
-rmsc 7875 48378 "c2tods.mng\\Incubator"
-setv game "mapeditortmp_185" va00
-setv va00 addr game "mapeditortmp" 7800 7928 48172 48194 48272 48280
-rtyp va00 0
-rmsc 7864 48226 ""
-setv game "mapeditortmp_186" va00
-setv va00 addr game "mapeditortmp" 4541 4693 49295 49305 49304 49376
-rtyp va00 0
-rmsc 4617 49335 ""
-setv game "mapeditortmp_187" va00
-setv va00 addr game "mapeditortmp" 4953 5064 49121 49100 49321 49327
-rtyp va00 0
-rmsc 5008 49224 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_188" va00
-setv va00 addr game "mapeditortmp" 4640 4953 48531 48440 48720 48720
-rtyp va00 0
-rmsc 4796 48625 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_189" va00
-setv va00 addr game "mapeditortmp" 8953 9139 48803 48781 48992 48958
-rtyp va00 0
-rmsc 9046 48880 ""
-setv game "mapeditortmp_190" va00
-setv va00 addr game "mapeditortmp" 1416 1630 48877 48848 49128 49128
-rtyp va00 0
-rmsc 1523 49002 ""
-setv game "mapeditortmp_191" va00
-setv va00 addr game "mapeditortmp" 1416 1630 48725 48725 48877 48848
-rtyp va00 0
-rmsc 1523 48786 ""
-setv game "mapeditortmp_192" va00
-setv va00 addr game "mapeditortmp" 1308 1844 48504 48504 48725 48725
-rtyp va00 0
-rmsc 1576 48614 ""
-setv game "mapeditortmp_193" va00
-setv va00 addr game "mapeditortmp" 1308 1380 48305 48288 48504 48504
-rtyp va00 2
-rmsc 1344 48404 ""
-setv game "mapeditortmp_194" va00
-setv va00 addr game "mapeditortmp" 4953 5103 49321 49329 49593 49541
-rtyp va00 0
-rmsc 5028 49431 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_195" va00
-setv va00 addr game "mapeditortmp" 8572 8731 48803 48803 49040 49040
-rtyp va00 3
-rmsc 8651 48921 ""
-setv game "mapeditortmp_196" va00
-setv va00 addr game "mapeditortmp" 1108 1308 48305 48305 48504 48504
-rtyp va00 2
-rmsc 1208 48404 ""
-setv game "mapeditortmp_197" va00
-setv va00 addr game "mapeditortmp" 8731 8785 48803 48803 49040 49000
-rtyp va00 3
-rmsc 8758 48901 ""
-setv game "mapeditortmp_198" va00
-setv va00 addr game "mapeditortmp" 8785 8953 48803 48803 49000 48992
-rtyp va00 3
-rmsc 8869 48897 ""
-setv game "mapeditortmp_199" va00
-setv va00 addr game "mapeditortmp" 2349 2469 49441 49441 49616 49625
-rtyp va00 3
-rmsc 2409 49533 "c2tods.mng\\Machinery"
-setv game "mapeditortmp_200" va00
-setv va00 addr game "mapeditortmp" 2880 3082 49441 49441 49633 49633
-rtyp va00 3
-rmsc 2981 49537 "c2tods.mng\\Machinery"
-setv game "mapeditortmp_201" va00
-setv va00 addr game "mapeditortmp" 2648 2880 49441 49441 49623 49633
-rtyp va00 3
-rmsc 2764 49537 "c2tods.mng\\Machinery"
-setv game "mapeditortmp_202" va00
-setv va00 addr game "mapeditortmp" 2469 2648 49441 49441 49625 49623
-rtyp va00 3
-rmsc 2558 49532 "c2tods.mng\\Machinery"
-setv game "mapeditortmp_203" va00
-setv va00 addr game "mapeditortmp" 1108 1416 48725 48725 48928 48928
-rtyp va00 2
-rmsc 1262 48826 ""
-setv game "mapeditortmp_204" va00
-setv va00 addr game "mapeditortmp" 1308 1707 48050 48050 48305 48213
-rtyp va00 2
-rmsc 1507 48131 ""
-setv game "mapeditortmp_205" va00
-setv va00 addr game "mapeditortmp" 1308 1707 47800 47800 48050 48050
-rtyp va00 0
-rmsc 1507 47925 ""
-setv game "mapeditortmp_206" va00
-setv va00 addr game "mapeditortmp" 1147 1308 48050 48050 48305 48305
-rtyp va00 2
-rmsc 1227 48177 ""
-setv game "mapeditortmp_207" va00
-setv va00 addr game "mapeditortmp" 2648 2880 49623 49633 49928 49928
-rtyp va00 3
-rmsc 2764 49775 "c2tods.mng\\Machinery"
-setv game "mapeditortmp_208" va00
-setv va00 addr game "mapeditortmp" 2047 2349 49624 49616 49928 49928
-rtyp va00 3
-rmsc 2198 49776 "c2tods.mng\\Machinery"
-setv game "mapeditortmp_209" va00
-setv va00 addr game "mapeditortmp" 10059 10196 48213 48187 48504 48504
-rtyp va00 0
-rmsc 10127 48358 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_210" va00
-setv va00 addr game "mapeditortmp" 2469 2648 49625 49623 49928 49928
-rtyp va00 3
-rmsc 2558 49776 "c2tods.mng\\Machinery"
-setv game "mapeditortmp_211" va00
-setv va00 addr game "mapeditortmp" 1061 1147 48050 48050 48248 48305
-rtyp va00 4
-rmsc 1104 48177 ""
-setv game "mapeditortmp_212" va00
-setv va00 addr game "mapeditortmp" 8536 8784 49096 49080 49376 49384
-rtyp va00 7
-rmsc 8660 49240 "c2tods.mng\\GeneSplicer"
-setv game "mapeditortmp_213" va00
-setv va00 addr game "mapeditortmp" 912 1416 48928 48928 49128 49128
-rtyp va00 0
-rmsc 1164 49028 ""
-setv game "mapeditortmp_214" va00
-setv va00 addr game "mapeditortmp" 8368 8536 49096 49096 49392 49376
-rtyp va00 7
-rmsc 8452 49236 "c2tods.mng\\GeneSplicer"
-setv game "mapeditortmp_215" va00
-setv va00 addr game "mapeditortmp" 4953 5103 49593 49541 49757 49779
-rtyp va00 0
-rmsc 5028 49686 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_216" va00
-setv va00 addr game "mapeditortmp" 1308 1734 49760 49760 49936 49888
-rtyp va00 0
-rmsc 1521 49824 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_217" va00
-setv va00 addr game "mapeditortmp" 9660 10059 47800 47800 48050 48050
-rtyp va00 0
-rmsc 9859 47925 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_218" va00
-setv va00 addr game "mapeditortmp" 1108 1308 49767 49760 49904 49936
-rtyp va00 0
-rmsc 1208 49851 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_219" va00
-setv va00 addr game "mapeditortmp" 8168 8368 49104 49096 49391 49392
-rtyp va00 7
-rmsc 8268 49248 "c2tods.mng\\GeneSplicer"
-setv game "mapeditortmp_220" va00
-setv va00 addr game "mapeditortmp" 876 1108 48392 48305 48504 48504
-rtyp va00 1
-rmsc 992 48448 ""
-setv game "mapeditortmp_221" va00
-setv va00 addr game "mapeditortmp" 9660 10059 47600 47600 47800 47800
-rtyp va00 0
-rmsc 9859 47700 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_222" va00
-setv va00 addr game "mapeditortmp" 10059 10258 48050 47975 48213 48175
-rtyp va00 7
-rmsc 10158 48112 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_223" va00
-setv va00 addr game "mapeditortmp" 10059 10258 47800 47800 48050 47975
-rtyp va00 0
-rmsc 10158 47887 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_224" va00
-setv va00 addr game "mapeditortmp" 10059 10258 47600 47600 47800 47800
-rtyp va00 0
-rmsc 10158 47700 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_225" va00
-setv va00 addr game "mapeditortmp" 10086 10289 49760 49800 49888 49878
-rtyp va00 0
-rmsc 10187 49819 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_226" va00
-setv va00 addr game "mapeditortmp" 9660 10086 49441 49441 49760 49760
-rtyp va00 7
-rmsc 9873 49600 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_227" va00
-setv va00 addr game "mapeditortmp" 876 1061 48288 48288 48392 48323
-rtyp va00 9
-rmsc 968 48305 ""
-setv game "mapeditortmp_228" va00
-setv va00 addr game "mapeditortmp" 792 1061 48050 48050 48248 48248
-rtyp va00 1
-rmsc 926 48149 ""
-setv game "mapeditortmp_229" va00
-setv va00 addr game "mapeditortmp" 792 1061 48248 48248 48288 48288
-rtyp va00 0
-rmsc 926 48268 ""
-setv game "mapeditortmp_230" va00
-setv va00 addr game "mapeditortmp" 987 1072 48504 48504 48718 48578
-rtyp va00 9
-rmsc 1029 48541 ""
-setv game "mapeditortmp_231" va00
-setv va00 addr game "mapeditortmp" 876 987 48504 48504 48692 48718
-rtyp va00 9
-rmsc 931 48611 ""
-setv game "mapeditortmp_232" va00
-setv va00 addr game "mapeditortmp" 764 876 48504 48504 48690 48692
-rtyp va00 9
-rmsc 820 48598 ""
-setv game "mapeditortmp_233" va00
-setv va00 addr game "mapeditortmp" 792 1308 47800 47800 48050 48050
-rtyp va00 0
-rmsc 1050 47925 ""
-setv game "mapeditortmp_234" va00
-setv va00 addr game "mapeditortmp" 10258 10399 47800 47800 48175 48237
-rtyp va00 7
-rmsc 10328 48018 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_235" va00
-setv va00 addr game "mapeditortmp" 792 1308 47600 47600 47800 47800
-rtyp va00 0
-rmsc 1050 47700 ""
-setv game "mapeditortmp_236" va00
-setv va00 addr game "mapeditortmp" 10258 10399 47600 47600 47800 47800
-rtyp va00 0
-rmsc 10328 47700 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_237" va00
-setv va00 addr game "mapeditortmp" 7166 7370 47862 47821 48183 48168
-rtyp va00 7
-rmsc 7268 48015 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_238" va00
-setv va00 addr game "mapeditortmp" 6898 7166 47915 47862 48179 48183
-rtyp va00 7
-rmsc 7032 48049 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_239" va00
-setv va00 addr game "mapeditortmp" 6775 6898 47915 47915 48174 48179
-rtyp va00 7
-rmsc 6836 48047 "c2tods.mng\\UpperTemple"
-setv game "mapeditortmp_240" va00
-setv va00 addr game "mapeditortmp" 6002 6136 47915 47915 48227 48181
-rtyp va00 7
-rmsc 6069 48048 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_241" va00
-setv va00 addr game "mapeditortmp" 247 792 48253 48248 48288 48288
-rtyp va00 0
-rmsc 519 48270 ""
-setv game "mapeditortmp_242" va00
-setv va00 addr game "mapeditortmp" 247 792 48050 48050 48253 48248
-rtyp va00 0
-rmsc 519 48149 ""
-setv game "mapeditortmp_243" va00
-setv va00 addr game "mapeditortmp" 4400 4559 47938 47938 48225 48233
-rtyp va00 1
-rmsc 4479 48085 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_244" va00
-setv va00 addr game "mapeditortmp" 4192 4400 47894 47938 48224 48225
-rtyp va00 1
-rmsc 4296 48059 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_245" va00
-setv va00 addr game "mapeditortmp" 6622 6775 47915 47915 48184 48174
-rtyp va00 7
-rmsc 6698 48044 "c2tods.mng\\UpperTemple"
-setv game "mapeditortmp_246" va00
-setv va00 addr game "mapeditortmp" 6520 6622 47915 47915 48167 48184
-rtyp va00 7
-rmsc 6571 48049 "c2tods.mng\\UpperTemple"
-setv game "mapeditortmp_247" va00
-setv va00 addr game "mapeditortmp" 6373 6520 47915 47915 48192 48167
-rtyp va00 7
-rmsc 6446 48041 "c2tods.mng\\UpperTemple"
-setv game "mapeditortmp_248" va00
-setv va00 addr game "mapeditortmp" 247 792 47800 47800 48050 48050
-rtyp va00 0
-rmsc 519 47925 ""
-setv game "mapeditortmp_249" va00
-setv va00 addr game "mapeditortmp" 247 792 47600 47600 47800 47800
-rtyp va00 0
-rmsc 519 47700 ""
-setv game "mapeditortmp_250" va00
-setv va00 addr game "mapeditortmp" 48 247 48253 48253 48288 48288
-rtyp va00 0
-rmsc 147 48270 ""
-setv game "mapeditortmp_251" va00
-setv va00 addr game "mapeditortmp" 48 247 48050 48050 48253 48253
-rtyp va00 1
-rmsc 147 48151 ""
-setv game "mapeditortmp_252" va00
-setv va00 addr game "mapeditortmp" 48 247 47800 47800 48050 48050
-rtyp va00 0
-rmsc 147 47925 ""
-setv game "mapeditortmp_253" va00
-setv va00 addr game "mapeditortmp" 48 247 47600 47600 47800 47800
-rtyp va00 0
-rmsc 147 47700 ""
-setv game "mapeditortmp_254" va00
-setv va00 addr game "mapeditortmp" 764 876 48288 48288 48504 48504
-rtyp va00 9
-rmsc 820 48396 ""
-setv game "mapeditortmp_255" va00
-setv va00 addr game "mapeditortmp" 6136 6520 47600 47600 47915 47915
-rtyp va00 0
-rmsc 6328 47757 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_256" va00
-setv va00 addr game "mapeditortmp" 561 764 48288 48288 48492 48504
-rtyp va00 9
-rmsc 662 48396 ""
-setv game "mapeditortmp_257" va00
-setv va00 addr game "mapeditortmp" 6520 6898 47600 47600 47915 47915
-rtyp va00 2
-rmsc 6709 47757 "c2tods.mng\\UpperTemple"
-setv game "mapeditortmp_258" va00
-setv va00 addr game "mapeditortmp" 48 561 48288 48288 48492 48492
-rtyp va00 9
-rmsc 304 48390 ""
-setv game "mapeditortmp_259" va00
-setv va00 addr game "mapeditortmp" 561 764 48492 48504 48722 48690
-rtyp va00 9
-rmsc 662 48591 ""
-setv game "mapeditortmp_260" va00
-setv va00 addr game "mapeditortmp" 9264 9460 48772 48725 48928 48928
-rtyp va00 2
-rmsc 9362 48850 ""
-setv game "mapeditortmp_261" va00
-setv va00 addr game "mapeditortmp" 3688 4192 47937 47937 48224 48224
-rtyp va00 5
-rmsc 3940 48080 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_262" va00
-setv va00 addr game "mapeditortmp" 155 561 48492 48492 48718 48722
-rtyp va00 9
-rmsc 358 48607 ""
-setv game "mapeditortmp_263" va00
-setv va00 addr game "mapeditortmp" 9460 9768 48725 48725 48928 48928
-rtyp va00 2
-rmsc 9614 48826 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_264" va00
-setv va00 addr game "mapeditortmp" 78 220 48839 48803 49040 49040
-rtyp va00 3
-rmsc 149 48939 ""
-setv game "mapeditortmp_265" va00
-setv va00 addr game "mapeditortmp" 220 379 48803 48803 49040 49040
-rtyp va00 3
-rmsc 299 48921 ""
-setv game "mapeditortmp_266" va00
-setv va00 addr game "mapeditortmp" 379 433 48803 48803 49040 49000
-rtyp va00 3
-rmsc 406 48901 ""
-setv game "mapeditortmp_267" va00
-setv va00 addr game "mapeditortmp" 3560 3688 47937 47937 48241 48224
-rtyp va00 5
-rmsc 3624 48080 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_268" va00
-setv va00 addr game "mapeditortmp" 433 601 48803 48803 49000 48992
-rtyp va00 3
-rmsc 517 48897 ""
-setv game "mapeditortmp_269" va00
-setv va00 addr game "mapeditortmp" 3136 3240 48344 48360 48542 48560
-rtyp va00 5
-rmsc 3188 48452 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_270" va00
-setv va00 addr game "mapeditortmp" 3024 3136 48344 48344 48510 48542
-rtyp va00 5
-rmsc 3080 48443 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_271" va00
-setv va00 addr game "mapeditortmp" 601 787 48803 48781 48992 48958
-rtyp va00 3
-rmsc 694 48880 ""
-setv game "mapeditortmp_272" va00
-setv va00 addr game "mapeditortmp" 912 1108 48772 48725 48928 48928
-rtyp va00 2
-rmsc 1010 48850 ""
-setv game "mapeditortmp_273" va00
-setv va00 addr game "mapeditortmp" 787 912 48781 48772 48958 48928
-rtyp va00 3
-rmsc 849 48854 ""
-setv game "mapeditortmp_274" va00
-setv va00 addr game "mapeditortmp" 2288 2464 47937 47937 48229 48229
-rtyp va00 1
-rmsc 2376 48083 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_275" va00
-setv va00 addr game "mapeditortmp" 9139 9264 48781 48772 48958 48928
-rtyp va00 3
-rmsc 9201 48854 ""
-setv game "mapeditortmp_276" va00
-setv va00 addr game "mapeditortmp" 912 1308 49128 49128 49328 49328
-rtyp va00 0
-rmsc 1110 49228 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_277" va00
-setv va00 addr game "mapeditortmp" 712 912 49278 48928 49328 49328
-rtyp va00 0
-rmsc 812 49303 ""
-setv game "mapeditortmp_278" va00
-setv va00 addr game "mapeditortmp" 3992 4400 48368 48368 48568 48564
-rtyp va00 5
-rmsc 4196 48466 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_279" va00
-setv va00 addr game "mapeditortmp" 3296 3560 47937 47937 48232 48241
-rtyp va00 5
-rmsc 3428 48089 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_280" va00
-setv va00 addr game "mapeditortmp" 2288 3136 48229 48230 48277 48277
-rtyp va00 0
-rmsc 2712 48253 ""
-setv game "mapeditortmp_281" va00
-setv va00 addr game "mapeditortmp" 3024 3136 48277 48277 48344 48344
-rtyp va00 9
-rmsc 3080 48310 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_282" va00
-setv va00 addr game "mapeditortmp" 3688 4192 47600 47600 47937 47937
-rtyp va00 0
-rmsc 3940 47768 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_283" va00
-setv va00 addr game "mapeditortmp" 5472 5936 49145 49144 49344 49344
-rtyp va00 1
-rmsc 5704 49244 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_284" va00
-setv va00 addr game "mapeditortmp" 3296 3688 47600 47600 47937 47937
-rtyp va00 0
-rmsc 3492 47768 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_285" va00
-setv va00 addr game "mapeditortmp" 3024 3296 47937 47894 48229 48232
-rtyp va00 1
-rmsc 3160 48084 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_286" va00
-setv va00 addr game "mapeditortmp" 912 1108 49768 49767 49928 49904
-rtyp va00 0
-rmsc 1010 49836 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_287" va00
-setv va00 addr game "mapeditortmp" 712 912 49768 49768 49896 49928
-rtyp va00 0
-rmsc 812 49848 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_288" va00
-setv va00 addr game "mapeditortmp" 128 280 49511 49632 49832 49832
-rtyp va00 6
-rmsc 204 49671 ""
-setv game "mapeditortmp_289" va00
-setv va00 addr game "mapeditortmp" 432 611 49080 49080 49384 49367
-rtyp va00 5
-rmsc 521 49223 ""
-setv game "mapeditortmp_290" va00
-setv va00 addr game "mapeditortmp" 2464 3024 47937 47937 48229 48229
-rtyp va00 0
-rmsc 2744 48083 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_291" va00
-setv va00 addr game "mapeditortmp" 6583 6983 48576 48576 48776 48776
-rtyp va00 5
-rmsc 6783 48676 "c2tods.mng\\Cellar"
-setv game "mapeditortmp_292" va00
-setv va00 addr game "mapeditortmp" 184 432 49096 49080 49376 49384
-rtyp va00 5
-rmsc 308 49240 ""
-setv game "mapeditortmp_293" va00
-setv va00 addr game "mapeditortmp" 3240 3560 48360 48408 48560 48566
-rtyp va00 5
-rmsc 3400 48463 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_294" va00
-setv va00 addr game "mapeditortmp" 11000 11167 49144 49080 49272 49272
-rtyp va00 0
-rmsc 11083 49208 ""
-setv game "mapeditortmp_295" va00
-setv va00 addr game "mapeditortmp" 11000 11327 49272 49272 49441 49441
-rtyp va00 3
-rmsc 11163 49356 ""
-setv game "mapeditortmp_296" va00
-setv va00 addr game "mapeditortmp" 3560 3688 48241 48224 48408 48408
-rtyp va00 1
-rmsc 3624 48324 ""
-setv game "mapeditortmp_297" va00
-setv va00 addr game "mapeditortmp" 4953 5039 49757 49770 49928 49928
-rtyp va00 0
-rmsc 4996 49842 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_298" va00
-setv va00 addr game "mapeditortmp" 11000 11232 49441 49441 49623 49633
-rtyp va00 3
-rmsc 11116 49537 ""
-setv game "mapeditortmp_299" va00
-setv va00 addr game "mapeditortmp" 11000 11232 49623 49633 49928 49928
-rtyp va00 3
-rmsc 11116 49775 ""
-setv game "mapeditortmp_300" va00
-setv va00 addr game "mapeditortmp" 11232 11434 49768 49737 49928 49920
-rtyp va00 3
-rmsc 11333 49844 ""
-setv game "mapeditortmp_301" va00
-setv va00 addr game "mapeditortmp" 11232 11434 49441 49441 49633 49633
-rtyp va00 3
-rmsc 11333 49537 ""
-setv game "mapeditortmp_302" va00
-setv va00 addr game "mapeditortmp" 9660 10196 48504 48504 48725 48725
-rtyp va00 0
-rmsc 9928 48614 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_303" va00
-setv va00 addr game "mapeditortmp" 9460 9660 48305 48305 48504 48504
-rtyp va00 2
-rmsc 9560 48404 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_304" va00
-setv va00 addr game "mapeditortmp" 11434 11664 49516 49478 49920 49920
-rtyp va00 3
-rmsc 11549 49718 ""
-setv game "mapeditortmp_305" va00
-setv va00 addr game "mapeditortmp" 11664 11915 49478 49512 49920 49920
-rtyp va00 3
-rmsc 11789 49699 ""
-setv game "mapeditortmp_306" va00
-setv va00 addr game "mapeditortmp" 9499 9660 48050 48050 48305 48305
-rtyp va00 2
-rmsc 9579 48177 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_307" va00
-setv va00 addr game "mapeditortmp" 9660 10059 48050 48050 48305 48213
-rtyp va00 2
-rmsc 9859 48131 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_308" va00
-setv va00 addr game "mapeditortmp" 11915 12384 49752 49752 49920 49920
-rtyp va00 3
-rmsc 12149 49836 ""
-setv game "mapeditortmp_309" va00
-setv va00 addr game "mapeditortmp" 8238 8599 47800 47800 48059 48050
-rtyp va00 0
-rmsc 8418 47925 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_310" va00
-setv va00 addr game "mapeditortmp" 9413 9499 48050 48050 48248 48305
-rtyp va00 4
-rmsc 9456 48177 ""
-setv game "mapeditortmp_311" va00
-setv va00 addr game "mapeditortmp" 11915 12062 49512 49527 49752 49752
-rtyp va00 0
-rmsc 11988 49632 ""
-setv game "mapeditortmp_312" va00
-setv va00 addr game "mapeditortmp" 12062 12384 49527 49498 49752 49752
-rtyp va00 5
-rmsc 12223 49639 ""
-setv game "mapeditortmp_313" va00
-setv va00 addr game "mapeditortmp" 9144 9413 48050 48050 48248 48248
-rtyp va00 1
-rmsc 9278 48149 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_314" va00
-setv va00 addr game "mapeditortmp" 8238 8599 48059 48050 48251 48253
-rtyp va00 1
-rmsc 8418 48156 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_315" va00
-setv va00 addr game "mapeditortmp" 11167 11327 49080 49114 49272 49272
-rtyp va00 0
-rmsc 11247 49176 ""
-setv game "mapeditortmp_316" va00
-setv va00 addr game "mapeditortmp" 4695 4953 49767 49767 49928 49928
-rtyp va00 0
-rmsc 4824 49847 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_317" va00
-setv va00 addr game "mapeditortmp" 11327 11504 49272 49272 49441 49441
-rtyp va00 3
-rmsc 11415 49356 ""
-setv game "mapeditortmp_318" va00
-setv va00 addr game "mapeditortmp" 3560 3688 48408 48408 48566 48568
-rtyp va00 5
-rmsc 3624 48488 ""
-setv game "mapeditortmp_319" va00
-setv va00 addr game "mapeditortmp" 5200 5400 47866 47865 48257 48248
-rtyp va00 1
-rmsc 5300 48057 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_320" va00
-setv va00 addr game "mapeditortmp" 11327 11434 49114 49201 49272 49272
-rtyp va00 0
-rmsc 11380 49193 ""
-setv game "mapeditortmp_321" va00
-setv va00 addr game "mapeditortmp" 9982 10196 48725 48725 48905 48905
-rtyp va00 0
-rmsc 10089 48815 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_322" va00
-setv va00 addr game "mapeditortmp" 8400 8599 48252 48253 48288 48288
-rtyp va00 0
-rmsc 8499 48270 ""
-setv game "mapeditortmp_323" va00
-setv va00 addr game "mapeditortmp" 5554 6136 47600 47600 47915 47915
-rtyp va00 0
-rmsc 5845 47757 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_324" va00
-setv va00 addr game "mapeditortmp" 11504 11881 49195 49195 49441 49441
-rtyp va00 3
-rmsc 11692 49318 ""
-setv game "mapeditortmp_325" va00
-setv va00 addr game "mapeditortmp" 11504 11745 49032 48985 49195 49195
-rtyp va00 3
-rmsc 11624 49113 ""
-setv game "mapeditortmp_326" va00
-setv va00 addr game "mapeditortmp" 6983 7183 48225 48225 48470 48465
-rtyp va00 5
-rmsc 7083 48345 "c2tods.mng\\Incubator"
-setv game "mapeditortmp_327" va00
-setv va00 addr game "mapeditortmp" 8599 9144 48253 48248 48288 48288
-rtyp va00 0
-rmsc 8871 48270 ""
-setv game "mapeditortmp_328" va00
-setv va00 addr game "mapeditortmp" 8599 9144 48050 48050 48253 48248
-rtyp va00 0
-rmsc 8871 48149 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_329" va00
-setv va00 addr game "mapeditortmp" 11745 11881 48896 48895 49195 49195
-rtyp va00 3
-rmsc 11813 49045 ""
-setv game "mapeditortmp_330" va00
-setv va00 addr game "mapeditortmp" 11745 11881 48730 48730 48896 48895
-rtyp va00 1
-rmsc 11813 48812 ""
-setv game "mapeditortmp_331" va00
-setv va00 addr game "mapeditortmp" 11624 11745 48730 48730 48920 48896
-rtyp va00 1
-rmsc 11684 48813 ""
-setv game "mapeditortmp_332" va00
-setv va00 addr game "mapeditortmp" 6333 6583 48576 48576 48776 48776
-rtyp va00 5
-rmsc 6458 48676 "c2tods.mng\\Cellar"
-setv game "mapeditortmp_333" va00
-setv va00 addr game "mapeditortmp" 11247 11624 48730 48730 48920 48920
-rtyp va00 1
-rmsc 11435 48825 ""
-setv game "mapeditortmp_334" va00
-setv va00 addr game "mapeditortmp" 11080 11552 48920 48920 48952 48952
-rtyp va00 0
-rmsc 11316 48936 ""
-setv game "mapeditortmp_335" va00
-setv va00 addr game "mapeditortmp" 4192 4400 48224 48225 48368 48368
-rtyp va00 0
-rmsc 4296 48296 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_336" va00
-setv va00 addr game "mapeditortmp" 4953 5200 47867 47866 48254 48257
-rtyp va00 1
-rmsc 5076 48062 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_337" va00
-setv va00 addr game "mapeditortmp" 8038 8155 48059 48059 48213 48248
-rtyp va00 7
-rmsc 8096 48153 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_338" va00
-setv va00 addr game "mapeditortmp" 11080 11247 48840 48730 48920 48920
-rtyp va00 0
-rmsc 11163 48880 ""
-setv game "mapeditortmp_339" va00
-setv va00 addr game "mapeditortmp" 11462 11552 48952 48952 49005 48960
-rtyp va00 8
-rmsc 11507 48956 ""
-setv game "mapeditortmp_340" va00
-setv va00 addr game "mapeditortmp" 11327 11462 48952 48952 49032 49005
-rtyp va00 8
-rmsc 11394 48978 ""
-setv game "mapeditortmp_341" va00
-setv va00 addr game "mapeditortmp" 11247 11327 48952 48952 49033 49032
-rtyp va00 8
-rmsc 11287 48992 ""
-setv game "mapeditortmp_342" va00
-setv va00 addr game "mapeditortmp" 11135 11247 48952 48952 49014 49033
-rtyp va00 8
-rmsc 11191 48992 ""
-setv game "mapeditortmp_343" va00
-setv va00 addr game "mapeditortmp" 11080 11135 48952 48952 48965 49014
-rtyp va00 8
-rmsc 11107 48983 ""
-setv game "mapeditortmp_344" va00
-setv va00 addr game "mapeditortmp" 8599 9144 47800 47800 48050 48050
-rtyp va00 0
-rmsc 8871 47925 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_345" va00
-setv va00 addr game "mapeditortmp" 11881 12062 48730 48603 48895 48888
-rtyp va00 5
-rmsc 11971 48809 ""
-setv game "mapeditortmp_346" va00
-setv va00 addr game "mapeditortmp" 11915 12062 49290 49290 49512 49527
-rtyp va00 0
-rmsc 11988 49408 ""
-setv game "mapeditortmp_347" va00
-setv va00 addr game "mapeditortmp" 11915 12062 49090 49090 49290 49290
-rtyp va00 0
-rmsc 11988 49190 ""
-setv game "mapeditortmp_348" va00
-setv va00 addr game "mapeditortmp" 11915 12062 48902 48911 49090 49090
-rtyp va00 0
-rmsc 11988 48996 ""
-setv game "mapeditortmp_349" va00
-setv va00 addr game "mapeditortmp" 9144 9660 47800 47800 48050 48050
-rtyp va00 0
-rmsc 9402 47925 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_350" va00
-setv va00 addr game "mapeditortmp" 8238 8599 47600 47600 47800 47800
-rtyp va00 0
-rmsc 8418 47700 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_351" va00
-setv va00 addr game "mapeditortmp" 8599 9144 47600 47600 47800 47800
-rtyp va00 0
-rmsc 8871 47700 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_352" va00
-setv va00 addr game "mapeditortmp" 12158 12248 49206 49160 49346 49352
-rtyp va00 5
-rmsc 12203 49279 ""
-setv game "mapeditortmp_353" va00
-setv va00 addr game "mapeditortmp" 4953 5400 47600 47600 47867 47865
-rtyp va00 0
-rmsc 5176 47732 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_354" va00
-setv va00 addr game "mapeditortmp" 4400 4525 48368 48368 48564 48564
-rtyp va00 1
-rmsc 4462 48466 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_355" va00
-setv va00 addr game "mapeditortmp" 12248 12392 49160 49160 49352 49352
-rtyp va00 5
-rmsc 12320 49256 ""
-setv game "mapeditortmp_356" va00
-setv va00 addr game "mapeditortmp" 12062 12252 48911 48911 49090 49094
-rtyp va00 5
-rmsc 12157 49002 ""
-setv game "mapeditortmp_357" va00
-setv va00 addr game "mapeditortmp" 12252 12408 48911 48909 49094 49088
-rtyp va00 5
-rmsc 12330 48999 ""
-setv game "mapeditortmp_358" va00
-setv va00 addr game "mapeditortmp" 12062 12252 48603 48603 48888 48890
-rtyp va00 5
-rmsc 12157 48746 ""
-setv game "mapeditortmp_359" va00
-setv va00 addr game "mapeditortmp" 11376 11488 48344 48344 48510 48542
-rtyp va00 5
-rmsc 11432 48443 ""
-setv game "mapeditortmp_360" va00
-setv va00 addr game "mapeditortmp" 11199 11592 48585 48585 48713 48713
-rtyp va00 0
-rmsc 11395 48649 ""
-setv game "mapeditortmp_361" va00
-setv va00 addr game "mapeditortmp" 11741 11880 48585 48585 48713 48713
-rtyp va00 0
-rmsc 11810 48649 ""
-setv game "mapeditortmp_362" va00
-setv va00 addr game "mapeditortmp" 11488 11592 48344 48360 48542 48560
-rtyp va00 5
-rmsc 11540 48452 ""
-setv game "mapeditortmp_363" va00
-setv va00 addr game "mapeditortmp" 11592 11912 48360 48408 48560 48566
-rtyp va00 5
-rmsc 11752 48463 ""
-setv game "mapeditortmp_364" va00
-setv va00 addr game "mapeditortmp" 11592 11741 48560 48563 48713 48713
-rtyp va00 0
-rmsc 11666 48636 ""
-setv game "mapeditortmp_365" va00
-setv va00 addr game "mapeditortmp" 8784 8963 49080 49080 49384 49367
-rtyp va00 7
-rmsc 8873 49223 "c2tods.mng\\GeneSplicer"
-setv game "mapeditortmp_366" va00
-setv va00 addr game "mapeditortmp" 11912 12040 48408 48408 48566 48568
-rtyp va00 5
-rmsc 11976 48488 ""
-setv game "mapeditortmp_367" va00
-setv va00 addr game "mapeditortmp" 11912 12040 48241 48224 48408 48408
-rtyp va00 0
-rmsc 11976 48324 ""
-setv game "mapeditortmp_368" va00
-setv va00 addr game "mapeditortmp" 12040 12344 48224 48224 48408 48403
-rtyp va00 0
-rmsc 12192 48313 ""
-setv game "mapeditortmp_369" va00
-setv va00 addr game "mapeditortmp" 12040 12344 48408 48403 48568 48568
-rtyp va00 5
-rmsc 12192 48488 ""
-setv game "mapeditortmp_370" va00
-setv va00 addr game "mapeditortmp" 9144 9413 48248 48248 48288 48288
-rtyp va00 0
-rmsc 9278 48268 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_371" va00
-setv va00 addr game "mapeditortmp" 4400 4559 47600 47600 47938 47938
-rtyp va00 0
-rmsc 4479 47769 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_372" va00
-setv va00 addr game "mapeditortmp" 4298 4525 48565 48564 48720 48720
-rtyp va00 0
-rmsc 4411 48642 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_373" va00
-setv va00 addr game "mapeditortmp" 11376 11648 47937 47894 48229 48232
-rtyp va00 1
-rmsc 11512 48084 ""
-setv game "mapeditortmp_374" va00
-setv va00 addr game "mapeditortmp" 11376 11648 47600 47600 47937 47894
-rtyp va00 0
-rmsc 11512 47747 ""
-setv game "mapeditortmp_375" va00
-setv va00 addr game "mapeditortmp" 10196 10332 48674 48785 48905 48905
-rtyp va00 0
-rmsc 10264 48789 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_376" va00
-setv va00 addr game "mapeditortmp" 11648 12040 47600 47600 47937 47937
-rtyp va00 0
-rmsc 11844 47768 ""
-setv game "mapeditortmp_377" va00
-setv va00 addr game "mapeditortmp" 6608 6800 48991 48998 49144 49160
-rtyp va00 3
-rmsc 6704 49075 "c2tods.mng\\PowerRoom"
-setv game "mapeditortmp_378" va00
-setv va00 addr game "mapeditortmp" 11648 11912 47937 47937 48232 48241
-rtyp va00 5
-rmsc 11780 48089 ""
-setv game "mapeditortmp_379" va00
-setv va00 addr game "mapeditortmp" 9460 9660 49767 49760 49904 49936
-rtyp va00 0
-rmsc 9560 49851 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_380" va00
-setv va00 addr game "mapeditortmp" 9064 9460 49328 49328 49441 49441
-rtyp va00 0
-rmsc 9262 49384 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_381" va00
-setv va00 addr game "mapeditortmp" 7376 7952 49208 49227 49456 49456
-rtyp va00 1
-rmsc 7664 49332 "c2tods.mng\\Swamp"
-setv game "mapeditortmp_382" va00
-setv va00 addr game "mapeditortmp" 9264 9460 49768 49767 49928 49904
-rtyp va00 0
-rmsc 9362 49836 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_383" va00
-setv va00 addr game "mapeditortmp" 7696 7952 48872 49008 49219 49227
-rtyp va00 0
-rmsc 7824 49049 ""
-setv game "mapeditortmp_384" va00
-setv va00 addr game "mapeditortmp" 4953 5064 48885 48885 49121 49100
-rtyp va00 0
-rmsc 5008 48992 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_385" va00
-setv va00 addr game "mapeditortmp" 7376 7696 48840 48872 49208 49219
-rtyp va00 0
-rmsc 7536 49029 ""
-setv game "mapeditortmp_386" va00
-setv va00 addr game "mapeditortmp" 6800 6984 48848 48840 49166 49170
-rtyp va00 0
-rmsc 6892 49009 ""
-setv game "mapeditortmp_387" va00
-setv va00 addr game "mapeditortmp" 11912 12040 47937 47937 48241 48224
-rtyp va00 5
-rmsc 11976 48080 ""
-setv game "mapeditortmp_388" va00
-setv va00 addr game "mapeditortmp" 12040 12344 47600 47600 47937 47937
-rtyp va00 0
-rmsc 12192 47768 ""
-setv game "mapeditortmp_389" va00
-setv va00 addr game "mapeditortmp" 9064 9264 49768 49768 49896 49928
-rtyp va00 0
-rmsc 9164 49848 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_390" va00
-setv va00 addr game "mapeditortmp" 6984 7376 48840 48840 49216 49208
-rtyp va00 1
-rmsc 7180 49024 ""
-setv game "mapeditortmp_391" va00
-setv va00 addr game "mapeditortmp" 12040 12344 47937 47937 48224 48224
-rtyp va00 5
-rmsc 12192 48080 ""
-setv game "mapeditortmp_392" va00
-setv va00 addr game "mapeditortmp" 9064 9460 49441 49441 49768 49767
-rtyp va00 7
-rmsc 9262 49604 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_393" va00
-setv va00 addr game "mapeditortmp" 6632 6800 48867 48848 48992 48998
-rtyp va00 0
-rmsc 6716 48932 ""
-setv game "mapeditortmp_394" va00
-setv va00 addr game "mapeditortmp" 9264 9768 48928 48928 49128 49128
-rtyp va00 0
-rmsc 9516 49028 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_395" va00
-setv va00 addr game "mapeditortmp" 6056 6224 48969 48840 49144 49144
-rtyp va00 3
-rmsc 6140 49056 "c2tods.mng\\PowerRoom"
-setv game "mapeditortmp_396" va00
-setv va00 addr game "mapeditortmp" 6224 6453 48840 48840 49144 49144
-rtyp va00 3
-rmsc 6338 48992 "c2tods.mng\\PowerRoom"
-setv game "mapeditortmp_397" va00
-setv va00 addr game "mapeditortmp" 6285 6394 49144 49144 49456 49456
-rtyp va00 3
-rmsc 6339 49300 "c2tods.mng\\PowerRoom"
-setv game "mapeditortmp_398" va00
-setv va00 addr game "mapeditortmp" 9768 9982 48877 48848 49128 49128
-rtyp va00 0
-rmsc 9875 49002 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_399" va00
-setv va00 addr game "mapeditortmp" 6984 7376 49216 49208 49456 49456
-rtyp va00 1
-rmsc 7180 49336 "c2tods.mng\\Swamp"
-setv game "mapeditortmp_400" va00
-setv va00 addr game "mapeditortmp" 6544 6984 49160 49170 49456 49456
-rtyp va00 1
-rmsc 6764 49308 "c2tods.mng\\Swamp"
-setv game "mapeditortmp_401" va00
-setv va00 addr game "mapeditortmp" 6394 6544 49160 49160 49336 49336
-rtyp va00 3
-rmsc 6469 49248 "c2tods.mng\\PowerRoom"
-setv game "mapeditortmp_402" va00
-setv va00 addr game "mapeditortmp" 2880 3082 49768 49737 49928 49920
-rtyp va00 3
-rmsc 2981 49844 "c2tods.mng\\Temple"
-setv game "mapeditortmp_403" va00
-setv va00 addr game "mapeditortmp" 11376 11488 48277 48277 48344 48344
-rtyp va00 9
-rmsc 11432 48310 ""
-setv game "mapeditortmp_404" va00
-setv va00 addr game "mapeditortmp" 4384 4640 48720 48720 48920 48920
-rtyp va00 1
-rmsc 4512 48820 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_405" va00
-setv va00 addr game "mapeditortmp" 9982 10332 48905 48905 49128 49128
-rtyp va00 0
-rmsc 10157 49016 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_406" va00
-setv va00 addr game "mapeditortmp" 4032 4240 49752 49744 49920 49920
-rtyp va00 3
-rmsc 4136 49836 "c2tods.mng\\Temple"
-setv game "mapeditortmp_407" va00
-setv va00 addr game "mapeditortmp" 4640 4800 48885 48905 49055 49089
-rtyp va00 0
-rmsc 4720 48987 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_408" va00
-setv va00 addr game "mapeditortmp" 6394 6544 49336 49336 49456 49456
-rtyp va00 0
-rmsc 6469 49396 "c2tods.mng\\Vents"
-setv game "mapeditortmp_409" va00
-setv va00 addr game "mapeditortmp" 4112 4192 49111 49111 49122 49171
-rtyp va00 8
-rmsc 4152 49141 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_410" va00
-setv va00 addr game "mapeditortmp" 4800 4953 48905 48846 49089 49121
-rtyp va00 0
-rmsc 4876 49013 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_411" va00
-setv va00 addr game "mapeditortmp" 4953 5416 48440 48440 48885 48885
-rtyp va00 1
-rmsc 5184 48662 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_412" va00
-setv va00 addr game "mapeditortmp" 3082 3312 49516 49478 49920 49920
-rtyp va00 3
-rmsc 3197 49718 "c2tods.mng\\Temple"
-setv game "mapeditortmp_413" va00
-setv va00 addr game "mapeditortmp" 3312 3563 49478 49512 49920 49920
-rtyp va00 3
-rmsc 3437 49699 "c2tods.mng\\Temple"
-setv game "mapeditortmp_414" va00
-setv va00 addr game "mapeditortmp" 6096 6592 49672 49672 49856 49856
-rtyp va00 5
-rmsc 6344 49764 "c2tods.mng\\Vents"
-setv game "mapeditortmp_415" va00
-setv va00 addr game "mapeditortmp" 10332 10399 49128 49272 49441 49441
-rtyp va00 3
-rmsc 10365 49284 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_416" va00
-setv va00 addr game "mapeditortmp" 4192 4298 49111 49111 49171 49124
-rtyp va00 8
-rmsc 4245 49117 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_417" va00
-setv va00 addr game "mapeditortmp" 3563 3710 49090 49090 49290 49290
-rtyp va00 0
-rmsc 3636 49190 ""
-setv game "mapeditortmp_418" va00
-setv va00 addr game "mapeditortmp" 10086 10332 49128 49128 49441 49441
-rtyp va00 2
-rmsc 10209 49284 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_419" va00
-setv va00 addr game "mapeditortmp" 3688 3992 48224 48224 48408 48403
-rtyp va00 1
-rmsc 3840 48313 ""
-setv game "mapeditortmp_420" va00
-setv va00 addr game "mapeditortmp" 5936 6096 49144 49144 49306 49232
-rtyp va00 0
-rmsc 6016 49188 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_421" va00
-setv va00 addr game "mapeditortmp" 6096 6592 49456 49456 49672 49672
-rtyp va00 0
-rmsc 6344 49564 "c2tods.mng\\Vents"
-setv game "mapeditortmp_422" va00
-setv va00 addr game "mapeditortmp" 5264 5416 48885 48885 49145 49145
-rtyp va00 1
-rmsc 5340 49015 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_423" va00
-setv va00 addr game "mapeditortmp" 8008 8089 48487 48491 48640 48830
-rtyp va00 9
-rmsc 8048 48658 "c2tods.mng\\Underwater"
-setv game "mapeditortmp_424" va00
-setv va00 addr game "mapeditortmp" 5801 5936 48798 48741 49144 49144
-rtyp va00 0
-rmsc 5868 48971 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_425" va00
-setv va00 addr game "mapeditortmp" 4693 4953 49305 49321 49593 49593
-rtyp va00 0
-rmsc 4823 49449 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_426" va00
-setv va00 addr game "mapeditortmp" 5879 6096 49344 49344 49541 49672
-rtyp va00 0
-rmsc 5987 49508 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_427" va00
-setv va00 addr game "mapeditortmp" 4640 4800 48720 48720 48885 48905
-rtyp va00 0
-rmsc 4720 48812 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_428" va00
-setv va00 addr game "mapeditortmp" 4400 4640 48225 48237 48368 48368
-rtyp va00 0
-rmsc 4520 48296 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_429" va00
-setv va00 addr game "mapeditortmp" 3563 3710 49290 49290 49512 49527
-rtyp va00 0
-rmsc 3636 49408 ""
-setv game "mapeditortmp_430" va00
-setv va00 addr game "mapeditortmp" 3563 3710 49512 49527 49752 49752
-rtyp va00 5
-rmsc 3636 49632 "c2tods.mng\\BioSpheres"
-setv game "mapeditortmp_431" va00
-setv va00 addr game "mapeditortmp" 7800 7951 48464 48484 48776 48776
-rtyp va00 5
-rmsc 7875 48620 "c2tods.mng\\Cellar"
-setv game "mapeditortmp_432" va00
-setv va00 addr game "mapeditortmp" 3563 4032 49752 49752 49920 49920
-rtyp va00 3
-rmsc 3797 49836 "c2tods.mng\\Temple"
-setv game "mapeditortmp_433" va00
-setv va00 addr game "mapeditortmp" 7825 7904 48776 48776 48848 48848
-rtyp va00 7
-rmsc 7864 48812 "c2tods.mng\\Cellar"
-setv game "mapeditortmp_434" va00
-setv va00 addr game "mapeditortmp" 9264 9660 49128 49128 49328 49328
-rtyp va00 0
-rmsc 9462 49228 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_435" va00
-setv va00 addr game "mapeditortmp" 6911 7176 49456 49456 49672 49672
-rtyp va00 1
-rmsc 7043 49564 "c2tods.mng\\Swamp"
-setv game "mapeditortmp_436" va00
-setv va00 addr game "mapeditortmp" 7952 8168 49092 49104 49227 49242
-rtyp va00 3
-rmsc 8060 49167 ""
-setv game "mapeditortmp_437" va00
-setv va00 addr game "mapeditortmp" 6592 6911 49672 49672 49856 49856
-rtyp va00 5
-rmsc 6751 49764 "c2tods.mng\\Swamp"
-setv game "mapeditortmp_438" va00
-setv va00 addr game "mapeditortmp" 7176 7477 49672 49672 49883 49883
-rtyp va00 1
-rmsc 7326 49777 "c2tods.mng\\Swamp"
-setv game "mapeditortmp_439" va00
-setv va00 addr game "mapeditortmp" 6911 7176 49672 49672 49856 49883
-rtyp va00 1
-rmsc 7043 49777 "c2tods.mng\\Swamp"
-setv game "mapeditortmp_440" va00
-setv va00 addr game "mapeditortmp" 7477 7749 49672 49672 49883 49862
-rtyp va00 1
-rmsc 7613 49767 "c2tods.mng\\Swamp"
-setv game "mapeditortmp_441" va00
-setv va00 addr game "mapeditortmp" 7749 7952 49672 49672 49862 49848
-rtyp va00 6
-rmsc 7850 49760 "c2tods.mng\\Swamp"
-setv game "mapeditortmp_442" va00
-setv va00 addr game "mapeditortmp" 8480 8632 49511 49632 49832 49832
-rtyp va00 6
-rmsc 8556 49671 "c2tods.mng\\Swamp"
-setv game "mapeditortmp_443" va00
-setv va00 addr game "mapeditortmp" 7176 7952 49456 49456 49672 49672
-rtyp va00 0
-rmsc 7564 49564 "c2tods.mng\\Swamp"
-setv game "mapeditortmp_444" va00
-setv va00 addr game "mapeditortmp" 8301 8480 49511 49511 49864 49832
-rtyp va00 6
-rmsc 8390 49671 "c2tods.mng\\Swamp"
-setv game "mapeditortmp_445" va00
-setv va00 addr game "mapeditortmp" 8096 8301 49613 49511 49848 49864
-rtyp va00 6
-rmsc 8198 49738 "c2tods.mng\\Swamp"
-setv game "mapeditortmp_446" va00
-setv va00 addr game "mapeditortmp" 6592 6911 49456 49456 49672 49672
-rtyp va00 1
-rmsc 6751 49564 "c2tods.mng\\Swamp"
-setv game "mapeditortmp_447" va00
-setv va00 addr game "mapeditortmp" 7952 8096 49456 49613 49848 49848
-rtyp va00 6
-rmsc 8024 49652 "c2tods.mng\\Swamp"
-setv game "mapeditortmp_448" va00
-setv va00 addr game "mapeditortmp" 6911 7176 49856 49883 49931 49944
-rtyp va00 8
-rmsc 7043 49900 "c2tods.mng\\Swamp"
-setv game "mapeditortmp_449" va00
-setv va00 addr game "mapeditortmp" 7477 7749 49883 49862 49943 49922
-rtyp va00 8
-rmsc 7613 49902 "c2tods.mng\\Swamp"
-setv game "mapeditortmp_450" va00
-setv va00 addr game "mapeditortmp" 9660 10086 49128 49128 49328 49328
-rtyp va00 0
-rmsc 9873 49228 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_451" va00
-setv va00 addr game "mapeditortmp" 10086 10289 49441 49441 49760 49800
-rtyp va00 7
-rmsc 10187 49620 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_452" va00
-setv va00 addr game "mapeditortmp" 7176 7477 49883 49883 49944 49943
-rtyp va00 8
-rmsc 7326 49913 "c2tods.mng\\Swamp"
-setv game "mapeditortmp_453" va00
-setv va00 addr game "mapeditortmp" 9460 10086 49328 49328 49441 49441
-rtyp va00 0
-rmsc 9773 49384 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_454" va00
-setv va00 addr game "mapeditortmp" 5879 6096 49541 49672 49856 49856
-rtyp va00 5
-rmsc 5987 49698 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_455" va00
-setv va00 addr game "mapeditortmp" 9460 9660 49441 49441 49767 49760
-rtyp va00 7
-rmsc 9560 49600 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_456" va00
-setv va00 addr game "mapeditortmp" 8951 9064 49441 49441 49794 49768
-rtyp va00 7
-rmsc 9007 49604 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_457" va00
-setv va00 addr game "mapeditortmp" 5472 5879 49593 49593 49857 49856
-rtyp va00 5
-rmsc 5675 49724 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_458" va00
-setv va00 addr game "mapeditortmp" 9064 9264 49278 48928 49328 49328
-rtyp va00 0
-rmsc 9164 49303 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_459" va00
-setv va00 addr game "mapeditortmp" 5472 5879 49344 49344 49593 49593
-rtyp va00 1
-rmsc 5675 49468 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_460" va00
-setv va00 addr game "mapeditortmp" 8632 8847 49672 49506 49832 49817
-rtyp va00 7
-rmsc 8739 49744 "c2tods.mng\\Volcano"
-setv game "mapeditortmp_461" va00
-setv va00 addr game "mapeditortmp" 5103 5472 49329 49344 49593 49593
-rtyp va00 1
-rmsc 5287 49461 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_462" va00
-setv va00 addr game "mapeditortmp" 5064 5472 49145 49145 49327 49344
-rtyp va00 0
-rmsc 5268 49244 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_463" va00
-setv va00 addr game "mapeditortmp" 4541 4640 49055 49055 49295 49302
-rtyp va00 0
-rmsc 4590 49178 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_464" va00
-setv va00 addr game "mapeditortmp" 2464 3024 47600 47600 47937 47937
-rtyp va00 0
-rmsc 2744 47768 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_465" va00
-setv va00 addr game "mapeditortmp" 3024 3296 47600 47600 47937 47894
-rtyp va00 0
-rmsc 3160 47747 "c2tods.mng\\UpperLevel"
-setv game "mapeditortmp_466" va00
-setv va00 addr game "mapeditortmp" 5039 5103 49770 49779 49928 49860
-rtyp va00 5
-rmsc 5071 49815 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_467" va00
-setv va00 addr game "mapeditortmp" 6712 6783 48238 48225 48456 48465
-rtyp va00 2
-rmsc 6747 48351 "c2tods.mng\\Incubator"
-setv game "mapeditortmp_468" va00
-setv va00 addr game "mapeditortmp" 4144 4222 48909 48905 49053 49053
-rtyp va00 1
-rmsc 4183 48981 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_469" va00
-setv va00 addr game "mapeditortmp" 4222 4298 49053 49083 49111 49111
-rtyp va00 0
-rmsc 4260 49082 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_470" va00
-setv va00 addr game "mapeditortmp" 4144 4222 49053 49053 49111 49111
-rtyp va00 0
-rmsc 4183 49082 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_471" va00
-setv va00 addr game "mapeditortmp" 4088 4144 49075 49053 49111 49111
-rtyp va00 0
-rmsc 4116 49093 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_472" va00
-setv va00 addr game "mapeditortmp" 4232 4376 49920 49920 49974 49984
-rtyp va00 8
-rmsc 4304 49952 ""
-setv game "mapeditortmp_473" va00
-setv va00 addr game "mapeditortmp" 4376 5039 49928 49928 49984 49990
-rtyp va00 8
-rmsc 4707 49959 ""
-setv game "mapeditortmp_474" va00
-setv va00 addr game "mapeditortmp" 4154 4232 49920 49920 49953 49974
-rtyp va00 8
-rmsc 4193 49947 ""
-setv game "mapeditortmp_475" va00
-setv va00 addr game "mapeditortmp" 4240 4376 49744 49744 49920 49920
-rtyp va00 1
-rmsc 4308 49832 ""
-setv game "mapeditortmp_476" va00
-setv va00 addr game "mapeditortmp" 4376 4695 49774 49767 49928 49928
-rtyp va00 0
-rmsc 4535 49851 ""
-setv game "mapeditortmp_477" va00
-setv va00 addr game "mapeditortmp" 4568 4693 49547 49376 49593 49593
-rtyp va00 0
-rmsc 4630 49570 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_478" va00
-setv va00 addr game "mapeditortmp" 4693 4953 49593 49593 49753 49757
-rtyp va00 5
-rmsc 4823 49675 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_479" va00
-setv va00 addr game "mapeditortmp" 4524 4693 49593 49593 49744 49753
-rtyp va00 5
-rmsc 4608 49673 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_480" va00
-setv va00 addr game "mapeditortmp" 4032 4240 49498 49458 49752 49744
-rtyp va00 5
-rmsc 4136 49621 "c2tods.mng\\BioSpheres"
-setv game "mapeditortmp_481" va00
-setv va00 addr game "mapeditortmp" 4407 4524 49473 49584 49744 49744
-rtyp va00 5
-rmsc 4465 49608 "c2tods.mng\\BioSpheres"
-setv game "mapeditortmp_482" va00
-setv va00 addr game "mapeditortmp" 4240 4407 49458 49473 49744 49744
-rtyp va00 5
-rmsc 4323 49601 "c2tods.mng\\BioSpheres"
-setv game "mapeditortmp_483" va00
-setv va00 addr game "mapeditortmp" 3710 4032 49527 49498 49752 49752
-rtyp va00 5
-rmsc 3871 49639 "c2tods.mng\\BioSpheres"
-setv game "mapeditortmp_484" va00
-setv va00 addr game "mapeditortmp" 4271 4384 49153 49055 49340 49317
-rtyp va00 5
-rmsc 4327 49235 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_485" va00
-setv va00 addr game "mapeditortmp" 4122 4271 49200 49153 49352 49340
-rtyp va00 5
-rmsc 4196 49270 ""
-setv game "mapeditortmp_486" va00
-setv va00 addr game "mapeditortmp" 4040 4122 49160 49200 49352 49352
-rtyp va00 5
-rmsc 4081 49256 "c2tods.mng\\BioSpheres"
-setv game "mapeditortmp_487" va00
-setv va00 addr game "mapeditortmp" 3896 4040 49160 49160 49352 49352
-rtyp va00 5
-rmsc 3968 49256 "c2tods.mng\\BioSpheres"
-setv game "mapeditortmp_488" va00
-setv va00 addr game "mapeditortmp" 3806 3896 49206 49160 49346 49352
-rtyp va00 5
-rmsc 3851 49279 "c2tods.mng\\BioSpheres"
-setv game "mapeditortmp_489" va00
-setv va00 addr game "mapeditortmp" 4384 4640 48920 48920 49055 49055
-rtyp va00 1
-rmsc 4512 48987 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_490" va00
-setv va00 addr game "mapeditortmp" 4298 4384 48900 48920 49083 49055
-rtyp va00 1
-rmsc 4341 48977 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_491" va00
-setv va00 addr game "mapeditortmp" 4222 4298 48905 48900 49053 49083
-rtyp va00 1
-rmsc 4260 48994 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_492" va00
-setv va00 addr game "mapeditortmp" 4056 4144 48909 48909 49088 49053
-rtyp va00 1
-rmsc 4100 48981 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_493" va00
-setv va00 addr game "mapeditortmp" 3900 4056 48911 48909 49094 49088
-rtyp va00 5
-rmsc 3978 48999 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_494" va00
-setv va00 addr game "mapeditortmp" 3710 3900 48911 48911 49090 49094
-rtyp va00 5
-rmsc 3805 49002 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_495" va00
-setv va00 addr game "mapeditortmp" 3710 4144 48603 48614 48888 48900
-rtyp va00 5
-rmsc 3927 48751 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_496" va00
-setv va00 addr game "mapeditortmp" 4144 4298 48614 48720 48900 48900
-rtyp va00 5
-rmsc 4221 48757 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_497" va00
-setv va00 addr game "mapeditortmp" 3688 3992 48408 48403 48568 48568
-rtyp va00 5
-rmsc 3840 48488 ""
-setv game "mapeditortmp_498" va00
-setv va00 addr game "mapeditortmp" 5936 6080 48436 48436 48768 48758
-rtyp va00 5
-rmsc 6008 48597 "c2tods.mng\\Cellar"
-setv game "mapeditortmp_499" va00
-setv va00 addr game "mapeditortmp" 5801 6002 48227 48227 48435 48436
-rtyp va00 1
-rmsc 5901 48331 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_500" va00
-setv va00 addr game "mapeditortmp" 5554 5801 48239 48227 48389 48435
-rtyp va00 4
-rmsc 5677 48337 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_501" va00
-setv va00 addr game "mapeditortmp" 5801 5936 48435 48436 48798 48741
-rtyp va00 0
-rmsc 5868 48588 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_502" va00
-setv va00 addr game "mapeditortmp" 6002 6213 48236 48236 48436 48436
-rtyp va00 2
-rmsc 6107 48336 "c2tods.mng\\Cellar"
-setv game "mapeditortmp_503" va00
-setv va00 addr game "mapeditortmp" 6080 6213 48436 48436 48758 48760
-rtyp va00 5
-rmsc 6146 48598 "c2tods.mng\\Cellar"
-setv game "mapeditortmp_504" va00
-setv va00 addr game "mapeditortmp" 6213 6333 48436 48436 48760 48776
-rtyp va00 5
-rmsc 6273 48606 "c2tods.mng\\Cellar"
-setv game "mapeditortmp_505" va00
-setv va00 addr game "mapeditortmp" 5416 5554 48440 48389 48846 48854
-rtyp va00 0
-rmsc 5485 48647 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_506" va00
-setv va00 addr game "mapeditortmp" 6213 6333 48185 48190 48436 48436
-rtyp va00 2
-rmsc 6273 48310 "c2tods.mng\\Cellar"
-setv game "mapeditortmp_507" va00
-setv va00 addr game "mapeditortmp" 7400 7800 48576 48576 48776 48776
-rtyp va00 5
-rmsc 7600 48676 "c2tods.mng\\Cellar"
-setv game "mapeditortmp_508" va00
-setv va00 addr game "mapeditortmp" 6567 6712 48488 48488 48544 48528
-rtyp va00 8
-rmsc 6639 48508 "c2tods.mng\\Incubator"
-setv game "mapeditortmp_509" va00
-setv va00 addr game "mapeditortmp" 6408 6567 48488 48488 48526 48544
-rtyp va00 8
-rmsc 6487 48516 "c2tods.mng\\Incubator"
-setv game "mapeditortmp_510" va00
-setv va00 addr game "mapeditortmp" 6567 6712 48288 48238 48488 48488
-rtyp va00 0
-rmsc 6639 48388 "c2tods.mng\\Incubator"
-setv game "mapeditortmp_511" va00
-setv va00 addr game "mapeditortmp" 6408 6567 48288 48288 48488 48488
-rtyp va00 0
-rmsc 6487 48388 "c2tods.mng\\Incubator"
-setv game "mapeditortmp_512" va00
-setv va00 addr game "mapeditortmp" 6096 6285 49232 49232 49456 49456
-rtyp va00 3
-rmsc 6190 49344 "c2tods.mng\\PowerRoom"
-setv game "mapeditortmp_513" va00
-setv va00 addr game "mapeditortmp" 3563 3710 48902 48911 49090 49090
-rtyp va00 0
-rmsc 3636 48996 "c2tods.mng\\Waterfall"
-setv game "mapeditortmp_514" va00
+  setv va00 addr game "mapeditortmp" 7769 8238 47800 47800 48059 48059
+    rtyp va00 1
+    rmsc 8003 47929 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_12" va00
+  setv va00 addr game "mapeditortmp" 7769 8238 47600 47600 47800 47800
+    rtyp va00 0
+    rmsc 8003 47700 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_13" va00
+  setv va00 addr game "mapeditortmp" 1108 1308 48504 48504 48725 48725
+    rtyp va00 0
+    rmsc 1208 48614 ""
+    setv game "mapeditortmp_14" va00
+  setv va00 addr game "mapeditortmp" 9144 9660 47600 47600 47800 47800
+    rtyp va00 0
+    rmsc 9402 47700 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_15" va00
+  setv va00 addr game "mapeditortmp" 1844 2047 48434 48283 48634 48634
+    rtyp va00 5
+    rmsc 1945 48534 "c2tods.mng\\BioSpheres"
+    setv game "mapeditortmp_16" va00
+  setv va00 addr game "mapeditortmp" 2047 2464 47600 47600 47937 47937
+    rtyp va00 0
+    rmsc 2255 47768 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_17" va00
+  setv va00 addr game "mapeditortmp" 10399 10816 47600 47600 47937 47937
+    rtyp va00 0
+    rmsc 10607 47768 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_18" va00
+  setv va00 addr game "mapeditortmp" 2047 2288 47937 47937 48237 48229
+    rtyp va00 7
+    rmsc 2167 48083 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_19" va00
+  setv va00 addr game "mapeditortmp" 10196 10399 48434 48283 48634 48634
+    rtyp va00 0
+    rmsc 10297 48534 ""
+    setv game "mapeditortmp_20" va00
+  setv va00 addr game "mapeditortmp" 7769 8038 48059 48059 48167 48213
+    rtyp va00 7
+    rmsc 7903 48136 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_21" va00
+  setv va00 addr game "mapeditortmp" 2349 2469 49616 49625 49928 49928
+    rtyp va00 3
+    rmsc 2409 49772 "c2tods.mng\\Machinery"
+    setv game "mapeditortmp_22" va00
+  setv va00 addr game "mapeditortmp" 10399 10568 48283 48329 48634 48632
+    rtyp va00 5
+    rmsc 10483 48457 "c2tods.mng\\BioSpheres"
+    setv game "mapeditortmp_23" va00
+  setv va00 addr game "mapeditortmp" 2216 2327 48329 48463 48632 48632
+    rtyp va00 5
+    rmsc 2271 48480 "c2tods.mng\\BioSpheres"
+    setv game "mapeditortmp_24" va00
+  setv va00 addr game "mapeditortmp" 7669 7769 47800 47800 48194 48167
+    rtyp va00 7
+    rmsc 7719 47983 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_25" va00
+  setv va00 addr game "mapeditortmp" 3389 3528 48585 48585 48713 48713
+    rtyp va00 3
+    rmsc 3458 48649 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_26" va00
+  setv va00 addr game "mapeditortmp" 7569 7669 47800 47800 48161 48194
+    rtyp va00 7
+    rmsc 7619 47997 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_27" va00
+  setv va00 addr game "mapeditortmp" 7475 7569 47800 47800 48179 48161
+    rtyp va00 7
+    rmsc 7522 47980 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_28" va00
+  setv va00 addr game "mapeditortmp" 9460 9660 48504 48504 48725 48725
+    rtyp va00 0
+    rmsc 9560 48614 ""
+    setv game "mapeditortmp_29" va00
+  setv va00 addr game "mapeditortmp" 10399 10640 47937 47937 48237 48229
+    rtyp va00 7
+    rmsc 10519 48083 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_30" va00
+  setv va00 addr game "mapeditortmp" 4953 5200 48254 48257 48435 48435
+    rtyp va00 0
+    rmsc 5076 48344 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_31" va00
+  setv va00 addr game "mapeditortmp" 2107 2202 48633 48632 49096 49104
+    rtyp va00 5
+    rmsc 2154 48868 "c2tods.mng\\BioSpheres"
+    setv game "mapeditortmp_32" va00
+  setv va00 addr game "mapeditortmp" 5400 5554 47865 47915 48248 48239
+    rtyp va00 1
+    rmsc 5477 48052 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_33" va00
+  setv va00 addr game "mapeditortmp" 5554 5801 47915 47915 48239 48227
+    rtyp va00 1
+    rmsc 5677 48071 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_34" va00
+  setv va00 addr game "mapeditortmp" 5416 5554 48247 48239 48435 48435
+    rtyp va00 0
+    rmsc 5485 48341 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_35" va00
+  setv va00 addr game "mapeditortmp" 4559 4953 47938 47867 48233 48254
+    rtyp va00 1
+    rmsc 4756 48096 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_36" va00
+  setv va00 addr game "mapeditortmp" 2047 2107 48777 48767 49096 49096
+    rtyp va00 5
+    rmsc 2077 48936 "c2tods.mng\\BioSpheres"
+    setv game "mapeditortmp_37" va00
+  setv va00 addr game "mapeditortmp" 1991 2047 48807 48777 48854 49046
+    rtyp va00 5
+    rmsc 2019 48926 "c2tods.mng\\BioSpheres"
+    setv game "mapeditortmp_38" va00
+  setv va00 addr game "mapeditortmp" 2047 2216 48283 48329 48634 48632
+    rtyp va00 5
+    rmsc 2131 48457 "c2tods.mng\\BioSpheres"
+    setv game "mapeditortmp_39" va00
+  setv va00 addr game "mapeditortmp" 2202 2349 48760 48803 49104 49140
+    rtyp va00 5
+    rmsc 2275 48950 "c2tods.mng\\BioSpheres"
+    setv game "mapeditortmp_40" va00
+  setv va00 addr game "mapeditortmp" 5400 5554 47600 47600 47865 47915
+    rtyp va00 0
+    rmsc 5477 47757 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_41" va00
+  setv va00 addr game "mapeditortmp" 10459 10554 48633 48632 49096 49104
+    rtyp va00 5
+    rmsc 10506 48868 ""
+    setv game "mapeditortmp_42" va00
+  setv va00 addr game "mapeditortmp" 2349 2469 48803 48897 49140 49140
+    rtyp va00 5
+    rmsc 2409 48971 "c2tods.mng\\BioSpheres"
+    setv game "mapeditortmp_43" va00
+  setv va00 addr game "mapeditortmp" 5554 5801 48435 48435 48854 48798
+    rtyp va00 0
+    rmsc 5677 48616 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_44" va00
+  setv va00 addr game "mapeditortmp" 10568 10679 48329 48463 48632 48632
+    rtyp va00 5
+    rmsc 10623 48480 ""
+    setv game "mapeditortmp_45" va00
+  setv va00 addr game "mapeditortmp" 2469 2592 48897 49007 49140 49127
+    rtyp va00 5
+    rmsc 2530 49012 "c2tods.mng\\BioSpheres"
+    setv game "mapeditortmp_46" va00
+  setv va00 addr game "mapeditortmp" 10640 10816 47937 47937 48229 48229
+    rtyp va00 1
+    rmsc 10728 48083 ""
+    setv game "mapeditortmp_47" va00
+  setv va00 addr game "mapeditortmp" 2349 2469 49140 49140 49441 49441
+    rtyp va00 3
+    rmsc 2409 49290 "c2tods.mng\\Machinery"
+    setv game "mapeditortmp_48" va00
+  setv va00 addr game "mapeditortmp" 4298 4384 48720 48720 48900 48920
+    rtyp va00 5
+    rmsc 4341 48820 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_49" va00
+  setv va00 addr game "mapeditortmp" 10343 10399 48807 48777 48854 49046
+    rtyp va00 0
+    rmsc 10371 48926 ""
+    setv game "mapeditortmp_50" va00
+  setv va00 addr game "mapeditortmp" 10399 10459 48777 48767 49096 49096
+    rtyp va00 5
+    rmsc 10429 48936 ""
+    setv game "mapeditortmp_51" va00
+  setv va00 addr game "mapeditortmp" 10554 10701 48760 48803 49104 49140
+    rtyp va00 5
+    rmsc 10627 48950 ""
+    setv game "mapeditortmp_52" va00
+  setv va00 addr game "mapeditortmp" 2184 2349 49240 49240 49441 49441
+    rtyp va00 3
+    rmsc 2266 49340 "c2tods.mng\\Machinery"
+    setv game "mapeditortmp_53" va00
+  setv va00 addr game "mapeditortmp" 10399 10536 49272 49240 49441 49441
+    rtyp va00 3
+    rmsc 10467 49356 ""
+    setv game "mapeditortmp_54" va00
+  setv va00 addr game "mapeditortmp" 2047 2184 49272 49240 49441 49441
+    rtyp va00 3
+    rmsc 2115 49356 "c2tods.mng\\Machinery"
+    setv game "mapeditortmp_55" va00
+  setv va00 addr game "mapeditortmp" 6453 6608 48840 48991 49144 49144
+    rtyp va00 3
+    rmsc 6530 48992 "c2tods.mng\\PowerRoom"
+    setv game "mapeditortmp_56" va00
+  setv va00 addr game "mapeditortmp" 10536 10701 49240 49240 49441 49441
+    rtyp va00 3
+    rmsc 10618 49340 ""
+    setv game "mapeditortmp_57" va00
+  setv va00 addr game "mapeditortmp" 10701 10821 49140 49140 49441 49441
+    rtyp va00 3
+    rmsc 10761 49290 ""
+    setv game "mapeditortmp_58" va00
+  setv va00 addr game "mapeditortmp" 4525 4640 48504 48531 48720 48720
+    rtyp va00 0
+    rmsc 4582 48612 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_59" va00
+  setv va00 addr game "mapeditortmp" 6136 6373 47915 47915 48181 48192
+    rtyp va00 7
+    rmsc 6254 48053 "c2tods.mng\\UpperTemple"
+    setv game "mapeditortmp_60" va00
+  setv va00 addr game "mapeditortmp" 2469 2648 49237 49144 49441 49441
+    rtyp va00 3
+    rmsc 2558 49339 "c2tods.mng\\Machinery"
+    setv game "mapeditortmp_61" va00
+  setv va00 addr game "mapeditortmp" 5064 5264 48885 48885 49145 49145
+    rtyp va00 1
+    rmsc 5164 49015 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_62" va00
+  setv va00 addr game "mapeditortmp" 10701 10821 48803 48897 49140 49140
+    rtyp va00 5
+    rmsc 10761 48971 ""
+    setv game "mapeditortmp_63" va00
+  setv va00 addr game "mapeditortmp" 10821 10944 48897 49007 49140 49127
+    rtyp va00 5
+    rmsc 10882 49012 ""
+    setv game "mapeditortmp_64" va00
+  setv va00 addr game "mapeditortmp" 10821 11000 49237 49144 49441 49441
+    rtyp va00 3
+    rmsc 10910 49339 ""
+    setv game "mapeditortmp_65" va00
+  setv va00 addr game "mapeditortmp" 2648 2815 49144 49080 49272 49272
+    rtyp va00 2
+    rmsc 2731 49208 "c2tods.mng\\Machinery"
+    setv game "mapeditortmp_66" va00
+  setv va00 addr game "mapeditortmp" 2648 2975 49272 49272 49441 49441
+    rtyp va00 3
+    rmsc 2811 49356 "c2tods.mng\\Machinery"
+    setv game "mapeditortmp_67" va00
+  setv va00 addr game "mapeditortmp" 4559 4953 47600 47600 47938 47867
+    rtyp va00 0
+    rmsc 4756 47733 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_68" va00
+  setv va00 addr game "mapeditortmp" 6898 7475 47600 47600 47915 47800
+    rtyp va00 0
+    rmsc 7186 47700 ""
+    setv game "mapeditortmp_69" va00
+  setv va00 addr game "mapeditortmp" 7475 7769 47600 47600 47800 47800
+    rtyp va00 0
+    rmsc 7622 47700 ""
+    setv game "mapeditortmp_70" va00
+  setv va00 addr game "mapeditortmp" 5200 5416 48257 48247 48435 48435
+    rtyp va00 0
+    rmsc 5308 48346 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_71" va00
+  setv va00 addr game "mapeditortmp" 5801 6002 47915 47915 48227 48227
+    rtyp va00 1
+    rmsc 5901 48071 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_72" va00
+  setv va00 addr game "mapeditortmp" 2975 3152 49272 49272 49441 49441
+    rtyp va00 3
+    rmsc 3063 49356 "c2tods.mng\\Machinery"
+    setv game "mapeditortmp_73" va00
+  setv va00 addr game "mapeditortmp" 4525 4640 48368 48368 48504 48531
+    rtyp va00 0
+    rmsc 4582 48449 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_74" va00
+  setv va00 addr game "mapeditortmp" 10816 11376 47600 47600 47937 47937
+    rtyp va00 0
+    rmsc 11096 47768 ""
+    setv game "mapeditortmp_75" va00
+  setv va00 addr game "mapeditortmp" 4640 4953 48237 48254 48531 48435
+    rtyp va00 0
+    rmsc 4796 48336 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_76" va00
+  setv va00 addr game "mapeditortmp" 5416 5554 48825 48854 49145 49145
+    rtyp va00 1
+    rmsc 5485 48985 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_77" va00
+  setv va00 addr game "mapeditortmp" 6783 6983 48225 48225 48465 48470
+    rtyp va00 5
+    rmsc 6883 48347 "c2tods.mng\\Incubator"
+    setv game "mapeditortmp_78" va00
+  setv va00 addr game "mapeditortmp" 5554 5801 48854 48798 49145 49144
+    rtyp va00 0
+    rmsc 5677 48999 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_79" va00
+  setv va00 addr game "mapeditortmp" 10816 11376 47937 47937 48229 48229
+    rtyp va00 0
+    rmsc 11096 48083 ""
+    setv game "mapeditortmp_80" va00
+  setv va00 addr game "mapeditortmp" 7183 7382 48225 48225 48465 48465
+    rtyp va00 5
+    rmsc 7282 48345 "c2tods.mng\\Incubator"
+    setv game "mapeditortmp_81" va00
+  setv va00 addr game "mapeditortmp" 5936 6056 48969 48969 49144 49144
+    rtyp va00 3
+    rmsc 5996 49056 ""
+    setv game "mapeditortmp_82" va00
+  setv va00 addr game "mapeditortmp" 7382 7609 48225 48225 48465 48472
+    rtyp va00 5
+    rmsc 7495 48348 "c2tods.mng\\Incubator"
+    setv game "mapeditortmp_83" va00
+  setv va00 addr game "mapeditortmp" 3152 3393 49032 48985 49195 49195
+    rtyp va00 2
+    rmsc 3272 49113 "c2tods.mng\\Machinery"
+    setv game "mapeditortmp_84" va00
+  setv va00 addr game "mapeditortmp" 10640 11488 48229 48230 48277 48277
+    rtyp va00 0
+    rmsc 11064 48253 ""
+    setv game "mapeditortmp_85" va00
+  setv va00 addr game "mapeditortmp" 3393 3529 48730 48730 48896 48895
+    rtyp va00 1
+    rmsc 3461 48812 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_86" va00
+  setv va00 addr game "mapeditortmp" 3272 3393 48730 48730 48920 48896
+    rtyp va00 1
+    rmsc 3332 48813 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_87" va00
+  setv va00 addr game "mapeditortmp" 4800 4953 48720 48720 48905 48805
+    rtyp va00 0
+    rmsc 4876 48762 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_88" va00
+  setv va00 addr game "mapeditortmp" 10697 11199 48277 48277 48539 48539
+    rtyp va00 9
+    rmsc 10948 48408 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_89" va00
+  setv va00 addr game "mapeditortmp" 2895 3272 48730 48730 48920 48920
+    rtyp va00 1
+    rmsc 3083 48825 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_90" va00
+  setv va00 addr game "mapeditortmp" 10621 10697 48729 48618 48750 48776
+    rtyp va00 9
+    rmsc 10659 48752 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_91" va00
+  setv va00 addr game "mapeditortmp" 4640 4953 49055 49121 49302 49321
+    rtyp va00 0
+    rmsc 4796 49188 ""
+    setv game "mapeditortmp_92" va00
+  setv va00 addr game "mapeditortmp" 3110 3200 48952 48952 49005 48960
+    rtyp va00 8
+    rmsc 3155 48956 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_93" va00
+  setv va00 addr game "mapeditortmp" 2728 2783 48952 48952 48965 49014
+    rtyp va00 8
+    rmsc 2755 48983 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_94" va00
+  setv va00 addr game "mapeditortmp" 2783 2895 48952 48952 49014 49033
+    rtyp va00 8
+    rmsc 2839 48992 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_95" va00
+  setv va00 addr game "mapeditortmp" 2975 3110 48952 48952 49032 49005
+    rtyp va00 8
+    rmsc 3042 48978 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_96" va00
+  setv va00 addr game "mapeditortmp" 2895 2975 48952 48952 49033 49032
+    rtyp va00 8
+    rmsc 2935 48992 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_97" va00
+  setv va00 addr game "mapeditortmp" 5936 6096 49281 49232 49344 49344
+    rtyp va00 0
+    rmsc 6016 49312 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_98" va00
+  setv va00 addr game "mapeditortmp" 2728 3200 48920 48920 48952 48952
+    rtyp va00 0
+    rmsc 2964 48936 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_99" va00
+  setv va00 addr game "mapeditortmp" 2728 2895 48840 48730 48920 48920
+    rtyp va00 0
+    rmsc 2811 48880 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_100" va00
+  setv va00 addr game "mapeditortmp" 10697 10826 48539 48539 48776 48794
+    rtyp va00 9
+    rmsc 10761 48666 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_101" va00
+  setv va00 addr game "mapeditortmp" 10826 11005 48539 48539 48794 48794
+    rtyp va00 9
+    rmsc 10915 48666 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_102" va00
+  setv va00 addr game "mapeditortmp" 11005 11199 48539 48539 48713 48713
+    rtyp va00 9
+    rmsc 11102 48626 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_103" va00
+  setv va00 addr game "mapeditortmp" 5103 5356 49779 49674 49860 49863
+    rtyp va00 5
+    rmsc 5229 49821 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_104" va00
+  setv va00 addr game "mapeditortmp" 5356 5472 49593 49593 49863 49857
+    rtyp va00 5
+    rmsc 5414 49725 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_105" va00
+  setv va00 addr game "mapeditortmp" 11199 11376 48277 48277 48585 48585
+    rtyp va00 9
+    rmsc 11287 48431 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_106" va00
+  setv va00 addr game "mapeditortmp" 10399 10701 49441 49441 49624 49616
+    rtyp va00 3
+    rmsc 10550 49528 ""
+    setv game "mapeditortmp_107" va00
+  setv va00 addr game "mapeditortmp" 10399 10701 49624 49616 49928 49928
+    rtyp va00 3
+    rmsc 10550 49776 ""
+    setv game "mapeditortmp_108" va00
+  setv va00 addr game "mapeditortmp" 5103 5356 49593 49593 49779 49674
+    rtyp va00 0
+    rmsc 5229 49633 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_109" va00
+  setv va00 addr game "mapeditortmp" 3529 3710 48730 48603 48895 48888
+    rtyp va00 5
+    rmsc 3619 48809 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_110" va00
+  setv va00 addr game "mapeditortmp" 6983 7400 48576 48576 48776 48776
+    rtyp va00 5
+    rmsc 7191 48676 "c2tods.mng\\Cellar"
+    setv game "mapeditortmp_111" va00
+  setv va00 addr game "mapeditortmp" 3240 3389 48560 48563 48713 48713
+    rtyp va00 3
+    rmsc 3314 48636 ""
+    setv game "mapeditortmp_112" va00
+  setv va00 addr game "mapeditortmp" 10701 10821 49441 49441 49616 49625
+    rtyp va00 3
+    rmsc 10761 49533 ""
+    setv game "mapeditortmp_113" va00
+  setv va00 addr game "mapeditortmp" 2047 2349 49441 49441 49624 49616
+    rtyp va00 3
+    rmsc 2198 49528 "c2tods.mng\\Machinery"
+    setv game "mapeditortmp_114" va00
+  setv va00 addr game "mapeditortmp" 8951 9064 49424 49278 49441 49441
+    rtyp va00 0
+    rmsc 9007 49432 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_115" va00
+  setv va00 addr game "mapeditortmp" 7609 7800 48225 48272 48472 48464
+    rtyp va00 5
+    rmsc 7704 48344 "c2tods.mng\\Incubator"
+    setv game "mapeditortmp_116" va00
+  setv va00 addr game "mapeditortmp" 10701 10821 49616 49625 49928 49928
+    rtyp va00 3
+    rmsc 10761 49772 ""
+    setv game "mapeditortmp_117" va00
+  setv va00 addr game "mapeditortmp" 7951 8089 48281 48288 48484 48491
+    rtyp va00 1
+    rmsc 8020 48386 "c2tods.mng\\Incubator"
+    setv game "mapeditortmp_118" va00
+  setv va00 addr game "mapeditortmp" 4192 4400 47600 47600 47894 47938
+    rtyp va00 0
+    rmsc 4296 47769 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_119" va00
+  setv va00 addr game "mapeditortmp" 2815 2975 49080 49114 49272 49272
+    rtyp va00 2
+    rmsc 2895 49176 "c2tods.mng\\Machinery"
+    setv game "mapeditortmp_120" va00
+  setv va00 addr game "mapeditortmp" 2975 3082 49114 49201 49272 49272
+    rtyp va00 0
+    rmsc 3028 49193 "c2tods.mng\\Machinery"
+    setv game "mapeditortmp_121" va00
+  setv va00 addr game "mapeditortmp" 10821 11000 49441 49441 49625 49623
+    rtyp va00 3
+    rmsc 10910 49532 ""
+    setv game "mapeditortmp_122" va00
+  setv va00 addr game "mapeditortmp" 10821 11000 49625 49623 49928 49928
+    rtyp va00 3
+    rmsc 10910 49776 ""
+    setv game "mapeditortmp_123" va00
+  setv va00 addr game "mapeditortmp" 1734 1940 49128 49128 49441 49441
+    rtyp va00 2
+    rmsc 1837 49284 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_124" va00
+  setv va00 addr game "mapeditortmp" 1940 2047 49128 49272 49441 49441
+    rtyp va00 3
+    rmsc 1993 49284 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_125" va00
+  setv va00 addr game "mapeditortmp" 1308 1734 49441 49441 49760 49760
+    rtyp va00 7
+    rmsc 1521 49600 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_126" va00
+  setv va00 addr game "mapeditortmp" 8089 8400 48288 48288 48491 48492
+    rtyp va00 1
+    rmsc 8244 48390 "c2tods.mng\\Incubator"
+    setv game "mapeditortmp_127" va00
+  setv va00 addr game "mapeditortmp" 8089 8306 48491 48492 48830 48830
+    rtyp va00 9
+    rmsc 8197 48660 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_128" va00
+  setv va00 addr game "mapeditortmp" 8847 8951 49506 49441 49817 49794
+    rtyp va00 7
+    rmsc 8899 49650 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_129" va00
+  setv va00 addr game "mapeditortmp" 1734 1940 49441 49441 49760 49800
+    rtyp va00 7
+    rmsc 1837 49620 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_130" va00
+  setv va00 addr game "mapeditortmp" 1734 1940 49760 49800 49888 49878
+    rtyp va00 0
+    rmsc 1837 49819 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_131" va00
+  setv va00 addr game "mapeditortmp" 7370 7475 47821 47800 48168 48179
+    rtyp va00 7
+    rmsc 7422 48000 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_132" va00
+  setv va00 addr game "mapeditortmp" 1630 1940 48905 48905 49128 49128
+    rtyp va00 0
+    rmsc 1785 49016 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_133" va00
+  setv va00 addr game "mapeditortmp" 8847 9064 49817 49768 49838 49896
+    rtyp va00 0
+    rmsc 8955 49856 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_134" va00
+  setv va00 addr game "mapeditortmp" 1108 1308 49441 49441 49767 49760
+    rtyp va00 7
+    rmsc 1208 49600 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_135" va00
+  setv va00 addr game "mapeditortmp" 8306 8507 48492 48492 48692 48718
+    rtyp va00 9
+    rmsc 8406 48605 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_136" va00
+  setv va00 addr game "mapeditortmp" 712 1108 49441 49441 49768 49767
+    rtyp va00 7
+    rmsc 910 49604 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_137" va00
+  setv va00 addr game "mapeditortmp" 1308 1734 49128 49128 49328 49328
+    rtyp va00 0
+    rmsc 1521 49228 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_138" va00
+  setv va00 addr game "mapeditortmp" 599 712 49441 49441 49794 49768
+    rtyp va00 7
+    rmsc 655 49604 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_139" va00
+  setv va00 addr game "mapeditortmp" 1844 1940 48674 48785 48905 48905
+    rtyp va00 2
+    rmsc 1892 48789 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_140" va00
+  setv va00 addr game "mapeditortmp" 1630 1844 48725 48725 48905 48905
+    rtyp va00 2
+    rmsc 1737 48815 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_141" va00
+  setv va00 addr game "mapeditortmp" 495 599 49506 49441 49817 49794
+    rtyp va00 7
+    rmsc 547 49650 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_142" va00
+  setv va00 addr game "mapeditortmp" 280 495 49672 49506 49832 49817
+    rtyp va00 7
+    rmsc 387 49744 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_143" va00
+  setv va00 addr game "mapeditortmp" 1108 1734 49328 49328 49441 49441
+    rtyp va00 0
+    rmsc 1421 49384 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_144" va00
+  setv va00 addr game "mapeditortmp" 1707 1844 48213 48187 48504 48504
+    rtyp va00 0
+    rmsc 1775 48358 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_145" va00
+  setv va00 addr game "mapeditortmp" 1380 1707 48288 48213 48504 48504
+    rtyp va00 0
+    rmsc 1543 48396 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_146" va00
+  setv va00 addr game "mapeditortmp" 1906 2047 47800 47800 48175 48237
+    rtyp va00 7
+    rmsc 1976 48018 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_147" va00
+  setv va00 addr game "mapeditortmp" 1906 2047 47600 47600 47800 47800
+    rtyp va00 0
+    rmsc 1976 47700 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_148" va00
+  setv va00 addr game "mapeditortmp" 3152 3529 49195 49195 49441 49441
+    rtyp va00 3
+    rmsc 3340 49318 "c2tods.mng\\Machinery"
+    setv game "mapeditortmp_149" va00
+  setv va00 addr game "mapeditortmp" 8507 8913 48492 48492 48718 48722
+    rtyp va00 9
+    rmsc 8710 48607 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_150" va00
+  setv va00 addr game "mapeditortmp" 8400 8913 48288 48288 48492 48492
+    rtyp va00 9
+    rmsc 8656 48390 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_151" va00
+  setv va00 addr game "mapeditortmp" 1707 1906 47600 47600 47800 47800
+    rtyp va00 0
+    rmsc 1806 47700 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_152" va00
+  setv va00 addr game "mapeditortmp" 712 1108 49328 49328 49441 49441
+    rtyp va00 0
+    rmsc 910 49384 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_153" va00
+  setv va00 addr game "mapeditortmp" 599 712 49424 49278 49441 49441
+    rtyp va00 0
+    rmsc 655 49432 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_154" va00
+  setv va00 addr game "mapeditortmp" 8913 9116 48288 48288 48492 48504
+    rtyp va00 9
+    rmsc 9014 48396 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_155" va00
+  setv va00 addr game "mapeditortmp" 8913 9116 48492 48504 48722 48690
+    rtyp va00 9
+    rmsc 9014 48591 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_156" va00
+  setv va00 addr game "mapeditortmp" 9228 9460 48392 48305 48504 48504
+    rtyp va00 1
+    rmsc 9344 48448 ""
+    setv game "mapeditortmp_157" va00
+  setv va00 addr game "mapeditortmp" 9116 9228 48288 48288 48504 48504
+    rtyp va00 9
+    rmsc 9172 48396 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_158" va00
+  setv va00 addr game "mapeditortmp" 9116 9228 48504 48504 48690 48692
+    rtyp va00 9
+    rmsc 9172 48598 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_159" va00
+  setv va00 addr game "mapeditortmp" 9228 9413 48288 48288 48392 48323
+    rtyp va00 9
+    rmsc 9320 48305 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_160" va00
+  setv va00 addr game "mapeditortmp" 9339 9424 48504 48504 48718 48578
+    rtyp va00 9
+    rmsc 9381 48541 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_161" va00
+  setv va00 addr game "mapeditortmp" 4384 4541 49055 49055 49317 49295
+    rtyp va00 5
+    rmsc 4462 49175 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_162" va00
+  setv va00 addr game "mapeditortmp" 9228 9339 48504 48504 48692 48718
+    rtyp va00 9
+    rmsc 9283 48611 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_163" va00
+  setv va00 addr game "mapeditortmp" 495 712 49817 49768 49838 49896
+    rtyp va00 0
+    rmsc 603 49856 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_164" va00
+  setv va00 addr game "mapeditortmp" 3393 3529 48896 48895 49195 49195
+    rtyp va00 2
+    rmsc 3461 49045 "c2tods.mng\\Machinery"
+    setv game "mapeditortmp_165" va00
+  setv va00 addr game "mapeditortmp" 9732 10059 48288 48213 48504 48504
+    rtyp va00 0
+    rmsc 9895 48396 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_166" va00
+  setv va00 addr game "mapeditortmp" 2269 2345 48729 48618 48750 48776
+    rtyp va00 9
+    rmsc 2307 48752 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_167" va00
+  setv va00 addr game "mapeditortmp" 8089 8306 48830 48830 49040 49040
+    rtyp va00 9
+    rmsc 8197 48935 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_168" va00
+  setv va00 addr game "mapeditortmp" 1707 1906 47800 47800 48050 47975
+    rtyp va00 0
+    rmsc 1806 47887 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_169" va00
+  setv va00 addr game "mapeditortmp" 1707 1906 48050 47975 48213 48175
+    rtyp va00 7
+    rmsc 1806 48112 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_170" va00
+  setv va00 addr game "mapeditortmp" 1308 1707 47600 47600 47800 47800
+    rtyp va00 0
+    rmsc 1507 47700 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_171" va00
+  setv va00 addr game "mapeditortmp" 2345 2847 48277 48277 48539 48539
+    rtyp va00 9
+    rmsc 2596 48408 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_172" va00
+  setv va00 addr game "mapeditortmp" 8306 8430 48830 48792 49040 49040
+    rtyp va00 9
+    rmsc 8368 48935 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_173" va00
+  setv va00 addr game "mapeditortmp" 2847 3240 48585 48585 48713 48713
+    rtyp va00 3
+    rmsc 3043 48649 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_174" va00
+  setv va00 addr game "mapeditortmp" 2653 2847 48539 48539 48713 48713
+    rtyp va00 9
+    rmsc 2750 48626 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_175" va00
+  setv va00 addr game "mapeditortmp" 2474 2653 48539 48539 48794 48794
+    rtyp va00 9
+    rmsc 2563 48666 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_176" va00
+  setv va00 addr game "mapeditortmp" 2345 2474 48539 48539 48776 48794
+    rtyp va00 9
+    rmsc 2409 48666 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_177" va00
+  setv va00 addr game "mapeditortmp" 8306 8507 48692 48718 48830 48768
+    rtyp va00 9
+    rmsc 8406 48730 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_178" va00
+  setv va00 addr game "mapeditortmp" 8430 8572 48839 48803 49040 49040
+    rtyp va00 3
+    rmsc 8501 48939 ""
+    setv game "mapeditortmp_179" va00
+  setv va00 addr game "mapeditortmp" 2847 3024 48277 48277 48585 48585
+    rtyp va00 9
+    rmsc 2935 48431 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_180" va00
+  setv va00 addr game "mapeditortmp" 9660 9732 48305 48288 48504 48504
+    rtyp va00 2
+    rmsc 9696 48404 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_181" va00
+  setv va00 addr game "mapeditortmp" 9660 10086 49760 49760 49936 49888
+    rtyp va00 0
+    rmsc 9873 49824 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_182" va00
+  setv va00 addr game "mapeditortmp" 9768 9982 48725 48725 48877 48848
+    rtyp va00 0
+    rmsc 9875 48786 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_183" va00
+  setv va00 addr game "mapeditortmp" 8155 8238 48059 48059 48248 48251
+    rtyp va00 7
+    rmsc 8196 48155 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_184" va00
+  setv va00 addr game "mapeditortmp" 7800 7951 48272 48281 48464 48484
+    rtyp va00 2
+    rmsc 7875 48378 "c2tods.mng\\Incubator"
+    setv game "mapeditortmp_185" va00
+  setv va00 addr game "mapeditortmp" 7800 7928 48172 48194 48272 48280
+    rtyp va00 0
+    rmsc 7864 48226 ""
+    setv game "mapeditortmp_186" va00
+  setv va00 addr game "mapeditortmp" 4541 4693 49295 49305 49304 49376
+    rtyp va00 0
+    rmsc 4617 49335 ""
+    setv game "mapeditortmp_187" va00
+  setv va00 addr game "mapeditortmp" 4953 5064 49121 49063 49321 49327
+    rtyp va00 0
+    rmsc 5008 49224 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_188" va00
+  setv va00 addr game "mapeditortmp" 4640 4953 48531 48435 48720 48720
+    rtyp va00 0
+    rmsc 4796 48625 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_189" va00
+  setv va00 addr game "mapeditortmp" 8953 9139 48803 48781 48992 48958
+    rtyp va00 0
+    rmsc 9046 48880 ""
+    setv game "mapeditortmp_190" va00
+  setv va00 addr game "mapeditortmp" 1416 1630 48877 48848 49128 49128
+    rtyp va00 0
+    rmsc 1523 49002 ""
+    setv game "mapeditortmp_191" va00
+  setv va00 addr game "mapeditortmp" 1416 1630 48725 48725 48877 48848
+    rtyp va00 0
+    rmsc 1523 48786 ""
+    setv game "mapeditortmp_192" va00
+  setv va00 addr game "mapeditortmp" 1308 1844 48504 48504 48725 48725
+    rtyp va00 0
+    rmsc 1576 48614 ""
+    setv game "mapeditortmp_193" va00
+  setv va00 addr game "mapeditortmp" 1308 1380 48305 48288 48504 48504
+    rtyp va00 2
+    rmsc 1344 48404 ""
+    setv game "mapeditortmp_194" va00
+  setv va00 addr game "mapeditortmp" 4953 5103 49321 49329 49593 49509
+    rtyp va00 0
+    rmsc 5028 49415 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_195" va00
+  setv va00 addr game "mapeditortmp" 8572 8731 48803 48803 49040 49040
+    rtyp va00 3
+    rmsc 8651 48921 ""
+    setv game "mapeditortmp_196" va00
+  setv va00 addr game "mapeditortmp" 1108 1308 48305 48305 48504 48504
+    rtyp va00 2
+    rmsc 1208 48404 ""
+    setv game "mapeditortmp_197" va00
+  setv va00 addr game "mapeditortmp" 8731 8785 48803 48803 49040 49000
+    rtyp va00 3
+    rmsc 8758 48901 ""
+    setv game "mapeditortmp_198" va00
+  setv va00 addr game "mapeditortmp" 8785 8953 48803 48803 49000 48992
+    rtyp va00 3
+    rmsc 8869 48897 ""
+    setv game "mapeditortmp_199" va00
+  setv va00 addr game "mapeditortmp" 2349 2469 49441 49441 49616 49625
+    rtyp va00 3
+    rmsc 2409 49533 "c2tods.mng\\Machinery"
+    setv game "mapeditortmp_200" va00
+  setv va00 addr game "mapeditortmp" 2880 3082 49441 49441 49633 49633
+    rtyp va00 3
+    rmsc 2981 49537 "c2tods.mng\\Machinery"
+    setv game "mapeditortmp_201" va00
+  setv va00 addr game "mapeditortmp" 2648 2880 49441 49441 49623 49633
+    rtyp va00 3
+    rmsc 2764 49537 "c2tods.mng\\Machinery"
+    setv game "mapeditortmp_202" va00
+  setv va00 addr game "mapeditortmp" 2469 2648 49441 49441 49625 49623
+    rtyp va00 3
+    rmsc 2558 49532 "c2tods.mng\\Machinery"
+    setv game "mapeditortmp_203" va00
+  setv va00 addr game "mapeditortmp" 1108 1416 48725 48725 48928 48928
+    rtyp va00 2
+    rmsc 1262 48826 ""
+    setv game "mapeditortmp_204" va00
+  setv va00 addr game "mapeditortmp" 1308 1707 48050 48050 48305 48213
+    rtyp va00 2
+    rmsc 1507 48131 ""
+    setv game "mapeditortmp_205" va00
+  setv va00 addr game "mapeditortmp" 1308 1707 47800 47800 48050 48050
+    rtyp va00 0
+    rmsc 1507 47925 ""
+    setv game "mapeditortmp_206" va00
+  setv va00 addr game "mapeditortmp" 1147 1308 48050 48050 48305 48305
+    rtyp va00 2
+    rmsc 1227 48177 ""
+    setv game "mapeditortmp_207" va00
+  setv va00 addr game "mapeditortmp" 2648 2880 49623 49633 49928 49928
+    rtyp va00 3
+    rmsc 2764 49775 "c2tods.mng\\Machinery"
+    setv game "mapeditortmp_208" va00
+  setv va00 addr game "mapeditortmp" 2047 2349 49624 49616 49928 49928
+    rtyp va00 3
+    rmsc 2198 49776 "c2tods.mng\\Machinery"
+    setv game "mapeditortmp_209" va00
+  setv va00 addr game "mapeditortmp" 10059 10196 48213 48187 48504 48504
+    rtyp va00 0
+    rmsc 10127 48358 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_210" va00
+  setv va00 addr game "mapeditortmp" 2469 2648 49625 49623 49928 49928
+    rtyp va00 3
+    rmsc 2558 49776 "c2tods.mng\\Machinery"
+    setv game "mapeditortmp_211" va00
+  setv va00 addr game "mapeditortmp" 1061 1147 48050 48050 48248 48305
+    rtyp va00 4
+    rmsc 1104 48177 ""
+    setv game "mapeditortmp_212" va00
+  setv va00 addr game "mapeditortmp" 8536 8784 49096 49080 49376 49384
+    rtyp va00 7
+    rmsc 8660 49240 "c2tods.mng\\GeneSplicer"
+    setv game "mapeditortmp_213" va00
+  setv va00 addr game "mapeditortmp" 912 1416 48928 48928 49128 49128
+    rtyp va00 0
+    rmsc 1164 49028 ""
+    setv game "mapeditortmp_214" va00
+  setv va00 addr game "mapeditortmp" 8368 8536 49096 49096 49392 49376
+    rtyp va00 7
+    rmsc 8452 49236 "c2tods.mng\\GeneSplicer"
+    setv game "mapeditortmp_215" va00
+  setv va00 addr game "mapeditortmp" 4953 5103 49593 49509 49757 49779
+    rtyp va00 0
+    rmsc 5028 49686 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_216" va00
+  setv va00 addr game "mapeditortmp" 1308 1734 49760 49760 49936 49888
+    rtyp va00 0
+    rmsc 1521 49824 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_217" va00
+  setv va00 addr game "mapeditortmp" 9660 10059 47800 47800 48050 48050
+    rtyp va00 0
+    rmsc 9859 47925 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_218" va00
+  setv va00 addr game "mapeditortmp" 1108 1308 49767 49760 49904 49936
+    rtyp va00 0
+    rmsc 1208 49851 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_219" va00
+  setv va00 addr game "mapeditortmp" 8168 8368 49104 49096 49391 49392
+    rtyp va00 7
+    rmsc 8268 49248 "c2tods.mng\\GeneSplicer"
+    setv game "mapeditortmp_220" va00
+  setv va00 addr game "mapeditortmp" 876 1108 48392 48305 48504 48504
+    rtyp va00 1
+    rmsc 992 48448 ""
+    setv game "mapeditortmp_221" va00
+  setv va00 addr game "mapeditortmp" 9660 10059 47600 47600 47800 47800
+    rtyp va00 0
+    rmsc 9859 47700 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_222" va00
+  setv va00 addr game "mapeditortmp" 10059 10258 48050 47975 48213 48175
+    rtyp va00 7
+    rmsc 10158 48112 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_223" va00
+  setv va00 addr game "mapeditortmp" 10059 10258 47800 47800 48050 47975
+    rtyp va00 0
+    rmsc 10158 47887 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_224" va00
+  setv va00 addr game "mapeditortmp" 10059 10258 47600 47600 47800 47800
+    rtyp va00 0
+    rmsc 10158 47700 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_225" va00
+  setv va00 addr game "mapeditortmp" 10086 10292 49760 49800 49888 49878
+    rtyp va00 0
+    rmsc 10189 49819 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_226" va00
+  setv va00 addr game "mapeditortmp" 9660 10086 49441 49441 49760 49760
+    rtyp va00 7
+    rmsc 9873 49600 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_227" va00
+  setv va00 addr game "mapeditortmp" 876 1061 48288 48288 48392 48323
+    rtyp va00 9
+    rmsc 968 48305 ""
+    setv game "mapeditortmp_228" va00
+  setv va00 addr game "mapeditortmp" 792 1061 48050 48050 48248 48248
+    rtyp va00 1
+    rmsc 926 48149 ""
+    setv game "mapeditortmp_229" va00
+  setv va00 addr game "mapeditortmp" 792 1061 48248 48248 48288 48288
+    rtyp va00 0
+    rmsc 926 48268 ""
+    setv game "mapeditortmp_230" va00
+  setv va00 addr game "mapeditortmp" 987 1072 48504 48504 48718 48578
+    rtyp va00 9
+    rmsc 1029 48541 ""
+    setv game "mapeditortmp_231" va00
+  setv va00 addr game "mapeditortmp" 876 987 48504 48504 48692 48718
+    rtyp va00 9
+    rmsc 931 48611 ""
+    setv game "mapeditortmp_232" va00
+  setv va00 addr game "mapeditortmp" 764 876 48504 48504 48690 48692
+    rtyp va00 9
+    rmsc 820 48598 ""
+    setv game "mapeditortmp_233" va00
+  setv va00 addr game "mapeditortmp" 792 1308 47800 47800 48050 48050
+    rtyp va00 0
+    rmsc 1050 47925 ""
+    setv game "mapeditortmp_234" va00
+  setv va00 addr game "mapeditortmp" 10258 10399 47800 47800 48175 48237
+    rtyp va00 7
+    rmsc 10328 48018 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_235" va00
+  setv va00 addr game "mapeditortmp" 792 1308 47600 47600 47800 47800
+    rtyp va00 0
+    rmsc 1050 47700 ""
+    setv game "mapeditortmp_236" va00
+  setv va00 addr game "mapeditortmp" 10258 10399 47600 47600 47800 47800
+    rtyp va00 0
+    rmsc 10328 47700 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_237" va00
+  setv va00 addr game "mapeditortmp" 7166 7370 47862 47821 48183 48168
+    rtyp va00 7
+    rmsc 7268 48015 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_238" va00
+  setv va00 addr game "mapeditortmp" 6898 7166 47915 47862 48179 48183
+    rtyp va00 7
+    rmsc 7032 48049 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_239" va00
+  setv va00 addr game "mapeditortmp" 6775 6898 47915 47915 48174 48179
+    rtyp va00 7
+    rmsc 6836 48047 "c2tods.mng\\UpperTemple"
+    setv game "mapeditortmp_240" va00
+  setv va00 addr game "mapeditortmp" 6002 6136 47915 47915 48227 48181
+    rtyp va00 7
+    rmsc 6069 48048 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_241" va00
+  setv va00 addr game "mapeditortmp" 247 792 48253 48248 48288 48288
+    rtyp va00 0
+    rmsc 519 48270 ""
+    setv game "mapeditortmp_242" va00
+  setv va00 addr game "mapeditortmp" 247 792 48050 48050 48253 48248
+    rtyp va00 0
+    rmsc 519 48149 ""
+    setv game "mapeditortmp_243" va00
+  setv va00 addr game "mapeditortmp" 4400 4559 47938 47938 48225 48233
+    rtyp va00 1
+    rmsc 4479 48085 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_244" va00
+  setv va00 addr game "mapeditortmp" 4192 4400 47894 47938 48224 48225
+    rtyp va00 1
+    rmsc 4296 48059 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_245" va00
+  setv va00 addr game "mapeditortmp" 6622 6775 47915 47915 48184 48174
+    rtyp va00 7
+    rmsc 6698 48044 "c2tods.mng\\UpperTemple"
+    setv game "mapeditortmp_246" va00
+  setv va00 addr game "mapeditortmp" 6520 6622 47915 47915 48167 48184
+    rtyp va00 7
+    rmsc 6571 48049 "c2tods.mng\\UpperTemple"
+    setv game "mapeditortmp_247" va00
+  setv va00 addr game "mapeditortmp" 6373 6520 47915 47915 48192 48167
+    rtyp va00 7
+    rmsc 6446 48041 "c2tods.mng\\UpperTemple"
+    setv game "mapeditortmp_248" va00
+  setv va00 addr game "mapeditortmp" 247 792 47800 47800 48050 48050
+    rtyp va00 0
+    rmsc 519 47925 ""
+    setv game "mapeditortmp_249" va00
+  setv va00 addr game "mapeditortmp" 247 792 47600 47600 47800 47800
+    rtyp va00 0
+    rmsc 519 47700 ""
+    setv game "mapeditortmp_250" va00
+  setv va00 addr game "mapeditortmp" 48 247 48253 48253 48288 48288
+    rtyp va00 0
+    rmsc 147 48270 ""
+    setv game "mapeditortmp_251" va00
+  setv va00 addr game "mapeditortmp" 48 247 48050 48050 48253 48253
+    rtyp va00 1
+    rmsc 147 48151 ""
+    setv game "mapeditortmp_252" va00
+  setv va00 addr game "mapeditortmp" 48 247 47800 47800 48050 48050
+    rtyp va00 0
+    rmsc 147 47925 ""
+    setv game "mapeditortmp_253" va00
+  setv va00 addr game "mapeditortmp" 48 247 47600 47600 47800 47800
+    rtyp va00 0
+    rmsc 147 47700 ""
+    setv game "mapeditortmp_254" va00
+  setv va00 addr game "mapeditortmp" 764 876 48288 48288 48504 48504
+    rtyp va00 9
+    rmsc 820 48396 ""
+    setv game "mapeditortmp_255" va00
+  setv va00 addr game "mapeditortmp" 6136 6520 47600 47600 47915 47915
+    rtyp va00 0
+    rmsc 6328 47757 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_256" va00
+  setv va00 addr game "mapeditortmp" 561 764 48288 48288 48492 48504
+    rtyp va00 9
+    rmsc 662 48396 ""
+    setv game "mapeditortmp_257" va00
+  setv va00 addr game "mapeditortmp" 6520 6898 47600 47600 47915 47915
+    rtyp va00 2
+    rmsc 6709 47757 "c2tods.mng\\UpperTemple"
+    setv game "mapeditortmp_258" va00
+  setv va00 addr game "mapeditortmp" 48 561 48288 48288 48492 48492
+    rtyp va00 9
+    rmsc 304 48390 ""
+    setv game "mapeditortmp_259" va00
+  setv va00 addr game "mapeditortmp" 561 764 48492 48504 48722 48690
+    rtyp va00 9
+    rmsc 662 48591 ""
+    setv game "mapeditortmp_260" va00
+  setv va00 addr game "mapeditortmp" 9264 9460 48772 48725 48928 48928
+    rtyp va00 2
+    rmsc 9362 48850 ""
+    setv game "mapeditortmp_261" va00
+  setv va00 addr game "mapeditortmp" 3688 4192 47937 47937 48224 48224
+    rtyp va00 5
+    rmsc 3940 48080 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_262" va00
+  setv va00 addr game "mapeditortmp" 155 561 48492 48492 48718 48722
+    rtyp va00 9
+    rmsc 358 48607 ""
+    setv game "mapeditortmp_263" va00
+  setv va00 addr game "mapeditortmp" 9460 9768 48725 48725 48928 48928
+    rtyp va00 2
+    rmsc 9614 48826 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_264" va00
+  setv va00 addr game "mapeditortmp" 78 220 48839 48803 49040 49040
+    rtyp va00 3
+    rmsc 149 48939 ""
+    setv game "mapeditortmp_265" va00
+  setv va00 addr game "mapeditortmp" 220 379 48803 48803 49040 49040
+    rtyp va00 3
+    rmsc 299 48921 ""
+    setv game "mapeditortmp_266" va00
+  setv va00 addr game "mapeditortmp" 379 433 48803 48803 49040 49000
+    rtyp va00 3
+    rmsc 406 48901 ""
+    setv game "mapeditortmp_267" va00
+  setv va00 addr game "mapeditortmp" 3560 3688 47937 47937 48241 48224
+    rtyp va00 5
+    rmsc 3624 48080 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_268" va00
+  setv va00 addr game "mapeditortmp" 433 601 48803 48803 49000 48992
+    rtyp va00 3
+    rmsc 517 48897 ""
+    setv game "mapeditortmp_269" va00
+  setv va00 addr game "mapeditortmp" 3136 3240 48344 48360 48542 48560
+    rtyp va00 5
+    rmsc 3188 48452 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_270" va00
+  setv va00 addr game "mapeditortmp" 3024 3136 48344 48344 48510 48542
+    rtyp va00 5
+    rmsc 3080 48443 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_271" va00
+  setv va00 addr game "mapeditortmp" 601 787 48803 48781 48992 48958
+    rtyp va00 3
+    rmsc 694 48880 ""
+    setv game "mapeditortmp_272" va00
+  setv va00 addr game "mapeditortmp" 912 1108 48772 48725 48928 48928
+    rtyp va00 2
+    rmsc 1010 48850 ""
+    setv game "mapeditortmp_273" va00
+  setv va00 addr game "mapeditortmp" 787 912 48781 48772 48958 48928
+    rtyp va00 3
+    rmsc 849 48854 ""
+    setv game "mapeditortmp_274" va00
+  setv va00 addr game "mapeditortmp" 2288 2464 47937 47937 48229 48229
+    rtyp va00 1
+    rmsc 2376 48083 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_275" va00
+  setv va00 addr game "mapeditortmp" 9139 9264 48781 48772 48958 48928
+    rtyp va00 3
+    rmsc 9201 48854 ""
+    setv game "mapeditortmp_276" va00
+  setv va00 addr game "mapeditortmp" 912 1308 49128 49128 49328 49328
+    rtyp va00 0
+    rmsc 1110 49228 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_277" va00
+  setv va00 addr game "mapeditortmp" 712 912 49278 48928 49328 49328
+    rtyp va00 0
+    rmsc 812 49303 ""
+    setv game "mapeditortmp_278" va00
+  setv va00 addr game "mapeditortmp" 3992 4400 48368 48368 48568 48564
+    rtyp va00 5
+    rmsc 4196 48466 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_279" va00
+  setv va00 addr game "mapeditortmp" 3296 3560 47937 47937 48232 48241
+    rtyp va00 5
+    rmsc 3428 48089 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_280" va00
+  setv va00 addr game "mapeditortmp" 2288 3136 48229 48230 48277 48277
+    rtyp va00 0
+    rmsc 2712 48253 ""
+    setv game "mapeditortmp_281" va00
+  setv va00 addr game "mapeditortmp" 3024 3136 48277 48277 48344 48344
+    rtyp va00 9
+    rmsc 3080 48310 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_282" va00
+  setv va00 addr game "mapeditortmp" 3688 4192 47600 47600 47937 47937
+    rtyp va00 0
+    rmsc 3940 47768 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_283" va00
+  setv va00 addr game "mapeditortmp" 5472 5936 49145 49144 49344 49344
+    rtyp va00 1
+    rmsc 5704 49244 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_284" va00
+  setv va00 addr game "mapeditortmp" 3296 3688 47600 47600 47937 47937
+    rtyp va00 0
+    rmsc 3492 47768 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_285" va00
+  setv va00 addr game "mapeditortmp" 3024 3296 47937 47894 48229 48232
+    rtyp va00 1
+    rmsc 3160 48084 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_286" va00
+  setv va00 addr game "mapeditortmp" 912 1108 49768 49767 49928 49904
+    rtyp va00 0
+    rmsc 1010 49836 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_287" va00
+  setv va00 addr game "mapeditortmp" 712 912 49768 49768 49896 49928
+    rtyp va00 0
+    rmsc 812 49848 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_288" va00
+  setv va00 addr game "mapeditortmp" 128 280 49511 49632 49832 49832
+    rtyp va00 6
+    rmsc 204 49671 ""
+    setv game "mapeditortmp_289" va00
+  setv va00 addr game "mapeditortmp" 432 611 49080 49080 49384 49367
+    rtyp va00 5
+    rmsc 521 49223 ""
+    setv game "mapeditortmp_290" va00
+  setv va00 addr game "mapeditortmp" 2464 3024 47937 47937 48229 48229
+    rtyp va00 0
+    rmsc 2744 48083 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_291" va00
+  setv va00 addr game "mapeditortmp" 6583 6983 48576 48576 48776 48776
+    rtyp va00 5
+    rmsc 6783 48676 "c2tods.mng\\Cellar"
+    setv game "mapeditortmp_292" va00
+  setv va00 addr game "mapeditortmp" 184 432 49096 49080 49376 49384
+    rtyp va00 5
+    rmsc 308 49240 ""
+    setv game "mapeditortmp_293" va00
+  setv va00 addr game "mapeditortmp" 3240 3560 48360 48408 48560 48566
+    rtyp va00 5
+    rmsc 3400 48463 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_294" va00
+  setv va00 addr game "mapeditortmp" 11000 11167 49144 49080 49272 49272
+    rtyp va00 0
+    rmsc 11083 49208 ""
+    setv game "mapeditortmp_295" va00
+  setv va00 addr game "mapeditortmp" 11000 11327 49272 49272 49441 49441
+    rtyp va00 3
+    rmsc 11163 49356 ""
+    setv game "mapeditortmp_296" va00
+  setv va00 addr game "mapeditortmp" 3560 3688 48241 48224 48408 48408
+    rtyp va00 1
+    rmsc 3624 48324 ""
+    setv game "mapeditortmp_297" va00
+  setv va00 addr game "mapeditortmp" 4953 5039 49757 49770 49928 49928
+    rtyp va00 0
+    rmsc 4996 49842 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_298" va00
+  setv va00 addr game "mapeditortmp" 11000 11232 49441 49441 49623 49633
+    rtyp va00 3
+    rmsc 11116 49537 ""
+    setv game "mapeditortmp_299" va00
+  setv va00 addr game "mapeditortmp" 11000 11232 49623 49633 49928 49928
+    rtyp va00 3
+    rmsc 11116 49775 ""
+    setv game "mapeditortmp_300" va00
+  setv va00 addr game "mapeditortmp" 11232 11434 49768 49737 49928 49920
+    rtyp va00 3
+    rmsc 11333 49844 ""
+    setv game "mapeditortmp_301" va00
+  setv va00 addr game "mapeditortmp" 11232 11434 49441 49441 49633 49633
+    rtyp va00 3
+    rmsc 11333 49537 ""
+    setv game "mapeditortmp_302" va00
+  setv va00 addr game "mapeditortmp" 9660 10196 48504 48504 48725 48725
+    rtyp va00 0
+    rmsc 9928 48614 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_303" va00
+  setv va00 addr game "mapeditortmp" 9460 9660 48305 48305 48504 48504
+    rtyp va00 2
+    rmsc 9560 48404 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_304" va00
+  setv va00 addr game "mapeditortmp" 11434 11664 49516 49478 49920 49920
+    rtyp va00 3
+    rmsc 11549 49718 ""
+    setv game "mapeditortmp_305" va00
+  setv va00 addr game "mapeditortmp" 11664 11915 49478 49512 49920 49920
+    rtyp va00 3
+    rmsc 11789 49699 ""
+    setv game "mapeditortmp_306" va00
+  setv va00 addr game "mapeditortmp" 9499 9660 48050 48050 48305 48305
+    rtyp va00 2
+    rmsc 9579 48177 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_307" va00
+  setv va00 addr game "mapeditortmp" 9660 10059 48050 48050 48305 48213
+    rtyp va00 2
+    rmsc 9859 48131 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_308" va00
+  setv va00 addr game "mapeditortmp" 11915 12384 49752 49752 49920 49920
+    rtyp va00 3
+    rmsc 12149 49836 ""
+    setv game "mapeditortmp_309" va00
+  setv va00 addr game "mapeditortmp" 8238 8599 47800 47800 48059 48050
+    rtyp va00 0
+    rmsc 8418 47925 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_310" va00
+  setv va00 addr game "mapeditortmp" 9413 9499 48050 48050 48248 48305
+    rtyp va00 4
+    rmsc 9456 48177 ""
+    setv game "mapeditortmp_311" va00
+  setv va00 addr game "mapeditortmp" 11915 12062 49512 49527 49752 49752
+    rtyp va00 0
+    rmsc 11988 49632 ""
+    setv game "mapeditortmp_312" va00
+  setv va00 addr game "mapeditortmp" 12062 12384 49527 49498 49752 49752
+    rtyp va00 5
+    rmsc 12223 49639 ""
+    setv game "mapeditortmp_313" va00
+  setv va00 addr game "mapeditortmp" 9144 9413 48050 48050 48248 48248
+    rtyp va00 1
+    rmsc 9278 48149 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_314" va00
+  setv va00 addr game "mapeditortmp" 8238 8599 48059 48050 48251 48253
+    rtyp va00 1
+    rmsc 8418 48156 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_315" va00
+  setv va00 addr game "mapeditortmp" 11167 11327 49080 49114 49272 49272
+    rtyp va00 0
+    rmsc 11247 49176 ""
+    setv game "mapeditortmp_316" va00
+  setv va00 addr game "mapeditortmp" 4695 4953 49767 49767 49928 49928
+    rtyp va00 0
+    rmsc 4824 49847 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_317" va00
+  setv va00 addr game "mapeditortmp" 11327 11504 49272 49272 49441 49441
+    rtyp va00 3
+    rmsc 11415 49356 ""
+    setv game "mapeditortmp_318" va00
+  setv va00 addr game "mapeditortmp" 3560 3688 48408 48408 48566 48568
+    rtyp va00 5
+    rmsc 3624 48488 ""
+    setv game "mapeditortmp_319" va00
+  setv va00 addr game "mapeditortmp" 5200 5400 47866 47865 48257 48248
+    rtyp va00 1
+    rmsc 5300 48057 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_320" va00
+  setv va00 addr game "mapeditortmp" 11327 11434 49114 49201 49272 49272
+    rtyp va00 0
+    rmsc 11380 49193 ""
+    setv game "mapeditortmp_321" va00
+  setv va00 addr game "mapeditortmp" 9982 10196 48725 48725 48905 48905
+    rtyp va00 0
+    rmsc 10089 48815 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_322" va00
+  setv va00 addr game "mapeditortmp" 8400 8599 48252 48253 48288 48288
+    rtyp va00 0
+    rmsc 8499 48270 ""
+    setv game "mapeditortmp_323" va00
+  setv va00 addr game "mapeditortmp" 5554 6136 47600 47600 47915 47915
+    rtyp va00 0
+    rmsc 5845 47757 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_324" va00
+  setv va00 addr game "mapeditortmp" 11504 11881 49195 49195 49441 49441
+    rtyp va00 3
+    rmsc 11692 49318 ""
+    setv game "mapeditortmp_325" va00
+  setv va00 addr game "mapeditortmp" 11504 11745 49032 48985 49195 49195
+    rtyp va00 3
+    rmsc 11624 49113 ""
+    setv game "mapeditortmp_326" va00
+  setv va00 addr game "mapeditortmp" 6983 7183 48225 48225 48470 48465
+    rtyp va00 5
+    rmsc 7083 48345 "c2tods.mng\\Incubator"
+    setv game "mapeditortmp_327" va00
+  setv va00 addr game "mapeditortmp" 8599 9144 48253 48248 48288 48288
+    rtyp va00 0
+    rmsc 8871 48270 ""
+    setv game "mapeditortmp_328" va00
+  setv va00 addr game "mapeditortmp" 8599 9144 48050 48050 48253 48248
+    rtyp va00 0
+    rmsc 8871 48149 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_329" va00
+  setv va00 addr game "mapeditortmp" 11745 11881 48896 48895 49195 49195
+    rtyp va00 3
+    rmsc 11813 49045 ""
+    setv game "mapeditortmp_330" va00
+  setv va00 addr game "mapeditortmp" 11745 11881 48730 48730 48896 48895
+    rtyp va00 1
+    rmsc 11813 48812 ""
+    setv game "mapeditortmp_331" va00
+  setv va00 addr game "mapeditortmp" 11624 11745 48730 48730 48920 48896
+    rtyp va00 1
+    rmsc 11684 48813 ""
+    setv game "mapeditortmp_332" va00
+  setv va00 addr game "mapeditortmp" 6333 6583 48576 48576 48776 48776
+    rtyp va00 5
+    rmsc 6458 48676 "c2tods.mng\\Cellar"
+    setv game "mapeditortmp_333" va00
+  setv va00 addr game "mapeditortmp" 11247 11624 48730 48730 48920 48920
+    rtyp va00 1
+    rmsc 11435 48825 ""
+    setv game "mapeditortmp_334" va00
+  setv va00 addr game "mapeditortmp" 11080 11552 48920 48920 48952 48952
+    rtyp va00 0
+    rmsc 11316 48936 ""
+    setv game "mapeditortmp_335" va00
+  setv va00 addr game "mapeditortmp" 4192 4400 48224 48225 48368 48368
+    rtyp va00 0
+    rmsc 4296 48296 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_336" va00
+  setv va00 addr game "mapeditortmp" 4953 5200 47867 47866 48254 48257
+    rtyp va00 1
+    rmsc 5076 48062 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_337" va00
+  setv va00 addr game "mapeditortmp" 8038 8155 48059 48059 48213 48248
+    rtyp va00 7
+    rmsc 8096 48153 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_338" va00
+  setv va00 addr game "mapeditortmp" 11080 11247 48840 48730 48920 48920
+    rtyp va00 0
+    rmsc 11163 48880 ""
+    setv game "mapeditortmp_339" va00
+  setv va00 addr game "mapeditortmp" 11462 11552 48952 48952 49005 48960
+    rtyp va00 8
+    rmsc 11507 48956 ""
+    setv game "mapeditortmp_340" va00
+  setv va00 addr game "mapeditortmp" 11327 11462 48952 48952 49032 49005
+    rtyp va00 8
+    rmsc 11394 48978 ""
+    setv game "mapeditortmp_341" va00
+  setv va00 addr game "mapeditortmp" 11247 11327 48952 48952 49033 49032
+    rtyp va00 8
+    rmsc 11287 48992 ""
+    setv game "mapeditortmp_342" va00
+  setv va00 addr game "mapeditortmp" 11135 11247 48952 48952 49014 49033
+    rtyp va00 8
+    rmsc 11191 48992 ""
+    setv game "mapeditortmp_343" va00
+  setv va00 addr game "mapeditortmp" 11080 11135 48952 48952 48965 49014
+    rtyp va00 8
+    rmsc 11107 48983 ""
+    setv game "mapeditortmp_344" va00
+  setv va00 addr game "mapeditortmp" 8599 9144 47800 47800 48050 48050
+    rtyp va00 0
+    rmsc 8871 47925 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_345" va00
+  setv va00 addr game "mapeditortmp" 11881 12062 48730 48603 48895 48888
+    rtyp va00 5
+    rmsc 11971 48809 ""
+    setv game "mapeditortmp_346" va00
+  setv va00 addr game "mapeditortmp" 11915 12062 49290 49290 49512 49527
+    rtyp va00 0
+    rmsc 11988 49408 ""
+    setv game "mapeditortmp_347" va00
+  setv va00 addr game "mapeditortmp" 11915 12062 49090 49090 49290 49290
+    rtyp va00 0
+    rmsc 11988 49190 ""
+    setv game "mapeditortmp_348" va00
+  setv va00 addr game "mapeditortmp" 11915 12062 48902 48911 49090 49090
+    rtyp va00 0
+    rmsc 11988 48996 ""
+    setv game "mapeditortmp_349" va00
+  setv va00 addr game "mapeditortmp" 9144 9660 47800 47800 48050 48050
+    rtyp va00 0
+    rmsc 9402 47925 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_350" va00
+  setv va00 addr game "mapeditortmp" 8238 8599 47600 47600 47800 47800
+    rtyp va00 0
+    rmsc 8418 47700 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_351" va00
+  setv va00 addr game "mapeditortmp" 8599 9144 47600 47600 47800 47800
+    rtyp va00 0
+    rmsc 8871 47700 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_352" va00
+  setv va00 addr game "mapeditortmp" 12158 12248 49206 49160 49346 49352
+    rtyp va00 5
+    rmsc 12203 49279 ""
+    setv game "mapeditortmp_353" va00
+  setv va00 addr game "mapeditortmp" 4953 5400 47600 47600 47867 47865
+    rtyp va00 0
+    rmsc 5176 47732 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_354" va00
+  setv va00 addr game "mapeditortmp" 4400 4525 48368 48368 48564 48564
+    rtyp va00 1
+    rmsc 4462 48466 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_355" va00
+  setv va00 addr game "mapeditortmp" 12248 12392 49160 49160 49352 49352
+    rtyp va00 5
+    rmsc 12320 49256 ""
+    setv game "mapeditortmp_356" va00
+  setv va00 addr game "mapeditortmp" 12062 12252 48911 48911 49090 49094
+    rtyp va00 5
+    rmsc 12157 49002 ""
+    setv game "mapeditortmp_357" va00
+  setv va00 addr game "mapeditortmp" 12252 12408 48911 48909 49094 49088
+    rtyp va00 5
+    rmsc 12330 48999 ""
+    setv game "mapeditortmp_358" va00
+  setv va00 addr game "mapeditortmp" 12062 12287 48603 48645 48888 48890
+    rtyp va00 5
+    rmsc 12174 48746 ""
+    setv game "mapeditortmp_359" va00
+  setv va00 addr game "mapeditortmp" 11376 11488 48344 48344 48510 48542
+    rtyp va00 5
+    rmsc 11432 48443 ""
+    setv game "mapeditortmp_360" va00
+  setv va00 addr game "mapeditortmp" 11199 11592 48585 48585 48713 48713
+    rtyp va00 0
+    rmsc 11395 48649 ""
+    setv game "mapeditortmp_361" va00
+  setv va00 addr game "mapeditortmp" 11741 11880 48585 48585 48713 48713
+    rtyp va00 0
+    rmsc 11810 48649 ""
+    setv game "mapeditortmp_362" va00
+  setv va00 addr game "mapeditortmp" 11488 11592 48344 48360 48542 48560
+    rtyp va00 5
+    rmsc 11540 48452 ""
+    setv game "mapeditortmp_363" va00
+  setv va00 addr game "mapeditortmp" 11592 11912 48360 48408 48560 48566
+    rtyp va00 5
+    rmsc 11752 48463 ""
+    setv game "mapeditortmp_364" va00
+  setv va00 addr game "mapeditortmp" 11592 11741 48560 48563 48713 48713
+    rtyp va00 0
+    rmsc 11666 48636 ""
+    setv game "mapeditortmp_365" va00
+  setv va00 addr game "mapeditortmp" 8784 8963 49080 49080 49384 49367
+    rtyp va00 7
+    rmsc 8873 49223 "c2tods.mng\\GeneSplicer"
+    setv game "mapeditortmp_366" va00
+  setv va00 addr game "mapeditortmp" 11912 12040 48408 48408 48566 48568
+    rtyp va00 5
+    rmsc 11976 48488 ""
+    setv game "mapeditortmp_367" va00
+  setv va00 addr game "mapeditortmp" 11912 12040 48241 48224 48408 48408
+    rtyp va00 0
+    rmsc 11976 48324 ""
+    setv game "mapeditortmp_368" va00
+  setv va00 addr game "mapeditortmp" 12040 12344 48224 48224 48408 48403
+    rtyp va00 0
+    rmsc 12192 48313 ""
+    setv game "mapeditortmp_369" va00
+  setv va00 addr game "mapeditortmp" 12040 12344 48408 48403 48568 48568
+    rtyp va00 5
+    rmsc 12192 48488 ""
+    setv game "mapeditortmp_370" va00
+  setv va00 addr game "mapeditortmp" 9144 9413 48248 48248 48288 48288
+    rtyp va00 0
+    rmsc 9278 48268 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_371" va00
+  setv va00 addr game "mapeditortmp" 4400 4559 47600 47600 47938 47938
+    rtyp va00 0
+    rmsc 4479 47769 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_372" va00
+  setv va00 addr game "mapeditortmp" 4298 4525 48565 48564 48720 48720
+    rtyp va00 0
+    rmsc 4411 48642 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_373" va00
+  setv va00 addr game "mapeditortmp" 11376 11648 47937 47894 48229 48232
+    rtyp va00 1
+    rmsc 11512 48084 ""
+    setv game "mapeditortmp_374" va00
+  setv va00 addr game "mapeditortmp" 11376 11648 47600 47600 47937 47894
+    rtyp va00 0
+    rmsc 11512 47747 ""
+    setv game "mapeditortmp_375" va00
+  setv va00 addr game "mapeditortmp" 10196 10292 48674 48785 48905 48905
+    rtyp va00 0
+    rmsc 10244 48789 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_376" va00
+  setv va00 addr game "mapeditortmp" 11648 12040 47600 47600 47937 47937
+    rtyp va00 0
+    rmsc 11844 47768 ""
+    setv game "mapeditortmp_377" va00
+  setv va00 addr game "mapeditortmp" 6608 6800 48991 48998 49144 49160
+    rtyp va00 3
+    rmsc 6704 49075 "c2tods.mng\\PowerRoom"
+    setv game "mapeditortmp_378" va00
+  setv va00 addr game "mapeditortmp" 11648 11912 47937 47937 48232 48241
+    rtyp va00 5
+    rmsc 11780 48089 ""
+    setv game "mapeditortmp_379" va00
+  setv va00 addr game "mapeditortmp" 9460 9660 49767 49760 49904 49936
+    rtyp va00 0
+    rmsc 9560 49851 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_380" va00
+  setv va00 addr game "mapeditortmp" 9064 9460 49328 49328 49441 49441
+    rtyp va00 0
+    rmsc 9262 49384 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_381" va00
+  setv va00 addr game "mapeditortmp" 7376 7952 49208 49227 49456 49456
+    rtyp va00 1
+    rmsc 7664 49332 "c2tods.mng\\Swamp"
+    setv game "mapeditortmp_382" va00
+  setv va00 addr game "mapeditortmp" 9264 9460 49768 49767 49928 49904
+    rtyp va00 0
+    rmsc 9362 49836 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_383" va00
+  setv va00 addr game "mapeditortmp" 7696 7952 48872 48930 49219 49227
+    rtyp va00 0
+    rmsc 7824 49049 ""
+    setv game "mapeditortmp_384" va00
+  setv va00 addr game "mapeditortmp" 4953 5064 48885 48885 49121 49063
+    rtyp va00 0
+    rmsc 5008 48974 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_385" va00
+  setv va00 addr game "mapeditortmp" 7376 7696 48840 48872 49208 49219
+    rtyp va00 0
+    rmsc 7536 49029 ""
+    setv game "mapeditortmp_386" va00
+  setv va00 addr game "mapeditortmp" 6800 6984 48848 48840 49166 49170
+    rtyp va00 0
+    rmsc 6892 49009 ""
+    setv game "mapeditortmp_387" va00
+  setv va00 addr game "mapeditortmp" 11912 12040 47937 47937 48241 48224
+    rtyp va00 5
+    rmsc 11976 48080 ""
+    setv game "mapeditortmp_388" va00
+  setv va00 addr game "mapeditortmp" 12040 12344 47600 47600 47937 47937
+    rtyp va00 0
+    rmsc 12192 47768 ""
+    setv game "mapeditortmp_389" va00
+  setv va00 addr game "mapeditortmp" 9064 9264 49768 49768 49896 49928
+    rtyp va00 0
+    rmsc 9164 49848 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_390" va00
+  setv va00 addr game "mapeditortmp" 6984 7376 48840 48840 49216 49208
+    rtyp va00 1
+    rmsc 7180 49024 ""
+    setv game "mapeditortmp_391" va00
+  setv va00 addr game "mapeditortmp" 12040 12344 47937 47937 48224 48224
+    rtyp va00 5
+    rmsc 12192 48080 ""
+    setv game "mapeditortmp_392" va00
+  setv va00 addr game "mapeditortmp" 9064 9460 49441 49441 49768 49767
+    rtyp va00 7
+    rmsc 9262 49604 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_393" va00
+  setv va00 addr game "mapeditortmp" 6632 6800 48867 48848 48992 48998
+    rtyp va00 0
+    rmsc 6716 48932 ""
+    setv game "mapeditortmp_394" va00
+  setv va00 addr game "mapeditortmp" 9264 9768 48928 48928 49128 49128
+    rtyp va00 0
+    rmsc 9516 49028 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_395" va00
+  setv va00 addr game "mapeditortmp" 6056 6224 48969 48840 49144 49144
+    rtyp va00 3
+    rmsc 6140 49056 "c2tods.mng\\PowerRoom"
+    setv game "mapeditortmp_396" va00
+  setv va00 addr game "mapeditortmp" 6224 6453 48840 48840 49144 49144
+    rtyp va00 3
+    rmsc 6338 48992 "c2tods.mng\\PowerRoom"
+    setv game "mapeditortmp_397" va00
+  setv va00 addr game "mapeditortmp" 6285 6394 49144 49144 49456 49456
+    rtyp va00 3
+    rmsc 6339 49300 "c2tods.mng\\PowerRoom"
+    setv game "mapeditortmp_398" va00
+  setv va00 addr game "mapeditortmp" 9768 9982 48877 48848 49128 49128
+    rtyp va00 0
+    rmsc 9875 49002 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_399" va00
+  setv va00 addr game "mapeditortmp" 6984 7376 49216 49208 49456 49456
+    rtyp va00 1
+    rmsc 7180 49336 "c2tods.mng\\Swamp"
+    setv game "mapeditortmp_400" va00
+  setv va00 addr game "mapeditortmp" 6544 6984 49160 49170 49456 49456
+    rtyp va00 1
+    rmsc 6764 49308 "c2tods.mng\\Swamp"
+    setv game "mapeditortmp_401" va00
+  setv va00 addr game "mapeditortmp" 6394 6544 49160 49160 49336 49336
+    rtyp va00 3
+    rmsc 6469 49248 "c2tods.mng\\PowerRoom"
+    setv game "mapeditortmp_402" va00
+  setv va00 addr game "mapeditortmp" 2880 3082 49768 49737 49928 49920
+    rtyp va00 3
+    rmsc 2981 49844 "c2tods.mng\\Temple"
+    setv game "mapeditortmp_403" va00
+  setv va00 addr game "mapeditortmp" 11376 11488 48277 48277 48344 48344
+    rtyp va00 9
+    rmsc 11432 48310 ""
+    setv game "mapeditortmp_404" va00
+  setv va00 addr game "mapeditortmp" 4384 4640 48720 48720 48920 48920
+    rtyp va00 1
+    rmsc 4512 48820 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_405" va00
+  setv va00 addr game "mapeditortmp" 9982 10292 48905 48905 49128 49128
+    rtyp va00 0
+    rmsc 10137 49016 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_406" va00
+  setv va00 addr game "mapeditortmp" 4032 4240 49752 49744 49920 49920
+    rtyp va00 3
+    rmsc 4136 49836 "c2tods.mng\\Temple"
+    setv game "mapeditortmp_407" va00
+  setv va00 addr game "mapeditortmp" 4640 4800 48885 48905 49055 49089
+    rtyp va00 0
+    rmsc 4720 48987 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_408" va00
+  setv va00 addr game "mapeditortmp" 6394 6544 49336 49336 49456 49456
+    rtyp va00 0
+    rmsc 6469 49396 "c2tods.mng\\Vents"
+    setv game "mapeditortmp_409" va00
+  setv va00 addr game "mapeditortmp" 4112 4192 49111 49111 49122 49171
+    rtyp va00 8
+    rmsc 4152 49141 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_410" va00
+  setv va00 addr game "mapeditortmp" 4800 4953 48905 48805 49089 49121
+    rtyp va00 0
+    rmsc 4876 49013 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_411" va00
+  setv va00 addr game "mapeditortmp" 4953 5416 48435 48435 48885 48885
+    rtyp va00 1
+    rmsc 5184 48660 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_412" va00
+  setv va00 addr game "mapeditortmp" 3082 3312 49516 49478 49920 49920
+    rtyp va00 3
+    rmsc 3197 49718 "c2tods.mng\\Temple"
+    setv game "mapeditortmp_413" va00
+  setv va00 addr game "mapeditortmp" 3312 3563 49478 49512 49920 49920
+    rtyp va00 3
+    rmsc 3437 49699 "c2tods.mng\\Temple"
+    setv game "mapeditortmp_414" va00
+  setv va00 addr game "mapeditortmp" 6096 6592 49672 49672 49856 49856
+    rtyp va00 5
+    rmsc 6344 49764 "c2tods.mng\\Vents"
+    setv game "mapeditortmp_415" va00
+  setv va00 addr game "mapeditortmp" 10292 10399 49128 49272 49441 49441
+    rtyp va00 3
+    rmsc 10345 49284 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_416" va00
+  setv va00 addr game "mapeditortmp" 4192 4298 49111 49111 49171 49124
+    rtyp va00 8
+    rmsc 4245 49117 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_417" va00
+  setv va00 addr game "mapeditortmp" 3563 3710 49090 49090 49290 49290
+    rtyp va00 0
+    rmsc 3636 49190 ""
+    setv game "mapeditortmp_418" va00
+  setv va00 addr game "mapeditortmp" 10086 10292 49128 49128 49441 49441
+    rtyp va00 2
+    rmsc 10189 49284 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_419" va00
+  setv va00 addr game "mapeditortmp" 3688 3992 48224 48224 48408 48403
+    rtyp va00 1
+    rmsc 3840 48313 ""
+    setv game "mapeditortmp_420" va00
+  setv va00 addr game "mapeditortmp" 5936 6096 49144 49144 49281 49232
+    rtyp va00 0
+    rmsc 6016 49188 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_421" va00
+  setv va00 addr game "mapeditortmp" 6096 6592 49456 49456 49672 49672
+    rtyp va00 0
+    rmsc 6344 49564 "c2tods.mng\\Vents"
+    setv game "mapeditortmp_422" va00
+  setv va00 addr game "mapeditortmp" 5264 5416 48885 48885 49145 49145
+    rtyp va00 1
+    rmsc 5340 49015 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_423" va00
+  setv va00 addr game "mapeditortmp" 8008 8089 48487 48491 48640 48830
+    rtyp va00 9
+    rmsc 8048 48658 "c2tods.mng\\Underwater"
+    setv game "mapeditortmp_424" va00
+  setv va00 addr game "mapeditortmp" 5801 5936 48798 48716 49144 49144
+    rtyp va00 0
+    rmsc 5868 48971 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_425" va00
+  setv va00 addr game "mapeditortmp" 4693 4953 49305 49321 49593 49593
+    rtyp va00 0
+    rmsc 4823 49449 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_426" va00
+  setv va00 addr game "mapeditortmp" 5879 6096 49344 49344 49517 49672
+    rtyp va00 0
+    rmsc 5987 49508 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_427" va00
+  setv va00 addr game "mapeditortmp" 4640 4800 48720 48720 48885 48905
+    rtyp va00 0
+    rmsc 4720 48812 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_428" va00
+  setv va00 addr game "mapeditortmp" 4400 4640 48225 48237 48368 48368
+    rtyp va00 0
+    rmsc 4520 48296 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_429" va00
+  setv va00 addr game "mapeditortmp" 3563 3710 49290 49290 49512 49527
+    rtyp va00 0
+    rmsc 3636 49408 ""
+    setv game "mapeditortmp_430" va00
+  setv va00 addr game "mapeditortmp" 3563 3710 49512 49527 49752 49752
+    rtyp va00 5
+    rmsc 3636 49632 "c2tods.mng\\BioSpheres"
+    setv game "mapeditortmp_431" va00
+  setv va00 addr game "mapeditortmp" 7800 7951 48464 48484 48776 48776
+    rtyp va00 5
+    rmsc 7875 48620 "c2tods.mng\\Cellar"
+    setv game "mapeditortmp_432" va00
+  setv va00 addr game "mapeditortmp" 3563 4032 49752 49752 49920 49920
+    rtyp va00 3
+    rmsc 3797 49836 "c2tods.mng\\Temple"
+    setv game "mapeditortmp_433" va00
+  setv va00 addr game "mapeditortmp" 7825 7904 48776 48776 48848 48848
+    rtyp va00 7
+    rmsc 7864 48812 "c2tods.mng\\Cellar"
+    setv game "mapeditortmp_434" va00
+  setv va00 addr game "mapeditortmp" 9264 9660 49128 49128 49328 49328
+    rtyp va00 0
+    rmsc 9462 49228 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_435" va00
+  setv va00 addr game "mapeditortmp" 6911 7176 49456 49456 49672 49672
+    rtyp va00 1
+    rmsc 7043 49564 "c2tods.mng\\Swamp"
+    setv game "mapeditortmp_436" va00
+  setv va00 addr game "mapeditortmp" 7952 8168 49092 49104 49227 49242
+    rtyp va00 3
+    rmsc 8060 49167 ""
+    setv game "mapeditortmp_437" va00
+  setv va00 addr game "mapeditortmp" 6592 6911 49672 49672 49856 49856
+    rtyp va00 5
+    rmsc 6751 49764 "c2tods.mng\\Swamp"
+    setv game "mapeditortmp_438" va00
+  setv va00 addr game "mapeditortmp" 7176 7477 49672 49672 49883 49883
+    rtyp va00 1
+    rmsc 7326 49777 "c2tods.mng\\Swamp"
+    setv game "mapeditortmp_439" va00
+  setv va00 addr game "mapeditortmp" 6911 7176 49672 49672 49856 49883
+    rtyp va00 1
+    rmsc 7043 49777 "c2tods.mng\\Swamp"
+    setv game "mapeditortmp_440" va00
+  setv va00 addr game "mapeditortmp" 7477 7749 49672 49672 49883 49862
+    rtyp va00 1
+    rmsc 7613 49767 "c2tods.mng\\Swamp"
+    setv game "mapeditortmp_441" va00
+  setv va00 addr game "mapeditortmp" 7749 7952 49672 49672 49862 49848
+    rtyp va00 6
+    rmsc 7850 49760 "c2tods.mng\\Swamp"
+    setv game "mapeditortmp_442" va00
+  setv va00 addr game "mapeditortmp" 8480 8632 49511 49632 49832 49832
+    rtyp va00 6
+    rmsc 8556 49671 "c2tods.mng\\Swamp"
+    setv game "mapeditortmp_443" va00
+  setv va00 addr game "mapeditortmp" 7176 7952 49456 49456 49672 49672
+    rtyp va00 0
+    rmsc 7564 49564 "c2tods.mng\\Swamp"
+    setv game "mapeditortmp_444" va00
+  setv va00 addr game "mapeditortmp" 8301 8480 49511 49511 49864 49832
+    rtyp va00 6
+    rmsc 8390 49671 "c2tods.mng\\Swamp"
+    setv game "mapeditortmp_445" va00
+  setv va00 addr game "mapeditortmp" 8096 8301 49613 49511 49848 49864
+    rtyp va00 6
+    rmsc 8198 49738 "c2tods.mng\\Swamp"
+    setv game "mapeditortmp_446" va00
+  setv va00 addr game "mapeditortmp" 6592 6911 49456 49456 49672 49672
+    rtyp va00 1
+    rmsc 6751 49564 "c2tods.mng\\Swamp"
+    setv game "mapeditortmp_447" va00
+  setv va00 addr game "mapeditortmp" 7952 8096 49456 49613 49848 49848
+    rtyp va00 6
+    rmsc 8024 49652 "c2tods.mng\\Swamp"
+    setv game "mapeditortmp_448" va00
+  setv va00 addr game "mapeditortmp" 6911 7176 49856 49883 49931 49944
+    rtyp va00 8
+    rmsc 7043 49900 "c2tods.mng\\Swamp"
+    setv game "mapeditortmp_449" va00
+  setv va00 addr game "mapeditortmp" 7477 7749 49883 49862 49943 49922
+    rtyp va00 8
+    rmsc 7613 49902 "c2tods.mng\\Swamp"
+    setv game "mapeditortmp_450" va00
+  setv va00 addr game "mapeditortmp" 9660 10086 49128 49128 49328 49328
+    rtyp va00 0
+    rmsc 9873 49228 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_451" va00
+  setv va00 addr game "mapeditortmp" 10086 10292 49441 49441 49760 49800
+    rtyp va00 7
+    rmsc 10189 49620 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_452" va00
+  setv va00 addr game "mapeditortmp" 7176 7477 49883 49883 49944 49943
+    rtyp va00 8
+    rmsc 7326 49913 "c2tods.mng\\Swamp"
+    setv game "mapeditortmp_453" va00
+  setv va00 addr game "mapeditortmp" 9460 10086 49328 49328 49441 49441
+    rtyp va00 0
+    rmsc 9773 49384 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_454" va00
+  setv va00 addr game "mapeditortmp" 5879 6096 49517 49672 49856 49856
+    rtyp va00 5
+    rmsc 5987 49686 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_455" va00
+  setv va00 addr game "mapeditortmp" 9460 9660 49441 49441 49767 49760
+    rtyp va00 7
+    rmsc 9560 49600 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_456" va00
+  setv va00 addr game "mapeditortmp" 8951 9064 49441 49441 49794 49768
+    rtyp va00 7
+    rmsc 9007 49604 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_457" va00
+  setv va00 addr game "mapeditortmp" 5472 5879 49593 49593 49857 49856
+    rtyp va00 5
+    rmsc 5675 49724 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_458" va00
+  setv va00 addr game "mapeditortmp" 9064 9264 49278 48928 49328 49328
+    rtyp va00 0
+    rmsc 9164 49303 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_459" va00
+  setv va00 addr game "mapeditortmp" 5472 5879 49344 49344 49593 49593
+    rtyp va00 1
+    rmsc 5675 49468 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_460" va00
+  setv va00 addr game "mapeditortmp" 8632 8847 49672 49506 49832 49817
+    rtyp va00 7
+    rmsc 8739 49744 "c2tods.mng\\Volcano"
+    setv game "mapeditortmp_461" va00
+  setv va00 addr game "mapeditortmp" 5103 5472 49329 49344 49593 49593
+    rtyp va00 1
+    rmsc 5287 49461 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_462" va00
+  setv va00 addr game "mapeditortmp" 5064 5472 49145 49145 49327 49344
+    rtyp va00 0
+    rmsc 5268 49244 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_463" va00
+  setv va00 addr game "mapeditortmp" 4541 4640 49055 49055 49295 49302
+    rtyp va00 0
+    rmsc 4590 49178 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_464" va00
+  setv va00 addr game "mapeditortmp" 2464 3024 47600 47600 47937 47937
+    rtyp va00 0
+    rmsc 2744 47768 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_465" va00
+  setv va00 addr game "mapeditortmp" 3024 3296 47600 47600 47937 47894
+    rtyp va00 0
+    rmsc 3160 47747 "c2tods.mng\\UpperLevel"
+    setv game "mapeditortmp_466" va00
+  setv va00 addr game "mapeditortmp" 5039 5103 49770 49779 49928 49860
+    rtyp va00 5
+    rmsc 5071 49815 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_467" va00
+  setv va00 addr game "mapeditortmp" 6733 6783 48238 48225 48456 48465
+    rtyp va00 2
+    rmsc 6758 48351 "c2tods.mng\\Incubator"
+    setv game "mapeditortmp_468" va00
+  setv va00 addr game "mapeditortmp" 4144 4222 48909 48905 49053 49053
+    rtyp va00 1
+    rmsc 4183 48981 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_469" va00
+  setv va00 addr game "mapeditortmp" 4222 4298 49053 49083 49111 49111
+    rtyp va00 0
+    rmsc 4260 49082 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_470" va00
+  setv va00 addr game "mapeditortmp" 4144 4222 49053 49053 49111 49111
+    rtyp va00 0
+    rmsc 4183 49082 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_471" va00
+  setv va00 addr game "mapeditortmp" 4088 4144 49075 49053 49111 49111
+    rtyp va00 0
+    rmsc 4116 49093 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_472" va00
+  setv va00 addr game "mapeditortmp" 4240 4376 49920 49920 49974 49984
+    rtyp va00 8
+    rmsc 4308 49952 ""
+    setv game "mapeditortmp_473" va00
+  setv va00 addr game "mapeditortmp" 4376 5039 49928 49928 49984 49990
+    rtyp va00 8
+    rmsc 4707 49959 ""
+    setv game "mapeditortmp_474" va00
+  setv va00 addr game "mapeditortmp" 4154 4240 49920 49920 49953 49974
+    rtyp va00 8
+    rmsc 4197 49947 ""
+    setv game "mapeditortmp_475" va00
+  setv va00 addr game "mapeditortmp" 4240 4376 49744 49744 49920 49920
+    rtyp va00 1
+    rmsc 4308 49832 ""
+    setv game "mapeditortmp_476" va00
+  setv va00 addr game "mapeditortmp" 4376 4695 49774 49767 49928 49928
+    rtyp va00 0
+    rmsc 4535 49851 ""
+    setv game "mapeditortmp_477" va00
+  setv va00 addr game "mapeditortmp" 4568 4693 49547 49376 49593 49593
+    rtyp va00 0
+    rmsc 4630 49570 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_478" va00
+  setv va00 addr game "mapeditortmp" 4693 4953 49593 49593 49753 49757
+    rtyp va00 5
+    rmsc 4823 49675 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_479" va00
+  setv va00 addr game "mapeditortmp" 4524 4693 49593 49593 49744 49753
+    rtyp va00 5
+    rmsc 4608 49673 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_480" va00
+  setv va00 addr game "mapeditortmp" 4032 4240 49498 49458 49752 49744
+    rtyp va00 5
+    rmsc 4136 49621 "c2tods.mng\\BioSpheres"
+    setv game "mapeditortmp_481" va00
+  setv va00 addr game "mapeditortmp" 4407 4524 49473 49584 49744 49744
+    rtyp va00 5
+    rmsc 4465 49608 "c2tods.mng\\BioSpheres"
+    setv game "mapeditortmp_482" va00
+  setv va00 addr game "mapeditortmp" 4240 4407 49458 49473 49744 49744
+    rtyp va00 5
+    rmsc 4323 49601 "c2tods.mng\\BioSpheres"
+    setv game "mapeditortmp_483" va00
+  setv va00 addr game "mapeditortmp" 3710 4032 49527 49498 49752 49752
+    rtyp va00 5
+    rmsc 3871 49639 "c2tods.mng\\BioSpheres"
+    setv game "mapeditortmp_484" va00
+  setv va00 addr game "mapeditortmp" 4271 4384 49153 49055 49340 49317
+    rtyp va00 5
+    rmsc 4327 49235 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_485" va00
+  setv va00 addr game "mapeditortmp" 4122 4271 49200 49153 49352 49340
+    rtyp va00 5
+    rmsc 4196 49270 ""
+    setv game "mapeditortmp_486" va00
+  setv va00 addr game "mapeditortmp" 4040 4122 49160 49200 49352 49352
+    rtyp va00 5
+    rmsc 4081 49256 "c2tods.mng\\BioSpheres"
+    setv game "mapeditortmp_487" va00
+  setv va00 addr game "mapeditortmp" 3896 4040 49160 49160 49352 49352
+    rtyp va00 5
+    rmsc 3968 49256 "c2tods.mng\\BioSpheres"
+    setv game "mapeditortmp_488" va00
+  setv va00 addr game "mapeditortmp" 3806 3896 49206 49160 49346 49352
+    rtyp va00 5
+    rmsc 3851 49279 "c2tods.mng\\BioSpheres"
+    setv game "mapeditortmp_489" va00
+  setv va00 addr game "mapeditortmp" 4384 4640 48920 48920 49055 49055
+    rtyp va00 1
+    rmsc 4512 48987 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_490" va00
+  setv va00 addr game "mapeditortmp" 4298 4384 48900 48920 49083 49055
+    rtyp va00 1
+    rmsc 4341 48977 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_491" va00
+  setv va00 addr game "mapeditortmp" 4222 4298 48905 48900 49053 49083
+    rtyp va00 1
+    rmsc 4260 48994 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_492" va00
+  setv va00 addr game "mapeditortmp" 4056 4144 48909 48909 49088 49053
+    rtyp va00 1
+    rmsc 4100 48981 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_493" va00
+  setv va00 addr game "mapeditortmp" 3900 4056 48911 48909 49094 49088
+    rtyp va00 5
+    rmsc 3978 48999 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_494" va00
+  setv va00 addr game "mapeditortmp" 3710 3900 48911 48911 49090 49094
+    rtyp va00 5
+    rmsc 3805 49002 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_495" va00
+  setv va00 addr game "mapeditortmp" 3710 4144 48603 48614 48888 48900
+    rtyp va00 5
+    rmsc 3927 48751 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_496" va00
+  setv va00 addr game "mapeditortmp" 4144 4298 48614 48720 48900 48900
+    rtyp va00 5
+    rmsc 4221 48757 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_497" va00
+  setv va00 addr game "mapeditortmp" 3688 3992 48408 48403 48568 48568
+    rtyp va00 5
+    rmsc 3840 48488 ""
+    setv game "mapeditortmp_498" va00
+  setv va00 addr game "mapeditortmp" 5936 6080 48436 48436 48768 48758
+    rtyp va00 5
+    rmsc 6008 48597 "c2tods.mng\\Cellar"
+    setv game "mapeditortmp_499" va00
+  setv va00 addr game "mapeditortmp" 5801 6002 48227 48227 48435 48436
+    rtyp va00 1
+    rmsc 5901 48331 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_500" va00
+  setv va00 addr game "mapeditortmp" 5554 5801 48239 48227 48435 48435
+    rtyp va00 4
+    rmsc 5677 48337 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_501" va00
+  setv va00 addr game "mapeditortmp" 5801 5936 48435 48436 48798 48716
+    rtyp va00 0
+    rmsc 5868 48575 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_502" va00
+  setv va00 addr game "mapeditortmp" 6002 6213 48236 48236 48436 48436
+    rtyp va00 2
+    rmsc 6107 48336 "c2tods.mng\\Cellar"
+    setv game "mapeditortmp_503" va00
+  setv va00 addr game "mapeditortmp" 6080 6213 48436 48436 48758 48760
+    rtyp va00 5
+    rmsc 6146 48598 "c2tods.mng\\Cellar"
+    setv game "mapeditortmp_504" va00
+  setv va00 addr game "mapeditortmp" 6213 6333 48436 48436 48760 48776
+    rtyp va00 5
+    rmsc 6273 48606 "c2tods.mng\\Cellar"
+    setv game "mapeditortmp_505" va00
+  setv va00 addr game "mapeditortmp" 5416 5554 48435 48435 48825 48854
+    rtyp va00 0
+    rmsc 5485 48644 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_506" va00
+  setv va00 addr game "mapeditortmp" 6213 6333 48185 48190 48436 48436
+    rtyp va00 2
+    rmsc 6273 48310 "c2tods.mng\\Cellar"
+    setv game "mapeditortmp_507" va00
+  setv va00 addr game "mapeditortmp" 7400 7800 48576 48576 48776 48776
+    rtyp va00 5
+    rmsc 7600 48676 "c2tods.mng\\Cellar"
+    setv game "mapeditortmp_508" va00
+  setv va00 addr game "mapeditortmp" 6567 6733 48488 48488 48544 48528
+    rtyp va00 8
+    rmsc 6650 48508 "c2tods.mng\\Incubator"
+    setv game "mapeditortmp_509" va00
+  setv va00 addr game "mapeditortmp" 6408 6567 48488 48488 48526 48544
+    rtyp va00 8
+    rmsc 6487 48516 "c2tods.mng\\Incubator"
+    setv game "mapeditortmp_510" va00
+  setv va00 addr game "mapeditortmp" 6567 6733 48288 48238 48488 48488
+    rtyp va00 0
+    rmsc 6650 48388 "c2tods.mng\\Incubator"
+    setv game "mapeditortmp_511" va00
+  setv va00 addr game "mapeditortmp" 6408 6567 48288 48288 48488 48488
+    rtyp va00 0
+    rmsc 6487 48388 "c2tods.mng\\Incubator"
+    setv game "mapeditortmp_512" va00
+  setv va00 addr game "mapeditortmp" 6096 6285 49232 49232 49456 49456
+    rtyp va00 3
+    rmsc 6190 49344 "c2tods.mng\\PowerRoom"
+    setv game "mapeditortmp_513" va00
+  setv va00 addr game "mapeditortmp" 3563 3710 48902 48911 49090 49090
+    rtyp va00 0
+    rmsc 3636 48996 "c2tods.mng\\Waterfall"
+    setv game "mapeditortmp_514" va00
 
 door game "mapeditortmp_12" game "mapeditortmp_13" 100
 door game "mapeditortmp_12" game "mapeditortmp_21" 50
@@ -2662,7 +2662,7 @@ door game "mapeditortmp_97" game "mapeditortmp_99" 100
 door game "mapeditortmp_98" game "mapeditortmp_284" 50
 door game "mapeditortmp_98" game "mapeditortmp_421" 100
 door game "mapeditortmp_98" game "mapeditortmp_427" 100
-door game "mapeditortmp_98" game "mapeditortmp_513" 100
+door game "mapeditortmp_98" game "mapeditortmp_513" 0
 
 door game "mapeditortmp_99" game "mapeditortmp_100" 100
 door game "mapeditortmp_101" game "mapeditortmp_102" 100
@@ -2930,7 +2930,7 @@ door game "mapeditortmp_218" game "mapeditortmp_308" 100
 
 door game "mapeditortmp_218" game "mapeditortmp_350" 100
 door game "mapeditortmp_219" game "mapeditortmp_287" 100
-door game "mapeditortmp_220" game "mapeditortmp_437" 100
+door game "mapeditortmp_220" game "mapeditortmp_437" 50
 door game "mapeditortmp_221" game "mapeditortmp_228" 0
 door game "mapeditortmp_221" game "mapeditortmp_231" 50
 door game "mapeditortmp_221" game "mapeditortmp_232" 50
@@ -3177,9 +3177,9 @@ door game "mapeditortmp_374" game "mapeditortmp_379" 100
 door game "mapeditortmp_375" game "mapeditortmp_377" 100
 door game "mapeditortmp_376" game "mapeditortmp_406" 50
 door game "mapeditortmp_377" game "mapeditortmp_379" 50
-door game "mapeditortmp_377" game "mapeditortmp_388" 100
+door game "mapeditortmp_377" game "mapeditortmp_388" 50
 door game "mapeditortmp_377" game "mapeditortmp_389" 100
-door game "mapeditortmp_378" game "mapeditortmp_387" 0
+door game "mapeditortmp_378" game "mapeditortmp_387" 50
 
 door game "mapeditortmp_378" game "mapeditortmp_394" 0
 door game "mapeditortmp_379" game "mapeditortmp_388" 100
@@ -3197,7 +3197,7 @@ door game "mapeditortmp_382" game "mapeditortmp_444" 50
 door game "mapeditortmp_383" game "mapeditortmp_390" 100
 door game "mapeditortmp_383" game "mapeditortmp_393" 25
 door game "mapeditortmp_384" game "mapeditortmp_386" 100
-door game "mapeditortmp_384" game "mapeditortmp_437" 100
+door game "mapeditortmp_384" game "mapeditortmp_437" 50
 door game "mapeditortmp_385" game "mapeditortmp_411" 100
 door game "mapeditortmp_385" game "mapeditortmp_412" 50
 door game "mapeditortmp_386" game "mapeditortmp_391" 50
@@ -3244,10 +3244,9 @@ door game "mapeditortmp_405" game "mapeditortmp_490" 50
 door game "mapeditortmp_406" game "mapeditortmp_419" 100
 door game "mapeditortmp_406" game "mapeditortmp_451" 100
 door game "mapeditortmp_407" game "mapeditortmp_433" 100
-door game "mapeditortmp_407" game "mapeditortmp_473" 100
-door game "mapeditortmp_407" game "mapeditortmp_475" 100
-
+door game "mapeditortmp_407" game "mapeditortmp_475" 50
 door game "mapeditortmp_407" game "mapeditortmp_476" 100
+
 door game "mapeditortmp_407" game "mapeditortmp_481" 0
 door game "mapeditortmp_408" game "mapeditortmp_411" 100
 door game "mapeditortmp_408" game "mapeditortmp_428" 100
@@ -3257,8 +3256,8 @@ door game "mapeditortmp_410" game "mapeditortmp_417" 100
 door game "mapeditortmp_410" game "mapeditortmp_471" 100
 door game "mapeditortmp_410" game "mapeditortmp_472" 100
 door game "mapeditortmp_411" game "mapeditortmp_412" 50
-
 door game "mapeditortmp_412" game "mapeditortmp_423" 50
+
 door game "mapeditortmp_412" game "mapeditortmp_506" 100
 door game "mapeditortmp_413" game "mapeditortmp_414" 100
 door game "mapeditortmp_414" game "mapeditortmp_431" 0
@@ -3268,8 +3267,8 @@ door game "mapeditortmp_415" game "mapeditortmp_438" 100
 door game "mapeditortmp_415" game "mapeditortmp_455" 100
 door game "mapeditortmp_416" game "mapeditortmp_419" 100
 door game "mapeditortmp_417" game "mapeditortmp_470" 100
-
 door game "mapeditortmp_417" game "mapeditortmp_471" 100
+
 door game "mapeditortmp_418" game "mapeditortmp_430" 100
 door game "mapeditortmp_418" game "mapeditortmp_514" 50
 door game "mapeditortmp_419" game "mapeditortmp_451" 100
@@ -3279,19 +3278,19 @@ door game "mapeditortmp_420" game "mapeditortmp_498" 50
 door game "mapeditortmp_422" game "mapeditortmp_427" 100
 door game "mapeditortmp_422" game "mapeditortmp_447" 50
 door game "mapeditortmp_422" game "mapeditortmp_513" 0
-
 door game "mapeditortmp_423" game "mapeditortmp_463" 50
+
 door game "mapeditortmp_425" game "mapeditortmp_499" 50
 door game "mapeditortmp_425" game "mapeditortmp_502" 100
 door game "mapeditortmp_426" game "mapeditortmp_478" 100
 door game "mapeditortmp_426" game "mapeditortmp_479" 100
 door game "mapeditortmp_427" game "mapeditortmp_455" 100
 door game "mapeditortmp_427" game "mapeditortmp_460" 100
-door game "mapeditortmp_427" game "mapeditortmp_513" 100
+door game "mapeditortmp_427" game "mapeditortmp_513" 0
 door game "mapeditortmp_430" game "mapeditortmp_431" 100
 door game "mapeditortmp_431" game "mapeditortmp_433" 0
-
 door game "mapeditortmp_431" game "mapeditortmp_484" 100
+
 door game "mapeditortmp_432" game "mapeditortmp_434" 49
 door game "mapeditortmp_432" game "mapeditortmp_508" 100
 door game "mapeditortmp_433" game "mapeditortmp_484" 0
@@ -3301,8 +3300,8 @@ door game "mapeditortmp_435" game "mapeditortmp_459" 100
 door game "mapeditortmp_436" game "mapeditortmp_440" 50
 door game "mapeditortmp_436" game "mapeditortmp_444" 50
 door game "mapeditortmp_436" game "mapeditortmp_447" 100
-
 door game "mapeditortmp_438" game "mapeditortmp_440" 100
+
 door game "mapeditortmp_438" game "mapeditortmp_447" 50
 door game "mapeditortmp_439" game "mapeditortmp_440" 100
 door game "mapeditortmp_439" game "mapeditortmp_441" 100
@@ -3312,8 +3311,8 @@ door game "mapeditortmp_440" game "mapeditortmp_449" 50
 door game "mapeditortmp_441" game "mapeditortmp_442" 100
 door game "mapeditortmp_441" game "mapeditortmp_444" 100
 door game "mapeditortmp_441" game "mapeditortmp_450" 50
-
 door game "mapeditortmp_442" game "mapeditortmp_444" 100
+
 door game "mapeditortmp_442" game "mapeditortmp_448" 100
 door game "mapeditortmp_443" game "mapeditortmp_445" 100
 door game "mapeditortmp_443" game "mapeditortmp_461" 100
@@ -3323,8 +3322,8 @@ door game "mapeditortmp_446" game "mapeditortmp_448" 100
 door game "mapeditortmp_449" game "mapeditortmp_453" 100
 door game "mapeditortmp_450" game "mapeditortmp_453" 100
 door game "mapeditortmp_451" game "mapeditortmp_454" 100
-
 door game "mapeditortmp_454" game "mapeditortmp_456" 100
+
 door game "mapeditortmp_455" game "mapeditortmp_458" 100
 door game "mapeditortmp_455" game "mapeditortmp_460" 50
 door game "mapeditortmp_458" game "mapeditortmp_460" 50
@@ -3334,8 +3333,8 @@ door game "mapeditortmp_464" game "mapeditortmp_490" 50
 door game "mapeditortmp_465" game "mapeditortmp_466" 100
 door game "mapeditortmp_468" game "mapeditortmp_511" 50
 door game "mapeditortmp_0" game "mapeditortmp_1" 100
-
 door game "mapeditortmp_0" game "mapeditortmp_10" 100
+
 door game "mapeditortmp_1" game "mapeditortmp_2" 100
 door game "mapeditortmp_1" game "mapeditortmp_5" 100
 door game "mapeditortmp_1" game "mapeditortmp_6" 100
@@ -3345,8 +3344,8 @@ door game "mapeditortmp_1" game "mapeditortmp_10" 100
 door game "mapeditortmp_1" game "mapeditortmp_11" 100
 door game "mapeditortmp_2" game "mapeditortmp_3" 100
 door game "mapeditortmp_3" game "mapeditortmp_4" 100
-
 door game "mapeditortmp_5" game "mapeditortmp_8" 100
+
 door game "mapeditortmp_5" game "mapeditortmp_9" 100
 door game "mapeditortmp_6" game "mapeditortmp_7" 50
 door game "mapeditortmp_6" game "mapeditortmp_9" 100
@@ -3356,8 +3355,8 @@ door game "mapeditortmp_7" game "mapeditortmp_11" 100
 door game "mapeditortmp_10" game "mapeditortmp_11" 100
 door game "mapeditortmp_469" game "mapeditortmp_471" 50
 door game "mapeditortmp_469" game "mapeditortmp_492" 100
-
 door game "mapeditortmp_469" game "mapeditortmp_493" 100
+
 door game "mapeditortmp_470" game "mapeditortmp_471" 100
 door game "mapeditortmp_470" game "mapeditortmp_492" 50
 door game "mapeditortmp_471" game "mapeditortmp_472" 100
@@ -3367,8 +3366,8 @@ door game "mapeditortmp_473" game "mapeditortmp_475" 100
 door game "mapeditortmp_473" game "mapeditortmp_476" 50
 door game "mapeditortmp_473" game "mapeditortmp_477" 100
 door game "mapeditortmp_474" game "mapeditortmp_477" 100
-
 door game "mapeditortmp_476" game "mapeditortmp_477" 50
+
 door game "mapeditortmp_476" game "mapeditortmp_483" 50
 door game "mapeditortmp_478" game "mapeditortmp_480" 100
 door game "mapeditortmp_479" game "mapeditortmp_480" 100
@@ -3378,8 +3377,8 @@ door game "mapeditortmp_481" game "mapeditortmp_484" 100
 door game "mapeditortmp_482" game "mapeditortmp_483" 100
 door game "mapeditortmp_485" game "mapeditortmp_486" 100
 door game "mapeditortmp_486" game "mapeditortmp_487" 100
-
 door game "mapeditortmp_487" game "mapeditortmp_488" 100
+
 door game "mapeditortmp_488" game "mapeditortmp_489" 100
 door game "mapeditortmp_490" game "mapeditortmp_491" 100
 door game "mapeditortmp_491" game "mapeditortmp_492" 100
@@ -3389,8 +3388,8 @@ door game "mapeditortmp_495" game "mapeditortmp_514" 100
 door game "mapeditortmp_496" game "mapeditortmp_497" 100
 door game "mapeditortmp_499" game "mapeditortmp_500" 50
 door game "mapeditortmp_499" game "mapeditortmp_502" 100
-
 door game "mapeditortmp_499" game "mapeditortmp_503" 50
+
 door game "mapeditortmp_499" game "mapeditortmp_504" 100
 door game "mapeditortmp_500" game "mapeditortmp_501" 50
 door game "mapeditortmp_500" game "mapeditortmp_502" 50
@@ -3400,8 +3399,8 @@ door game "mapeditortmp_503" game "mapeditortmp_507" 100
 door game "mapeditortmp_504" game "mapeditortmp_505" 100
 door game "mapeditortmp_505" game "mapeditortmp_507" 50
 door game "mapeditortmp_509" game "mapeditortmp_510" 100
-
 door game "mapeditortmp_509" game "mapeditortmp_511" 100
+
 door game "mapeditortmp_510" game "mapeditortmp_512" 100
 door game "mapeditortmp_511" game "mapeditortmp_512" 100
 
@@ -3921,6 +3920,22 @@ delg "mapeditortmp_511"
 delg "mapeditortmp_512"
 delg "mapeditortmp_513"
 delg "mapeditortmp_514"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4614,9 +4629,8 @@ scrp 3 14 50205 10
 
 *don't check invalid rooms!
 						doif rtyp va99 <> -1 and rtyp va88 <> -1
-							doif link va88 va99 <> 0
-								link va88 va99 0
-							endi
+*unlink rooms before deleting
+							link va88 va99 0
 						endi
 
 
@@ -4641,6 +4655,8 @@ scrp 3 14 50205 10
 
 				untl va49 lt 1
 
+
+*delete the room
 				doif rtyp va99 <> -1
 					delr va99
 				endi
