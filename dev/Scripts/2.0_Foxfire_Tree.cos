@@ -9,9 +9,15 @@
 
 new: simp 2 6 50209 "moe_C2toDS_humming" 1 59 0
 mvto 4677 48422
+
+*invisible tree leaves sprite, only used to tell foxfire plants where they can grow
+show 0
+
 setv name "nestable" 1
 tick 350
 attr 16
+
+
 
 new: simp 1 26 50210 "moe_C2toDS_humming" 1 12 0
 mvto 4677 48422
@@ -69,7 +75,11 @@ scrp 2 6 50209 10
 
 		new: simp 2 7 50209 "moe_C2toDS_humming" 4 va01 2
 
-		subv va03 hght
+			setv va05 hght
+
+			divv va05 2
+
+			subv va03 va05
 
 		setv va04 wdth
 
@@ -153,7 +163,11 @@ scrp 2 6 50209 9
 
 		new: simp 2 7 50209 "moe_C2toDS_humming" 4 va01 2
 
-		subv va03 hght
+			setv va05 hght
+
+			divv va05 2
+
+			subv va03 va05
 
 		setv va04 wdth
 
