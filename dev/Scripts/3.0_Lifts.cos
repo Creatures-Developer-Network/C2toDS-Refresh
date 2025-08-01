@@ -265,6 +265,23 @@ setv ov04 2
 
 
 
+*Computer Room Lift*
+
+new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 15 1000
+
+mvto 6289 48984
+
+sets name "Lift" "ComputerRoom"
+
+setv name "total" 1
+
+setv name "current level" 0
+
+setv ov04 2
+
+
+
+
 **METAL PLATFORM LIFT (OV04 = 3)**
 
 
@@ -1251,6 +1268,56 @@ scrp 3 1 50200 10
 		sets ov01 "1"
 
 		setv ov03 10
+
+		setv ov04 1
+
+		targ ownr
+
+	endi
+
+
+
+
+
+*Computer Room LIFT*
+
+	doif name "Lift" eq "ComputerRoom"
+
+*Computer Room Call Button Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 6419 49065
+
+		seta mame "0" targ
+
+		seta ov00 ownr
+
+		sets ov01 "0"
+
+		setv ov03 7
+
+		setv ov04 1
+
+
+
+		targ ownr
+
+
+
+*Computer Room Call Button Bottom*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 6419 49378
+
+		seta mame "1" targ
+
+		seta ov00 ownr
+
+		sets ov01 "1"
+
+		setv ov03 7
 
 		setv ov04 1
 
