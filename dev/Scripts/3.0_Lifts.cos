@@ -1287,7 +1287,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
 
-		mvto 6419 49065
+		mvto 6398 49065
 
 		seta mame "0" targ
 
@@ -1309,7 +1309,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
 
-		mvto 6419 49378
+		mvto 6398 49379
 
 		seta mame "1" targ
 
