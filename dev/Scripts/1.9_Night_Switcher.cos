@@ -11,6 +11,9 @@ addb ov01 "c2tods"
 addb ov01 "c2tods_night"
 tick 200
 
+*debug keys b/n to toggle night/day mode
+imsk 1
+
 
 * ov00 0 = day
 * ov00 1 = night
@@ -26,8 +29,24 @@ scrp 1 1 50200 10
 endm
 
 
+*debug keys b/n to toggle night/day mode
+scrp 1 1 50200 73
+	doif _p1_ = 66
+		setv ov00 0
+		setv ov99 1
+		call 9 0 0
+	elif _p1_ = 78
+		setv ov00 1
+		setv ov99 2
+		call 9 0 0
+	endi
+endm
+
+
+
 scrp 1 1 50200 9
 	inst
+	lock
 
 	doif game "C2toDS_DisableNightVisuals" = 1
 		gsub day
@@ -35,6 +54,15 @@ scrp 1 1 50200 9
 		stop
 	endi
 
+*debug keys b/n to toggle night/day mode
+	doif ov99 eq 1
+		gsub night
+		stop
+	elif ov99 eq 2
+		gsub day
+		stop
+	endi
+	setv ov99 0
 
 	doif ov00 eq 0
 		doif time eq 3 or time eq 4
@@ -54,12 +82,11 @@ scrp 1 1 50200 9
 
 ************************** Terrarium door **************************
 		enum 2 2 50201
-			doif abba eq 5
-				inst
-				setv va00 abba
-				setv va01 pose
-				gall "moe_c2tods_doors_night" va00
-				pose va01
+*show nighttime version of door, hide daytime version
+			doif gall = "moe_c2tods_doors_night"
+				show 1
+			else
+				show 0
 			endi
 		next
 
@@ -78,6 +105,41 @@ scrp 1 1 50200 9
 				pose va01
 			endi
 		next
+
+
+************************** Boat **************************
+		enum 3 1 50201
+			part 1
+			gall "moe_c2tods_boat_night" 1
+*hide daytime oar+button
+			part 2
+			alph 256 1
+			part 4
+			alph 256 1
+*show nighttime oar+button
+			part 3
+			alph 0 0
+			part 5
+			alph 0 0
+		next
+
+
+************************** Dingy (aka yellow raft) **************************
+		enum 3 1 50203
+			part 1
+			gall "moe_c2tods_dingy_night" 1
+*hide daytime left+right rip
+			part 2
+			alph 256 1
+			part 4
+			alph 256 1
+*show nighttime left+right rip
+			part 3
+			alph 0 0
+			part 5
+			alph 0 0
+		next
+
 
 
 
@@ -177,12 +239,11 @@ scrp 1 1 50200 9
 
 ************************** Terrarium door **************************
 		enum 2 2 50201
-			doif abba eq 5
-				inst
-				setv va00 abba
-				setv va01 pose
-				gall "moe_c2tods_doors" va00
-				pose va01
+*show daytime version of door, hide nighttime version
+			doif gall = "moe_c2tods_doors"
+				show 1
+			else
+				show 0
 			endi
 		next
 
@@ -199,6 +260,40 @@ scrp 1 1 50200 9
 				gall "moe_c2tods_tre3" va00
 				pose va01
 			endi
+		next
+
+
+************************** Boat **************************
+		enum 3 1 50201
+			part 1
+			gall "moe_c2tods_boat" 1
+*show daytime oar+button
+			part 2
+			alph 0 0
+			part 4
+			alph 0 0
+*hide nighttime oar+button
+			part 3
+			alph 256 1
+			part 5
+			alph 256 1
+		next
+
+
+************************** Dingy (aka yellow raft) **************************
+		enum 3 1 50203
+			part 1
+			gall "moe_c2tods_dingy" 1
+*show daytime left+right rip
+			part 2
+			alph 0 0
+			part 4
+			alph 0 0
+*hide nighttime left+right rip
+			part 3
+			alph 256 1
+			part 5
+			alph 256 1
 		next
 
 
