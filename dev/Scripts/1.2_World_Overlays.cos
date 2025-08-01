@@ -923,21 +923,6 @@ mvto 4151 49930
 
 
 
-*!!! There might be a map change in order to get this one to look right!!!*
-
-*Sub walkable overlay*
-
-new: comp 1 8 50200 "blnk" 0 0 0
-pat: dull 1 "moe_C2toDS_Overlays" 1 0 0 8000
-
-attr 0
-
-mvto 9410 48354
-
-
-
-*todo: (much like the one below, this needs to taller/have a separate overlay above (its a volcano piece)
-
 *Submarine overlay*
 
 new: comp 1 8 50200 "blnk" 0 0 0
@@ -946,7 +931,7 @@ pat: dull 1 "moe_C2toDS_Overlays" 26 0 0 8000
 attr 0
 
 *mvto 754 48192
-mvto 9106 48192
+mvto 9106 47964
 
 *Submarine overlay (WORLD WRAP COPY)*
 
@@ -964,9 +949,6 @@ attr 0
 mvto va00 va01
 
 
-
-
-*todo: make this overlay larger though so it doesn't cut in when tall creatures walk through it
 
 *Volcano Walkway overlay*
 
@@ -1238,8 +1220,21 @@ pat: dull 1 "moe_C2toDS_Overlays" 16 0 0 8000
 
 attr 0
 
-mvto 8395 48240
+mvto 8214 48240
 
+
+*Light Ocean Left Pier Struts*
+
+*these aren't part of the original game.
+
+*low plane, these just draw in front of the boat.
+
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 1 0 0 200
+
+attr 0
+
+mvto 8405 48259
 
 
 
@@ -1290,7 +1285,6 @@ pat: dull 1 "moe_C2toDS_Overlays" 39 0 0 8000
 attr 0
 
 mvto 6431 48488
-
 
 
 
@@ -1566,14 +1560,14 @@ mvto 7261 49156
 
 
 
-*!!! Left Vent !!!*
+*!!! Fence under Computer Room !!!*
 
 new: comp 1 8 50200 "blnk" 0 0 0
 pat: dull 1 "moe_C2toDS_Overlays" 31 0 0 8000
 
 attr 0
 
-mvto 6369 49382
+mvto 6090 49411
 
 
 
