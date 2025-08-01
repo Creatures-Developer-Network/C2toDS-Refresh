@@ -1,20 +1,3 @@
-
-*Just to make all the connecting links for the updated stuff.
-
-**Boat
-link grap 8500 48130 grap 9256 48130 100
-**Sub
-link grap 8288 48418 grap 9357 48427 100
-**Trolly
-link grap 4542 48845 grap 5879 48359 100
-**Raft
-link grap 2400 48161 grap 3078 48133 100
-**Shuttle
-link grap 6674 49082 grap 8232 49243 100
-
-
-
-
 * C2toDS CA linking
 
 * temple lift
@@ -65,11 +48,11 @@ link va12 va13 100
 
 * bottom treehouse lift
 
-setv va14 grap 5603 49237
+setv va14 grap 5783 49237
 
-setv va15 grap 5591 49460
+setv va15 grap 5783 49460
 
-setv va16 grap 5597 49743
+setv va16 grap 5783 49743
 
 link va14 va15 100
 
@@ -117,13 +100,18 @@ setv va26 grap 9601 48808
 
 setv va27 grap 9601 48890
 
+*mid-way link
+setv va50 grap 9624 49220
+
 setv va28 grap 9585 49662
 
 link va24 va25 100
 
 link va25 va26 100
 
-link va27 va28 100
+*mid-way link
+link va27 va50 100
+link va50 va28 100
 
 
 
@@ -223,14 +211,41 @@ link va49 va50 100
 
 
 
-* cablecar - Moved out into World Extra Links - Verm
+* volcano lift right
 
-*setv va09 grap 5879 48328
+setv va29 grap 10190 49311
 
-*setv va10 grap 4458 48735
+setv va30 grap 10190 48855
 
-*link va09 va10 100
+link va29 va30 100
 
+
+
+
+* computer room lift
+
+setv va29 grap 6334 49381
+
+setv va30 grap 6334 48963
+
+link va29 va30 100
+
+
+
+
+
+*Mover Door links
+
+**Boat
+link grap 8500 48130 grap 9256 48130 100
+**Sub
+link grap 8288 48418 grap 9357 48427 100
+**Trolly
+link grap 4542 48845 grap 5879 48359 100
+**Raft
+link grap 2400 48161 grap 3078 48133 100
+**Shuttle
+link grap 6674 49082 grap 8232 49243 100
 
 
 
@@ -239,230 +254,251 @@ link va49 va50 100
 rscr
 
 
-
-* temple lift
-
+*to prevent crashes when running rscr in a world without the room present, check if Temple Lift room is present.
 setv va00 grap 6277 48648
+doif va00 ne -1
 
-setv va01 grap 6277 48348
+	setv va01 grap 6277 48348
 
-setv va02 grap 6277 48022
+	setv va02 grap 6277 48022
 
-link va00 va01 0
+	link va00 va01 0
 
-link va01 va02 0
+	link va01 va02 0
 
 
 
 * norn burrow lift
 
-setv va03 grap 7857 48643
+	setv va03 grap 7857 48643
 
-setv va04 grap 7857 48346
+	setv va04 grap 7857 48346
 
-setv va05 grap 7857 48106
+	setv va05 grap 7857 48106
 
-setv va06 grap 7857 47962
+	setv va06 grap 7857 47962
 
-link va03 va04 0
+	link va03 va04 0
 
-link va04 va05 0
+	link va04 va05 0
 
-link va05 va06 0
+	link va05 va06 0
 
 
 
 * top treehouse lift
 
-setv va11 grap 5270 48848
+	setv va11 grap 5270 48848
 
-setv va12 grap 5270 49071
+	setv va12 grap 5270 49071
 
-setv va13 grap 5289 49501
+	setv va13 grap 5289 49501
 
-link va11 va12 0
+	link va11 va12 0
 
-link va12 va13 0
+	link va12 va13 0
 
 
 
 * bottom treehouse lift
 
-setv va14 grap 5603 49237
+	setv va14 grap 5783 49237
 
-setv va15 grap 5591 49460
+	setv va15 grap 5783 49460
 
-setv va16 grap 5597 49743
+	setv va16 grap 5783 49743
 
-link va14 va15 0
+	link va14 va15 0
 
-link va15 va16 0
+	link va15 va16 0
 
 
 
 * swamp lift left
 
-setv va17 grap 6631 49730
+	setv va17 grap 6631 49730
 
-setv va18 grap 6631 49592
+	setv va18 grap 6631 49592
 
-link va17 va18 0
+	link va17 va18 0
 
 
 
 * swamp lift middle
 
-setv va19 grap 7204 49347
+	setv va19 grap 7204 49347
 
-setv va20 grap 7204 49188
+	setv va20 grap 7204 49188
 
-link va19 va20 0
+	link va19 va20 0
 
 
 
 * swamp lift right
 
-setv va22 grap 7804 49756
+	setv va22 grap 7804 49756
 
-setv va23 grap 7804 49322
+	setv va23 grap 7804 49322
 
-link va22 va23 0
+	link va22 va23 0
 
 
 
 * volcano lift left
 
-setv va24 grap 9640 48197
+	setv va24 grap 9640 48197
 
-setv va25 grap 9640 48412
+	setv va25 grap 9640 48412
 
-setv va26 grap 9601 48808
+	setv va26 grap 9601 48808
 
-setv va27 grap 9601 48890
+	setv va27 grap 9601 48890
 
-setv va28 grap 9585 49662
+*mid-way link
+	setv va50 grap 9624 49220
 
-link va24 va25 0
+	setv va28 grap 9585 49662
 
-link va25 va26 0
+	link va24 va25 0
 
-link va27 va28 0
+	link va25 va26 0
+
+*mid-way link
+	link va27 va50 0
+	link va50 va28 0
 
 
 
 * volcano lift right
 
-setv va29 grap 10190 49311
+	setv va29 grap 10190 49311
 
-setv va30 grap 10165 48855
+	setv va30 grap 10175 48855
 
-link va29 va30 0
+	link va29 va30 0
 
 
 
 * top biosphere (near deep blue ocean)
 
-setv va32 grap 2143 48531
+	setv va32 grap 2143 48531
 
-setv va33 grap 2140 48991
+	setv va33 grap 2140 48991
 
-link va32 va33 0
+	link va32 va33 0
 
 
 
 * bottom biosphere (near deep blue ocean)
 
-setv va34 grap 2387 49030
+	setv va34 grap 2387 49030
 
-setv va35 grap 2387 49344
+	setv va35 grap 2387 49344
 
-link va34 va35 0
+	link va34 va35 0
 
 
 
 * toyroom/library/dock lift
 
-setv va36 grap 3433 49341
+	setv va36 grap 3433 49341
 
-setv va37 grap 3433 49022
+	setv va37 grap 3433 49022
 
-setv va38 grap 3433 48831
+	setv va38 grap 3433 48831
 
-link va36 va37 0
+	link va36 va37 0
 
-link va37 va38 0
+	link va37 va38 0
 
 
 
 * treetrunk lift
 
-setv va39 grap 3630 48990
+	setv va39 grap 3630 48990
 
-setv va40 grap 3630 49661
+	setv va40 grap 3630 49661
 
-link va39 va40 0
+	link va39 va40 0
 
 
 
 * world tree lift
 
-setv va41 grap 3630 48481
+	setv va41 grap 3630 48481
 
-setv va42 grap 3630 48341
+	setv va42 grap 3630 48341
 
-setv va43 grap 3630 48071
+	setv va43 grap 3630 48071
 
-setv va44 grap 3630 47911
+	setv va44 grap 3630 47911
 
-link va41 va42 0
+	link va41 va42 0
 
-link va42 va43 0
+	link va42 va43 0
 
-link va43 va44 0
+	link va43 va44 0
 
 
 
 * waterfall lift
 
-setv va46 grap 4434 48456
+	setv va46 grap 4434 48456
 
-setv va47 grap 4421 48842
+	setv va47 grap 4421 48842
 
-setv va48 grap 4421 48969
+	setv va48 grap 4421 48969
 
-link va46 va47 0
+	link va46 va47 0
 
-link va47 va48 0
+	link va47 va48 0
 
 
 
 * bottom-most biosphere lift
 
-setv va49 grap 4279 49666
+	setv va49 grap 4279 49666
 
-setv va50 grap 4279 49808
+	setv va50 grap 4279 49808
 
-link va49 va50 0
+	link va49 va50 0
 
 
 
-* cablecar
+* volcano lift right
 
-setv va09 grap 5879 48328
+	setv va29 grap 10190 49311
 
-setv va10 grap 4458 48735
+	setv va30 grap 10190 48855
 
-link va09 va10 0
+	link va29 va30 0
+
+
+
+
+* computer room lift
+
+	setv va29 grap 6334 49381
+
+	setv va30 grap 6334 48963
+
+	link va29 va30 0
+
+
+
+
+
+*Mover Door links
 
 **Boat
-link grap 8538 48172 grap 9279 48150 0
+	link grap 8500 48130 grap 9256 48130 0
 **Sub
-link grap 8288 48418 grap 9357 48427 0
+	link grap 8288 48418 grap 9357 48427 0
 **Trolly
-link grap 4542 48845 grap 5879 48359 0
+	link grap 4542 48845 grap 5879 48359 0
 **Raft
-link grap 2400 48161 grap 3078 48133 0
+	link grap 2400 48161 grap 3078 48133 0
 **Shuttle
-link grap 6674 49082 grap 8232 49243 0
+	link grap 6674 49082 grap 8232 49243 0
 
-
+endi
