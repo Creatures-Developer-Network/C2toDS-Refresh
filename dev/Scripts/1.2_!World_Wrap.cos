@@ -293,7 +293,7 @@ fric 100
 
 aero 0
 
-*listen for Raw Key Down (1) + Raw Mouse Down (8). We use them to intercept speech and agent help clicks.
+*listen for Raw Key Down (1) + Raw Mouse Down (8). We use them to intercept speech (return) and agent help (right click).
 imsk 9
 
 
