@@ -26,15 +26,35 @@ cabp 1
 
 pat: dull 1 "moe_C2toDS_dingy" 1 0 0 4
 
+
+*left rip exists twice, so we can toggle visiblity for night switcher without a complicated anim tracker.
+
 pat: dull 2 "moe_C2toDS_dingy" 2 15 65 2
 
 part 2
 frat 2
+alph 0 0
 
-pat: dull 3 "moe_C2toDS_dingy" 12 230 65 2
+pat: dull 3 "moe_C2toDS_dingy_night" 2 15 65 2
 
 part 3
 frat 2
+alph 256 1
+
+*right rip exists twice, so we can toggle visiblity for night switcher without a complicated anim tracker.
+
+pat: dull 4 "moe_C2toDS_dingy" 12 230 65 2
+
+part 4
+frat 2
+alph 0 0
+
+pat: dull 5 "moe_C2toDS_dingy_night" 12 230 65 2
+
+part 5
+frat 2
+alph 256 1
+
 
 * doing the same treatment here as the boat got - Verm
 attr 20
@@ -208,11 +228,13 @@ scrp 3 1 50203 1001
 					endi
 				endi
 			next
-			slow
+*			slow
 
-			part 3
-
+			part 4
 			anim [0 1 2 3 4 5 6 7 8 9 255 3]
+			part 5
+			anim [0 1 2 3 4 5 6 7 8 9 255 3]
+			slow
 
 			sndl "dngy"
 
@@ -237,7 +259,12 @@ scrp 3 1 50203 1001
 
 			setv vely 0
 
+			inst
+			part 4
 			anim [2 1 0]
+			part 5
+			anim [2 1 0]
+			slow
 
 			targ ownr
 			doif post lt 48195
@@ -291,11 +318,13 @@ scrp 3 1 50203 1001
 					endi
 				endi
 			next
-			slow
+*			slow
 
 			part 2
-
 			anim [0 1 2 3 4 5 6 7 8 9 255 3]
+			part 3
+			anim [0 1 2 3 4 5 6 7 8 9 255 3]
+			slow
 
 			sndl "dngy"
 
@@ -319,7 +348,12 @@ scrp 3 1 50203 1001
 
 			setv vely 0
 
+			inst
+			part 2
 			anim [2 1 0]
+			part 3
+			anim [2 1 0]
+			slow
 
 			targ ownr
 			doif post gt 48195

@@ -24,15 +24,35 @@ setv ov00 0
 
 pat: dull 1 "moe_C2toDS_boat" 1 0 73 20
 
+
+*oar exists twice, so we can toggle visiblity for night switcher without a complicated anim tracker.
+
 pat: dull 2 "moe_C2toDS_boat" 2 49 91 21
 
 part 2
 frat 2
+alph 0 0
 
-pat: butt 3 "moe_C2toDS_boat" 15 3 60 23 21 [] 1001 0
+pat: dull 3 "moe_C2toDS_boat_night" 2 49 91 21
 
 part 3
 frat 2
+alph 256 1
+
+
+*button exists twice, so we can toggle visiblity for night switcher without a complicated anim tracker.
+
+pat: butt 4 "moe_C2toDS_boat" 12 3 60 23 21 [] 1001 0
+
+part 4
+frat 2
+alph 0 0
+
+pat: butt 5 "moe_C2toDS_boat_night" 12 3 60 23 21 [] 1001 0
+
+part 5
+frat 2
+alph 256 1
 
 
 
@@ -225,7 +245,9 @@ scrp 3 1 50201 1001
 *slow
 
 
-		part 3
+		part 4
+		anim [1 2]
+		part 5
 		anim [1 2]
 
 
@@ -233,19 +255,27 @@ scrp 3 1 50201 1001
 
 		setv ov00 1
 
-		part 2
-
 		loop
 
-			doif posl lt 9000
+			doif posl lt 8950
 
+				inst
+				part 2
 				anim [8 7 6 5 4 3 2 1 0 9]
+				part 3
+				anim [8 7 6 5 4 3 2 1 0 9]
+				slow
 
 				snde "row1"
 
 			else
 
+				inst
+				part 2
 				anim [8]
+				part 3
+				anim [8]
+				slow
 
 			endi
 
@@ -271,7 +301,7 @@ scrp 3 1 50201 1001
 				stim writ targ 75 1
 			next
 
-		untl posl ge 9000
+		untl posl ge 8950
 
 		setv velx 0
 		inst
@@ -316,25 +346,35 @@ scrp 3 1 50201 1001
 		next
 *slow
 
-		part 3
+		part 4
+		anim [1 0]
+		part 5
 		anim [1 0]
 
 		slow
 
 		setv ov00 0
 
-		part 2
-
 		loop
 			doif posl gt 8600
 
+				inst
+				part 2
 				anim [9 0 1 2 3 4 5 6 7 8]
+				part 3
+				anim [9 0 1 2 3 4 5 6 7 8]
+				slow
 
 				snde "row1"
 
 			else
 
+				inst
+				part 2
 				anim [9]
+				part 3
+				anim [9]
+				slow
 
 			endi
 
