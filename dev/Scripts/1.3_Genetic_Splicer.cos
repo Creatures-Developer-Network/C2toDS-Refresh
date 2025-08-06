@@ -818,8 +818,7 @@ scrp 1 28 50205 9
 *	gene load targ 1 "ettn.*"
 
 *nah, load the C2toDS specific one!
-*		gene load targ 1 "ettn-wild"
-		gene load targ 1 "ettn.C2toDS_worker"
+		gene load targ 1 "ettn.C2toDS.Worker"
 
 		elas 10
 *slightly higher friction than usual so it doesn't slide down the hill

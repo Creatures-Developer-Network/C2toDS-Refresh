@@ -544,7 +544,14 @@ scrp 2 5 50206 1
 	doif fmly eq 4
 
 		stim writ from 83 1
+
+	elif from = pntr
+
+		targ pntr
+		anim [0 1 22 23 24 23 22 0]
+
 	endi
+
 	targ ownr
 	snde "stng"
 
@@ -553,38 +560,6 @@ scrp 2 5 50206 1
 		frat 2
 
 		anim [9 10 11 12 11 10 9]
-
-*Poke the hand	
-
-		doif from eq pntr
-
-			targ pntr
-
-			frat 2
-
-			anim [10 11 12 0]
-
-			setv va00 posl
-
-			setv va01 post
-
-			loop
-
-				addv va00 rand -5 5
-
-				addv va01 rand 5 -5
-
-				addv va02 1
-
-				mvto va00 va01
-
-			untl va02 ge 10
-
-			over
-
-		endi
-
-
 
 	endi
 

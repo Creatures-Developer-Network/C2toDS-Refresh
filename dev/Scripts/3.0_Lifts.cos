@@ -21,7 +21,7 @@ inst
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 1 1000
 
-mvto 7818 48300
+mvto 7820 48300
 
 sets name "Lift" "NornBurrow"
 
@@ -37,7 +37,7 @@ setv ov04 0
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 1 1000
 
-mvto 6220 48270
+mvto 6227 48270
 
 sets name "Lift" "Temple"
 
@@ -53,7 +53,7 @@ setv ov04 0
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 1 1000
 
-mvto 3584 48055
+mvto 3594 48055
 
 sets name "Lift" "WorldTree"
 
@@ -69,7 +69,7 @@ setv ov04 0
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 1 1000
 
-mvto 3595 48925
+mvto 3600 48925
 
 sets name "Lift" "TreeTrunkLift"
 
@@ -89,7 +89,7 @@ setv ov04 0
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 10 1000
 
-mvto 5575 49700
+mvto 5565 49700
 
 sets name "Lift" "JungleLowestLevel"
 
@@ -105,7 +105,7 @@ setv ov04 1
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 10 1000
 
-mvto 5242 48981
+mvto 5232 48981
 
 sets name "Lift" "JungleMidLevel"
 
@@ -121,7 +121,7 @@ setv ov04 1
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 10 1000
 
-mvto 4381 48403
+mvto 4391 48403
 
 sets name "Lift" "JungleLeftLevel"
 
@@ -137,7 +137,7 @@ setv ov04 1
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 10 1000
 
-mvto 6599 49700
+mvto 6589 49700
 
 sets name "Lift" "SwampLeftLevel"
 
@@ -153,7 +153,7 @@ setv ov04 1
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 10 1000
 
-mvto 7168 49295
+mvto 7158 49295
 
 sets name "Lift" "SwampMidLevel"
 
@@ -169,7 +169,7 @@ setv ov04 1
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 10 1000
 
-mvto 7755 49700
+mvto 7745 49700
 
 sets name "Lift" "SwampRightLevel"
 
@@ -189,7 +189,7 @@ setv ov04 1
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 15 1000
 
-mvto 4256 49580
+mvto 4251 49580
 
 sets name "Lift" "AubergineLift"
 
@@ -205,7 +205,7 @@ setv ov04 2
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 15 1000
 
-mvto 9572 48760
+mvto 9582 48760
 
 sets name "Lift" "VolcanoLiftLeft"
 
@@ -221,7 +221,7 @@ setv ov04 2
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 15 1000
 
-mvto 10165 49280
+mvto 10175 49280
 
 sets name "Lift" "VolcanoLiftRight"
 
@@ -237,7 +237,7 @@ setv ov04 2
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 15 1000
 
-mvto 2105 48465
+mvto 2100 48465
 
 sets name "Lift" "BiosphereLeft"
 
@@ -253,7 +253,7 @@ setv ov04 2
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 15 1000
 
-mvto 2350 48975
+mvto 2355 48975
 
 sets name "Lift" "BiosphereRight"
 
@@ -262,6 +262,23 @@ setv name "total" 1
 setv name "current level" 0
 
 setv ov04 2
+
+
+
+*Computer Room Lift*
+
+new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 15 1000
+
+mvto 6289 48984
+
+sets name "Lift" "ComputerRoom"
+
+setv name "total" 1
+
+setv name "current level" 0
+
+setv ov04 2
+
 
 
 
@@ -401,7 +418,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
 
-		mvto 7750 48070
+		mvto 7752 48070
 *		mvto 7933 48092
 *		mvto 7923 48100
 
@@ -440,7 +457,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
 
-		mvto 7752 48677
+		mvto 7755 48677
 
 		seta mame "3" targ
 
@@ -556,7 +573,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
 
-		mvto 3686 48142
+		mvto 3696 48142
 
 		seta mame "1" targ
 
@@ -580,7 +597,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
 
-		mvto 3686 48330
+		mvto 3696 48330
 
 		seta mame "2" targ
 
@@ -604,7 +621,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
 
-		mvto 3580 48490
+		mvto 3570 48490
 
 		seta mame "3" targ
 
@@ -712,7 +729,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
 
-		mvto 5335 48805
+		mvto 5345 48805
 
 		seta mame "0" targ
 
@@ -734,7 +751,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
 
-		mvto 5218 49061
+		mvto 5208 49061
 
 		seta mame "1" targ
 
@@ -758,7 +775,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
 
-		mvto 5218 49516
+		mvto 5203 49516
 
 		seta mame "2" targ
 
@@ -790,7 +807,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 7 2000
 
-		mvto 4345 48465
+		mvto 4360 48465
 
 		seta mame "0" targ
 
@@ -812,7 +829,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 7 2000
 
-		mvto 4355 48819
+		mvto 4360 48819
 
 		seta mame "1" targ
 
@@ -834,7 +851,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 7 2000
 
-		mvto 4370 48958
+		mvto 4360 48958
 
 		seta mame "2" targ
 
@@ -860,7 +877,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
 
-		mvto 6740 49575
+		mvto 6735 49575
 
 		seta mame "0" targ
 
@@ -878,7 +895,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
 
-		mvto 6740 49757
+		mvto 6735 49757
 
 		seta mame "1" targ
 
@@ -900,7 +917,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
 
-		mvto 7283 49110
+		mvto 7278 49110
 
 		seta mame "0" targ
 
@@ -918,7 +935,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
 
-		mvto 7327 49360
+		mvto 7292 49360
 
 		seta mame "1" targ
 
@@ -940,7 +957,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
 
-		mvto 7688 49360
+		mvto 7693 49360
 
 		seta mame "0" targ
 
@@ -958,7 +975,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
 
-		mvto 7890 49760
+		mvto 7880 49760
 
 		seta mame "1" targ
 
@@ -980,7 +997,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
 
-		mvto 4400 49650
+		mvto 4385 49650
 
 		seta mame "0" targ
 
@@ -998,7 +1015,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
 
-		mvto 4190 49820
+		mvto 4200 49820
 
 		seta mame "1" targ
 
@@ -1026,7 +1043,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 7 2000
 
-		mvto 9671 48200
+		mvto 9681 48200
 
 		seta mame "0" targ
 
@@ -1048,7 +1065,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 7 2000
 
-		mvto 9560 48405
+		mvto 9555 48405
 
 		seta mame "1" targ
 
@@ -1242,7 +1259,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
 
-		mvto 2505 49365
+		mvto 2460 49365
 
 		seta mame "1" targ
 
@@ -1262,6 +1279,56 @@ scrp 3 1 50200 10
 
 
 
+*Computer Room LIFT*
+
+	doif name "Lift" eq "ComputerRoom"
+
+*Computer Room Call Button Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 6398 49065
+
+		seta mame "0" targ
+
+		seta ov00 ownr
+
+		sets ov01 "0"
+
+		setv ov03 7
+
+		setv ov04 1
+
+
+
+		targ ownr
+
+
+
+*Computer Room Call Button Bottom*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 6398 49379
+
+		seta mame "1" targ
+
+		seta ov00 ownr
+
+		sets ov01 "1"
+
+		setv ov03 7
+
+		setv ov04 1
+
+		targ ownr
+
+	endi
+
+
+
+
+
 *TreeTrunk LIFT*
 
 	doif name "Lift" eq "TreeTrunkLift"
@@ -1270,7 +1337,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 7 2000
 
-		mvto 3770 48995
+		mvto 3750 48995
 
 		seta mame "0" targ
 
@@ -1292,7 +1359,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 7 2000
 
-		mvto 3770 49650
+		mvto 3760 49650
 
 		seta mame "1" targ
 

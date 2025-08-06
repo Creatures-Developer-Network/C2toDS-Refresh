@@ -5,7 +5,12 @@
 * Verm here, redoing the entire boat system so it's better for creature navigation, hopefully
 * Aiko changed the placeholder sprites to call buttons (and made them light up)
 * Also made the creature-grabbing more reliable
-new: vhcl 3 1 50201 "moe_C2toDS_boat" 1 0 2000
+
+*todo: norns can fall into the yellow raft, but not this one. make it consistent.
+*todo: night sprites.
+*todo: night version of button, for easy switching visiblity between in night switcher.
+
+new: vhcl 3 1 50201 "moe_C2toDS_boat" 1 0 100
 
 cabp 1
 
@@ -19,42 +24,75 @@ setv ov00 0
 
 pat: dull 1 "moe_C2toDS_boat" 1 0 73 20
 
+
+*oar exists twice, so we can toggle visiblity for night switcher without a complicated anim tracker.
+
 pat: dull 2 "moe_C2toDS_boat" 2 49 91 21
 
-pat: butt 3 "moe_C2toDS_boat" 12 3 60 22 21 [] 1001 0
+part 2
+frat 2
+alph 0 0
+
+pat: dull 3 "moe_C2toDS_boat_night" 2 49 91 21
+
+part 3
+frat 2
+alph 256 1
+
+
+*button exists twice, so we can toggle visiblity for night switcher without a complicated anim tracker.
+
+pat: butt 4 "moe_C2toDS_boat" 12 3 60 23 21 [] 1001 0
+
+part 4
+frat 2
+alph 0 0
+
+pat: butt 5 "moe_C2toDS_boat_night" 12 3 60 23 21 [] 1001 0
+
+part 5
+frat 2
+alph 256 1
+
+
 
 cato 35
 
-mvto 8490 48180
+mvto 8552 48180
 
-new: simp 3 12 50201 "moe_C2toDS_lifts" 2 7 2000
+
+* Left Butt
+
+new: simp 3 12 50201 "moe_C2toDS_lifts" 2 5 2000
 
 attr 4
 
 bhvr 3
-* Left Butt
+
 setv ov00 1
 
 cato 2
 
-mvto 8531 48153
+mvto 8531 48166
 
-new: simp 3 12 50201 "moe_C2toDS_lifts" 2 7 2000
+* Right Butt
+
+new: simp 3 12 50201 "moe_C2toDS_lifts" 2 5 2000
 
 attr 4
 
 bhvr 3
-* Right Butt
+
 *setv ov00 0
 
 cato 2
 
-mvto 9278 48153
+mvto 9278 48161
 
 * 1 & 2 will be the same
 scrp 3 12 50201 1
 	inst
-	* light up, light up
+* light up, light up
 	rtar 3 1 50201
 	doif ov00 eq mv00
 		targ ownr
@@ -64,13 +102,13 @@ scrp 3 12 50201 1
 	targ from
 	doif crea targ eq 1
 		sets va48 gtos 0
-		* check for any existing queue object
+* check for any existing queue object
 		enum 3 13 50201
 			doif ov01 eq va48
 				addv va49 1
 			endi
 		next
-		* make a queue object if there's not one already
+* make a queue object if there's not one already
 		doif va49 eq 0
 			new: simp 3 13 50201 "blnk" 1 0 0
 			setv ov00 mv00
@@ -88,32 +126,32 @@ endm
 
 scrp 3 12 50201 2
 	inst
-	
+
 * light up, light up
 	rtar 3 1 50201
 	doif ov00 eq mv00
 		targ ownr
 		pose 1
 	endi
-	
+
 *Queue Object!
 	targ from
 	doif crea targ eq 1
 		sets va48 gtos 0
-		* check for any existing queue object
+* check for any existing queue object
 		enum 3 13 50201
 			doif ov01 eq va48
 				addv va49 1
 			endi
-		next 
-		* if there's no queue objects, make one
+		next
+* if there's no queue objects, make one
 		doif va49 eq 0
 			new: simp 3 13 50201 "blnk" 1 0 0
 			setv ov00 mv00
 			sets ov01 va48
 			tick 20
 		endi
-		
+
 		stim writ from 75 1
 		stim writ from 96 1
 		urge writ from 0 0.5 0 0.5
@@ -156,7 +194,7 @@ endm
 scrp 3 1 50201 1001
 	lock
 	inst
-	
+
 	loop
 		doif ov00 eq 0
 			gsub rght
@@ -181,11 +219,11 @@ scrp 3 1 50201 1001
 		enum 3 13 50201
 			doif ov00 eq 1
 				doif ooww ov01 eq 3
-		tick 0			
-					* spas takes some time to work, so loop
-					* and keep checking if you got a creature
-					* before continuing
-					
+					tick 0
+* spas takes some time to work, so loop
+* and keep checking if you got a creature
+* before continuing
+
 					loop
 						spas ownr mtoc ov01
 						wait 1
@@ -196,7 +234,7 @@ scrp 3 1 50201 1001
 							addv va44 1
 						next
 						targ va45
-					untl va44 gt 0 or ooww ov01 ne 3 
+					untl va44 gt 0 or ooww ov01 ne 3
 
 					kill targ
 				else
@@ -204,28 +242,40 @@ scrp 3 1 50201 1001
 				endi
 			endi
 		next
-		slow
-		part 3
+*slow
 
+
+		part 4
 		anim [1 2]
+		part 5
+		anim [1 2]
+
+
+		slow
 
 		setv ov00 1
 
-		part 2
-
 		loop
 
-			doif posl lt 9120
+			doif posl lt 8950
 
-				frat 3
-
+				inst
+				part 2
 				anim [8 7 6 5 4 3 2 1 0 9]
+				part 3
+				anim [8 7 6 5 4 3 2 1 0 9]
+				slow
 
 				snde "row1"
 
 			else
 
+				inst
+				part 2
 				anim [8]
+				part 3
+				anim [8]
+				slow
 
 			endi
 
@@ -251,13 +301,13 @@ scrp 3 1 50201 1001
 				stim writ targ 75 1
 			next
 
-		untl posl ge 9120
+		untl posl ge 8950
 
 		setv velx 0
 		inst
 		epas 4 0 0
 			rpas ownr targ
-			mvft 9283 48246
+			mvsf 9233 48246
 			stim writ targ 96 0
 			driv 19 -1.0
 		next
@@ -269,52 +319,62 @@ scrp 3 1 50201 1001
 		enum 3 13 50201
 			doif ov00 eq 0
 				doif ooww ov01 eq 3
-		tick 0
-					* spas takes some (inconsistent amount of) to work, so loop
-					* and keep checking if you got a creature
-					* before continuing
-					
+					tick 0
+* spas takes some (inconsistent amount of) to work, so loop
+* and keep checking if you got a creature
+* before continuing
+
 					loop
 						spas ownr mtoc ov01
 						wait 1
 						addv va46 1
 						seta va45 targ
 						targ ownr
-						* epas says it works on ownr but...it seems to work on targ actually? 
+* epas says it works on ownr but...it seems to work on targ actually? 
 						epas 4 0 0
 							addv va44 1
 						next
 						targ va45
-					untl va44 gt 0 or ooww ov01 ne 3 
-					* dbg: outs "It took this many tries to get the norn"
-					* dbg: outv va46
+					untl va44 gt 0 or ooww ov01 ne 3
+* dbg: outs "It took this many tries to get the norn"
+* dbg: outv va46
 					kill targ
 				else
 					kill targ
 				endi
 			endi
 		next
-		slow
-		part 3
+*slow
 
+		part 4
 		anim [1 0]
+		part 5
+		anim [1 0]
+
+		slow
 
 		setv ov00 0
 
-		part 2
-
 		loop
-			doif posl gt 8490
+			doif posl gt 8600
 
-				frat 3
-
+				inst
+				part 2
 				anim [9 0 1 2 3 4 5 6 7 8]
+				part 3
+				anim [9 0 1 2 3 4 5 6 7 8]
+				slow
 
 				snde "row1"
 
 			else
 
+				inst
+				part 2
 				anim [9]
+				part 3
+				anim [9]
+				slow
 
 			endi
 
@@ -339,13 +399,13 @@ scrp 3 1 50201 1001
 				stim writ targ 75 1
 			next
 
-		untl posl le 8490
+		untl posl le 8600
 
 		setv velx 0
 		inst
 		epas 4 0 0
 			rpas ownr targ
-			mvft 8543 48246
+			mvsf 8543 48246
 			stim writ targ 96 0
 			driv 19 -1.0
 		next

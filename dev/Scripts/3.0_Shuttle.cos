@@ -9,6 +9,10 @@
 * Verm responds, yeah sure, sort of, but I'm doing the queue thing here too so... invisibility was the right choice
 * No greedy cabin! hard to tell creatures get stuck
 
+*todo: remove door stuff. make it so creatures can only use this vehicle if the hand uses it for them, and it's only one-way, like the original game.
+*why? because there's no reason a creature would ever want to go to the splicing lab on their own...
+
+
 new: vhcl 3 1 50204 "moe_C2toDS_shuttle" 12 0 100
 
 attr 20
@@ -27,29 +31,31 @@ mvto 8008 49085
 
 **Call buttons
 
-new: simp 3 12 50204 "moe_C2toDS_lifts" 2 7 1999
+* Left Butt
+new: simp 3 12 50204 "moe_C2toDS_lifts" 2 5 1999
 
 attr 4
 
 bhvr 3
-* Left Butt
+
 *setv ov00 0
 
 cato 2
 
-mvto 6690 49054
+mvto 6690 49058
 
-new: simp 3 12 50204 "moe_C2toDS_lifts" 2 7 1999
+* Right Butt
+new: simp 3 12 50204 "moe_C2toDS_lifts" 2 5 1999
 
 attr 4
 
 bhvr 3
-* Right Butt
+
 setv ov00 1
 
 cato 2
 
-mvto 8281 49300
+mvto 8281 49305
 
 **Call Button scripts
 scrp 3 12 50204 1
@@ -177,7 +183,7 @@ scrp 3 1 50204 1001
 	enum 3 13 50204
 		doif ov00 eq 1
 			doif ooww ov01 eq 3
-tick 0
+				tick 0
 * spas takes some time to work, so loop
 * and keep checking if you got a creature
 * before continuing
@@ -294,7 +300,7 @@ scrp 3 1 50204 1002
 	enum 3 13 50204
 		doif ov00 eq 0
 			doif ooww ov01 eq 3
-tick 0
+				tick 0
 * spas takes some time to work, so loop
 * and keep checking if you got a creature
 * before continuing

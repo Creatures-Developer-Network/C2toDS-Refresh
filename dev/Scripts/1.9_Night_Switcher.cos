@@ -11,6 +11,9 @@ addb ov01 "c2tods"
 addb ov01 "c2tods_night"
 tick 200
 
+*debug keys b/n to toggle night/day mode
+imsk 1
+
 
 * ov00 0 = day
 * ov00 1 = night
@@ -26,8 +29,24 @@ scrp 1 1 50200 10
 endm
 
 
+*debug keys b/n to toggle night/day mode
+scrp 1 1 50200 73
+	doif _p1_ = 66
+		setv ov00 0
+		setv ov99 1
+		call 9 0 0
+	elif _p1_ = 78
+		setv ov00 1
+		setv ov99 2
+		call 9 0 0
+	endi
+endm
+
+
+
 scrp 1 1 50200 9
 	inst
+	lock
 
 	doif game "C2toDS_DisableNightVisuals" = 1
 		gsub day
@@ -35,6 +54,15 @@ scrp 1 1 50200 9
 		stop
 	endi
 
+*debug keys b/n to toggle night/day mode
+	doif ov99 eq 1
+		gsub night
+		stop
+	elif ov99 eq 2
+		gsub day
+		stop
+	endi
+	setv ov99 0
 
 	doif ov00 eq 0
 		doif time eq 3 or time eq 4
@@ -52,14 +80,13 @@ scrp 1 1 50200 9
 		inst
 
 
-************************** small sphere door **************************
+************************** Terrarium door **************************
 		enum 2 2 50201
-			doif abba eq 5
-				inst
-				setv va00 abba
-				setv va01 pose
-				gall "moe_c2tods_doors_night" va00
-				pose va01
+*show nighttime version of door, hide daytime version
+			doif gall = "moe_c2tods_doors_night"
+				show 1
+			else
+				show 0
 			endi
 		next
 
@@ -80,17 +107,41 @@ scrp 1 1 50200 9
 		next
 
 
-************************** Foxfire tree **************************
-		enum 2 6 50209
-			gall "moe_c2tods_humming_night" 0
+************************** Boat **************************
+		enum 3 1 50201
+			part 1
+			gall "moe_c2tods_boat_night" 1
+*hide daytime oar+button
+			part 2
+			alph 256 1
+			part 4
+			alph 256 1
+*show nighttime oar+button
+			part 3
+			alph 0 0
+			part 5
+			alph 0 0
 		next
 
 
-************************** Overlays3 **************************
-		enum 2 25 50201
-			setv va00 abba
-			gall "moe_c2tods_overlays3_night" va00
+************************** Dingy (aka yellow raft) **************************
+		enum 3 1 50203
+			part 1
+			gall "moe_c2tods_dingy_night" 1
+*hide daytime left+right rip
+			part 2
+			alph 256 1
+			part 4
+			alph 256 1
+*show nighttime left+right rip
+			part 3
+			alph 0 0
+			part 5
+			alph 0 0
 		next
+
+
+
 
 *		enum 1 8 50200
 		enum 1 0 50200
@@ -98,7 +149,14 @@ scrp 1 1 50200 9
 *slight adjustment to compensate for World Wrap Overlay Copies (see 1.2_World_Overlays)
 			doif gnus = 8 or gnus = 30
 
-************************** small sphere door screw **************************
+*if it's a compound object, select the visual part
+				doif type targ = 5
+					doif part 1 = 1
+						part 1
+					endi
+				endi
+
+************************** Terrarium door screw **************************
 				doif gall eq "moe_c2tods_doors" and abba eq 11
 					setv va00 abba
 					gall "moe_c2tods_doors_night" va00
@@ -130,7 +188,7 @@ scrp 1 1 50200 9
 
 ************************** Overlays2 **************************
 				doif gall eq "moe_c2tods_overlays2"
-					doif abba lt 9 or abba eq 13 or abba eq 14 or abba eq 25 or abba eq 26 or abba eq 27 or abba eq 28
+					doif abba lt 9 or abba eq 13 or abba eq 14 or abba eq 25 or abba eq 26 or abba eq 27 or abba eq 28 or abba eq 35 or abba eq 36
 *(don't change the overlays specified above into night overlays)
 					else
 						setv va00 abba
@@ -179,14 +237,13 @@ scrp 1 1 50200 9
 
 		inst
 
-************************** small sphere door **************************
+************************** Terrarium door **************************
 		enum 2 2 50201
-			doif abba eq 5
-				inst
-				setv va00 abba
-				setv va01 pose
-				gall "moe_c2tods_doors" va00
-				pose va01
+*show daytime version of door, hide nighttime version
+			doif gall = "moe_c2tods_doors"
+				show 1
+			else
+				show 0
 			endi
 		next
 
@@ -205,17 +262,40 @@ scrp 1 1 50200 9
 			endi
 		next
 
-************************** Foxfire tree **************************
-		enum 2 6 50209
-			gall "moe_c2tods_humming" 59
+
+************************** Boat **************************
+		enum 3 1 50201
+			part 1
+			gall "moe_c2tods_boat" 1
+*show daytime oar+button
+			part 2
+			alph 0 0
+			part 4
+			alph 0 0
+*hide nighttime oar+button
+			part 3
+			alph 256 1
+			part 5
+			alph 256 1
 		next
 
 
-************************** Overlays3 **************************
-		enum 2 25 50201
-			setv va00 abba
-			gall "moe_c2tods_overlays3" va00
+************************** Dingy (aka yellow raft) **************************
+		enum 3 1 50203
+			part 1
+			gall "moe_c2tods_dingy" 1
+*show daytime left+right rip
+			part 2
+			alph 0 0
+			part 4
+			alph 0 0
+*hide nighttime left+right rip
+			part 3
+			alph 256 1
+			part 5
+			alph 256 1
 		next
+
 
 
 *		enum 1 8 50200
@@ -224,7 +304,14 @@ scrp 1 1 50200 9
 *slight adjustment to compensate for World Wrap Overlay Copies (see 1.2_World_Overlays)
 			doif gnus = 8 or gnus = 30
 
-************************** small sphere door screw **************************
+*if it's a compound object, select the visual part
+				doif type targ = 5
+					doif part 1 = 1
+						part 1
+					endi
+				endi
+
+************************** Terrarium door screw **************************
 				doif gall eq "moe_c2tods_doors_night" and abba eq 11
 					setv va00 abba
 					gall "moe_c2tods_doors" va00
@@ -256,7 +343,7 @@ scrp 1 1 50200 9
 
 ************************** Overlays2 **************************
 				doif gall eq "moe_c2tods_overlays2_night"
-					doif abba lt 9 or abba eq 13 or abba eq 14 or abba eq 25 or abba eq 26 or abba eq 27 or abba eq 28
+					doif abba lt 9 or abba eq 13 or abba eq 14 or abba eq 25 or abba eq 26 or abba eq 27 or abba eq 28 or abba eq 35 or abba eq 36
 *(don't change the overlays specified above into night overlays)
 					else
 						setv va00 abba

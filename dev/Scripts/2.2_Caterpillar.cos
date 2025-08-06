@@ -10,7 +10,7 @@
 
 new: simp 2 24 50207 "moe_C2toDS_c1bufl" 16 0 rand 1500 2501
 
-mvsf 6297 49350
+mvsf 6139 49350
 
 *mvsf mopx mopy
 
@@ -51,10 +51,10 @@ scrp 2 13 50210 1
 
 	inst
 	doif crea from eq 1
-		stim writ from 85 1 
+		stim writ from 85 1
 	endi
-	
-	* should the insect react to being pushed?
+
+* should the insect react to being pushed?
 
 endm
 
@@ -62,10 +62,10 @@ scrp 2 13 50210 2
 
 	inst
 	doif crea from eq 1
-		stim writ from 85 1 
+		stim writ from 85 1
 	endi
-	
-	* should the insect react to being pulled?
+
+* should the insect react to being pulled?
 
 endm
 
@@ -73,10 +73,10 @@ scrp 2 13 50210 3
 
 	inst
 	doif crea from eq 1
-		stim writ from 87 1 
+		stim writ from 87 1
 	endi
-	
-	* should the insect react to being hit?
+
+* should the insect react to being hit?
 	velo rand -5 5 rand -5 0
 
 endm
@@ -86,9 +86,9 @@ scrp 2 13 50210 12
 
 	inst
 	doif crea from eq 1
-		stim writ from 80 1 
+		stim writ from 80 1
 	endi
-	
+
 	kill ownr
 
 endm
@@ -330,10 +330,10 @@ scrp 2 13 50209 1
 
 	inst
 	doif crea from eq 1
-		stim writ from 85 1 
+		stim writ from 85 1
 	endi
-	
-	* should the insect react to being pushed?
+
+* should the insect react to being pushed?
 
 endm
 
@@ -341,10 +341,10 @@ scrp 2 13 50209 2
 
 	inst
 	doif crea from eq 1
-		stim writ from 85 1 
+		stim writ from 85 1
 	endi
-	
-	* should the insect react to being pulled?
+
+* should the insect react to being pulled?
 
 endm
 
@@ -352,10 +352,10 @@ scrp 2 13 50209 3
 
 	inst
 	doif crea from eq 1
-		stim writ from 87 1 
+		stim writ from 87 1
 	endi
-	
-	* should the insect react to being hit?
+
+* should the insect react to being hit?
 
 endm
 
@@ -364,9 +364,9 @@ scrp 2 13 50209 12
 
 	inst
 	doif crea from eq 1
-		stim writ from 80 1 
+		stim writ from 80 1
 	endi
-	
+
 	kill ownr
 
 endm
@@ -786,14 +786,14 @@ scrp 2 13 50209 9
 				setv va00 post
 
 				subv va00 4
-				
+
 				doif movs eq 0
 
 					mvsf posl va00
 				else
-				* stop if you've been picked up
+* stop if you've been picked up
 					stop
-				
+
 				endi
 
 				anim [16 17]
@@ -814,9 +814,9 @@ scrp 2 13 50209 9
 
 					mvsf posl va00
 				else
-				* stop if you've been picked up
+* stop if you've been picked up
 					stop
-				
+
 				endi
 
 				anim [22 23]
@@ -892,13 +892,13 @@ endm
 
 
 scrp 2 13 50210 9
-	*dbg: outs "butterfly tick?"
-	
-	* don't do anthing if you're being held
+*dbg: outs "butterfly tick?"
+
+* don't do anthing if you're being held
 	doif carr ne null
 		stop
 	endi
-	
+
 *	die if you're underwate
 	targ ownr
 	doif rtyp grap posx posy eq 8 or rtyp grap posx posy eq 9
@@ -906,7 +906,7 @@ scrp 2 13 50210 9
 		doif name "waterlogged" gt 10
 			gsub die
 		else
-		*try to escape the water
+*try to escape the water
 			velo velx -10
 		endi
 	else
@@ -1018,7 +1018,7 @@ scrp 2 13 50210 9
 
 
 	subr die
-	*dbg: outs "subr die"
+*dbg: outs "subr die"
 *there are no death sprites? :(
 		kill ownr
 
@@ -1027,7 +1027,7 @@ scrp 2 13 50210 9
 
 
 	subr perch
-	*dbg: outs "subr perch"
+*dbg: outs "subr perch"
 
 		lock
 
@@ -1058,7 +1058,7 @@ scrp 2 13 50210 9
 
 
 	subr layeggs
-	*dbg: outs "subr layeggs"
+*dbg: outs "subr layeggs"
 
 		loop
 
@@ -1091,7 +1091,7 @@ scrp 2 13 50210 9
 	subr follow
 
 		inst
-		*dbg: outs "subr follow"
+*dbg: outs "subr follow"
 
 		targ ov07
 

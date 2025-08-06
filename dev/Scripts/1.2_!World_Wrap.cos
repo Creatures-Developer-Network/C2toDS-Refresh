@@ -2,7 +2,7 @@
 *1 5 50200 - World Wrap Camera
 *1 6 50200 - World Wrap Grabber
 *5 7 50200 - Mouse Pointer And Keypress Tracker (lives in family 5 so that DS can't pause it by default)
-*1 7 50201 - Window Resize Camera Builder
+*5 7 50201 - Window Resize Camera Builder (lives in family 5 so that DS can't pause it by default)
 *1 7 50202 - World Wrap Shout Object (used so objects can shout their CATO across the wrap for norns to hear + as a temporary object that emits creature babble (audio) over the wrap). ALSO used for mirrored clones of the Norn/Attention indicators.
 *1 7 50203 - World Wrap Mirror Object
 *1 7 50204 - Are creatures near the wrap? check every 100 ticks
@@ -95,20 +95,7 @@
 
 
 
-*CA links for the "wrap" rooms.*
-
-
-
-*Atmosphere
-
-link grap 2070 47640 grap 10375 47640 100
-
-
-
-*Atmosphere 2
-
-link grap 2070 47867 grap 10375 47867 100
-
+*CA links for the walkable "wrap" rooms*
 
 
 *Desert Beach
@@ -116,41 +103,15 @@ link grap 2070 47867 grap 10375 47867 100
 link grap 2070 48090 grap 10375 48090 100
 
 
-
 *Upper Biome
 
 link grap 2070 48500 grap 10375 48500 100
-
-
-*Lower Biome
-
-link grap 2070 48822 grap 10375 48822 100
-
 
 
 *Machines to Volcano
 
 link grap 2070 49340 grap 10375 49340 100
 
-
-
-*disabled - this is inside a wall.
-
-
-*Laboratory
-
-*link grap 2100 49800 grap 10455 49800 100
-
-*link grap 2100 49600 grap 10455 49600 100
-
-
-
-*disabled - i have no idea what this was intended for. it's nowhere near the wrap.
-
-
-*Yggdrasil to Desert
-
-*link grap 12950 47678 grap 4890 48110 100
 
 
 
@@ -293,7 +254,7 @@ fric 100
 
 aero 0
 
-*listen for Raw Key Down (1) + Raw Mouse Down (8). We use them to intercept speech and agent help clicks.
+*listen for Raw Key Down (1) + Raw Mouse Down (8). We use them to intercept speech (return) and agent help (right click).
 imsk 9
 
 
@@ -311,15 +272,16 @@ seta ov02 va55
 *todo:
 *NOTE: THIS DOESNT WORK IN FULL SCREEN MODE!
 
-new: simp 1 7 50201 "blnk" 1 0 0
+new: simp 5 7 50201 "blnk" 1 0 0
 
 *reaaally make sure norns cant see it
 attr 16
 
+*todo: init is no longer delayed. I'm not sure what problem the comment below refers to, so it should be tested.
 * Delay init or right side panels will not be created properly
 
-tick 40
-
+*tick 40
+tick 1
 
 *----------------------------------*
 
@@ -328,14 +290,15 @@ tick 40
 
 *Window Resize Camera Builder - Window Resized Script
 
-scrp 1 7 50201 123
-	tick 80
+scrp 5 7 50201 123
+*	tick 80
+	tick 1
 endm
 
 
 *Window Resize Camera Builder - Timer Script (called after a delay by Window Resized script)
 
-scrp 1 7 50201 9
+scrp 5 7 50201 9
 
 	inst
 
@@ -2240,7 +2203,7 @@ next
 
 *Delete Window Resize Camera Builder*
 
-enum 1 7 50201
+enum 5 7 50201
 
 	kill targ
 
@@ -2280,8 +2243,8 @@ enum 1 7 50205
 next
 
 
-scrx 1 7 50201 123
-scrx 1 7 50201 9
+scrx 5 7 50201 123
+scrx 5 7 50201 9
 
 scrx 1 5 50200 9
 scrx 1 5 50200 128
@@ -2316,27 +2279,19 @@ scrx 1 7 50205 1000
 
 
 
-*todo: fix these too
+*to prevent crashes when running rscr in a world without the room present, check if Desert Beach room is present.
 
-*Remove "wrap" room links*
-
-doif grap 2070 4764 ne -1 and link grap 2070 47640 grap 10375 47640 ne 0
-
-*Atmosphere
-
-	link grap 2070 47640 grap 10375 47640 0
+doif grap 2070 48090 ne -1
 
 *Desert Beach
 
 	link grap 2070 48090 grap 10375 48090 0
 
-*Biome 1
 
-	link grap 2070 48340 grap 10375 48340 0
+*Upper Biome
 
-*Biome 2
+	link grap 2070 48500 grap 10375 48500 0
 
-	link grap 2070 48822 grap 10375 48822 0
 
 *Machines to Volcano
 

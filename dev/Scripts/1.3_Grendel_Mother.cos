@@ -22,6 +22,9 @@ tick 1000
 
 *create initial eggs!
 
+*plane
+setv va02 1
+
 reps 22
 
 	setv va10 9067
@@ -117,7 +120,7 @@ reps 22
 		setv va12 1
 	endi
 
-	new: simp 1 32 50200 "Moe_C2toDS_GrendelEggs" 12 0 2
+	new: simp 1 32 50200 "Moe_C2toDS_GrendelEggs" 12 0 va02
 
 *egg category
 	cato 29
@@ -126,6 +129,7 @@ reps 22
 	mvto va10 va11
 
 	addv va00 1
+	addv va02 1
 
 repe
 
@@ -192,7 +196,7 @@ scrp 1 31 50200 9
 		inst
 
 *new egg coming
-		new: simp 1 32 50200 "Moe_C2toDS_GrendelEggs" 12 0 2
+		new: simp 1 32 50200 "Moe_C2toDS_GrendelEggs" 12 0 rand 1 50
 
 *suffer collisions + suffer physics
 		attr 192
@@ -306,8 +310,7 @@ scrp 1 32 50200 9
 *	gene load targ 1 "gren.*"
 
 *nah, load the C2toDS specific one!
-*	gene load targ 1 "c2grendel.49"
-	gene load targ 1 "gren.C2toDS_bulbous"
+	gene load targ 1 "gren.C2toDS.Bulbous"
 
 
 *make our grendel

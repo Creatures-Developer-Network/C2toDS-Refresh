@@ -6,8 +6,7 @@
 *2	2	50202	Left Sub Door
 *2	2	50203	Right Sub Door (New: line is in Left Sub Doors Creation Script)
 
-* Some fixes by NeoDement - Fixed some issues with the volcano door sprite, fixed backwards logic in Terrarium Door open/close script, moved FRAT commands into the creation scripts instead of just before animating.
-* Added a script that allows the pointer to click on objects behind dithered overlays for the flooded sub bay (currently defined in "0.1_World_Overlays.cos")
+* Some fixes by NeoDement
 
 
 * Sets the airlock rooms to Wooden Walkway (the airlock is empty to start)
@@ -83,14 +82,18 @@ setv name "open" 0
 
 *Sub Door Water
 
-new: simp 1 11 50200 "moe_C2toDS_doors" 9 20 8000
+*plane is 0, but visual plane is 8000. this allows us to click objects behind the overlay.
+
+*new: simp 1 11 50200 "moe_C2toDS_doors" 9 20 8000
+
+new: comp 1 11 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_doors" 20 0 0 8000
+
+part 1
 
 pose 8
 
 frat 2
-
-*Activateable so we can redirect clicks on the water 1 pixel to the left to click objects partially obscured by the dither
-attr 4
 
 mvto 8450 48809
 
@@ -143,11 +146,15 @@ scrp 1 11 50200 1001
 
 		doif name "flooded" eq 0
 
+			part 1
+
 			anim [8 7 6 5 4 3 2 1 0]
 
 			setv name "flooded" 1
 
 		elif name "flooded" eq 1
+
+			part 1
 
 			anim [0 1 2 3 4 5 6 7 8]
 
@@ -175,31 +182,6 @@ endm
 
 
 
-
-*clicking on scenery which is set to be activateable calls a special script on the pointer to temporarily offset its position by 1 pixel to the left and fake a mouse click.
-*the purpose of this is to stop the frustration of a click seeming to not register when clicking a dithered transparent object (such as any of the glass tubes)
-
-*scrp 2 1 1 50200 (pointer redirect) is currently defined in "0.1_World_Overlays.cos"
-
-scrp 1 11 50200 1
-
-	inst
-
-*todo: see notes in world overlays cos of this same script.
-
-*cancel original click anim if the click won't be redirecting to a valid object.
-	targ pntr
-	mvby -1 0
-	doif hots = null or hots = ownr
-
-		pose 0
-	endi
-	mvby 1 0
-
-*set the OWNR in _P1_ so we can check against it in the pointer script
-	mesg wrt+ pntr 50200 ownr 0 0
-
-endm
 
 
 

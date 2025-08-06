@@ -62,7 +62,7 @@ mvto 9186 48422
 
 cato 35
 **Also to note, only the pointer can make the sub go down - Verm
-new: simp 3 12 50202 "moe_C2toDS_lifts" 2 7 2000
+new: simp 3 12 50202 "moe_C2toDS_lifts" 2 5 2000
 
 attr 4
 
@@ -72,9 +72,9 @@ setv ov00 0
 
 cato 2
 
-mvto 8300 48400
+mvto 8300 48405
 
-new: simp 3 12 50202 "moe_C2toDS_lifts" 2 7 2000
+new: simp 3 12 50202 "moe_C2toDS_lifts" 2 5 2000
 
 attr 4
 
