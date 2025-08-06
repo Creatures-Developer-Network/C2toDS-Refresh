@@ -11,10 +11,10 @@
 
 
 *main trapdoor part used for collision testing and animating
-new: comp 1 33 50200 "moe_c2tods_trapdoors" 14 2 10
+new: comp 1 33 50200 "moe_c2tods_swampbridge" 14 2 10
 
 *button to activate it
-pat: butt 1 "moe_c2tods_trapdoors" 0 2 -20 0 4990 [] 1000 1
+pat: butt 1 "moe_c2tods_swampbridge" 0 2 -20 0 4990 [] 1000 1
 
 
 mvto 6398 49456
