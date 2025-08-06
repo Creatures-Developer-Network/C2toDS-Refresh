@@ -22,6 +22,12 @@
 
 
 
+*TODO: only record safe position if feet are on floor!
+*don't reset drowning timer until we record a new safe position either
+*if safe position is invalid... what do we do!
+*can't walk up slope on left of volcano (surface). is this a problem?
+*hasnt been tested in vehicles at all.
+
 
 
 *make 5 doozers

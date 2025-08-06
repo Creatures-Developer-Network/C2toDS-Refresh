@@ -63,6 +63,11 @@ mvto 4068 49215
 
 
 
+
+
+
+
+
 *Dead trunk Top*
 
 new: comp 1 8 50200 "blnk" 0 0 0
@@ -200,6 +205,20 @@ pat: dull 1 "moe_C2toDS_OverlaysJungle" 16 0 0 8001
 attr 0
 
 mvto 5653 49529
+
+
+
+*this isn't part of the original game.
+
+*Bridge over Lab Garden Pond*
+
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_OverlaysJungle" 17 0 0 8000
+
+attr 0
+
+mvto 4035 48999
+
 
 
 
@@ -605,6 +624,20 @@ pat: dull 1 "moe_C2toDS_Overlays2" 14 0 0 8001
 attr 0
 
 mvto 3203 48552
+
+
+
+
+*this isn't part of the original game.
+
+*Lift Support Above Ocean Tube*
+
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays2" 37 0 0 1001
+
+attr 0
+
+mvto 3455 48470
 
 
 
@@ -1053,7 +1086,7 @@ pat: dull 1 "moe_C2toDS_Overlays2" 36 0 0 8000
 
 attr 0
 
-mvto 9956 48842
+mvto 9955 48840
 
 *Lower walkway fence*
 
@@ -1062,7 +1095,7 @@ pat: dull 1 "moe_C2toDS_Overlays2" 35 0 0 8000
 
 attr 0
 
-mvto 10063 49381
+mvto 10061 49381
 
 *Lower walkway fence (WORLD WRAP COPY)*
 
@@ -1263,15 +1296,16 @@ sndl "pool"
 *Incubator Room Waterfall Mist*
 
 new: comp 1 8 50200 "blnk" 0 0 0
-pat: dull 1 "moe_C2toDS_OverlaysJungle" 17 0 0 8000
+pat: dull 1 "moe_C2toDS_OverlaysJungle" 18 0 0 8000
 
 attr 0
 
 mvto 6440 48460
 
-frat 2
 
 part 1
+
+frat 2
 
 anim [0 1 2 255]
 
@@ -1560,10 +1594,36 @@ mvto 7261 49156
 
 
 
-*!!! Fence under Computer Room !!!*
+*map redesign prevents us walking behind this overlay (computer room to swamp bridge)
+
+**!!! Left Vent !!!*
+*
+*new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 31 8000
+*
+*attr 0
+*
+*mvto 6369 49382
+
+
+
+
+
+*TODO: ADD OTHER FENCE!
+
+*!!! Upper railings under Computer Room !!!*
 
 new: comp 1 8 50200 "blnk" 0 0 0
-pat: dull 1 "moe_C2toDS_Overlays" 31 0 0 8000
+pat: dull 1 "moe_C2toDS_Overlays" 40 0 0 8000
+
+attr 0
+
+mvto 6394 49295
+
+
+*!!! Lower railings under Computer Room !!!*
+
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays" 41 0 0 8000
 
 attr 0
 
@@ -1683,9 +1743,10 @@ mvto 3552 49761
 
 
 *Gold Pots*
+*(low plane)
 
 new: comp 1 8 50200 "blnk" 0 0 0
-pat: dull 1 "moe_C2toDS_Overlays_Labs" 3 0 0 8000
+pat: dull 1 "moe_C2toDS_Overlays_Labs" 3 0 0 500
 
 attr 0
 
@@ -1904,7 +1965,16 @@ anim [0 1 2 3 4 5 255]
 
 
 
+*this isn't part of the original game.
 
+*Railing in front of Mixer*
+
+new: comp 1 8 50200 "blnk" 0 0 0
+pat: dull 1 "moe_C2toDS_Overlays_Labs" 161 0 0 8000
+
+attr 0
+
+mvto 2645 49225
 
 
 

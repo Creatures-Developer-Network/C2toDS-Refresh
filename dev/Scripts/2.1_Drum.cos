@@ -10,7 +10,6 @@
 
 new: simp 2 21 50211 "moe_C2toDS_triangle" 5 10 800
 
-*mvto 8250 48152
 mvto 8250 48145
 
 
@@ -19,8 +18,7 @@ mvto 8250 48145
 
 new: simp 2 21 50211 "moe_C2toDS_triangle" 5 10 800
 
-*mvto 3231 49093
-mvto 3231 49085
+mvto 3209 49085
 
 
 scrp 2 21 50211 10
