@@ -233,6 +233,18 @@ link va29 va30 100
 
 
 
+* dark ocean glass tube lift
+
+setv va31 grap 3316 48633
+
+setv va32 grap 3316 48498
+
+link va31 va32 100
+
+
+
+
+
 
 *Mover Door links
 
@@ -483,6 +495,18 @@ doif va00 ne -1
 	setv va30 grap 6334 48963
 
 	link va29 va30 0
+
+
+
+
+* dark ocean glass tube lift
+
+	setv va31 grap 3316 48633
+
+	setv va32 grap 3316 48498
+
+	link va31 va32 0
+
 
 
 
