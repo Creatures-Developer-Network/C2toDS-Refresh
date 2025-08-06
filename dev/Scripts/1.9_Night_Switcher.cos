@@ -80,15 +80,16 @@ scrp 1 1 50200 9
 		inst
 
 
-************************** Terrarium door **************************
-		enum 2 2 50201
-*show nighttime version of door, hide daytime version
-			doif gall = "moe_c2tods_doors_night"
-				show 1
-			else
-				show 0
-			endi
-		next
+*TODO:
+*************************** Terrarium door **************************
+*		enum 2 2 50201
+**show nighttime version of door, hide daytime version
+*			doif gall = "moe_c2tods_doors_night"
+*				show 1
+*			else
+*				show 0
+*			endi
+*		next
 
 
 ************************** World tree leaves **************************
@@ -179,7 +180,7 @@ scrp 1 1 50200 9
 				doif gall eq "moe_c2tods_overlays"
 					doif abba lt 17 or abba gt 25 or abba eq 23
 *fix for some overlays going invisible at night
-						doif abba ne 35 and abba lt 38
+						doif abba ne 35 and abba ne 38 and abba ne 39
 							setv va00 abba
 							gall "moe_c2tods_overlays_night" va00
 						endi
@@ -188,7 +189,7 @@ scrp 1 1 50200 9
 
 ************************** Overlays2 **************************
 				doif gall eq "moe_c2tods_overlays2"
-					doif abba lt 9 or abba eq 13 or abba eq 14 or abba eq 25 or abba eq 26 or abba eq 27 or abba eq 28 or abba eq 35 or abba eq 36
+					doif abba lt 9 or abba eq 13 or abba eq 14 or abba eq 25 or abba eq 26 or abba eq 27 or abba eq 28 or abba gt 34
 *(don't change the overlays specified above into night overlays)
 					else
 						setv va00 abba
@@ -198,7 +199,7 @@ scrp 1 1 50200 9
 
 ************************** Jungle Overlays **************************
 				doif gall eq "moe_c2tods_overlaysjungle"
-					doif abba gt 2 and abba lt 17
+					doif abba gt 2 and abba lt 18
 						setv va00 abba
 						gall "moe_c2tods_overlaysjungle_night" va00
 					endi
@@ -237,15 +238,16 @@ scrp 1 1 50200 9
 
 		inst
 
-************************** Terrarium door **************************
-		enum 2 2 50201
-*show daytime version of door, hide nighttime version
-			doif gall = "moe_c2tods_doors"
-				show 1
-			else
-				show 0
-			endi
-		next
+*TODO:
+*************************** Terrarium door **************************
+*		enum 2 2 50201
+**show daytime version of door, hide nighttime version
+*			doif gall = "moe_c2tods_doors"
+*				show 1
+*			else
+*				show 0
+*			endi
+*		next
 
 ************************** World tree leaves **************************
 		enum 2 6 50200
@@ -334,7 +336,7 @@ scrp 1 1 50200 9
 				doif gall eq "moe_c2tods_overlays_night"
 					doif abba lt 17 or abba gt 25 or abba eq 23
 *fix for some overlays going invisible at night
-						doif abba ne 35 and abba lt 38
+						doif abba ne 35 and abba ne 38 and abba ne 39
 							setv va00 abba
 							gall "moe_c2tods_overlays" va00
 						endi
@@ -343,7 +345,7 @@ scrp 1 1 50200 9
 
 ************************** Overlays2 **************************
 				doif gall eq "moe_c2tods_overlays2_night"
-					doif abba lt 9 or abba eq 13 or abba eq 14 or abba eq 25 or abba eq 26 or abba eq 27 or abba eq 28 or abba eq 35 or abba eq 36
+					doif abba lt 9 or abba eq 13 or abba eq 14 or abba eq 25 or abba eq 26 or abba eq 27 or abba eq 28 or abba gt 34
 *(don't change the overlays specified above into night overlays)
 					else
 						setv va00 abba
@@ -353,7 +355,7 @@ scrp 1 1 50200 9
 
 ************************** Jungle Overlays **************************
 				doif gall eq "moe_c2tods_overlaysjungle_night"
-					doif abba gt 2 and abba lt 17
+					doif abba gt 2 and abba lt 18
 						setv va00 abba
 						gall "moe_c2tods_overlaysjungle" va00
 					endi
