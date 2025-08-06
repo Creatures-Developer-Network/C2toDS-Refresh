@@ -34,89 +34,7 @@ endm
 
 scrp 2 21 50210 1
 
-	lock
-
-	stim writ from 97 1
-
-	doif from eq pntr
-
-		targ from
-
-		setv va00 posl
-
-	else
-
-		targ from
-
-		setv va00 posx
-
-	endi
-
-	targ ownr
-
-	doif posx gt va00
-
-		setv va00 1
-
-	else
-
-		setv va00 0
-
-	endi
-
-
-
-	setv va01 rand 0 6
-
-
-
-	doif va01 eq 0
-
-		snde "gtr1"
-
-	elif va01 eq 1
-
-		snde "gtr2"
-
-	elif va01 eq 2
-
-		snde "gtr3"
-
-	elif va01 eq 3
-
-		snde "gtr4"
-
-	elif va01 eq 4
-
-		snde "gtr5"
-
-	elif va01 eq 5
-
-		snde "gtr6"
-
-	else
-
-		snde "gtr7"
-
-	endi
-
-
-
-	doif va00 eq 0
-
-		anim [1 2 3 1 2 3 1 2 3 1 2 3]
-
-		wait 40
-
-	else
-
-		anim [4 5 6 4 5 6 4 5 6 4 5 6]
-
-		wait 40
-
-	endi
-
-	pose 0
+	call 1000 from 0
 
 endm
 
@@ -126,89 +44,7 @@ endm
 
 scrp 2 21 50210 2
 
-	lock
-
-	stim writ from 97 1
-
-	doif from eq pntr
-
-		targ from
-
-		setv va00 posl
-
-	else
-
-		targ from
-
-		setv va00 posx
-
-	endi
-
-	targ ownr
-
-	doif posx gt va00
-
-		setv va00 1
-
-	else
-
-		setv va00 0
-
-	endi
-
-
-
-	setv va01 rand 0 6
-
-
-
-	doif va01 eq 0
-
-		snde "gtr1"
-
-	elif va01 eq 1
-
-		snde "gtr2"
-
-	elif va01 eq 2
-
-		snde "gtr3"
-
-	elif va01 eq 3
-
-		snde "gtr4"
-
-	elif va01 eq 4
-
-		snde "gtr5"
-
-	elif va01 eq 5
-
-		snde "gtr6"
-
-	else
-
-		snde "gtr7"
-
-	endi
-
-
-
-	doif va00 eq 0
-
-		anim [1 2 3 1 2 3 1 2 3 1 2 3]
-
-		wait 40
-
-	else
-
-		anim [4 5 6 4 5 6 4 5 6 4 5 6]
-
-		wait 40
-
-	endi
-
-	pose 0
+	call 1000 from 0
 
 endm
 
@@ -218,38 +54,28 @@ endm
 
 scrp 2 21 50210 3
 
+	call 1000 from 0
+
+endm
+
+
+
+
+
+
+
+*shared act1/act/hit script
+*(_p1_ is from)
+
+scrp 2 21 50210 1000
+
 	lock
 
-	stim writ from 97 1
 
-	doif from eq pntr
-
-		targ from
-
-		setv va00 posl
-
-	else
-
-		targ from
-
-		setv va00 posx
-
-	endi
-
-	targ ownr
-
-	doif posx gt va00
-
-		setv va00 1
-
-	else
-
-		setv va00 0
-
-	endi
+	stim writ _p1_ 97 1
 
 
-
+*random sound
 	setv va01 rand 0 6
 
 
@@ -286,23 +112,51 @@ scrp 2 21 50210 3
 
 
 
-	doif va00 eq 0
+*choose anim direction based on holding creature position
+	doif crea carr = 1 and _p1_ = carr
 
-		anim [1 2 3 1 2 3 1 2 3 1 2 3]
+		targ carr
 
-		wait 40
+		setv va00 posx
 
-	else
+		targ ownr
 
-		anim [4 5 6 4 5 6 4 5 6 4 5 6]
+		doif posx gt va00
 
-		wait 40
+			setv va00 2
 
+		else
+
+			setv va00 1
+
+		endi
+
+		doif va00 eq 1
+
+			anim [1 2 3 1 2 3 1 2 3 1 2 3]
+
+			wait 40
+
+		elif va00 eq 2
+
+			anim [4 5 6 4 5 6 4 5 6 4 5 6]
+
+			wait 40
+
+		endi
 	endi
 
 	pose 0
 
 endm
+
+
+
+
+
+
+
+
 
 rscr
 
