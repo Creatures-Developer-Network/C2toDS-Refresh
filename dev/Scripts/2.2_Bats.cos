@@ -6,6 +6,7 @@
 * adding push/pull/hit/eat scripts we can change that. - Aiko
 
 *NeoDement fixed some errors with the bat eating fruit script (and fixed them not dropping what they're holding when they head to bed)
+*changed perm to 50 so they can fly through thin platforms (they'll get lost considerably less often), and made them drop food below them instead of above them when eating in their nest
 
 *Some edits made by Verm! Refining pupt and hopefully reducing some targ missing errors
 *Install
@@ -50,6 +51,9 @@ endm
 scrp 2 16 50203 10
 
 	inst
+
+*new perm 50 means bat can go through any thin platforms he likes
+	perm 50
 
 	attr 199
 
@@ -490,9 +494,7 @@ scrp 2 16 50203 9
 
 					gsub eat
 
-					drop
-
-					*the "eat" subroutine puts us in slow mode, which gives the food a few ticks to disappear. so check if it still exists before you run the eat script (12).
+*the "eat" subroutine puts us in slow mode, which gives the food a few ticks to disappear. so check if it still exists before you run the eat script (12).
 					doif ov08 <> null
 						inst
 						targ ov08
@@ -528,7 +530,7 @@ scrp 2 16 50203 9
 						endi
 
 					endi
-					
+
 					targ ownr
 
 					gsub wakeup
@@ -552,7 +554,7 @@ scrp 2 16 50203 9
 	subr warpback
 
 		inst
-		
+
 		targ ov09
 
 		setv va00 posx
@@ -953,27 +955,29 @@ scrp 2 16 50203 9
 
 		mira 0
 
+*neo: made these values uglier. but it does stop the bat dropping stuff on the platform above.
+
 *some pupt values for left
 		pupt 0 30 26
 		pupt 1 30 26
 		pupt 2 30 26
 		pupt 3 30 26
 
-		pupt 8 23 13
-		pupt 9 26 11
-		pupt 10 30 11
-		pupt 11 32 23
+		pupt 8 23 26
+		pupt 9 26 26
+		pupt 10 30 26
+		pupt 11 32 26
 
-		pupt 16 26 27
-		pupt 17 18 25
-		pupt 18 16 16
-		pupt 19 19 8
-		pupt 20 24 13
+		pupt 16 26 26
+		pupt 17 18 26
+		pupt 18 16 26
+		pupt 19 19 26
+		pupt 20 24 26
 
-		pupt 26 25 7
-		pupt 27 25 7
-		pupt 28 25 7
-		pupt 29 25 7
+		pupt 26 25 26
+		pupt 27 25 34
+		pupt 28 25 44
+		pupt 29 25 50
 
 		subv velx va06
 
@@ -985,27 +989,29 @@ scrp 2 16 50203 9
 
 		mira 1
 
+*neo: made these values uglier. but it does stop the bat dropping stuff on the platform above.
+
 *some pupt values for right
 		pupt 0 17 26
 		pupt 1 17 26
 		pupt 2 17 26
 		pupt 3 17 26
 
-		pupt 8 24 13
-		pupt 9 21 11
-		pupt 10 17 11
-		pupt 11 15 23
+		pupt 8 24 26
+		pupt 9 21 26
+		pupt 10 17 26
+		pupt 11 15 26
 
-		pupt 16 21 27
-		pupt 17 29 25
-		pupt 18 31 16
-		pupt 19 28 8
-		pupt 20 23 13
+		pupt 16 21 26
+		pupt 17 29 26
+		pupt 18 31 26
+		pupt 19 28 26
+		pupt 20 23 26
 
-		pupt 26 25 7
-		pupt 27 25 7
-		pupt 28 25 7
-		pupt 29 25 7
+		pupt 26 25 26
+		pupt 27 25 34
+		pupt 28 25 44
+		pupt 29 25 50
 
 		addv velx va06
 
@@ -1165,4 +1171,3 @@ enum 2 17 50204
 next
 
 scrx 2 17 50204 10
-
