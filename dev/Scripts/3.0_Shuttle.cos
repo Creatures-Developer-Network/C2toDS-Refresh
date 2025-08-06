@@ -9,8 +9,7 @@
 * Verm responds, yeah sure, sort of, but I'm doing the queue thing here too so... invisibility was the right choice
 * No greedy cabin! hard to tell creatures get stuck
 
-*todo: remove door stuff. make it so creatures can only use this vehicle if the hand uses it for them, and it's only one-way, like the original game.
-*why? because there's no reason a creature would ever want to go to the splicing lab on their own...
+*todo: nicer integration of call buttons? the original button is currently decorative next to an ugly C1 button. which feels not ideal.
 
 
 new: vhcl 3 1 50204 "moe_C2toDS_shuttle" 12 0 100
