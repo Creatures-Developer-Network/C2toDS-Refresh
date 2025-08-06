@@ -105,18 +105,19 @@ bhvr 11
 setv ov01 1
 
 
+*replaced with a lift in lifts.cos!
 
-* Tube under tree of life
-
-new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 rand 1000 5000
-
-mvsf 3292 48646
-
-attr 196
-
-bhvr 11
-
-setv ov01 1
+** Tube under tree of life
+*
+*new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 rand 1000 5000
+*
+*mvsf 3292 48646
+*
+*attr 196
+*
+*bhvr 11
+*
+*setv ov01 1
 
 
 
