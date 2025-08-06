@@ -269,7 +269,7 @@ setv ov04 2
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 15 1000
 
-mvto 6289 48984
+mvto 6291 48984
 
 sets name "Lift" "ComputerRoom"
 
@@ -282,14 +282,14 @@ setv ov04 2
 
 
 
-**METAL PLATFORM LIFT (OV04 = 3)**
+**METAL PLATFORM LIFTS (OV04 = 3)**
 
 
 *Labs Lift*
 
 new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 19 1000
 
-mvto 3368 49132
+mvto 3367 49132
 
 sets name "Lift" "Labs"
 
@@ -298,6 +298,25 @@ setv name "total" 2
 setv name "current level" 1
 
 setv ov04 3
+
+
+
+
+*Dark Ocean Glass Tube Lift*
+
+new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 19 1000
+
+mvto 3300 48617
+
+sets name "Lift" "GlassTube"
+
+setv name "total" 1
+
+setv name "current level" 1
+
+setv ov04 3
+
+
 
 
 
@@ -1309,7 +1328,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
 
-		mvto 6398 49379
+		mvto 6233 49379
 
 		seta mame "1" targ
 
@@ -1406,7 +1425,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
 
-		mvto 3349 49116
+		mvto 3339 49116
 
 		seta mame "1" targ
 
@@ -1426,7 +1445,7 @@ scrp 3 1 50200 10
 
 		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 7 2000
 
-		mvto 3353 49339
+		mvto 3343 49339
 
 		seta mame "2" targ
 
@@ -1442,6 +1461,60 @@ scrp 3 1 50200 10
 		targ ownr
 
 	endi
+
+
+
+
+
+
+
+
+*Dark Ocean Glass Tube LIFT*
+
+	doif name "Lift" eq "GlassTube"
+
+*Glass Tube Call Button Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 3256 48476
+
+		seta mame "0" targ
+
+		seta ov00 ownr
+
+		sets ov01 "0"
+
+*Y offset
+		setv ov03 4
+
+		setv ov04 1
+
+		targ ownr
+
+
+*Glass Tube Call Button Bottom*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 25 2000
+
+		mvto 3256 48608
+
+		seta mame "1" targ
+
+		seta ov00 ownr
+
+		sets ov01 "1"
+
+*Y offset
+		setv ov03 -7
+
+		setv ov04 1
+
+		targ ownr
+
+
+	endi
+
 
 
 
