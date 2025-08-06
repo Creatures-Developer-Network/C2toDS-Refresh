@@ -1,0 +1,151 @@
+*swamp bridge to unlock a new route around the world
+
+*feel free to make better graphics
+
+
+
+
+
+*** BRIDGE FROM UNDER COMPUTER ROOM TO SWAMP ***  -  1 33 50200
+
+
+
+*main trapdoor part used for collision testing and animating
+new: comp 1 33 50200 "moe_c2tods_trapdoors" 14 2 10
+
+*button to activate it
+pat: butt 1 "moe_c2tods_trapdoors" 0 2 -20 0 4990 [] 1000 1
+
+
+mvto 6398 49456
+
+
+
+*main room
+setv va00 grap 6497 49426
+
+*room below
+setv va01 grap 6497 49480
+
+*room left
+setv va02 grap 6336 49426
+
+*room right
+setv va03 grap 6636 49426
+
+
+
+*bridge starts not extended
+
+door va00 va01 100
+door va00 va02 50
+door va00 va03 50
+
+
+
+
+
+*pressed button
+
+scrp 1 33 50200 1000
+
+	lock
+
+	targ pntr
+	anim [1 0]
+	over
+	targ ownr
+
+
+	inst
+
+*main room
+	setv va00 grap 6497 49426
+
+*room below
+	setv va01 grap 6497 49480
+
+*room left
+	setv va02 grap 6336 49426
+
+*room right
+	setv va03 grap 6636 49426
+
+
+	part 1
+	pose 1
+
+	part 0
+*does nothing if pose isn't either extreme
+	doif pose = 0
+		snde "mlf3"
+		anim [0 1 2 3 4 5 5]
+		over
+		inst
+		door va00 va01 50
+		door va00 va02 100
+		door va00 va03 100
+		etch 0 0 0
+			velo 0 0
+		next
+		anim [6 7 8 9 9 10 11 12 13]
+		over
+
+	elif pose = 13
+		snde "mlf3"
+		anim [13 12 11 10 9 9]
+		over
+		inst
+		door va00 va01 100
+		door va00 va02 50
+		door va00 va03 50
+		etch 0 0 0
+			velo 0 0
+		next
+		anim [8 7 6 5 5 4 3 2 1 0]
+		over
+
+	endi
+
+	wait 3
+	part 1
+	pose 0
+
+	wait 3
+
+endm
+
+
+
+
+
+rscr
+
+*remove agent and script
+enum 1 33 50200
+	kill targ
+next
+
+scrx 1 33 50200 1000
+
+
+*reset bridge state to fully open now it doesn't exist
+*main room
+setv va00 grap 6497 49426
+
+doif va00 <> -1
+
+*room below
+	setv va01 grap 6497 49480
+
+*room left
+	setv va02 grap 6336 49426
+
+*room right
+	setv va03 grap 6636 49426
+
+	door va00 va01 100
+	door va00 va02 50
+	door va00 va03 50
+
+endi
