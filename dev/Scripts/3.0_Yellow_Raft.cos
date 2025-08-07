@@ -12,11 +12,11 @@
 * Note: Might be working better due to Aiko's changes - Verm
 * Note: Might want to stop creatures that are bounching up from the spring from automatically getting grabbed by the boat - NeoDement
 
-*todo: night version of rip holes, for easy switching visiblity between in night switcher.
+
 
 * Rubber dingy
 
-new: vhcl 3 1 50203 "moe_C2toDS_dingy" 22 0 3000
+new: vhcl 3 1 50203 "moe_C2toDS_dingy" 22 0 100
 
 tick 2
 
@@ -391,10 +391,10 @@ endm
 * pickup creatures who fall in you
 scrp 3 1 50203 9
 	inst
-	targ ownr
+	setv va01 posy
 	etch 4 0 0
 *don't pick up creatures that aren't autonomous (stops the raft stealing creatures out of the hands grasp)
-		doif posb ge mv99 and movs eq 0
+		doif posb ge va01 and movs eq 0
 *targ ownr
 			spas ownr targ
 *gpas 4 0 0 0
