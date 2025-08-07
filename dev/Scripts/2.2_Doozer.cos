@@ -137,29 +137,6 @@ scrp 2 15 50219 10
 
 
 
-***********************************************
-**FIND A SAFE SPACE TO GO TO FOR PERM CHANGES**
-***********************************************
-
-*C2toDS Above Light Blue Ocean
-	doif grap 8854 47957 <> -1
-		setv mame "SafeSpace_X" 8854
-		setv mame "SafeSpace_Y" 47957
-*DS Capillata
-	elif grap 2627 9038 <> -1
-		setv mame "SafeSpace_X" 2627
-		setv mame "SafeSpace_Y" 9038
-*C3 Outside Airlock
-	elif grap 4042 4180 <> -1
-		setv mame "SafeSpace_X" 4042
-		setv mame "SafeSpace_Y" 4180
-*otherwise set it to the room that always exists at 0 0
-	else
-		setv mame "SafeSpace_X" 100
-		setv mame "SafeSpace_Y" 100
-	endi
-
-***********************************************
 
 
 *drowning timer
@@ -497,7 +474,7 @@ scrp 2 15 50219 9
 
 
 *we are UNDERWATER!! (and not being carried)
-	doif rtyp room targ eq 8 or rtyp room targ eq 9 and carr = null
+	doif rtyp room targ eq 8 or rtyp room targ eq 9 and carr <> pntr
 		setv va60 1
 	endi
 
@@ -526,8 +503,10 @@ scrp 2 15 50219 9
 *set direction of travel to match new random velocity
 		doif va00 < 0
 			setv ov02 0
+			anim [0 1 2 3 4 5]
 		elif va00 > 0
 			setv ov02 1
+			anim [6 7 8 9 10 11]
 		endi
 
 
@@ -541,6 +520,19 @@ scrp 2 15 50219 9
 
 *reset drown timer to stop multiple smoke puffs
 			setv ov99 0
+
+
+*if you're being carried by a creature or a vehicle (such as the fishbowl), sort it out!
+			doif carr <> null
+				doif crea carr = 1
+					targ carr
+					drop
+					targ ownr
+				elif type carr = 6
+					rpas carr ownr
+				endi
+			endi
+
 
 			setv va00 posl
 			setv va01 post
@@ -576,14 +568,31 @@ scrp 2 15 50219 9
 			setv va90 posl
 			setv va91 post
 
-			frel null
+*no longer floatable
+			attr 0
 
 			mvto va90 va91
 
 			targ ownr
 
-*reset perm after safe move
+
+
+			setv va50 perm
+
+*try and set perm to 51 if it's not inside a wall
+*temporarily disable our hitbox, change perm, then test if we can have our old hitbox.
+*if not, change back to old perm and old hitbox.
+
+			core 0 0 0 0
+
 			perm 51
+			doif tcor 0 hght wdth 0 = 0
+				perm va50
+			endi
+			core 0 hght wdth 0
+
+
+
 
 			mvsf ov50 ov51
 
@@ -663,7 +672,7 @@ scrp 2 15 50219 9
 
 	inst
 
-	doif carr = null
+	doif carr = null and obst down = 0
 *remember where you were last safe on land. we'll go back there if we drown.
 		setv ov50 posl
 		setv ov51 post
@@ -703,17 +712,19 @@ scrp 2 15 50219 9
 		inst
 
 		setv va50 perm
-		setv va00 posl
-		setv va01 post
 
 *try and set perm to 51 if it's not inside a wall
-*temporarily move to a safe out of bounds spot to test movement
-		mvto mame "SafeSpace_X" mame "SafeSpace_Y"
+*temporarily disable our hitbox, change perm, then test if we can have our old hitbox.
+*if not, change back to old perm and old hitbox.
+
+		core 0 0 0 0
+
 		perm 51
-		doif tmvt va00 va01 = 0
+		doif tcor 0 hght wdth 0 = 0
 			perm va50
 		endi
-		mvto va00 va01
+		core 0 hght wdth 0
+
 	endi
 
 

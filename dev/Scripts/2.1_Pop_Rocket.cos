@@ -39,30 +39,6 @@ scrp 2 21 50215 10
 	perm 51
 
 
-***********************************************
-**FIND A SAFE SPACE TO GO TO FOR PERM CHANGES**
-***********************************************
-
-*C2toDS Above Light Blue Ocean
-	doif grap 8854 47957 <> -1
-		setv mame "SafeSpace_X" 8854
-		setv mame "SafeSpace_Y" 47957
-*DS Capillata
-	elif grap 2627 9038 <> -1
-		setv mame "SafeSpace_X" 2627
-		setv mame "SafeSpace_Y" 9038
-*C3 Outside Airlock
-	elif grap 4042 4180 <> -1
-		setv mame "SafeSpace_X" 4042
-		setv mame "SafeSpace_Y" 4180
-*otherwise set it to the room that always exists at 0 0
-	else
-		setv mame "SafeSpace_X" 100
-		setv mame "SafeSpace_Y" 100
-	endi
-
-***********************************************
-
 endm
 
 
@@ -213,20 +189,21 @@ scrp 2 21 50215 9
 	inst
 
 	setv va50 perm
-	setv va00 posl
-	setv va01 post
 
 *try and set perm to 51 if it's not inside a wall
-*temporarily move to a safe out of bounds spot to test movement
-	mvto mame "SafeSpace_X" mame "SafeSpace_Y"
+*temporarily disable our hitbox, change perm, then test if we can have our old hitbox.
+*if not, change back to old perm and old hitbox.
+
+	core 0 0 0 0
+
 	perm 51
-	doif tmvt va00 va01 = 0
+	doif tcor 0 hght wdth 0 = 0
 		perm va50
 	else
 *stop ticking if we set our perm successfully
 		tick 0
 	endi
-	mvto va00 va01
+	core 0 hght wdth 0
 
 endm
 
