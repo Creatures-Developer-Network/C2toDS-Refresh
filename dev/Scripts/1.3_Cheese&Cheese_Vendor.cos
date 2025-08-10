@@ -3,11 +3,12 @@
 *2 23 50208 - Cheese Machine
 
 
-*NeoDement sped the machine up a bit and fixed it so the fake cheese and the real cheese are never on screen at the same time.
 
 
 * Associate the cheese vendor agent with fat smell?
 cacl 2 23 50208 8
+
+
 
 *Starter Cheese
 
@@ -37,13 +38,9 @@ new: simp 2 11 50202 "moe_C2toDS_cheese" 1 rand 25 26 5000
 
 mvsf 6370 48740
 
-
-
 new: simp 2 11 50202 "moe_C2toDS_cheese" 1 rand 25 26 5000
 
 mvsf 7375 48730
-
-
 
 new: simp 2 11 50202 "moe_C2toDS_cheese" 1 rand 25 26 1000
 
@@ -65,7 +62,7 @@ accg 5
 
 perm 51
 
-frat 8
+frat 4
 
 mvsf 6415 48658
 
@@ -75,10 +72,7 @@ pat: dull 2 "moe_C2toDS_cheese" 27 70 15 0
 
 part 1
 
-frat 10
-
-*frat 16 is completely accurate to C2, but it just feels a bit too slow in the DS engine.
-*frat 16
+frat 8
 
 anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 255]
 
@@ -114,7 +108,8 @@ scrp 2 11 50202 10
 
 	bhvr 48
 
-	emit 8 .0015
+*matches DS Tuba
+	emit 8 0.5
 
 	plne rand 1000 5000
 
@@ -140,41 +135,25 @@ scrp 2 11 50202 6
 
 endm
 
-*Eat*
+
+
+*Eat
 
 scrp 2 11 50202 12
 
+	lock
+
 	snde "chwp"
 
-	doif crea from eq 1
-
-		stim writ from 79 1
-
-		wait 1
-
-		targ from
-
-*Starch, Fat, Hunger Dec. And a little protein... Carb/Fat*
-
-		chem 5 .31
-
-		chem 10 .07843
-
-		chem 12 .07843
-
-		chem 149 -.31
-
-		chem 150 -.07843
-
-		chem 151 -.07843
-
-	endi
+	stim writ from 79 1
 
 	wait 1
 
 	kill ownr
 
 endm
+
+
 
 *Cheese Vendor
 
@@ -220,11 +199,15 @@ scrp 2 23 50208 1002
 
 endm
 
+
+
 *Cheese Vendor
 
 scrp 2 23 50208 1
 
 	inst
+
+*stim norn with 90 - Used Machinery
 	stim writ from 90 1
 
 	lock
@@ -273,7 +256,7 @@ scrp 2 23 50208 1
 
 	over
 
-*unlock before the cheese goes back down anim finishes playing, so it feels less boring
+*unlock before the cheese goes back down anim finishes playing, so we can re-activate it a little faster
 	unlk
 
 	anim [3 2 1 0]
@@ -284,30 +267,37 @@ scrp 2 23 50208 1
 
 endm
 
+
+
+
 *pull
 scrp 2 23 50208 2
 
 	inst
-	doif crea from eq 1
-		stim writ from 90 1
-	endi
+
+*stim norn with 90 - Used Machinery
+	stim writ from 90 1
 
 	mesg writ ownr 0
 
 endm
+
+
+
 
 *hit
 scrp 2 23 50208 3
 
-	inst
-	doif crea from eq 1
-		stim writ from 92 1
-	endi
+*stim norn with 92 - Hit machine
+	stim writ from 92 1
 
-	mesg writ ownr 0
-* should we have a bang sound effect here?
+	snde "hit_"
+	velo rand -2 2 rand -10 -5
 
 endm
+
+
+
 
 rscr
 
