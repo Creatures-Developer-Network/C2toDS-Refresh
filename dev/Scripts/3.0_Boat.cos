@@ -12,7 +12,7 @@
 
 new: vhcl 3 1 50201 "moe_C2toDS_boat" 1 0 100
 
-tick 2
+tick 1
 
 cabp 1
 
@@ -44,13 +44,12 @@ alph 256 1
 
 *button exists twice, so we can toggle visiblity for night switcher without a complicated anim tracker.
 
-pat: butt 4 "moe_C2toDS_boat" 12 3 60 23 21 [] 1001 0
-
+pat: butt 4 "moe_C2toDS_boat" 12 3 60 23 1 [] 1001 0
 part 4
 frat 2
 alph 0 0
 
-pat: butt 5 "moe_C2toDS_boat_night" 12 3 60 23 21 [] 1001 0
+pat: butt 5 "moe_C2toDS_boat_night" 12 3 60 23 1 [] 1001 0
 
 part 5
 frat 2
