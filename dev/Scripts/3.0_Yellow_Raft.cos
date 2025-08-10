@@ -18,7 +18,7 @@
 
 new: vhcl 3 1 50203 "moe_C2toDS_dingy" 22 0 100
 
-tick 2
+tick 1
 
 cabn 60 -50 225 88
 
