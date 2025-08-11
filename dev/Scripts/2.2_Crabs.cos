@@ -846,7 +846,7 @@ scrp 2 13 50211 9
 
 
 
-		doif grap va21 va30 ne -1
+		doif grap va21 va30 ne -1 and grap va21 va30 ne va20
 
 			doif door grap va21 va30 va20 gt perm
 
