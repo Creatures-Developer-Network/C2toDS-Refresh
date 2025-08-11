@@ -313,3 +313,11 @@ enum 2 23 50208
 	kill targ
 
 next
+
+scrx 2 23 50208 3
+scrx 2 11 50202 10
+scrx 2 11 50202 6
+scrx 2 11 50202 12
+scrx 2 23 50208 1002
+scrx 2 23 50208 1
+scrx 2 23 50208 2
