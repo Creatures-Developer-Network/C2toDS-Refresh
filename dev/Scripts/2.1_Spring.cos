@@ -2,33 +2,14 @@
 
 
 
-*todo land:
-
-*TODO: attach timer script temp object to creatures after they have been sprung:
-
-
-
-*	doif vely > 30
-*		mulv vely 0.75
-*	endi
-
-
-*every tick, check if creature is being handheld, carried, or has no velocity, or is dead, or null, etc. when that happens, kill the timer object.
-
-
-*spring on right side of right ocean (on glass tube) springs the wrong way, need a new ov02. consolidate all use scripts.
-
-*plane shouldn't be random.
-
-*alternate sprite set for immovable springs?
-
+*todo?: alternate sprite set for immovable springs?
 
 
 
 
 * To left of norn burrow
 
-new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 rand 1000 5000
+new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 3500
 
 mvsf 6133 48719
 
@@ -40,7 +21,7 @@ bhvr 43
 
 * Treehouse
 
-new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 rand 1000 5000
+new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 3501
 
 mvsf 5207 48820
 
@@ -52,7 +33,7 @@ bhvr 43
 
 * Right of bridge
 
-new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 rand 1000 5000
+new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 3502
 
 mvsf 5909 48183
 
@@ -64,7 +45,7 @@ bhvr 43
 
 * Ocean 1
 
-new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 rand 1000 5000
+new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 3503
 
 mvsf 8856 48666
 
@@ -75,26 +56,37 @@ bhvr 11
 setv ov01 1
 
 
+* NEW: Ocean 1 (lower, next to submarine bay)
+
+new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 3504
+
+mvsf 8217 49007
+
+attr 196
+
+bhvr 11
+
+setv ov01 2
+
+
 
 * Ocean 2
 
-new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 rand 1000 5000
+new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 3505
 
-*moved right a little to stop creatures bouncing up into walls
-*mvsf 2505 48840
 mvsf 2580 48840
 
 attr 196
 
 bhvr 11
 
-setv ov01 1
+setv ov01 3
 
 
 
 * Ocean 2 (right, on top of glass tube)
 
-new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 rand 1000 5000
+new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 3506
 
 mvsf 2887 48549
 
@@ -102,14 +94,14 @@ attr 196
 
 bhvr 11
 
-setv ov01 1
+setv ov01 4
 
 
 *replaced with a lift in lifts.cos!
 
 ** Tube under tree of life
 *
-*new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 rand 1000 5000
+*new: simp 2 21 50206 "moe_C2toDS_spring" 8 0 3507
 *
 *mvsf 3292 48646
 *
@@ -117,9 +109,12 @@ setv ov01 1
 *
 *bhvr 11
 *
-*setv ov01 1
+*setv ov01 5
 
 
+
+
+*spring creation script
 
 scrp 2 21 50206 10
 
@@ -135,7 +130,176 @@ scrp 2 21 50206 10
 
 	perm 51
 
+*C2 framerate
 	frat 2
+
+endm
+
+
+
+
+
+
+
+
+
+
+*spring shared activate script
+
+scrp 2 21 50206 1000
+
+
+	lock
+
+	inst
+
+	snde "boin"
+
+	anim [0 3]
+
+	over
+
+	inst
+
+	anim [5 6 7 0 2 3 4 6 7 0]
+
+*find objects touching our spring
+
+	etch 0 0 0
+
+
+
+*Must be Pickupable
+
+		setv va02 attr
+
+		andv va02 2
+
+*And suffer physics
+
+		setv va03 attr
+
+		andv va03 128
+
+*And can't float
+
+		setv va04 attr
+
+		andv va04 32
+
+
+*only bounce things that you should bounce
+		doif va04 ne 32 and va02 eq 2 and va03 eq 128 and accg gt 0.0 and carr eq null and movs eq 0 and targ ne ownr
+
+
+*is it a creature?
+			doif crea targ = 1
+
+
+*is it a normal spring or an ocean rescue spring?
+
+
+*normal springs apply slight random velocity
+				doif mv01 = 0
+
+					velo rand 6 -6 rand -20 -30
+
+				else
+
+
+*rescue springs create an invisible vehicle, center it to the spring, catch the norn in it, and send it on a predictable journey to the surface!		
+
+*our touched norn lives in va19
+					seta va19 targ
+
+
+					targ ownr
+
+					setv va78 posx
+					setv va79 posb
+
+*create a new vehicle for each creature you are sending up, cabin size of one creature only
+					new: vhcl 1 34 50200 "Moe_C2toDS_RescueBox" 0 0 4500
+
+*
+					setv va64 wdth
+					setv va65 hght
+
+					divv va64 2
+
+
+
+					subv va78 va64
+					subv va79 va65
+
+
+					mvsf va78 va79
+
+
+*todo: currently this moves norns (OR MAYBE ONLY GAIA?) directly to the spring center before launching, which is probably a good idea
+					spas targ va19
+
+
+*tick delay controls how long until we try and reset our perm (so we can initially travel upwards through wooden platforms etc)
+
+* Ocean 1
+
+					doif mv01 = 1
+
+						doif rand 0 1 = 1
+							velo -17 -80
+						else
+							velo 17 -80
+						endi
+
+						tick 15
+
+* NEW: Ocean 1 (lower, next to submarine bay)
+
+					elif mv01 = 2
+
+						velo rand -3 3 -80
+						tick 10
+
+* Ocean 2
+
+					elif mv01 = 3
+
+						velo -12 -80
+						tick 15
+
+* Ocean 2 (right, on top of glass tube)
+
+					elif mv01 = 4
+
+						velo 12 -80
+						tick 20
+
+					endi
+
+
+				endi
+
+
+
+				targ ownr
+
+
+
+*if it's NOT a creature
+
+			else
+
+				velo rand 12 -12 rand -20 -30
+
+			endi
+
+		endi
+
+	next
+
+	unlk
+
 
 endm
 
@@ -145,74 +309,9 @@ endm
 
 scrp 2 21 50206 1
 
-	lock
-
-	inst
-
 	stim writ from 97 1
 
-	snde "boin"
-
-	anim [0 3]
-
-	over
-
-	inst
-
-	anim [5 6 7 0 2 3 4 6 7 0]
-
-*todo: instead of this, you should be etch 0 0 0, then check if crea. im not sure what the 2 0 0 check is doing.
-*also fix electronic butler to work with world wrap.
-
-	etch 4 0 0
-
-		doif mv01 eq 1
-
-			velo -10 -90
-
-		else
-
-			velo rand 6 -6 rand -20 -30
-
-		endi
-
-	next
-
-	targ ownr
-
-	etch 2 0 0
-
-*Must be Pickupable
-
-		setv va02 attr
-
-		andv va02 2
-
-
-
-*And suffer physics
-
-		setv va03 attr
-
-		andv va03 128
-
-*And can't float
-
-		setv va04 attr
-
-		andv va04 32
-
-
-
-		doif va04 ne 32 and va02 eq 2 and va03 eq 128 and accg gt 0.0 and carr eq null and targ ne ownr
-
-			velo rand 12 -12 rand -20 -30
-
-		endi
-
-	next
-
-	unlk
+	call 1000 0 0
 
 endm
 
@@ -222,73 +321,9 @@ endm
 
 scrp 2 21 50206 2
 
-	lock
-
-	inst
-
 	stim writ from 97 1
 
-	snde "boin"
-
-	anim [0 3]
-
-	over
-
-	inst
-
-	anim [5 6 7 0 2 3 4 6 7 0]
-
-	etch 4 0 0
-
-		doif mv01 eq 1
-
-			velo -10 -90
-
-		else
-
-			velo rand 6 -6 rand -20 -30
-
-		endi
-
-	next
-
-	targ ownr
-
-	etch 2 0 0
-
-*Must be Pickupable
-
-		setv va02 attr
-
-		andv va02 2
-
-
-
-*And suffer physics
-
-		setv va03 attr
-
-		andv va03 128
-
-*And can't float
-
-		setv va04 attr
-
-		andv va04 32
-
-
-
-		doif va04 ne 32 and va02 eq 2 and va03 eq 128 and accg gt 0.0 and carr eq null and targ ne ownr
-
-
-
-			velo rand 12 -12 rand -20 -30
-
-		endi
-
-	next
-
-	unlk
+	call 1000 0 0
 
 endm
 
@@ -298,90 +333,187 @@ endm
 
 scrp 2 21 50206 3
 
-	lock
-
-	inst
-
 	stim writ from 97 1
 
-	snde "boin"
+	call 1000 0 0
 
-	anim [0 3]
+endm
 
-	over
+
+
+
+
+
+
+
+*TODO: new classifier number, probably
+
+
+
+
+
+
+
+
+
+
+
+
+*invisible vehicle creation
+
+scrp 1 34 50200 10
 
 	inst
 
-	anim [5 6 7 0 2 3 4 6 7 0]
+***********************************************
+**FIND A SAFE SPACE TO GO TO FOR PERM CHANGES**
+***********************************************
 
-	etch 4 0 0
+*C2toDS Above Light Blue Ocean
+	doif grap 8854 47957 <> -1
+		setv mame "SafeSpace_X" 8854
+		setv mame "SafeSpace_Y" 47957
+*DS Capillata
+	elif grap 2627 9038 <> -1
+		setv mame "SafeSpace_X" 2627
+		setv mame "SafeSpace_Y" 9038
+*C3 Outside Airlock
+	elif grap 4042 4180 <> -1
+		setv mame "SafeSpace_X" 4042
+		setv mame "SafeSpace_Y" 4180
+*otherwise set it to the room that always exists at 0 0
+	else
+		setv mame "SafeSpace_X" 100
+		setv mame "SafeSpace_Y" 100
+	endi
 
-		doif mv01 eq 1
-
-			velo -10 -90
-
-		else
-
-			velo rand 6 -6 rand -20 -30
-
-		endi
-
-	next
-
-	targ ownr
-
-	etch 2 0 0
-
-*Must be Pickupable
-
-		setv va02 attr
-
-		andv va02 2
+***********************************************
 
 
-
-*And suffer physics
-
-		setv va03 attr
-
-		andv va03 128
-
-*And can't float
-
-		setv va04 attr
-
-		andv va04 32
+	cabw 1
 
 
+*physics time
+	attr 192
 
-		doif va04 ne 32 and va02 eq 2 and va03 eq 128 and accg gt 0.0 and carr eq null and targ ne ownr
+	accg game "c3_creature_accg"
 
+	elas 35
 
+	fric 100
 
-			velo rand 12 -12 rand -20 -30
+	perm 1
 
-		endi
+	core 150 256 116 148
 
-	next
-
-	unlk
 
 endm
+
+
+
+*invisible vehicle collision
+
+scrp 1 34 50200 6
+
+	inst
+	lock
+	setv velx 0
+
+	doif ov99 = 1
+		loop
+			wait 1
+			inst
+		untl vely = 0 or va00 > 50
+
+		dpas 0 0 0
+		kill ownr
+	endi
+
+endm
+
+
+
+
+*invisible vehicle timer
+
+scrp 1 34 50200 9
+
+	inst
+	lock
+
+
+*if vehicle somehow lives for over 50 ticks, destroy it
+	addv ov05 1
+
+
+	doif ov05 > 50
+		dpas 0 0 0
+		kill ownr
+	endi
+
+	epas 0 0 0
+		addv va00 1
+	next
+
+	doif vely = 0 or va00 = 0
+
+*ov99 means next time we collide with something we delete ourself
+		setv ov99 1
+
+	endi
+
+
+
+*try and reset our perm
+	doif perm <> 51
+
+*keep ticking, we want to reset our perm asap
+		tick 1
+
+		setv va50 perm
+		setv va00 posl
+		setv va01 post
+
+*try and set perm to 51 if it's not inside a wall
+*temporarily move to a safe out of bounds spot to test movement
+		mvto mame "SafeSpace_X" mame "SafeSpace_Y"
+		perm 51
+		doif tmvt va00 va01 = 0
+			perm va50
+		else
+*stop ticking if we set our perm successfully
+*			tick 0
+		endi
+		mvto va00 va01
+
+	endi
+
+
+
+endm
+
+
+
 
 
 
 rscr
 
 enum 2 21 50206
-
 	kill targ
-
 next
 
+scrx 2 21 50206 1000
 scrx 2 21 50206 1
-
 scrx 2 21 50206 2
-
 scrx 2 21 50206 3
-
 scrx 2 21 50206 10
+
+
+enum 1 34 50200
+	kill targ
+next
+
+scrx 1 34 50200 9
+scrx 1 34 50200 6
+scrx 1 34 50200 10
