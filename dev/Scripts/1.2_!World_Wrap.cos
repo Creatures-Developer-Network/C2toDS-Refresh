@@ -39,26 +39,6 @@
 
 
 
-*some benchmarks (super old)
-
-
-*world of 16 norns (no wrap): 206.4
-*
-*200-250-166-250-166
-
-*
-*wrap installed (camera in room): 156.4
-*142-142-166-166-166
-*
-*wrap installed (camera not in room): 193.2
-*200-200-200-166-200
-*
-*wrap installed (norns near wrap): 140.6
-*111-142-142-166-142
-*
-*average of all wrap data: 163.4
-
-*so an average perf decrease of ~43fps... not too shabby!
 
 
 
@@ -280,8 +260,8 @@ attr 16
 *todo: init is no longer delayed. I'm not sure what problem the comment below refers to, so it should be tested.
 * Delay init or right side panels will not be created properly
 
-*tick 40
-tick 1
+tick 40
+*tick 1
 
 *----------------------------------*
 
@@ -291,8 +271,8 @@ tick 1
 *Window Resize Camera Builder - Window Resized Script
 
 scrp 5 7 50201 123
-*	tick 80
-	tick 1
+	tick 80
+*	tick 1
 endm
 
 
@@ -667,7 +647,7 @@ endm
 
 
 
-* World Wrap Grabber - Timer script (runs once every tick, but only a certain % of them will be ticking at once)
+* World Wrap Grabber - Timer script (runs once every tick, but only a few of them will be ticking at once)
 
 scrp 1 6 50200 9
 
@@ -684,91 +664,115 @@ scrp 1 6 50200 9
 
 	inst
 
-*loop over all touching agents. this is more efficient than an enum from a single Grabber.
+*loop over all agents touching THIS grabber. this method of "pulsing" each grabber in sequence is more efficient than a giant enum 0 0 0 from a single Grabber.
 
 	etch 0 0 0
 
-*huge block of conditions because caos wants to check everything in a doif statement at the same time instead of stopping flow when the least likely thing happens
 *todo: could probably clean this up with GSUB/SUBR
 
-*just in case
-		doif targ <> null
-*no need to do anything if they're a "system" object
-*todo: some system objects should in fact go through the wrap. Electronic Butler is one example.
-*todo: modify bees and bats so you can hear them over the wrap too.
-			doif fmly > 1
-*make sure they aren't Floatable 
-				setv va83 attr
-				andv va83 32
-				doif va83 <> 32
 
-					doif posx gt game "C2toDS_WrapRight"
 
-*make sure they're Autonomous
-						doif movs eq 0
+*attribute check!
+		setv va83 attr
+		setv va84 va83
+
+*are they Floatable?
+		andv va83 32
+
+*are they Suffer Collisions+Suffer Physics?
+		andv va84 192
+
+
+
+
+*only move objects which are either not in Family 1, or are in Family 1 but have Suffer Collisions AND Physics.
+*this fixes the Electronic Butler agent not properly travelling through, for example.
+		setv va85 0
+*if it's in family 1
+		doif fmly = 1
+*if it does Suffer Collisions+Suffer Physics
+			doif va84 = 192
+				setv va85 1
+			endi
+		else
+*not in family 1
+			setv va85 1
+		endi
+
+
+
+		doif va85 = 1
+
+			doif posx gt game "C2toDS_WrapRight"
+
+*make sure they're Autonomous and not Floatable
+				doif movs eq 0 and va83 <> 32
 
 *make sure they're not holding the cursors hand!
 *norn and hand cant interact with anything but each other so it doesn't matter that neither of them can interact with anything in this state.
-							doif targ <> hhld
+					doif targ <> hhld
 
 *set to SUBTRACT the wrap offset later
-								setv va50 game "C2toDS_WrapOffset"
-								negv va50
+						setv va50 game "C2toDS_WrapOffset"
+						negv va50
 
 *pixel offset used when tracked objects (usually norns) go through the wrap. set to 1 pixel to temporarily break tracking.
-								setv va70 1
+						setv va70 1
 
-								gsub Move_Object_Over_Wrap
+						gsub Move_Object_Over_Wrap
 
 *trigger WORLD WRAP OVERLAY COPIES (see 1.2_world_overlays.cos) visibility off (every time an object goes through)
-								enum 1 30 50200
-									show 0
-								next
-							else
+						enum 1 30 50200
+							show 0
+						next
+					else
 *trigger WORLD WRAP OVERLAY COPIES visibility on (when we are holding a creatures hand as we go through the wrap.
-								enum 1 30 50200
-									show 1
-								next
-							endi
-						endi
+						enum 1 30 50200
+							show 1
+						next
+					endi
+				endi
 
-					elif posx lt game "C2toDS_WrapLeft"
+			elif posx lt game "C2toDS_WrapLeft"
 
-*make sure they're Autonomous
-						doif movs eq 0
+*make sure they're Autonomous not Floatable
+
+				doif movs eq 0 and va83 <> 32
 
 *make sure they're not holding the cursors hand!
 *norn and hand cant interact with anything but each other so it doesn't matter that neither of them can interact with anything in this state.
-							doif targ <> hhld
+					doif targ <> hhld
 
 *set to ADD the wrap offset later
-								setv va50 game "C2toDS_WrapOffset"
+						setv va50 game "C2toDS_WrapOffset"
 
 *pixel offset used when tracked objects (usually norns) go through the wrap. set to 1 pixel to temporarily break tracking.
-								setv va70 -1
+						setv va70 -1
 
-								gsub Move_Object_Over_Wrap
+						gsub Move_Object_Over_Wrap
 
 *trigger WORLD WRAP OVERLAY COPIES (see 1.2_world_overlays.cos) visibility off (every time an object goes through)
-								enum 1 30 50200
-									show 0
-								next
-							else
+						enum 1 30 50200
+							show 0
+						next
+					else
 *trigger WORLD WRAP OVERLAY COPIES visibility on (when we are holding a creatures hand as we go through the wrap.
-								enum 1 30 50200
-									show 1
-								next
-							endi
-						endi
+						enum 1 30 50200
+							show 1
+						next
+					endi
+				endi
 
 ****OBJECT WASN'T ON EITHER SIDE OF THE WRAP (BUT WAS STILL TOUCHING A GRABBER), SO MAKE A MIRROR OBJECT THAT NORNS CAN SEE!****
 
-					else
+			else
 
-						gsub Make_Mirror_Object
+*don't clone objects norns can't see.
+				doif fmly <> 1
 
-					endi
+					gsub Make_Mirror_Object
 				endi
+
 			endi
 		endi
 	next
