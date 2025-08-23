@@ -1,6 +1,6 @@
 * 2 15 50215 - Bluebirds
-* 2 18 50215 - Bluebird Nest 
-* 2 17 50215 - Bluebird Egg
+* 2 18 50215 - Bluebird Egg 
+* 2 17 50215 - Bluebird Nest
 
 * for now, these are all invisible to creatures. If at some point we feel like 
 * adding push/pull/hit/eat scripts we can change that. - Aiko
@@ -2185,7 +2185,9 @@ scrp 2 17 50215 10
 
 	inst
 
-	attr 19
+*	attr 19
+*removed pickup ability, as they awkwardly float when dropped
+	attr 17
 
 	accg 0
 
@@ -2357,4 +2359,3 @@ next
 
 scrx 2 18 50215 10
 scrx 2 18 50215 9
-

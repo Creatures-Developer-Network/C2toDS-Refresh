@@ -412,11 +412,11 @@ scrp 2 3 50214 1
 
 	endi
 
-	stim writ from 1 .15
+	stim writ from 97 1
 
 	targ from
 
-	chem 204 .25
+*	chem 204 .25
 
 	targ ownr
 

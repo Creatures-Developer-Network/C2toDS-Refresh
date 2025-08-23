@@ -669,11 +669,11 @@ scrp 2 11 50200 12
 
 *		chem 5 .5
 
-		chem 150 -.5
+*		chem 150 -.5
 
 		chem 33 .5
 
-		chem 149 -.5
+*		chem 149 -.5
 
 *		chem 12 .5
 
@@ -687,17 +687,17 @@ scrp 2 11 50200 12
 
 		targ from
 
-		chem 79 .15
+*		chem 79 .15
 
 *		chem 5 .15
 
 		chem 75 .125
 
-		chem 150 -.15
+*		chem 150 -.15
 
 		chem 33 .15
 
-		chem 149 -.15
+*		chem 149 -.15
 
 *		chem 12 .15
 

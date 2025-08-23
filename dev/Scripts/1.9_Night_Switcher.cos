@@ -93,20 +93,25 @@ scrp 1 1 50200 9
 
 
 ************************** World tree leaves **************************
-		enum 2 6 50200
+		enum 1 15 50203
+		
+			setv va00 abba
+			setv va01 pose
+			
 			doif gall eq "moe_c2tods_tre2"
-				setv va00 abba
-				setv va01 pose
 				gall "moe_c2tods_tre2_night" va00
-				pose va01
+				
 			elif gall eq "moe_c2tods_tre3"
-				setv va00 abba
-				setv va01 pose
 				gall "moe_c2tods_tre3_night" va00
-				pose va01
+				
+			elif gall eq "moe_c2tods_tre2_overlay"
+				gall "moe_c2tods_tre2_overlay_night" va00
 			endi
+			
+			pose va01
+			
 		next
-
+		
 
 ************************** Boat **************************
 		enum 3 1 50201
@@ -250,18 +255,23 @@ scrp 1 1 50200 9
 *		next
 
 ************************** World tree leaves **************************
-		enum 2 6 50200
+		enum 1 15 50203
+		
+			setv va00 abba
+			setv va01 pose
+			
 			doif gall eq "moe_c2tods_tre2_night"
-				setv va00 abba
-				setv va01 pose
 				gall "moe_c2tods_tre2" va00
-				pose va01
+				
 			elif gall eq "moe_c2tods_tre3_night"
-				setv va00 abba
-				setv va01 pose
 				gall "moe_c2tods_tre3" va00
-				pose va01
+				
+			elif gall eq "moe_c2tods_tre2_overlay_night"
+				gall "moe_c2tods_tre2_overlay" va00
 			endi
+			
+			pose va01
+			
 		next
 
 

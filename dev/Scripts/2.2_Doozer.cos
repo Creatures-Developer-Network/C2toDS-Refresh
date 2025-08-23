@@ -22,7 +22,8 @@
 
 
 
-*TODO: only record safe position if feet are on floor!
+*TODO:
+*only record safe position if feet are on floor!
 *don't reset drowning timer until we record a new safe position either
 *if safe position is invalid... what do we do!
 *can't walk up slope on left of volcano (surface). is this a problem?
@@ -497,7 +498,7 @@ scrp 2 15 50219 9
 
 
 *we are UNDERWATER!! (and not being carried)
-	doif rtyp room targ eq 8 or rtyp room targ eq 9 and carr = null
+	doif rtyp room targ eq 8 or rtyp room targ eq 9 and carr <> pntr
 		setv va60 1
 	endi
 
@@ -526,8 +527,10 @@ scrp 2 15 50219 9
 *set direction of travel to match new random velocity
 		doif va00 < 0
 			setv ov02 0
+			anim [0 1 2 3 4 5]
 		elif va00 > 0
 			setv ov02 1
+			anim [6 7 8 9 10 11]
 		endi
 
 
@@ -541,6 +544,19 @@ scrp 2 15 50219 9
 
 *reset drown timer to stop multiple smoke puffs
 			setv ov99 0
+
+
+*if you're being carried by a creature or a vehicle (such as the fishbowl), sort it out!
+			doif carr <> null
+				doif crea carr = 1
+					targ carr
+					drop
+					targ ownr
+				elif type carr = 6
+					rpas carr ownr
+				endi
+			endi
+
 
 			setv va00 posl
 			setv va01 post
@@ -576,14 +592,21 @@ scrp 2 15 50219 9
 			setv va90 posl
 			setv va91 post
 
-			frel null
+*no longer floatable
+			attr 0
 
 			mvto va90 va91
 
 			targ ownr
 
+
+
 *reset perm after safe move
+*TODO: not actually sure what we're doing with our perm here, sanity check and fix it
 			perm 51
+
+
+
 
 			mvsf ov50 ov51
 
@@ -663,7 +686,7 @@ scrp 2 15 50219 9
 
 	inst
 
-	doif carr = null
+	doif carr = null and obst down = 0
 *remember where you were last safe on land. we'll go back there if we drown.
 		setv ov50 posl
 		setv ov51 post

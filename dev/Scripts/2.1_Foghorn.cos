@@ -21,7 +21,7 @@
 
 
 
-new: comp 2 21 50212 "moe_C2toDS_foghorn" 34 0 50
+new: comp 2 21 50212 "moe_C2toDS_foghorn" 34 0 101
 
 *on the dock to the left of the volcano
 mvto 9090 48145

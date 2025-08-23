@@ -6,11 +6,13 @@
 * Aiko changed the placeholder sprites to call buttons (and made them light up)
 * Also made the creature-grabbing more reliable
 
-*todo: norns can fall into the yellow raft, but not this one. make it consistent.
-*todo: night sprites.
-*todo: night version of button, for easy switching visiblity between in night switcher.
+*NeoDement: added support for night switching and made boat pick up passengers dropped into it like the yellow raft
+
+
 
 new: vhcl 3 1 50201 "moe_C2toDS_boat" 1 0 100
+
+tick 1
 
 cabp 1
 
@@ -42,13 +44,12 @@ alph 256 1
 
 *button exists twice, so we can toggle visiblity for night switcher without a complicated anim tracker.
 
-pat: butt 4 "moe_C2toDS_boat" 12 3 60 23 21 [] 1001 0
-
+pat: butt 4 "moe_C2toDS_boat" 12 3 60 23 1 [] 1001 0
 part 4
 frat 2
 alph 0 0
 
-pat: butt 5 "moe_C2toDS_boat_night" 12 3 60 23 21 [] 1001 0
+pat: butt 5 "moe_C2toDS_boat_night" 12 3 60 23 1 [] 1001 0
 
 part 5
 frat 2
@@ -414,37 +415,61 @@ endm
 
 
 
-*scrp 3 1 50201 9
+* pickup creatures who fall in you
+scrp 3 1 50201 9
+
+	inst
+	setv va01 posy
+	etch 4 0 0
+*don't pick up creatures that aren't autonomous (stops the raft stealing creatures out of the hands grasp)
+		doif posb ge va01 and movs eq 0
+*targ ownr
+			spas ownr targ
+*gpas 4 0 0 0
+		endi
+	next
+
+	epas 4 0 0
+		addv va00 1
+	next
+
+	doif va00 gt 0
+		mesg writ ownr 1001
+		wait 1
+	endi
 
 *	doif ov01 eq 0
-
+*
 *		setv va00 0
-
+*
 *		etch 4 0 0
-
+*
 *			setv va00 1
 *
 *		next
-
+*
 *		doif va00 eq 1
-
+*
 *			doif posl lt 6745
-
+*
 *				mesg writ ownr 0
-
+*
 *			else
-
+*
 *				mesg writ ownr 1
-
+*
 *			endi
-
+*
 *		endi
-
+*
 *	endi
-
+*
 *	tick 1200
 
-*endm
+endm
+
+
+
 
 rscr
 enum 3 1 50201
