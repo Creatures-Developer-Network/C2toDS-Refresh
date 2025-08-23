@@ -469,7 +469,7 @@ scrp 2 5 50203 9
 
 			mesg writ targ 12
 
-			snde "gulp"
+			snde "c2gl"
 
 			slow
 
