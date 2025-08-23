@@ -29,18 +29,18 @@ scrp 1 1 50200 10
 endm
 
 
-*debug keys b/n to toggle night/day mode
-scrp 1 1 50200 73
-	doif _p1_ = 66
-		setv ov00 0
-		setv ov99 1
-		call 9 0 0
-	elif _p1_ = 78
-		setv ov00 1
-		setv ov99 2
-		call 9 0 0
-	endi
-endm
+**debug keys b/n to toggle night/day mode
+*scrp 1 1 50200 73
+*	doif _p1_ = 66
+*		setv ov00 0
+*		setv ov99 1
+*		call 9 0 0
+*	elif _p1_ = 78
+*		setv ov00 1
+*		setv ov99 2
+*		call 9 0 0
+*	endi
+*endm
 
 
 
@@ -54,15 +54,15 @@ scrp 1 1 50200 9
 		stop
 	endi
 
-*debug keys b/n to toggle night/day mode
-	doif ov99 eq 1
-		gsub night
-		stop
-	elif ov99 eq 2
-		gsub day
-		stop
-	endi
-	setv ov99 0
+**debug keys b/n to toggle night/day mode
+*	doif ov99 eq 1
+*		gsub night
+*		stop
+*	elif ov99 eq 2
+*		gsub day
+*		stop
+*	endi
+*	setv ov99 0
 
 	doif ov00 eq 0
 		doif time eq 3 or time eq 4
