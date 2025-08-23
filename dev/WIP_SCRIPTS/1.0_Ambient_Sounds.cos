@@ -582,6 +582,9 @@ setv name "whatamI?" 8
 scrp 1 12 50200 9
 
 	doif name "whatamI?" eq 1
+
+		lock
+
 		doif game "VolcanoFlooded" eq 0
 
 			rnge 100
@@ -919,7 +922,51 @@ scrp 1 12 50200 9
 
 		snde "stea"
 
+
 		anim [0 1 2 3 4 5 6 7 8 9 0]
+		
+		
+		*todo: finalize this ____2 alpha blended anim
+		
+*		anim [0]
+*		over
+** 50 % opaque
+*		alph 240 1
+*		anim [1]
+*		over
+*		alph 212 1
+*		anim [2]
+*		over
+*		alph 170 1
+*		anim [3]
+*		over
+*		alph 148 1
+*		anim [4]
+*		over
+*		alph 128 1
+*		anim [5]
+*		over
+*		alph 148 1
+*		anim [6]
+*		over
+*		alph 180 1
+*		anim [7]
+*		over
+*		alph 222 1
+*		anim [8]
+*		over
+*		alph 240 1
+*		anim [9]
+*		over
+** 0 % opaque (invisible)
+*		alph 256 1
+*
+** switch alpha-blending off
+*		anim [0]
+*		over
+*		alph 0 0
+
+
 
 		setv va00 rand 60 160
 
@@ -1156,8 +1203,3 @@ next
 scrx 2 19 50213 10
 scrx 2 19 50213 9
 scrx 2 19 50213 6
-
-
-
-
-

@@ -74,7 +74,7 @@ scrp 2 21 50204 1
 
 	setv vely -2
 
-	sndl "car1"
+	sndl "c2cr"
 
 	doif va00 eq 0
 
@@ -152,7 +152,7 @@ scrp 2 21 50204 2
 
 	setv vely -2
 
-	sndl "car1"
+	sndl "c2cr"
 
 	doif va00 eq 0
 
@@ -232,7 +232,7 @@ scrp 2 21 50204 3
 
 	setv vely -2
 
-	sndl "car1"
+	sndl "c2cr"
 
 	doif va00 eq 0
 

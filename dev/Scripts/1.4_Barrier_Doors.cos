@@ -38,7 +38,7 @@ setv name "open" 1
 
 *Terrarium Door*
 
-new: simp 2 2 50201 "moe_C2toDS_doors" 6 5 1
+new: comp 2 2 50201 "moe_C2toDS_doors" 6 5 1
 
 pose 5
 
@@ -380,11 +380,24 @@ scrp 2 2 50201 1
 
 	doif name "open" eq 0
 
-		anim [5 4 3 2 1 0]
+*		anim [5 4 3 2 1 0]
+
+*we manually animate the doors instead, so night switcher can change pose midway through the anim
+		pose 5
+		wait 2
+		pose 4
+		wait 2
+		pose 3
+		wait 2
+		pose 2
+		wait 2
+		pose 1
+		wait 2
+		pose 0
 
 		door grap 4051 49224 grap 4132 49318 50
 
-		over
+*		over
 
 		sndc "m_a4"
 
@@ -394,11 +407,24 @@ scrp 2 2 50201 1
 
 	elif name "open" eq 1
 
-		anim [0 1 2 3 4 5]
+*		anim [0 1 2 3 4 5]
+
+*we manually animate the doors instead, so night switcher can change pose midway through the anim
+		pose 0
+		wait 2
+		pose 1
+		wait 2
+		pose 2
+		wait 2
+		pose 3
+		wait 2
+		pose 4
+		wait 2
+		pose 5
 
 		door grap 4051 49224 grap 4132 49318 50
 
-		over
+*		over
 
 		sndc "m_a4"
 
