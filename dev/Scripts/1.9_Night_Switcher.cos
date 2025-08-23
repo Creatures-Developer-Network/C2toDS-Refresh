@@ -1,4 +1,4 @@
-* Some fixes by NeoDement - The Terrarium door now remembers the correct pose when changing to/from the night gallery, the trolly cable overlays now have previously missing night galleries. Fixed some overlays disappearing at night. Fixed main bg changing before overlays and world wrap camera bgs can load.
+* Some fixes by NeoDement
 
 ******************
 * Night switcher *
@@ -11,7 +11,7 @@ addb ov01 "c2tods"
 addb ov01 "c2tods_night"
 tick 200
 
-**debug keys b/n to toggle night/day mode
+*debug keys b/n to toggle night/day mode
 *imsk 1
 
 
@@ -29,18 +29,18 @@ scrp 1 1 50200 10
 endm
 
 
-**debug keys b/n to toggle night/day mode
-*scrp 1 1 50200 73
-*	doif _p1_ = 66
-*		setv ov00 0
-*		setv ov99 1
-*		call 9 0 0
-*	elif _p1_ = 78
-*		setv ov00 1
-*		setv ov99 2
-*		call 9 0 0
-*	endi
-*endm
+*debug keys b/n to toggle night/day mode
+scrp 1 1 50200 73
+	doif _p1_ = 66
+		setv ov00 0
+		setv ov99 1
+		call 9 0 0
+	elif _p1_ = 78
+		setv ov00 1
+		setv ov99 2
+		call 9 0 0
+	endi
+endm
 
 
 
@@ -54,15 +54,15 @@ scrp 1 1 50200 9
 		stop
 	endi
 
-**debug keys b/n to toggle night/day mode
-*	doif ov99 eq 1
-*		gsub night
-*		stop
-*	elif ov99 eq 2
-*		gsub day
-*		stop
-*	endi
-*	setv ov99 0
+*debug keys b/n to toggle night/day mode
+	doif ov99 eq 1
+		gsub night
+		stop
+	elif ov99 eq 2
+		gsub day
+		stop
+	endi
+	setv ov99 0
 
 	doif ov00 eq 0
 		doif time eq 3 or time eq 4
@@ -80,38 +80,39 @@ scrp 1 1 50200 9
 		inst
 
 
-*TODO:
-*************************** Terrarium door **************************
-*		enum 2 2 50201
-**show nighttime version of door, hide daytime version
-*			doif gall = "moe_c2tods_doors_night"
-*				show 1
-*			else
-*				show 0
-*			endi
-*		next
+
+************************** Terrarium door **************************
+		enum 2 2 50201
+			setv va00 abba
+			setv va01 pose
+			doif gall = "moe_c2tods_doors"
+				gall "moe_c2tods_doors_night" va00
+			endi
+
+			pose va01
+		next
 
 
 ************************** World tree leaves **************************
 		enum 1 15 50203
-		
+
 			setv va00 abba
 			setv va01 pose
-			
+
 			doif gall eq "moe_c2tods_tre2"
 				gall "moe_c2tods_tre2_night" va00
-				
+
 			elif gall eq "moe_c2tods_tre3"
 				gall "moe_c2tods_tre3_night" va00
-				
+
 			elif gall eq "moe_c2tods_tre2_overlay"
 				gall "moe_c2tods_tre2_overlay_night" va00
 			endi
-			
+
 			pose va01
-			
+
 		next
-		
+
 
 ************************** Boat **************************
 		enum 3 1 50201
@@ -243,35 +244,35 @@ scrp 1 1 50200 9
 
 		inst
 
-*TODO:
-*************************** Terrarium door **************************
-*		enum 2 2 50201
-**show daytime version of door, hide nighttime version
-*			doif gall = "moe_c2tods_doors"
-*				show 1
-*			else
-*				show 0
-*			endi
-*		next
+************************** Terrarium door **************************
+		enum 2 2 50201
+			setv va00 abba
+			setv va01 pose
+			doif gall = "moe_c2tods_doors_night"
+				gall "moe_c2tods_doors" va00
+			endi
+
+			pose va01
+		next
 
 ************************** World tree leaves **************************
 		enum 1 15 50203
-		
+
 			setv va00 abba
 			setv va01 pose
-			
+
 			doif gall eq "moe_c2tods_tre2_night"
 				gall "moe_c2tods_tre2" va00
-				
+
 			elif gall eq "moe_c2tods_tre3_night"
 				gall "moe_c2tods_tre3" va00
-				
+
 			elif gall eq "moe_c2tods_tre2_overlay_night"
 				gall "moe_c2tods_tre2_overlay" va00
 			endi
-			
+
 			pose va01
-			
+
 		next
 
 
