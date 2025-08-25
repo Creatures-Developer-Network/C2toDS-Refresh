@@ -38,7 +38,7 @@ setv name "open" 1
 
 *Terrarium Door*
 
-new: comp 2 2 50201 "moe_C2toDS_doors" 6 5 1
+new: simp 2 2 50201 "moe_C2toDS_doors" 6 5 1
 
 pose 5
 
