@@ -392,7 +392,7 @@ scrp 2 15 50201 9
 
 			anim [0 1]
 
-			addv velx 4
+			addv velx 2
 
 			subv vely accg
 
@@ -404,7 +404,7 @@ scrp 2 15 50201 9
 
 			anim [4 5]
 
-			addv velx 4
+			addv velx 2
 
 			subv vely accg
 
@@ -422,7 +422,7 @@ scrp 2 15 50201 9
 
 			anim [8 9]
 
-			subv velx 4
+			subv velx 2
 
 			subv vely accg
 
@@ -434,7 +434,7 @@ scrp 2 15 50201 9
 
 			anim [12 13]
 
-			subv velx 4
+			subv velx 2
 
 			subv vely accg
 
