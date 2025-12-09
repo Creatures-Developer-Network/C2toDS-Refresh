@@ -123,9 +123,9 @@ scrp 2 15 50212 1
 	doif pose ge 2
 
 		gsub break
-		
+
 	else
-		
+
 		kill targ
 
 	endi
@@ -191,7 +191,7 @@ scrp 2 15 50212 2
 	doif crea from eq 1
 		stim writ from 86 1
 	endi
-	
+
 	mesg writ ownr 0
 
 endm
@@ -222,8 +222,8 @@ scrp 2 15 50212 4
 		stim writ from 86 1
 	else
 
-	wait 5
-	
+		wait 5
+
 	endi
 
 	mesg writ targ 0
@@ -247,7 +247,7 @@ endm
 scrp 2 15 50212 9
 
 	doif rtyp room ownr ne 9
-	
+
 		doif pose ge 2
 
 			gsub break
@@ -312,7 +312,7 @@ scrp 2 15 50212 9
 				setv va01 posb
 
 				addv va01 rand -10 -35
-				
+
 				inst
 
 				new: simp 2 3 50227 "moe_C2toDS_coral" 6 0 rand 1000 3000
@@ -322,7 +322,7 @@ scrp 2 15 50212 9
 				addv vely -2
 
 				targ ownr
-				
+
 				slow
 
 			repe
@@ -566,7 +566,7 @@ scrp 2 3 50227 9
 			setv va00 24
 
 		endi
-		
+
 		inst
 
 
@@ -641,7 +641,7 @@ endm
 scrp 2 3 50227 12
 
 	snde "reat"
-	
+
 	doif crea from eq 1
 		stim writ from 80 1
 	endi
@@ -723,7 +723,7 @@ scrp 2 10 50212 10
 
 	mira rand 0 1
 
-	tick rand 200 500
+	tick rand 1000 2400
 
 endm
 
