@@ -394,7 +394,7 @@ scrp 2 15 50201 9
 
 			addv velx 4
 
-			subv vely -2
+			subv vely accg
 
 			over
 
@@ -406,7 +406,7 @@ scrp 2 15 50201 9
 
 			addv velx 4
 
-			subv vely -2
+			subv vely accg
 
 			over
 
@@ -424,7 +424,7 @@ scrp 2 15 50201 9
 
 			subv velx 4
 
-			subv vely -2
+			subv vely accg
 
 			over
 
@@ -436,7 +436,7 @@ scrp 2 15 50201 9
 
 			subv velx 4
 
-			subv vely -2
+			subv vely accg
 
 			over
 
