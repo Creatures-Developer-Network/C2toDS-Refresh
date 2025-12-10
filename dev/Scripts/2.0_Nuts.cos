@@ -352,7 +352,7 @@ scrp 2 3 50202 9
 
 			else
 
-				mvsf va00 va01
+				stop
 
 			endi
 

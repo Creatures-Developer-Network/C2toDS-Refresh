@@ -99,7 +99,7 @@ repe
 
 scrp 2 23 50204 10
 
-inst
+	inst
 
 	attr 199
 
@@ -450,9 +450,7 @@ scrp 2 3 50204 9
 			mvto va00 va01
 
 		else
-
-			mvsf va00 va01
-
+			kill targ
 		endi
 
 		targ ownr
@@ -1607,7 +1605,7 @@ endm
 
 scrp 2 10 50204 10
 
-inst
+	inst
 
 	attr 195
 
