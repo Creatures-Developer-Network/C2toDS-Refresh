@@ -1083,13 +1083,14 @@ scrp 2 19 50200 1
 
 
 	setv va00 rand 0 6
+	doif keyd 16 eq 1
+		doif va00 eq 2 and name "MadeARainbow?" eq 0
 
-	doif va00 eq 2 and name "MadeARainbow?" eq 0
+			mesg writ targ 1004
 
-		mesg writ targ 1004
+			setv name "MadeARainbow?" 1
 
-		setv name "MadeARainbow?" 1
-
+		endi
 	endi
 
 	slow
