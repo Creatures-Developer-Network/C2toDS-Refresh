@@ -263,7 +263,8 @@ scrp 2 3 50202 9
 				gsub die
 
 			endi
-
+		else
+			gsub die
 		endi
 
 	retn
