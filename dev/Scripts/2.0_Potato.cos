@@ -123,7 +123,7 @@ scrp 2 23 50201 3
 	doif crea from eq 1
 		stim writ from 92 1
 	endi
-	
+
 	snde "hit_"
 	velo rand -2 2 rand -5 0
 endm
@@ -189,7 +189,10 @@ scrp 2 3 50201 9
 
 			doif targ ne null
 
-				doif relx ownr targ lt 100
+				setv va05 relx ownr targ
+				absv va05
+
+				doif va05 lt 150
 
 					addv va12 1
 
@@ -209,7 +212,14 @@ scrp 2 3 50201 9
 
 			new: simp 2 11 50201 "moe_C2toDS_potato" 8 1 1001
 
-			mvto va00 va01
+			subv va01 48
+
+			doif tmvt va00 va01 eq 1
+				addv va01 44
+				mvto va00 va01
+			else
+				gsub die
+			endi
 
 			setv ov02 post
 
@@ -446,17 +456,22 @@ scrp 2 11 50201 9
 		setv ov05 posx
 
 		setv ov06 post
+*TODO: subtract this with more precision. Trying to figure out where the carrot actually is in relation to the ground and find the perfect height to spawn.
+		subv ov06 24
 
 		inst
 
 		new: simp 2 3 50201 "moe_C2toDS_potato" 9 0 1001
 
-		mvsf mv05 mv06
+		doif tmvt mv05 mv06 eq 1
 
-		setv velx rand -15 15
+			mvto mv05 mv06
+			setv velx rand -15 15
 
-		setv vely rand -5 -10
-
+			setv vely rand -5 -10
+		else
+			kill targ
+		endi
 		targ ownr
 
 	retn
@@ -470,7 +485,7 @@ scrp 2 11 50201 9
 		setv va00 posl
 
 		setv va01 post
-	
+
 
 		doif mira eq 1
 
@@ -483,10 +498,11 @@ scrp 2 11 50201 9
 		endi
 
 
-
+		dbg: outv pose
 		doif pose eq 4
 
 			setv va03 0
+
 
 		else
 
@@ -496,8 +512,8 @@ scrp 2 11 50201 9
 
 
 		new: simp 2 10 50201 "moe_C2toDS_potato" 2 7 1001
-		
-		mvto va00 va01 
+
+		mvto va00 va01
 
 		pose va03
 
@@ -606,7 +622,7 @@ scrp 2 10 50201 10
 	inst
 
 	attr 7
-	
+
 	bhvr 48
 
 	elas 10
@@ -628,7 +644,7 @@ scrp 2 10 50201 10
 endm
 
 scrp 2 10 50201 9
-inst
+	inst
 	doif carr ne null
 
 		stop
@@ -746,7 +762,7 @@ endm
 
 
 scrp 2 10 50201 12
-inst
+	inst
 	stim writ from 81 1
 
 	targ from
