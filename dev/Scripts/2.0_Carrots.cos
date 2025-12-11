@@ -426,7 +426,7 @@ scrp 2 11 50200 9
 
 *Detritus
 
-		reps rand 1 3
+		reps rand 1 2
 
 			gsub seed
 
