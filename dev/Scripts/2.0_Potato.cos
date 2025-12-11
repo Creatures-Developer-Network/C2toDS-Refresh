@@ -498,7 +498,6 @@ scrp 2 11 50201 9
 		endi
 
 
-		dbg: outv pose
 		doif pose eq 4
 
 			setv va03 0
