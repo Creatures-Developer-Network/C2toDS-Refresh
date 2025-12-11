@@ -1292,7 +1292,19 @@ scrp 2 15 50215 9
 
 *What CA are we looking for?
 
-		setv va01 9
+		setv va01 rand 0 2
+		doif va01 eq 0
+			setv va01 9
+		elif va01 eq 1
+			setv va01 2
+		else
+			setv va01 7
+		endi
+
+*If you're hungry, search for starch because startch = seeds
+		doif ov02 lt 50
+			setv va01 7
+		endi
 
 
 
