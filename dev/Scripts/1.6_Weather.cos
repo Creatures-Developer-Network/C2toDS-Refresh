@@ -1209,13 +1209,16 @@ scrp 2 19 50200 1001
 
 		setv va06 2
 
+		rnge 1900
 		setv va08 obst down
 
+
 		divv va08 80
+		dbg: outv va08
 
 		doif va08 lt 1 or va08 ge 30
 
-			setv va08 3
+			setv va08 24
 
 		endi
 
