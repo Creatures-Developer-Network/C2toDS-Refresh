@@ -1214,7 +1214,6 @@ scrp 2 19 50200 1001
 
 
 		divv va08 80
-		dbg: outv va08
 
 		doif va08 lt 1 or va08 ge 30
 
