@@ -1,0 +1,985 @@
+
+new: simp 1 1 50203 "moe_C2toDS_Ecofairy" 29 0 8000
+mvto 6321 49000
+
+scrp 1 1 50203 10
+	attr 208
+	accg 0
+	aero 3
+	fric 5
+	frat 2
+	anim [0 1 2 3 4 5 6 7 255]
+	setv ov00 20
+	tick 20
+*EcoFairy Check Every IRL 5 Minutes
+	tick 6000
+	mesg writ ownr 9
+endm
+
+scrp 1 1 50203 9
+	inst
+*These are the possible checks so far:
+*C2toDS_PopCtrl_
+*Tomatoes
+*Nuts
+*Pears
+*Triffids
+*Trumpets
+*Carrots
+*Potatoes
+*Grass
+*Barnacles
+*Coral
+*Crabs
+*Frogs
+*Goldfish
+*Jellyfish
+*Zander
+*Red Butterfly
+*Purple Butteryfly
+*Snails
+*BlueBirds
+*Bees
+*Hummingbirds
+*Wasps
+*Ants
+*Cacti
+
+* Don't check at night. Things don't grow or do anything at night.
+	doif time eq 4
+		gsub disappear
+		stop
+	endi
+
+
+
+
+*Tantris Tree Area
+*Tomatoes, Nuts, Pears, Trumpets
+*Wasps (check for nest, spawn queen)
+
+	rnge 750
+	mvto 3915 48730
+	gsub appear
+
+	gsub Tomatoes
+	gsub Nuts
+	gsub Pears
+	gsub Trumpets
+	gsub Wasps
+
+
+	gsub fly
+	wait ov00
+	gsub disappear
+
+*World Tree Area
+*Pears, Grass, Triffids, Trumpets, Sunflowers in Summer
+*Butterflies (all, eggs), Bluebirds (male-female pair spawned), Ants & Bees (check for nest, spawn queen).
+*Bluebirds travel around... maybe check the whole metaroom for these!
+
+	rnge 1500
+	mvto 3840 48060
+	gsub appear
+	gsub Pears
+	gsub Trumpets
+	gsub Triffids
+	gsub Grass
+	gsub Bluebirds
+	gsub fly
+	wait ov00
+	gsub disappear
+
+*Waterfalls
+*Humming Birds (These travel, scan whole world, male-femal pair spawned), Bees (check for nest)
+*TODO
+	rnge 300
+	mvto 6530 48400
+	gsub appear
+	wait ov00
+	gsub disappear
+
+*Sealed Biopod
+*Pears, Sunflowers in Summer
+*Butterflies (all, eggs), Snails
+*TODO Sunflowers
+	rnge 250
+	mvto 3915 49220
+	gsub appear
+	gsub Pears
+	gsub RedButterflies
+	gsub YellowButterflies
+	gsub PurpleButterflies
+	wait ov00
+	gsub disappear
+
+*Ettin Garden
+*Carrots, Potatoes, Triffid, Trumpet, Pears, Grass, Sunflowers in Summer
+*Butterflies (all, eggs), Snails
+
+	rnge 1900
+	mvto 5850 49690
+	gsub appear
+*TODO Sunflowers
+	gsub Triffids
+	gsub Trumpets
+	gsub Pears
+	gsub Potatoes
+	gsub Carrots
+	gsub Grass
+	gsub RedButterflies
+	gsub YellowButterflies
+	gsub PurpleButterflies
+	wait ov00
+	gsub disappear
+
+*Norn Burrow
+*Tomatoes, Grass
+
+	rnge 750
+	mvto 7310 48335
+	gsub appear
+	gsub Tomatoes
+	gsub Grass
+	wait ov00
+	gsub disappear
+
+*Norn Burrow, Lower
+*Tomatoes
+
+	rnge 200
+	mvto 7850 48665
+	gsub appear
+	gsub Tomatoes
+	wait ov00
+	gsub disappear
+
+*Desert Right
+*Cacti (Both), Bees (Check for nest, spawn queen)
+*TODO Bees
+	rnge 750
+	mvto 7500 47945
+	gsub appear
+*gsub Bees
+	gsub CactiSpike
+	gsub CactiSpin
+	wait ov00
+	gsub disappear
+
+*Desert Left
+*Cacti, both
+
+	rnge 200
+	mvto 6390 48060
+	gsub appear
+	gsub CactiSpike
+	gsub CactiSpin
+	wait ov00
+	gsub disappear
+
+*Light Ocean
+*Crabs, Coral, Barnacles, Jellyfish, Zander, Goldfish
+
+	rnge 700
+	mvto 8750 48500
+	gsub appear
+	gsub Crabs
+	gsub Coral
+	gsub Barnacles
+	gsub Jellyfish
+	gsub Zander
+	gsub Goldfish
+	wait ov00
+	gsub disappear
+
+*Dark Ocean
+*Coral, Zander
+
+	rnge 750
+	mvto 2670 48500
+	gsub appear
+	gsub Coral
+	gsub Zander
+	wait ov00
+	gsub disappear
+
+*Small Pond Under Ocean
+*Goldfish, Tadpoles/Frogs in spring
+*TODO Tadpoles
+	rnge 200
+	mvto 2840 48860
+	gsub appear
+	gsub Goldfish
+	wait ov00
+	gsub disappear
+
+*Small Pond Under Tantris Tree
+*Goldfish
+
+	rnge 200
+	mvto 4160 49060
+	gsub appear
+	gsub Goldfish
+	wait ov00
+	gsub disappear
+
+*Waterwheel Pond
+*Goldfish, Tadpoles/Frogs in spring
+*TODO Tadpoles
+
+	rnge 750
+	mvto 4530 49880
+	gsub appear
+	gsub Goldfish
+	wait ov00
+	gsub disappear
+
+*Burrow Pond
+*Goldfish
+	rnge 300
+	mvto 6530 48400
+	gsub appear
+	gsub Goldfish
+	wait ov00
+	gsub disappear
+
+	subr appear
+*Give her a little movement.
+		velo rand -1 1 rand -1 1
+		anim [28 27 26 25 24]
+		over
+		reps 1
+			anim [0 1 2 3 4 5 6 7]
+			over
+			gsub fly
+		repe
+	retn
+
+	subr disappear
+		anim [24 25 26 27 28]
+		over
+	retn
+
+	subr fly
+		anim [0 1 2 3 4 5 6 7 255]
+	retn
+
+	subr cast
+		anim [17 18 19 20 21 22 23]
+		over
+	retn
+
+	subr finishCast
+		anim [22 21 20 19 18 17]
+		over
+	retn
+
+	subr Tomatoes
+		doif game "C2toDS_PopCtrl_Tomatoes" eq 1
+			setv va00 2
+			setv va01 4
+			setv va02 50200
+			setv va03 0
+			gsub count
+
+			doif va03 lt 3
+				gsub cast
+				reps rand 3 4
+					setv va04 posx
+					setv va05 post
+					new: simp 2 4 50200 "moe_C2toDS_toms" 15 0 rand 1000 3000
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -150 150
+					divv va07 10
+					velo va07 rand -5 -10
+					pose rand 0 6
+					targ ownr
+				repe
+				gsub finishCast
+			endi
+		endi
+	retn
+	subr Nuts
+		doif game "C2toDS_PopCtrl_Nuts" eq 1
+			setv va00 2
+			setv va01 4
+			setv va02 50202
+			setv va03 0
+			gsub count
+
+			doif va03 lt 3
+				gsub cast
+				reps rand 3 4
+					setv va04 posx
+					setv va05 post
+					new: comp 2 4 50202 "moe_C2toDS_nuts" 14 17 rand 1000 3000
+					pose rand 0 5
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -150 150
+					divv va07 10
+					velo va07 rand -5 -10
+					targ ownr
+				repe
+				gsub finishCast
+			endi
+		endi
+	retn
+	subr Pears
+		doif game "C2toDS_PopCtrl_Pears" eq 1
+			setv va00 2
+			setv va01 7
+			setv va02 50204
+			setv va03 0
+			gsub count
+
+			doif va03 lt 3
+				gsub cast
+				reps rand 3 4
+					setv va04 posx
+					setv va05 post
+					new: comp 2 7 50204 "moe_C2toDS_pear" 35 24 rand 500 2500
+					pose 12
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -150 150
+					divv va07 10
+					velo va07 rand -5 -10
+					targ ownr
+				repe
+				gsub finishCast
+			endi
+		endi
+	retn
+
+	subr Trumpets
+
+		doif game "C2toDS_PopCtrl_Trumpets" eq 1
+			setv va00 2
+			setv va01 7
+			setv va02 50203
+			setv va03 0
+			gsub count
+
+			doif va03 lt 3
+				gsub cast
+				reps rand 3 4
+					setv va04 posx
+					setv va05 post
+					new: simp 2 7 50203 "moe_C2toDS_trumpet" 31 19 rand 500 2500
+					pose rand 0 8
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -150 150
+					divv va07 10
+					velo va07 rand -5 -10
+					targ ownr
+				repe
+				gsub finishCast
+
+			endi
+		endi
+	retn
+
+	subr Triffids
+		doif game "C2toDS_PopCtrl_Triffids" eq 1
+			setv va00 2
+			setv va01 7
+			setv va02 50205
+			setv va03 0
+			gsub count
+
+			doif va03 lt 3
+				gsub cast
+				reps rand 3 4
+					setv va04 posx
+					setv va05 post
+					new: simp 2 7 50205 "moe_C2toDS_triff" 34 21 rand 1000 3000
+					pose 7
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -150 150
+					divv va07 10
+					velo va07 rand -5 -10
+					targ ownr
+				repe
+				gsub finishCast
+
+			endi
+		endi
+	retn
+
+	subr Grass
+		doif game "C2toDS_PopCtrl_Tomatoes" eq 1
+			setv va00 2
+			setv va01 4
+			setv va02 50222
+			setv va03 0
+			gsub count
+
+			doif va03 lt 3
+				gsub cast
+				reps rand 3 4
+					setv va04 posx
+					setv va05 post
+					new: simp 2 4 50222 "moe_C2toDS_grass" 8 22 rand 1000 3000
+					pose rand 0 3
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -150 150
+					divv va07 10
+					velo va07 rand -5 -10
+					targ ownr
+				repe
+				gsub finishCast
+
+			endi
+		endi
+	retn
+
+	subr Carrots
+		doif game "C2toDS_PopCtrl_Carrots" eq 1
+			setv va00 2
+			setv va01 3
+			setv va02 50200
+			setv va03 0
+			gsub count
+
+			doif va03 lt 3
+				gsub cast
+				reps rand 3 4
+					setv va04 posx
+					setv va05 post
+					new: simp 2 3 50200 "moe_C2toDS_carrots" 9 10 rand 1001 5000
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -150 150
+					divv va07 10
+					velo va07 rand -5 -10
+					targ ownr
+				repe
+				gsub finishCast
+
+			endi
+		endi
+	retn
+
+	subr Potatoes
+		doif game "C2toDS_PopCtrl_Potatoes" eq 1
+			setv va00 2
+			setv va01 3
+			setv va02 50201
+			setv va03 0
+			gsub count
+
+			doif va03 lt 3
+				gsub cast
+				reps rand 3 4
+					setv va04 posx
+					setv va05 post
+					new: simp 2 3 50201 "moe_C2toDS_potato" 9 0 1001
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -150 150
+					divv va07 10
+					velo va07 rand -5 -10
+					targ ownr
+				repe
+				gsub finishCast
+			endi
+		endi
+	retn
+
+	subr Wasps
+		doif game "C2toDS_PopCtrl_Wasps" eq 1
+			setv va00 2
+			setv va01 17
+			setv va02 50209
+			setv va03 0
+			gsub count
+
+			doif va03 lt 1
+				gsub cast
+				reps 1
+					setv va04 posx
+					setv va05 post
+					new: simp 2 14 50209 "moe_C2toDS_wasp" 3 15 1
+					setv ov14 1
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -150 150
+					divv va07 10
+					velo va07 rand -5 -10
+					targ ownr
+				repe
+				gsub finishCast
+			endi
+		endi
+	retn
+
+	subr Bluebirds
+		doif game "C2toDS_PopCtrl_Bluebirds" eq 1
+			setv va00 2
+			setv va01 15
+			setv va02 50215
+			setv va03 0
+			gsub count
+
+			doif va03 lt 2
+				gsub cast
+				reps 1
+					setv va04 posx
+					setv va05 post
+					new: simp 2 15 50215 "moe_C2toDS_bluebird" 98 0 3000
+					setv ov11 2
+					setv ov03 0
+					base 49
+					pose 0
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -150 150
+					divv va07 10
+					velo va07 rand -5 -10
+					targ ownr
+
+					setv va04 posx
+					setv va05 post
+					new: simp 2 15 50215 "moe_C2toDS_bluebird" 98 0 3000
+					setv ov11 2
+					setv ov03 1
+					base 49
+					pose 0
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -150 150
+					divv va07 10
+					velo va07 rand -5 -10
+					targ ownr
+				repe
+				gsub finishCast
+
+			endi
+		endi
+	retn
+
+	subr Bees
+		doif game "C2toDS_PopCtrl_Bees" eq 1
+			setv va00 2
+			setv va01 17
+			setv va02 50200
+			setv va03 0
+			gsub count
+
+			doif va03 lt 1
+				gsub cast
+				reps 1
+					setv va04 posx
+					setv va05 post
+					new: simp 2 14 50201 "moe_C2toDS_hive" 8 30 rand 1000 5000
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -150 150
+					divv va07 10
+					velo va07 rand -5 -10
+					targ ownr
+				repe
+				gsub finishCast
+
+			endi
+		endi
+	retn
+
+	subr Hummingbirds
+		doif game "C2toDS_PopCtrl_Hummingbirds" eq 1
+
+		endi
+	retn
+
+
+	subr CactiSpike
+		doif game "C2toDS_PopCtrl_Cacti" eq 1
+			setv va00 2
+			setv va01 5
+			setv va02 50207
+			setv va03 0
+			gsub count
+
+			doif va03 lt 1
+				gsub cast
+				reps rand 1 3
+					setv va04 posx
+					setv va05 post
+					new: simp 2 5 50207 "moe_C2toDS_cacti" 13 32 rand 1000 1100
+					accg 10
+					pose 6
+					bhvr 11
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -150 150
+					divv va07 10
+					velo va07 rand -5 -10
+					targ ownr
+				repe
+				gsub finishCast
+
+			endi
+		endi
+	retn
+
+	subr CactiSpin
+		doif game "C2toDS_PopCtrl_Cacti" eq 1
+			setv va00 2
+			setv va01 5
+			setv va02 50206
+			setv va03 0
+			gsub count
+
+			doif va03 lt 1
+				gsub cast
+				reps rand 1 3
+					setv va04 posx
+					setv va05 post
+					new: simp 2 5 50206 "moe_C2toDS_cacti" 20 0 rand 1000 1100
+					accg 10
+					bhvr 11
+					pose 9
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -150 150
+					divv va07 10
+					velo va07 rand -5 -10
+					targ ownr
+				repe
+				gsub finishCast
+
+			endi
+		endi
+	retn
+
+	subr RedButterflies
+*Looks for caterpillars
+		doif game "C2toDS_PopCtrl_Red Butterfly" eq 1 and SEAN lt 2 and TIME gt 3
+			setv va00 2
+			setv va01 13
+			setv va02 50205
+			setv va03 0
+			gsub count
+			setv va00 2
+			setv va01 13
+			setv va02 50207
+*setv va03 0
+			gsub count
+
+			doif va03 lt 1
+				gsub cast
+				reps rand 1 3
+					setv va04 posx
+					setv va05 post
+					new: simp 2 13 50207 "moe_C2toDS_bufl" 18 46 rand 1500 2501
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -150 150
+					divv va07 10
+					velo va07 rand -5 -10
+					targ ownr
+				repe
+				gsub finishCast
+
+			endi
+		endi
+	retn
+
+	subr PurpleButterflies
+*Looks for caterpillars
+		doif game "C2toDS_PopCtrl_Purple Butterfly" eq 1 and SEAN lt 3 and SEAN gt 0 and TIME gt 3
+			setv va00 2
+			setv va01 13
+			setv va02 50206
+			setv va03 0
+			gsub count
+			setv va00 2
+			setv va01 13
+			setv va02 50208
+*setv va03 0
+			gsub count
+
+			doif va03 lt 1
+				gsub cast
+				reps rand 1 3
+					setv va04 posx
+					setv va05 post
+					new: simp 2 18 50206 "moe_C2toDS_bufl" 1 129 rand 1500 2501
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -150 150
+					divv va07 10
+					velo va07 rand -5 -10
+					targ ownr
+				repe
+				gsub finishCast
+
+			endi
+		endi
+	retn
+
+	subr YellowButterflies
+*Looks for Caterpillars and Butterflies
+		doif game "C2toDS_PopCtrl_Yellow Butterfly" eq 1 and SEAN lt 3 and TIME gt 3
+			setv va00 2
+			setv va01 13
+			setv va02 50209
+			setv va03 0
+			gsub count
+			setv va00 2
+			setv va01 13
+			setv va02 50210
+*setv va03 0
+			gsub count
+
+			doif va03 lt 1
+				gsub cast
+				reps rand 1 3
+					setv va04 posx
+					setv va05 post
+					new: simp 2 18 50209 "moe_C2toDS_c1bufl" 1 64 rand 1500 2501
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -150 150
+					divv va07 10
+					velo va07 rand -5 -10
+					targ ownr
+				repe
+				gsub finishCast
+
+			endi
+		endi
+	retn
+
+	subr Crabs
+		doif game "C2toDS_PopCtrl_Crabs" eq 1
+			setv va00 2
+			setv va01 13
+			setv va02 50211
+			setv va03 0
+			gsub count
+
+			doif va03 lt 1
+				gsub cast
+				reps rand 1 3
+					setv va04 posx
+					setv va05 post
+					new: simp 2 13 50211 "moe_C2toDS_crab" 32 7 rand 1000 3000
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -150 150
+					divv va07 10
+					velo va07 rand -5 -10
+					targ ownr
+				repe
+				gsub finishCast
+
+			endi
+		endi
+	retn
+
+	subr Coral
+		doif game "C2toDS_PopCtrl_Coral" eq 1
+			setv va00 2
+			setv va01 15
+			setv va02 50212
+			setv va03 0
+			gsub count
+
+			doif va03 lt 1
+				gsub cast
+				reps rand 1 3
+					setv va04 posx
+					setv va05 post
+					new: simp 2 15 50212 "moe_c2tods_coral" 6 va00 rand 1000 3000
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -150 150
+					divv va07 10
+					velo va07 rand -5 -10
+					targ ownr
+				repe
+				gsub finishCast
+
+			endi
+		endi
+	retn
+
+	subr Barnacles
+		doif game "C2toDS_PopCtrl_Barnacles" eq 1
+			setv va00 2
+			setv va01 15
+			setv va02 50205
+			setv va03 0
+			gsub count
+
+			doif va03 lt 1
+				gsub cast
+				reps rand 3 4
+					setv va04 posx
+					setv va05 post
+					new: simp 2 18 50208 "moe_C2toDS_barnacles" 11 55 rand 1000 3000
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -150 150
+					divv va07 10
+					velo va07 rand -5 -10
+					targ ownr
+				repe
+				gsub finishCast
+
+			endi
+		endi
+	retn
+
+	subr Jellyfish
+		doif game "C2toDS_PopCtrl_Jellyfish" eq 1
+			setv va00 2
+			setv va01 15
+			setv va02 50213
+			setv va03 0
+			gsub count
+
+			doif va03 lt 1
+				gsub cast
+				reps rand 1 2
+					setv va04 posx
+					setv va05 post
+					new: simp 2 15 50214 "moe_C2toDS_jellyfish" 1 48 3000
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -150 150
+					divv va07 10
+					velo va07 rand -5 -10
+					targ ownr
+				repe
+				gsub finishCast
+
+			endi
+		endi
+	retn
+
+	subr Zander
+		doif game "C2toDS_PopCtrl_Zander" eq 1
+			setv va00 2
+			setv va01 15
+			setv va02 50202
+			setv va03 0
+			gsub count
+
+			doif va03 lt 1
+				gsub cast
+				reps rand 4 6
+					setv va04 posx
+					setv va05 post
+					new: simp 2 15 50202 "moe_c2tods_zand" 33 12 rand 1000 3000
+					base 16
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -150 150
+					divv va07 10
+					velo va07 rand -1 -5
+					targ ownr
+				repe
+				gsub finishCast
+
+			endi
+		endi
+	retn
+
+	subr Goldfish
+		doif game "C2toDS_PopCtrl_Goldfish" eq 1
+			setv va00 2
+			setv va01 15
+			setv va02 50203
+			setv va03 0
+			gsub count
+
+			doif va03 lt 1
+				gsub cast
+				reps rand 3 5
+					setv va04 posx
+					setv va05 post
+					new: simp 2 15 50203 "moe_c2tods_goldf" 18 12 rand 1000 3000
+					setv va06 wdth
+					divv va06 2
+					subv va04 va06
+					mvto va04 va05
+					setv va07 rand -50 50
+					divv va07 10
+					velo va07 1
+					targ ownr
+				repe
+				gsub finishCast
+
+			endi
+		endi
+	retn
+
+
+
+
+
+	subr count
+		esee va00 va01 va02
+			addv va03 1
+		next
+	retn
+
+
+endm
+
+
+rscr
+enum 1 1 50203
+	kill targ
+next
