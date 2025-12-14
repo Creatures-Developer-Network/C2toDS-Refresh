@@ -50,7 +50,7 @@ scrp 3 3 50202 1
 		enum 1 8 50200
 			doif targ ne null
 				doif name "whatamI?" eq 16
-					show 0
+					kill targ
 				endi
 			endi
 		next
@@ -142,13 +142,13 @@ scrp 3 3 50202 1
 				kill targ
 			endi
 		next
-		enum 1 8 50200
-			doif targ ne null
-				doif name "whatamI?" eq 16
-					show 1
-				endi
-			endi
-		next
+*		enum 1 8 50200
+*			doif targ ne null
+*				doif name "whatamI?" eq 16
+*					show 1
+*				endi
+*			endi
+*		next
 
 
 *Restore Volcano Overlays
@@ -260,8 +260,31 @@ scrp 3 3 50202 1
 		pose 10
 		tick 100
 		setv name "whatamI?" 1
-	endi
 
+
+*Volcano Cap Spouts overlay Left*
+
+		new: comp 1 8 50200 "blnk" 0 0 0
+		pat: dull 1 "moe_C2toDS_Overlays" 24 0 0 8000
+
+		attr 0
+
+		setv name "whatamI?" 16
+
+		mvto 9213 49753
+
+
+*Volcano Cap Spouts overlay Right*
+
+		new: comp 1 8 50200 "blnk" 0 0 0
+		pat: dull 1 "moe_C2toDS_Overlays" 25 0 0 8000
+
+		attr 0
+
+		setv name "whatamI?" 16
+
+		mvto 9512 49716
+	endi
 endm
 
 
@@ -356,13 +379,13 @@ enum 1 8 50200
 next
 
 *fix volcano caps
-enum 1 8 50200
-	doif targ ne null
-		doif name "whatamI?" eq 16
-			show 1
-		endi
-	endi
-next
+*enum 1 8 50200
+*	doif targ ne null
+*		doif name "whatamI?" eq 16
+*			show 1
+*		endi
+*	endi
+*next
 
 enum 2 19 50214
 	kill targ
