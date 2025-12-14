@@ -27,7 +27,7 @@ scrp 3 3 50202 1
 *kill volcano overlays
 		enum 1 12 50200
 			doif targ ne null
-				doif name "whatamI?" eq 8 or name "whatamI?" eq 9 or name "whatamI?" eq 11 or name "whatamI?" eq 12 or name "whatamI?" eq 13
+				doif name "whatamI?" eq 8 or name "whatamI?" eq 9 or name "whatamI?" eq 11 or name "whatamI?" eq 12 or name "whatamI?" eq 1
 					kill targ
 				endi
 			endi
@@ -35,13 +35,13 @@ scrp 3 3 50202 1
 
 
 *submerged volcano background
-		new: simp 1 8 50200 "moe_C2toDS_volcFloodOverlay" 1 0 2
+		new: simp 1 12 50200 "moe_C2toDS_volcFloodOverlay" 1 0 2
 		setv name "whatamI?" 15
 		mvto 8646 49221
 		targ ownr
 
 *cap overlays
-		new: simp 1 8 50200 "moe_C2toDS_volcFloodOverlay" 1 1 8000
+		new: simp 1 12 50200 "moe_C2toDS_volcFloodOverlay" 1 1 8000
 		setv name "whatamI?" 15
 		mvto 9202 49715
 		targ ownr
@@ -137,7 +137,7 @@ scrp 3 3 50202 1
 		untl va00 ge 10275
 
 *remove background and set caps back
-		enum 1 8 50200
+		enum 1 12 50200
 			doif name "whatamI?" eq 15
 				kill targ
 			endi
