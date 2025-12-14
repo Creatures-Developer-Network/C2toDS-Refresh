@@ -27,13 +27,15 @@ setv game "C2toDS_PopCtrl_Goldfish" va00
 setv game "C2toDS_PopCtrl_Jellyfish" va00
 setv game "C2toDS_PopCtrl_Zander" va00
 setv game "C2toDS_PopCtrl_Red Butterfly" va00
-setv game "C2toDS_PopCtrl_Purple Butteryfly" va00
+setv game "C2toDS_PopCtrl_Purple Butterfly" va00
+setv game "C2toDS_PopCtrl_Yellow Butterfly" va00
 setv game "C2toDS_PopCtrl_Snails" va00
-setv game "C2toDS_PopCtrl_BlueBirds" va00
+setv game "C2toDS_PopCtrl_Bluebirds" va00
 setv game "C2toDS_PopCtrl_Bees" va00
 setv game "C2toDS_PopCtrl_Hummingbirds" va00
-setv game "C2toDS_PopCtrl_Wasp" va00
+setv game "C2toDS_PopCtrl_Wasps" va00
 setv game "C2toDS_PopCtrl_Ants" va00
+setv game "C2toDS_PopCtrl_Cacti" va00
 
 scrp 1 1 50204 10
 	attr 306
