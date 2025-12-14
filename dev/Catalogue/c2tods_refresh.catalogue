@@ -228,7 +228,7 @@ TAG "Agent Help 2 4 50202"
 
 TAG "Agent Help 2 4 50204"
 "C2DS Gelsemium Plant"
-"Gelsemium Plant "
+"A strange mushroom type plant that grows in very few places – the fruit is a valued medicine and will not survive off the plant for very long if the conditions are not right."
 
 TAG "Agent Help 2 4 50217"
 "C2DS Aubergine Plant"
@@ -248,11 +248,11 @@ TAG "Agent Help 2 5 50203"
 
 TAG "Agent Help 2 5 50206"
 "C2DS Spinnomosa"
-"Spinnomosa "
+"Likes warm, desert conditions, grows all year round (except winter) in the mornings, produces flowers at night."
 
 TAG "Agent Help 2 5 50207"
 "C2DS Spikeocausius"
-"Spikeocausius "
+"Likes warm, desert conditions, produces flowers in springtime nights."
 
 TAG "Agent Help 2 6 50200"
 "C2DS World Tree Leaf"
@@ -312,11 +312,11 @@ TAG "Agent Help 2 7 50203"
 
 TAG "Agent Help 2 7 50204"
 "C2DS Pear Flower"
-"Pear Flower "
+"Likes temperate/sub tropical conditions, opens sepals during the day to reveal a juicy fruit. Seeds can lay dormant during winter."
 
 TAG "Agent Help 2 7 50205"
 "C2DS Triffid Flower"
-"Triffid Flower "
+"This plant reproduces by sexual reproduction, and produces several seed that sits inside a protective bubble. It is a hardy species that can survive in a wide range of climates. The fruit is good source of nutrition."
 
 TAG "Agent Help 2 7 50209"
 "C2DS Foxfire Flower"
@@ -440,11 +440,11 @@ TAG "Agent Help 2 10 50218"
 
 TAG "Agent Help 2 11 50200"
 "C2DS Carrot"
-"Carrot "
+"A staple diet food for Norns and many other creatures in Albia."
 
 TAG "Agent Help 2 11 50201"
 "C2DS Potato"
-"Potato "
+"Another root food source for Norns, high in starch."
 
 TAG "Agent Help 2 11 50202"
 "C2DS Cheese"
@@ -504,19 +504,19 @@ TAG "Agent Help 2 13 50210"
 
 TAG "Agent Help 2 14 50200"
 "C2DS Bee"
-"Bee "
+"They will fly to flowers and bring pollen and nectar back to the hive. Bees are relatively harmless unless disturbed, in which case, run!"
 
 TAG "Agent Help 2 14 50201"
 "C2DS Queen Bee"
-"Queen Bee "
+"Queen of an Albian bee swarm. She will form a new nest if she finds a suitable spot."
 
 TAG "Agent Help 2 14 50204"
 "C2DS Queen Ant"
-"Queen Ant "
+"Queen ants will fly until they find a new locaiton suitable for a nest."
 
 TAG "Agent Help 2 14 50205"
 "C2DS Ant"
-"Ant "
+"Ants are busy little workers that are known to eat both desiccated root crops and rotten fruit."
 
 TAG "Agent Help 2 14 50209"
 "C2DS Wasp"
@@ -524,15 +524,15 @@ TAG "Agent Help 2 14 50209"
 
 TAG "Agent Help 2 15 50201"
 "C2DS Snail"
-"Snail "
+"Not much is known about the Albian snail, but it appears harmless."
 
 TAG "Agent Help 2 15 50202"
 "C2DS Zander Fish"
-"Zander Fish "
+"Zander fishes school together later in the year before breeding. They are very tasty to Norns."
 
 TAG "Agent Help 2 15 50203"
 "C2DS Goldfish"
-"Goldfish "
+"Albian goldfishes have memories of only a few seconds."
 
 TAG "Agent Help 2 15 50204"
 "C2DS Hummingbird"
@@ -544,7 +544,7 @@ TAG "Agent Help 2 15 50205"
 
 TAG "Agent Help 2 15 50208"
 "C2DS Anemone"
-"Anemone "
+"Anemones are harmless, but tend to wrap up and hide when touched or interfered with."
 
 TAG "Agent Help 2 15 50209"
 "C2DS Jellyfish Polyp"
@@ -556,7 +556,7 @@ TAG "Agent Help 2 15 50212"
 
 TAG "Agent Help 2 15 50213"
 "C2DS Jellyfish"
-"Jellyfish "
+"The Jellyfish can be highly dangerous if touched. Its lifecycle takes it through many forms!"
 
 TAG "Agent Help 2 15 50214"
 "C2DS Jellyfish Larvae"
@@ -588,7 +588,7 @@ TAG "Agent Help 2 16 50201"
 
 TAG "Agent Help 2 16 50203"
 "C2DS Bat"
-"Bat "
+"Bats only come out at night, and can be dangerous. Eats fruits, which it fetches and takes back to its lair."
 
 TAG "Agent Help 2 16 50210"
 "C2DS Tiger Barb"
@@ -596,7 +596,7 @@ TAG "Agent Help 2 16 50210"
 
 TAG "Agent Help 2 17 50200"
 "C2DS Beehive"
-"Beehive "
+"Home of the Albian Bee. Inside is a queen. When the nest reaches maturity, it may swarm and release a new queen to found a new kingdom."
 
 TAG "Agent Help 2 17 50202"
 "C2DS Puffball Nest "
