@@ -164,7 +164,7 @@ scrp 2 23 50205 3
 	doif crea from eq 1
 		stim writ from 92 1
 	endi
-	
+
 	snde "hit_"
 	velo rand -2 2 rand -10 -5
 endm
@@ -412,7 +412,7 @@ scrp 2 3 50205 9
 
 		setv va00 posx
 
-		subv va00 28
+		subv va00 24
 
 		setv va01 posb
 
@@ -428,7 +428,7 @@ scrp 2 3 50205 9
 
 		else
 
-			mvsf va00 va01
+			stop
 
 		endi
 
@@ -1112,7 +1112,7 @@ endm
 
 
 scrp 2 10 50205 9
-inst
+	inst
 	doif carr eq null
 
 		altr -1 2 .005
@@ -1131,9 +1131,9 @@ endm
 
 scrp 2 10 50205 12
 	inst
-	
+
 	targ from
-	
+
 	doif fmly eq 4
 		stim writ from 81 1
 	endi
@@ -1309,4 +1309,3 @@ scrx 2 3 50205 6
 scrx 2 3 50205 5
 
 scrx 2 3 50205 10
-

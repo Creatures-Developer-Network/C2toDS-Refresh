@@ -124,11 +124,11 @@ scrp 2 23 50200 3
 	doif crea from eq 1
 		stim writ from 92 1
 	endi
-	
+
 	snde "hit_"
 	velo rand -2 2 rand -10 -5
 endm
-	
+
 
 *Seed Timer
 
@@ -190,7 +190,12 @@ scrp 2 3 50200 9
 
 			doif targ ne null
 
-				doif relx ownr targ lt 100 and rely ownr targ lt 100
+				setv va05 relx ownr targ
+				setv va06 rely ownr targ
+				absv va05
+				absv va06
+
+				doif va05 lt 150 and va06 lt 150
 
 					addv va12 1
 
@@ -208,12 +213,19 @@ scrp 2 3 50200 9
 
 			new: simp 2 11 50200 "moe_C2toDS_carrots" 8 11 rand 1001 5000
 
-			mvto va00 va01
+			subv va01 30
+
+			doif tmvt va00 va01 eq 1
+				addv va01 30
+				mvto va00 va01
+			else
+				gsub die
+			endi
 
 			setv ov02 post
 
 			subv ov02 10
-			
+
 			setv ov01 post
 
 			kill ownr
@@ -414,7 +426,7 @@ scrp 2 11 50200 9
 
 *Detritus
 
-		reps rand 1 3
+		reps rand 1 2
 
 			gsub seed
 
@@ -444,19 +456,25 @@ scrp 2 11 50200 9
 
 	subr seed
 
-		setv ov05 posx
+		setv ov05 posl
 
 		setv ov06 post
+*TODO: subtract this with more precision. Trying to figure out where the carrot actually is in relation to the ground and find the perfect height to spawn.
+		subv ov06 24
 
 		inst
 
 		new: simp 2 3 50200 "moe_C2toDS_carrots" 9 10 1001
 
-		mvsf mv05 mv06
+		doif tmvt mv05 mv06 eq 1
 
-		setv velx rand -15 15
+			mvto mv05 mv06
+			setv velx rand -15 15
 
-		setv vely rand -5 -10
+			setv vely rand -5 -10
+		else
+			kill targ
+		endi
 
 		targ ownr
 
@@ -607,7 +625,7 @@ endm
 scrp 2 10 50200 10
 
 	inst
-	
+
 	bhvr 48
 
 	attr 3
@@ -633,7 +651,7 @@ endm
 
 
 scrp 2 10 50200 9
-inst
+	inst
 	doif carr ne null
 
 		stop
@@ -744,7 +762,7 @@ endm
 
 
 scrp 2 10 50200 12
-inst
+	inst
 	stim writ from 81 1
 
 	targ from

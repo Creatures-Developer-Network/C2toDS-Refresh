@@ -21,49 +21,49 @@
 
 
 *plane is 2 below Wolfling Control so we don't draw anything on top of it
-new: comp 1 9 50200 "moe_C2toDS_Weather" 1 32 8998
+*new: comp 1 9 50200 "moe_C2toDS_Weather" 1 32 8998
 
 *attr 34
 
-*Mouseable + Activateable + Invisible + Floatable + Camera Shy
-attr 310
+**Mouseable + Activateable + Invisible + Floatable + Camera Shy
+*attr 310
+*
+*
+**ticks once straight away but generally will only tick every 20 ticks
+*tick 1
+*
+**docked status is bottom right by default (out of the way of the CAOS command line)
+*setv name "docked_right" 1
+*setv name "docked_bottom" 1
+*
+**automatically position toolbar
+*mesg writ targ 123
 
-
-*ticks once straight away but generally will only tick every 20 ticks
-tick 1
-
-*docked status is bottom right by default (out of the way of the CAOS command line)
-setv name "docked_right" 1
-setv name "docked_bottom" 1
-
-*automatically position toolbar
-mesg writ targ 123
-
-*year PART 1
-
-pat: fixd 1 "moe_C2toDS_Weather" 33 46 -2 0 "BlackOnTransparentChars"
-
-part 1
-
-ptxt "000"
-
-*Season - PART 2
-
-pat: dull 2 "moe_C2toDS_Weather" 34 140 2 -1
-
-*TMOD - PART 3
-
-pat: dull 3 "moe_C2toDS_Weather" 38 188 2 -1
-
-*TEMP - PART 4
-
-pat: fixd 4 "moe_C2toDS_Weather" 33 100 -2 1 "BlackOnTransparentChars"
-
-*Button to change temp - PART 5 MESG 1001
-
-pat: butt 5 "moe_C2toDS_Weather" 43 4 95 2 -1 [0] 1001 0
-
-
+**year PART 1
+*
+*pat: fixd 1 "moe_C2toDS_Weather" 33 46 -2 0 "BlackOnTransparentChars"
+*
+*part 1
+*
+*ptxt "000"
+*
+**Season - PART 2
+*
+*pat: dull 2 "moe_C2toDS_Weather" 34 140 2 -1
+*
+**TMOD - PART 3
+*
+*pat: dull 3 "moe_C2toDS_Weather" 38 188 2 -1
+*
+**TEMP - PART 4
+*
+*pat: fixd 4 "moe_C2toDS_Weather" 33 100 -2 1 "BlackOnTransparentChars"
+*
+**Button to change temp - PART 5 MESG 1001
+*
+*pat: butt 5 "moe_C2toDS_Weather" 43 4 95 2 -1 [0] 1001 0
+*
+*
 
 
 
@@ -90,110 +90,110 @@ repe
 
 
 *Toolbar Activate 1 script (used to click and drag to move it around)
-
-scrp 1 9 50200 1
-
-	inst
-
-*get the pointer position
-	targ pntr
-
-	setv va00 posl
-	setv va01 post
-
-*subtract the position of the window to get screen coords
-	targ ownr
-
-	subv va00 posl
-	subv va01 post
-
-*invert the values to get values flto can make use of
-	negv va00
-	negv va01
-
-*set window to float under cursor
-	frel pntr
-
-	flto va00 va01
-
-*listen for Raw mouse up/unpress events
-	imsk 16
-
-*you can't be picked up by right clicking if you're already being click-dragged
-*(-2 Mouseable)
-
-	setv va00 attr
-
-	andv va00 2
-
-	doif va00 eq 2
-
-		setv va00 attr
-
-		subv va00 2
-
-		attr va00
-
-	endi
-
-endm
-
-
+*
+*scrp 1 9 50200 1
+*
+*	inst
+*
+**get the pointer position
+*	targ pntr
+*
+*	setv va00 posl
+*	setv va01 post
+*
+**subtract the position of the window to get screen coords
+*	targ ownr
+*
+*	subv va00 posl
+*	subv va01 post
+*
+**invert the values to get values flto can make use of
+*	negv va00
+*	negv va01
+*
+**set window to float under cursor
+*	frel pntr
+*
+*	flto va00 va01
+*
+**listen for Raw mouse up/unpress events
+*	imsk 16
+*
+**you can't be picked up by right clicking if you're already being click-dragged
+**(-2 Mouseable)
+*
+*	setv va00 attr
+*
+*	andv va00 2
+*
+*	doif va00 eq 2
+*
+*		setv va00 attr
+*
+*		subv va00 2
+*
+*		attr va00
+*
+*	endi
+*
+*endm
 
 
 
-*Toolbar Raw Mouse Up script (used to stop click and drag movements)
-
-scrp 1 9 50200 77
-
-	inst
-
-*if left mouse button is unpressed
-	doif _p1_ = 1
-
-		inst
-
-*		attr 0
-		setv va00 posl
-		setv va01 post
-
-*		attr 304
-
-*convert to screen space coords by subtracting window left and top from object left and top.
-		subv va00 wndl
-		subv va01 wndt
-
-		frel null
-
-		flto va00 va01
-
-
-*put it back in bounds if it slipped out of bounds
-		call 5 0 0
-
-*don't listen for mouse inputs
-		imsk 0
-
-*allow pickup by right clicking again now you're doing being click-dragged
-*(+2 Mouseable)
-
-		setv va00 attr
-
-		andv va00 2
-
-		doif va00 ne 2
-
-			setv va00 attr
-
-			addv va00 2
-
-			attr va00
-
-		endi
-
-	endi
-
-endm
+*
+*
+**Toolbar Raw Mouse Up script (used to stop click and drag movements)
+*
+*scrp 1 9 50200 77
+*
+*	inst
+*
+**if left mouse button is unpressed
+*	doif _p1_ = 1
+*
+*		inst
+*
+**		attr 0
+*		setv va00 posl
+*		setv va01 post
+*
+**		attr 304
+*
+**convert to screen space coords by subtracting window left and top from object left and top.
+*		subv va00 wndl
+*		subv va01 wndt
+*
+*		frel null
+*
+*		flto va00 va01
+*
+*
+**put it back in bounds if it slipped out of bounds
+*		call 5 0 0
+*
+**don't listen for mouse inputs
+*		imsk 0
+*
+**allow pickup by right clicking again now you're doing being click-dragged
+**(+2 Mouseable)
+*
+*		setv va00 attr
+*
+*		andv va00 2
+*
+*		doif va00 ne 2
+*
+*			setv va00 attr
+*
+*			addv va00 2
+*
+*			attr va00
+*
+*		endi
+*
+*	endi
+*
+*endm
 
 
 
@@ -201,107 +201,107 @@ endm
 
 *Toolbar Drop script (also called when releasing from mouse drag)
 *(used to make sure the toolbar is still on screen and Lock it to screen right or bottom)
-
-scrp 1 9 50200 5
-
-	inst
-
-*reset dock vars
-	setv name "docked_right" 0
-	setv name "docked_bottom" 0
-
-*it's poking off the left side of the screen...
-	doif posl < wndl
-
-		mvto wndl post
-
-	endi
-
-*it's poking off the top side of the screen...
-	doif post < wndt
-
-		mvto posl wndt
-
-	endi
-
-*it's poking off the right side of the screen...
-	doif posr > wndr
-
-		setv va02 wndr
-		subv va02 wdth
-*fix because sprite width is a bit wider than it visually seems
-		addv va02 22
-
-		mvto va02 post
-
-*set it to be docked
-		setv name "docked_right" 1
-
-	endi
-
-*it's poking off the bottom side of the screen...
-	doif posb > wndb
-
-		setv va02 wndb
-		subv va02 hght
-
-		mvto posl va02
-
-*set it to be docked
-		setv name "docked_bottom" 1
-
-	endi
-
-endm
-
-
-
-*Toolbar - Window Resized script (used to keep everything on screen and in the correct docked position)
-
-scrp 1 9 50200 123
-
-	inst
-
-*put it back in bounds if it slipped out of bounds
-
-*it's poking off the left side of the screen...
-	doif posl < wndl
-
-		mvto wndl post
-
-	endi
-
-*it's poking off the top side of the screen...
-	doif post < wndt
-
-		mvto posl wndt
-
-	endi
-
-*it's poking off the right side of the screen... or it's docked
-	doif posr > wndr or name "docked_right" = 1
-
-		setv va02 wndr
-		subv va02 wdth
-*fix because sprite width is a bit wider than it visually seems
-		addv va02 22
-
-		mvto va02 post
-
-	endi
-
-*it's poking off the bottom side of the screen... or it's docked
-	doif posb > wndb or name "docked_bottom" = 1
-
-		setv va02 wndb
-		subv va02 hght
-
-		mvto posl va02
-
-	endi
-
-
-endm
+*
+*scrp 1 9 50200 5
+*
+*	inst
+*
+**reset dock vars
+*	setv name "docked_right" 0
+*	setv name "docked_bottom" 0
+*
+**it's poking off the left side of the screen...
+*	doif posl < wndl
+*
+*		mvto wndl post
+*
+*	endi
+*
+**it's poking off the top side of the screen...
+*	doif post < wndt
+*
+*		mvto posl wndt
+*
+*	endi
+*
+**it's poking off the right side of the screen...
+*	doif posr > wndr
+*
+*		setv va02 wndr
+*		subv va02 wdth
+**fix because sprite width is a bit wider than it visually seems
+*		addv va02 22
+*
+*		mvto va02 post
+*
+**set it to be docked
+*		setv name "docked_right" 1
+*
+*	endi
+*
+**it's poking off the bottom side of the screen...
+*	doif posb > wndb
+*
+*		setv va02 wndb
+*		subv va02 hght
+*
+*		mvto posl va02
+*
+**set it to be docked
+*		setv name "docked_bottom" 1
+*
+*	endi
+*
+*endm
+*
+*
+*
+**Toolbar - Window Resized script (used to keep everything on screen and in the correct docked position)
+*
+*scrp 1 9 50200 123
+*
+*	inst
+*
+**put it back in bounds if it slipped out of bounds
+*
+**it's poking off the left side of the screen...
+*	doif posl < wndl
+*
+*		mvto wndl post
+*
+*	endi
+*
+**it's poking off the top side of the screen...
+*	doif post < wndt
+*
+*		mvto posl wndt
+*
+*	endi
+*
+**it's poking off the right side of the screen... or it's docked
+*	doif posr > wndr or name "docked_right" = 1
+*
+*		setv va02 wndr
+*		subv va02 wdth
+**fix because sprite width is a bit wider than it visually seems
+*		addv va02 22
+*
+*		mvto va02 post
+*
+*	endi
+*
+**it's poking off the bottom side of the screen... or it's docked
+*	doif posb > wndb or name "docked_bottom" = 1
+*
+*		setv va02 wndb
+*		subv va02 hght
+*
+*		mvto posl va02
+*
+*	endi
+*
+*
+*endm
 
 
 
@@ -391,177 +391,177 @@ scrp 2 21 50217 9
 
 endm
 
-
-*change temperature units (celcius, farenheight etc) by clicking the temp
-
-scrp 1 9 50200 1001
-
-	doif ov00 eq 0
-
-		setv ov00 1
-	elif ov00 eq 1
-		setv ov00 2
-	elif ov00 ne 0
-
-		setv ov00 0
-
-	endi
-
-*tick again immediately so we can see the change
-	tick 1
-
-endm
-
-
-
-*Weather Status Bar Timer Script
-
-scrp 1 9 50200 9
-
-*will only tick every 20 ticks
-	tick 20
-
-	part 1
-
-	ptxt vtos year
-
-
-
-	part 2
-
-	pose sean
-
-
-
-	part 3
-
-	pose time
-
-
-
-
-
-
-
-*old code to handle toolbar going off screen
-*	doif visi 0 eq 0
 *
-*		setv va00 wndh
+**change temperature units (celcius, farenheight etc) by clicking the temp
 *
-*		subv va00 hght
+*scrp 1 9 50200 1001
 *
-*		flto 0 va00
+*	doif ov00 eq 0
+*
+*		setv ov00 1
+*	elif ov00 eq 1
+*		setv ov00 2
+*	elif ov00 ne 0
+*
+*		setv ov00 0
 *
 *	endi
-
-
-
-
-
-
-
-
-
-*TEMP TELLER*
-
-*get temperature at x/y position of pointer
-	setv va00 prop grap mopx mopy 2
-
-
-
-	setv ov01 va00
-
-
-
-	doif ov01 lt .25
-
-		part 5
-
-		pose 0
-
-	elif ov01 ge .25 and ov01 lt .5
-
-		part 5
-
-		pose 1
-
-	elif ov01 ge .5 and ov01 lt .75
-
-		part 5
-
-		pose 2
-
-	elif ov01 ge .75
-
-		part 5
-
-		pose 3
-
-	endi
-
-
-
-
-
-	doif ov00 eq 0
-
-		mulv va00 75
-
-		divv va00 .5
-
-		setv va00 ftoi va00
-
-		sets va00 vtos va00
-
-		adds va00 "F"
-
-	elif ov00 eq 1
-
-		mulv va00 75
-
-		divv va00 .5
-
-
-
-*Convert to Celcius*
-
-
-
-		subv va00 32
-
-		setv va02 5.000000
-
-		divv va02 9.000000
-
-		mulv va00 va02
-
-
-
-*C****************s*
-
-
-
-		setv va00 ftoi va00
-
-		sets va00 vtos va00
-
-		adds va00 "C"
-	else
-		mulv va00 100
-
-		setv va00 ftoi va00
-
-		sets va00 vtos va00
-
-		adds va00 "ca"
-	endi
-
-	part 4
-
-	ptxt va00
-
-endm
-
+*
+**tick again immediately so we can see the change
+*	tick 1
+*
+*endm
+*
+*
+*
+**Weather Status Bar Timer Script
+*
+*scrp 1 9 50200 9
+*
+**will only tick every 20 ticks
+*	tick 20
+*
+*	part 1
+*
+*	ptxt vtos year
+*
+*
+*
+*	part 2
+*
+*	pose sean
+*
+*
+*
+*	part 3
+*
+*	pose time
+*
+*
+*
+*
+*
+*
+*
+**old code to handle toolbar going off screen
+**	doif visi 0 eq 0
+**
+**		setv va00 wndh
+**
+**		subv va00 hght
+**
+**		flto 0 va00
+**
+**	endi
+*
+*
+*
+*
+*
+*
+*
+*
+*
+**TEMP TELLER*
+*
+**get temperature at x/y position of pointer
+*	setv va00 prop grap mopx mopy 2
+*
+*
+*
+*	setv ov01 va00
+*
+*
+*
+*	doif ov01 lt .25
+*
+*		part 5
+*
+*		pose 0
+*
+*	elif ov01 ge .25 and ov01 lt .5
+*
+*		part 5
+*
+*		pose 1
+*
+*	elif ov01 ge .5 and ov01 lt .75
+*
+*		part 5
+*
+*		pose 2
+*
+*	elif ov01 ge .75
+*
+*		part 5
+*
+*		pose 3
+*
+*	endi
+*
+*
+*
+*
+*
+*	doif ov00 eq 0
+*
+*		mulv va00 75
+*
+*		divv va00 .5
+*
+*		setv va00 ftoi va00
+*
+*		sets va00 vtos va00
+*
+*		adds va00 "F"
+*
+*	elif ov00 eq 1
+*
+*		mulv va00 75
+*
+*		divv va00 .5
+*
+*
+*
+**Convert to Celcius*
+*
+*
+*
+*		subv va00 32
+*
+*		setv va02 5.000000
+*
+*		divv va02 9.000000
+*
+*		mulv va00 va02
+*
+*
+*
+**C****************s*
+*
+*
+*
+*		setv va00 ftoi va00
+*
+*		sets va00 vtos va00
+*
+*		adds va00 "C"
+*	else
+*		mulv va00 100
+*
+*		setv va00 ftoi va00
+*
+*		sets va00 vtos va00
+*
+*		adds va00 "ca"
+*	endi
+*
+*	part 4
+*
+*	ptxt va00
+*
+*endm
+*
 
 
 *Clouds Constructor Script
@@ -1083,13 +1083,14 @@ scrp 2 19 50200 1
 
 
 	setv va00 rand 0 6
+	doif keyd 16 eq 1
+		doif va00 eq 2 and name "MadeARainbow?" eq 0
 
-	doif va00 eq 2 and name "MadeARainbow?" eq 0
+			mesg writ targ 1004
 
-		mesg writ targ 1004
+			setv name "MadeARainbow?" 1
 
-		setv name "MadeARainbow?" 1
-
+		endi
 	endi
 
 	slow
@@ -1208,13 +1209,15 @@ scrp 2 19 50200 1001
 
 		setv va06 2
 
+		rnge 1900
 		setv va08 obst down
+
 
 		divv va08 80
 
 		doif va08 lt 1 or va08 ge 30
 
-			setv va08 3
+			setv va08 24
 
 		endi
 
@@ -2116,13 +2119,13 @@ endm
 
 rscr
 
-enum 1 9 50200
-	kill targ
-next
+*enum 1 9 50200
+*	kill targ
+*next
 enum 2 21 50217
 	kill targ
 next
-scrx 1 9 50200 9
+*scrx 1 9 50200 9
 enum 2 19 50200
 	kill targ
 next

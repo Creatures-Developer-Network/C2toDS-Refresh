@@ -93,6 +93,10 @@ scrp 2 15 50215 10
 
 	seta ov04 null
 
+* Set initial food satisfaction
+
+	setv ov02 300
+
 *Seeds
 
 	seta ov05 null
@@ -1098,6 +1102,11 @@ scrp 2 15 50215 9
 
 		subv ov02 2
 
+*Hunger cannot get lower than 0
+		doif ov02 lt 0
+			setv ov02 0
+		endi
+
 		doif ov02 lt 50
 
 			gsub dropme
@@ -1211,7 +1220,7 @@ scrp 2 15 50215 9
 
 					targ ownr
 
-					addv mv02 12
+					addv mv02 150
 
 *This makes it eaten.
 
@@ -1283,7 +1292,19 @@ scrp 2 15 50215 9
 
 *What CA are we looking for?
 
-		setv va01 9
+		setv va01 rand 0 2
+		doif va01 eq 0
+			setv va01 9
+		elif va01 eq 1
+			setv va01 2
+		else
+			setv va01 7
+		endi
+
+*If you're hungry, search for starch because startch = seeds
+		doif ov02 lt 50
+			setv va01 7
+		endi
 
 
 

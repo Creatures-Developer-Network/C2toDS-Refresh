@@ -757,13 +757,20 @@ scrp 2 8 50200 9
 
 	subr grow
 
-		setv va00 posl
+		setv va00 posx
+		subv va00 24
 
-		setv va01 post
+		setv va01 posb
+		subv va01 48
+
 
 		new: simp 2 4 50200 "moe_C2toDS_toms" 15 0 rand 1000 3000
 
-		mvsf va00 va01
+		doif tmvt va00 va01 eq 1
+			mvto va00 va01
+		else
+			kill targ
+		endi
 
 		kill ownr
 

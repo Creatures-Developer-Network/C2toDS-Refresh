@@ -1,0 +1,213 @@
+new: simp 2 19 50216 "moe_C2toDS_sock" 56 0 2000
+mvto 8114 47826
+pose 30
+
+new: simp 2 19 50216 "moe_C2toDS_sock" 56 0 2000
+mvto 3125 47840
+pose 3
+
+*This one was placed on a best-guess for positioning. May need to fine-tune to be lore accurate.
+new: simp 2 19 50216 "moe_C2toDS_sock" 56 0 2000
+mvto 5800 47950
+pose 3
+
+scrp 2 19 50216 10
+	tick 80
+	setv ov10 80
+	frat 2
+endm
+
+* Script  9 TIMER
+scrp 2 19 50216 9
+	setv va00 hirp room ownr 2 0
+	setv va01 torx va00
+	setv va02 tory va00
+
+
+	doif torx va00 > 0
+* the higher concentration is to the right
+		doif base eq 0
+			anim [48 49 50 51 52 53 54 55]
+			over
+		endi
+		base 24
+		pose 0
+	else
+		doif base eq 24
+			base 0
+			anim [55 54 53 52 51 50 49 48]
+			over
+		endi
+		base 0
+		pose 0
+	endi
+
+	addv va01 posx
+	addv va02 posy
+
+	setv va03 prop grap va01 va02 2
+	setv va04 prop grap posx posy 2
+
+	subv va03 va04
+	dbg: outv va03
+
+	doif va03 lt .015
+*stand still
+		pose 0
+	elif va03 ge .015 and va03 lt .1
+		anim [0 1 2 3 4 5 6 7 255]
+	elif va03 ge .1 and va03 lt .3
+		anim [8 9 10 11 12 13 14 15 255]
+	elif va03 ge .3
+		anim [16 17 18 19 20 21 22 23 255]
+	endi
+
+
+
+
+*
+*	setv name "wndx" va03
+*	tick 80
+*	doif ov00 eq -3
+*		base 40
+*		anim [0 1 2 3 4 5 6 7 255]
+*		sndl "sock"
+*	endi
+*	doif ov00 eq -2
+*		base 32
+*		anim [0 1 2 3 4 5 6 7 255]
+*		sndl "sock"
+*	endi
+*	doif ov00 eq -1
+*		base 24
+*		anim [0 1 2 3 4 5 6 7 255]
+*		sndl "sock"
+*	endi
+*	doif ov00 eq 1
+*		doif ov01 eq 1
+*			base 0
+*			anim [0 1 2 3 4 5 6 7 255]
+*			sndl "sock"
+*			wait 1
+*			mvby 64 0
+*			setv ov01 0
+*		else
+*			base 0
+*			anim [0 1 2 3 4 5 6 7 255]
+*			sndl "sock"
+*		endi
+*	endi
+*	doif ov00 eq 2
+*		base 8
+*		anim [0 1 2 3 4 5 6 7 255]
+*		sndl "sock"
+*	endi
+*	doif ov00 eq 3
+*		base 16
+*		anim [0 1 2 3 4 5 6 7 255]
+*		sndl "sock"
+*	endi
+*	doif ov00 eq -3
+*		doif name "wndx" gt .0200
+*			setv ov00 -2
+*			tick ov10
+*			stop
+*		endi
+*	endi
+*	doif ov00 eq -2
+*		doif name "wndx" le .0200
+*			setv ov00 -3
+*			tick ov10
+*			stop
+*		endi
+*		doif name "wndx" gt .0100
+*			setv ov00 -1
+*			tick ov10
+*			stop
+*		endi
+*	endi
+*	doif ov00 eq -1
+*		doif name "wndx" le .0100
+*			setv ov00 -2
+*			tick ov10
+*			stop
+*		endi
+*		doif name "wndx" gt .010
+*			base 0
+*			pose 24
+*			stpc
+*			setv ov00 0
+*			tick ov10
+*			stop
+*		endi
+*	endi
+*	doif ov00 eq 0
+*		doif name "wndx" le .010
+*			base 0
+*			doif pose eq 0
+*				base 48
+*				anim [0 1 2 3 4 5 6 7]
+*				wait 1
+*				mvby -64 0
+*				over
+*			endi
+*			setv ov00 -1
+*			tick ov10
+*			stop
+*		endi
+*		doif name "wndx" ge .010
+*			base 0
+*			doif pose eq 24
+*				base 48
+*				anim [7 6 5 4 3 2 1 0]
+*				over
+*				setv ov01 1
+*			endi
+*			setv ov00 1
+*			tick ov10
+*			stop
+*		endi
+*	endi
+*	doif ov00 eq 1
+*		doif name "wndx" lt .010
+*			base 0
+*			pose 0
+*			stpc
+*			over
+*			setv ov00 0
+*			tick ov10
+*			stop
+*		endi
+*		doif name "wndx" ge .0100
+*			setv ov00 2
+*			tick ov10
+*			stop
+*		endi
+*	endi
+*	doif ov00 eq 2
+*		doif name "wndx" lt .0100
+*			setv ov00 1
+*			tick ov10
+*			stop
+*		endi
+*		doif name "wndx" ge .0200
+*			setv ov00 3
+*			tick ov10
+*			stop
+*		endi
+*	endi
+*	doif ov00 eq 3
+*		doif name "wndx" lt .0200
+*			setv ov00 2
+*			tick ov10
+*			stop
+*		endi
+*	endi
+endm
+
+
+
+rscr
+enum 2 19 50216
+	kill targ
+next

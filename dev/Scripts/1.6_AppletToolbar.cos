@@ -1,0 +1,907 @@
+
+*If making new kits, please make sure they call back to the applet toolbar appropriately to change button poses
+* 1 1 50204 Applet Toolbar
+* 1 1 50202 Ecology Kit
+
+new: comp 1 1 50204 "moe_C2toDS_AppletToolbar" 2 0 80001
+pose 1
+mvto cmrx cmry
+
+*Since the ecology kit is bundlered here, we need to set repop variable defaults.
+* 1 = on
+* The ecofairy is injected separately, and acts based on these variables.
+setv va00 1
+setv game "C2toDS_PopCtrl_Tomatoes" va00
+setv game "C2toDS_PopCtrl_Nuts" va00
+setv game "C2toDS_PopCtrl_Pears" va00
+setv game "C2toDS_PopCtrl_Triffids" va00
+setv game "C2toDS_PopCtrl_Trumpets" va00
+setv game "C2toDS_PopCtrl_Carrots" va00
+setv game "C2toDS_PopCtrl_Potatoes" va00
+setv game "C2toDS_PopCtrl_Grass" va00
+setv game "C2toDS_PopCtrl_Barnacles" va00
+setv game "C2toDS_PopCtrl_Coral" va00
+setv game "C2toDS_PopCtrl_Crabs" va00
+setv game "C2toDS_PopCtrl_Frogs" va00
+setv game "C2toDS_PopCtrl_Goldfish" va00
+setv game "C2toDS_PopCtrl_Jellyfish" va00
+setv game "C2toDS_PopCtrl_Zander" va00
+setv game "C2toDS_PopCtrl_Red Butterfly" va00
+setv game "C2toDS_PopCtrl_Purple Butteryfly" va00
+setv game "C2toDS_PopCtrl_Snails" va00
+setv game "C2toDS_PopCtrl_BlueBirds" va00
+setv game "C2toDS_PopCtrl_Bees" va00
+setv game "C2toDS_PopCtrl_Hummingbirds" va00
+setv game "C2toDS_PopCtrl_Wasp" va00
+setv game "C2toDS_PopCtrl_Ants" va00
+
+scrp 1 1 50204 10
+	attr 306
+*ticks once straight away to update but generally will only tick every 20 ticks
+	tick 1
+*docked status is bottom right by default (out of the way of the CAOS command line)
+	setv name "docked_right" 1
+	setv name "docked_bottom" 1
+
+	mesg writ targ 123
+	mesg writ ownr 1000
+endm
+
+scrp 1 1 50204 5
+
+	inst
+
+*reset dock vars
+	setv name "docked_right" 0
+	setv name "docked_bottom" 0
+
+*it's poking off the left side of the screen...
+	doif posl < wndl
+		mvto wndl post
+	endi
+
+*it's poking off the top side of the screen...
+	doif post < wndt
+		mvto posl wndt
+	endi
+
+*it's poking off the right side of the screen...
+	doif posr > wndr
+		setv va02 wndr
+		subv va02 wdth
+*Ability to nudge it in different directions
+		addv va02 0
+		mvto va02 post
+
+*set it to be docked
+		setv name "docked_right" 1
+
+	endi
+
+*it's poking off the bottom side of the screen...
+	doif posb > wndb
+
+		setv va02 wndb
+		subv va02 hght
+
+		mvto posl va02
+
+*set it to be docked
+		setv name "docked_bottom" 1
+
+	endi
+
+endm
+
+scrp 1 1 50204 123
+
+	inst
+*put it back in bounds if it slipped out of bounds
+*it's poking off the left side of the screen...
+	doif posl < wndl
+		mvto wndl post
+	endi
+
+*it's poking off the top side of the screen...
+	doif post < wndt
+		mvto posl wndt
+	endi
+
+*it's poking off the right side of the screen... or it's docked
+	doif posr > wndr or name "docked_right" = 1
+		setv va02 wndr
+		subv va02 wdth
+*fix because sprite width is a bit wider than it visually seems
+		addv va02 0
+		mvto va02 post
+	endi
+
+*it's poking off the bottom side of the screen... or it's docked
+	doif posb > wndb or name "docked_bottom" = 1
+		setv va02 wndb
+		subv va02 hght
+		mvto posl va02
+	endi
+endm
+
+*Populate Buttons
+scrp 1 1 50204 1000
+	inst
+	setv name "minimal" 1
+	doif name "minimal" ne 1
+
+*Applets
+		setv ov00 1
+		setv va00 10
+		setv va01 4
+		pat: butt ov00 "moe_C2toDS_AppletToolbar" 2 3 va00 va01 1 [] 1001 1
+		setv name "Hatchery" ov00
+		addv ov00 1
+		addv va00 29
+		pat: butt ov00 "moe_C2toDS_AppletToolbar" 5 3 va00 va01 1 [] 1002 1
+		setv name "OwnersKit" ov00
+		addv ov00 1
+		addv va00 29
+		pat: butt ov00 "moe_C2toDS_AppletToolbar" 8 3 va00 va01 1 [] 1003 1
+		setv name "HealthKit" ov00
+		addv ov00 1
+		addv va00 29
+		pat: butt ov00 "moe_C2toDS_AppletToolbar" 11 3 va00 va01 1 [] 1004 1
+		setv name "CreatureGraveyard" ov00
+
+*Divider
+		addv ov00 1
+		addv va00 29
+		pat: dull ov00 "moe_C2toDS_AppletToolbar" 84 va00 va01 1
+
+*More Applets
+		addv ov00 1
+		addv va00 4
+		pat: butt ov00 "moe_C2toDS_AppletToolbar" 14 3 va00 va01 1 [] 1005 1
+		setv name "BreedersKit" ov00
+		addv ov00 1
+		addv va00 29
+		pat: butt ov00 "moe_C2toDS_AppletToolbar" 17 3 va00 va01 1 [] 1006 1
+		setv name "ScienceKit" ov00
+		addv ov00 1
+		addv va00 29
+		pat: butt ov00 "moe_C2toDS_AppletToolbar" 20 3 va00 va01 1 [] 1007 1
+		setv name "NeuroscienceKit" ov00
+		addv ov00 1
+		addv va00 29
+		pat: butt ov00 "moe_C2toDS_AppletToolbar" 23 3 va00 va01 1 [] 1008 1
+		setv name "ObservationKit" ov00
+
+*Divider
+		addv ov00 1
+		addv va00 29
+		pat: dull ov00 "moe_C2toDS_AppletToolbar" 84 va00 va01 1
+
+*More Applets
+		addv ov00 1
+		addv va00 4
+		pat: butt ov00 "moe_C2toDS_AppletToolbar" 26 3 va00 va01 1 [] 1009 1
+		setv name "InjectionKit" ov00
+		addv ov00 1
+		addv va00 29
+		pat: butt ov00 "moe_C2toDS_AppletToolbar" 29 3 va00 va01 1 [] 1010 1
+		setv name "Chronicles" ov00
+	else
+		part 0
+		pose 1
+		subv va00 16
+		addv va01 4
+	endi
+
+
+	addv ov00 1
+	addv va00 29
+	pat: butt ov00 "moe_C2toDS_AppletToolbar" 32 3 va00 va01 1 [] 1011 1
+	setv name "EcologyKit" ov00
+
+	addv ov00 1
+	addv va00 29
+	pat: dull ov00 "moe_C2toDS_AppletToolbar" 84 va00 va01 1
+
+*Season Indicator
+	addv ov00 1
+	addv va00 8
+	addv va01 5
+	pat: dull ov00 "moe_C2toDS_AppletToolbar" 35 va00 va01 1
+	setv name "Season" ov00
+
+*Year Label
+	addv ov00 1
+	addv va00 52
+	addv va01 3
+	pat: dull ov00 "moe_C2toDS_AppletToolbar" 39 va00 va01 1
+
+
+*Year Text Box
+	addv ov00 1
+	addv va00 28
+	addv va01 -3
+	pat: dull ov00 "moe_C2toDS_AppletToolbar" 40 va00 va01 1
+
+*Year Text
+	addv ov00 1
+	subv va00 28
+	subv va01 4
+	pat: text ov00 "blank" 0 va00 va01 2 -1 "moe_font_MSSansReg"
+	part ov00
+	setv name "Year" ov00
+	frmt 0 0 0 0 0 0 2
+	ptxt "1"
+
+	addv ov00 1
+	addv va00 78
+	subv va01 1
+	pat: dull ov00 "moe_C2toDS_AppletToolbar" 84 va00 va01 1
+
+*Time of Day
+	addv ov00 1
+	addv va00 8
+	addv va01 4
+	pat: dull ov00 "moe_C2toDS_AppletToolbar" 41 va00 va01 1
+	setv name "TMOD" ov00
+*Temp
+	addv ov00 1
+	addv va00 48
+	addv va01 0
+	pat: dull ov00 "moe_C2toDS_AppletToolbar" 46 va00 va01 1
+	setv name "Temp" ov00
+
+*Temp Text
+	addv ov00 1
+	subv va00 28
+	subv va01 4
+	pat: FIXD ov00 "blank" 0 va00 va01 2 "moe_font_MSSansReg"
+	part ov00
+	setv name "Temperature" ov00
+	frmt 0 0 0 0 0 0 2
+	ptxt "86"
+	part 0
+	setv name "Metric" 0
+	addv ov00 1
+	pat: butt ov00 "blank" 0 1 va00 va01 2 [] 1002 0
+
+	addv ov00 1
+	addv va00 78
+	subv va01 1
+	pat: dull ov00 "moe_C2toDS_AppletToolbar" 84 va00 va01 1
+
+** Which kits are active? IE: Not grayed-out?
+	part name "EcologyKit"
+	pose 1
+endm
+
+*F to C Conversion
+scrp 1 1 50204 1002
+	doif name "Metric" eq 0
+
+		setv name "Metric" 1
+	elif name "Metric" eq 1
+		setv name "Metric" 2
+	elif name "Metric" ne 0
+
+		setv name "Metric" 0
+
+	endi
+endm
+
+scrp 1 1 50204 9
+	tick 20
+
+	setv va00 prop grap mopx mopy 2
+
+	doif grap mopx mopy eq -1
+		part name "Temp"
+		pose 5
+		part name "Temperature"
+		ptxt "N/A"
+	else
+
+
+		doif va00 lt .20 and va00 gt 0
+			part name "Temp"
+			pose 0
+		elif va00 ge .20 and va00 lt .4
+			part name "Temp"
+			pose 1
+		elif va00 ge .4 and va00 lt .6
+			part name "Temp"
+			pose 2
+		elif va00 ge .6 and va00 lt .8
+			part name "Temp"
+			pose 3
+		elif va00 ge .8
+			part name "Temp"
+			pose 4
+		endi
+
+		doif name "Metric" eq 0
+			mulv va00 75
+			divv va00 .5
+			setv va00 ftoi va00
+			sets va00 vtos va00
+			adds va00 "F"
+		elif name "Metric" eq 1
+			mulv va00 75
+			divv va00 .5
+*Convert to Celcius*
+			subv va00 32
+			setv va02 5.000000
+			divv va02 9.000000
+			mulv va00 va02
+*C****************s*
+			setv va00 ftoi va00
+			sets va00 vtos va00
+			adds va00 "C"
+		else
+			mulv va00 100
+			setv va00 ftoi va00
+			sets va00 vtos va00
+			adds va00 "CA"
+		endi
+
+		part name "Temperature"
+		ptxt va00
+	endi
+
+
+	part name "Year"
+	ptxt vtos year
+
+	part name "Season"
+	pose sean
+
+	part name "TMOD"
+	pose time
+endm
+
+scrp 1 1 50204 1011
+*Open the EcologyKit
+	part name "EcologyKit"
+	doif pose eq 1
+		pose 2
+		targ pntr
+		anim [1  0]
+		rtar 1 1 50202
+		doif targ eq null or targ eq ownr
+			inst
+			new: comp 1 1 50202 "moe_C2toDS_EcologyKit" 1 0 8005
+			setv va02 wdth
+			divv va02 2
+			setv va00 cmrx
+			subv va00 va02
+			setv va01 cmry
+			subv va01 200
+			mvto va00 va01
+			seta mv01 targ
+			mesg writ targ 1002
+
+		endi
+	else
+		pose 1
+		targ pntr
+		anim [1  0]
+		rtar 1 1 50202
+		kill targ
+	endi
+endm
+
+scrp 1 1 50202 10
+	inst
+	attr 306
+	setv va00 0
+	sets name "font" "BlackOnTransparentChars"
+*Window
+	addv va00 1
+	pat: dull va00 "moe_C2toDS_EcologyKit" 1 0 26 0
+
+*Kit Title
+	addv va00 1
+	pat: fixd va00 "moe_C2toDS_EcologyKit" 14 10 10 0 name "font"
+	part va00
+	frmt 0 0 0 0 0 0 0
+	ptxt "Ecology Kit"
+
+*Content Window
+	addv va00 1
+	pat: dull va00 "moe_C2toDS_EcologyKit" 2 6 53 0
+
+*Close Window
+	addv va00 1
+	pat: butt va00 "moe_C2toDS_EcologyKit" 3 1 500 5 0 [] 1001 1
+
+
+*----Tabs----*
+	sets name "currentTab" "EcologyTab"
+*Width of tabs (in case I need to make them bigger later!)
+	setv va03 75
+*Starting Tab Position
+	setv va01 6
+	setv va02 33
+*MainTab
+	addv va00 1
+	pat: butt va00 "moe_C2toDS_EcologyKit" 8 2 va01 va02 0 [] 1002 1
+	part va00
+	pose 1
+	setv name "EcologyTab" va00
+	addv va00 1
+	addv va01 5
+	addv va02 4
+	pat: dull va00 "moe_C2toDS_EcologyKit" 13 va01 va02 0
+	subv va01 5
+	subv va02 4
+	addv va00 1
+	addv va01 -10
+	addv va02 -35
+	pat: fixd va00 "blank" 0 va01 va02 0 "BlackOnTransparentChars"
+	part va00
+	frmt 0 0 0 0 0 0 10
+	ptxt "Home"
+	addv va01 10
+	addv va02 35
+
+*Empty Tab 1
+	addv va01 va03
+	addv va00 1
+	pat: butt va00 "moe_C2toDS_EcologyKit" 8 2 va01 va02 0 [] 1003 1
+	setv name "PopTab" va00
+	addv va00 1
+	addv va01 -10
+	addv va02 -35
+	pat: fixd va00 "blank" 0 va01 va02 0 "BlackOnTransparentChars"
+	part va00
+	frmt 0 0 0 0 0 0 10
+	ptxt "Empty Tab"
+
+*Actual Close Button
+	addv va00 1
+	setv va01 445
+	setv va02 294
+	pat: butt va00 "moe_C2toDS_EcologyKit" 7 1 va01 va02 0 [] 1001 1
+	addv va00 1
+	subv va01 13
+	subv va02 39
+	pat: fixd va00 "moe_C2toDS_EcologyKit" 6 va01 va02 0 "BlackOnTransparentChars"
+	part va00
+	frmt 0 0 0 0 0 0 10
+	ptxt "Close"
+
+*Store a constant of the current number of parts. This is useful later to know if more parts exist than the base components.
+	setv ov00 va00
+*All other components will be relative to this, the part number of the last created component.
+	setv ov01 va00
+	part 0
+
+endm
+
+*Ecology Kit Welcome Tab*
+scrp 1 1 50202 1002
+	inst
+	sets name "font" "WhiteOnTransparentChars"
+
+	doif name "currentTab" eq "EcologyTab"
+		doif ov01 gt ov00
+			stop
+		endi
+	else
+		sets name "currentTab" "EcologyTab"
+	endi
+
+	part name "PopTab"
+	pose 0
+	part name "EcologyTab"
+	pose 1
+
+* Kill all other tabs
+	loop
+		inst
+		doif ov00 ne ov01
+			pat: kill ov01
+			subv ov01 1
+		endi
+		slow
+	untl ov00 eq ov01
+
+*MainTab_Dragonfly
+	addv ov01 1
+	pat: dull ov01 "moe_C2toDS_EcologyKit" 12 23 66 0
+	setv name "EcologyTab_1" ov01
+	lock
+	inst
+
+*Show EcologyTab
+	addv ov01 1
+	pat: fixd ov01 "moe_C2toDS_EcologyKit" 14 25 70 0 name "font"
+	part ov01
+	frmt 0 0 0 0 0 0 0
+	ptxt "Select items you wish to keep populated:"
+
+
+* You can't MESG all the creations right here, you have to call one script per column and have the scripts call eachother, or they don't respect their alignments
+	mesg writ ownr 2002
+
+
+endm
+
+*Empty Tab*
+scrp 1 1 50202 1003
+	doif name "currentTab" eq "PopTab"
+		stop
+	else
+		sets name "currentTab" "PopTab"
+	endi
+
+	part name "PopTab"
+	pose 1
+	part name "EcologyTab"
+	pose 0
+
+* Kill all other tabs
+	loop
+		inst
+		doif ov00 ne ov01
+			pat: kill ov01
+			subv ov01 1
+		endi
+	untl ov00 eq ov01
+
+
+
+*mesg wrt+ ownr 2000 "EcologyTab_" 1 0
+
+endm
+
+*Close Window
+scrp 1 1 50202 1001
+	targ pntr
+	anim [1  0]
+	rtar 1 1 50204
+	part name "EcologyKit"
+	pose 1
+	targ ownr
+	kill targ
+endm
+
+
+scrp 1 1 50202 2000
+	loop
+		doif ov00 ne ov01
+			pat: kill ov01
+			subv ov01 1
+		endi
+	untl ov00 eq ov01
+
+endm
+
+*Checkbox Set Value
+scrp 1 1 50202 2001
+	sets va00 _P1_
+	sets va01 va00
+	adds va01 "PopCheck"
+	sets va02 "C2toDS_PopCtrl_"
+	adds va02 va00
+
+	part name va01
+	doif pose eq 0
+		pose 1
+		setv game va02 1
+	else
+		pose 0
+		setv game va02 0
+	endi
+endm
+
+*Create Checkbox
+scrp 1 1 50202 2010
+	inst
+*P1 is the name of the item like Carrots, Pears, etc.
+*P2 is the script number you want associated with that checkbox.
+
+	doif ov04 eq 0
+		addv ov01 1
+		sets va05 _P1_
+		pat: butt ov01 "moe_C2toDS_EcologyKit" 10 2 ov02 ov03 0 [] _P2_ 1
+		sets va06 va05
+		adds va06 "PopCheck"
+		setv name va06 ov01
+		part ov01
+		sets va07 "C2toDS_PopCtrl_"
+		adds va07 va05
+		doif game va07 eq 1
+			pose 1
+		endi
+		addv ov01 1
+		setv va03 ov02
+		setv va04 ov03
+		subv va03 -20
+		subv va04 42
+		pat: fixd ov01 "blank" 0 va03 va04 0 name "font"
+		part ov01
+		frmt 0 0 0 0 0 0 8
+		ptxt va05
+		addv ov04 1
+	else
+		addv ov01 1
+		addv ov03 20
+		sets va05 _P1_
+		pat: butt ov01 "moe_C2toDS_EcologyKit" 10 2 ov02 ov03 0 [] _P2_ 1
+		sets va06 va05
+		adds va06 "PopCheck"
+		setv name va06 ov01
+		part ov01
+		sets va07 "C2toDS_PopCtrl_"
+		adds va07 va05
+		doif game va07 eq 1
+			pose 1
+		endi
+		addv ov01 1
+		setv va03 ov02
+		setv va04 ov03
+		subv va03 -20
+		subv va04 42
+		pat: fixd ov01 "blank" 0 va03 va04 0 name "font"
+		part ov01
+		frmt 0 0 0 0 0 0 8
+		ptxt va05
+	endi
+endm
+
+
+
+scrp 1 1 50202 2002
+	inst
+*Reset the column start item
+	setv ov04 0
+*Where does the first item start?
+	setv ov02 30
+	setv ov03 110
+*Create the checkboxes
+	mesg wrt+ ownr 2010 "Tomatoes" 1100 0
+	mesg wrt+ ownr 2010 "Nuts" 1101 0
+	mesg wrt+ ownr 2010 "Pears" 1102 0
+	mesg wrt+ ownr 2010 "Triffids" 1103 0
+	mesg wrt+ ownr 2010 "Trumpets" 1104 0
+	mesg wrt+ ownr 2010 "Carrots" 1105 0
+	mesg wrt+ ownr 2010 "Potatoes" 1106 0
+	mesg wrt+ ownr 2010 "Grass" 1107 0
+
+*Build next set of Checkboxes
+	mesg writ ownr 2003
+endm
+
+scrp 1 1 50202 2003
+	inst
+*Reset the column start item
+	setv ov04 0
+*Where does the first item start?
+	setv ov02 120
+	setv ov03 110
+*Create the checkboxes
+	mesg wrt+ ownr 2010 "Barnacles" 1108 0
+	mesg wrt+ ownr 2010 "Coral" 1109 0
+	mesg wrt+ ownr 2010 "Crabs" 1110 0
+	mesg wrt+ ownr 2010 "Frogs" 1111 0
+	mesg wrt+ ownr 2010 "Goldfish" 1112 0
+	mesg wrt+ ownr 2010 "Jellyfish" 1113 0
+	mesg wrt+ ownr 2010 "Zander" 1114 0
+	mesg wrt+ ownr 2010 "Red Butterfly" 1115 0
+
+	mesg writ ownr 2004
+endm
+
+scrp 1 1 50202 2004
+	inst
+*Reset the column start item
+	setv ov04 0
+*Where does the first item start?
+	setv ov02 250
+	setv ov03 110
+*Create the checkboxes
+	mesg wrt+ ownr 2010 "Purple Butterfly" 1116 0
+	mesg wrt+ ownr 2010 "Yellow Butterfly" 1117 0
+	mesg wrt+ ownr 2010 "Snails" 1118 0
+	mesg wrt+ ownr 2010 "Bluebirds" 1119 0
+	mesg wrt+ ownr 2010 "Bees" 1120 0
+	mesg wrt+ ownr 2010 "Hummingbirds" 1121 0
+	mesg wrt+ ownr 2010 "Wasps" 1122 0
+	mesg wrt+ ownr 2010 "Ants" 1123 0
+
+	mesg writ ownr 2005
+endm
+
+scrp 1 1 50202 2005
+	inst
+*Reset the column start item
+	setv ov04 0
+*Where does the first item start?
+	setv ov02 380
+	setv ov03 110
+*Create the checkboxes
+	mesg wrt+ ownr 2010 "Cacti" 1124 0
+endm
+
+
+
+
+
+*----PopControl Checkboxes and Toggles----*
+
+*Checkbox
+scrp 1 1 50202 1100
+	mesg wrt+ ownr 2001 "Tomatoes" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1101
+	mesg wrt+ ownr 2001 "Nuts" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1102
+	mesg wrt+ ownr 2001 "Pears" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1103
+	mesg wrt+ ownr 2001 "Triffids" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1104
+	mesg wrt+ ownr 2001 "Trumpets" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1105
+	mesg wrt+ ownr 2001 "Carrots" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1106
+	mesg wrt+ ownr 2001 "Potatoes" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1107
+	mesg wrt+ ownr 2001 "Grass" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1108
+	mesg wrt+ ownr 2001 "Barnacles" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1109
+	mesg wrt+ ownr 2001 "Coral" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1110
+	mesg wrt+ ownr 2001 "Crabs" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1111
+	mesg wrt+ ownr 2001 "Frogs" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1112
+	mesg wrt+ ownr 2001 "Goldfish" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1113
+	mesg wrt+ ownr 2001 "Jellyfish" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1114
+	mesg wrt+ ownr 2001 "Zander" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1115
+	mesg wrt+ ownr 2001 "Red Butterfly" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1116
+	mesg wrt+ ownr 2001 "Purple Butterfly" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1117
+	mesg wrt+ ownr 2001 "Yellow Butterfly" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1118
+	mesg wrt+ ownr 2001 "Snails" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1119
+	mesg wrt+ ownr 2001 "Bluebirds" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1120
+	mesg wrt+ ownr 2001 "Bees" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1121
+	mesg wrt+ ownr 2001 "Hummingbirds" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1122
+	mesg wrt+ ownr 2001 "Wasps" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1123
+	mesg wrt+ ownr 2001 "Ants" 0 0
+endm
+
+*Checkbox
+scrp 1 1 50202 1124
+	mesg wrt+ ownr 2001 "Cacti" 0 0
+endm
+
+
+
+
+
+rscr
+enum 1 1 50202
+	kill targ
+next
+
+enum 1 1 50203
+	kill targ
+next
+
+scrx 1 1 50202 10
+scrx 1 1 50202 1002
+scrx 1 1 50202 1003
+scrx 1 1 50202 1001
+scrx 1 1 50202 2000
+scrx 1 1 50202 2001
+scrx 1 1 50202 2010
+scrx 1 1 50202 2002
+scrx 1 1 50202 2003
+scrx 1 1 50202 2004
+scrx 1 1 50202 1100
+scrx 1 1 50202 1101
+scrx 1 1 50202 1102
+scrx 1 1 50202 1103
+scrx 1 1 50202 1104
+scrx 1 1 50202 1105
+scrx 1 1 50202 1106
+scrx 1 1 50202 1107
+scrx 1 1 50202 1108
+scrx 1 1 50202 1109
+scrx 1 1 50202 1110
+scrx 1 1 50202 1111
+scrx 1 1 50202 1112
+scrx 1 1 50202 1113
+scrx 1 1 50202 1114
+scrx 1 1 50202 1115
+scrx 1 1 50202 1116
+scrx 1 1 50202 1117
+scrx 1 1 50202 1118
+scrx 1 1 50202 1119
+scrx 1 1 50202 1120
+scrx 1 1 50202 1121
+scrx 1 1 50202 1122
+scrx 1 1 50202 1123
+enum 1 1 50204
+	kill targ
+next
