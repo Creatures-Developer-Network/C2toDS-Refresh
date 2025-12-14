@@ -1,12 +1,9 @@
-*3 3 50202 - valve to open water
-*2 19 50214 - waterfall
-*1 8 50200 - waves (C2DS World Overlays)
-*2 19 50215 - bubbles
+
+*Now modified to be self-contained.
 
 new: simp 3 3 50202 "moe_C2toDS_VolcanoWaterfallA" 2 0 10
 attr 4
 mvto 10146 49061
-
 
 scrp 3 3 50202 10
 	setv name "open" 0
@@ -27,10 +24,43 @@ scrp 3 3 50202 1
 		endi
 ***
 
-*Create waterfall
-		new: simp 2 19 50214 "moe_C2toDS_VolcanoWaterfallA" 55 2 11
-		mvto 9682 49079
+*kill volcano overlays
+		enum 1 12 50200
+			doif targ ne null
+				doif name "whatamI?" eq 8 or name "whatamI?" eq 9 or name "whatamI?" eq 11 or name "whatamI?" eq 12 or name "whatamI?" eq 13
+					kill targ
+				endi
+			endi
+		next
+
+
+*submerged volcano background
+		new: simp 1 8 50200 "moe_C2toDS_volcFloodOverlay" 1 0 2
+		setv name "whatamI?" 15
+		mvto 8646 49221
 		targ ownr
+
+*cap overlays
+		new: simp 1 8 50200 "moe_C2toDS_volcFloodOverlay" 1 1 8000
+		setv name "whatamI?" 15
+		mvto 9202 49715
+		targ ownr
+
+*hide old caps
+		enum 1 8 50200
+			doif targ ne null
+				doif name "whatamI?" eq 16
+					show 0
+				endi
+			endi
+		next
+
+
+*Create waterfall
+		new: simp 2 19 50214 "moe_C2toDS_VolcDoubleFalls" 40 2 10
+		mvto 9544 49055
+		targ ownr
+
 
 
 *Change rooms to salt water
@@ -61,7 +91,6 @@ scrp 3 3 50202 1
 			anim [0 1 2 3 4 5 6 7 8 255]
 			addv va02 128
 		untl va00 eq 10
-
 		new: simp 1 8 50200 "moe_C2toDS_Waves" 9 0 7999
 		attr 0
 		setv name "whatamI?" 10
@@ -77,7 +106,7 @@ scrp 3 3 50202 1
 		pose 0
 
 *remove bubbles
-		enum 2 19 50215
+		enum 2 19 24206
 			kill targ
 		next
 *remove waterfall
@@ -106,7 +135,133 @@ scrp 3 3 50202 1
 			rtyp grap va00 49835 va20
 			addv va00 10
 		untl va00 ge 10275
+
+*remove background and set caps back
+		enum 1 8 50200
+			doif name "whatamI?" eq 15
+				kill targ
+			endi
+		next
+		enum 1 8 50200
+			doif targ ne null
+				doif name "whatamI?" eq 16
+					show 1
+				endi
+			endi
+		next
+
+
+*Restore Volcano Overlays
+*Left Lava Bubble
+		new: simp 1 12 50200 "moe_C2toDS_vflm" 11 30 1
+		frat 2
+		attr 0
+		mvto 9340 49776
+		tick rand 40 80
+		setv name "whatamI?" 8
+
+*Right Lava Bubble
+		new: simp 1 12 50200 "moe_C2toDS_vflm" 11 21 1
+		frat 2
+		attr 0
+		mvto 9581 49795
+		tick rand 40 80
+		setv name "whatamI?" 9
+
+*VOLCANO MIDDLE
+
+		new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+		attr 0
+		mvto 9865 49039
+		pose 10
+		tick 100
+*volm 0 -900
+		setv name "whatamI?" 11
+		sndl "m_wn"
+
+*WORLD WRAP COPY
+		new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+		attr 0
+		mvto 1513 49039
+		pose 10
+		tick 100
+*volm 0 -900
+		setv name "whatamI?" 11
+		sndl "m_wn"
+
+*VOLCANO UPPER
+
+		new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+		attr 0
+		mvto 9863 48363
+		pose 10
+		tick 100
+*volm 0 -800
+		setv name "whatamI?" 11
+		sndl "m_wn"
+
+*WORLD WRAP COPY
+		new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+		attr 0
+		mvto 1511 48363
+		pose 10
+		tick 100
+*volm 0 -800
+		setv name "whatamI?" 11
+		sndl "m_wn"
+
+*LAVA BUBBLE SOUNDS (right)
+
+		new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+		attr 0
+		mvto 9904 49843
+		pose 10
+		tick 100
+*volm 0 -900
+		sndl "moev"
+		setv name "whatamI?" 12
+
+*WORLD WRAP COPY
+
+		new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+		attr 0
+		mvto 1552 49843
+		pose 10
+		tick 100
+*volm 0 -900
+		sndl "moev"
+		setv name "whatamI?" 12
+
+*LAVA BUBBLE SOUNDS (left)
+		new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+		attr 0
+		mvto 9290 49843
+		pose 10
+		tick 100
+*volm 0 -900
+		sndl "moev"
+		setv name "whatamI?" 12
+
+*WORLD WRAP COPY
+		new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+		attr 0
+		mvto 938 49843
+		pose 10
+		tick 100
+*volm 0 -900
+		sndl "moev"
+		setv name "whatamI?" 12
+
+*Volcano Flame
+		new: simp 1 12 50200 "moe_C2toDS_vflm" 11 0 1
+		frat 2
+		attr 0
+		mvto 9020 49334
+		pose 10
+		tick 100
+		setv name "whatamI?" 1
 	endi
+
 endm
 
 
@@ -118,32 +273,33 @@ scrp 2 19 50214 10
 	over
 
 	inst
-	reps 100
-		new: simp 2 19 50215 "moe_C2toDS_volcBubbles" 5 0 rand 200 2000
-		mvsf rand 9865 10050 49445
+	reps 200
+		new: simp 2 19 24206 "moe_C2toDS_volcBubbles" 5 0 rand 200 2000
+		mvsf rand 9750 10050 49440
 	repe
 	slow
 	targ ownr
-	anim [7 8 9 10 11 12 13]
+	anim [7 8 9 10 11 12 13 14 15]
 	over
 
 
 	frat 2
 
-	anim [14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 255]
+	anim [20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 255]
 endm
 
-scrp 2 19 50215 10
+scrp 2 19 24206 10
 	tick 1
 	pose rand 0 4
 	attr 128
 	setv vely rand 1.01 13.01
-	addv velx rand -10 -1
+*addv velx rand -10 -1
+	setv velx rand -10 10
 	accg -1
 	aero 5
 endm
 
-scrp 2 19 50215 9
+scrp 2 19 24206 9
 	inst
 	doif rtyp room ownr ne 9 and rtyp room ownr ne 8
 		setv vely rand 1.01 13.01
@@ -151,8 +307,8 @@ scrp 2 19 50215 9
 		doif rand 0 25 eq 1
 			setv vely 20
 		endi
-		mvsf rand 9865 10050 rand 49450 49500
-		setv velx rand -10 -1
+		mvsf rand 9750 10050 rand 49450 49500
+		setv velx rand -10 10
 		pose 0
 	endi
 	setv va00 0
@@ -192,9 +348,30 @@ enum 1 8 50200
 	endi
 next
 
+*remove background
+enum 1 8 50200
+	doif name "whatamI?" eq 15
+		kill targ
+	endi
+next
+
+*fix volcano caps
+enum 1 8 50200
+	doif targ ne null
+		doif name "whatamI?" eq 16
+			show 1
+		endi
+	endi
+next
+
 enum 2 19 50214
 	kill targ
 next
+
+enum 2 19 24206
+	kill targ
+next
+
 enum 2 19 50215
 	kill targ
 next
@@ -203,21 +380,7 @@ enum 3 3 50202
 	kill targ
 next
 
-
-
-scrx 3 3 50202 10
-scrx 3 3 50202 1
-scrx 3 3 50202 1
-scrx 3 3 50202 10
-scrx 3 3 50202 1
-
-scrx 2 19 50215 10
-scrx 2 19 50215 9
-scrx 2 19 50215 10
-scrx 2 19 50215 9
-scrx 2 19 50215 10
-scrx 2 19 50215 9
-
 scrx 2 19 50214 10
-scrx 2 19 50214 10
-scrx 2 19 50214 10
+scrx 2 19 24206 10
+scrx 2 19 24206 9
+scrx 3 3 50202 1
