@@ -301,7 +301,7 @@ scrp 2 3 50201 10
 
 	tick rand 200 350
 
-	rnge 200
+	rnge rand 100 200
 
 *dcor 1
 
