@@ -83,7 +83,7 @@ scrp 2 23 50203 10
 	fric 30
 
 	accg 3
-	
+
 	bhvr 11
 
 endm
@@ -141,7 +141,7 @@ scrp 2 23 50203 2
 		stim writ from 90 1
 	endi
 	mesg writ ownr 0
-	
+
 endm
 
 *hit
@@ -151,7 +151,7 @@ scrp 2 23 50203 3
 	doif crea from eq 1
 		stim writ from 92 1
 	endi
-	
+
 	snde "hit_"
 	velo rand -2 2 rand -10 -5
 
@@ -213,9 +213,9 @@ scrp 2 3 50203 12
 
 	targ from
 
-	*chem 5 .19
+*chem 5 .19
 
-	*chem 10 .19
+*chem 10 .19
 
 	snde "chwp"
 
@@ -464,7 +464,11 @@ scrp 2 3 50203 9
 
 		new: simp 2 7 50203 "moe_C2toDS_trumpet" 31 19 rand 500 2500
 
-		mvsf va00 va01
+		doif tmvt va00 va01 eq 1
+			mvto va00 va01
+		else
+			kill targ
+		endi
 
 
 
@@ -1154,7 +1158,7 @@ scrp 2 8 50203 10
 			bhvr 48
 
 		untl va00 eq 4
-		
+
 		bhvr 48
 
 		attr 231
