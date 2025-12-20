@@ -722,7 +722,7 @@ scrp 2 4 50202 9
 
 		frel ownr
 
-		mvsf va00 va01
+		mvto va00 va01
 
 		mira va03
 
@@ -770,7 +770,7 @@ scrp 2 4 50202 9
 
 		frel ownr
 
-		mvsf va00 va01
+		mvto va00 va01
 
 		mira va03
 
@@ -818,7 +818,7 @@ scrp 2 4 50202 9
 
 		frel ownr
 
-		mvsf va00 va01
+		mvto va00 va01
 
 		mira va03
 
@@ -941,7 +941,7 @@ scrp 2 3 50202 1001
 
 	endi
 
-	tick rand 1000 2500
+	tick rand 500 1500
 
 	doif ov00 eq 1
 
