@@ -223,7 +223,7 @@ scrp 2 3 50201 9
 
 			setv ov02 post
 
-			subv ov02 15
+			subv ov02 24
 
 			setv ov01 post
 
@@ -333,7 +333,7 @@ scrp 2 11 50201 10
 
 	inst
 
-	attr 5
+	attr 3
 
 	elas 10
 
