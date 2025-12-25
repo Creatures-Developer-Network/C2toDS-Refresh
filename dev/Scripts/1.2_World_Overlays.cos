@@ -1019,8 +1019,9 @@ pat: dull 1 "moe_C2toDS_Overlays" 24 0 0 8000
 
 attr 0
 
-mvto 9213 49753
+setv name "whatamI?" 16
 
+mvto 9213 49753
 
 
 *Volcano Cap Spouts overlay Right*
@@ -1030,8 +1031,9 @@ pat: dull 1 "moe_C2toDS_Overlays" 25 0 0 8000
 
 attr 0
 
-mvto 9512 49716
+setv name "whatamI?" 16
 
+mvto 9512 49716
 
 
 *Visible heat*

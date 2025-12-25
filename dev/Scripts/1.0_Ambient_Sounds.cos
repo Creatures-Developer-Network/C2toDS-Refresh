@@ -582,29 +582,29 @@ setv name "whatamI?" 8
 scrp 1 12 50200 9
 
 	doif name "whatamI?" eq 1
-		doif game "VolcanoFlooded" eq 0
+*doif game "VolcanoFlooded" eq 0 and game "VolcanoGarden" eq 0
 
-			rnge 100
+		rnge 100
 
-			sndc "flam"
+		sndc "flam"
 
 *sndc "moev"
 
-			tick rand 10 200
+		tick rand 10 200
 
-			anim [0 1 2 3 4 5 6 7 8 9]
+		anim [0 1 2 3 4 5 6 7 8 9]
 
-			over
+		over
 
-			pose 10
-		else
-			new: simp 2 19 50212 "moe_C2toDS_bubbles" 11 0 rand 1000 5000
-			mvsf 9140 49730
-
-			targ ownr
-			tick rand 10 200
-
-		endi
+		pose 10
+*else
+*	new: simp 2 19 50212 "moe_C2toDS_bubbles" 11 0 rand 1000 5000
+*	mvsf 9140 49730
+*
+*	targ ownr
+		tick rand 10 200
+*
+*endi
 	endi
 
 *stim shou 10 9 100 0 22 100 0 0 0 0 0 0
@@ -931,7 +931,8 @@ scrp 1 12 50200 9
 
 *Left Lava
 
-	doif name "whatamI?" eq 8 and game "VolcanoFlooded" eq 0
+	doif name "whatamI?" eq 8
+*and game "VolcanoFlooded" eq 0 and game "VolcanoGarden" eq 0
 
 		setv va00 rand 0 4
 
@@ -977,7 +978,8 @@ scrp 1 12 50200 9
 
 *Right Lava
 
-	doif name "whatamI?" eq 9 and game "VolcanoFlooded" eq 0
+	doif name "whatamI?" eq 9
+* and game "VolcanoFlooded" eq 0 and game "VolcanoGarden" eq 0
 
 		setv va00 rand 0 4
 
@@ -1022,18 +1024,18 @@ scrp 1 12 50200 9
 	endi
 
 	doif name "whatamI?" eq 11
-		doif game "VolcanoFlooded" eq 0
-			sndl "m_wn"
-		elif game "VolcanoFlooded" eq 1
-			stpc
-		endi
+*doif game "VolcanoFlooded" eq 0 and game "VolcanoGarden" eq 0
+		sndl "m_wn"
+*elif game "VolcanoFlooded" eq 1 or game "VolcanoGarden" eq 0
+*	stpc
+*endi
 	endi
 	doif name "whatamI?" eq 12
-		doif game "VolcanoFlooded" eq 0
-			sndl "moev"
-		elif game "VolcanoFlooded" eq 1
-			stpc
-		endi
+*doif game "VolcanoFlooded" eq 0 and game "VolcanoGarden" eq 0
+		sndl "moev"
+*elif game "VolcanoFlooded" eq 1 or game "VolcanoGarden" eq 0
+*	stpc
+*endi
 	endi
 
 endm
@@ -1156,8 +1158,3 @@ next
 scrx 2 19 50213 10
 scrx 2 19 50213 9
 scrx 2 19 50213 6
-
-
-
-
-

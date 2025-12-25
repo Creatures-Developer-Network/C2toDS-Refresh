@@ -428,7 +428,7 @@ scrp 2 3 50205 9
 
 		else
 
-			stop
+			kill targ
 
 		endi
 
@@ -1252,9 +1252,11 @@ scrp 2 8 50205 1001
 	setv ov00 0
 
 	doif carr eq null
-
-		mvsf posl post
-
+		doif tmvt posl post eq 1
+			mvsf posl post
+		else
+			kill targ
+		endi
 	endi
 
 endm

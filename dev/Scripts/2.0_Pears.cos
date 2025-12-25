@@ -453,7 +453,7 @@ scrp 2 3 50204 9
 			kill targ
 		endi
 
-		targ ownr
+		kill ownr
 
 	retn
 
