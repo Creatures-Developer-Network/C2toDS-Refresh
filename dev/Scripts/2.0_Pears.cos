@@ -240,7 +240,7 @@ scrp 2 3 50204 10
 
 	rnge 500
 
-	fric 25
+	fric 50
 
 	tick rand 50 75
 

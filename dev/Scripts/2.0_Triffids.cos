@@ -191,6 +191,8 @@ scrp 2 3 50205 10
 	elas 75
 
 	perm 50
+	
+	fric 50
 
 	slow
 

@@ -852,7 +852,7 @@ scrp 2 3 50202 10
 
 	elas 25
 
-	fric 35
+	fric 50
 
 	puhl -1 28 18
 
