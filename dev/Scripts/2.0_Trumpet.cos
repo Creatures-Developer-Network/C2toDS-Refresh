@@ -1064,8 +1064,9 @@ scrp 2 8 50203 1001
 			pose 5
 
 			targ ov01
-
-			setv ov00 0
+			doif targ ne null
+				setv ov00 0
+			endi
 
 		elif ov02 eq 2
 
@@ -1074,8 +1075,9 @@ scrp 2 8 50203 1001
 			pose 5
 
 			targ ov01
-
-			setv ov01 0
+			doif targ ne null
+				setv ov01 0
+			endi
 
 		else
 
@@ -1084,8 +1086,9 @@ scrp 2 8 50203 1001
 			pose 5
 
 			targ ov01
-
-			setv ov02 0
+			doif targ ne null
+				setv ov02 0
+			endi
 
 		endi
 

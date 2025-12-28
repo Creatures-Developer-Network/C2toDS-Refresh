@@ -191,7 +191,7 @@ scrp 2 3 50205 10
 	elas 75
 
 	perm 50
-	
+
 	fric 50
 
 	slow
@@ -1223,7 +1223,9 @@ scrp 2 8 50205 1001
 
 			targ ov01
 
+doif targ ne null
 			setv ov00 0
+endi
 
 		elif ov02 eq 2
 
@@ -1232,8 +1234,9 @@ scrp 2 8 50205 1001
 			pose 10
 
 			targ ov01
-
+doif targ ne null
 			setv ov01 0
+			endi
 
 		else
 
@@ -1242,9 +1245,9 @@ scrp 2 8 50205 1001
 			pose 5
 
 			targ ov01
-
+doif targ ne null
 			setv ov02 0
-
+endi
 		endi
 
 		targ ownr

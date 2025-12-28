@@ -951,19 +951,23 @@ scrp 2 3 50202 1001
 
 			targ ov01
 
-			seta ov01 null
+			doif targ ne null
+				seta ov01 null
+			endi
 
 		elif ov02 eq 1
 
 			targ ov01
-
-			seta ov02 null
+			doif targ ne null
+				seta ov02 null
+			endi
 
 		elif ov02 eq 2
 
 			targ ov01
-
-			seta ov03 null
+			doif targ ne null
+				seta ov03 null
+			endi
 
 		endi
 
