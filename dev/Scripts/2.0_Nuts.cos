@@ -5,6 +5,7 @@
 *Initial Conversion By Moe
 * Survivability edits by the one who screams i guess
 *Also tweaked lifespan a little to be more in line with C2 nuts (more prolific than tomatoes)...
+* ^ I think I undid this, as they were too prolific. - Moe
 * Aiko added pull and hit scripts to the nut vendor
 *NeoDement attempted to fix an invalid targ error, moved the FRAT commands to the Constructor Script and fixed an anim that was 1 frame too long.
 * Set nut plant attr from 195 to 192 to stop the hand from picking it up. -Rhodan (AquaShee)
