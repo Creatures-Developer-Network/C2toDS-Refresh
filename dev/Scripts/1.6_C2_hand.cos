@@ -9,37 +9,37 @@
 
 
 *assume cursor is untinted by default
-sets game "C2toDS_CurrentHandColour" "0"
-sets game "C2toDS_PreviousHandColour" "0"
-
-
-
-targ pntr
-
-setv va02 plne
-
-setv va00 posl
-
-setv va01 post
+*sets game "C2toDS_CurrentHandColour" "0"
+*sets game "C2toDS_PreviousHandColour" "0"
+*
+*
+*
+*targ pntr
+*
+*setv va02 plne
+*
+*setv va00 posl
+*
+*setv va01 post
 
 
 
 *26 = Visible 27 = Invisible
 
-setv va03 27
-
-
-
+*setv va03 27
+*
+*
+*
 new: simp 1 18 50200 "moe_C2toDS_hand" 27 va03 va02
-
+*
 mvto 6365 48223
-
+*
 setv ov00 gmap posx posy
-
-*Temple Underground
-
-setv ov05 gmap 12953 47957
-
+*
+**Temple Underground
+*
+*setv ov05 gmap 12953 47957
+*
 tick 1
 
 
@@ -58,84 +58,83 @@ scrp 1 18 50200 9
 
 *inst
 
-	targ pntr
+    targ pntr
+    setv mv01 gmap posl post
 
-	setv mv01 gmap posl post
-
-	doif mv01 eq mv00 or mv01 eq mv05
-
-		pupt 6 21 30
+    doif mv01 eq mv00 or mv01 eq mv05
 
 *Hide Pointer*
 
-		show 0
+*show 0
+        doif gall eq "hand"
+            pupt 6 21 30
+            GALL "moe_C2toDS_hand" 0
+            dbg: outs "TINT"
+            show 1
+            *tint game "pntr_Red" game "pntr_Green" game "pntr_Blue" 128 128
 
 
+**Inject Pseudopointer*
+            doif mv02 eq 0
+                setv mv02 1
+                mesg writ ownr 200
+            endi
+        endi
 
-*Inject Pseudopointer*
+    else
 
-		doif mv02 eq 0
+        doif gall eq "moe_c2tods_hand"
+            pupt 6 15 30
+            GALL "hand" 0
+            show 1
 
-			setv mv02 1
-
-			mesg writ ownr 200
-
-		endi
-
-	else
-
-		pupt 6 15 30
-
-
-*Show Pointer*
-
-		show 1
-
-		doif mv02 eq 1
-
-			setv mv02 0
-
-			mesg writ ownr 201
-
-		endi
-
-	endi
-
-endm
-
-
-
-
-
-
-
-
-*CHECK FOR HAND COLOUR UPDATES IN DS UI
-*********************************************
-
-scrp 2 1 50200 400
-
-	inst
-
-*target ui panel and check hand tint status
-	rtar 1 2 12
-	doif targ = null
-		stop
-	endi
-
-	doif name "hand" = "custom"
-
-		sets game "C2toDS_CurrentHandColour" vtos game "pntr_Red"
-		adds game "C2toDS_CurrentHandColour" vtos game "pntr_Green"
-		adds game "C2toDS_CurrentHandColour" vtos game "pntr_Blue"
-
-	elif name "hand" = "normal"
-
-		sets game "C2toDS_CurrentHandColour" "0"
-
-	endi
+*
+*
+**Show Pointer*
+*
+*        show 1
+            doif mv02 eq 1
+                setv mv02 0
+                mesg writ ownr 201
+            endi
+        endi
+    endi
 
 endm
+
+
+
+
+
+
+
+
+**CHECK FOR HAND COLOUR UPDATES IN DS UI
+**********************************************
+*
+*scrp 2 1 50200 400
+*
+*    inst
+*
+**target ui panel and check hand tint status
+*    rtar 1 2 12
+*    doif targ = null
+*        stop
+*    endi
+*
+*    doif name "hand" = "custom"
+*
+*        sets game "C2toDS_CurrentHandColour" vtos game "pntr_Red"
+*        adds game "C2toDS_CurrentHandColour" vtos game "pntr_Green"
+*        adds game "C2toDS_CurrentHandColour" vtos game "pntr_Blue"
+*
+*    elif name "hand" = "normal"
+*
+*        sets game "C2toDS_CurrentHandColour" "0"
+*
+*    endi
+*
+*endm
 
 *********************************************
 
@@ -148,83 +147,83 @@ scrp 1 18 50200 200
 
 
 
-	inst
+    inst
 
-lock
+    lock
 
-	targ pntr
+    targ pntr
 
-	setv va02 plne
+    setv va02 plne
 
-	addv va02 1
+    addv va02 1
 
-	setv va00 posl
+    setv va00 posl
 
-	setv va01 post
+    setv va01 post
 
-	targ ownr
-
-
-
-	new: simp 2 1 50200 "moe_C2toDS_hand" 27 0 va02
-
-	attr 32
-
-	mvto va00 va01
-
-	frel pntr
-
-	flto 0 0
-
-	accg 0
-
-	imsk 8
-
-	tick 1
-
-	seta mv03 targ
+    targ ownr
 
 
 
-
-
-*NEW HANDS NEED TO COPY TINT IMMEDIATELY!
-
-	doif game "C2toDS_CurrentHandColour" <> "0"
-
-** Tint the hand
-		tint game "pntr_Red" game "pntr_Green" game "pntr_Blue" 128 128
-
-	endi
-
-
-
-*	endi
+*    new: simp 2 1 50200 "moe_C2toDS_hand" 27 0 va02
+*
+*    attr 32
+*
+*    mvto va00 va01
+*
+*    frel pntr
+*
+*    flto 0 0
+*
+*    accg 0
+*
+*    imsk 8
+*
+*    tick 1
+*
+*    seta mv03 targ
+*
 
 
 
 
+**NEW HANDS NEED TO COPY TINT IMMEDIATELY!
+*
+*    doif game "C2toDS_CurrentHandColour" <> "0"
+*
+*** Tint the hand
+*        tint game "pntr_Red" game "pntr_Green" game "pntr_Blue" 128 128
+*
+*    endi
+*
+*
+*
+**	endi
 
 
-	new: simp 1 17 50200 "smoke" 5 10 va02
 
-	attr 32
 
-	mvto va00 va01
 
-	frel pntr
 
-	flto -12 0
+    new: simp 1 17 50200 "smoke" 5 10 va02
+
+    attr 32
+
+    mvto va00 va01
+
+    frel pntr
+
+    flto -12 0
 
 *snde "dum1"
 
-	snde "wrp2"
+    snde "wrp2"
 
-	anim [0 1 2 3 4]
+    anim [0 1 2 3 4]
 
-	over
+    over
 
-	kill targ
+    kill targ
 
 
 
@@ -235,180 +234,180 @@ endm
 
 scrp 1 18 50200 201
 
-	inst
-	
-	lock
-
-	enum 2 1 50200
-
-		doif targ ne null
-
-			kill targ
-
-		endi
-
-	next
-
-
-
-	targ pntr
-
-	setv va02 plne
-
-	setv va00 posl
-
-	setv va01 post
+*    inst
+*
+*    lock
+*
+*    enum 2 1 50200
+*
+*        doif targ ne null
+*
+*            kill targ
+*
+*        endi
+*
+*    next
 
 
 
-	new: simp 1 17 50200 "smoke" 5 25 va02
+    targ pntr
 
-	attr 32
+    setv va02 plne
 
-	mvto va00 va01
+    setv va00 posl
 
-	frel pntr
-
-	flto -12 0
-
-	snde "wrp1"
+    setv va01 post
 
 
 
-	anim [0 1 2 3 4]
+    new: simp 1 17 50200 "smoke" 5 25 va02
 
-	over
+    attr 32
 
-	kill targ
+    mvto va00 va01
 
+    frel pntr
 
+    flto -12 0
 
-
-endm
-
-
-*Timer Script
-
-scrp 2 1 50200 9
-
-	inst
-
-	targ pntr
-
-	setv mv00 pose
-
-	setv va00 mira
-
-	targ ownr
-
-	pose ov00
-
-	mira va00
-
-
-	doif game "C2toDS_CurrentHandColour" <> game "C2toDS_PreviousHandColour"
-
-		doif game "C2toDS_CurrentHandColour" = "0"
-
-** Untint the hand
-			tint 128 128 128 128 128
-			sets game "C2toDS_PreviousHandColour" "0"
-
-		else
-** Tint the hand
-			tint game "pntr_Red" game "pntr_Green" game "pntr_Blue" 128 128
-
-			sets game "C2toDS_PreviousHandColour" vtos game "pntr_Red"
-			adds game "C2toDS_PreviousHandColour" vtos game "pntr_Green"
-			adds game "C2toDS_PreviousHandColour" vtos game "pntr_Blue"
-		endi
+    snde "wrp1"
 
 
 
-	endi
+    anim [0 1 2 3 4]
 
+    over
 
+    kill targ
 
-*check for hand colour updates in DS UI, every 20 ticks
-	addv ov10 1
-
-	doif ov10 = 20
-
-		call 400 0 0
-
-		setv ov10 0
-
-	endi
 
 
 
 endm
+
+
+**Timer Script
+*
+*scrp 2 1 50200 9
+*
+*    inst
+*
+*    targ pntr
+*
+*    setv mv00 pose
+*
+*    setv va00 mira
+*
+*    targ ownr
+*
+*    pose ov00
+*
+*    mira va00
+*
+*
+*    doif game "C2toDS_CurrentHandColour" <> game "C2toDS_PreviousHandColour"
+*
+*        doif game "C2toDS_CurrentHandColour" = "0"
+*
+*** Untint the hand
+*            tint 128 128 128 128 128
+*            sets game "C2toDS_PreviousHandColour" "0"
+*
+*        else
+*** Tint the hand
+*            tint game "pntr_Red" game "pntr_Green" game "pntr_Blue" 128 128
+*
+*            sets game "C2toDS_PreviousHandColour" vtos game "pntr_Red"
+*            adds game "C2toDS_PreviousHandColour" vtos game "pntr_Green"
+*            adds game "C2toDS_PreviousHandColour" vtos game "pntr_Blue"
+*        endi
+*
+*
+*
+*    endi
+*
+*
+*
+**check for hand colour updates in DS UI, every 20 ticks
+*    addv ov10 1
+*
+*    doif ov10 = 20
+*
+*        call 400 0 0
+*
+*        setv ov10 0
+*
+*    endi
+*
+*
+*
+*endm
 
 
 *Raw Mouse Down Script
-
-scrp 2 1 50200 76
-
-	inst
-
-	targ pntr
-
-	setv va00 plne
-
-	addv va00 2
-
-	setv va01 posl
-
-	setv va02 post
-
-*target the held object (if it exists) and remember the ATTR
-	doif held ne null
-		targ held
-
-*get VA03 ready to check if object has ATTR 64 (Suffer Collisions)
-		setv va03 attr
-		andv va03 64
-
-	else
-		setv va03 -1
-	endi
-
-*if the right mouse button was pressed, and the room under the pointer was out of bounds, and the held object has ATTR 64 (Suffer Collisions)
-	doif _p1_ eq 2 and grap posx posy eq -1 and va03 = 64
-
-		sndc "excl"
-
-*Create red NO circle
-
-		new: simp 2 1 50201 "moe_C2toDS_hand" 0 17 va00
-
-		attr 32
-
-		frel pntr
-
-		mvto va01 va02
-
-	endi
-
-endm
+*
+*scrp 2 1 50200 76
+*
+*    inst
+*
+*    targ pntr
+*
+*    setv va00 plne
+*
+*    addv va00 2
+*
+*    setv va01 posl
+*
+*    setv va02 post
+*
+**target the held object (if it exists) and remember the ATTR
+*    doif held ne null
+*        targ held
+*
+**get VA03 ready to check if object has ATTR 64 (Suffer Collisions)
+*        setv va03 attr
+*        andv va03 64
+*
+*    else
+*        setv va03 -1
+*    endi
+*
+**if the right mouse button was pressed, and the room under the pointer was out of bounds, and the held object has ATTR 64 (Suffer Collisions)
+*    doif _p1_ eq 2 and grap posx posy eq -1 and va03 = 64
+*
+*        sndc "excl"
+*
+**Create red NO circle
+*
+*        new: simp 2 1 50201 "moe_C2toDS_hand" 0 17 va00
+*
+*        attr 32
+*
+*        frel pntr
+*
+*        mvto va01 va02
+*
+*    endi
+*
+*endm
 
 
 
 *Creation Script (red NO circle)
 
-scrp 2 1 50201 10
-
-	loop
-
-		addv va00 10
-
-		alph va00 1
-
-	untl va00 ge 250
-
-	kill targ
-
-endm
+*scrp 2 1 50201 10
+*
+*    loop
+*
+*        addv va00 10
+*
+*        alph va00 1
+*
+*    untl va00 ge 250
+*
+*    kill targ
+*
+*endm
 
 
 
@@ -418,7 +417,7 @@ rscr
 
 enum 1 18 50200
 
-	kill targ
+    kill targ
 
 next
 
@@ -434,7 +433,7 @@ show 1
 
 enum 2 1 50200
 
-	kill targ
+    kill targ
 
 next
 
@@ -442,7 +441,7 @@ next
 
 enum 2 1 50201
 
-	kill targ
+    kill targ
 
 next
 
