@@ -11,7 +11,7 @@
 
 new: simp 2 21 50201 "moe_C2toDS_toydog" 58 0 rand 1000 5000
 
-mvsf 7187 48708
+mvsf mopx mopy
 
 
 
@@ -208,7 +208,8 @@ endm
 
 scrp 2 21 50201 2
 	stim writ from 97 1
-	call 1 0 0
+mesg writ ownr 0
+	*call 1 0 0
 endm
 
 
@@ -217,7 +218,8 @@ endm
 
 scrp 2 21 50201 3
 	stim writ from 97 1
-	call 1 0 0
+mesg writ ownr 0
+	*call 1 0 0
 endm
 
 

@@ -8,7 +8,7 @@ pose 3
 
 *This one was placed on a best-guess for positioning. May need to fine-tune to be lore accurate.
 new: simp 2 19 50216 "moe_C2toDS_sock" 56 0 2000
-mvto 5800 47950
+mvto 5810 47950
 pose 3
 
 scrp 2 19 50216 10
@@ -49,7 +49,7 @@ scrp 2 19 50216 9
 	setv va04 prop grap posx posy 2
 
 	subv va03 va04
-	dbg: outv va03
+*dbg: outv va03
 
 	doif va03 lt .015
 *stand still

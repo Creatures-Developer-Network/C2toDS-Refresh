@@ -791,7 +791,7 @@ scrp 1 1 50203 9
 	retn
 
 	subr Crabs
-		doif game "C2toDS_PopCtrl_Crabs" eq 1
+		doif game "C2toDS_PopCtrl_Crabs" eq 1 and sean lt 3
 			setv va00 2
 			setv va01 13
 			setv va02 50211

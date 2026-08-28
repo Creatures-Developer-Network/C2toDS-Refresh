@@ -5,6 +5,7 @@
 *Initial Conversion By Moe
 * Survivability edits by the one who screams i guess
 *Also tweaked lifespan a little to be more in line with C2 nuts (more prolific than tomatoes)...
+* ^ I think I undid this, as they were too prolific. - Moe
 * Aiko added pull and hit scripts to the nut vendor
 *NeoDement attempted to fix an invalid targ error, moved the FRAT commands to the Constructor Script and fixed an anim that was 1 frame too long.
 * Set nut plant attr from 195 to 192 to stop the hand from picking it up. -Rhodan (AquaShee)
@@ -353,7 +354,7 @@ scrp 2 3 50202 9
 
 			else
 
-				stop
+				kill targ
 
 			endi
 
@@ -722,7 +723,7 @@ scrp 2 4 50202 9
 
 		frel ownr
 
-		mvsf va00 va01
+		mvto va00 va01
 
 		mira va03
 
@@ -770,7 +771,7 @@ scrp 2 4 50202 9
 
 		frel ownr
 
-		mvsf va00 va01
+		mvto va00 va01
 
 		mira va03
 
@@ -818,7 +819,7 @@ scrp 2 4 50202 9
 
 		frel ownr
 
-		mvsf va00 va01
+		mvto va00 va01
 
 		mira va03
 
@@ -852,7 +853,7 @@ scrp 2 3 50202 10
 
 	elas 25
 
-	fric 35
+	fric 50
 
 	puhl -1 28 18
 
@@ -941,7 +942,7 @@ scrp 2 3 50202 1001
 
 	endi
 
-	tick rand 1000 2500
+	tick rand 500 1500
 
 	doif ov00 eq 1
 
@@ -951,19 +952,23 @@ scrp 2 3 50202 1001
 
 			targ ov01
 
-			seta ov01 null
+			doif targ ne null
+				seta ov01 null
+			endi
 
 		elif ov02 eq 1
 
 			targ ov01
-
-			seta ov02 null
+			doif targ ne null
+				seta ov02 null
+			endi
 
 		elif ov02 eq 2
 
 			targ ov01
-
-			seta ov03 null
+			doif targ ne null
+				seta ov03 null
+			endi
 
 		endi
 

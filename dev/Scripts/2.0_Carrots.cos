@@ -224,7 +224,7 @@ scrp 2 3 50200 9
 
 			setv ov02 post
 
-			subv ov02 10
+			subv ov02 15
 
 			setv ov01 post
 
@@ -304,7 +304,7 @@ scrp 2 3 50200 10
 
 	tick rand 200 350
 
-	rnge 200
+	rnge rand 100 200
 
 *dcor 1
 

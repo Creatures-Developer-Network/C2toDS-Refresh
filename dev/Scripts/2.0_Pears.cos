@@ -240,7 +240,7 @@ scrp 2 3 50204 10
 
 	rnge 500
 
-	fric 25
+	fric 50
 
 	tick rand 50 75
 
@@ -453,7 +453,7 @@ scrp 2 3 50204 9
 			kill targ
 		endi
 
-		targ ownr
+		kill ownr
 
 	retn
 
@@ -1528,9 +1528,11 @@ scrp 2 8 50204 1001
 
 			targ ov01
 
-			setv ov01 0
+			doif targ ne null
+				setv ov01 0
 
-			seta ov04 null
+				seta ov04 null
+			endi
 
 		elif pose eq 1
 
@@ -1538,9 +1540,11 @@ scrp 2 8 50204 1001
 
 			targ ov01
 
-			setv ov02 0
+			doif targ ne null
+				setv ov02 0
 
-			seta ov05 null
+				seta ov05 null
+			endi
 
 		elif pose eq 2
 
@@ -1548,9 +1552,11 @@ scrp 2 8 50204 1001
 
 			targ ov01
 
-			setv ov03 0
+			doif targ ne null
+				setv ov03 0
 
-			seta ov06 null
+				seta ov06 null
+			endi
 
 		endi
 
